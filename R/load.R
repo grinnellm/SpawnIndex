@@ -9,11 +9,11 @@
 #' desired.
 #'
 #' @param reg Character. Region of interest (i.e., HG, PRD, CC, SoG, WCVI, A27,
-#' or A2W).
+#'   or A2W).
 #' @param secSub Numeric vector or NA. Subset of Sections to include in the
-#' analysis, or NA to include all the Sections in the region.
+#'   analysis, or NA to include all the Sections in the region.
 #' @param where List. Location of the Pacfic Herring "locations" database (see
-#'  examples).
+#'   examples).
 #' @param inCRS Chracter. Input coordinate reference system.
 #' @param outCRS Character. Output coordinate reference system.
 #' @importFrom readr read_csv cols
@@ -26,7 +26,7 @@
 #'   Region, Region name, Statistical Area, Group, Section, Location code,
 #'   Location name, Bed, Eastings, Northings, Longitude, and Latitute.
 #' @note This function requires 32-bit R to load data from the 32-bit MS Access
-#' database.
+#'   database.
 #' @export
 #' @examples
 #' dbLoc <- system.file("extdata", package = "SpawnIndex")

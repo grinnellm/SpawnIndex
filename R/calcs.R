@@ -4,11 +4,11 @@
 #' eggs to the spawn index (i.e., biomass) in tonnes.
 #'
 #' @param fecundity Numeric. The number of eggs per kilogram of female spawners
-#'  \insertCite{Hay1985,HayBrett1988}{SpawnIndex}.
+#'   \insertCite{Hay1985,HayBrett1988}{SpawnIndex}.
 #' @param pFemale Numeric. The proportion of spawners that are female.
 #' @return Numeric. The conversion factor for eggs to spawn index in tonnes
-#' (i.e., biomass). Divide the number of eggs by the conversion factor to get
-#' biomass.
+#'   (i.e., biomass). Divide the number of eggs by the conversion factor to get
+#'   biomass.
 #' @references \insertAllCited{}
 #' @export
 #' @examples
@@ -28,13 +28,13 @@ CalcEggConversion <- function(fecundity = 200000,
 #'
 #' @param SOK Numeric. Weight of spawn-on-kelp (SOK) harvest in kilograms.
 #' @param eggKelpProp Numeric. Proportion of SOK product that is eggs, not kelp
-#'  \insertCite{ShieldsEtal1985}{SpawnIndex}.
+#'   \insertCite{ShieldsEtal1985}{SpawnIndex}.
 #' @param eggBrineProp Numeric. Pproportion of SOK product that is eggs after
-#'  brining \insertCite{WhyteEnglar1977}{SpawnIndex}.
+#'   brining \insertCite{WhyteEnglar1977}{SpawnIndex}.
 #' @param eggWt Numeric. Average weight in kilograms of a fertilized egg
-#'  \insertCite{HayMiller1982}{SpawnIndex}.
+#'   \insertCite{HayMiller1982}{SpawnIndex}.
 #' @param f Numeric. Egg conversion factor (eggs to biomass) from
-#' \code{\link{CalcEggConversion}}.
+#'   \code{\link{CalcEggConversion}}.
 #' @return Numeric. Spawning biomass in tonnes.
 #' @references \insertAllCited{}
 #' @seealso \code{\link{CalcEggConversion}}
@@ -59,18 +59,18 @@ CalcBiomassSOK <- function(SOK,
 #' 'spawn index' is a relative index of spawning biomass.
 #'
 #' @param where List. Location of the Pacific Herring surface spawn database
-#'  (see examples).
+#'   (see examples).
 #' @param a Tibble. Table of geographic information indicating the subset of
-#' spawn survey observations to inlude in calculations. Returned from
-#' \code{\link{LoadAreaData}}.
+#'   spawn survey observations to inlude in calculations. Returned from
+#'   \code{\link{LoadAreaData}}.
 #' @param yrs Numeric vector. Years(s) to include in the calculations, usually
-#' staring in 1951.
+#'   staring in 1951.
 #' @param intYrs Numeric vector. Years where intensity categores are used to
-#' determine egg layers (default yrs[yrs < 1979]).
+#'   determine egg layers (default yrs[yrs < 1979]).
 #' @param rsYrs Numeric vector. Years where intensity needs to be re-scaled from
-#' 5 to 9 categories (default intYrs[intYrs < 1951]).
+#'   5 to 9 categories (default intYrs[intYrs < 1951]).
 #' @param f Numeric. Egg conversion factor (eggs to biomass) from
-#' \code{\link{CalcEggConversion}}.
+#'   \code{\link{CalcEggConversion}}.
 #' @importFrom RODBC odbcConnectAccess sqlFetch odbcClose
 #' @importFrom dplyr select distinct rename left_join filter
 #' @importFrom tibble as_tibble
@@ -81,8 +81,7 @@ CalcBiomassSOK <- function(SOK,
 #'   by spawn number and year. The spawn number is the finest spatial scale at
 #'   which we calculate the spawn index. Other information in this tibble comes
 #'   from `a`: Region, Statistical Area, Section, and Location code.
-#' @references
-#' \insertRef{SchweigertEtal1997}{SpawnIndex}
+#' @references \insertRef{SchweigertEtal1997}{SpawnIndex}
 #' @seealso \code{\link{LoadAreaData}} \code{\link{CalcEggConversion}}
 #' @export
 #' @examples
