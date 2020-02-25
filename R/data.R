@@ -5,3 +5,12 @@
 #'
 #' @format MS Access databases.
 # "HerringSpawn.mdb"
+
+#' Understory spawn width correction factors.
+#'
+#' Spawn width correction factors for Pacific Herring understory spawn surveys
+#' by region and year.
+#'
+#' @format Tibble with 12 rows and 8 columns (one for year, and one for each
+#' regions).
+#' underWidthFac

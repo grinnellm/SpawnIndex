@@ -14,7 +14,8 @@ CalcSurfSpawn(
 )
 }
 \arguments{
-\item{where}{Location of the Pacific Herring surface spawn database.}
+\item{where}{List. Location of the Pacific Herring surface spawn database
+(see examples).}
 
 \item{a}{Tibble. Table of geographic information indicating the subset of
 spawn survey observations to inlude in calculations. Returned from
@@ -26,34 +27,41 @@ staring in 1951.}
 \item{intYrs}{Numeric vector. Years where intensity categores are used to
 determine egg layers (default yrs[yrs < 1979]).}
 
-\item{rsYrs}{Numeric vector. Years where intensity needs to be re-scaled
-(default intYrs[intYrs < 1951]).}
+\item{rsYrs}{Numeric vector. Years where intensity needs to be re-scaled from
+5 to 9 categories (default intYrs[intYrs < 1951]).}
 
-\item{f}{Egg conversion factor (eggs to biomass) from
+\item{f}{Numeric. Egg conversion factor (eggs to biomass) from
 \code{\link{CalcEggConversion}}.}
 }
 \value{
-Numeric. Surface spawn index in tonnes.
+List. The element `SI` is a tibble with surface spawn index in tonnes
+  by spawn number and year. The spawn number is the finest spatial scale at
+  which we calculate the spawn index. Other information in this tibble comes
+  from `a`: Region, Statistical Area, Section, and Location code.
 }
 \description{
 Calculate the Pacific Herring surface spawn index in tonnes. Note that the
 'spawn index' is a relative index of spawning biomass.
 }
 \examples{
-areaLoc <- list( loc="data", db="HerringSpawn.mdb",
-  fns=list(sections="Sections", locations="Location") )
-inCRS <- "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"
-outCRS <- "+proj=aea +lat_1=50 +lat_2=58.5 +lat_0=45 +lon_0=-126 +x_0=1000000
-  +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs"
-areas <- LoadAreaData( reg="WCVI", sectionSub=NA, where=areaLoc, inCRS=inCRS,
-                       outCRS=outCRS )
-surfLoc <- list( loc="data", db="HerringSpawn.mdb",
-  fns=list(regionStd="RegionStd", sectionStd="SectionStd", poolStd="PoolStd",
-           surface="tSSSurface", intensity="Intensity",
-           allSpawn="tSSAllspawn") )
-yrRange <- 2010:2015  # Year range to include
-ECF <- CalcEggConversion( )
-CalcSurfSpawn( where=surfLoc, a=areas, yrs=yrRange, f=ECF )
+areaLoc <- list(
+  loc = "data", db = "HerringSpawn.mdb",
+  fns = list(sections = "Sections", locations = "Location")
+)
+areas <- LoadAreaData(reg = "WCVI", where = areaLoc)
+surfLoc <- list(
+  loc = "data", db = "HerringSpawn.mdb",
+  fns = list(
+    regionStd = "RegionStd", sectionStd = "SectionStd", poolStd = "PoolStd",
+    surface = "tSSSurface", intensity = "Intensity",
+    allSpawn = "tSSAllspawn"
+  )
+)
+surfSpawn <- CalcSurfSpawn(
+  where = surfLoc, a = areas, yrs = 2010:2015,
+  f = CalcEggConversion()
+)
+surfSpawn$SI
 }
 \references{
 \insertRef{SchweigertEtal1997}{SpawnIndex}

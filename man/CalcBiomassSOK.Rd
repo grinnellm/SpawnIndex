@@ -13,18 +13,18 @@ CalcBiomassSOK(
 )
 }
 \arguments{
-\item{SOK}{Weight of spawn-on-kelp (SOK) harvest in kilograms.}
+\item{SOK}{Numeric. Weight of spawn-on-kelp (SOK) harvest in kilograms.}
 
-\item{eggKelpProp}{Proportion of SOK product that is eggs, not kelp (default
-0.88) \insertCite{ShieldsEtal1985}{SpawnIndex}.}
+\item{eggKelpProp}{Numeric. Proportion of SOK product that is eggs, not kelp
+\insertCite{ShieldsEtal1985}{SpawnIndex}.}
 
-\item{eggBrineProp}{Pproportion of SOK product that is eggs after brining
-(default 1/1.13) \insertCite{WhyteEnglar1977}{SpawnIndex}.}
+\item{eggBrineProp}{Numeric. Pproportion of SOK product that is eggs after
+brining \insertCite{WhyteEnglar1977}{SpawnIndex}.}
 
-\item{eggWt}{Average weight in kilograms of a fertilized egg (default
-2.38*10^-6) \insertCite{HayMiller1982}{SpawnIndex}.}
+\item{eggWt}{Numeric. Average weight in kilograms of a fertilized egg
+\insertCite{HayMiller1982}{SpawnIndex}.}
 
-\item{f}{Egg conversion factor (eggs to biomass) from
+\item{f}{Numeric. Egg conversion factor (eggs to biomass) from
 \code{\link{CalcEggConversion}}.}
 }
 \value{
@@ -35,8 +35,7 @@ Calculate spawning biomass in tonnes from spawn-on-kelp (SOK) harvest in
 kilograms.
 }
 \examples{
-ECF <- CalcEggConversion( )
-CalcBiomassSOK( SOK=100, f=ECF )
+CalcBiomassSOK(SOK = 100, f = CalcEggConversion())
 }
 \references{
 \insertAllCited{}

@@ -1,11 +1,18 @@
 Package: SpawnIndex
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Calculate the spawn index for Pacific Herring in British Columbia, Canada
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Authors@R:
+    person(given = c("Matthew", "H."), family = "Grinnell",
+    role = c("aut", "cre"))
+Description: Calculate the spawn index for Pacific Herring (Clupea pallasii) in
+    British Columbia, Canada. There are three types of spawn survey
+    observations: surface spawn, Macrocystis spawn, and understory spawn. These
+    calculations rely on an estimate of female fecundity to convert the number
+    of eggs to the spawn index (i.e., biomass). In addition, we provide a method
+    to estimate the biomass of fish that spawned for spawn-on-kelp (SOK)
+    operations. Note that the `spawn index' is a relative index of spawning
+    biomass.
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true

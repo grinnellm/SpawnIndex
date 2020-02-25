@@ -4,44 +4,51 @@
 \alias{LoadAreaData}
 \title{Load Pacific Herring areas.}
 \usage{
-LoadAreaData(reg, sectionSub, where, inCRS, outCRS)
+LoadAreaData(
+  reg,
+  secSub = NA,
+  where,
+  inCRS = "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0",
+ 
+    outCRS = "+proj=aea +lat_1=50 +lat_2=58.5 +lat_0=45 +lon_0=-126\\n                         +x_0=1000000 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs"
+)
 }
 \arguments{
-\item{reg}{Character. Region of interest (HG, PRD, CC, SoG, WCVI, A27, or
-A2W).}
+\item{reg}{Character. Region of interest (i.e., HG, PRD, CC, SoG, WCVI, A27,
+or A2W).}
 
-\item{sectionSub}{Numeric vector or NA. Subset of Sections to include in the
+\item{secSub}{Numeric vector or NA. Subset of Sections to include in the
 analysis, or NA to include all the Sections in the region.}
 
-\item{where}{List. Location of the Pacfic Herring "locations" database.}
+\item{where}{List. Location of the Pacfic Herring "locations" database (see
+examples).}
 
 \item{inCRS}{Chracter. Input coordinate reference system.}
 
 \item{outCRS}{Character. Output coordinate reference system.}
 }
 \value{
-Tibble. Table of geographic information for Pacific Herring: Region,
-Statistical Area, Section, Location name, Location code, Longitude, Latitute.
+Tibble. Table of geographic information for Pacific Herring: SAR,
+  Region, Region name, Statistical Area, Group, Section, Location code,
+  Location name, Bed, Eastings, Northings, Longitude, and Latitute.
 }
 \description{
-Load Pacific Herring areas. Herring areas are kept in two csv files which
-indicate areas, once of which has coarse area information, and other has
-finer details. This function merges these two files, and drops unnecessary
-rows and columns. In addition, 'groups' are created for certain regions
-based on section numbers. The output is a data frame with both coarse- and
-fine-scale area information for the region(s) in question. There is an
-option to subset the sections if desired (e.g., for the Central Coast)
+Load Pacific Herring areas. Herring areas are kept in two files: the section
+file has coarse area information, and location file has finer details. This
+function merges these two files, and drops unnecessary rows and columns. In
+addition, 'groups' are created for certain regions based on section numbers.
+The output is a data frame with both coarse- and fine-scale area information
+for the region(s) in question. There is an option to subset the sections if
+desired.
 }
 \note{
 This function requires 32-bit R to load data from the 32-bit MS Access
 database.
 }
 \examples{
-inCRS <- "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"
-outCRS <- "+proj=aea +lat_1=50 +lat_2=58.5 +lat_0=45 +lon_0=-126 +x_0=1000000
-  +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs"
-areaLoc <- list( loc="data", db="HerringSpawn.mdb",
-  fns=list(sections="Sections", locations="Location") )
-LoadAreaData( reg="WCVI", sectionSub=NA, where=areaLoc, inCRS=inCRS,
-  outCRS=outCRS )
+areaLoc <- list(
+  loc = "data", db = "HerringSpawn.mdb",
+  fns = list(sections = "Sections", locations = "Location")
+)
+LoadAreaData(reg = "WCVI", where = areaLoc)
 }

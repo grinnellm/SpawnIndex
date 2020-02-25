@@ -1,18 +1,19 @@
 #' Load Pacific Herring areas.
 #'
-#' Load Pacific Herring areas. Herring areas are kept in two csv files which
-#' indicate areas, once of which has coarse area information, and other has
-#' finer details. This function merges these two files, and drops unnecessary
-#' rows and columns. In addition, 'groups' are created for certain regions
-#' based on section numbers. The output is a data frame with both coarse- and
-#' fine-scale area information for the region(s) in question. There is an
-#' option to subset the sections if desired (e.g., for the Central Coast)
+#' Load Pacific Herring areas. Herring areas are kept in two files: the section
+#' file has coarse area information, and location file has finer details. This
+#' function merges these two files, and drops unnecessary rows and columns. In
+#' addition, 'groups' are created for certain regions based on section numbers.
+#' The output is a data frame with both coarse- and fine-scale area information
+#' for the region(s) in question. There is an option to subset the sections if
+#' desired.
 #'
-#' @param reg Character. Region of interest (HG, PRD, CC, SoG, WCVI, A27, or
-#' A2W).
-#' @param sectionSub Numeric vector or NA. Subset of Sections to include in the
+#' @param reg Character. Region of interest (i.e., HG, PRD, CC, SoG, WCVI, A27,
+#' or A2W).
+#' @param secSub Numeric vector or NA. Subset of Sections to include in the
 #' analysis, or NA to include all the Sections in the region.
-#' @param where List. Location of the Pacfic Herring "locations" database.
+#' @param where List. Location of the Pacfic Herring "locations" database (see
+#'  examples).
 #' @param inCRS Chracter. Input coordinate reference system.
 #' @param outCRS Character. Output coordinate reference system.
 #' @importFrom readr read_csv cols
@@ -21,23 +22,28 @@
 #' @importFrom RODBC odbcConnectAccess sqlFetch odbcClose
 #' @importFrom tibble as_tibble
 #' @importFrom sp SpatialPoints spTransform CRS
-#' @return Tibble. Table of geographic information for Pacific Herring: Region,
-#' Statistical Area, Section, Location name, Location code, Longitude, Latitute.
+#' @return Tibble. Table of geographic information for Pacific Herring: SAR,
+#'   Region, Region name, Statistical Area, Group, Section, Location code,
+#'   Location name, Bed, Eastings, Northings, Longitude, and Latitute.
 #' @note This function requires 32-bit R to load data from the 32-bit MS Access
 #' database.
 #' @export
 #' @examples
-#' inCRS <- "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"
-#' outCRS <- "+proj=aea +lat_1=50 +lat_2=58.5 +lat_0=45 +lon_0=-126 +x_0=1000000
-#'   +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs"
-#' areaLoc <- list( loc="data", db="HerringSpawn.mdb",
-#'   fns=list(sections="Sections", locations="Location") )
-#' LoadAreaData( reg="WCVI", sectionSub=NA, where=areaLoc, inCRS=inCRS,
-#'   outCRS=outCRS )
-LoadAreaData <- function( reg, sectionSub, where, inCRS, outCRS ) {
+#' areaLoc <- list(
+#'   loc = "data", db = "HerringSpawn.mdb",
+#'   fns = list(sections = "Sections", locations = "Location")
+#' )
+#' LoadAreaData(reg = "WCVI", where = areaLoc)
+LoadAreaData <- function(reg,
+                         secSub = NA,
+                         where,
+                         inCRS = "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0",
+                         outCRS = "+proj=aea +lat_1=50 +lat_2=58.5 +lat_0=45 +lon_0=-126
+                         +x_0=1000000 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs") {
   # Cross-walk table for SAR to region and region name
-  regions <- readr::read_csv(file=
-                    "SAR, Region, RegionName, Major
+  regions <- readr::read_csv(
+    file =
+      "SAR, Region, RegionName, Major
           1, HG, Haida Gwaii, TRUE
           2, PRD, Prince Rupert District, TRUE
           3, CC, Central Coast, TRUE
@@ -46,105 +52,128 @@ LoadAreaData <- function( reg, sectionSub, where, inCRS, outCRS ) {
           6, A27, Area 27, FALSE
           7, A2W, Area 2 West, FALSE
           8, JS, Johnstone Strait, FALSE",
-                      col_types=readr::cols("i", "c", "c", "l") )
+    col_types = readr::cols("i", "c", "c", "l")
+  )
   # If region isn't JS, remove it
-  if( !reg %in% c("JS", "All") )
-    regions <- dplyr::filter( .data=regions, SAR != 8 )
+  if (!reg %in% c("JS", "All")) {
+    regions <- dplyr::filter(.data = regions, SAR != 8)
+  }
   # Return the regions table to the main environment
   regions <<- regions
   # Return region names
   regionNames <- regions %>%
-    dplyr::select( RegionName, Region, Major ) %>%
-    dplyr::mutate( Region=paste("(", Region, ")", sep="") ) %>%
-    tidyr::unite( RegionName, Region, col="Region", sep=" " )
+    dplyr::select(RegionName, Region, Major) %>%
+    dplyr::mutate(Region = paste("(", Region, ")", sep = "")) %>%
+    tidyr::unite(RegionName, Region, col = "Region", sep = " ")
   # Make a nice list
-  allRegionNames <<- list( major=regionNames$Region[regionNames$Major],
-                           minor=regionNames$Region[!regionNames$Major] )
+  allRegionNames <<- list(
+    major = regionNames$Region[regionNames$Major],
+    minor = regionNames$Region[!regionNames$Major]
+  )
   # Possible regions by type (return to the main level)
-  allRegions <<- list( major=as.character(regions$Region[regions$Major]),
-                       minor=as.character(regions$Region[!regions$Major]) )
+  allRegions <<- list(
+    major = as.character(regions$Region[regions$Major]),
+    minor = as.character(regions$Region[!regions$Major])
+  )
   # Error if region is incorrect
-  if( !(reg %in% c(unlist(allRegions), "All")) )
-    stop( "Possible regions are: ", paste(unlist(allRegions), collapse=", "),
-          call.=FALSE )
+  if (!(reg %in% c(unlist(allRegions), "All"))) {
+    stop("Possible regions are: ", paste(unlist(allRegions), collapse = ", "),
+      call. = FALSE
+    )
+  }
   # Establish connection with access
-  accessDB <- RODBC::odbcConnectAccess( access.file=file.path(where$loc,
-                                                              where$db) )
+  accessDB <- RODBC::odbcConnectAccess(access.file = file.path(
+    where$loc,
+    where$db
+  ))
   # TODO: Sections 132 and 135 are also SoG sections -- how to resolve?
   # Manual fix: Johnstone Strait herring sections
-  jsSections <<- c( 111, 112, 121:127, 131:136 )
+  jsSections <<- c(111, 112, 121:127, 131:136)
   # If the region is Johnstone Strait
-  if( reg == "JS" ) {
+  if (reg == "JS") {
     # Message
-    cat( "Note overlap between JS and SoG: Sections 132 and 135\n")
+    cat("Note overlap between JS and SoG: Sections 132 and 135\n")
     # Access the sections worksheet and wrangle
-    sections <- RODBC::sqlFetch( channel=accessDB, sqtable=where$fns$sections )
+    sections <- RODBC::sqlFetch(channel = accessDB, sqtable = where$fns$sections)
     # Error if data was not fetched
-    if( class(sections) != "data.frame" )
-      stop( "No data available in MS Access connection" )
+    if (class(sections) != "data.frame") {
+      stop("No data available in MS Access connection")
+    }
     sections <- sections %>%
-      dplyr::filter( Section %in% jsSections ) %>%
-      dplyr::mutate( SAR=8 ) %>%
-      dplyr::full_join( y=regions, by="SAR" ) %>%
-      dplyr::filter( Region %in% reg ) %>%
-      dplyr::select( SAR, Region, RegionName, Section ) %>%
-      dplyr::distinct( ) %>%
-      tibble::as_tibble( )
-  } else {  # End if Johnstone Strait, otherwise
+      dplyr::filter(Section %in% jsSections) %>%
+      dplyr::mutate(SAR = 8) %>%
+      dplyr::full_join(y = regions, by = "SAR") %>%
+      dplyr::filter(Region %in% reg) %>%
+      dplyr::select(SAR, Region, RegionName, Section) %>%
+      dplyr::distinct() %>%
+      tibble::as_tibble()
+  } else { # End if Johnstone Strait, otherwise
     # Access the sections worksheet and wrangle
-    sections <- RODBC::sqlFetch( channel=accessDB, sqtable=where$fns$sections )
+    sections <- RODBC::sqlFetch(channel = accessDB, sqtable = where$fns$sections)
     # Error if data was not fetched
-    if( class(sections) != "data.frame" )
-      stop( "No data available in MS Access connection" )
+    if (class(sections) != "data.frame") {
+      stop("No data available in MS Access connection")
+    }
     sections <- sections %>%
-      dplyr::full_join( y=regions, by="SAR" ) %>%
-      dplyr::select( SAR, Region, RegionName, Section ) %>%
-      dplyr::distinct( ) %>%
-      tibble::as_tibble( )
+      dplyr::full_join(y = regions, by = "SAR") %>%
+      dplyr::select(SAR, Region, RegionName, Section) %>%
+      dplyr::distinct() %>%
+      tibble::as_tibble()
     # If we only want a specific region
-    if( reg != "All" ) {
+    if (reg != "All") {
       # Remove areas outside SARs, and other regions
       sections <- sections %>%
-        dplyr::filter( SAR != -1, Region == reg )
-    }  # End if we only want a specific region
-  }  # End if the region is not Johnstone Strait
+        dplyr::filter(SAR != -1, Region == reg)
+    } # End if we only want a specific region
+  } # End if the region is not Johnstone Strait
   # Access the locations worksheet
-  loc <- RODBC::sqlFetch( channel=accessDB, sqtable=where$fns$locations )
+  loc <- RODBC::sqlFetch(channel = accessDB, sqtable = where$fns$locations)
   # Error if data was not fetched
-  if( class(loc) != "data.frame" )
-    stop( "No data available in MS Access connection" )
+  if (class(loc) != "data.frame") {
+    stop("No data available in MS Access connection")
+  }
   # Wrangle the locations table
-  locDat <- tibble::as_tibble( loc ) %>%
-    dplyr::select( Loc_Code, Location, StatArea, Section, Bed, Location_Latitude,
-            Location_Longitude ) %>%
-    dplyr::mutate( Location=as.character(Location) ) %>%
-    dplyr::rename( LocationCode=Loc_Code, LocationName=Location, StatArea=StatArea,
-            Section=Section, Latitude=Location_Latitude,
-            Longitude=Location_Longitude ) %>%
-    tidyr::replace_na( replace=list(Longitude=0, Latitude=0) ) %>%
-    dplyr::select( LocationCode, LocationName, Bed, Section, StatArea, Longitude,
-            Latitude ) %>%
-    dplyr::arrange( LocationCode ) %>%
-    dplyr::distinct(  )
+  locDat <- tibble::as_tibble(loc) %>%
+    dplyr::select(
+      Loc_Code, Location, StatArea, Section, Bed, Location_Latitude,
+      Location_Longitude
+    ) %>%
+    dplyr::mutate(Location = as.character(Location)) %>%
+    dplyr::rename(
+      LocationCode = Loc_Code, LocationName = Location, StatArea = StatArea,
+      Section = Section, Latitude = Location_Latitude,
+      Longitude = Location_Longitude
+    ) %>%
+    tidyr::replace_na(replace = list(Longitude = 0, Latitude = 0)) %>%
+    dplyr::select(
+      LocationCode, LocationName, Bed, Section, StatArea, Longitude,
+      Latitude
+    ) %>%
+    dplyr::arrange(LocationCode) %>%
+    dplyr::distinct()
   # Grab the spatial info (X and Y)
   locSP <- locDat %>%
-    dplyr::transmute( X=Longitude, Y=Latitude )
+    dplyr::transmute(X = Longitude, Y = Latitude)
   # Put X and Y into a spatial points object
-  locPts <- sp::SpatialPoints( coords=locSP, proj4string=sp::CRS(inCRS) )
+  locPts <- sp::SpatialPoints(coords = locSP, proj4string = sp::CRS(inCRS))
   # Convert X and Y from WGS to Albers
-  locPtsAlb <- sp::spTransform( x=locPts, CRSobj=sp::CRS(outCRS) )
+  locPtsAlb <- sp::spTransform(x = locPts, CRSobj = sp::CRS(outCRS))
   # Extract spatial info
-  dfAlb <- tibble::as_tibble( locPtsAlb )
+  dfAlb <- tibble::as_tibble(locPtsAlb)
   # Extract relevant location data
   locations <- locDat %>%
-    cbind( dfAlb ) %>%
-    dplyr::mutate( Eastings=ifelse(is.na(Longitude), Longitude, X),
-            Northings=ifelse(is.na(Latitude), Latitude, Y) ) %>%
-    dplyr::select( StatArea, Section, LocationCode, LocationName, Bed, Eastings,
-            Northings, Latitude, Longitude ) %>%
-    dplyr::filter( Section %in% sections$Section ) %>%
-    dplyr::distinct( ) %>%
-    tibble::as_tibble( )
+    cbind(dfAlb) %>%
+    dplyr::mutate(
+      Eastings = ifelse(is.na(Longitude), Longitude, X),
+      Northings = ifelse(is.na(Latitude), Latitude, Y)
+    ) %>%
+    dplyr::select(
+      StatArea, Section, LocationCode, LocationName, Bed, Eastings,
+      Northings, Latitude, Longitude
+    ) %>%
+    dplyr::filter(Section %in% sections$Section) %>%
+    dplyr::distinct() %>%
+    tibble::as_tibble()
   # Intialize an additional column for groups: NA
   locations$Group <- NA
   # Manually determine groups: Haida Gwaii
@@ -192,45 +221,51 @@ LoadAreaData <- function( reg, sectionSub, where, inCRS, outCRS ) {
   locations$Group[locations$Section %in% c(271:274)] <- "No Group"
   locations$Group[locations$Section %in% c(270)] <- "No Group"
   # Set groups to NA if using all the data
-  if( reg == "All" )  locations$Group <- NA
+  if (reg == "All") locations$Group <- NA
   # If any groups are NA, check if *some* are missing (i.e., incomplete)
-  if( any(is.na(locations$Group)) ) {
+  if (any(is.na(locations$Group))) {
     # Get distinct rows
     grpU <- locations %>%
-      dplyr::select( StatArea, Section, Group ) %>%
-      dplyr::distinct( ) %>%
-      dplyr::arrange( StatArea, Section )
+      dplyr::select(StatArea, Section, Group) %>%
+      dplyr::distinct() %>%
+      dplyr::arrange(StatArea, Section)
     # Get distinct rows with no missing groups
     grpUNA <- grpU %>%
-      dplyr::filter( is.na(Group) )
+      dplyr::filter(is.na(Group))
     # Check if none or all have groups
-    noneOrAll <- nrow( grpU ) == nrow( grpUNA )
+    noneOrAll <- nrow(grpU) == nrow(grpUNA)
     # Message re some sections(s) missing group info
-    if( !noneOrAll )  cat( "Incomplete `Group' info for Section(s): ",
-                           paste(grpUNA$Section, collapse=", "), "\n", sep="" )
-  }  # End if any groups are NA
+    if (!noneOrAll) {
+      cat("Incomplete `Group' info for Section(s): ",
+        paste(grpUNA$Section, collapse = ", "), "\n",
+        sep = ""
+      )
+    }
+  } # End if any groups are NA
   # Extract required data
   res <- locations %>%
-    dplyr::right_join( y=sections, by="Section" ) %>%
-    dplyr::filter( !is.na(StatArea), !is.na(Section) )  %>%
-    dplyr::select( SAR, Region, RegionName, StatArea, Group, Section, LocationCode,
-            LocationName, Bed, Eastings, Northings, Longitude, Latitude ) %>%
+    dplyr::right_join(y = sections, by = "Section") %>%
+    dplyr::filter(!is.na(StatArea), !is.na(Section)) %>%
+    dplyr::select(
+      SAR, Region, RegionName, StatArea, Group, Section, LocationCode,
+      LocationName, Bed, Eastings, Northings, Longitude, Latitude
+    ) %>%
     #      mutate( StatArea=formatC(StatArea, width=2, format="d", flag="0"),
     #          Section=formatC(Section, width=3, format="d", flag="0") ) %>%
-    dplyr::arrange( Region, StatArea, Group, Section, LocationCode ) %>%
-    dplyr::distinct( ) %>%
-    droplevels( )
+    dplyr::arrange(Region, StatArea, Group, Section, LocationCode) %>%
+    dplyr::distinct() %>%
+    droplevels()
   # If not all sections are included
-  if( !all(is.na(sectionSub)) ) {
+  if (!all(is.na(secSub))) {
     # Grab a subset of sections
     res <- res %>%
-      dplyr::filter(Section %in% sectionSub ) %>%
-      droplevels( )
+      dplyr::filter(Section %in% secSub) %>%
+      droplevels()
     # Message
-    cat( "Sections: ", paste(sectionSub, collapse=", "), "\n", sep="" )
-  }  # End if subsetting areas
+    cat("Sections: ", paste(secSub, collapse = ", "), "\n", sep = "")
+  } # End if subsetting areas
   # Close the connection
-  RODBC::odbcClose( accessDB )
+  RODBC::odbcClose(accessDB)
   # Return herring areas
-  return( res )
-}  # End LoadAreaData function
+  return(res)
+} # End LoadAreaData function
