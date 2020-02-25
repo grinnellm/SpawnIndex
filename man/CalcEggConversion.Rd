@@ -2,13 +2,13 @@
 % Please edit documentation in R/calcs.R
 \name{CalcEggConversion}
 \alias{CalcEggConversion}
-\title{Convert number of eggs to spawn index in tonnes.}
+\title{Convert number of eggs to spawning biomass.}
 \usage{
 CalcEggConversion(fecundity = 2e+05, pFemale = 0.5)
 }
 \arguments{
 \item{fecundity}{The number of eggs per kilogram of female spawners (default
-200000).}
+200000) \insertCite{Hay1985,HayBrett1988}{SpawnIndex}.}
 
 \item{pFemale}{The proportion of spawners that are female (default 0.5).}
 }
@@ -19,10 +19,11 @@ biomass.
 }
 \description{
 Calculate the conversion factor for Pacific Herring, to convert the number of
-eggs to spawn index (i.e., biomass) in tonnes.
+eggs to the spawn index (i.e., biomass) in tonnes.
+}
+\examples{
+CalcEggConversion( )
 }
 \references{
-\insertRef{Hay1985}{SpawnIndex}
-
-\insertRef{HayBrett1988}{SpawnIndex}
+\insertAllCited{}
 }
