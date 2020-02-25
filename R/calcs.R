@@ -55,8 +55,7 @@ CalcBiomassSOK <- function(SOK,
 
 #' Calculate the surface spawn index.
 #'
-#' Calculate the Pacific Herring surface spawn index in tonnes. Note that the
-#' 'spawn index' is a relative index of spawning biomass.
+#' Calculate the Pacific Herring surface spawn index in tonnes.
 #'
 #' @param where List. Location of the Pacific Herring surface spawn database
 #'   (see examples).
@@ -77,11 +76,13 @@ CalcBiomassSOK <- function(SOK,
 #' @importFrom stringr str_to_title
 #' @importFrom gfiscamutils MeanNA SumNA
 #' @importFrom tidyr replace_na
-#' @return List. The element `SI` is a tibble with surface spawn index in tonnes
-#'   by spawn number and year. The spawn number is the finest spatial scale at
-#'   which we calculate the spawn index. Other information in this tibble comes
-#'   from `a`: Region, Statistical Area, Section, and Location code.
+#' @return List. The element `SI` is a tibble with surface spawn index
+#'   (`SurfSI`) in tonnes by spawn number and year. The spawn number is the
+#'   finest spatial scale at which we calculate the spawn index. Other
+#'   information in this tibble comes from `a`: Region, Statistical Area,
+#'   Section, and Location code.
 #' @references \insertRef{SchweigertEtal1997}{SpawnIndex}
+#' @note The 'spawn index' is a relative index of spawning biomass.
 #' @seealso \code{\link{LoadAreaData}} \code{\link{CalcEggConversion}}
 #' @export
 #' @examples
@@ -327,3 +328,173 @@ CalcSurfSpawn <- function(where,
     biomassSpawn = biomassSpawn, SI = SI
   ))
 } # End CalcSurfSpawn function
+
+#' Calculate the Macrocystis spawn index
+#'
+#' Calculate the Pacific Herring Macrocystis spawn index in tonnes. Note that
+#' the 'spawn index' is a relative index of spawning biomass.
+#'
+#' @param where List. Location of the Pacific Herring surface spawn database
+#'   (see examples).
+#' @param a Tibble. Table of geographic information indicating the subset of
+#'   spawn survey observations to inlude in calculations. Returned from
+#'   \code{\link{LoadAreaData}}.
+#' @param yrs Numeric vector. Years(s) to include in the calculations, usually
+#'   staring in 1951.
+#' @param tSwath Numeric. Transect swath (i.e., width) in metres.
+#' @param f Numeric. Egg conversion factor (eggs to biomass) from
+#'   \code{\link{CalcEggConversion}}.
+#' @importFrom RODBC odbcConnectAccess sqlFetch odbcClose
+#' @importFrom dplyr select distinct rename left_join filter
+#' @importFrom tibble as_tibble
+#' @importFrom stringr str_to_title
+#' @importFrom gfiscamutils MeanNA SumNA UniqueNA
+#' @importFrom tidyr replace_na
+#' @return List. The element `SI` is a tibble with Macrocystis spawn index
+#'   (`MacroSI`) in tonnes by spawn number and year. The spawn number is the
+#'   finest spatial scale at which we calculate the spawn index. Other
+#'   information in this tibble comes from `a`: Region, Statistical Area,
+#'   Section, and Location code.
+#' @references \insertRef{HaegeleSchweigert1990}{SpawnIndex}
+#' @note The 'spawn index' is a relative index of spawning biomass.
+#' @seealso \code{\link{LoadAreaData}} \code{\link{CalcEggConversion}}
+#' @export
+#' @examples
+#' dbLoc <- system.file("extdata", package = "SpawnIndex")
+#' areaLoc <- list(
+#'   loc = dbLoc, db = "HerringSpawn.mdb",
+#'   fns = list(sections = "Sections", locations = "Location")
+#' )
+#' areas <- LoadAreaData(reg = "WCVI", where = areaLoc)
+#' macroLoc <- list(
+#'   loc = file.path(dbLoc), db = "HerringSpawn.mdb",
+#'   fns = list(
+#'     allSpawn = "tSSAllspawn", plants = "tSSMacPlant",
+#'     transects = "tSSMacTrans"
+#'   )
+#' )
+#' macroSpawn <- CalcMacroSpawn(
+#'   where = macroLoc, a = areas, yrs = 2010:2015,
+#'   f = CalcEggConversion()
+#' )
+#' macroSpawn$SI
+CalcMacroSpawn <- function(where, a, yrs, tSwath = 2, f) {
+  # Establish connection with access
+  accessDB <- RODBC::odbcConnectAccess(access.file = file.path(
+    where$loc,
+    where$db
+  ))
+  # Load all spawn
+  spawn <- RODBC::sqlFetch(channel = accessDB, sqtable = where$fns$allSpawn) %>%
+    dplyr::rename(
+      LocationCode = Loc_Code, SpawnNumber = Spawn_Number,
+      LengthMacro = Length_Macrocystis
+    ) %>%
+    dplyr::mutate(Method = stringr::str_to_title(Method)) %>%
+    dplyr::filter(Year %in% yrs, LocationCode %in% a$LocationCode) %>%
+    dplyr::select(Year, LocationCode, SpawnNumber, LengthMacro, Length, Method) %>%
+    tibble::as_tibble()
+  # Get plant-level data
+  plants <- RODBC::sqlFetch(channel = accessDB, sqtable = where$fns$plants) %>%
+    dplyr::rename(LocationCode = Loc_Code, SpawnNumber = Spawn_Number) %>%
+    dplyr::filter(
+      Year %in% yrs, LocationCode %in% a$LocationCode,
+      !is.na(Mature)
+    ) %>%
+    dplyr::select(Year, LocationCode, SpawnNumber, Transect, Mature) %>%
+    tibble::as_tibble()
+  # Get a small subset of area data
+  areasSm <- a %>%
+    dplyr::select(Region, StatArea, Section, LocationCode, Bed) %>%
+    dplyr::distinct() %>%
+    tibble::as_tibble()
+  # Get transect-level data
+  transects <- RODBC::sqlFetch(
+    channel = accessDB,
+    sqtable = where$fns$transects
+  ) %>%
+    dplyr::rename(LocationCode = Loc_Code, SpawnNumber = Spawn_Number) %>%
+    dplyr::filter(Year %in% yrs, LocationCode %in% a$LocationCode) %>%
+    dplyr::left_join(y = areasSm, by = "LocationCode") %>%
+    dplyr::select(
+      Year, Region, StatArea, Section, LocationCode, SpawnNumber,
+      Transect, Height, Width, Layers
+    ) %>%
+    tibble::as_tibble()
+  # Merge the data
+  dat <- transects %>%
+    dplyr::left_join(y = plants, by = c(
+      "Year", "LocationCode", "SpawnNumber", "Transect"
+    )) %>%
+    tidyr::replace_na(replace = list(Mature = 0)) %>%
+    dplyr::mutate(Swath = tSwath)
+  # Calculate transect-level data
+  datTrans <- dat %>%
+    dplyr::group_by(
+      Year, Region, StatArea, Section, LocationCode, SpawnNumber,
+      Transect
+    ) %>%
+    # Transect t: Width_t, Swath, Area_t, bar(Height_t), bar(EggLyrs_t),
+    # and Stalks_t, P_t
+    dplyr::summarise(
+      # Transect metrics for all transects (not just those with mature plants)
+      Width = unique(Width),
+      Swath = unique(Swath),
+      Area = Width * Swath,
+      # Plant metrics for mature plants only
+      Height = gfiscamutils::UniqueNA(Height[Mature > 0]),
+      EggLyrs = gfiscamutils::UniqueNA(Layers[Mature > 0]),
+      Stalks = gfiscamutils::SumNA(Mature[Mature > 0]),
+      Plants = length(Mature[Mature > 0])
+    ) %>%
+    dplyr::ungroup()
+  # Calculate spawn-level data
+  biomassSpawn <- datTrans %>%
+    dplyr::left_join(y = spawn, by = c("Year", "LocationCode", "SpawnNumber")) %>%
+    dplyr::mutate(
+      LengthMacro = ifelse(is.na(LengthMacro), Length, LengthMacro)
+    ) %>%
+    dplyr::filter(Method %in% c("Surface", "Dive")) %>%
+    dplyr::group_by(
+      Year, Region, StatArea, Section, LocationCode,
+      SpawnNumber
+    ) %>%
+    # Spawn s: bar(Width_s), Area_s, P_s, Stalks_s, bar(Height_s),
+    # bar(EggLyrs_s), bar(StalksPerPlant_s)
+    dplyr::summarise(
+      LengthMacro = unique(LengthMacro),
+      Width = gfiscamutils::MeanNA(Width),
+      Area = gfiscamutils::SumNA(Area),
+      Plants = gfiscamutils::SumNA(Plants),
+      Stalks = gfiscamutils::SumNA(Stalks),
+      Height = gfiscamutils::MeanNA(Height),
+      EggLyrs = gfiscamutils::MeanNA(EggLyrs),
+      StalksPerPlant = Stalks / Plants,
+      # Eggs per plant in thousands (eggs * 10^3 / plant; Haegele and
+      # Schweigert 1990)
+      # Spawn s: bar(EggsPerPlant_s)
+      EggsPerPlant = 0.073 * EggLyrs^0.673 * Height^0.932 *
+        StalksPerPlant^0.703 * 1000,
+      # Eggs density in thousands (eggs * 10^3 / m^2)
+      # Spawn s: bar(EggDens_s)
+      EggDens = EggsPerPlant * Plants / Area,
+      # Biomass in tonnes, based on Hay (1985), and Hay and Brett (1988)
+      # Spawn s: MacroSI_s
+      MacroSI = EggDens * LengthMacro * Width * 1000 / f
+    ) %>%
+    dplyr::rename(MacroLyrs = EggLyrs) %>%
+    dplyr::ungroup()
+  # Return the macrocystis spawn
+  SI <- biomassSpawn %>%
+    dplyr::select(
+      Year, Region, StatArea, Section, LocationCode, SpawnNumber,
+      MacroSI
+    )
+  # Close the connection
+  RODBC::odbcClose(accessDB)
+  # Return the data
+  return(list(
+    dat = dat, datTrans = datTrans, biomassSpawn = biomassSpawn,
+    SI = SI
+  ))
+} # End CalcMacroSpawn function

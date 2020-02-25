@@ -14,8 +14,8 @@ CalcEggConversion(fecundity = 2e+05, pFemale = 0.5)
 }
 \value{
 Numeric. The conversion factor for eggs to spawn index in tonnes
-(i.e., biomass). Divide the number of eggs by the conversion factor to get
-biomass.
+  (i.e., biomass). Divide the number of eggs by the conversion factor to get
+  biomass.
 }
 \description{
 Calculate the conversion factor for Pacific Herring, to convert the number of

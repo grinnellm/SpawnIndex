@@ -17,12 +17,13 @@
 
 #' Example Pacific Herring spawn survey database.
 #'
-#' Example Pacific Herring spawn survey database. This is a subset of the actual
-#' spawn survey database, and some additional data so that examples run.
+#' Example Pacific Herring spawn survey database. This database contains a
+#' subset of tables from the spawn survey database, and some additional data so
+#' that examples run.
 #'
 #' @format MS Access databases.
 #' @docType data
 #' @seealso \code{\link{LoadAreaData}} \code{\link{CalcSurfSpawn}}
-#'   \code{\link{CalcUnderSpawn}} \code{\link{CalcMacroSpawn}}
+#'   \code{\link{CalcMacroSpawn}} \code{\link{CalcUnderSpawn}}
 #'
 system.file("extdata", "HerringSpawn.mdb", package = "SpawnIndex")

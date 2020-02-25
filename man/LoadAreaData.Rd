@@ -43,7 +43,7 @@ desired.
 }
 \note{
 This function requires 32-bit R to load data from the 32-bit MS Access
-database.
+  database.
 }
 \examples{
 dbLoc <- system.file("extdata", package = "SpawnIndex")

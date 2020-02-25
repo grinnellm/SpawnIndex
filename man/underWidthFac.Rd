@@ -5,7 +5,7 @@
 \alias{underWidthFac}
 \title{Understory spawn width correction factors.}
 \format{Tibble with 12 rows and 8 columns (one for year, and one for each
-regions).}
+  regions).}
 \usage{
 data(underWidthFac)
 }
