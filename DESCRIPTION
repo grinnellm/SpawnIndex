@@ -1,10 +1,10 @@
 Package: SpawnIndex
 Type: Package
-Title: Calculate the spawn index for Pacific Herring in British Columbia, Canada
+Title: Calculate the Spawn Index for Pacific Herring in British Columbia, Canada
 Version: 0.1.0
-Authors@R:
+Authors@R: c(
     person(given = c("Matthew", "H."), family = "Grinnell",
-    role = c("aut", "cre"))
+    role = c("aut", "cre"), email = "matthew.grinnell@dfo-mpo.gc.ca") )
 Description: Calculate the spawn index for Pacific Herring (Clupea pallasii) in
     British Columbia, Canada. There are three types of spawn survey
     observations: surface spawn, Macrocystis spawn, and understory spawn. These
@@ -14,6 +14,7 @@ Description: Calculate the spawn index for Pacific Herring (Clupea pallasii) in
     operations. Note that the `spawn index' is a relative index of spawning
     biomass.
 License: What license is it under?
+URL: https://github.com/grinnellm/SpawnIndex
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.0.2
