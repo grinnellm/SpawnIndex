@@ -8,7 +8,11 @@
 #' @note Adjust spawn width for affected understory spawn surveys by multiplying
 #'   the observed width by the corresponding correction fator for the affected
 #'   years.
+#' @docType data
+#' @usage data(underWidthFac)
 #' @seealso \code{\link{CalcUnderSpawn}}
+#' @examples
+#' data(underWidthFac)
 "underWidthFac"
 
 #' Example Pacific Herring spawn survey database.
@@ -17,4 +21,9 @@
 #' actual spawn survey database, and some additional data so that examples run.
 #'
 #' @format MS Access databases.
-# "HerringSpawn.mdb"
+#' @docType data
+#' @examples
+#' require(RODBC)
+#' loc <- system.file("extdata", "HerringSpawn.mdb", package = "SpawnIndex")
+#'
+system.file("extdata", "HerringSpawn.mdb", package = "SpawnIndex")

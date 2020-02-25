@@ -7,15 +7,19 @@
 \format{Tibble with 12 rows and 8 columns (one for year, and one for each
 regions).}
 \usage{
-underWidthFac
+data(underWidthFac)
 }
 \description{
 Spawn width correction factors for Pacific Herring understory spawn surveys
 by region and year.
 }
 \note{
-Adjust spawn width for understory spawn surveys by multiplying the
-observed width by the corresponding correction fator.
+Adjust spawn width for affected understory spawn surveys by multiplying
+  the observed width by the corresponding correction fator for the affected
+  years.
+}
+\examples{
+data(underWidthFac)
 }
 \seealso{
 \code{\link{CalcUnderSpawn}}

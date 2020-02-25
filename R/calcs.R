@@ -86,13 +86,14 @@ CalcBiomassSOK <- function(SOK,
 #' @seealso \code{\link{LoadAreaData}} \code{\link{CalcEggConversion}}
 #' @export
 #' @examples
+#' dbLoc <- system.file("extdata", package = "SpawnIndex")
 #' areaLoc <- list(
-#'   loc = "data", db = "HerringSpawn.mdb",
+#'   loc = dbLoc, db = "HerringSpawn.mdb",
 #'   fns = list(sections = "Sections", locations = "Location")
 #' )
 #' areas <- LoadAreaData(reg = "WCVI", where = areaLoc)
 #' surfLoc <- list(
-#'   loc = "data", db = "HerringSpawn.mdb",
+#'   loc = dbLoc, db = "HerringSpawn.mdb",
 #'   fns = list(
 #'     regionStd = "RegionStd", sectionStd = "SectionStd", poolStd = "PoolStd",
 #'     surface = "tSSSurface", intensity = "Intensity",

@@ -44,13 +44,14 @@ Calculate the Pacific Herring surface spawn index in tonnes. Note that the
 'spawn index' is a relative index of spawning biomass.
 }
 \examples{
+dbLoc <- system.file("extdata", package = "SpawnIndex")
 areaLoc <- list(
-  loc = "data", db = "HerringSpawn.mdb",
+  loc = dbLoc, db = "HerringSpawn.mdb",
   fns = list(sections = "Sections", locations = "Location")
 )
 areas <- LoadAreaData(reg = "WCVI", where = areaLoc)
 surfLoc <- list(
-  loc = "data", db = "HerringSpawn.mdb",
+  loc = dbLoc, db = "HerringSpawn.mdb",
   fns = list(
     regionStd = "RegionStd", sectionStd = "SectionStd", poolStd = "PoolStd",
     surface = "tSSSurface", intensity = "Intensity",

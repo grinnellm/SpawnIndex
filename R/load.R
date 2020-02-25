@@ -29,8 +29,9 @@
 #' database.
 #' @export
 #' @examples
+#' dbLoc <- system.file("extdata", package = "SpawnIndex")
 #' areaLoc <- list(
-#'   loc = "data", db = "HerringSpawn.mdb",
+#'   loc = dbLoc, db = "HerringSpawn.mdb",
 #'   fns = list(sections = "Sections", locations = "Location")
 #' )
 #' LoadAreaData(reg = "WCVI", where = areaLoc)
