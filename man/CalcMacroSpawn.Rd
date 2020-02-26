@@ -29,13 +29,17 @@ staring in 1951.}
 
 \item{tSwath}{Numeric. Transect swath (i.e., width) in metres.}
 
-\item{beta}{Numeric.}
+\item{beta}{Numeric. Regression slope; from \code{\link{pars}}
+\insertCite{HaegeleSchweigert1990}{SpawnIndex}.}
 
-\item{gamma}{Numeric.}
+\item{gamma}{Numeric. Regression exponent on egg layers; from
+\code{\link{pars}} \insertCite{HaegeleSchweigert1990}{SpawnIndex}.}
 
-\item{delta}{Numeric.}
+\item{delta}{Numeric. Regression exponent on plant height; from
+\code{\link{pars}} \insertCite{HaegeleSchweigert1990}{SpawnIndex}.}
 
-\item{epsilon}{Numeric.}
+\item{epsilon}{Numeric. Regression exponent on numnber of stalks per plant;
+from \code{\link{pars}} \insertCite{HaegeleSchweigert1990}{SpawnIndex}.}
 
 \item{theta}{Numeric. Egg conversion factor (eggs to biomass); from
 \code{\link{CalcEggConversion}}.}
@@ -74,7 +78,7 @@ macroSpawn <- CalcMacroSpawn(
 macroSpawn$SI
 }
 \references{
-\insertRef{HaegeleSchweigert1990}{SpawnIndex}
+\insertAllCited
 }
 \seealso{
 \code{\link{LoadAreaData}} \code{\link{CalcEggConversion}}

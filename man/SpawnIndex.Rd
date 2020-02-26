@@ -3,12 +3,15 @@
 \docType{package}
 \name{SpawnIndex}
 \alias{SpawnIndex}
-\title{SpawnIndex: A package for calculating the Pacific Herring spawn index.}
+\title{SpawnIndex: A package to calculate the spawn index for Pacific Herring in
+British Columbia, Canada.}
 \description{
 The SpawnIndex package provides parameters and methods to calculate the spawn
-index for Pacific Herring (Clupea pallasii) in British Columbia, Canada.
+index for Pacific Herring (\emph{Clupea pallasii}) in British Columbia, Canada.
 Methods inluclude converting eggs to biomass, spawn-on-kelp calculations, as
-well as surface, Macrocystis, and understory spawn index calculations.
+well as surface, Macrocystis, and understory spawn index calculations. Read
+the accompanying document for more details on spawn index calculations
+\insertCite{GrinnellEtal2020}{SpawnIndex}.
 }
 \note{
 The 'spawn index' is a relative index of spawning biomass.

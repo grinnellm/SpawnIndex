@@ -6,31 +6,36 @@
 \title{Parameters for spawn index calculations.}
 \format{List with 5 items:
 \describe{
-  \item{conversion}{List with 2 items:
-    omega is the number of eggs per kilogram of female spawners
-    \insertCite{Hay1985,HayBrett1988}{SpawnIndex}, and
-    phi is the proportion of spawners that are female.}
-  \item{SOK}{List with 3 items:
-    nu is the proportion of SOK product that is eggs, not kelp
-  \insertCite{ShieldsEtal1985}{SpawnIndex}, upsilon is the proportion of SOK
-  product that is eggs after brining
-  \insertCite{WhyteEnglar1977}{SpawnIndex}, and M is the average weight in
-  kilograms of a fertilized egg
+\item{conversion}{List with 2 items:
+  \emph{omega} is the number of eggs per kilogram of female spawners
+  \insertCite{Hay1985,HayBrett1988}{SpawnIndex}, and \emph{phi} is the
+  proportion of spawners that are female.}
+\item{SOK}{List with 3 items:
+  \emph{nu} is the proportion of SOK product that is eggs, not kelp
+  \insertCite{ShieldsEtal1985}{SpawnIndex}, \emph{upsilon} is the proportion
+  of SOK product that is eggs after brining
+  \insertCite{WhyteEnglar1977}{SpawnIndex}, and \emph{M} is the average
+  weight in kilograms of a fertilized egg
   \insertCite{HayMiller1982}{SpawnIndex}.}
-  \item{surface}{List with 2 items:
-    alpha is the regression intercept, and
-    beta is the regression slope.}
-  \item{macrocystis}{List with 4 items:
-    beta,
-    gamma,
-    delta, and
-    epsilon.}
-  \item{understory}{List with 4 items:
-    alpha,
-    beta,
-    gamma, and
-    delta.}
-}}
+\item{surface}{List with 2 items:
+  \emph{alpha} is the regression intercept
+  \insertCite{SchweigertEtal1997}{SpawnIndex}, and \emph{beta} is the
+  regression slope \insertCite{SchweigertEtal1997}{SpawnIndex}.}
+\item{macrocystis}{List with 4 items: \emph{beta} is the regression slope
+  \insertCite{HaegeleSchweigert1990}{SpawnIndex}, \emph{gamma} is the
+  regression exponent on egg layers
+  \insertCite{HaegeleSchweigert1990}{SpawnIndex}, \emph{delta} is the
+  regression exponent on plant height
+  \insertCite{HaegeleSchweigert1990}{SpawnIndex}, and \emph{epsilon} is the
+  regression exponent on number of stalks per plant
+  \insertCite{HaegeleSchweigert1990}{SpawnIndex}.}
+\item{understory}{List
+  with 4 items: \emph{alpha} is the regression slope for substrate
+  \insertCite{HaegeleEtal1979}{SpawnIndex}, \emph{beta} is the regression
+  slope for algae \insertCite{Schweigert2005}{SpawnIndex}, \emph{gamma} is
+  the regression exponent on number of egg layers
+  \insertCite{Schweigert2005}{SpawnIndex}, and \emph{delta} is the regression
+  exponent on proportion of algae \insertCite{Schweigert2005}{SpawnIndex}.} }}
 \usage{
 data(pars)
 }

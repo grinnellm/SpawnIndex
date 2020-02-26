@@ -7,6 +7,7 @@
 #'   from \code{\link{pars}}.
 #' @param phi Numeric. The proportion of spawners that are female; from
 #'   \code{\link{pars}}.
+#' @importFrom Rdpack reprompt
 #' @return Numeric. The conversion factor for eggs to spawn index in tonnes
 #'   (i.e., biomass). Divide the number of eggs by the conversion factor to get
 #'   biomass.
@@ -37,6 +38,7 @@ CalcEggConversion <- function(omega = pars$conversion$omega,
 #'   \code{\link{pars}}.
 #' @param theta Numeric. Egg conversion factor (eggs to biomass); from
 #'   \code{\link{CalcEggConversion}}.
+#' @importFrom Rdpack reprompt
 #' @return Numeric. Spawning biomass in tonnes.
 #' @seealso \code{\link{CalcEggConversion}} \code{\link{pars}}
 #' @export
@@ -50,7 +52,7 @@ CalcBiomassSOK <- function(SOK,
                            theta = CalcEggConversion() ) {
   # Spawnin biomass in tonnes: (kg SOK * proportion eggs * proportion eggs) /
   # (kg per egg * eggs per tonne )
-  SB <- (SOK * eggKelpProp * eggBrineProp) / (eggWt * theta)
+  SB <- (SOK * nu * upsilon) / (M * theta)
   # Return the spawning biomass
   return(SB)
 } # End CalcBiomassSOK
@@ -66,14 +68,16 @@ CalcBiomassSOK <- function(SOK,
 #'   \code{\link{LoadAreaData}}.
 #' @param yrs Numeric vector. Years(s) to include in the calculations, usually
 #'   staring in 1951.
+#' @param intensity Tibble. Table of spawn intensity categories and number of
+#'   egg layers; from \code{\link{intensity}}.
 #' @param intYrs Numeric vector. Years where intensity categores are used to
-#'   determine egg layers (default yrs[yrs < 1979]).
+#'   determine egg layers.
 #' @param rsYrs Numeric vector. Years where intensity needs to be re-scaled from
-#'   5 to 9 categories (default intYrs[intYrs < 1951]).
-#' @param alpha Numeric. Regression intercept
-#'   \insertRef{SchweigertEtal1997}{SpawnIndex} from \code{\link{pars}}.
-#' @param beta Numeric. Regression slope
-#'   \insertRef{SchweigertEtal1997}{SpawnIndex} from \code{\link{pars}}.
+#'   5 to 9 categories.
+#' @param alpha Numeric. Regression intercept; from \code{\link{pars}}
+#'   \insertCite{SchweigertEtal1997}{SpawnIndex}.
+#' @param beta Numeric. Regression slope; from \code{\link{pars}}
+#'   \insertCite{SchweigertEtal1997}{SpawnIndex}.
 #' @param theta Numeric. Egg conversion factor (eggs to biomass); from
 #'   \code{\link{CalcEggConversion}}.
 #' @importFrom RODBC odbcConnectAccess sqlFetch odbcClose
@@ -82,15 +86,16 @@ CalcBiomassSOK <- function(SOK,
 #' @importFrom stringr str_to_title
 #' @importFrom gfiscamutils MeanNA SumNA
 #' @importFrom tidyr replace_na
+#' @importFrom Rdpack reprompt
 #' @return List. The element `SI` is a tibble with surface spawn index
 #'   (`SurfSI`) in tonnes by spawn number and year. The spawn number is the
 #'   finest spatial scale at which we calculate the spawn index. Other
 #'   information in this tibble comes from `a`: Region, Statistical Area,
 #'   Section, and Location code.
-#' @references
+#' @references \insertAllCited
 #' @note The 'spawn index' is a relative index of spawning biomass.
 #' @seealso \code{\link{LoadAreaData}} \code{\link{CalcEggConversion}}
-#'   \code{\link{pars}}
+#'   \code{\link{pars}} \code{\link{intensity}}
 #' @export
 #' @examples
 #' dbLoc <- system.file("extdata", package = "SpawnIndex")
@@ -100,6 +105,7 @@ CalcBiomassSOK <- function(SOK,
 #' )
 #' areas <- LoadAreaData(reg = "WCVI", where = areaLoc)
 #' data(pars)
+#' data(intensity)
 #' surfLoc <- list(
 #'   loc = dbLoc, db = "HerringSpawn.mdb",
 #'   fns = list(
@@ -112,9 +118,10 @@ CalcBiomassSOK <- function(SOK,
 #'   where = surfLoc, a = areas, yrs = 2010:2015
 #' )
 #' surfSpawn$SI
-CalcSurfSpawn <- function(where,
+CalcSurfSpawn <- function( where,
                           a,
                           yrs,
+                          intensity=intensity,
                           intYrs = yrs[yrs < 1979],
                           rsYrs = intYrs[intYrs < 1951],
                           alpha=pars$surface$alpha,
@@ -242,7 +249,7 @@ CalcSurfSpawn <- function(where,
       # 1997). Yes, thousands: the report is wrong (J. Schweigert,
       # personal communication, 21 February 2017)
       # Sampe j: EggDens_j
-      EggDens = EggLyrs * beta + alpha
+      EggDens = alpha + beta * EggLyrs
     )
   # These are the 'original' manual updates that were in the Microsoft Access
   # database: some overwrite good data with no documented reason and have been
@@ -350,10 +357,14 @@ CalcSurfSpawn <- function(where,
 #' @param yrs Numeric vector. Years(s) to include in the calculations, usually
 #'   staring in 1951.
 #' @param tSwath Numeric. Transect swath (i.e., width) in metres.
-#' @param beta Numeric.
-#' @param gamma Numeric.
-#' @param delta Numeric.
-#' @param epsilon Numeric.
+#' @param beta Numeric. Regression slope; from \code{\link{pars}}
+#'   \insertCite{HaegeleSchweigert1990}{SpawnIndex}.
+#' @param gamma Numeric. Regression exponent on egg layers; from
+#'   \code{\link{pars}} \insertCite{HaegeleSchweigert1990}{SpawnIndex}.
+#' @param delta Numeric. Regression exponent on plant height; from
+#'   \code{\link{pars}} \insertCite{HaegeleSchweigert1990}{SpawnIndex}.
+#' @param epsilon Numeric. Regression exponent on numnber of stalks per plant;
+#'   from \code{\link{pars}} \insertCite{HaegeleSchweigert1990}{SpawnIndex}.
 #' @param theta Numeric. Egg conversion factor (eggs to biomass); from
 #'   \code{\link{CalcEggConversion}}.
 #' @importFrom RODBC odbcConnectAccess sqlFetch odbcClose
@@ -362,12 +373,13 @@ CalcSurfSpawn <- function(where,
 #' @importFrom stringr str_to_title
 #' @importFrom gfiscamutils MeanNA SumNA UniqueNA
 #' @importFrom tidyr replace_na
+#' @importFrom Rdpack reprompt
 #' @return List. The element `SI` is a tibble with Macrocystis spawn index
 #'   (`MacroSI`) in tonnes by spawn number and year. The spawn number is the
 #'   finest spatial scale at which we calculate the spawn index. Other
 #'   information in this tibble comes from `a`: Region, Statistical Area,
 #'   Section, and Location code.
-#' @references \insertRef{HaegeleSchweigert1990}{SpawnIndex}
+#' @references \insertAllCited
 #' @note The 'spawn index' is a relative index of spawning biomass.
 #' @seealso \code{\link{LoadAreaData}} \code{\link{CalcEggConversion}}
 #'   \code{\link{pars}}
@@ -391,7 +403,7 @@ CalcSurfSpawn <- function(where,
 #'   where = macroLoc, a = areas, yrs = 2010:2015
 #' )
 #' macroSpawn$SI
-CalcMacroSpawn <- function(where,
+CalcMacroSpawn <- function( where,
                            a,
                            yrs,
                            tSwath = 2,
@@ -494,8 +506,8 @@ CalcMacroSpawn <- function(where,
       # Eggs per plant in thousands (eggs * 10^3 / plant; Haegele and
       # Schweigert 1990)
       # Spawn s: bar(EggsPerPlant_s)
-      EggsPerPlant = 0.073 * EggLyrs^0.673 * Height^0.932 *
-        StalksPerPlant^0.703 * 1000,
+      EggsPerPlant = beta * EggLyrs^gamma * Height^delta *
+        StalksPerPlant^epsilon * 1000,
       # Eggs density in thousands (eggs * 10^3 / m^2)
       # Spawn s: bar(EggDens_s)
       EggDens = EggsPerPlant * Plants / Area,
@@ -531,12 +543,18 @@ CalcMacroSpawn <- function(where,
 #'   \code{\link{LoadAreaData}}.
 #' @param yrs Numeric vector. Years(s) to include in the calculations, usually
 #'   staring in 1951.
+#' @param algaeCoefs Tibble. Table of algae coefficients; from
+#'   \code{\link{algaeCoefs}}.
 #' @param tau Tibble. Table of understory spawn width adjustment factors from
 #'   \code{\link{underWidthFac}}.
-#' @param alpha Numeric.
-#' @param beta Numeric.
-#' @param gamma Numeric.
-#' @param delta Numeric.
+#' @param alpha Numeric. Regression slope for substrate; from \code{\link{pars}}
+#'   \insertCite{HaegeleEtal1979}{SpawnIndex}.
+#' @param beta Numeric. Regression slope for algae; from \code{\link{pars}}
+#'   \insertCite{Schweigert2005}{SpawnIndex}.
+#' @param gamma Numeric. Regression exponent on number of egg layers; from
+#'   \code{\link{pars}} \insertCite{Schweigert2005}{SpawnIndex}.
+#' @param delta Numeric. Regression exponent on proportion of algae; from
+#'   \code{\link{pars}} \insertCite{Schweigert2005}{SpawnIndex}.
 #' @param theta Numeric. Egg conversion factor (eggs to biomass); from
 #'   \code{\link{CalcEggConversion}}.
 #' @importFrom RODBC odbcConnectAccess sqlFetch odbcClose
@@ -545,15 +563,16 @@ CalcMacroSpawn <- function(where,
 #' @importFrom stringr str_to_title
 #' @importFrom gfiscamutils MeanNA SumNA UniqueNA
 #' @importFrom tidyr replace_na gather
+#' @importFrom Rdpack reprompt
 #' @return List. The element `SI` is a tibble with understory spawn index
 #'   (`UnderSI`) in tonnes by spawn number and year. The spawn number is the
 #'   finest spatial scale at which we calculate the spawn index. Other
 #'   information in this tibble comes from `a`: Region, Statistical Area,
 #'   Section, and Location code.
-#' @references \insertRef{}{SpawnIndex}
+#' @references \insertAllCited
 #' @note The 'spawn index' is a relative index of spawning biomass.
 #' @seealso \code{\link{LoadAreaData}} \code{\link{CalcEggConversion}}
-#'   \code{\link{pars}}
+#'   \code{\link{pars}} \code{\link{algaeCoefs}}
 #' @export
 #' @examples
 #' dbLoc <- system.file("extdata", package = "SpawnIndex")
@@ -569,6 +588,7 @@ CalcMacroSpawn <- function(where,
 #'            typeAlg="tSSTypeVegetation") )
 #' data(underWidthFac)
 #' data(pars)
+#' data(algaeCoefs)
 #' underSpawn <- CalcUnderSpawn(
 #'   where = underLoc, a = areas, yrs = 2010:2015
 #' )
@@ -576,6 +596,7 @@ CalcMacroSpawn <- function(where,
 CalcUnderSpawn <- function( where,
                             a,
                             yrs,
+                            algaeCoefs=algaeCoefs,
                             tau=underWidthFac,
                             alpha=pars$understory$alpha,
                             beta=pars$understory$beta,
@@ -694,7 +715,7 @@ CalcUnderSpawn <- function( where,
     dplyr::left_join( y=areasSm2, by=c("Region", "LocationCode") ) %>%
     # Egg density in thousands (eggs x 10^3 / m^2; Haegele et al. 1979)
     # Quadrat q: EggDensSub_q
-    dplyr::mutate( EggDensSub=340 * SubLyrs * SubProp ) %>%
+    dplyr::mutate( EggDensSub=alpha * SubLyrs * SubProp ) %>%
     tidyr::replace_na( replace=list(EggDensSub=0) ) %>%
     dplyr::select( Year, Region, StatArea, Section, LocationCode, SpawnNumber,
                    Transect, Station, Width, EggDensSub )
@@ -711,7 +732,7 @@ CalcUnderSpawn <- function( where,
     # Egg density in thousands (eggs * 10^3 / m^2; Schweigert 2005); quadrat
     # size coefficients not required because all quadrats are 0.5m^2 (1.0512)
     # Algae a: EggDensAlg_a
-    dplyr::mutate( EggDensAlg=600.567 * AlgLyrs^0.6355 * AlgProp^1.413 * Coef *
+    dplyr::mutate( EggDensAlg=beta * AlgLyrs^gamma * AlgProp^delta * Coef *
                      1.0512 ) %>%
     dplyr::group_by( Year, Region, StatArea, Section, LocationCode, SpawnNumber,
                      Transect, Station ) %>%

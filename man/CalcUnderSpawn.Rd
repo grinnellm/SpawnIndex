@@ -8,6 +8,7 @@ CalcUnderSpawn(
   where,
   a,
   yrs,
+  algaeCoefs = algaeCoefs,
   tau = underWidthFac,
   alpha = pars$understory$alpha,
   beta = pars$understory$beta,
@@ -27,16 +28,23 @@ spawn survey observations to inlude in calculations. Returned from
 \item{yrs}{Numeric vector. Years(s) to include in the calculations, usually
 staring in 1951.}
 
+\item{algaeCoefs}{Tibble. Table of algae coefficients; from
+\code{\link{algaeCoefs}}.}
+
 \item{tau}{Tibble. Table of understory spawn width adjustment factors from
 \code{\link{underWidthFac}}.}
 
-\item{alpha}{Numeric.}
+\item{alpha}{Numeric. Regression slope for substrate; from \code{\link{pars}}
+\insertCite{HaegeleEtal1979}{SpawnIndex}.}
 
-\item{beta}{Numeric.}
+\item{beta}{Numeric. Regression slope for algae; from \code{\link{pars}}
+\insertCite{Schweigert2005}{SpawnIndex}.}
 
-\item{gamma}{Numeric.}
+\item{gamma}{Numeric. Regression exponent on number of egg layers; from
+\code{\link{pars}} \insertCite{Schweigert2005}{SpawnIndex}.}
 
-\item{delta}{Numeric.}
+\item{delta}{Numeric. Regression exponent on proportion of algae; from
+\code{\link{pars}} \insertCite{Schweigert2005}{SpawnIndex}.}
 
 \item{theta}{Numeric. Egg conversion factor (eggs to biomass); from
 \code{\link{CalcEggConversion}}.}
@@ -68,15 +76,16 @@ underLoc <- list(
            typeAlg="tSSTypeVegetation") )
 data(underWidthFac)
 data(pars)
+data(algaeCoefs)
 underSpawn <- CalcUnderSpawn(
   where = underLoc, a = areas, yrs = 2010:2015
 )
 underSpawn$SI
 }
 \references{
-\insertRef{}{SpawnIndex}
+\insertAllCited
 }
 \seealso{
 \code{\link{LoadAreaData}} \code{\link{CalcEggConversion}}
-  \code{\link{pars}}
+  \code{\link{pars}} \code{\link{algaeCoefs}}
 }
