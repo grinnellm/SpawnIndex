@@ -4,13 +4,13 @@
 \alias{CalcEggConversion}
 \title{Convert number of eggs to spawning biomass.}
 \usage{
-CalcEggConversion(fecundity = 2e+05, pFemale = 0.5)
+CalcEggConversion(omega = pars$conversion$omega, phi = pars$conversion$phi)
 }
 \arguments{
-\item{fecundity}{Numeric. The number of eggs per kilogram of female spawners
+\item{omega}{Numeric. The number of eggs per kilogram of female spawners
 \insertCite{Hay1985,HayBrett1988}{SpawnIndex}.}
 
-\item{pFemale}{Numeric. The proportion of spawners that are female.}
+\item{phi}{Numeric. The proportion of spawners that are female.}
 }
 \value{
 Numeric. The conversion factor for eggs to spawn index in tonnes
@@ -22,8 +22,12 @@ Calculate the conversion factor for Pacific Herring, to convert the number of
 eggs to the spawn index (i.e., biomass) in tonnes.
 }
 \examples{
+data(pars)
 CalcEggConversion()
 }
 \references{
 \insertAllCited{}
+}
+\seealso{
+\code{\link{pars}}
 }

@@ -4,7 +4,7 @@
 \alias{CalcMacroSpawn}
 \title{Calculate the Macrocystis spawn index.}
 \usage{
-CalcMacroSpawn(where, a, yrs, tSwath = 2, f)
+CalcMacroSpawn(where, a, yrs, tSwath = 2, theta)
 }
 \arguments{
 \item{where}{List. Location of the Pacific Herring Macrocystis spawn database
@@ -19,7 +19,7 @@ staring in 1951.}
 
 \item{tSwath}{Numeric. Transect swath (i.e., width) in metres.}
 
-\item{f}{Numeric. Egg conversion factor (eggs to biomass) from
+\item{theta}{Numeric. Egg conversion factor (eggs to biomass) from
 \code{\link{CalcEggConversion}}.}
 }
 \value{
@@ -51,7 +51,7 @@ macroLoc <- list(
 )
 macroSpawn <- CalcMacroSpawn(
   where = macroLoc, a = areas, yrs = 2010:2015,
-  f = CalcEggConversion()
+  theta = CalcEggConversion()
 )
 macroSpawn$SI
 }
@@ -60,4 +60,5 @@ macroSpawn$SI
 }
 \seealso{
 \code{\link{LoadAreaData}} \code{\link{CalcEggConversion}}
+  \code{\link{pars}}
 }

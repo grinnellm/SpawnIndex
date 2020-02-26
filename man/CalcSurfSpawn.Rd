@@ -10,7 +10,9 @@ CalcSurfSpawn(
   yrs,
   intYrs = yrs[yrs < 1979],
   rsYrs = intYrs[intYrs < 1951],
-  f
+  alpha = pars$surface$alpha,
+  beta = pars$surface$beta,
+  theta
 )
 }
 \arguments{
@@ -30,7 +32,13 @@ determine egg layers (default yrs[yrs < 1979]).}
 \item{rsYrs}{Numeric vector. Years where intensity needs to be re-scaled from
 5 to 9 categories (default intYrs[intYrs < 1951]).}
 
-\item{f}{Numeric. Egg conversion factor (eggs to biomass) from
+\item{alpha}{Numeric. Regression intercept
+\insertRef{SchweigertEtal1997}{SpawnIndex}.}
+
+\item{beta}{Numeric. Regression slope
+\insertRef{SchweigertEtal1997}{SpawnIndex}.}
+
+\item{theta}{Numeric. Egg conversion factor (eggs to biomass) from
 \code{\link{CalcEggConversion}}.}
 }
 \value{
@@ -63,13 +71,14 @@ surfLoc <- list(
 )
 surfSpawn <- CalcSurfSpawn(
   where = surfLoc, a = areas, yrs = 2010:2015,
-  f = CalcEggConversion()
+  theta = CalcEggConversion()
 )
 surfSpawn$SI
 }
 \references{
-\insertRef{SchweigertEtal1997}{SpawnIndex}
+
 }
 \seealso{
 \code{\link{LoadAreaData}} \code{\link{CalcEggConversion}}
+  \code{\link{pars}}
 }

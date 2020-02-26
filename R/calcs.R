@@ -3,22 +3,25 @@
 #' Calculate the conversion factor for Pacific Herring, to convert the number of
 #' eggs to the spawn index (i.e., biomass) in tonnes.
 #'
-#' @param fecundity Numeric. The number of eggs per kilogram of female spawners
-#'   \insertCite{Hay1985,HayBrett1988}{SpawnIndex}.
-#' @param pFemale Numeric. The proportion of spawners that are female.
+#' @param omega Numeric. The number of eggs per kilogram of female spawners
+#'   \insertCite{Hay1985,HayBrett1988}{SpawnIndex} from \code{\link{pars}}.
+#' @param phi Numeric. The proportion of spawners that are female from
+#'   \code{\link{pars}}.
 #' @return Numeric. The conversion factor for eggs to spawn index in tonnes
 #'   (i.e., biomass). Divide the number of eggs by the conversion factor to get
 #'   biomass.
 #' @references \insertAllCited{}
+#' @seealso \code{\link{pars}}
 #' @export
 #' @examples
+#' data(pars)
 #' CalcEggConversion()
-CalcEggConversion <- function(fecundity = 200000,
-                              pFemale = 0.5) {
+CalcEggConversion <- function(omega = pars$conversion$omega,
+                              phi = pars$conversion$phi) {
   # Eggs per tonne: eggs/kilogram female * proportion female * kilograms/tonne
-  eggsPerTonne <- fecundity * pFemale * 1000
+  theta <- omega * phi * 1000
   # Return the conversion factor
-  return(eggsPerTonne)
+  return(theta)
 } # End CalcEggConversion function
 
 #' Calculate spawning biomass from spawn-on-kelp (SOK) harvest.
@@ -27,28 +30,29 @@ CalcEggConversion <- function(fecundity = 200000,
 #' kilograms.
 #'
 #' @param SOK Numeric. Weight of spawn-on-kelp (SOK) harvest in kilograms.
-#' @param eggKelpProp Numeric. Proportion of SOK product that is eggs, not kelp
-#'   \insertCite{ShieldsEtal1985}{SpawnIndex}.
-#' @param eggBrineProp Numeric. Pproportion of SOK product that is eggs after
-#'   brining \insertCite{WhyteEnglar1977}{SpawnIndex}.
-#' @param eggWt Numeric. Average weight in kilograms of a fertilized egg
-#'   \insertCite{HayMiller1982}{SpawnIndex}.
-#' @param f Numeric. Egg conversion factor (eggs to biomass) from
+#' @param nu Numeric. Proportion of SOK product that is eggs, not kelp
+#'   \insertCite{ShieldsEtal1985}{SpawnIndex} from \code{\link{pars}}.
+#' @param upsilon Numeric. Pproportion of SOK product that is eggs after
+#'   brining \insertCite{WhyteEnglar1977}{SpawnIndex} from \code{\link{pars}}.
+#' @param M Numeric. Average weight in kilograms of a fertilized egg
+#'   \insertCite{HayMiller1982}{SpawnIndex} from \code{\link{pars}}.
+#' @param theta Numeric. Egg conversion factor (eggs to biomass) from
 #'   \code{\link{CalcEggConversion}}.
 #' @return Numeric. Spawning biomass in tonnes.
 #' @references \insertAllCited{}
-#' @seealso \code{\link{CalcEggConversion}}
+#' @seealso \code{\link{CalcEggConversion}} \code{\link{pars}}
 #' @export
 #' @examples
-#' CalcBiomassSOK(SOK = 100, f = CalcEggConversion())
+#' data(pars)
+#' CalcBiomassSOK(SOK = 100)
 CalcBiomassSOK <- function(SOK,
-                           eggKelpProp = 0.88,
-                           eggBrineProp = 1 / 1.13,
-                           eggWt = 2.38 * 10^-6,
-                           f) {
+                           nu = pars$SOK$nu,
+                           upsilon = pars$SOK$upsilon,
+                           M = pars$SOK$M,
+                           theta = CalcEggConversion() ) {
   # Spawnin biomass in tonnes: (kg SOK * proportion eggs * proportion eggs) /
   # (kg per egg * eggs per tonne )
-  SB <- (SOK * eggKelpProp * eggBrineProp) / (eggWt * f)
+  SB <- (SOK * eggKelpProp * eggBrineProp) / (eggWt * theta)
   # Return the spawning biomass
   return(SB)
 } # End CalcBiomassSOK
@@ -68,7 +72,11 @@ CalcBiomassSOK <- function(SOK,
 #'   determine egg layers (default yrs[yrs < 1979]).
 #' @param rsYrs Numeric vector. Years where intensity needs to be re-scaled from
 #'   5 to 9 categories (default intYrs[intYrs < 1951]).
-#' @param f Numeric. Egg conversion factor (eggs to biomass) from
+#' @param alpha Numeric. Regression intercept
+#'   \insertRef{SchweigertEtal1997}{SpawnIndex} from \code{\link{pars}}.
+#' @param beta Numeric. Regression slope
+#'   \insertRef{SchweigertEtal1997}{SpawnIndex} from \code{\link{pars}}.
+#' @param theta Numeric. Egg conversion factor (eggs to biomass) from
 #'   \code{\link{CalcEggConversion}}.
 #' @importFrom RODBC odbcConnectAccess sqlFetch odbcClose
 #' @importFrom dplyr select distinct rename left_join filter
@@ -81,9 +89,10 @@ CalcBiomassSOK <- function(SOK,
 #'   finest spatial scale at which we calculate the spawn index. Other
 #'   information in this tibble comes from `a`: Region, Statistical Area,
 #'   Section, and Location code.
-#' @references \insertRef{SchweigertEtal1997}{SpawnIndex}
+#' @references
 #' @note The 'spawn index' is a relative index of spawning biomass.
 #' @seealso \code{\link{LoadAreaData}} \code{\link{CalcEggConversion}}
+#'   \code{\link{pars}}
 #' @export
 #' @examples
 #' dbLoc <- system.file("extdata", package = "SpawnIndex")
@@ -92,6 +101,7 @@ CalcBiomassSOK <- function(SOK,
 #'   fns = list(sections = "Sections", locations = "Location")
 #' )
 #' areas <- LoadAreaData(reg = "WCVI", where = areaLoc)
+#' data(pars)
 #' surfLoc <- list(
 #'   loc = dbLoc, db = "HerringSpawn.mdb",
 #'   fns = list(
@@ -101,8 +111,7 @@ CalcBiomassSOK <- function(SOK,
 #'   )
 #' )
 #' surfSpawn <- CalcSurfSpawn(
-#'   where = surfLoc, a = areas, yrs = 2010:2015,
-#'   f = CalcEggConversion()
+#'   where = surfLoc, a = areas, yrs = 2010:2015
 #' )
 #' surfSpawn$SI
 CalcSurfSpawn <- function(where,
@@ -110,7 +119,9 @@ CalcSurfSpawn <- function(where,
                           yrs,
                           intYrs = yrs[yrs < 1979],
                           rsYrs = intYrs[intYrs < 1951],
-                          f) {
+                          alpha=pars$surface$alpha,
+                          beta=pars$surface$beta,
+                          theta=CalcEggConversion() ) {
   # Establish connection with access
   accessDB <- RODBC::odbcConnectAccess(access.file = file.path(
     where$loc,
@@ -233,7 +244,7 @@ CalcSurfSpawn <- function(where,
       # 1997). Yes, thousands: the report is wrong (J. Schweigert,
       # personal communication, 21 February 2017)
       # Sampe j: EggDens_j
-      EggDens = EggLyrs * 212.218 + 14.698
+      EggDens = EggLyrs * beta + alpha
     )
   # These are the 'original' manual updates that were in the Microsoft Access
   # database: some overwrite good data with no documented reason and have been
@@ -300,7 +311,7 @@ CalcSurfSpawn <- function(where,
       Width = ifelse(is.na(Width), WidthReg, Width),
       Width = ifelse(is.na(Width), WidthObs, Width),
       # Biomass in tonnes, based on Hay (1985), and Hay and Brett (1988)
-      SurfSI = EggDens * Length * Width * 1000 / f
+      SurfSI = EggDens * Length * Width * 1000 / theta
     ) %>%
     # Group to account for 'bed' level (want 'spawn' level)
     dplyr::group_by(
@@ -341,7 +352,7 @@ CalcSurfSpawn <- function(where,
 #' @param yrs Numeric vector. Years(s) to include in the calculations, usually
 #'   staring in 1951.
 #' @param tSwath Numeric. Transect swath (i.e., width) in metres.
-#' @param f Numeric. Egg conversion factor (eggs to biomass) from
+#' @param theta Numeric. Egg conversion factor (eggs to biomass) from
 #'   \code{\link{CalcEggConversion}}.
 #' @importFrom RODBC odbcConnectAccess sqlFetch odbcClose
 #' @importFrom dplyr select distinct rename left_join filter
@@ -357,6 +368,7 @@ CalcSurfSpawn <- function(where,
 #' @references \insertRef{HaegeleSchweigert1990}{SpawnIndex}
 #' @note The 'spawn index' is a relative index of spawning biomass.
 #' @seealso \code{\link{LoadAreaData}} \code{\link{CalcEggConversion}}
+#'   \code{\link{pars}}
 #' @export
 #' @examples
 #' dbLoc <- system.file("extdata", package = "SpawnIndex")
@@ -365,6 +377,7 @@ CalcSurfSpawn <- function(where,
 #'   fns = list(sections = "Sections", locations = "Location")
 #' )
 #' areas <- LoadAreaData(reg = "WCVI", where = areaLoc)
+#' data(pars)
 #' macroLoc <- list(
 #'   loc = file.path(dbLoc), db = "HerringSpawn.mdb",
 #'   fns = list(
@@ -373,11 +386,14 @@ CalcSurfSpawn <- function(where,
 #'   )
 #' )
 #' macroSpawn <- CalcMacroSpawn(
-#'   where = macroLoc, a = areas, yrs = 2010:2015,
-#'   f = CalcEggConversion()
+#'   where = macroLoc, a = areas, yrs = 2010:2015
 #' )
 #' macroSpawn$SI
-CalcMacroSpawn <- function(where, a, yrs, tSwath = 2, f) {
+CalcMacroSpawn <- function(where,
+  a,
+  yrs,
+  tSwath = 2,
+  theta=CalcEggConversion()) {
   # Establish connection with access
   accessDB <- RODBC::odbcConnectAccess(access.file = file.path(
     where$loc,
@@ -479,7 +495,7 @@ CalcMacroSpawn <- function(where, a, yrs, tSwath = 2, f) {
       EggDens = EggsPerPlant * Plants / Area,
       # Biomass in tonnes, based on Hay (1985), and Hay and Brett (1988)
       # Spawn s: MacroSI_s
-      MacroSI = EggDens * LengthMacro * Width * 1000 / f
+      MacroSI = EggDens * LengthMacro * Width * 1000 / theta
     ) %>%
     dplyr::rename(MacroLyrs = EggLyrs) %>%
     dplyr::ungroup()
@@ -511,7 +527,7 @@ CalcMacroSpawn <- function(where, a, yrs, tSwath = 2, f) {
 #'   staring in 1951.
 #' @param tau Tibble. Table of understory spawn width adjustment factors from
 #' \code{\link{underWidthFac}}.
-#' @param f Numeric. Egg conversion factor (eggs to biomass) from
+#' @param theta Numeric. Egg conversion factor (eggs to biomass) from
 #'   \code{\link{CalcEggConversion}}.
 #' @importFrom RODBC odbcConnectAccess sqlFetch odbcClose
 #' @importFrom dplyr select distinct rename left_join filter
@@ -527,6 +543,7 @@ CalcMacroSpawn <- function(where, a, yrs, tSwath = 2, f) {
 #' @references \insertRef{}{SpawnIndex}
 #' @note The 'spawn index' is a relative index of spawning biomass.
 #' @seealso \code{\link{LoadAreaData}} \code{\link{CalcEggConversion}}
+#'   \code{\link{pars}}
 #' @export
 #' @examples
 #' dbLoc <- system.file("extdata", package = "SpawnIndex")
@@ -541,12 +558,16 @@ CalcMacroSpawn <- function(where, a, yrs, tSwath = 2, f) {
 #'            stations="tSSStations", algae="tSSVegetation",
 #'            typeAlg="tSSTypeVegetation") )
 #' data(underWidthFac)
+#' data(pars)
 #' underSpawn <- CalcUnderSpawn(
-#'   where = underLoc, a = areas, yrs = 2010:2015,
-#'   f = CalcEggConversion()
+#'   where = underLoc, a = areas, yrs = 2010:2015
 #' )
 #' underSpawn$SI
-CalcUnderSpawn <- function( where, a, yrs, tau=underWidthFac, f ) {
+CalcUnderSpawn <- function( where,
+  a,
+  yrs,
+  tau=underWidthFac,
+  theta=CalcEggConversion() ) {
   # Establish connection with access
   accessDB <- RODBC::odbcConnectAccess( access.file=file.path(where$loc,
                                                               where$db) )
@@ -740,7 +761,7 @@ CalcUnderSpawn <- function( where, a, yrs, tau=underWidthFac, f ) {
       EggDens=EggDensL / WidthTot,
       # Biomass in tonnes, based on Hay (1985), and Hay and Brett (1988)
       # Spawn s: UnderSI_s
-      UnderSI=EggDens * LengthAlgae * WidthBar * 1000 / f ) %>%
+      UnderSI=EggDens * LengthAlgae * WidthBar * 1000 / theta ) %>%
     dplyr::left_join( y=eggLyrs, by=c("Year", "LocationCode", "SpawnNumber") )
   # Calculate understory SI by spawn number
   SI <- biomassSpawn %>%
