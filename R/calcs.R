@@ -352,6 +352,10 @@ CalcSurfSpawn <- function(where,
 #' @param yrs Numeric vector. Years(s) to include in the calculations, usually
 #'   staring in 1951.
 #' @param tSwath Numeric. Transect swath (i.e., width) in metres.
+#' @param beta Numeric.
+#' @param gamma Numeric.
+#' @param delta Numeric.
+#' @param epsilon Numeric.
 #' @param theta Numeric. Egg conversion factor (eggs to biomass) from
 #'   \code{\link{CalcEggConversion}}.
 #' @importFrom RODBC odbcConnectAccess sqlFetch odbcClose
@@ -393,6 +397,10 @@ CalcMacroSpawn <- function(where,
                            a,
                            yrs,
                            tSwath = 2,
+                           beta=pars$macrocystis$beta,
+                           gamma=pars$macrocystis$gamma,
+                           delta=pars$macrocystis$delta,
+                           epsilon=pars$macrocystis$epsilon,
                            theta=CalcEggConversion()) {
   # Establish connection with access
   accessDB <- RODBC::odbcConnectAccess(access.file = file.path(
@@ -526,7 +534,11 @@ CalcMacroSpawn <- function(where,
 #' @param yrs Numeric vector. Years(s) to include in the calculations, usually
 #'   staring in 1951.
 #' @param tau Tibble. Table of understory spawn width adjustment factors from
-#' \code{\link{underWidthFac}}.
+#'   \code{\link{underWidthFac}}.
+#' @param alpha Numeric.
+#' @param beta Numeric.
+#' @param gamma Numeric.
+#' @param delta Numeric.
 #' @param theta Numeric. Egg conversion factor (eggs to biomass) from
 #'   \code{\link{CalcEggConversion}}.
 #' @importFrom RODBC odbcConnectAccess sqlFetch odbcClose
@@ -567,6 +579,10 @@ CalcUnderSpawn <- function( where,
                             a,
                             yrs,
                             tau=underWidthFac,
+                            alpha=pars$understory$alpha,
+                            beta=pars$understory$beta,
+                            gamma=pars$under$gamma,
+                            delta=pars$understory$delta,
                             theta=CalcEggConversion() ) {
   # Establish connection with access
   accessDB <- RODBC::odbcConnectAccess( access.file=file.path(where$loc,
