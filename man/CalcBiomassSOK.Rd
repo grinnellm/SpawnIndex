@@ -15,16 +15,16 @@ CalcBiomassSOK(
 \arguments{
 \item{SOK}{Numeric. Weight of spawn-on-kelp (SOK) harvest in kilograms.}
 
-\item{nu}{Numeric. Proportion of SOK product that is eggs, not kelp
-\insertCite{ShieldsEtal1985}{SpawnIndex} from \code{\link{pars}}.}
+\item{nu}{Numeric. Proportion of SOK product that is eggs, not kelp; from
+\code{\link{pars}}.}
 
-\item{upsilon}{Numeric. Pproportion of SOK product that is eggs after
-brining \insertCite{WhyteEnglar1977}{SpawnIndex} from \code{\link{pars}}.}
+\item{upsilon}{Numeric. Proportion of SOK product that is eggs after brining;
+from \code{\link{pars}}.}
 
-\item{M}{Numeric. Average weight in kilograms of a fertilized egg
-\insertCite{HayMiller1982}{SpawnIndex} from \code{\link{pars}}.}
+\item{M}{Numeric. Average weight in kilograms of a fertilized egg; from
+\code{\link{pars}}.}
 
-\item{theta}{Numeric. Egg conversion factor (eggs to biomass) from
+\item{theta}{Numeric. Egg conversion factor (eggs to biomass); from
 \code{\link{CalcEggConversion}}.}
 }
 \value{
@@ -37,9 +37,6 @@ kilograms.
 \examples{
 data(pars)
 CalcBiomassSOK(SOK = 100)
-}
-\references{
-\insertAllCited{}
 }
 \seealso{
 \code{\link{CalcEggConversion}} \code{\link{pars}}

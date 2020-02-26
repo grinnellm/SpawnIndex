@@ -3,14 +3,13 @@
 #' Calculate the conversion factor for the number of Pacific Herring eggs to the
 #' spawn index (i.e., biomass) in tonnes.
 #'
-#' @param omega Numeric. The number of eggs per kilogram of female spawners
-#'   \insertCite{Hay1985,HayBrett1988}{SpawnIndex} from \code{\link{pars}}.
-#' @param phi Numeric. The proportion of spawners that are female from
+#' @param omega Numeric. The number of eggs per kilogram of female spawners;
+#'   from \code{\link{pars}}.
+#' @param phi Numeric. The proportion of spawners that are female; from
 #'   \code{\link{pars}}.
 #' @return Numeric. The conversion factor for eggs to spawn index in tonnes
 #'   (i.e., biomass). Divide the number of eggs by the conversion factor to get
 #'   biomass.
-#' @references \insertAllCited{}
 #' @seealso \code{\link{pars}}
 #' @export
 #' @examples
@@ -30,16 +29,15 @@ CalcEggConversion <- function(omega = pars$conversion$omega,
 #' kilograms.
 #'
 #' @param SOK Numeric. Weight of spawn-on-kelp (SOK) harvest in kilograms.
-#' @param nu Numeric. Proportion of SOK product that is eggs, not kelp
-#'   \insertCite{ShieldsEtal1985}{SpawnIndex} from \code{\link{pars}}.
-#' @param upsilon Numeric. Pproportion of SOK product that is eggs after
-#'   brining \insertCite{WhyteEnglar1977}{SpawnIndex} from \code{\link{pars}}.
-#' @param M Numeric. Average weight in kilograms of a fertilized egg
-#'   \insertCite{HayMiller1982}{SpawnIndex} from \code{\link{pars}}.
-#' @param theta Numeric. Egg conversion factor (eggs to biomass) from
+#' @param nu Numeric. Proportion of SOK product that is eggs, not kelp; from
+#'   \code{\link{pars}}.
+#' @param upsilon Numeric. Proportion of SOK product that is eggs after brining;
+#'   from \code{\link{pars}}.
+#' @param M Numeric. Average weight in kilograms of a fertilized egg; from
+#'   \code{\link{pars}}.
+#' @param theta Numeric. Egg conversion factor (eggs to biomass); from
 #'   \code{\link{CalcEggConversion}}.
 #' @return Numeric. Spawning biomass in tonnes.
-#' @references \insertAllCited{}
 #' @seealso \code{\link{CalcEggConversion}} \code{\link{pars}}
 #' @export
 #' @examples
@@ -76,7 +74,7 @@ CalcBiomassSOK <- function(SOK,
 #'   \insertRef{SchweigertEtal1997}{SpawnIndex} from \code{\link{pars}}.
 #' @param beta Numeric. Regression slope
 #'   \insertRef{SchweigertEtal1997}{SpawnIndex} from \code{\link{pars}}.
-#' @param theta Numeric. Egg conversion factor (eggs to biomass) from
+#' @param theta Numeric. Egg conversion factor (eggs to biomass); from
 #'   \code{\link{CalcEggConversion}}.
 #' @importFrom RODBC odbcConnectAccess sqlFetch odbcClose
 #' @importFrom dplyr select distinct rename left_join filter
@@ -356,7 +354,7 @@ CalcSurfSpawn <- function(where,
 #' @param gamma Numeric.
 #' @param delta Numeric.
 #' @param epsilon Numeric.
-#' @param theta Numeric. Egg conversion factor (eggs to biomass) from
+#' @param theta Numeric. Egg conversion factor (eggs to biomass); from
 #'   \code{\link{CalcEggConversion}}.
 #' @importFrom RODBC odbcConnectAccess sqlFetch odbcClose
 #' @importFrom dplyr select distinct rename left_join filter
@@ -539,7 +537,7 @@ CalcMacroSpawn <- function(where,
 #' @param beta Numeric.
 #' @param gamma Numeric.
 #' @param delta Numeric.
-#' @param theta Numeric. Egg conversion factor (eggs to biomass) from
+#' @param theta Numeric. Egg conversion factor (eggs to biomass); from
 #'   \code{\link{CalcEggConversion}}.
 #' @importFrom RODBC odbcConnectAccess sqlFetch odbcClose
 #' @importFrom dplyr select distinct rename left_join filter

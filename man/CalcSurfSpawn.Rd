@@ -38,7 +38,7 @@ determine egg layers (default yrs[yrs < 1979]).}
 \item{beta}{Numeric. Regression slope
 \insertRef{SchweigertEtal1997}{SpawnIndex} from \code{\link{pars}}.}
 
-\item{theta}{Numeric. Egg conversion factor (eggs to biomass) from
+\item{theta}{Numeric. Egg conversion factor (eggs to biomass); from
 \code{\link{CalcEggConversion}}.}
 }
 \value{

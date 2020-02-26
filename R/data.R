@@ -15,7 +15,7 @@
 #' data(underWidthFac)
 "underWidthFac"
 
-#' Parameters for spawn index calculations
+#' Parameters for spawn index calculations.
 #'
 #' Parameters for Pacific Herring spawn index calculations: converting eggs to
 #' biomass, spawn-on-kelp calculations, as well as surface, Macrocystis, and
@@ -28,9 +28,12 @@
 #'     \insertCite{Hay1985,HayBrett1988}{SpawnIndex}, and
 #'     phi is the proportion of spawners that are female.}
 #'   \item{SOK}{List with 3 items:
-#'     nu,
-#'     upsilon, and
-#'     M.}
+#'     nu is the proportion of SOK product that is eggs, not kelp
+#'   \insertCite{ShieldsEtal1985}{SpawnIndex}, upsilon is the proportion of SOK
+#'   product that is eggs after brining
+#'   \insertCite{WhyteEnglar1977}{SpawnIndex}, and M is the average weight in
+#'   kilograms of a fertilized egg
+#'   \insertCite{HayMiller1982}{SpawnIndex}.}
 #'   \item{surface}{List with 2 items:
 #'     alpha is the regression intercept, and
 #'     beta is the regression slope.}

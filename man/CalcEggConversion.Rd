@@ -7,10 +7,10 @@
 CalcEggConversion(omega = pars$conversion$omega, phi = pars$conversion$phi)
 }
 \arguments{
-\item{omega}{Numeric. The number of eggs per kilogram of female spawners
-\insertCite{Hay1985,HayBrett1988}{SpawnIndex} from \code{\link{pars}}.}
+\item{omega}{Numeric. The number of eggs per kilogram of female spawners;
+from \code{\link{pars}}.}
 
-\item{phi}{Numeric. The proportion of spawners that are female from
+\item{phi}{Numeric. The proportion of spawners that are female; from
 \code{\link{pars}}.}
 }
 \value{
@@ -25,9 +25,6 @@ spawn index (i.e., biomass) in tonnes.
 \examples{
 data(pars)
 CalcEggConversion()
-}
-\references{
-\insertAllCited{}
 }
 \seealso{
 \code{\link{pars}}

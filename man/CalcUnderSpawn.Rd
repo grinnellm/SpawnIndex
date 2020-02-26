@@ -38,7 +38,7 @@ staring in 1951.}
 
 \item{delta}{Numeric.}
 
-\item{theta}{Numeric. Egg conversion factor (eggs to biomass) from
+\item{theta}{Numeric. Egg conversion factor (eggs to biomass); from
 \code{\link{CalcEggConversion}}.}
 }
 \value{
