@@ -4,7 +4,17 @@
 \alias{CalcUnderSpawn}
 \title{Calculate the understory spawn index.}
 \usage{
-CalcUnderSpawn(where, a, yrs, tau = underWidthFac, theta = CalcEggConversion())
+CalcUnderSpawn(
+  where,
+  a,
+  yrs,
+  tau = underWidthFac,
+  alpha = pars$understory$alpha,
+  beta = pars$understory$beta,
+  gamma = pars$under$gamma,
+  delta = pars$understory$delta,
+  theta = CalcEggConversion()
+)
 }
 \arguments{
 \item{where}{List. Location of the Pacific Herring understory spawn database
@@ -19,6 +29,14 @@ staring in 1951.}
 
 \item{tau}{Tibble. Table of understory spawn width adjustment factors from
 \code{\link{underWidthFac}}.}
+
+\item{alpha}{Numeric.}
+
+\item{beta}{Numeric.}
+
+\item{gamma}{Numeric.}
+
+\item{delta}{Numeric.}
 
 \item{theta}{Numeric. Egg conversion factor (eggs to biomass) from
 \code{\link{CalcEggConversion}}.}

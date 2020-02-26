@@ -19,8 +19,8 @@ Numeric. The conversion factor for eggs to spawn index in tonnes
   biomass.
 }
 \description{
-Calculate the conversion factor for Pacific Herring, to convert the number of
-eggs to the spawn index (i.e., biomass) in tonnes.
+Calculate the conversion factor for the number of Pacific Herring eggs to the
+spawn index (i.e., biomass) in tonnes.
 }
 \examples{
 data(pars)

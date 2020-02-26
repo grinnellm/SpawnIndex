@@ -4,7 +4,17 @@
 \alias{CalcMacroSpawn}
 \title{Calculate the Macrocystis spawn index.}
 \usage{
-CalcMacroSpawn(where, a, yrs, tSwath = 2, theta = CalcEggConversion())
+CalcMacroSpawn(
+  where,
+  a,
+  yrs,
+  tSwath = 2,
+  beta = pars$macrocystis$beta,
+  gamma = pars$macrocystis$gamma,
+  delta = pars$macrocystis$delta,
+  epsilon = pars$macrocystis$epsilon,
+  theta = CalcEggConversion()
+)
 }
 \arguments{
 \item{where}{List. Location of the Pacific Herring Macrocystis spawn database
@@ -18,6 +28,14 @@ spawn survey observations to inlude in calculations. Returned from
 staring in 1951.}
 
 \item{tSwath}{Numeric. Transect swath (i.e., width) in metres.}
+
+\item{beta}{Numeric.}
+
+\item{gamma}{Numeric.}
+
+\item{delta}{Numeric.}
+
+\item{epsilon}{Numeric.}
 
 \item{theta}{Numeric. Egg conversion factor (eggs to biomass) from
 \code{\link{CalcEggConversion}}.}
