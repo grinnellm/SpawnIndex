@@ -4,7 +4,7 @@
 \alias{CalcUnderSpawn}
 \title{Calculate the understory spawn index.}
 \usage{
-CalcUnderSpawn(where, a, yrs, tau = underWidthFac, theta)
+CalcUnderSpawn(where, a, yrs, tau = underWidthFac, theta = CalcEggConversion())
 }
 \arguments{
 \item{where}{List. Location of the Pacific Herring understory spawn database
@@ -49,9 +49,9 @@ underLoc <- list(
            stations="tSSStations", algae="tSSVegetation",
            typeAlg="tSSTypeVegetation") )
 data(underWidthFac)
+data(pars)
 underSpawn <- CalcUnderSpawn(
-  where = underLoc, a = areas, yrs = 2010:2015,
-  theta = CalcEggConversion()
+  where = underLoc, a = areas, yrs = 2010:2015
 )
 underSpawn$SI
 }

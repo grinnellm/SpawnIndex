@@ -48,8 +48,9 @@
 #' @docType data
 #' @references \insertAllCited{}
 #' @usage data(pars)
-#' @seealso \code{\link{CalcEggConversion}} \code{\link{CalcSurfSpawn}}
-#' \code{\link{CalcMacroSpawn}} \code{\link{CalcUnderSpawn}}
+#' @seealso \code{\link{CalcEggConversion}} \code{\link{CalcBiomassSOK}}
+#'   \code{\link{CalcSurfSpawn}} \code{\link{CalcMacroSpawn}}
+#'   \code{\link{CalcUnderSpawn}}
 #' @examples
 #' data(pars)
 "pars"

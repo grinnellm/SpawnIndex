@@ -12,7 +12,7 @@ CalcSurfSpawn(
   rsYrs = intYrs[intYrs < 1951],
   alpha = pars$surface$alpha,
   beta = pars$surface$beta,
-  theta
+  theta = CalcEggConversion()
 )
 }
 \arguments{
@@ -33,10 +33,10 @@ determine egg layers (default yrs[yrs < 1979]).}
 5 to 9 categories (default intYrs[intYrs < 1951]).}
 
 \item{alpha}{Numeric. Regression intercept
-\insertRef{SchweigertEtal1997}{SpawnIndex}.}
+\insertRef{SchweigertEtal1997}{SpawnIndex} from \code{\link{pars}}.}
 
 \item{beta}{Numeric. Regression slope
-\insertRef{SchweigertEtal1997}{SpawnIndex}.}
+\insertRef{SchweigertEtal1997}{SpawnIndex} from \code{\link{pars}}.}
 
 \item{theta}{Numeric. Egg conversion factor (eggs to biomass) from
 \code{\link{CalcEggConversion}}.}
@@ -61,6 +61,7 @@ areaLoc <- list(
   fns = list(sections = "Sections", locations = "Location")
 )
 areas <- LoadAreaData(reg = "WCVI", where = areaLoc)
+data(pars)
 surfLoc <- list(
   loc = dbLoc, db = "HerringSpawn.mdb",
   fns = list(
@@ -70,8 +71,7 @@ surfLoc <- list(
   )
 )
 surfSpawn <- CalcSurfSpawn(
-  where = surfLoc, a = areas, yrs = 2010:2015,
-  theta = CalcEggConversion()
+  where = surfLoc, a = areas, yrs = 2010:2015
 )
 surfSpawn$SI
 }

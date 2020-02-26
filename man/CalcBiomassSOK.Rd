@@ -9,20 +9,20 @@ CalcBiomassSOK(
   nu = pars$SOK$nu,
   upsilon = pars$SOK$upsilon,
   M = pars$SOK$M,
-  theta
+  theta = CalcEggConversion()
 )
 }
 \arguments{
 \item{SOK}{Numeric. Weight of spawn-on-kelp (SOK) harvest in kilograms.}
 
 \item{nu}{Numeric. Proportion of SOK product that is eggs, not kelp
-\insertCite{ShieldsEtal1985}{SpawnIndex}.}
+\insertCite{ShieldsEtal1985}{SpawnIndex} from \code{\link{pars}}.}
 
 \item{upsilon}{Numeric. Pproportion of SOK product that is eggs after
-brining \insertCite{WhyteEnglar1977}{SpawnIndex}.}
+brining \insertCite{WhyteEnglar1977}{SpawnIndex} from \code{\link{pars}}.}
 
 \item{M}{Numeric. Average weight in kilograms of a fertilized egg
-\insertCite{HayMiller1982}{SpawnIndex}.}
+\insertCite{HayMiller1982}{SpawnIndex} from \code{\link{pars}}.}
 
 \item{theta}{Numeric. Egg conversion factor (eggs to biomass) from
 \code{\link{CalcEggConversion}}.}
@@ -35,7 +35,8 @@ Calculate spawning biomass in tonnes from spawn-on-kelp (SOK) harvest in
 kilograms.
 }
 \examples{
-CalcBiomassSOK(SOK = 100, theta = CalcEggConversion())
+data(pars)
+CalcBiomassSOK(SOK = 100)
 }
 \references{
 \insertAllCited{}

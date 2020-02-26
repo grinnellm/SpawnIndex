@@ -15,8 +15,8 @@
     upsilon, and
     M.}
   \item{surface}{List with 2 items:
-    alpha, and
-    beta.}
+    alpha is the regression intercept, and
+    beta is the regression slope.}
   \item{macrocystis}{List with 4 items:
     beta,
     gamma,

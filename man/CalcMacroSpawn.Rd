@@ -4,7 +4,7 @@
 \alias{CalcMacroSpawn}
 \title{Calculate the Macrocystis spawn index.}
 \usage{
-CalcMacroSpawn(where, a, yrs, tSwath = 2, theta)
+CalcMacroSpawn(where, a, yrs, tSwath = 2, theta = CalcEggConversion())
 }
 \arguments{
 \item{where}{List. Location of the Pacific Herring Macrocystis spawn database
@@ -42,6 +42,7 @@ areaLoc <- list(
   fns = list(sections = "Sections", locations = "Location")
 )
 areas <- LoadAreaData(reg = "WCVI", where = areaLoc)
+data(pars)
 macroLoc <- list(
   loc = file.path(dbLoc), db = "HerringSpawn.mdb",
   fns = list(
@@ -50,8 +51,7 @@ macroLoc <- list(
   )
 )
 macroSpawn <- CalcMacroSpawn(
-  where = macroLoc, a = areas, yrs = 2010:2015,
-  theta = CalcEggConversion()
+  where = macroLoc, a = areas, yrs = 2010:2015
 )
 macroSpawn$SI
 }
