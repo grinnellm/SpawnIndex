@@ -108,6 +108,9 @@
 #' @docType data
 #' @seealso \code{\link{LoadAreaData}} \code{\link{CalcSurfSpawn}}
 #'   \code{\link{CalcMacroSpawn}} \code{\link{CalcUnderSpawn}}
+#' @note This is a 32-bit MS Access database, and it requires 32-bit R to access
+#'   the data. In addition, MS Windows is required to access the data using the
+#'   RODBC package.
 #'
 system.file("extdata", "HerringSpawn.mdb",
   package = "SpawnIndex",
