@@ -70,10 +70,13 @@ areaLoc <- list(
 )
 areas <- LoadAreaData(reg = "WCVI", where = areaLoc)
 underLoc <- list(
-  loc=file.path(dbLoc), db="HerringSpawn.mdb",
-  fns=list(allSpawn="tSSAllspawn", algTrans="tSSVegTrans",
-           stations="tSSStations", algae="tSSVegetation",
-           typeAlg="tSSTypeVegetation") )
+  loc = file.path(dbLoc), db = "HerringSpawn.mdb",
+  fns = list(
+    allSpawn = "tSSAllspawn", algTrans = "tSSVegTrans",
+    stations = "tSSStations", algae = "tSSVegetation",
+    typeAlg = "tSSTypeVegetation"
+  )
+)
 data(underWidthFac)
 data(pars)
 data(algaeCoefs)

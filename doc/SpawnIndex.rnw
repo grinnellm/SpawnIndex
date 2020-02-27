@@ -117,27 +117,28 @@ Bien que nous transformions les données du relevé de la densité des œufs en 
 % R set up
 <<init, warning=FALSE, echo=FALSE, message=FALSE>>=
 # Load packages
-require( tidyverse )
-require( bindrcpp )
-require( scales )
-require( viridis )
-require( kableExtra )
-require( mapproj )
-require( ggrepel )
-require( SpawnIndex )
+require(tidyverse)
+require(bindrcpp)
+require(scales)
+require(viridis)
+require(kableExtra)
+require(mapproj)
+require(ggrepel)
+require(SpawnIndex)
 # Change default ggplot theme to 'black and white'
-theme_set( theme_bw() )
+theme_set(theme_bw())
 # Modify default theme
 myTheme <- theme(
-  legend.box.background=element_rect(fill=alpha("white", 0.7)),
-  legend.box.margin=margin(1, 1, 1, 1, "mm"),
-  legend.key=element_blank(),
-  legend.margin=margin(),
-  legend.text.align=1,
-  panel.grid.major=element_line(colour="darkgrey", size=0.2),
-  panel.grid.minor=element_line(colour="darkgrey", size=0.1),
-  legend.background=element_rect(fill="transparent"),
-  plot.margin=unit(c(0.1, 0.6, 0.1, 0.1), "lines") )
+  legend.box.background = element_rect(fill = alpha("white", 0.7)),
+  legend.box.margin = margin(1, 1, 1, 1, "mm"),
+  legend.key = element_blank(),
+  legend.margin = margin(),
+  legend.text.align = 1,
+  panel.grid.major = element_line(colour = "darkgrey", size = 0.2),
+  panel.grid.minor = element_line(colour = "darkgrey", size = 0.1),
+  legend.background = element_rect(fill = "transparent"),
+  plot.margin = unit(c(0.1, 0.6, 0.1, 0.1), "lines")
+)
 # Knitr options
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -152,38 +153,39 @@ knitr::opts_chunk$set(
   cache.comments = FALSE,
   dev = "png",
   dpi = 600,
-  fig.align = "center" )
+  fig.align = "center"
+)
 # Knitr table options
-options( knitr.kable.NA='' )
+options(knitr.kable.NA = "")
 # Create folder for figures
-if( !"knitr-figs" %in% list.files() ) dir.create( "knitr-figs" )
+if (!"knitr-figs" %in% list.files()) dir.create("knitr-figs")
 @
 
 <<maps, echo=FALSE>>=
 # Region to consider
 rName <- "SoG"
 # Location of the saved R image (SoG data summary)
-locImage <- file.path( "..", "..", "DataSummaries", rName )
+locImage <- file.path("..", "..", "DataSummaries", rName)
 # Load a saved workspace
-load( file=file.path(locImage, paste("Image.", rName, ".RData", sep="")) )
+load(file = file.path(locImage, paste("Image.", rName, ".RData", sep = "")))
 # Region name
 regNameLong <- regions %>%
-  filter( Region==regName ) %>%
-  select( RegionName )%>%
-  pull( )
+  filter(Region == regName) %>%
+  select(RegionName) %>%
+  pull()
 # All region names
 allRegions <- regions %>%
-  mutate( FullName=paste(RegionName, " (", Region, ")", sep="") )
+  mutate(FullName = paste(RegionName, " (", Region, ")", sep = ""))
 # Major region names
 majorRegions <- allRegions %>%
-  filter( Major ) %>%
-  select( FullName ) %>%
-  pull( )
+  filter(Major) %>%
+  select(FullName) %>%
+  pull()
 # Minor region names
 minorRegions <- allRegions %>%
-  filter( !Major ) %>%
-  select( FullName ) %>%
-  pull( )
+  filter(!Major) %>%
+  select(FullName) %>%
+  pull()
 # Stat Area to examine (character with 2 digits)
 zoomSA <- "14"
 # Section to examine (character with 3 digits)
@@ -196,73 +198,84 @@ bufSec <- 1000
 yrIndex <- 2019
 # Calculate spawn summary in current year by location code
 spawnByLocXY <- spawnRaw %>%
-  filter( Year == yrIndex, StatArea == zoomSA, Section == zoomSec ) %>%
-  group_by( LocationCode, LocationName ) %>%
-  summarise( TotalSI=SumNA(c(MacroSI, SurfSI, UnderSI)),
-    Eastings=unique(Eastings), Northings=unique(Northings) ) %>%
-  ungroup( ) %>%
-  arrange( TotalSI )
+  filter(Year == yrIndex, StatArea == zoomSA, Section == zoomSec) %>%
+  group_by(LocationCode, LocationName) %>%
+  summarise(
+    TotalSI = SumNA(c(MacroSI, SurfSI, UnderSI)),
+    Eastings = unique(Eastings), Northings = unique(Northings)
+  ) %>%
+  ungroup() %>%
+  arrange(TotalSI)
 # Coordinates for Statistical Area map
 extSA <- shapes$saDF %>%
-  filter( id==zoomSA ) %>%
-  group_by( id ) %>%
-  summarise( xmin=min(Eastings)-bufSA, xmax=max(Eastings)+bufSA,
-    ymin=min(Northings)-bufSA, ymax=max(Northings)+bufSA ) %>%
-  ungroup( )
+  filter(id == zoomSA) %>%
+  group_by(id) %>%
+  summarise(
+    xmin = min(Eastings) - bufSA, xmax = max(Eastings) + bufSA,
+    ymin = min(Northings) - bufSA, ymax = max(Northings) + bufSA
+  ) %>%
+  ungroup()
 # Ratio for Statistica Area figure
 xyRatioSA <- (extSA$ymax - extSA$ymin) / (extSA$xmax - extSA$xmin)
 # Determine Sections in the Stat Area
 sectionsSA <- areas %>%
-  filter( StatArea==as.integer(zoomSA) ) %>%
-  select( Section ) %>%
-  distinct( ) %>%
-  mutate( Section=formatC(Section, flag="0", width=3) ) %>%
-  pull( Section )
+  filter(StatArea == as.integer(zoomSA)) %>%
+  select(Section) %>%
+  distinct() %>%
+  mutate(Section = formatC(Section, flag = "0", width = 3)) %>%
+  pull(Section)
 # Coordinates for Section 142
 extSec <- shapes$secDF %>%
-  filter( id==zoomSec ) %>%
-  group_by( id ) %>%
-  summarise( xmin=min(Eastings)-bufSec, xmax=max(Eastings)+bufSec,
-    ymin=min(Northings)-bufSec, ymax=max(Northings)+bufSec ) %>%
-  ungroup( )
+  filter(id == zoomSec) %>%
+  group_by(id) %>%
+  summarise(
+    xmin = min(Eastings) - bufSec, xmax = max(Eastings) + bufSec,
+    ymin = min(Northings) - bufSec, ymax = max(Northings) + bufSec
+  ) %>%
+  ungroup()
 # Ratio for Section figure
 xyRatioSec <- (extSec$ymax - extSec$ymin) / (extSec$xmax - extSec$xmin)
 # Create a base map for the region
-BaseMap <- ggplot( data=shapes$landCropDF, aes(x=Eastings, y=Northings) ) +
-  geom_polygon( data=shapes$landCropDF, aes(group=group), fill="darkgrey" ) +
-  geom_point( data=shapes$extDF, colour="transparent" ) +
-  coord_equal( ) +
-  labs( x=NULL, y=NULL ) +
-  scale_x_continuous( labels=function(x) comma(x/1000), expand=c(0, 0) ) +
-  scale_y_continuous( labels=function(x) comma(x/1000), expand=c(0, 0) ) +
+BaseMap <- ggplot(data = shapes$landCropDF, aes(x = Eastings, y = Northings)) +
+  geom_polygon(
+    data = shapes$landCropDF, aes(group = group),
+    fill = "darkgrey"
+  ) +
+  geom_point(data = shapes$extDF, colour = "transparent") +
+  coord_equal() +
+  labs(x = NULL, y = NULL) +
+  scale_x_continuous(labels = function(x) comma(x / 1000), expand = c(0, 0)) +
+  scale_y_continuous(labels = function(x) comma(x / 1000), expand = c(0, 0)) +
   myTheme +
-  theme_void( ) +
-  theme( panel.border=element_rect(colour="black", fill=NA, size=0.5) )
+  theme_void() +
+  theme(panel.border = element_rect(colour = "black", fill = NA, size = 0.5))
 @
 
 <<pars, echo=FALSE>>=
 # Vector of proportions
-prop <- seq( from=0, to=1, by=0.2 )
+prop <- seq(from = 0, to = 1, by = 0.2)
 # Vector of plant heights
-ht <- seq( from=2, to=14, by=2 )
+ht <- seq(from = 2, to = 14, by = 2)
 # Vector of number of stalks per plant
-stlks <- round( seq(from=1, to=23, length.out=4) )
+stlks <- round(seq(from = 1, to = 23, length.out = 4))
 # Load intensity data
-data( intensity )
+data(intensity)
 # Intensity and egg layers
 intensity <- intensity %>%
-  rename( f1969t1978=Category ) %>%
-  mutate( f1928t1968=c(1, NA, 2, NA, 3, NA, 4, NA, 5) ) %>%
-  select( f1928t1968, f1969t1978, Description, Layers ) %>%
-  arrange( Layers )
+  rename(f1969t1978 = Category) %>%
+  mutate(f1928t1968 = c(1, NA, 2, NA, 3, NA, 4, NA, 5)) %>%
+  select(f1928t1968, f1969t1978, Description, Layers) %>%
+  arrange(Layers)
 # Vector of egg layers
 lyrs <- intensity$Layers
 # Load algae coefficients
-data( algaeCoefs )
+data(algaeCoefs)
 # Algae coefficients
 algaeCoefs <- algaeCoefs %>%
-  select( AlgaeType, Coefficient ) %>%
-  arrange( AlgaeType )
+  select(AlgaeType, Coefficient) %>%
+  arrange(AlgaeType)
+# Load parameter values
+data(pars)
 @
 
 %%%% Front matter %%%%%
@@ -329,48 +342,79 @@ The terms `major' and `minor' describe relative differences in geographic and bi
 nMaps <- 3
 # Plot Section
 mapSec <- BaseMap +
-  geom_path( data=filter(shapes$secDF, id%in%zoomSec), aes(group=Section),
-    size=0.25, colour="black" ) +
-  coord_cartesian( xlim=c(extSec$xmin, extSec$xmax),
-    ylim=c(extSec$ymin, extSec$ymax), default=TRUE ) +
-  geom_point( data=spawnByLocXY, aes(colour=TotalSI), size=3, alpha=0.5 ) +
-  scale_colour_viridis( labels=comma ) +
-  labs( colour="Spawn\nindex (t)" ) +
-  theme( legend.justification=c(0, 0), legend.position=c(0.02, 0.02),
-    legend.background=element_rect(fill=alpha("white", 0.75), colour="black",
-                                   size=0.2),
-    panel.border=element_rect(colour="black", fill=NA, size=0.5),
-    legend.text=element_text(size=8), legend.title=element_text(size=8),
-    legend.margin=margin(c(4, 4, 4, 4)), legend.key.height=unit(0.3, "cm"),
-    legend.text.align=1, aspect.ratio=xyRatioSec ) +
-  ggsave( filename=file.path("knitr-figs", "MapSection.png"),
-          width=figWidth/nMaps, height=figWidth/nMaps*xyRatioSec, dpi=600 )
+  geom_path(
+    data = filter(shapes$secDF, id %in% zoomSec), aes(group = Section),
+    size = 0.25, colour = "black"
+  ) +
+  coord_cartesian(
+    xlim = c(extSec$xmin, extSec$xmax),
+    ylim = c(extSec$ymin, extSec$ymax), default = TRUE
+  ) +
+  geom_point(
+    data = spawnByLocXY, aes(colour = TotalSI), size = 3, alpha = 0.5
+  ) +
+  scale_colour_viridis(labels = comma) +
+  labs(colour = "Spawn\nindex (t)") +
+  theme(
+    legend.justification = c(0, 0), legend.position = c(0.02, 0.02),
+    legend.background = element_rect(
+      fill = alpha("white", 0.75), colour = "black", size = 0.2
+    ),
+    panel.border = element_rect(colour = "black", fill = NA, size = 0.5),
+    legend.text = element_text(size = 8), legend.title = element_text(size = 8),
+    legend.margin = margin(c(4, 4, 4, 4)), legend.key.height = unit(0.3, "cm"),
+    legend.text.align = 1, aspect.ratio = xyRatioSec
+  ) +
+  ggsave(
+    filename = file.path("knitr-figs", "MapSection.png"),
+    width = figWidth / nMaps, height = figWidth / nMaps * xyRatioSec, dpi = 600
+  )
 # Plot Statistical Area
 mapSA <- BaseMap +
-  geom_path( data=filter(shapes$secDF, id%in%sectionsSA), aes(group=Section),
-    size=0.25, colour="black" ) +
-  geom_path( data=filter(shapes$secDF, id==zoomSec), aes(group=Section),
-    size=0.75, colour="black" ) +
-  geom_label( data=filter(shapes$secCentDF, Section%in%sectionsSA),
-              alpha=0.75, aes(label=paste("Sec", Section, sep=" ")),
-              size=3 ) +
-  coord_cartesian( xlim=c(extSA$xmin, extSA$xmax),
-    ylim=c(extSA$ymin, extSA$ymax), default=TRUE ) +
-  theme( panel.border=element_rect(colour="black", fill=NA, size=0.5),
-    aspect.ratio=xyRatioSA ) +
-  ggsave( filename=file.path("knitr-figs", "MapStatArea.png"),
-          width=figWidth/nMaps, height=figWidth/nMaps*xyRatioSA, dpi=600 )
+  geom_path(
+    data = filter(shapes$secDF, id %in% sectionsSA), aes(group = Section),
+    size = 0.25, colour = "black"
+  ) +
+  geom_path(
+    data = filter(shapes$secDF, id == zoomSec), aes(group = Section),
+    size = 0.75, colour = "black"
+  ) +
+  geom_label(
+    data = filter(shapes$secCentDF, Section %in% sectionsSA),
+    alpha = 0.75, aes(label = paste("Sec", Section, sep = " ")),
+    size = 3
+  ) +
+  coord_cartesian(
+    xlim = c(extSA$xmin, extSA$xmax),
+    ylim = c(extSA$ymin, extSA$ymax), default = TRUE
+  ) +
+  theme(
+    panel.border = element_rect(colour = "black", fill = NA, size = 0.5),
+    aspect.ratio = xyRatioSA
+  ) +
+  ggsave(
+    filename = file.path("knitr-figs", "MapStatArea.png"),
+    width = figWidth / nMaps, height = figWidth / nMaps * xyRatioSA, dpi = 600
+  )
 # Plot SAR
 mapReg <- BaseMap +
-  geom_path( data=shapes$saDF, aes(group=StatArea), size=0.25,
-    colour="black" ) +
-  geom_path( data=filter(shapes$saDF, id==zoomSA), aes(group=StatArea),
-             size=0.75, colour="black" ) +
-  geom_label_repel( data=shapes$saCentDF, alpha=0.75,
-    aes(label=paste("SA", StatArea, sep=" ")), size=3 ) +
-  theme( panel.border=element_rect(colour="black", fill=NA, size=0.5) ) +
-  ggsave( filename=file.path("knitr-figs", "MapRegion.png"),
-          width=figWidth/nMaps, height=figWidth/nMaps/shapes$xyRatio, dpi=600 )
+  geom_path(
+    data = shapes$saDF, aes(group = StatArea), size = 0.25,
+    colour = "black"
+  ) +
+  geom_path(
+    data = filter(shapes$saDF, id == zoomSA), aes(group = StatArea),
+    size = 0.75, colour = "black"
+  ) +
+  geom_label_repel(
+    data = shapes$saCentDF, alpha = 0.75,
+    aes(label = paste("SA", StatArea, sep = " ")), size = 3
+  ) +
+  theme(panel.border = element_rect(colour = "black", fill = NA, size = 0.5)) +
+  ggsave(
+    filename = file.path("knitr-figs", "MapRegion.png"),
+    width = figWidth / nMaps, height = figWidth / nMaps / shapes$xyRatio, dpi = 600
+  )
 @
 
 \begin{figure}
@@ -399,27 +443,36 @@ mapReg <- BaseMap +
 
 <<BC, fig.width=figWidth*0.67, fig.height=figWidth/shapes$xyRatio*0.67, fig.lp="fig", echo=FALSE, fig.cap=figCap, fig.scap="Spatial boundaries for \\fishName{} stock assessment regions in British Columbia">>=
 # Caption
-figCap <- paste( "Spatial boundaries for \\fishName{} stock assessment regions (SARs) in British Columbia. There are ", Num2Word(length(majorRegions)), " major SARs: ", PasteNicely(majorRegions), ". There are ", Num2Word(length(minorRegions)), " minor SARs: ", PasteNicely(minorRegions), ". Units: kilometres (km).", sep="" )
+figCap <- paste("Spatial boundaries for \\fishName{} stock assessment regions (SARs) in British Columbia. There are ", Num2Word(length(majorRegions)), " major SARs: ", PasteNicely(majorRegions), ". There are ", Num2Word(length(minorRegions)), " minor SARs: ", PasteNicely(minorRegions), ". Units: kilometres (km).", sep = "")
 # Plot the BC coast and regions
-mapBC <- ggplot( data=shapes$landAllCropDF, aes(x=Eastings, y=Northings) ) +
-  geom_polygon( data=shapes$landAllCropDF, aes(group=group),
-    fill="darkgrey" ) +
-  geom_point( data=shapes$extAllDF, colour="transparent" ) +
-  geom_path( data=shapes$regAllDF, aes(group=Region), size=0.5,
-    colour="black" ) +
-  geom_label( data=shapes$regCentDF, alpha=0.5, aes(label=Region), size=3 ) +
-  annotate( geom="text", x=1050000, y=900000,
-    label="British\nColumbia,\nCanada", size=4 ) +
-  annotate( geom="text", x=700000, y=500000,
-            label="Northeast\nPacific\nOcean", size=4 ) +
-  coord_equal( ) +
-  labs( x="Eastings (km)", y="Northings (km)", caption=geoProj ) +
-  scale_x_continuous( labels=function(x) comma(x/1000), expand=c(0, 0) ) +
-  scale_y_continuous( labels=function(x) comma(x/1000), expand=c(0, 0) ) +
+mapBC <- ggplot(data = shapes$landAllCropDF, aes(x = Eastings, y = Northings)) +
+  geom_polygon(
+    data = shapes$landAllCropDF, aes(group = group),
+    fill = "darkgrey"
+  ) +
+  geom_point(data = shapes$extAllDF, colour = "transparent") +
+  geom_path(
+    data = shapes$regAllDF, aes(group = Region), size = 0.5, olour = "black"
+  ) +
+  geom_label(
+    data = shapes$regCentDF, alpha = 0.5, aes(label = Region), size = 3
+  ) +
+  annotate(
+    geom = "text", x = 1050000, y = 900000,
+    label = "British\nColumbia,\nCanada", size = 4
+  ) +
+  annotate(
+    geom = "text", x = 700000, y = 500000,
+    label = "Northeast\nPacific\nOcean", size = 4
+  ) +
+  coord_equal() +
+  labs(x = "Eastings (km)", y = "Northings (km)", caption = geoProj) +
+  scale_x_continuous(labels = function(x) comma(x / 1000), expand = c(0, 0)) +
+  scale_y_continuous(labels = function(x) comma(x / 1000), expand = c(0, 0)) +
   myTheme +
-  theme( panel.border=element_rect(colour="black", fill=NA, size=0.5) )
+  theme(panel.border = element_rect(colour = "black", fill = NA, size = 0.5))
 # Show the figure
-print( mapBC )
+print(mapBC)
 @
 
 We calculate the spawn index in four steps.
@@ -756,12 +809,16 @@ tabCap <- "Spawn intensity categories, description, and number of egg layers for
 tabSCap <- "Spawn intensity categories and number of egg layers for \\fishName{} surface spawn surveys"
 # Format the table
 kIntensity <- intensity %>%
-  arrange( Layers ) %>%
-  rename( `1928 to 1968`=f1928t1968, `1969 to 1978`=f1969t1978,
-    `Number of egg layers`=Layers) %>%
-  kable( caption=tabCap, caption.short=tabSCap, booktabs=TRUE, linesep="",
-    escape=FALSE ) %>%
-  add_header_above( header=c("Intensity category"=2, "", "") )
+  arrange(Layers) %>%
+  rename(
+    `1928 to 1968` = f1928t1968, `1969 to 1978` = f1969t1978,
+    `Number of egg layers` = Layers
+  ) %>%
+  kable(
+    caption = tabCap, caption.short = tabSCap, booktabs = TRUE, linesep = "",
+    escape = FALSE
+  ) %>%
+  add_header_above(header = c("Intensity category" = 2, "", ""))
 # Print the table
 kIntensity
 @
@@ -891,29 +948,34 @@ Note that we only calculate $\rho_{js}$ if $E_{js} > 0$.
 # Caption
 figCap <- paste("Egg density in thousands of eggs per square metre (m) as a function of number of egg layers for \\fishName{} surface spawn surveys (\\autoref{eqSurfDensJS}; \\citealt{SchweigertEtal1997}). Note that number of egg layers can exceed those shown in this figure; values shown are for demonstration only.")
 # Expand the values
-df <- expand.grid( Layers=lyrs )
+df <- expand.grid(Layers = lyrs)
 # Equation for surface egg density
-EggDensSurf <- function( EggLyrs ) {
+EggDensSurf <- function(EggLyrs) {
   # Calculate egg density
-  Density <- EggLyrs * 212.218 + 14.698
+  Density <- pars$surface$alpha + pars$surface$beta * EggLyrs
   # Return density
-  return( Density )
-}  # End EggDensSurf function
+  return(Density)
+} # End EggDensSurf function
 # Make a table of egg layers, proportion, and egg density
-dat <- as_tibble( df ) %>%
-  mutate( EggDens=EggDensSurf(EggLyrs=Layers) )
+dat <- as_tibble(df) %>%
+  mutate(EggDens = EggDensSurf(EggLyrs = Layers))
 # Figure
-EggDensSubPlot <- ggplot( data=dat,
-  mapping=aes(x=Layers, y=EggDens) ) +
-  geom_line( ) +
+EggDensSubPlot <- ggplot(
+  data = dat, mapping = aes(x = Layers, y = EggDens)
+) +
+  geom_line() +
   # geom_point( ) +
-  labs( x="Number of egg layers",
-    y=expression(paste("Egg density (eggs"%.%10^3%.%"m"^-2,")", sep="")) ) +
-  scale_y_continuous( labels=comma ) +
-  expand_limits( x=0, y=0 ) +
+  labs(
+    x = "Number of egg layers",
+    y = expression(paste("Egg density (eggs" %.% 10^3 %.% "m"^-2, ")",
+      sep = ""
+    ))
+  ) +
+  scale_y_continuous(labels = comma) +
+  expand_limits(x = 0, y = 0) +
   myTheme
 # Show the figure
-print( EggDensSubPlot )
+print(EggDensSubPlot)
 @
 
 \subsection{SPAWN OBSERVATIONS AND CALCULATIONS}
@@ -1084,37 +1146,46 @@ $B_s$ is in tonnes (\autoref{figFlow}, step \ref{mInd}).
 # Caption
 figCap <- paste("Number of eggs in thousands per Macrocystis plant as a function of number of egg layers on plants, plant height in metres (m), and number of stalks per plant for \\fishName{} Macrocystis spawn surveys (\\autoref{eqMacroEggsPerPlantS}; \\citealt{HaegeleSchweigert1990}). Note that number of egg layers, plant height, and number of stalks per plant can exceed those shown in this figure; values shown are for demonstration only.")
 # Expand the values
-df <- expand.grid( Layers=lyrs, PlantHeight=ht, Stalks=stlks )
+df <- expand.grid(Layers = lyrs, PlantHeight = ht, Stalks = stlks)
 # Equation for Macrocystis number of eggs per plant
-NumEggs <- function( EggLyrs, Height, StalksPerPlant ) {
+NumEggs <- function(EggLyrs, Height, StalksPerPlant) {
   # Calculate the number of eggs
   Number <- 0.073 * EggLyrs^0.673 * Height^0.932 * StalksPerPlant^0.703 * 1000
   # Return number
-  return( Number )
-}  # End NumEggs function
+  return(Number)
+} # End NumEggs function
 # Make a table of egg layers, proportion, coefficient, and egg density
-dat <- as_tibble( df ) %>%
-  mutate( Number=NumEggs(EggLyrs=Layers, Height=PlantHeight,
-    StalksPerPlant=Stalks),
-    Stalks=paste("Number of stalks per plant: ",
-      formatC(Stalks, width=2, flag="0"), sep="") )
+dat <- as_tibble(df) %>%
+  mutate(
+    Number = NumEggs(
+      EggLyrs = Layers, Height = PlantHeight, StalksPerPlant = Stalks
+    ),
+    Stalks = paste("Number of stalks per plant: ",
+      formatC(Stalks, width = 2, flag = "0"),
+      sep = ""
+    )
+  )
 # Figure
-NumEggPlot <- ggplot( data=dat,
-  mapping=aes(x=Layers, y=Number, group=PlantHeight) ) +
-  geom_line( mapping=aes(colour=PlantHeight) ) +
+NumEggPlot <- ggplot(
+  data = dat,
+  mapping = aes(x = Layers, y = Number, group = PlantHeight)
+) +
+  geom_line(mapping = aes(colour = PlantHeight)) +
   # geom_point( ) +
-  labs( x="Number of egg layers on plants",
-    y=expression(paste("Number of eggs per plant (eggs"%.%10^3%.%"plant"^-1,
-      ")", sep="")),
-    colour="Plant height (m)" ) +
-  scale_y_continuous( labels=comma ) +
-  scale_colour_viridis( ) +
-  facet_wrap( Stalks~., ncol=2) +
-  expand_limits( x=0, y=0 ) +
+  labs(
+    x = "Number of egg layers on plants",
+    y = expression(paste("Number of eggs per plant (eggs" %.% 10^3 %.%
+      "plant"^-1, ")", sep = "")),
+    colour = "Plant height (m)"
+  ) +
+  scale_y_continuous(labels = comma) +
+  scale_colour_viridis() +
+  facet_wrap(Stalks ~ ., ncol = 2) +
+  expand_limits(x = 0, y = 0) +
   myTheme +
-  theme( legend.position="top" )
+  theme(legend.position = "top")
 # Show the figure
-print( NumEggPlot )
+print(NumEggPlot)
 @
 
 \section{UNDERSTORY SPAWN CALCULATIONS}\label{secUnder}
@@ -1173,32 +1244,36 @@ $\rho^b_{qts}$ is substrate egg density in $\text{eggs} \cdot 10^3 \cdot \text{m
 # Caption
 figCap <- paste("Substrate egg density in thousands of eggs per square metre (m) as a function of number of egg layers on substrate and proportion of substrate covered in spawn for \\fishName{} underwater spawn surveys (\\autoref{eqUnderDensSubQTS}; \\citealt{HaegeleEtal1979}). Note that number of egg layers can exceed those shown in this figure; values shown are for demonstration only.")
 # Expand the values
-df <- expand.grid( Layers=lyrs, Proportion=prop )
+df <- expand.grid(Layers = lyrs, Proportion = prop)
 # Equation for understory egg density on substrate
-EggDensSub <- function( SubLyrs, SubProp ) {
+EggDensSub <- function(SubLyrs, SubProp) {
   # Calculate egg density
   Density <- 340 * SubLyrs * SubProp
   # Return density
-  return( Density )
-}  # End EggDensSub function
+  return(Density)
+} # End EggDensSub function
 # Make a table of egg layers, proportion, and egg density
-dat <- as_tibble( df ) %>%
-  mutate( EggDens=EggDensSub(SubLyrs=Layers, SubProp=Proportion) )
+dat <- as_tibble(df) %>%
+  mutate(EggDens = EggDensSub(SubLyrs = Layers, SubProp = Proportion))
 # Figure
-EggDensSubPlot <- ggplot( data=dat,
-  mapping=aes(x=Layers, y=EggDens, group=Proportion) ) +
-  geom_line( mapping=aes(colour=Proportion) ) +
-  labs( x="Number of egg layers on substrate",
-    y=expression(paste("Substrate egg density (eggs"%.%10^3%.%"m"^-2,
-      ")", sep="")),
-    colour="Proportion of substrate\ncovered in spawn") +
-  scale_y_continuous( labels=comma ) +
-  scale_colour_viridis( ) +
-  expand_limits( x=0, y=0 ) +
+EggDensSubPlot <- ggplot(
+  data = dat, mapping = aes(x = Layers, y = EggDens, group = Proportion)
+) +
+  geom_line(mapping = aes(colour = Proportion)) +
+  labs(
+    x = "Number of egg layers on substrate",
+    y = expression(paste("Substrate egg density (eggs" %.% 10^3 %.% "m"^-2,
+      ")", sep = ""
+    )),
+    colour = "Proportion of substrate\ncovered in spawn"
+  ) +
+  scale_y_continuous(labels = comma) +
+  scale_colour_viridis() +
+  expand_limits(x = 0, y = 0) +
   myTheme +
-  theme( legend.position="top" )
+  theme(legend.position = "top")
 # Show the figure
-print( EggDensSubPlot )
+print(EggDensSubPlot)
 @
 
 Although quadrats have only one substrate, they can have one or more algae types $v$.
@@ -1229,9 +1304,11 @@ tabCap <- "Algae (i.e., vegetation) types $v$ and coefficients $C$ for \\fishNam
 tabSCap <- "Algae types and coefficients for \\fishName{} understory spawn surveys"
 # Format the table
 kAlgaeCoefs <- algaeCoefs %>%
-  rename( `Algae type $v$`=AlgaeType, `Coefficient $C$`=Coefficient ) %>%
-  kable( caption=tabCap, caption.short=tabSCap, booktabs=TRUE, linesep="",
-    escape=FALSE )
+  rename(`Algae type $v$` = AlgaeType, `Coefficient $C$` = Coefficient) %>%
+  kable(
+    caption = tabCap, caption.short = tabSCap, booktabs = TRUE, linesep = "",
+    escape = FALSE
+  )
 # Print the table
 kAlgaeCoefs
 @
@@ -1240,37 +1317,48 @@ kAlgaeCoefs
 # Caption
 figCap <- paste("Algae egg density in thousands of eggs per square metre (m) as a function of number of egg layers on algae, proportion of substrate covered in algae, and algae coefficient (\\autoref{tab:AlgaeCoefs}) for \\fishName{} underwater spawn surveys (\\autoref{eqUnderDensAlgAQTS}; \\citealt{Schweigert2005}). Note that number of egg layers can exceed those shown in this figure; values shown are for demonstration only.")
 # Expand the values
-df <- expand.grid( Layers=lyrs, Proportion=prop,
-  Coefficient= unique( algaeCoefs$Coefficient ) )
+df <- expand.grid(
+  Layers = lyrs, Proportion = prop,
+  Coefficient = unique(algaeCoefs$Coefficient)
+)
 # Equation for understory egg density on algae
-EggDensAlg <- function( AlgLyrs, AlgProp, Coef ) {
+EggDensAlg <- function(AlgLyrs, AlgProp, Coef) {
   # Calculate egg density
   Density <- 600.567 * AlgLyrs^0.6355 * AlgProp^1.4130 * Coef
   # Return density
-  return( Density )
-}  # End EggDensAlg function
+  return(Density)
+} # End EggDensAlg function
 # Make a table of egg layers, proportion, coefficient, and egg density
-dat <- as_tibble( df ) %>%
-  arrange( Coefficient ) %>%
-  mutate( EggDens=EggDensAlg(AlgLyrs=Layers, AlgProp=Proportion,
-    Coef=Coefficient),
-    Coefficient=paste("Algae coefficient: ", format(Coefficient, digits=4),
-      sep="") )
+dat <- as_tibble(df) %>%
+  arrange(Coefficient) %>%
+  mutate(
+    EggDens = EggDensAlg(
+      AlgLyrs = Layers, AlgProp = Proportion,
+      Coef = Coefficient
+    ),
+    Coefficient = paste("Algae coefficient: ", format(Coefficient, digits = 4),
+      sep = ""
+    )
+  )
 # Figure
-EggDensAlgPlot <- ggplot( data=dat,
-  mapping=aes(x=Layers, y=EggDens, group=Proportion) ) +
-  geom_line( mapping=aes(colour=Proportion) ) +
-  labs( x="Number of egg layers on algae",
-    y=expression(paste("Algae egg density (eggs"%.%10^3%.%"m"^-2,")", sep="")),
-    colour="Proportion of substrate\ncovered in algae") +
-  scale_y_continuous( labels=comma ) +
-  scale_colour_viridis( ) +
-  facet_wrap( Coefficient~., ncol=2 ) +
-  expand_limits( x=0, y=0 ) +
+EggDensAlgPlot <- ggplot(
+  data = dat,
+  mapping = aes(x = Layers, y = EggDens, group = Proportion)
+) +
+  geom_line(mapping = aes(colour = Proportion)) +
+  labs(
+    x = "Number of egg layers on algae",
+    y = expression(paste("Algae egg density (eggs" %.% 10^3 %.% "m"^-2, ")", sep = "")),
+    colour = "Proportion of substrate\ncovered in algae"
+  ) +
+  scale_y_continuous(labels = comma) +
+  scale_colour_viridis() +
+  facet_wrap(Coefficient ~ ., ncol = 2) +
+  expand_limits(x = 0, y = 0) +
   myTheme +
-  theme( legend.position="top" )
+  theme(legend.position = "top")
 # Show the figure
-print( EggDensAlgPlot )
+print(EggDensAlgPlot)
 @
 
 The total understory egg density for quadrat $q$ in transect $t$ and spawn $s$ is
@@ -1494,7 +1582,7 @@ This document is meant to accompany the \textbf{R} package, which implements the
 The \textbf{R} package is documented to promote accessibility and transparency.
 Download and install the package as follows:
 <<load, echo=TRUE, results='hide'>>=
-devtools::install_github( repo="grinnellm/SpawnIndex" )
+devtools::install_github(repo = "grinnellm/SpawnIndex")
 @
 
 \section{ACKNOWLEDGEMENTS}
@@ -1595,17 +1683,19 @@ Instead of updating the database permanently, we adjust spawn widths in the \tex
 <<WidthFac>>=
 # Caption
 tabCap <- paste("Spawn width correction factors $\\tau_{ry}$ for \\fishName{} understory spawn surveys by stock assessment region (SAR, $r$) and year $y$.
-Legend: ", PasteNicely(c(majorRegions, minorRegions)), ".", sep="")
+Legend: ", PasteNicely(c(majorRegions, minorRegions)), ".", sep = "")
 # Short caption
 tabSCap <- "Spawn width correction factors for \\fishName{} understory spawn surveys"
 # Format the table
 kWidthFac <- adjWidthFacs %>%
-  mutate_if( is.double, funs(format(., nsmall=3)) ) %>%
-  mutate( Year=as.integer(Year) ) %>%
-  arrange( Year ) %>%
-  kable( caption=tabCap, caption.short=tabSCap, booktabs=TRUE, linesep="",
-    escape=FALSE, digits=c(0, 3, 3, 3, 3, 3, 3, 3) ) %>%
-  add_header_above( header=c("", "SAR"=7) )
+  mutate_if(is.double, funs(format(., nsmall = 3))) %>%
+  mutate(Year = as.integer(Year)) %>%
+  arrange(Year) %>%
+  kable(
+    caption = tabCap, caption.short = tabSCap, booktabs = TRUE, linesep = "",
+    escape = FALSE, digits = c(0, 3, 3, 3, 3, 3, 3, 3)
+  ) %>%
+  add_header_above(header = c("", "SAR" = 7))
 # Print the table
 kWidthFac
 @

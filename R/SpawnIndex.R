@@ -1,12 +1,12 @@
-#' SpawnIndex: A package to calculate the Pacific Herring (\emph{Clupea
-#' pallasii}) spawn index in British Columbia, Canada.
+#' SpawnIndex: A package to calculate the spawn index for Pacific Herring
+#' (\emph{Clupea pallasii}) in British Columbia, Canada.
 #'
-#' The SpawnIndex package provides parameters and methods to calculate the
-#' Pacific Herring (\emph{Clupea pallasii}) spawn index in British Columbia,
-#' Canada. Methods inluclude converting eggs to biomass, spawn-on-kelp
-#' calculations, as well as surface, Macrocystis, and understory spawn index
-#' calculations. Read the accompanying document for more details on spawn index
-#' calculations \insertCite{GrinnellEtal2020}{SpawnIndex}.
+#' The SpawnIndex package provides data, parameter values, and methods to
+#' calculate the spawn index for Pacific Herring (\emph{Clupea pallasii}) in
+#' British Columbia, Canada. Methods inluclude converting eggs to biomass,
+#' spawn-on-kelp calculations, as well as surface, Macrocystis, and understory
+#' spawn index calculations. Read the accompanying document for more details on
+#' spawn index calculations \insertCite{GrinnellEtal2020}{SpawnIndex}.
 #'
 #' @docType package
 #' @name SpawnIndex
