@@ -874,8 +874,8 @@ Legend: kilograms (kg), tonnes (t).}
 \toprule
 Name & Description & Value or unit & Reference \\
 \midrule
-$\omega$ & Female fecundity & $200\,000~\text{eggs} \cdot \text{kg}^{-1}$ & \cite{Hay1985, HayBrett1988} \\
-$\phi^f$ & Proportion female & 0.5 & \cite{Hay1985, HayBrett1988} \\
+$\omega$ & Female fecundity & \Sexpr{format(pars$conversion$omega, big.mark=",", scientific=FALSE)}$~\text{eggs} \cdot \text{kg}^{-1}$ & \cite{Hay1985, HayBrett1988} \\
+$\phi^f$ & Proportion female & \Sexpr{pars$conversion$phi} & \cite{Hay1985, HayBrett1988} \\
 $\theta$ & Egg conversion factor & $\text{eggs} \cdot 10^8 \cdot \text{t}^{-1}$ & \\
 \bottomrule
 \end{tabulary}
@@ -904,8 +904,8 @@ Name & Description & Value or unit & Reference \\
 $E^\prime$ & Number of egg layers & $> 0$ & \\
 $\phi^b$ & Proportion of substrate covered in eggs & $(0,1]$ & \\
 $E$ & Number of egg layers & $> 0$ & \\
-$\alpha$ & Regression intercept & $14.698~\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \cite{SchweigertEtal1997} \\
-$\beta$ & Regression slope & $212.218~\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \cite{SchweigertEtal1997} \\
+$\alpha$ & Regression intercept & \Sexpr{pars$surface$alpha}$~\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \cite{SchweigertEtal1997} \\
+$\beta$ & Regression slope & \Sexpr{pars$surface$beta}$~\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \cite{SchweigertEtal1997} \\
 $\rho$ & Egg density & $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \\[0.5ex]
 $\mean{\rho}$ & Mean egg density & $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ &  \\
 $L$ & Spawn length & m & \\
@@ -1028,10 +1028,10 @@ $L$ & Spawn length & m & \\
 $A$ & Area of spawn $s$ & $\text{m}^2$ & \\
 $P$ & Number of plants & $> 0$ & \\
 $\mean{\kappa}$ & Mean number of stalks per plant & $> 0$ & \\
-$\beta$ & Regression slope & $0.073~\text{eggs} \cdot 10^3 \cdot \text{plant}^{-1}$ & \cite{HaegeleSchweigert1990} \\
-$\gamma$ & Regression exponent on $\mean{E}$ & 0.673 & \cite{HaegeleSchweigert1990} \\
-$\delta$ & Regression exponent on $\mean{H}$ & 0.932 & \cite{HaegeleSchweigert1990} \\
-$\epsilon$ & Regression exponent on $\mean{\kappa}$ & 0.703 & \cite{HaegeleSchweigert1990} \\
+$\beta$ & Regression slope & \Sexpr{pars$macrocystis$beta}$~\text{eggs} \cdot 10^3 \cdot \text{plant}^{-1}$ & \cite{HaegeleSchweigert1990} \\
+$\gamma$ & Regression exponent on $\mean{E}$ & \Sexpr{pars$macrocystis$gamma} & \cite{HaegeleSchweigert1990} \\
+$\delta$ & Regression exponent on $\mean{H}$ & \Sexpr{pars$macrocystis$delta} & \cite{HaegeleSchweigert1990} \\
+$\epsilon$ & Regression exponent on $\mean{\kappa}$ & \Sexpr{pars$macrocystis$epsilon} & \cite{HaegeleSchweigert1990} \\
 $\mean{\psi}$ & Mean number of eggs per plant & $\text{eggs} \cdot 10^3 \cdot \text{plant}^{-1}$ & \\
 $\mean{\rho}$ & Mean egg density & $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \\
 $B$ & Macrocystis spawn index (i.e., biomass) & t & \\
@@ -1150,7 +1150,9 @@ df <- expand.grid(Layers = lyrs, PlantHeight = ht, Stalks = stlks)
 # Equation for Macrocystis number of eggs per plant
 NumEggs <- function(EggLyrs, Height, StalksPerPlant) {
   # Calculate the number of eggs
-  Number <- 0.073 * EggLyrs^0.673 * Height^0.932 * StalksPerPlant^0.703 * 1000
+  Number <- pars$macrocystis$beta * EggLyrs^pars$macrocystis$gamma *
+    Height^pars$macrocystis$delta * StalksPerPlant^pars$macrocystis$epsilon *
+    1000
   # Return number
   return(Number)
 } # End NumEggs function
@@ -1206,13 +1208,13 @@ Name & Description & Value or unit & Reference \\
 \midrule
 $E^b$ & Number of substrate egg layers & $> 0$ & \\
 $\phi^b$ & Proportion of substrate covered in eggs & $(0,1]$ & \\
-$\alpha$ & Regression slope for substrate & $340~\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \cite{HaegeleEtal1979} \\
+$\alpha$ & Regression slope for substrate & \Sexpr{pars$understory$alpha}$~\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \cite{HaegeleEtal1979} \\
 $\rho^b$ & Substrate egg density & $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \\
-$\beta$ & Regression slope for algae & $600.567~\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \cite{Schweigert2005} \\
+$\beta$ & Regression slope for algae & \Sexpr{pars$understory$beta}$~\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \cite{Schweigert2005} \\
 $E^v$ & Number of algae egg layers & $> 0$ & \\
-$\gamma$ & Regression exponent on $E^v$ & 0.6355 & \cite{Schweigert2005} \\
+$\gamma$ & Regression exponent on $E^v$ & \Sexpr{pars$understory$gamma} & \cite{Schweigert2005} \\
 $\phi^v$ & Proportion of algae covered in eggs & $(0,1]$ & \\
-$\delta$ & Regression exponent on $\phi^v$ & 1.4130 & \cite{Schweigert2005} \\
+$\delta$ & Regression exponent on $\phi^v$ & \Sexpr{pars$understory$delta} & \cite{Schweigert2005} \\
 $C$ & Algae coefficient & see \autoref{tab:AlgaeCoefs} & \\
 $\rho^v$ & Algae egg density & $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \\
 $\rho$ & Egg density & $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \\
@@ -1248,7 +1250,7 @@ df <- expand.grid(Layers = lyrs, Proportion = prop)
 # Equation for understory egg density on substrate
 EggDensSub <- function(SubLyrs, SubProp) {
   # Calculate egg density
-  Density <- 340 * SubLyrs * SubProp
+  Density <- pars$understory$alpha * SubLyrs * SubProp
   # Return density
   return(Density)
 } # End EggDensSub function
@@ -1324,7 +1326,8 @@ df <- expand.grid(
 # Equation for understory egg density on algae
 EggDensAlg <- function(AlgLyrs, AlgProp, Coef) {
   # Calculate egg density
-  Density <- 600.567 * AlgLyrs^0.6355 * AlgProp^1.4130 * Coef
+  Density <- pars$understory$beta * AlgLyrs^pars$understory$gamma *
+    AlgProp^pars$understory$delta * Coef
   # Return density
   return(Density)
 } # End EggDensAlg function
@@ -1502,9 +1505,9 @@ Legend: kilograms (kg), tonnes (t).}
 Name & Description & Value or unit & Reference \\
 \midrule
 $H$ & Weight of SOK harvest & kg & \\
-$\nu$ & Proportion of SOK product that is eggs, not kelp & 0.88 & \cite{ShieldsEtal1985} \\
-$\upsilon$ & Proportion of SOK product that is eggs after brining & $\frac{1}{1.13}$ & \cite{WhyteEnglar1977} \\
-$M$ & Average mass of a fertilized egg & $2.38 \cdot 10^{-6}\,\text{kg}$ & \cite{HayMiller1982} \\
+$\nu$ & Proportion of SOK product that is eggs, not kelp & \Sexpr{pars$SOK$nu} & \cite{ShieldsEtal1985} \\
+$\upsilon$ & Proportion of SOK product that is eggs after brining & \Sexpr{round(pars$SOK$upsilon, digits=4)} & \cite{WhyteEnglar1977} \\
+$M$ & Average mass of a fertilized egg & \Sexpr{pars$SOK$M}$\,\text{kg}$ & \cite{HayMiller1982} \\
 $B$ & Spawning biomass & t & \\
 \bottomrule
 \end{tabulary}
