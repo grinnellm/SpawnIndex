@@ -7,15 +7,16 @@
 \format{Tibble with 9 rows and 3 columns: intensity category, description,
   and number of egg layers.}
 \usage{
-data(intensity)
+intensity
 }
 \description{
 Spawn intensity categories and number of egg layers for Pacific Herring
 surface spawn surveys
-\insertCite{HayKronlund1987,SchweigertStoker1988}{SpawnIndex}.
+\insertCite{HayKronlund1987,SchweigertStocker1988}{SpawnIndex}.
 }
 \examples{
 data(intensity)
+intensity
 }
 \references{
 \insertAllCited{}

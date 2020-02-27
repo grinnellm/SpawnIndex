@@ -7,7 +7,7 @@
 \format{Tibble with 8 rows and 3 columns: algae type, algae code, and
   coefficient.}
 \usage{
-data(algaeCoefs)
+algaeCoefs
 }
 \description{
 Algae types and coefficients for Pacific Herring understory spawn surveys
@@ -16,6 +16,7 @@ effect of algae morphology on Pacific Herring egg density.
 }
 \examples{
 data(algaeCoefs)
+algaeCoefs
 }
 \references{
 \insertAllCited{}

@@ -37,7 +37,7 @@
   \insertCite{Schweigert2005}{SpawnIndex}, and \emph{delta} is the regression
   exponent on proportion of algae \insertCite{Schweigert2005}{SpawnIndex}.} }}
 \usage{
-data(pars)
+pars
 }
 \description{
 Parameters for Pacific Herring spawn index calculations: converting eggs to
@@ -46,6 +46,7 @@ understory spawn index calculations.
 }
 \examples{
 data(pars)
+pars
 }
 \references{
 \insertAllCited{}

@@ -9,10 +9,10 @@
 #'   the observed width by the corresponding correction fator for the affected
 #'   years.
 #' @docType data
-#' @usage data(underWidthFac)
 #' @seealso \code{\link{CalcUnderSpawn}}
 #' @examples
 #' data(underWidthFac)
+#' underWidthFac
 "underWidthFac"
 
 #' Parameters for spawn index calculations.
@@ -56,29 +56,29 @@
 #' @docType data
 #' @importFrom Rdpack reprompt
 #' @references \insertAllCited{}
-#' @usage data(pars)
 #' @seealso \code{\link{CalcEggConversion}} \code{\link{CalcBiomassSOK}}
 #'   \code{\link{CalcSurfSpawn}} \code{\link{CalcMacroSpawn}}
 #'   \code{\link{CalcUnderSpawn}}
 #' @examples
 #' data(pars)
+#' pars
 "pars"
 
 #' Spawn intensity categories and number of egg layers.
 #'
 #' Spawn intensity categories and number of egg layers for Pacific Herring
 #' surface spawn surveys
-#' \insertCite{HayKronlund1987,SchweigertStoker1988}{SpawnIndex}.
+#' \insertCite{HayKronlund1987,SchweigertStocker1988}{SpawnIndex}.
 #'
 #' @format Tibble with 9 rows and 3 columns: intensity category, description,
 #'   and number of egg layers.
 #' @docType data
 #' @importFrom Rdpack reprompt
 #' @references \insertAllCited{}
-#' @usage data(intensity)
 #' @seealso \code{\link{CalcSurfSpawn}}
 #' @examples
 #' data(intensity)
+#' intensity
 "intensity"
 
 #' Algae types and coefficients.
@@ -92,10 +92,10 @@
 #' @docType data
 #' @importFrom Rdpack reprompt
 #' @references \insertAllCited{}
-#' @usage data(algaeCoefs)
 #' @seealso \code{\link{CalcUnderSpawn}}
 #' @examples
 #' data(algaeCoefs)
+#' algaeCoefs
 "algaeCoefs"
 
 #' Example Pacific Herring spawn survey database.
