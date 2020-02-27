@@ -56,7 +56,8 @@ underSpawn <- CalcUnderSpawn(
 underSpawn$SI
 }
 \references{
-\insertRef{}{SpawnIndex}
+\insertRef{HaegeleEtal1979}{SpawnIndex}
+  \insertRef{Schweigert2005}{SpawnIndex}
 }
 \seealso{
 \code{\link{LoadAreaData}} \code{\link{CalcEggConversion}}

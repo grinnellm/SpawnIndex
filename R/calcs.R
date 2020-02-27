@@ -510,7 +510,7 @@ CalcMacroSpawn <- function(where, a, yrs, tSwath = 2, f) {
 #' @param yrs Numeric vector. Years(s) to include in the calculations, usually
 #'   staring in 1951.
 #' @param tau Tibble. Table of understory spawn width adjustment factors from
-#' \code{\link{underWidthFac}}.
+#'   \code{\link{underWidthFac}}.
 #' @param f Numeric. Egg conversion factor (eggs to biomass) from
 #'   \code{\link{CalcEggConversion}}.
 #' @importFrom RODBC odbcConnectAccess sqlFetch odbcClose
@@ -524,7 +524,8 @@ CalcMacroSpawn <- function(where, a, yrs, tSwath = 2, f) {
 #'   finest spatial scale at which we calculate the spawn index. Other
 #'   information in this tibble comes from `a`: Region, Statistical Area,
 #'   Section, and Location code.
-#' @references \insertRef{}{SpawnIndex}
+#' @references \insertRef{HaegeleEtal1979}{SpawnIndex}
+#'   \insertRef{Schweigert2005}{SpawnIndex}
 #' @note The 'spawn index' is a relative index of spawning biomass.
 #' @seealso \code{\link{LoadAreaData}} \code{\link{CalcEggConversion}}
 #' @export
