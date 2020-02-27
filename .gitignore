@@ -2,3 +2,14 @@
 .Rhistory
 .RData
 .Ruserdata
+
+/doc/resources
+/doc/knitr-figs
+/doc/knitr-cache
+/doc/SpawnIndex.bbl
+/doc/SPawnIndex.lof
+/doc/SPawnIndex.log
+/doc/SPawnIndex.txt
+/doc/SPawnIndex.pdf
+/doc/SPawnIndex.tex
+/doc/SPawnIndex.toc
