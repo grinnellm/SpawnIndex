@@ -1,11 +1,12 @@
 Package: SpawnIndex
 Type: Package
-Title: Calculate the Spawn Index for Pacific Herring in British Columbia, Canada
+Title: Calculate the Pacific Herring (Clupea pallasii) Spawn Index in
+    British Columbia, Canada.
 Version: 0.1.0
 Authors@R: c(
     person(given = c("Matthew", "H."), family = "Grinnell",
     role = c("aut", "cre"), email = "matthew.grinnell@dfo-mpo.gc.ca") )
-Description: Calculate the spawn index for Pacific Herring (Clupea pallasii) in
+Description: Calculate the Pacific Herring (Clupea pallasii) spawn index in
     British Columbia, Canada. There are three types of spawn survey
     observations: surface spawn, Macrocystis spawn, and understory spawn. These
     calculations rely on an estimate of female fecundity to convert the number
