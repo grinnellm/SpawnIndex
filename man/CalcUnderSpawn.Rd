@@ -4,7 +4,18 @@
 \alias{CalcUnderSpawn}
 \title{Calculate the understory spawn index.}
 \usage{
-CalcUnderSpawn(where, a, yrs, tau = underWidthFac, f)
+CalcUnderSpawn(
+  where,
+  a,
+  yrs,
+  algaeCoefs = algaeCoefs,
+  tau = underWidthFac,
+  alpha = pars$understory$alpha,
+  beta = pars$understory$beta,
+  gamma = pars$under$gamma,
+  delta = pars$understory$delta,
+  theta = CalcEggConversion()
+)
 }
 \arguments{
 \item{where}{List. Location of the Pacific Herring understory spawn database
@@ -17,10 +28,25 @@ spawn survey observations to inlude in calculations. Returned from
 \item{yrs}{Numeric vector. Years(s) to include in the calculations, usually
 staring in 1951.}
 
+\item{algaeCoefs}{Tibble. Table of algae coefficients; from
+\code{\link{algaeCoefs}}.}
+
 \item{tau}{Tibble. Table of understory spawn width adjustment factors from
 \code{\link{underWidthFac}}.}
 
-\item{f}{Numeric. Egg conversion factor (eggs to biomass) from
+\item{alpha}{Numeric. Regression slope for substrate; from \code{\link{pars}}
+\insertCite{HaegeleEtal1979}{SpawnIndex}.}
+
+\item{beta}{Numeric. Regression slope for algae; from \code{\link{pars}}
+\insertCite{Schweigert2005}{SpawnIndex}.}
+
+\item{gamma}{Numeric. Regression exponent on number of egg layers; from
+\code{\link{pars}} \insertCite{Schweigert2005}{SpawnIndex}.}
+
+\item{delta}{Numeric. Regression exponent on proportion of algae; from
+\code{\link{pars}} \insertCite{Schweigert2005}{SpawnIndex}.}
+
+\item{theta}{Numeric. Egg conversion factor (eggs to biomass); from
 \code{\link{CalcEggConversion}}.}
 }
 \value{
@@ -49,16 +75,17 @@ underLoc <- list(
            stations="tSSStations", algae="tSSVegetation",
            typeAlg="tSSTypeVegetation") )
 data(underWidthFac)
+data(pars)
+data(algaeCoefs)
 underSpawn <- CalcUnderSpawn(
-  where = underLoc, a = areas, yrs = 2010:2015,
-  f = CalcEggConversion()
+  where = underLoc, a = areas, yrs = 2010:2015
 )
 underSpawn$SI
 }
 \references{
-\insertRef{HaegeleEtal1979}{SpawnIndex}
-  \insertRef{Schweigert2005}{SpawnIndex}
+\insertAllCited
 }
 \seealso{
 \code{\link{LoadAreaData}} \code{\link{CalcEggConversion}}
+  \code{\link{pars}} \code{\link{algaeCoefs}}
 }

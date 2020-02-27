@@ -4,7 +4,17 @@
 \alias{CalcMacroSpawn}
 \title{Calculate the Macrocystis spawn index.}
 \usage{
-CalcMacroSpawn(where, a, yrs, tSwath = 2, f)
+CalcMacroSpawn(
+  where,
+  a,
+  yrs,
+  tSwath = 2,
+  beta = pars$macrocystis$beta,
+  gamma = pars$macrocystis$gamma,
+  delta = pars$macrocystis$delta,
+  epsilon = pars$macrocystis$epsilon,
+  theta = CalcEggConversion()
+)
 }
 \arguments{
 \item{where}{List. Location of the Pacific Herring Macrocystis spawn database
@@ -19,7 +29,19 @@ staring in 1951.}
 
 \item{tSwath}{Numeric. Transect swath (i.e., width) in metres.}
 
-\item{f}{Numeric. Egg conversion factor (eggs to biomass) from
+\item{beta}{Numeric. Regression slope; from \code{\link{pars}}
+\insertCite{HaegeleSchweigert1990}{SpawnIndex}.}
+
+\item{gamma}{Numeric. Regression exponent on egg layers; from
+\code{\link{pars}} \insertCite{HaegeleSchweigert1990}{SpawnIndex}.}
+
+\item{delta}{Numeric. Regression exponent on plant height; from
+\code{\link{pars}} \insertCite{HaegeleSchweigert1990}{SpawnIndex}.}
+
+\item{epsilon}{Numeric. Regression exponent on numnber of stalks per plant;
+from \code{\link{pars}} \insertCite{HaegeleSchweigert1990}{SpawnIndex}.}
+
+\item{theta}{Numeric. Egg conversion factor (eggs to biomass); from
 \code{\link{CalcEggConversion}}.}
 }
 \value{
@@ -42,6 +64,7 @@ areaLoc <- list(
   fns = list(sections = "Sections", locations = "Location")
 )
 areas <- LoadAreaData(reg = "WCVI", where = areaLoc)
+data(pars)
 macroLoc <- list(
   loc = file.path(dbLoc), db = "HerringSpawn.mdb",
   fns = list(
@@ -50,14 +73,14 @@ macroLoc <- list(
   )
 )
 macroSpawn <- CalcMacroSpawn(
-  where = macroLoc, a = areas, yrs = 2010:2015,
-  f = CalcEggConversion()
+  where = macroLoc, a = areas, yrs = 2010:2015
 )
 macroSpawn$SI
 }
 \references{
-\insertRef{HaegeleSchweigert1990}{SpawnIndex}
+\insertAllCited
 }
 \seealso{
 \code{\link{LoadAreaData}} \code{\link{CalcEggConversion}}
+  \code{\link{pars}}
 }

@@ -8,9 +8,12 @@ CalcSurfSpawn(
   where,
   a,
   yrs,
+  intensity = intensity,
   intYrs = yrs[yrs < 1979],
   rsYrs = intYrs[intYrs < 1951],
-  f
+  alpha = pars$surface$alpha,
+  beta = pars$surface$beta,
+  theta = CalcEggConversion()
 )
 }
 \arguments{
@@ -24,13 +27,22 @@ spawn survey observations to inlude in calculations. Returned from
 \item{yrs}{Numeric vector. Years(s) to include in the calculations, usually
 staring in 1951.}
 
+\item{intensity}{Tibble. Table of spawn intensity categories and number of
+egg layers; from \code{\link{intensity}}.}
+
 \item{intYrs}{Numeric vector. Years where intensity categores are used to
-determine egg layers (default yrs[yrs < 1979]).}
+determine egg layers.}
 
 \item{rsYrs}{Numeric vector. Years where intensity needs to be re-scaled from
-5 to 9 categories (default intYrs[intYrs < 1951]).}
+5 to 9 categories.}
 
-\item{f}{Numeric. Egg conversion factor (eggs to biomass) from
+\item{alpha}{Numeric. Regression intercept; from \code{\link{pars}}
+\insertCite{SchweigertEtal1997}{SpawnIndex}.}
+
+\item{beta}{Numeric. Regression slope; from \code{\link{pars}}
+\insertCite{SchweigertEtal1997}{SpawnIndex}.}
+
+\item{theta}{Numeric. Egg conversion factor (eggs to biomass); from
 \code{\link{CalcEggConversion}}.}
 }
 \value{
@@ -53,6 +65,8 @@ areaLoc <- list(
   fns = list(sections = "Sections", locations = "Location")
 )
 areas <- LoadAreaData(reg = "WCVI", where = areaLoc)
+data(pars)
+data(intensity)
 surfLoc <- list(
   loc = dbLoc, db = "HerringSpawn.mdb",
   fns = list(
@@ -62,14 +76,14 @@ surfLoc <- list(
   )
 )
 surfSpawn <- CalcSurfSpawn(
-  where = surfLoc, a = areas, yrs = 2010:2015,
-  f = CalcEggConversion()
+  where = surfLoc, a = areas, yrs = 2010:2015
 )
 surfSpawn$SI
 }
 \references{
-\insertRef{SchweigertEtal1997}{SpawnIndex}
+\insertAllCited
 }
 \seealso{
 \code{\link{LoadAreaData}} \code{\link{CalcEggConversion}}
+  \code{\link{pars}} \code{\link{intensity}}
 }
