@@ -1321,7 +1321,7 @@ figCap <- paste("Algae egg density in thousands of eggs per square metre (m) as 
 # Expand the values
 df <- expand.grid(
   Layers = lyrs, Proportion = prop,
-  Coefficient = unique(algaeCoefs$Coefficient)
+  Coefficient = unique(algaeCoefs$Coef)
 )
 # Equation for understory egg density on algae
 EggDensAlg <- function(AlgLyrs, AlgProp, Coef) {
@@ -1336,9 +1336,7 @@ dat <- as_tibble(df) %>%
   arrange(Coefficient) %>%
   mutate(
     EggDens = EggDensAlg(
-      AlgLyrs = Layers, AlgProp = Proportion,
-      Coef = Coefficient
-    ),
+      AlgLyrs = Layers, AlgProp = Proportion, Coef = Coefficient),
     Coefficient = paste("Algae coefficient: ", format(Coefficient, digits = 4),
       sep = ""
     )
