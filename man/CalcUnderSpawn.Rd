@@ -8,7 +8,7 @@ CalcUnderSpawn(
   where,
   a,
   yrs,
-  algaeCoefs = algaeCoefs,
+  algCoefs = algaeCoefs,
   tau = underWidthFac,
   alpha = pars$understory$alpha,
   beta = pars$understory$beta,
@@ -28,7 +28,7 @@ spawn survey observations to inlude in calculations. Returned from
 \item{yrs}{Numeric vector. Years(s) to include in the calculations, usually
 staring in 1951.}
 
-\item{algaeCoefs}{Tibble. Table of algae coefficients; from
+\item{algCoefs}{Tibble. Table of algae coefficients; from
 \code{\link{algaeCoefs}}.}
 
 \item{tau}{Tibble. Table of understory spawn width adjustment factors from
@@ -73,8 +73,7 @@ underLoc <- list(
   loc = file.path(dbLoc), db = "HerringSpawn.mdb",
   fns = list(
     allSpawn = "tSSAllspawn", algTrans = "tSSVegTrans",
-    stations = "tSSStations", algae = "tSSVegetation",
-    typeAlg = "tSSTypeVegetation"
+    stations = "tSSStations", algae = "tSSVegetation"
   )
 )
 data(underWidthFac)

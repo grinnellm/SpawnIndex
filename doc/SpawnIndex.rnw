@@ -262,7 +262,7 @@ stlks <- round(seq(from = 1, to = 23, length.out = 4))
 data(intensity)
 # Intensity and egg layers
 intensity <- intensity %>%
-  rename(f1969t1978 = Category) %>%
+  rename(f1969t1978 = Intensity) %>%
   mutate(f1928t1968 = c(1, NA, 2, NA, 3, NA, 4, NA, 5)) %>%
   select(f1928t1968, f1969t1978, Description, Layers) %>%
   arrange(Layers)
@@ -272,8 +272,8 @@ lyrs <- intensity$Layers
 data(algaeCoefs)
 # Algae coefficients
 algaeCoefs <- algaeCoefs %>%
-  select(AlgaeType, Coefficient) %>%
-  arrange(AlgaeType)
+  select(AlgaeName, Coef) %>%
+  arrange(AlgaeName)
 # Load parameter values
 data(pars)
 @
@@ -1306,7 +1306,7 @@ tabCap <- "Algae (i.e., vegetation) types $v$ and coefficients $C$ for \\fishNam
 tabSCap <- "Algae types and coefficients for \\fishName{} understory spawn surveys"
 # Format the table
 kAlgaeCoefs <- algaeCoefs %>%
-  rename(`Algae type $v$` = AlgaeType, `Coefficient $C$` = Coefficient) %>%
+  rename(`Algae type $v$` = AlgaeName, `Coefficient $C$` = Coef) %>%
   kable(
     caption = tabCap, caption.short = tabSCap, booktabs = TRUE, linesep = "",
     escape = FALSE

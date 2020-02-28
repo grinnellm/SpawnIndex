@@ -68,7 +68,7 @@ CalcBiomassSOK <- function(SOK,
 #'   \code{\link{LoadAreaData}}.
 #' @param yrs Numeric vector. Years(s) to include in the calculations, usually
 #'   staring in 1951.
-#' @param intensity Tibble. Table of spawn intensity categories and number of
+#' @param intense Tibble. Table of spawn intensity categories and number of
 #'   egg layers; from \code{\link{intensity}}.
 #' @param intYrs Numeric vector. Years where intensity categores are used to
 #'   determine egg layers.
@@ -110,8 +110,7 @@ CalcBiomassSOK <- function(SOK,
 #'   loc = dbLoc, db = "HerringSpawn.mdb",
 #'   fns = list(
 #'     regionStd = "RegionStd", sectionStd = "SectionStd", poolStd = "PoolStd",
-#'     surface = "tSSSurface", intensity = "Intensity",
-#'     allSpawn = "tSSAllspawn"
+#'     surface = "tSSSurface", allSpawn = "tSSAllspawn"
 #'   )
 #' )
 #' surfSpawn <- CalcSurfSpawn(
@@ -121,7 +120,7 @@ CalcBiomassSOK <- function(SOK,
 CalcSurfSpawn <- function(where,
                           a,
                           yrs,
-                          intensity = intensity,
+                          intense = intensity,
                           intYrs = yrs[yrs < 1979],
                           rsYrs = intYrs[intYrs < 1951],
                           alpha = pars$surface$alpha,
@@ -161,14 +160,6 @@ CalcSurfSpawn <- function(where,
     dplyr::filter(Section %in% a$Section) %>%
     dplyr::select(Section, Bed, WidthBed) %>%
     dplyr::distinct() %>%
-    tibble::as_tibble()
-  # Load intensity categories and egg layers (Humphreys and Haegele 1976, Hay
-  # and Kronlund 1987)
-  intensity <<- RODBC::sqlFetch(
-    channel = accessDB,
-    sqtable = where$fns$intensity
-  ) %>%
-    dplyr::rename(Layers = AvgLayersFromIntensity) %>%
     tibble::as_tibble()
   # Load all spawn
   spawn <- RODBC::sqlFetch(channel = accessDB, sqtable = where$fns$allSpawn) %>%
@@ -242,7 +233,7 @@ CalcSurfSpawn <- function(where,
     )
   # Calculate egg density based on intensity or direct measurements
   eggs <- surface %>%
-    dplyr::left_join(y = intensity, by = "Intensity") %>%
+    dplyr::left_join(y = intense, by = "Intensity") %>%
     dplyr::mutate(
       EggLyrs = ifelse(Year %in% intYrs, Layers, EggLyrs),
       # Egg density in thousands (eggs * 10^3 / m^2; Schweigert et al.
@@ -543,7 +534,7 @@ CalcMacroSpawn <- function(where,
 #'   \code{\link{LoadAreaData}}.
 #' @param yrs Numeric vector. Years(s) to include in the calculations, usually
 #'   staring in 1951.
-#' @param algaeCoefs Tibble. Table of algae coefficients; from
+#' @param algCoefs Tibble. Table of algae coefficients; from
 #'   \code{\link{algaeCoefs}}.
 #' @param tau Tibble. Table of understory spawn width adjustment factors from
 #'   \code{\link{underWidthFac}}.
@@ -585,8 +576,7 @@ CalcMacroSpawn <- function(where,
 #'   loc = file.path(dbLoc), db = "HerringSpawn.mdb",
 #'   fns = list(
 #'     allSpawn = "tSSAllspawn", algTrans = "tSSVegTrans",
-#'     stations = "tSSStations", algae = "tSSVegetation",
-#'     typeAlg = "tSSTypeVegetation"
+#'     stations = "tSSStations", algae = "tSSVegetation"
 #'   )
 #' )
 #' data(underWidthFac)
@@ -599,7 +589,7 @@ CalcMacroSpawn <- function(where,
 CalcUnderSpawn <- function(where,
                            a,
                            yrs,
-                           algaeCoefs = algaeCoefs,
+                           algCoefs = algaeCoefs,
                            tau = underWidthFac,
                            alpha = pars$understory$alpha,
                            beta = pars$understory$beta,
@@ -712,18 +702,11 @@ CalcUnderSpawn <- function(where,
     dplyr::group_by(Year, LocationCode, SpawnNumber) %>%
     dplyr::summarise(UnderLyrs = gfiscamutils::MeanNA(Layers)) %>%
     dplyr::ungroup()
-  # Load algae types and coefficients (Schweigert 2005)
-  algType <<- RODBC::sqlFetch(channel = accessDB, sqtable = where$fns$typeAlg) %>%
-    dplyr::rename(AlgType = Type_Vegetation, Coef = VParameter) %>%
-    dplyr::mutate(AlgType = stringr::str_to_upper(AlgType)) %>%
-    dplyr::select(AlgType, Coef) %>%
-    dplyr::arrange(AlgType) %>%
-    tibble::as_tibble()
   # If there are missing algae types
-  if (any(!algae$AlgType %in% algType$AlgType)) {
+  if (any(!algae$AlgType %in% algCoefs$AlgType)) {
     # Get missing algae type(s)
     missAlg <- unique(algae$AlgType[!algae$AlgType %in%
-      algType$AlgType])
+      algCoefs$AlgType])
     # Error, and show missing type(s)
     stop("Missing algae type(s): ", paste(missAlg, collapse = ", "),
       call. = FALSE
@@ -759,13 +742,12 @@ CalcUnderSpawn <- function(where,
   }
   # Calculate substrate egg density by quadrat/station
   eggsAlg <- algae %>%
-    dplyr::left_join(y = algType, by = "AlgType") %>%
+    dplyr::left_join(y = algCoefs, by = "AlgType") %>%
     dplyr::left_join(y = areasSm2, by = "LocationCode") %>%
     dplyr::left_join(
       y = dplyr::select(.data = algTrans, -Width),
       by = c(
-        "Year", "Region", "LocationCode", "SpawnNumber",
-        "Transect"
+        "Year", "Region", "LocationCode", "SpawnNumber", "Transect"
       )
     ) %>%
     # Egg density in thousands (eggs * 10^3 / m^2; Schweigert 2005); quadrat

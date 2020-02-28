@@ -8,7 +8,7 @@ CalcSurfSpawn(
   where,
   a,
   yrs,
-  intensity = intensity,
+  intense = intensity,
   intYrs = yrs[yrs < 1979],
   rsYrs = intYrs[intYrs < 1951],
   alpha = pars$surface$alpha,
@@ -27,7 +27,7 @@ spawn survey observations to inlude in calculations. Returned from
 \item{yrs}{Numeric vector. Years(s) to include in the calculations, usually
 staring in 1951.}
 
-\item{intensity}{Tibble. Table of spawn intensity categories and number of
+\item{intense}{Tibble. Table of spawn intensity categories and number of
 egg layers; from \code{\link{intensity}}.}
 
 \item{intYrs}{Numeric vector. Years where intensity categores are used to
@@ -71,8 +71,7 @@ surfLoc <- list(
   loc = dbLoc, db = "HerringSpawn.mdb",
   fns = list(
     regionStd = "RegionStd", sectionStd = "SectionStd", poolStd = "PoolStd",
-    surface = "tSSSurface", intensity = "Intensity",
-    allSpawn = "tSSAllspawn"
+    surface = "tSSSurface", allSpawn = "tSSAllspawn"
   )
 )
 surfSpawn <- CalcSurfSpawn(

@@ -12,7 +12,7 @@ save(pars, file = file.path("data", "pars.RData"))
 
 # Intensity categories
 intensity <- tibble::tibble(
-  Category = 1:9,
+  Intensity = 1:9,
   Description = c(
     "Very light", NA, "Light", NA, "Medium", NA, "Heavy", NA, "Very heavy"
   ),
@@ -24,14 +24,12 @@ save(intensity, file = file.path("data", "intensity.RData"))
 
 # Algae coefficients
 algaeCoefs <- tibble::tibble(
-  AlgaeType = c(
+  AlgaeName = c(
     "Grasses", "Grunge", "Kelp (flat)", "Kelp (standing)", "Leafy algae",
     "Rockweed", "Sargassum", "Stringy algae"
   ),
-  AlgaeCode = c("GR", "GG", "KF", "KS", "LA", "RW", "SM", "SA"),
-  Coefficient = c(
-    0.9715, 1.0000, 0.9119, 1.1766, 0.6553, 0.7793, 1.1766, 1.0000
-  )
+  AlgType = c("GR", "GG", "KF", "KS", "LA", "RW", "SM", "SA"),
+  Coef = c(0.9715, 1.0000, 0.9119, 1.1766, 0.6553, 0.7793, 1.1766, 1.0000)
 )
 save(algaeCoefs, file = file.path("data", "algaeCoefs.RData"))
 
