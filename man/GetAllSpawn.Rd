@@ -21,8 +21,9 @@ staring in 1951.}
 }
 \value{
 Tibble. Contains additional spawn survey data including start and end
-  dates, spawn length, width, and depth. Other information in this tibble
-  comes from `a`: Region, Statistical Area, Section, and Location code.
+  dates, as well as spawn length, width, and depth. Other information in this
+  tibble comes from `a`: Region, Statistical Area, Section, and Location
+  code.
 }
 \description{
 Get the all spawn table.

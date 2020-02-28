@@ -39,8 +39,7 @@ LoadAreaData <- function(reg,
                          secSub = NA,
                          where,
                          inCRS = "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0",
-                         outCRS = "+proj=aea +lat_1=50 +lat_2=58.5 +lat_0=45 +lon_0=-126
-                         +x_0=1000000 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs") {
+                         outCRS = "+proj=aea +lat_1=50 +lat_2=58.5 +lat_0=45 +lon_0=-126 +x_0=1000000 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs") {
   # Cross-walk table for SAR to region and region name
   regions <- readr::read_csv(
     file =

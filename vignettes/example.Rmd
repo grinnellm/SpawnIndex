@@ -1,0 +1,31 @@
+---
+title: "Calculate the spawn index"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{example}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Introduction
+
+This vignette provides an example workflow to calculate the Pacific Herring spawn index in British Columbia.
+Start by loading the `SpawnIndex` package and specify the region and years of interest.
+
+```{r setup}
+# Load the library
+library(SpawnIndex)
+# Parameters
+region <- "WCVI"      # Region of interest
+yrRange <- 2010:2015  # Years to consider
+```
+
+In this example, we will focus on `r region` from `r min(yrRange)` to `r max(yrRange)`.
+
