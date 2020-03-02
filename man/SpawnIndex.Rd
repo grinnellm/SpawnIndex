@@ -11,7 +11,7 @@ calculate the spawn index for Pacific Herring (\emph{Clupea pallasii}) in
 British Columbia, Canada. Methods inluclude converting eggs to biomass,
 spawn-on-kelp calculations, as well as surface, Macrocystis, and understory
 spawn index calculations. Read the accompanying document for more details on
-spawn index calculations \insertCite{GrinnellEtal2020}{SpawnIndex}.
+spawn index calculations \insertCite{GrinnellEtalYYYY}{SpawnIndex}.
 }
 \note{
 The 'spawn index' is a relative index of spawning biomass. In addition,

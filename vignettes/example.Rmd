@@ -1,31 +1,201 @@
 ---
-title: "Calculate the spawn index"
+title: "Calculating the spawn index for Pacific Herring (*Clupea pallasii*) in British Columbia, Canada: An example"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{example}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-
+  
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+library(tidyverse)
+library(knitr)
+# library(kable)
+library(kableExtra)
 ```
 
-# Introduction
+# Set up
 
-This vignette provides an example workflow to calculate the Pacific Herring spawn index in British Columbia.
-Start by loading the `SpawnIndex` package and specify the region and years of interest.
+This vignette provides an example on how to calculate the Pacific Herring spawn index in British Columbia.
+First, load the `SpawnIndex` package, and specify the region and years of interest.
 
 ```{r setup}
-# Load the library
+# Load library
 library(SpawnIndex)
 # Parameters
-region <- "WCVI"      # Region of interest
-yrRange <- 2010:2015  # Years to consider
+region <- "WCVI" # Region: HG, PRD, CC, SoG, WCVI, A27, or A2W
+yrRange <- 2010:2015 # Years (>= 1951)
 ```
 
-In this example, we will focus on `r region` from `r min(yrRange)` to `r max(yrRange)`.
+This example will focus on `r region` from `r min(yrRange)` to `r max(yrRange)`.
+Next, load the parameter values required for spawn index calculations.
 
+```{r data}
+data(pars) # Parameters for spawn index calculations
+```
+
+# Spatial information
+
+Finally, load the spatial information for this region;
+we will use the example spawn database that comes with the package.
+
+```{r areas}
+# Database location
+dbLoc <- system.file("extdata", package = "SpawnIndex")
+# List indicating the necessary tables: sections and locations
+areaLoc <- list(
+  loc = dbLoc, db = "HerringSpawn.mdb",
+  fns = list(sections = "Sections", locations = "Location")
+)
+# Load area data
+areas <- LoadAreaData(reg = region, where = areaLoc)
+areas %>%
+  select(Region, StatArea, Section, LocationName, Longitude, Latitude)
+```
+
+In this example database, `r region` has
+`r n_distinct(areas$StatArea)` Statistical Areas,
+`r n_distinct(areas$Section)` Sections, and
+`r n_distinct(areas$LocationName)` Locations.
+
+# Spawn index calculations
+
+First, calculate the conversion factor to convert the number of eggs to the spawn index (i.e., biomass).
+
+```{r theta}
+theta <- CalcEggConversion()
+theta
+```
+
+Thus, we divide the number of eggs by `r theta` to estimate the biomass (in tonnes) of fish that spawned.
+Next, we calculate the spawn index for the three spawn survey types:
+surface, Macrocystis, and understory.
+
+## Surface spawn index
+
+Calculate the surface spawn index.
+Surface spawn index calculations require a table to convert intensity categories to the number of egg layers.
+
+```{r surf}
+# Data
+data(intensity) # Spawn intensity categories and number of egg layers
+# List indicating the necessary tables
+surfLoc <- list(
+  loc = dbLoc, db = "HerringSpawn.mdb",
+  fns = list(
+    regionStd = "RegionStd", sectionStd = "SectionStd", poolStd = "PoolStd",
+    surface = "tSSSurface", allSpawn = "tSSAllspawn"
+  )
+)
+# Calculate the surface spawn index
+surfSpawn <- CalcSurfSpawn(
+  where = surfLoc, a = areas, yrs = yrRange
+)
+# Aggregate the surface spawn index by year
+surfSI <- surfSpawn$SI %>%
+  group_by(Year) %>%
+  summarise(Surface = sum(SurfSI, na.rm = TRUE)) %>%
+  ungroup() %>%
+  arrange(Year)
+```
+
+```{r surfTable, echo=FALSE, results='asis'}
+kable(
+  x = surfSI, digits = 1, caption = "Surface spawn index in tonnes (t) by year.",
+  booktabs = TRUE
+)
+```
+
+## Macrocystis spawn index
+
+Calculate the Macrocystis spawn index.
+
+```{r macro}
+# List indicating the necessary tables
+macroLoc <- list(
+  loc = file.path(dbLoc), db = "HerringSpawn.mdb",
+  fns = list(
+    allSpawn = "tSSAllspawn", plants = "tSSMacPlant",
+    transects = "tSSMacTrans"
+  )
+)
+# Calculate the Macrocystis spawn index
+macroSpawn <- CalcMacroSpawn(
+  where = macroLoc, a = areas, yrs = yrRange
+)
+# Aggregate the Macrocystis spawn index by year
+macroSI <- macroSpawn$SI %>%
+  group_by(Year) %>%
+  summarise(Macrocystis = sum(MacroSI, na.rm = TRUE)) %>%
+  ungroup() %>%
+  arrange(Year)
+```
+
+```{r macroTable, echo=FALSE, results='asis'}
+kable(
+  x = macroSI, digits = 1,
+  caption = "Macrocystis spawn index in tonnes (t) by year.", booktabs = TRUE
+)
+```
+
+## Understory spawn index
+
+Calculate the understory spawn index.
+Understory spawn index calculations require tables to correct spawn widths, and to specify algae coefficients.
+
+```{r under}
+# Data
+data(underWidthFac) # Understory spawn width correction factors
+data(algaeCoefs) # Algae types and coefficients
+# List indicating the necessary tables
+underLoc <- list(
+  loc = file.path(dbLoc), db = "HerringSpawn.mdb",
+  fns = list(
+    allSpawn = "tSSAllspawn", algTrans = "tSSVegTrans",
+    stations = "tSSStations", algae = "tSSVegetation"
+  )
+)
+# Calculate the understory spawn index
+underSpawn <- CalcUnderSpawn(
+  where = underLoc, a = areas, yrs = yrRange
+)
+# Aggregate the understory spawn index by year
+underSI <- underSpawn$SI %>%
+  group_by(Year) %>%
+  summarise(Understory = sum(UnderSI, na.rm = TRUE)) %>%
+  ungroup() %>%
+  arrange(Year)
+```
+
+```{r underTable, echo=FALSE, results='asis'}
+kable(
+  x = underSI, digits = 1,
+  caption = "Understory spawn index in tonnes (t) by year.", booktabs = TRUE
+)
+```
+
+# Total spawn index
+
+Calculate the total spawn index by year as the sum of the spawn index in the three survey types:
+surface, Macrocystis, and understory.
+
+```{r total}
+# Total spawn index
+totalSI <- full_join(x = surfSI, y = macroSI, by = "Year") %>%
+  full_join(y = underSI, by = "Year") %>%
+  replace_na(replace = list(Surface = 0, Macrocystis = 0, Understory = 0)) %>%
+  mutate(Total = Surface + Macrocystis + Understory) %>%
+  arrange(Year)
+```
+
+```{r totalTable, echo=FALSE, results='asis'}
+kable(
+  x = totalSI, digits = 1,
+  caption = "Total spawn index in tonnes (t) by year.", booktabs = TRUE
+) %>%
+  add_header_above(header = c("", "Survey" = 3, ""))
+```

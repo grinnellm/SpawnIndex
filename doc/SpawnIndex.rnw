@@ -18,7 +18,7 @@
 \newcommand{\scienceName}{\emph{Clupea pallasii}}
 
 % Title
-\newcommand{\trTitle}{Calculate the spawn index for \fishName{} (\scienceName{}) in British Columbia, Canada}
+\newcommand{\trTitle}{Calculating the spawn index for \fishName{} (\scienceName{}) in British Columbia, Canada}
 
 % Publication year
 \newcommand{\trYear}{yyyy}

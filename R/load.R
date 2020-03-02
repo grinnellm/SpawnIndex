@@ -17,7 +17,7 @@
 #' @param inCRS Chracter. Input coordinate reference system.
 #' @param outCRS Character. Output coordinate reference system.
 #' @importFrom readr read_csv cols
-#' @importFrom dplyr filter select mutate full_join
+#' @importFrom dplyr filter select mutate full_join %>%
 #' @importFrom tidyr unite
 #' @importFrom RODBC odbcConnectAccess sqlFetch odbcClose
 #' @importFrom tibble as_tibble
