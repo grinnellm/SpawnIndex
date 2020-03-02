@@ -81,7 +81,7 @@ CalcBiomassSOK <- function(SOK,
 #' @param theta Numeric. Egg conversion factor (eggs to biomass); from
 #'   \code{\link{CalcEggConversion}}.
 #' @importFrom RODBC odbcConnectAccess sqlFetch odbcClose
-#' @importFrom dplyr select distinct rename left_join filter
+#' @importFrom dplyr select distinct rename left_join filter %>%
 #' @importFrom tibble as_tibble
 #' @importFrom stringr str_to_title
 #' @importFrom gfiscamutils MeanNA SumNA
@@ -359,7 +359,7 @@ CalcSurfSpawn <- function(where,
 #' @param theta Numeric. Egg conversion factor (eggs to biomass); from
 #'   \code{\link{CalcEggConversion}}.
 #' @importFrom RODBC odbcConnectAccess sqlFetch odbcClose
-#' @importFrom dplyr select distinct rename left_join filter
+#' @importFrom dplyr select distinct rename left_join filter %>%
 #' @importFrom tibble as_tibble
 #' @importFrom stringr str_to_title
 #' @importFrom gfiscamutils MeanNA SumNA UniqueNA
@@ -549,7 +549,7 @@ CalcMacroSpawn <- function(where,
 #' @param theta Numeric. Egg conversion factor (eggs to biomass); from
 #'   \code{\link{CalcEggConversion}}.
 #' @importFrom RODBC odbcConnectAccess sqlFetch odbcClose
-#' @importFrom dplyr select distinct rename left_join filter
+#' @importFrom dplyr select distinct rename left_join filter %>%
 #' @importFrom tibble as_tibble
 #' @importFrom stringr str_to_title
 #' @importFrom gfiscamutils MeanNA SumNA UniqueNA
@@ -868,7 +868,7 @@ CalcUnderSpawn <- function(where,
 #'   staring in 1951.
 #' @param ft2m Numeric. Conversion factor for feet to metres.
 #' @importFrom RODBC odbcConnectAccess sqlFetch odbcClose
-#' @importFrom dplyr select rename full_join filter mutate
+#' @importFrom dplyr select rename full_join filter mutate %>%
 #' @importFrom tibble as_tibble
 #' @importFrom stringr str_to_title
 #' @importFrom lubridate as_date
