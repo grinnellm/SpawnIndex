@@ -18,9 +18,12 @@ library(knitr)
 library(kableExtra)
 ```
 
-# Set up
+# Introduction
 
 This vignette provides an example on how to calculate the Pacific Herring spawn index in British Columbia.
+
+# Set up
+
 First, load the `SpawnIndex` package, and specify the region and years of interest.
 
 ```{r setup}
