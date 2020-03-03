@@ -1,8 +1,8 @@
 ---
-title: "Calculating the spawn index for Pacific Herring (*Clupea pallasii*) in British Columbia, Canada: An example"
+title: "Pacific Herring spawn index"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{example}
+  %\VignetteIndexEntry{Pacific Herring spawn index}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -14,13 +14,12 @@ knitr::opts_chunk$set(
 )
 library(tidyverse)
 library(knitr)
-# library(kable)
 library(kableExtra)
 ```
 
 # Introduction
 
-This vignette provides an example on how to calculate the Pacific Herring spawn index in British Columbia.
+This vignette provides an example on how to calculate the spawn index for Pacific Herring (*Clupea pallasii*) in British Columbia, Canada.
 
 # Set up
 
@@ -56,14 +55,25 @@ areaLoc <- list(
 )
 # Load area data
 areas <- LoadAreaData(reg = region, where = areaLoc)
-areas %>%
-  select(Region, StatArea, Section, LocationName, Longitude, Latitude)
 ```
 
 In this example database, `r region` has
 `r n_distinct(areas$StatArea)` Statistical Areas,
 `r n_distinct(areas$Section)` Sections, and
 `r n_distinct(areas$LocationName)` Locations.
+Here we show the first 10 Locations.
+
+```{r areasTable, echo=FALSE, results='asis'}
+areas %>%
+  filter(!is.na(Group)) %>%
+  select(Region, StatArea, Section, LocationName, Longitude, Latitude) %>%
+  arrange(StatArea, Section, LocationName) %>%
+  slice(1:10) %>%
+  kable(
+    caption = paste("Spawn survey Locations in the", region, "region."),
+    booktabs = TRUE
+  )
+```
 
 # Spawn index calculations
 

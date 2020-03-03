@@ -21,24 +21,25 @@
 #' biomass, spawn-on-kelp calculations, as well as surface, Macrocystis, and
 #' understory spawn index calculations.
 #'
-#' @format List with 5 items:
+#' @format List with items:
 #' \describe{
-#' \item{conversion}{List with 2 items:
+#' \item{conversion}{List with items:
 #'   \emph{omega} is the number of eggs per kilogram of female spawners
 #'   \insertCite{Hay1985,HayBrett1988}{SpawnIndex}, and \emph{phi} is the
 #'   proportion of spawners that are female.}
-#' \item{SOK}{List with 3 items:
+#' \item{SOK}{List with items:
 #'   \emph{nu} is the proportion of SOK product that is eggs, not kelp
 #'   \insertCite{ShieldsEtal1985}{SpawnIndex}, \emph{upsilon} is the proportion
 #'   of SOK product that is eggs after brining
 #'   \insertCite{WhyteEnglar1977}{SpawnIndex}, and \emph{M} is the average
 #'   weight in kilograms of a fertilized egg
 #'   \insertCite{HayMiller1982}{SpawnIndex}.}
-#' \item{surface}{List with 2 items:
+#' \item{surface}{List with items:
 #'   \emph{alpha} is the regression intercept
 #'   \insertCite{SchweigertEtal1997}{SpawnIndex}, and \emph{beta} is the
 #'   regression slope \insertCite{SchweigertEtal1997}{SpawnIndex}.}
-#' \item{macrocystis}{List with 4 items: \emph{beta} is the regression slope
+#' \item{macrocystis}{List with items:
+#'   \emph{beta} is the regression slope
 #'   \insertCite{HaegeleSchweigert1990}{SpawnIndex}, \emph{gamma} is the
 #'   regression exponent on egg layers
 #'   \insertCite{HaegeleSchweigert1990}{SpawnIndex}, \emph{delta} is the
@@ -46,8 +47,8 @@
 #'   \insertCite{HaegeleSchweigert1990}{SpawnIndex}, and \emph{epsilon} is the
 #'   regression exponent on number of stalks per plant
 #'   \insertCite{HaegeleSchweigert1990}{SpawnIndex}.}
-#' \item{understory}{List
-#'   with 4 items: \emph{alpha} is the regression slope for substrate
+#' \item{understory}{List with items:
+#'   \emph{alpha} is the regression slope for substrate
 #'   \insertCite{HaegeleEtal1979}{SpawnIndex}, \emph{beta} is the regression
 #'   slope for algae \insertCite{Schweigert2005}{SpawnIndex}, \emph{gamma} is
 #'   the regression exponent on number of egg layers
@@ -104,7 +105,21 @@
 #' subset of tables from the spawn survey database, and some additional tables
 #' from other databases to ensure the examples work.
 #'
-#' @format MS Access databases.
+#' @format MS Access databases with tables:
+#' \describe{
+#'   \item{Location}{Spatial information for Locations.}
+#'   \item{Sections}{Spatial information for Sections.}
+#'   \item{PoolStd}{Spawn width for Beds.}
+#'   \item{SectionStd}{Spawn width for Sections.}
+#'   \item{RegionStd}{Spawn width for Regions.}
+#'   \item{tSSAllspawn}{Spawn survey information.}
+#'   \item{tSSMacPlant}{Macrocystis plant information.}
+#'   \item{tSSMacTrans}{Macrocystis transect information.}
+#'   \item{tSSStations}{Understory quadrat information.}
+#'   \item{tSSSurface}{Surface spawn information}
+#'   \item{tSSVegetation}{Understory spawn algae information.}
+#'   \item{tSSVegTrans}{Understory spawn transect information.}
+#' }
 #' @docType data
 #' @seealso \code{\link{LoadAreaData}} \code{\link{CalcSurfSpawn}}
 #'   \code{\link{CalcMacroSpawn}} \code{\link{CalcUnderSpawn}}

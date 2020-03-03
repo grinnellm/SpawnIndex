@@ -252,6 +252,12 @@ BaseMap <- ggplot(data = shapes$landCropDF, aes(x = Eastings, y = Northings)) +
 @
 
 <<pars, echo=FALSE>>=
+# First year with surveys
+firstYr <- 1928
+# First year with direct egg estimates
+directEggYr <- 1979
+# First year with 9 intensity categories
+cat9Yr <- 1969
 # Vector of proportions
 prop <- seq(from = 0, to = 1, by = 0.2)
 # Vector of plant heights
@@ -262,9 +268,9 @@ stlks <- round(seq(from = 1, to = 23, length.out = 4))
 data(intensity)
 # Intensity and egg layers
 intensity <- intensity %>%
-  rename(f1969t1978 = Intensity) %>%
-  mutate(f1928t1968 = c(1, NA, 2, NA, 3, NA, 4, NA, 5)) %>%
-  select(f1928t1968, f1969t1978, Description, Layers) %>%
+  rename(Period9 = Intensity) %>%
+  mutate(Period5 = c(1, NA, 2, NA, 3, NA, 4, NA, 5)) %>%
+  select(Period5, Period9, Description, Layers) %>%
   arrange(Layers)
 # Vector of egg layers
 lyrs <- intensity$Layers
@@ -792,7 +798,7 @@ surveys since 1988 when dive surveys are not possible.
 Data from surface surveys are combined with data from dive surveys (i.e., Macrocystis, understory) to produce the total spawn index (\autoref{secTotal}).
 
 \subsubsection{SPAWN INTENSITY CATEGORIES}\label{secIntensity}
-
+% TODO: Automate these numbers
 From 1928 to 1978, surface spawn surveyors categorized spawn by subjective `intensity' categories instead of directly estimating the number of egg layers (\autoref{tab:Intensity}).
 From 1928 to 1968 there were five intensity categories described as very light, light, medium, heavy, and very heavy (numbered 1 to 5, respectively).
 Starting in 1969 there were nine intensity categories;
@@ -804,14 +810,15 @@ Thus, spawn data used for stock assessments is represented either by a nine cate
 
 <<Intensity>>=
 # Caption
-tabCap <- "Spawn intensity categories, description, and number of egg layers for \\fishName{} surface spawn surveys for the periods 1928 to 1968, and 1969 to 1978 \\citep{HayKronlund1987, SchweigertStocker1988}."
+tabCap <- paste("Spawn intensity categories, description, and number of egg layers for \\fishName{} surface spawn surveys for the periods 1928 to ", cat9Yr-1, ", and ", cat9Yr, " to ", directEggYr, " \\citep{HayKronlund1987, SchweigertStocker1988}.", sep="")
 # Short caption
 tabSCap <- "Spawn intensity categories and number of egg layers for \\fishName{} surface spawn surveys"
 # Format the table
 kIntensity <- intensity %>%
   arrange(Layers) %>%
   rename(
-    `1928 to 1968` = f1928t1968, `1969 to 1978` = f1969t1978,
+    `1928 to 1968` = Period5,
+    `1969 to 1978` = Period9,
     `Number of egg layers` = Layers
   ) %>%
   kable(
@@ -1574,10 +1581,25 @@ In addition, parameter and prediction model uncertainty should be propagated thr
 One approach to account for prediction model uncertainty is to incorporate the underlying data that informs these equations into spawn index calculations.
 In addition, future work could review the assumed statistical framework.
 
+\section{CAVEATS}
+
+In addition to the issues regarding uncertainty (\autoref{secUncertain}),
+there are a few caveats to interpreting the \fishName{} spawn index, and using this data for analyses:
+\begin{enumerate}
+\item the spawn index a relative index of spawning biomass,
+\item the spawn index is derived data with uncertainty and assumptions, as opposed to observed data,
+\item there are two different survey periods with substantial differences in survey effort and method (surface surveys from \Sexpr{min(yrRange)} to \Sexpr{newSurvYr-1}, and dive surveys from \Sexpr{newSurvYr} to present),
+\item the surface survey period used two different methods to estimate the number of egg layers:
+spawn intensity categories (five categories from \Sexpr{min(yrRange)} to \Sexpr{cat9Yr-1}, and nine categories from \Sexpr{cat9Yr} to \Sexpr{directEggYr-1}), and
+direct estimates (from \Sexpr{directEggYr} to \Sexpr{newSurvYr-1}), and
+\item the spawn index is presence only and does not indicate the absence of spawn.
+\end{enumerate}
+
 \section{DOWNLOAD}\label{secDown}
 
 The \textbf{R} package to calculate the \fishName{} spawn index, \texttt{SpawnIndex} is publicly accessible on the \href{https://github.com/grinnellm/SpawnIndex}{\fishName{} spawn index repository}.
-The package includes an example database of \fishName{} spawn survey observations.
+The package includes an example database of \fishName{} spawn survey observations,
+and a vignette with examples.
 The \textbf{R} package contains the functions to imports tables from the database, and calculate the spawn index.
 This document is meant to accompany the \textbf{R} package, which implements the calculations described here.
 The \textbf{R} package is documented to promote accessibility and transparency.
