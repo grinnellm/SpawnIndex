@@ -1584,10 +1584,10 @@ In addition, future work could review the assumed statistical framework.
 \section{CAVEATS}
 
 In addition to the issues regarding uncertainty (\autoref{secUncertain}),
-there are a few caveats to interpreting the \fishName{} spawn index, and using this data for analyses:
+there are a few caveats to keep in mind when interpreting the \fishName{} spawn index, and using the spawn index in analyses:
 \begin{enumerate}
 \item the spawn index a relative index of spawning biomass,
-\item the spawn index is derived data with uncertainty and assumptions, as opposed to observed data,
+\item the spawn index is derived data with uncertainty and assumptions, as opposed to observed data (\autoref{secUncertain}),
 \item there are two different survey periods with substantial differences in survey effort and method (surface surveys from \Sexpr{min(yrRange)} to \Sexpr{newSurvYr-1}, and dive surveys from \Sexpr{newSurvYr} to present),
 \item the surface survey period used two different methods to estimate the number of egg layers:
 spawn intensity categories (five categories from \Sexpr{min(yrRange)} to \Sexpr{cat9Yr-1}, and nine categories from \Sexpr{cat9Yr} to \Sexpr{directEggYr-1}), and
@@ -1597,7 +1597,8 @@ direct estimates (from \Sexpr{directEggYr} to \Sexpr{newSurvYr-1}), and
 
 \section{DOWNLOAD}\label{secDown}
 
-The \textbf{R} package to calculate the \fishName{} spawn index, \texttt{SpawnIndex} is publicly accessible on the \href{https://github.com/grinnellm/SpawnIndex}{\fishName{} spawn index repository}.
+The \textbf{R} package to calculate the \fishName{} spawn index \texttt{SpawnIndex}, is publicly accessible on the
+\href{https://github.com/grinnellm/SpawnIndex}{\fishName{} spawn index repository}.
 The package includes an example database of \fishName{} spawn survey observations,
 and a vignette with examples.
 The \textbf{R} package contains the functions to imports tables from the database, and calculate the spawn index.
