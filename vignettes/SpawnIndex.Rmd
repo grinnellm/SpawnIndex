@@ -1,26 +1,31 @@
 ---
-title: "Pacific Herring spawn index"
+title: "Pacific Herring spawn index: An example"
 author: "Matthew H. Grinnell"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output:
+      rmarkdown::html_vignette:
+        fig_caption: yes
 bibliography: "../inst/REFERENCES.bib"
 link-citations: true
 vignette: >
-  %\VignetteIndexEntry{Pacific Herring spawn index}
+  %\VignetteIndexEntry{Pacific Herring spawn index: An example}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-  
+
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  fig.width = 7,
+  fig.height = 7
 )
 options(knitr.kable.NA = "")
 ```
 
 This vignette provides an example on how to calculate the spawn index for Pacific Herring (*Clupea pallasii*) in British Columbia, Canada.
-See the technical report for more background [@GrinnellEtalYYYY].
+See the technical report for background information [@GrinnellEtalYYYY].
+Source code is on the [GitHub repository](https://github.com/grinnellm/SpawnIndex).
 Load the load the `SpawnIndex` package, and some additional pacakges used in this vignette.
 
 ```{r libraries, message = FALSE, warning = FALSE}
@@ -64,7 +69,7 @@ areaLoc <- list(
   loc = dbLoc, db = "HerringSpawn.mdb",
   fns = list(sections = "Sections", locations = "Location")
 )
-# Load area data and remove areas with no spatial information
+# Load area data
 areas <- LoadAreaData(reg = region, where = areaLoc)
 # Determine spatial extent (for maps)
 xLims <- range(areas$Longitude)
@@ -125,7 +130,7 @@ surfSpawn <- CalcSurfSpawn(where = surfLoc, a = areas, yrs = yrRange)
 
 Show surface spawn on a map, aggregated by Location and year.
 
-```{r surfLocYr, fig.width=7, fig.height=7}
+```{r surfLocYr, fig.cap = "Surface spawn index in tonnes (t)."}
 # Make a spatial object for mapping
 surfLocYr <- surfSpawn$SI %>%
   group_by(Year, LocationCode) %>%
@@ -141,7 +146,7 @@ ggplot(data = surfLocYr) +
   geom_sf(data = canada) +
   geom_sf(mapping = aes(colour = Surface), size = 3) +
   scale_colour_viridis_c() +
-  labs(title = "Surface", colour = "Spawn\nindex (t)") +
+  labs(colour = "Spawn\nindex (t)") +
   coord_sf(xlim = xLims, ylim = yLims) +
   facet_wrap(Year ~ ., ncol = 2)
 ```
@@ -182,7 +187,7 @@ macroSpawn <- CalcMacroSpawn(where = macroLoc, a = areas, yrs = yrRange)
 
 Show Macrocystis spawn on a map, aggregated by Location and year.
 
-```{r macroLocYr, fig.width=7, fig.height=7}
+```{r macroLocYr, fig.cap = "Macrocystis spawn index in tonnes (t)."}
 # Make a spatial object for mapping
 macroLocYr <- macroSpawn$SI %>%
   group_by(Year, LocationCode) %>%
@@ -198,7 +203,7 @@ ggplot(data = macroLocYr) +
   geom_sf(data = canada) +
   geom_sf(mapping = aes(colour = Macrocystis), size = 3) +
   scale_colour_viridis_c() +
-  labs(title = "Macrocystis", colour = "Spawn\nindex (t)") +
+  labs(colour = "Spawn\nindex (t)") +
   coord_sf(xlim = xLims, ylim = yLims) +
   facet_wrap(Year ~ ., ncol = 2)
 ```
@@ -244,7 +249,7 @@ underSpawn <- CalcUnderSpawn(where = underLoc, a = areas, yrs = yrRange)
 
 Show understory spawn on a map, aggregated by Location and year.
 
-```{r underLocYr, fig.width=7, fig.height=7}
+```{r underLocYr, fig.cap = "Understory spawn index in tonnes (t)."}
 # Make a spatial object for mapping
 underLocYr <- underSpawn$SI %>%
   group_by(Year, LocationCode) %>%
@@ -260,7 +265,7 @@ ggplot(data = underLocYr) +
   geom_sf(data = canada) +
   geom_sf(mapping = aes(colour = Understory), size = 3) +
   scale_colour_viridis_c() +
-  labs(title = "Understory", colour = "Spawn\nindex (t)") +
+  labs(colour = "Spawn\nindex (t)") +
   coord_sf(xlim = xLims, ylim = yLims) +
   facet_wrap(Year ~ ., ncol = 2)
 ```
