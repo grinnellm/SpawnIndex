@@ -30,7 +30,7 @@ library(mapview)
 # Black and white theme
 theme_set(theme_bw())
 # Canada
-canada <- ne_countries(scale = "medium", returnclass = "sf", country = "canada")
+canada <- ne_countries(scale = "large", returnclass = "sf", country = "canada")
 ```
 
 # Set up
@@ -114,14 +114,12 @@ surfLoc <- list(
   )
 )
 # Calculate the surface spawn index
-surfSpawn <- CalcSurfSpawn(
-  where = surfLoc, a = areas, yrs = yrRange
-)
+surfSpawn <- CalcSurfSpawn(where = surfLoc, a = areas, yrs = yrRange)
 ```
 
 Show surface spawn on a map, aggregated by Location and year.
 
-```{r surfLocYr, fig.width=6, fig.height=6}
+```{r surfLocYr, fig.width=7, fig.height=7}
 # Make a spatial object for mapping
 surfLocYr <- surfSpawn$SI %>%
   group_by(Year, LocationCode) %>%
@@ -133,18 +131,17 @@ surfLocYr <- surfSpawn$SI %>%
   ) %>%
   filter(Longitude != 0, Latitude != 0) %>%
   st_as_sf(coords = c("Longitude", "Latitude"), crs = 4326)
-# Map limits
-cst <- st_coordinates(surfLocYr)
-cst
-# xLims <- range(, na.rm = TRUE)
-# yLims <- range(, na.rm = TRUE)
+# Determine spatial extent (for map)
+xSurf <- range(st_coordinates(surfLocYr)[, "X"], na.rm = TRUE)
+ySurf <- range(st_coordinates(surfLocYr)[, "Y"], na.rm = TRUE)
 # Map
 ggplot(data = surfLocYr) +
   geom_sf(data = canada) +
-  geom_sf(mapping=aes(fill=Surface)) +
-  scale_fill_viridis_c() +
-  # coord_sf(xlim = xLims, ylim = yLims) +
-  facet_wrap(Year~., nrow = 2) +
+  geom_sf(mapping = aes(colour = Surface), size = 3) +
+  scale_colour_viridis_c() +
+  labs(colour = "Surface spawn\nindex (t)") +
+  coord_sf(xlim = xSurf, ylim = ySurf) +
+  facet_wrap(Year ~ ., nrow = 2) +
   theme(legend.position = "top")
 ```
 
@@ -178,10 +175,38 @@ macroLoc <- list(
   )
 )
 # Calculate the Macrocystis spawn index
-macroSpawn <- CalcMacroSpawn(
-  where = macroLoc, a = areas, yrs = yrRange
-)
+macroSpawn <- CalcMacroSpawn(where = macroLoc, a = areas, yrs = yrRange)
 ```
+
+Show Macrocystis spawn on a map, aggregated by Location and year.
+
+```{r macroLocYr, fig.width=7, fig.height=7}
+# Make a spatial object for mapping
+macroLocYr <- macroSpawn$SI %>%
+  group_by(Year, LocationCode) %>%
+  summarise(Macrocystis = round(sum(MacroSI, na.rm = TRUE))) %>%
+  ungroup() %>%
+  left_join(
+    y = select(.data = areas, LocationCode, Longitude, Latitude),
+    by = "LocationCode"
+  ) %>%
+  filter(Longitude != 0, Latitude != 0) %>%
+  st_as_sf(coords = c("Longitude", "Latitude"), crs = 4326)
+# Determine spatial extent (for map)
+xMacro <- range(st_coordinates(macroLocYr)[, "X"], na.rm = TRUE)
+yMacro <- range(st_coordinates(macroLocYr)[, "Y"], na.rm = TRUE)
+# Map
+ggplot(data = macroLocYr) +
+  geom_sf(data = canada) +
+  geom_sf(mapping = aes(colour = Macrocystis), size = 3) +
+  scale_colour_viridis_c() +
+  labs(colour = "Macrocystis\nspawn index (t)") +
+  coord_sf(xlim = xMacro, ylim = yMacro) +
+  facet_wrap(Year ~ ., nrow = 2) +
+  theme(legend.position = "top")
+```
+
+Calculate the total Macrocystis spawn by year.
 
 ```{r macroYr, results = 'asis'}
 # Aggregate the Macrocystis spawn index by year
@@ -216,10 +241,38 @@ underLoc <- list(
   )
 )
 # Calculate the understory spawn index
-underSpawn <- CalcUnderSpawn(
-  where = underLoc, a = areas, yrs = yrRange
-)
+underSpawn <- CalcUnderSpawn(where = underLoc, a = areas, yrs = yrRange)
 ```
+
+Show understory spawn on a map, aggregated by Location and year.
+
+```{r underLocYr, fig.width=7, fig.height=7}
+# Make a spatial object for mapping
+underLocYr <- underSpawn$SI %>%
+  group_by(Year, LocationCode) %>%
+  summarise(Understory = round(sum(UnderSI, na.rm = TRUE))) %>%
+  ungroup() %>%
+  left_join(
+    y = select(.data = areas, LocationCode, Longitude, Latitude),
+    by = "LocationCode"
+  ) %>%
+  filter(Longitude != 0, Latitude != 0) %>%
+  st_as_sf(coords = c("Longitude", "Latitude"), crs = 4326)
+# Determine spatial extent (for map)
+xUnder <- range(st_coordinates(underLocYr)[, "X"], na.rm = TRUE)
+yUnder <- range(st_coordinates(underLocYr)[, "Y"], na.rm = TRUE)
+# Map
+ggplot(data = underLocYr) +
+  geom_sf(data = canada) +
+  geom_sf(mapping = aes(colour = Understory), size = 3) +
+  scale_colour_viridis_c() +
+  labs(colour = "Understory\nspawn index (t)") +
+  coord_sf(xlim = xUnder, ylim = yUnder) +
+  facet_wrap(Year ~ ., nrow = 2) +
+  theme(legend.position = "top")
+```
+
+Calculate the total understory spawn by year.
 
 ```{r underYr, results = 'asis'}
 # Aggregate the understory spawn index by year
