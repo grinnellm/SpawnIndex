@@ -26,10 +26,9 @@ library(kableExtra)
 library(sf)
 library(rnaturalearth)
 library(rnaturalearthdata)
-library(mapview)
 # Black and white theme
 theme_set(theme_bw())
-# Canada
+# Canada: coarse polygons for mapping
 canada <- ne_countries(scale = "large", returnclass = "sf", country = "canada")
 ```
 
@@ -41,7 +40,7 @@ Also, load the parameter values required for spawn index calculations.
 ```{r pars}
 # Parameters
 region <- "WCVI" # Region: HG, PRD, CC, SoG, WCVI, A27, or A2W
-yrRange <- 2010:2013 # Years (>= 1951)
+yrRange <- 2010:2015 # Years (>= 1951)
 data(pars) # Parameters for spawn index calculations
 ```
 
@@ -49,8 +48,9 @@ This example will focus on `r region` from `r min(yrRange)` to `r max(yrRange)`.
 
 # Spatial information
 
-Finally, load the spatial information for this region;
+Load the spatial information for this region;
 we will use the example spawn database that comes with the package (`HerringSpawn.mdb`).
+Note that this example database only includes data for WCVI from 2010 to 2015.
 
 ```{r areas}
 # Database location
@@ -61,8 +61,10 @@ areaLoc <- list(
   fns = list(sections = "Sections", locations = "Location")
 )
 # Load area data and remove areas with no spatial information
-areas <- LoadAreaData(reg = region, where = areaLoc) %>%
-  filter(Region == region, Longitude != 0, Latitude != 0)
+areas <- LoadAreaData(reg = region, where = areaLoc)
+# Determine spatial extent (for maps)
+xLims <- range(areas$Longitude)
+yLims <- range(areas$Latitude)
 ```
 
 In this example database, `r region` has
@@ -129,20 +131,15 @@ surfLocYr <- surfSpawn$SI %>%
     y = select(.data = areas, LocationCode, Longitude, Latitude),
     by = "LocationCode"
   ) %>%
-  filter(Longitude != 0, Latitude != 0) %>%
   st_as_sf(coords = c("Longitude", "Latitude"), crs = 4326)
-# Determine spatial extent (for map)
-xSurf <- range(st_coordinates(surfLocYr)[, "X"], na.rm = TRUE)
-ySurf <- range(st_coordinates(surfLocYr)[, "Y"], na.rm = TRUE)
 # Map
 ggplot(data = surfLocYr) +
   geom_sf(data = canada) +
   geom_sf(mapping = aes(colour = Surface), size = 3) +
   scale_colour_viridis_c() +
-  labs(colour = "Surface spawn\nindex (t)") +
-  coord_sf(xlim = xSurf, ylim = ySurf) +
-  facet_wrap(Year ~ ., nrow = 2) +
-  theme(legend.position = "top")
+  labs(title = "Surface", colour = "Spawn\nindex (t)") +
+  coord_sf(xlim = xLims, ylim = yLims) +
+  facet_wrap(Year ~ ., ncol = 2)
 ```
 
 Calculate the total surface spawn by year.
@@ -190,20 +187,15 @@ macroLocYr <- macroSpawn$SI %>%
     y = select(.data = areas, LocationCode, Longitude, Latitude),
     by = "LocationCode"
   ) %>%
-  filter(Longitude != 0, Latitude != 0) %>%
   st_as_sf(coords = c("Longitude", "Latitude"), crs = 4326)
-# Determine spatial extent (for map)
-xMacro <- range(st_coordinates(macroLocYr)[, "X"], na.rm = TRUE)
-yMacro <- range(st_coordinates(macroLocYr)[, "Y"], na.rm = TRUE)
 # Map
 ggplot(data = macroLocYr) +
   geom_sf(data = canada) +
   geom_sf(mapping = aes(colour = Macrocystis), size = 3) +
   scale_colour_viridis_c() +
-  labs(colour = "Macrocystis\nspawn index (t)") +
-  coord_sf(xlim = xMacro, ylim = yMacro) +
-  facet_wrap(Year ~ ., nrow = 2) +
-  theme(legend.position = "top")
+  labs(title = "Macrocystis", colour = "Spawn\nindex (t)") +
+  coord_sf(xlim = xLims, ylim = yLims) +
+  facet_wrap(Year ~ ., ncol = 2)
 ```
 
 Calculate the total Macrocystis spawn by year.
@@ -256,20 +248,15 @@ underLocYr <- underSpawn$SI %>%
     y = select(.data = areas, LocationCode, Longitude, Latitude),
     by = "LocationCode"
   ) %>%
-  filter(Longitude != 0, Latitude != 0) %>%
   st_as_sf(coords = c("Longitude", "Latitude"), crs = 4326)
-# Determine spatial extent (for map)
-xUnder <- range(st_coordinates(underLocYr)[, "X"], na.rm = TRUE)
-yUnder <- range(st_coordinates(underLocYr)[, "Y"], na.rm = TRUE)
 # Map
 ggplot(data = underLocYr) +
   geom_sf(data = canada) +
   geom_sf(mapping = aes(colour = Understory), size = 3) +
   scale_colour_viridis_c() +
-  labs(colour = "Understory\nspawn index (t)") +
-  coord_sf(xlim = xUnder, ylim = yUnder) +
-  facet_wrap(Year ~ ., nrow = 2) +
-  theme(legend.position = "top")
+  labs(title = "Understory", colour = "Spawn\nindex (t)") +
+  coord_sf(xlim = xLims, ylim = yLims) +
+  facet_wrap(Year ~ ., ncol = 2)
 ```
 
 Calculate the total understory spawn by year.
