@@ -1,6 +1,10 @@
 ---
 title: "Pacific Herring spawn index"
+author: "Matthew H. Grinnell"
+date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
+bibliography: "../inst/REFERENCES.bib"
+link-citations: true
 vignette: >
   %\VignetteIndexEntry{Pacific Herring spawn index}
   %\VignetteEngine{knitr::rmarkdown}
@@ -12,11 +16,11 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+options(knitr.kable.NA = "")
 ```
 
-# Introduction
-
 This vignette provides an example on how to calculate the spawn index for Pacific Herring (*Clupea pallasii*) in British Columbia, Canada.
+See the technical report for more background [@GrinnellEtalYYYY].
 Load the load the `SpawnIndex` package, and some additional pacakges used in this vignette.
 
 ```{r libraries, message = FALSE, warning = FALSE}
@@ -50,7 +54,7 @@ This example will focus on `r region` from `r min(yrRange)` to `r max(yrRange)`.
 
 Load the spatial information for this region;
 we will use the example spawn database that comes with the package (`HerringSpawn.mdb`).
-Note that this example database only includes data for WCVI from 2010 to 2015.
+Note that this example database only includes WCVI from 2010 to 2015.
 
 ```{r areas}
 # Database location
@@ -89,8 +93,8 @@ areas %>%
 Calculate the conversion factor to convert the number of eggs to the spawn index (i.e., biomass in tonnes).
 
 ```{r theta}
+# Egg to biomass conversion factor
 theta <- CalcEggConversion()
-theta
 ```
 
 Thus, we divide the number of eggs by `r theta` to estimate the biomass of fish that spawned.
@@ -150,6 +154,7 @@ surfYr <- surfSpawn$SI %>%
   group_by(Year) %>%
   summarise(Surface = sum(SurfSI, na.rm = TRUE)) %>%
   ungroup() %>%
+  complete(Year = yrRange) %>%
   arrange(Year)
 # Table
 kable(
@@ -206,6 +211,7 @@ macroYr <- macroSpawn$SI %>%
   group_by(Year) %>%
   summarise(Macrocystis = sum(MacroSI, na.rm = TRUE)) %>%
   ungroup() %>%
+  complete(Year = yrRange) %>%
   arrange(Year)
 # Table
 kable(
@@ -267,6 +273,7 @@ underYr <- underSpawn$SI %>%
   group_by(Year) %>%
   summarise(Understory = sum(UnderSI, na.rm = TRUE)) %>%
   ungroup() %>%
+  complete(Year = yrRange) %>%
   arrange(Year)
 # Table
 kable(
@@ -284,8 +291,10 @@ surface, Macrocystis, and understory.
 # Total spawn index
 totalYr <- full_join(x = surfYr, y = macroYr, by = "Year") %>%
   full_join(y = underYr, by = "Year") %>%
-  replace_na(replace = list(Surface = 0, Macrocystis = 0, Understory = 0)) %>%
-  mutate(Total = Surface + Macrocystis + Understory) %>%
+  group_by(Year) %>%
+  mutate(Total = sum(c(Surface, Macrocystis, Understory), na.rm = TRUE)) %>%
+  ungroup() %>%
+  complete(Year = yrRange) %>%
   arrange(Year)
 # Table
 kable(
@@ -294,3 +303,5 @@ kable(
 ) %>%
   add_header_above(header = c("", "Survey" = 3, ""))
 ```
+
+# References
