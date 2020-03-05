@@ -1604,10 +1604,6 @@ and a vignette with examples.
 The \textbf{R} package contains the functions to imports tables from the database, and calculate the spawn index.
 This document is meant to accompany the \textbf{R} package, which implements the calculations described here.
 The \textbf{R} package is documented to promote accessibility and transparency.
-Download and install the package as follows:
-<<load, echo=TRUE, results='hide'>>=
-devtools::install_github(repo = "grinnellm/SpawnIndex")
-@
 
 \section{ACKNOWLEDGEMENTS}
 
