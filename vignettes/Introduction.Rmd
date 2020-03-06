@@ -26,7 +26,7 @@ options(knitr.kable.NA = "")
 This vignette provides an example on how to calculate the spawn index for Pacific Herring (*Clupea pallasii*) in British Columbia, Canada.
 See the technical report for background information [@GrinnellEtalYYYY].
 Source code is on the [GitHub repository](https://github.com/grinnellm/SpawnIndex).
-Load the load the `SpawnIndex` package, and some additional pacakges used in this vignette.
+Load the `SpawnIndex` package, and some additional pacakges used in this vignette.
 
 ```{r libraries, message = FALSE, warning = FALSE}
 library(SpawnIndex)
