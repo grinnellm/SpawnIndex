@@ -1,7 +1,6 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-/data-raw
-/doc
 ^doc$
 ^Meta$
 ^tr$
+^data-raw$
