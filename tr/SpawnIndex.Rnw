@@ -282,6 +282,8 @@ algaeCoefs <- algaeCoefs %>%
   arrange(AlgaeName)
 # Load parameter values
 data(pars)
+# Load understory width correction factors
+data(underWidthFac)
 @
 
 %%%% Front matter %%%%%
@@ -1707,7 +1709,7 @@ Legend: ", PasteNicely(c(majorRegions, minorRegions)), ".", sep = "")
 # Short caption
 tabSCap <- "Spawn width correction factors for \\fishName{} understory spawn surveys"
 # Format the table
-kWidthFac <- adjWidthFacs %>%
+kWidthFac <- underWidthFac %>%
   mutate_if(is.double, funs(format(., nsmall = 3))) %>%
   mutate(Year = as.integer(Year)) %>%
   arrange(Year) %>%
