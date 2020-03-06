@@ -2,3 +2,5 @@
 ^\.Rproj\.user$
 /data-raw
 /doc
+^doc$
+^Meta$
