@@ -1,1 +1,21 @@
-utils::globalVariables(c("."))
+utils::globalVariables(c(
+  "algaeCoefs", "AlgLyrs", "AlgProp", "AlgType", "Area", "areas", "Bed", "BED",
+  "Brown_Algae_Percent", "BrownAlgae", "Coef", "Depth", "DepthM", "Eastings",
+  "EggDens", "EggDensAlg", "EggDensL", "EggDensSub", "EggLyrs", "EggsPerPlant",
+  "End", "Grass", "Grass_Percent", "Group", "Height", "intensity", "Intensity",
+  "Kelp", "Kelp_Percent", "Latitude", "Lay_Brown_Algae", "Lay_Grass",
+  "Lay_Kelp", "Lay_Leafy_Red", "Lay_Other", "Lay_Rock", "Lay_Rockweed",
+  "Lay_Stringy_Red", "Layers", "Layers_Bottom", "Layers_Vegetation",
+  "Leafy_Red_Percent", "LeafyRed", "Length", "Length_Macrocystis",
+  "Length_Vegetation", "LengthAlgae", "LengthMacro", "Loc_Code", "Location",
+  "Location_Latitude", "Location_Longitude", "LocationCode", "LocationName",
+  "Longitude", "MacroSI", "Major", "Mature", "Method", "Northings", "Other",
+  "Other_Percent", "pars", "Percent_Bottom", "Percent_Vegetation", "Plants",
+  "Quadrat_Size", "QuadratSize", "Region", "REGION", "RegionName", "Rock",
+  "Rock_Percent", "Rockweed", "Rockweed_Percent", "SAR", "Section", "SECTION",
+  "Spawn_Number", "SpawnNumber", "Stalks", "StalksPerPlant", "Start",
+  "StatArea", "Station", "Stringy_Red_Percent", "StringyRed", "SubLyrs",
+  "SubProp", "SurfSI", "Swath", "Transect", "Type_Vegetation", "UnderSI",
+  "underWidthFac", "WIDMED", "Width", "Width_Recorded", "WidthBar", "WidthBed",
+  "WidthFac", "WidthObs", "WidthReg", "WidthSec", "WidthTot", "X", "Y", "Year"
+))
