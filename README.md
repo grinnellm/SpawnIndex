@@ -2,4 +2,4 @@
 
 Download and install the package as follows:
 
-`devtools::install_github( repo="grinnellm/SpawnIndex" )`
+`devtools::install_github(repo = "grinnellm/SpawnIndex")`
