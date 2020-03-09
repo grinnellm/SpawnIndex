@@ -2,6 +2,7 @@
 
 The **SpawnIndex** package calculates the spawn index for
 Pacific Herring (*Clupea pallasii*) in British Columbia, Canada.
+Note that the 'spawn index' is a relative index of spawning biomass.
 
 ## Download and install
 
