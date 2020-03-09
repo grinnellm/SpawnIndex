@@ -1,6 +1,7 @@
 # Calculate the Pacific Herring spawn index
 
-The **SpawnIndex** package calculates the spawn index for Pacific Herring (*Clupea pallasii*) in British Columbia, Canada.
+The **SpawnIndex** package calculates the spawn index for
+Pacific Herring (*Clupea pallasii*) in British Columbia, Canada.
 
 ## Download and install
 
@@ -10,11 +11,11 @@ Download and install the package as follows:
 
 ## Additional information
 
-Background information on the spawn index and calculations is in technical report.
-Users can read a draft technical report in "tr/Draft.pdf".
-Please do not cite or circulate this draft report.
+The technical report has background information on the spawn index and calculations.
+A draft technical report is available here: "tr/Draft.pdf".
+Please do not cite or circulate this draft.
 The vignette has an example workflow; build the vignette like so:
 
-`build_vignettes()`
+`build_vignettes(pkg = "SpawnIndex")`
 
 and open the file "doc/Introduction.html".
