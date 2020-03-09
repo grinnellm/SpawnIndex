@@ -8,9 +8,8 @@ LoadAreaData(
   reg,
   secSub = NA,
   where,
-  inCRS = "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0",
- 
-    outCRS = "+proj=aea +lat_1=50 +lat_2=58.5 +lat_0=45 +lon_0=-126 +x_0=1000000 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs"
+  inCRS = "+init=epsg:4326",
+  outCRS = "+init=epsg:3005"
 )
 }
 \arguments{
@@ -23,9 +22,11 @@ analysis, or NA to include all the Sections in the region.}
 \item{where}{List. Location of the Pacfic Herring "locations" database (see
 examples).}
 
-\item{inCRS}{Chracter. Input coordinate reference system.}
+\item{inCRS}{Chracter. Input coordinate reference system;
+\href{https://spatialreference.org/}{use EPSG codes if desired}.}
 
-\item{outCRS}{Character. Output coordinate reference system.}
+\item{outCRS}{Chracter. Output coordinate reference system;
+\href{https://spatialreference.org/}{use EPSG codes if desired}.}
 }
 \value{
 Tibble. Table of geographic information for Pacific Herring: SAR,

@@ -24,7 +24,6 @@ RoxygenNote: 7.0.2
 Imports: Rdpack, RODBC, dplyr, gfiscamutils, readr, sp, stringr, tibble, tidyr,
     lubridate
 RdMacros: Rdpack
-Suggests: 
-    knitr,
-    rmarkdown
+Suggests: knitr, rmarkdown, ggplot2, magrittr, kableExtra, sf, rnaturalearth,
+    rnaturalearthdata
 VignetteBuilder: knitr

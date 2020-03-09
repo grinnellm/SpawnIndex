@@ -14,8 +14,10 @@
 #'   analysis, or NA to include all the Sections in the region.
 #' @param where List. Location of the Pacfic Herring "locations" database (see
 #'   examples).
-#' @param inCRS Chracter. Input coordinate reference system.
-#' @param outCRS Character. Output coordinate reference system.
+#' @param inCRS Chracter. Input coordinate reference system;
+#'   \href{https://spatialreference.org/}{use EPSG codes if desired}.
+#' @param outCRS Chracter. Output coordinate reference system;
+#'   \href{https://spatialreference.org/}{use EPSG codes if desired}.
 #' @importFrom readr read_csv cols
 #' @importFrom dplyr filter select mutate full_join %>%
 #' @importFrom tidyr unite
@@ -38,8 +40,8 @@
 LoadAreaData <- function(reg,
                          secSub = NA,
                          where,
-                         inCRS = "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0",
-                         outCRS = "+proj=aea +lat_1=50 +lat_2=58.5 +lat_0=45 +lon_0=-126 +x_0=1000000 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs") {
+                         inCRS = "+init=epsg:4326",
+                         outCRS = "+init=epsg:3005") {
   # Cross-walk table for SAR to region and region name
   regions <- readr::read_csv(
     file =
@@ -94,7 +96,8 @@ LoadAreaData <- function(reg,
     # Message
     cat("Note overlap between JS and SoG: Sections 132 and 135\n")
     # Access the sections worksheet and wrangle
-    sections <- RODBC::sqlFetch(channel = accessDB, sqtable = where$fns$sections)
+    sections <- RODBC::sqlFetch(channel = accessDB,
+                                sqtable = where$fns$sections)
     # Error if data was not fetched
     if (class(sections) != "data.frame") {
       stop("No data available in MS Access connection")
@@ -109,7 +112,8 @@ LoadAreaData <- function(reg,
       tibble::as_tibble()
   } else { # End if Johnstone Strait, otherwise
     # Access the sections worksheet and wrangle
-    sections <- RODBC::sqlFetch(channel = accessDB, sqtable = where$fns$sections)
+    sections <- RODBC::sqlFetch(channel = accessDB,
+                                sqtable = where$fns$sections)
     # Error if data was not fetched
     if (class(sections) != "data.frame") {
       stop("No data available in MS Access connection")
