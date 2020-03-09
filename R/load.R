@@ -61,19 +61,19 @@ LoadAreaData <- function(reg,
     regions <- dplyr::filter(.data = regions, SAR != 8)
   }
   # Return the regions table to the main environment
-  regions <<- regions
+  regions <- regions
   # Return region names
   regionNames <- regions %>%
     dplyr::select(RegionName, Region, Major) %>%
     dplyr::mutate(Region = paste("(", Region, ")", sep = "")) %>%
     tidyr::unite(RegionName, Region, col = "Region", sep = " ")
   # Make a nice list
-  allRegionNames <<- list(
+  allRegionNames <- list(
     major = regionNames$Region[regionNames$Major],
     minor = regionNames$Region[!regionNames$Major]
   )
   # Possible regions by type (return to the main level)
-  allRegions <<- list(
+  allRegions <- list(
     major = as.character(regions$Region[regions$Major]),
     minor = as.character(regions$Region[!regions$Major])
   )
@@ -90,7 +90,7 @@ LoadAreaData <- function(reg,
   ))
   # TODO: Sections 132 and 135 are also SoG sections -- how to resolve?
   # Manual fix: Johnstone Strait herring sections
-  jsSections <<- c(111, 112, 121:127, 131:136)
+  jsSections <- c(111, 112, 121:127, 131:136)
   # If the region is Johnstone Strait
   if (reg == "JS") {
     # Message
