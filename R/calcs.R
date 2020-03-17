@@ -66,10 +66,12 @@ CalcBiomassSOK <- function(SOK,
 #' @param a Tibble. Table of geographic information indicating the subset of
 #'   spawn survey observations to inlude in calculations. Returned from
 #'   \code{\link{LoadAreaData}}.
+#' @param widths Tibble. Table of median region, section, and bed widths in
+#'   metres (m). Returned from \code{\link{GetWidth}}.
 #' @param yrs Numeric vector. Years(s) to include in the calculations, usually
 #'   staring in 1951.
-#' @param intense Tibble. Table of spawn intensity categories and number of
-#'   egg layers; from \code{\link{intensity}}.
+#' @param intense Tibble. Table of spawn intensity categories and number of egg
+#'   layers; from \code{\link{intensity}}.
 #' @param intYrs Numeric vector. Years where intensity categores are used to
 #'   determine egg layers.
 #' @param rsYrs Numeric vector. Years where intensity needs to be re-scaled from
@@ -94,8 +96,8 @@ CalcBiomassSOK <- function(SOK,
 #'   Section, and Location code.
 #' @references \insertAllCited
 #' @note The 'spawn index' is a relative index of spawning biomass.
-#' @seealso \code{\link{LoadAreaData}} \code{\link{CalcEggConversion}}
-#'   \code{\link{pars}} \code{\link{intensity}}
+#' @seealso \code{\link{LoadAreaData}} \code{\link{GetWidth}}
+#'   \code{\link{CalcEggConversion}} \code{\link{pars}} \code{\link{intensity}}
 #' @export
 #' @examples
 #' dbLoc <- system.file("extdata", package = "SpawnIndex")
@@ -104,6 +106,13 @@ CalcBiomassSOK <- function(SOK,
 #'   fns = list(sections = "Sections", locations = "Location")
 #' )
 #' areas <- LoadAreaData(reg = "WCVI", where = areaLoc)
+#' widthLoc <- list(
+#'   loc = dbLoc, db = "HerringSpawn.mdb",
+#'   fns = list(
+#'     regionStd = "RegionStd", sectionStd = "SectionStd", poolStd = "PoolStd"
+#'   )
+#' )
+#' medWidth <- GetWidth(where = widthLoc, a = areas)
 #' data(pars)
 #' data(intensity)
 #' surfLoc <- list(
@@ -114,11 +123,12 @@ CalcBiomassSOK <- function(SOK,
 #'   )
 #' )
 #' surfSpawn <- CalcSurfSpawn(
-#'   where = surfLoc, a = areas, yrs = 2010:2015
+#'   where = surfLoc, a = areas, widths=medWidth, yrs = 2010:2015
 #' )
 #' surfSpawn$SI
 CalcSurfSpawn <- function(where,
                           a,
+                          widths,
                           yrs,
                           intense = intensity,
                           intYrs = yrs[yrs < 1979],
@@ -297,9 +307,7 @@ CalcSurfSpawn <- function(where,
   # Calculate annual fish biomass by spawn number/bed
   biomassSpawn <- eggsSpawn %>%
     dplyr::left_join(y = spawn, by = c("Year", "LocationCode", "SpawnNumber")) %>%
-    dplyr::left_join(y = regStd, by = "Region") %>%
-    dplyr::left_join(y = secStd, by = "Section") %>%
-    dplyr::left_join(y = bedStd, by = c("Section", "Bed")) %>%
+    dplyr::left_join(y = widths, by = c("Region", "Section", "Bed")) %>%
     # Width is set to bed, section, region, or observed width (in that order)
     dplyr::mutate(
       Width = WidthBed,

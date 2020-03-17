@@ -7,6 +7,7 @@
 CalcSurfSpawn(
   where,
   a,
+  widths,
   yrs,
   intense = intensity,
   intYrs = yrs[yrs < 1979],
@@ -24,11 +25,14 @@ CalcSurfSpawn(
 spawn survey observations to inlude in calculations. Returned from
 \code{\link{LoadAreaData}}.}
 
+\item{widths}{Tibble. Table of median region, section, and bed widths in
+metres (m). Returned from \code{\link{GetWidth}}.}
+
 \item{yrs}{Numeric vector. Years(s) to include in the calculations, usually
 staring in 1951.}
 
-\item{intense}{Tibble. Table of spawn intensity categories and number of
-egg layers; from \code{\link{intensity}}.}
+\item{intense}{Tibble. Table of spawn intensity categories and number of egg
+layers; from \code{\link{intensity}}.}
 
 \item{intYrs}{Numeric vector. Years where intensity categores are used to
 determine egg layers.}
@@ -65,6 +69,13 @@ areaLoc <- list(
   fns = list(sections = "Sections", locations = "Location")
 )
 areas <- LoadAreaData(reg = "WCVI", where = areaLoc)
+widthLoc <- list(
+  loc = dbLoc, db = "HerringSpawn.mdb",
+  fns = list(
+    regionStd = "RegionStd", sectionStd = "SectionStd", poolStd = "PoolStd"
+  )
+)
+medWidth <- GetWidth(where = widthLoc, a = areas)
 data(pars)
 data(intensity)
 surfLoc <- list(
@@ -75,7 +86,7 @@ surfLoc <- list(
   )
 )
 surfSpawn <- CalcSurfSpawn(
-  where = surfLoc, a = areas, yrs = 2010:2015
+  where = surfLoc, a = areas, widths=medWidth, yrs = 2010:2015
 )
 surfSpawn$SI
 }
@@ -83,6 +94,6 @@ surfSpawn$SI
 \insertAllCited
 }
 \seealso{
-\code{\link{LoadAreaData}} \code{\link{CalcEggConversion}}
-  \code{\link{pars}} \code{\link{intensity}}
+\code{\link{LoadAreaData}} \code{\link{GetWidth}}
+  \code{\link{CalcEggConversion}} \code{\link{pars}} \code{\link{intensity}}
 }

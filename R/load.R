@@ -273,3 +273,86 @@ LoadAreaData <- function(reg,
   # Return herring areas
   return(res)
 } # End LoadAreaData function
+
+#' Load median spawn width.
+#'
+#' Load median spawn width in metres (m) for Pacific Herring surface spawn index
+#' calculations.
+#'
+#' @param where List. Location of the Pacific Herring surface spawn database
+#'   (see examples).
+#' @param a Tibble. Table of geographic information indicating the subset of
+#'   spawn survey observations to inlude in calculations. Returned from
+#'   \code{\link{LoadAreaData}}.
+#' @importFrom RODBC odbcConnectAccess sqlFetch odbcClose
+#' @importFrom dplyr select distinct rename left_join filter %>%
+#' @importFrom tibble as_tibble
+#' @importFrom Rdpack reprompt
+#' @return Table with median widths in metres (m) for the region(s), section(s),
+#'   and bed(s) in \code{a}.
+#' @seealso \code{\link{CalcSurfSpawn}} \code{\link{LoadAreaData}}
+#' @export
+#' @examples
+#' dbLoc <- system.file("extdata", package = "SpawnIndex")
+#' areaLoc <- list(
+#'   loc = dbLoc, db = "HerringSpawn.mdb",
+#'   fns = list(sections = "Sections", locations = "Location")
+#' )
+#' areas <- LoadAreaData(reg = "WCVI", where = areaLoc)
+#' widthLoc <- list(
+#'   loc = dbLoc, db = "HerringSpawn.mdb",
+#'   fns = list(
+#'     regionStd = "RegionStd", sectionStd = "SectionStd", poolStd = "PoolStd"
+#'   )
+#' )
+#' medWidth <- GetWidth(where = widthLoc, a = areas)
+#' medWidth
+GetWidth <- function(where = whereLoc, a = areas) {
+  # Get area info
+  aSm <- a %>%
+    dplyr::select(SAR, Region, StatArea, Section, LocationCode, Bed) %>%
+    dplyr::distinct() %>%
+    tibble::as_tibble()
+  # Establish connection with access
+  accessDB <- RODBC::odbcConnectAccess(access.file = file.path(
+    where$loc,
+    where$db
+  ))
+  # Access the region worksheet and wrangle
+  regStd <- RODBC::sqlFetch(channel = accessDB, sqtable = where$fns$regionStd) %>%
+    dplyr::rename(SAR = REGION, WidthReg = WIDMED) %>%
+    dplyr::left_join(y = aSm, by = "SAR") %>%
+    dplyr::filter(SAR %in% aSm$SAR) %>%
+    dplyr::select(Region, WidthReg) %>%
+    dplyr::distinct() %>%
+    tibble::as_tibble()
+  # Access the section worksheet and wrangle
+  secStd <- RODBC::sqlFetch(
+    channel = accessDB,
+    sqtable = where$fns$sectionStd
+  ) %>%
+    dplyr::rename(Section = SECTION, WidthSec = WIDMED) %>%
+    dplyr::left_join(y = aSm, by = "Section") %>%
+    dplyr::filter(Section %in% aSm$Section) %>%
+    dplyr::select(Region, Section, WidthSec) %>%
+    dplyr::distinct() %>%
+    tibble::as_tibble()
+  # Access the bed worksheet and wrangle
+  bedStd <- RODBC::sqlFetch(channel = accessDB, sqtable = where$fns$poolStd) %>%
+    dplyr::rename(Section = SECTION, Bed = BED, WidthBed = WIDMED) %>%
+    dplyr::left_join(y = aSm, by = c("Section", "Bed")) %>%
+    dplyr::filter(Section %in% aSm$Section) %>%
+    dplyr::select(Region, Section, Bed, WidthBed) %>%
+    dplyr::distinct() %>%
+    tibble::as_tibble()
+  # Merge the tables
+  res <- regStd %>%
+    dplyr::left_join(y = secStd, by = "Region") %>%
+    dplyr::left_join(y = bedStd, by = c("Region", "Section")) %>%
+    dplyr::arrange(Region, Section, Bed) %>%
+    dplyr::distinct()
+  # Close the connection
+  RODBC::odbcClose(accessDB)
+  # Table to return
+  return(res)
+} # End GetWidth function
