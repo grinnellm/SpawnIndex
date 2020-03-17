@@ -1,24 +1,26 @@
 require(SpawnIndex)
 
+# Region of interest
+region <- "WCVI"
+
+# Database location
 dbLoc <- system.file("extdata", package = "SpawnIndex")
 
+# Tables etc for area info
 areaLoc <- list(
   loc = dbLoc, db = "HerringSpawn.mdb",
   fns = list(sections = "Sections", locations = "Location")
 )
 
-areas <- LoadAreaData(reg = "WCVI", where = areaLoc)
+areas <- LoadAreaData(reg = region, where = areaLoc)
 
-whereLoc <- list(
+# Tables etc for median widths
+widthLoc <- list(
   loc = dbLoc, db = "HerringSpawn.mdb",
   fns = list(
-    regionStd = "RegionStd", sectionStd = "SectionStd", poolStd = "PoolStd",
-    surface = "tSSSurface", allSpawn = "tSSAllspawn"
+    regionStd = "RegionStd", sectionStd = "SectionStd", poolStd = "PoolStd"
   )
 )
 
-GetWidth <- function(where, sec) {
-
-}
-
-GetWidth(where = whereLoc, sec == 23)
+# Median widths
+medWidth <- GetWidth(where = widthLoc, a = areas)
