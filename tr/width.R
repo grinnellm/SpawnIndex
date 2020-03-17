@@ -12,6 +12,7 @@ areaLoc <- list(
   fns = list(sections = "Sections", locations = "Location")
 )
 
+# Load area data
 areas <- LoadAreaData(reg = region, where = areaLoc)
 
 # Tables etc for median widths

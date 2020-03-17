@@ -123,7 +123,7 @@ CalcBiomassSOK <- function(SOK,
 #'   )
 #' )
 #' surfSpawn <- CalcSurfSpawn(
-#'   where = surfLoc, a = areas, widths=medWidth, yrs = 2010:2015
+#'   where = surfLoc, a = areas, widths = medWidth, yrs = 2010:2015
 #' )
 #' surfSpawn$SI
 CalcSurfSpawn <- function(where,

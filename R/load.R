@@ -96,8 +96,10 @@ LoadAreaData <- function(reg,
     # Message
     cat("Note overlap between JS and SoG: Sections 132 and 135\n")
     # Access the sections worksheet and wrangle
-    sections <- RODBC::sqlFetch(channel = accessDB,
-                                sqtable = where$fns$sections)
+    sections <- RODBC::sqlFetch(
+      channel = accessDB,
+      sqtable = where$fns$sections
+    )
     # Error if data was not fetched
     if (class(sections) != "data.frame") {
       stop("No data available in MS Access connection")
@@ -112,8 +114,10 @@ LoadAreaData <- function(reg,
       tibble::as_tibble()
   } else { # End if Johnstone Strait, otherwise
     # Access the sections worksheet and wrangle
-    sections <- RODBC::sqlFetch(channel = accessDB,
-                                sqtable = where$fns$sections)
+    sections <- RODBC::sqlFetch(
+      channel = accessDB,
+      sqtable = where$fns$sections
+    )
     # Error if data was not fetched
     if (class(sections) != "data.frame") {
       stop("No data available in MS Access connection")
