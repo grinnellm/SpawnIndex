@@ -292,8 +292,8 @@ LoadAreaData <- function(reg,
 #' @importFrom dplyr select distinct rename left_join filter %>%
 #' @importFrom tibble as_tibble
 #' @importFrom Rdpack reprompt
-#' @return Table with median widths in metres (m) for the region(s), section(s),
-#'   and bed(s) in \code{a}.
+#' @return Table with median region (WidthReg), section (WidthSec), and bed
+#'   (WidthBed) widths in metres (m) for the areas in \code{a}.
 #' @seealso \code{\link{CalcSurfSpawn}} \code{\link{LoadAreaData}}
 #' @export
 #' @examples
@@ -309,8 +309,8 @@ LoadAreaData <- function(reg,
 #'     regionStd = "RegionStd", sectionStd = "SectionStd", poolStd = "PoolStd"
 #'   )
 #' )
-#' medWidth <- GetWidth(where = widthLoc, a = areas)
-#' medWidth
+#' barWidth <- GetWidth(where = widthLoc, a = areas)
+#' barWidth
 GetWidth <- function(where = whereLoc, a = areas) {
   # Get area info
   aSm <- a %>%

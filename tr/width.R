@@ -24,4 +24,4 @@ widthLoc <- list(
 )
 
 # Median widths
-medWidth <- GetWidth(where = widthLoc, a = areas)
+barWidth <- GetWidth(where = widthLoc, a = areas)

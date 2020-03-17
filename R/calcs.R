@@ -112,7 +112,7 @@ CalcBiomassSOK <- function(SOK,
 #'     regionStd = "RegionStd", sectionStd = "SectionStd", poolStd = "PoolStd"
 #'   )
 #' )
-#' medWidth <- GetWidth(where = widthLoc, a = areas)
+#' barWidth <- GetWidth(where = widthLoc, a = areas)
 #' data(pars)
 #' data(intensity)
 #' surfLoc <- list(
@@ -123,7 +123,7 @@ CalcBiomassSOK <- function(SOK,
 #'   )
 #' )
 #' surfSpawn <- CalcSurfSpawn(
-#'   where = surfLoc, a = areas, widths = medWidth, yrs = 2010:2015
+#'   where = surfLoc, a = areas, widths = barWidth, yrs = 2010:2015
 #' )
 #' surfSpawn$SI
 CalcSurfSpawn <- function(where,
