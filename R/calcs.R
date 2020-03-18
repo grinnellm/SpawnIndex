@@ -66,7 +66,7 @@ CalcBiomassSOK <- function(SOK,
 #' @param a Tibble. Table of geographic information indicating the subset of
 #'   spawn survey observations to inlude in calculations. Returned from
 #'   \code{\link{LoadAreaData}}.
-#' @param widths Tibble. Table of median region, section, and bed widths in
+#' @param widths Tibble. Table of median region, section, and pool widths in
 #'   metres (m). Returned from \code{\link{GetWidth}}.
 #' @param yrs Numeric vector. Years(s) to include in the calculations, usually
 #'   staring in 1951.
@@ -140,7 +140,7 @@ CalcSurfSpawn <- function(where,
   ))
   # Get a small subset of area data
   areasSm <- a %>%
-    dplyr::select(SAR, Region, StatArea, Section, LocationCode, Bed) %>%
+    dplyr::select(SAR, Region, StatArea, Section, LocationCode, Pool) %>%
     dplyr::distinct() %>%
     tibble::as_tibble()
   # Load all spawn
@@ -200,7 +200,7 @@ CalcSurfSpawn <- function(where,
     ) %>%
     dplyr::filter(Method %in% c("Surface", "Dive")) %>%
     dplyr::select(
-      Year, Region, StatArea, Section, LocationCode, Bed,
+      Year, Region, StatArea, Section, LocationCode, Pool,
       SpawnNumber, Length, WidthObs, Intensity, EggLyrs
     )
   # Fill-in missing egg layers manually
@@ -263,29 +263,29 @@ CalcSurfSpawn <- function(where,
     ) %>%
     dplyr::summarise(SurfLyrs = gfiscamutils::MeanNA(EggLyrs)) %>%
     dplyr::ungroup()
-  # Calculate egg density per spawn number/bed
+  # Calculate egg density per spawn number/pool
   eggsSpawn <- eggs %>%
     dplyr::group_by(
       Year, Region, StatArea, Section, LocationCode, SpawnNumber,
-      Bed
+      Pool
     ) %>%
     # Spawn s
     dplyr::summarise(EggDens = gfiscamutils::MeanNA(EggDens)) %>%
     dplyr::ungroup()
-  # Calculate annual fish biomass by spawn number/bed
+  # Calculate annual fish biomass by spawn number/pool
   biomassSpawn <- eggsSpawn %>%
     dplyr::left_join(y = spawn, by = c("Year", "LocationCode", "SpawnNumber")) %>%
-    dplyr::left_join(y = widths, by = c("Region", "Section", "Bed")) %>%
-    # Width is set to bed, section, region, or observed width (in that order)
+    dplyr::left_join(y = widths, by = c("Region", "Section", "Pool")) %>%
+    # Width is set to pool, section, region, or observed width (in that order)
     dplyr::mutate(
-      Width = WidthBed,
+      Width = WidthPool,
       Width = ifelse(is.na(Width), WidthSec, Width),
       Width = ifelse(is.na(Width), WidthReg, Width),
       Width = ifelse(is.na(Width), WidthObs, Width),
       # Biomass in tonnes, based on Hay (1985), and Hay and Brett (1988)
       SurfSI = EggDens * Length * Width * 1000 / theta
     ) %>%
-    # Group to account for 'bed' level (want 'spawn' level)
+    # Group to account for 'pool' level (want 'spawn' level)
     dplyr::group_by(
       Year, Region, StatArea, Section, LocationCode,
       SpawnNumber
@@ -405,7 +405,7 @@ CalcMacroSpawn <- function(where,
     tibble::as_tibble()
   # Get a small subset of area data
   areasSm <- a %>%
-    dplyr::select(Region, StatArea, Section, LocationCode, Bed) %>%
+    dplyr::select(Region, StatArea, Section, LocationCode, Pool) %>%
     dplyr::distinct() %>%
     tibble::as_tibble()
   # Get transect-level data

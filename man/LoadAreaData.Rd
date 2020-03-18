@@ -31,7 +31,7 @@ examples).}
 \value{
 Tibble. Table of geographic information for Pacific Herring: SAR,
   Region, Region name, Statistical Area, Group, Section, Location code,
-  Location name, Bed, Eastings, Northings, Longitude, and Latitute.
+  Location name, Pool, Eastings, Northings, Longitude, and Latitute.
 }
 \description{
 Load Pacific Herring areas. Herring areas are kept in two files: the section

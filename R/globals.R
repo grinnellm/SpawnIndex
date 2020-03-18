@@ -11,11 +11,11 @@ utils::globalVariables(c(
   "Location_Latitude", "Location_Longitude", "LocationCode", "LocationName",
   "Longitude", "MacroSI", "Major", "Mature", "Method", "Northings", "Other",
   "Other_Percent", "pars", "Percent_Bottom", "Percent_Vegetation", "Plants",
-  "Quadrat_Size", "QuadratSize", "Region", "REGION", "RegionName", "Rock",
-  "Rock_Percent", "Rockweed", "Rockweed_Percent", "SAR", "Section", "SECTION",
-  "Spawn_Number", "SpawnNumber", "Stalks", "StalksPerPlant", "Start",
+  "Pool", "Quadrat_Size", "QuadratSize", "Region", "REGION", "RegionName",
+  "Rock", "Rock_Percent", "Rockweed", "Rockweed_Percent", "SAR", "Section",
+  "SECTION", "Spawn_Number", "SpawnNumber", "Stalks", "StalksPerPlant", "Start",
   "StatArea", "Station", "Stringy_Red_Percent", "StringyRed", "SubLyrs",
   "SubProp", "SurfSI", "Swath", "Transect", "Type_Vegetation", "UnderSI",
-  "underWidthFac", "WIDMED", "Width", "Width_Recorded", "WidthBar", "WidthBed",
-  "WidthFac", "WidthObs", "WidthReg", "WidthSec", "WidthTot", "X", "Y", "Year"
+  "underWidthFac", "WIDMED", "Width", "Width_Recorded", "WidthBar", "WidthFac",
+  "WidthObs", "WidthPool", "WidthReg", "WidthSec", "WidthTot", "X", "Y", "Year"
 ))

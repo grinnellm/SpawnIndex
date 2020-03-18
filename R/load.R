@@ -26,7 +26,7 @@
 #' @importFrom sp SpatialPoints spTransform CRS
 #' @return Tibble. Table of geographic information for Pacific Herring: SAR,
 #'   Region, Region name, Statistical Area, Group, Section, Location code,
-#'   Location name, Bed, Eastings, Northings, Longitude, and Latitute.
+#'   Location name, Pool, Eastings, Northings, Longitude, and Latitute.
 #' @note This function requires 32-bit R to load data from the 32-bit MS Access
 #'   database.
 #' @export
@@ -150,11 +150,11 @@ LoadAreaData <- function(reg,
     dplyr::rename(
       LocationCode = Loc_Code, LocationName = Location, StatArea = StatArea,
       Section = Section, Latitude = Location_Latitude,
-      Longitude = Location_Longitude
+      Longitude = Location_Longitude, Pool = Bed
     ) %>%
     tidyr::replace_na(replace = list(Longitude = 0, Latitude = 0)) %>%
     dplyr::select(
-      LocationCode, LocationName, Bed, Section, StatArea, Longitude,
+      LocationCode, LocationName, Pool, Section, StatArea, Longitude,
       Latitude
     ) %>%
     dplyr::arrange(LocationCode) %>%
@@ -176,7 +176,7 @@ LoadAreaData <- function(reg,
       Northings = ifelse(is.na(Latitude), Latitude, Y)
     ) %>%
     dplyr::select(
-      StatArea, Section, LocationCode, LocationName, Bed, Eastings,
+      StatArea, Section, LocationCode, LocationName, Pool, Eastings,
       Northings, Latitude, Longitude
     ) %>%
     dplyr::filter(Section %in% sections$Section) %>%
@@ -256,7 +256,7 @@ LoadAreaData <- function(reg,
     dplyr::filter(!is.na(StatArea), !is.na(Section)) %>%
     dplyr::select(
       SAR, Region, RegionName, StatArea, Group, Section, LocationCode,
-      LocationName, Bed, Eastings, Northings, Longitude, Latitude
+      LocationName, Pool, Eastings, Northings, Longitude, Latitude
     ) %>%
     #      mutate( StatArea=formatC(StatArea, width=2, format="d", flag="0"),
     #          Section=formatC(Section, width=3, format="d", flag="0") ) %>%
@@ -292,8 +292,8 @@ LoadAreaData <- function(reg,
 #' @importFrom dplyr select distinct rename left_join filter %>%
 #' @importFrom tibble as_tibble
 #' @importFrom Rdpack reprompt
-#' @return Table with median region (WidthReg), section (WidthSec), and bed
-#'   (WidthBed) widths in metres (m) for the areas in \code{a}.
+#' @return Table with median region (WidthReg), section (WidthSec), and pool
+#'   (WidthPool) widths in metres (m) for the areas in \code{a}.
 #' @seealso \code{\link{CalcSurfSpawn}} \code{\link{LoadAreaData}}
 #' @export
 #' @examples
@@ -311,10 +311,10 @@ LoadAreaData <- function(reg,
 #' )
 #' barWidth <- GetWidth(where = widthLoc, a = areas)
 #' barWidth
-GetWidth <- function(where = whereLoc, a = areas) {
+GetWidth <- function(where, a = areas) {
   # Get area info
   aSm <- a %>%
-    dplyr::select(SAR, Region, StatArea, Section, LocationCode, Bed) %>%
+    dplyr::select(SAR, Region, StatArea, Section, LocationCode, Pool) %>%
     dplyr::distinct() %>%
     tibble::as_tibble()
   # Establish connection with access
@@ -341,19 +341,21 @@ GetWidth <- function(where = whereLoc, a = areas) {
     dplyr::select(Region, Section, WidthSec) %>%
     dplyr::distinct() %>%
     tibble::as_tibble()
-  # Access the bed worksheet and wrangle
-  bedStd <- RODBC::sqlFetch(channel = accessDB, sqtable = where$fns$poolStd) %>%
-    dplyr::rename(Section = SECTION, Bed = BED, WidthBed = WIDMED) %>%
-    dplyr::left_join(y = aSm, by = c("Section", "Bed")) %>%
+  # Access the pool worksheet and wrangle
+  poolStd <- RODBC::sqlFetch(
+    channel = accessDB, sqtable = where$fns$poolStd
+  ) %>%
+    dplyr::rename(Section = SECTION, Pool = BED, WidthPool = WIDMED) %>%
+    dplyr::left_join(y = aSm, by = c("Section", "Pool")) %>%
     dplyr::filter(Section %in% aSm$Section) %>%
-    dplyr::select(Region, Section, Bed, WidthBed) %>%
+    dplyr::select(Region, Section, Pool, WidthPool) %>%
     dplyr::distinct() %>%
     tibble::as_tibble()
   # Merge the tables
   res <- regStd %>%
     dplyr::left_join(y = secStd, by = "Region") %>%
-    dplyr::left_join(y = bedStd, by = c("Region", "Section")) %>%
-    dplyr::arrange(Region, Section, Bed) %>%
+    dplyr::left_join(y = poolStd, by = c("Region", "Section")) %>%
+    dplyr::arrange(Region, Section, Pool) %>%
     dplyr::distinct()
   # Close the connection
   RODBC::odbcClose(accessDB)

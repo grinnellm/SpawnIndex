@@ -116,7 +116,7 @@ Calculate the surface spawn index.
 Surface spawn index calculations require
 a table to convert intensity categories to the number of egg layers, and
 a table of median spawn width estimates.
-Median spawn width estimates are required because width estimates from surfaces surveys are inaccurate.
+Median spawn width estimates in metres (m) are required because width estimates from surfaces surveys are inaccurate.
 
 ```{r width}
 widthLoc <- list(
@@ -132,12 +132,12 @@ barWidth <- GetWidth(where = widthLoc, a = areas)
 barWidth %>%
   dplyr::rename(
     `Region width` = WidthReg, `Section width` = WidthSec,
-    `Bed width` = WidthBed
+    `Pool width` = WidthPool
   ) %>%
   dplyr::slice(1:10) %>%
   knitr::kable(
     caption = paste(
-      "Example spawn width estimates (m) in the", region, "region."
+      "Example spawn width estimates in metres (m) in the", region, "region."
     ),
     booktabs = TRUE
   )

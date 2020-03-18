@@ -4,7 +4,7 @@
 \alias{GetWidth}
 \title{Load median spawn width.}
 \usage{
-GetWidth(where = whereLoc, a = areas)
+GetWidth(where, a = areas)
 }
 \arguments{
 \item{where}{List. Location of the Pacific Herring surface spawn database
@@ -15,8 +15,8 @@ spawn survey observations to inlude in calculations. Returned from
 \code{\link{LoadAreaData}}.}
 }
 \value{
-Table with median region (WidthReg), section (WidthSec), and bed
-  (WidthBed) widths in metres (m) for the areas in \code{a}.
+Table with median region (WidthReg), section (WidthSec), and pool
+  (WidthPool) widths in metres (m) for the areas in \code{a}.
 }
 \description{
 Load median spawn width in metres (m) for Pacific Herring surface spawn index
