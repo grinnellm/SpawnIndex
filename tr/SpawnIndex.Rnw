@@ -460,7 +460,7 @@ mapBC <- ggplot(data = shapes$landAllCropDF, aes(x = Eastings, y = Northings)) +
   ) +
   geom_point(data = shapes$extAllDF, colour = "transparent") +
   geom_path(
-    data = shapes$regAllDF, aes(group = Region), size = 0.5, olour = "black"
+    data = shapes$regAllDF, aes(group = Region), size = 0.5, colour = "black"
   ) +
   geom_label(
     data = shapes$regCentDF, alpha = 0.5, aes(label = Region), size = 3
