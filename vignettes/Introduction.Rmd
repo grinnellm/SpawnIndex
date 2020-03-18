@@ -113,10 +113,7 @@ surface, Macrocystis, and understory.
 ## Surface spawn index
 
 Calculate the surface spawn index.
-Surface spawn index calculations require
-a table to convert intensity categories to the number of egg layers, and
-a table of median spawn width estimates.
-Median spawn width estimates in metres (m) are required because width estimates from surfaces surveys are inaccurate.
+Surface spawn index calculations require a table of median spawn width estimates because width estimates from surfaces surveys are inaccurate.
 
 ```{r width}
 widthLoc <- list(
@@ -142,6 +139,8 @@ barWidth %>%
     booktabs = TRUE
   )
 ```
+
+Surface spawn index calculations also require a table to convert intensity categories to the number of egg layers.
 
 ```{r surf}
 # Data

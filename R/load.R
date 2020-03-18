@@ -278,6 +278,103 @@ LoadAreaData <- function(reg,
   return(res)
 } # End LoadAreaData function
 
+#' Get the all spawn table.
+#'
+#' Get the all spawn table.
+#'
+#' @param where List. Location of the Pacific Herring understory spawn database
+#'   (see examples).
+#' @param a Tibble. Table of geographic information indicating the subset of
+#'   spawn survey observations to inlude in calculations. Returned from
+#'   \code{\link{LoadAreaData}}.
+#' @param yrs Numeric vector. Years(s) to include in the calculations, usually
+#'   staring in 1951.
+#' @param ft2m Numeric. Conversion factor for feet to metres.
+#' @importFrom RODBC odbcConnectAccess sqlFetch odbcClose
+#' @importFrom dplyr select rename full_join filter mutate %>%
+#' @importFrom tibble as_tibble
+#' @importFrom stringr str_to_title
+#' @importFrom lubridate as_date
+#' @importFrom gfiscamutils MaxNA
+#' @importFrom Rdpack reprompt
+#' @return Tibble. Contains additional spawn survey data including start and end
+#'   dates, as well as spawn length, width, and depth. Other information in this
+#'   tibble comes from `a`: Region, Statistical Area, Section, and Location
+#'   code.
+#' @seealso \code{\link{LoadAreaData}}
+#' @export
+#' @examples
+#' dbLoc <- system.file("extdata", package = "SpawnIndex")
+#' areaLoc <- list(
+#'   loc = dbLoc, db = "HerringSpawn.mdb",
+#'   fns = list(sections = "Sections", locations = "Location")
+#' )
+#' areas <- LoadAreaData(reg = "WCVI", where = areaLoc)
+#' allSpawnLoc <- list(
+#'   loc = file.path(dbLoc), db = "HerringSpawn.mdb",
+#'   fns = list(allSpawn = "tSSAllspawn", stations = "tSSStations")
+#' )
+#' allSpawn <- LoadAllSpawn(
+#'   where = allSpawnLoc, a = areas, yrs = 2010:2015
+#' )
+#' allSpawn
+LoadAllSpawn <- function(where, a, yrs, ft2m = 0.3048) {
+  # Establish connection with access
+  accessDB <- RODBC::odbcConnectAccess(access.file = file.path(
+    where$loc,
+    where$db
+  ))
+  # Extract relevant spawn data
+  spawn <- RODBC::sqlFetch(channel = accessDB, sqtable = where$fns$allSpawn) %>%
+    dplyr::rename(LocationCode = Loc_Code, SpawnNumber = Spawn_Number) %>%
+    dplyr::mutate(
+      Start = lubridate::as_date(Start), End = lubridate::as_date(End),
+      Method = stringr::str_to_title(Method)
+    ) %>%
+    dplyr::filter(Year %in% yrs, LocationCode %in% a$LocationCode) %>%
+    dplyr::select(
+      Year, LocationCode, SpawnNumber, Start, End, Length, Width, Method
+    ) %>%
+    tibble::as_tibble()
+  # Extrac relevant stations data
+  stations <- sqlFetch(channel = accessDB, sqtable = where$fns$stations) %>%
+    dplyr::rename(LocationCode = Loc_Code, SpawnNumber = Spawn_Number) %>%
+    dplyr::filter(LocationCode %in% areas$LocationCode) %>%
+    dplyr::mutate(DepthM = Depth * ft2m * -1) %>%
+    dplyr::group_by(Year, LocationCode, SpawnNumber) %>%
+    dplyr::summarise(Depth = gfiscamutils::MaxNA(DepthM)) %>%
+    dplyr::ungroup() %>%
+    dplyr::arrange(Year, LocationCode, SpawnNumber)
+  # Combine spawn and station data
+  spawnStation <- dplyr::full_join(
+    x = spawn, y = stations,
+    by = c("Year", "LocationCode", "SpawnNumber")
+  )
+  # Get a small subset of area data
+  areasSm <- a %>%
+    dplyr::select(
+      Region, StatArea, Group, Section, LocationCode, LocationName, Eastings,
+      Northings, Longitude, Latitude
+    ) %>%
+    dplyr::distinct() %>%
+    tibble::as_tibble()
+  # Combine spawn and station data with area data
+  res <- spawnStation %>%
+    dplyr::left_join(y = areasSm, by = c("LocationCode")) %>%
+    dplyr::select(
+      Year, Region, StatArea, Group, Section, LocationCode, LocationName,
+      SpawnNumber, Eastings, Northings, Longitude, Latitude, Start, End,
+      Length, Width, Depth, Method
+    ) %>%
+    dplyr::arrange(
+      Year, Region, StatArea, Section, LocationCode, SpawnNumber, Start
+    )
+  # Close the connection
+  RODBC::odbcClose(accessDB)
+  # Return the table
+  return(res)
+} # End LoadAllSpawn function
+
 #' Load median spawn width.
 #'
 #' Load median spawn width in metres (m) for Pacific Herring surface spawn index
