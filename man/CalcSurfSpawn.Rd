@@ -75,18 +75,15 @@ widthLoc <- list(
     regionStd = "RegionStd", sectionStd = "SectionStd", poolStd = "PoolStd"
   )
 )
-medWidth <- GetWidth(where = widthLoc, a = areas)
+barWidth <- GetWidth(where = widthLoc, a = areas)
 data(pars)
 data(intensity)
 surfLoc <- list(
   loc = dbLoc, db = "HerringSpawn.mdb",
-  fns = list(
-    regionStd = "RegionStd", sectionStd = "SectionStd", poolStd = "PoolStd",
-    surface = "tSSSurface", allSpawn = "tSSAllspawn"
-  )
+  fns = list(surface = "tSSSurface", allSpawn = "tSSAllspawn")
 )
 surfSpawn <- CalcSurfSpawn(
-  where = surfLoc, a = areas, widths=medWidth, yrs = 2010:2015
+  where = surfLoc, a = areas, widths = barWidth, yrs = 2010:2015
 )
 surfSpawn$SI
 }

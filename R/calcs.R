@@ -117,10 +117,7 @@ CalcBiomassSOK <- function(SOK,
 #' data(intensity)
 #' surfLoc <- list(
 #'   loc = dbLoc, db = "HerringSpawn.mdb",
-#'   fns = list(
-#'     regionStd = "RegionStd", sectionStd = "SectionStd", poolStd = "PoolStd",
-#'     surface = "tSSSurface", allSpawn = "tSSAllspawn"
-#'   )
+#'   fns = list(surface = "tSSSurface", allSpawn = "tSSAllspawn")
 #' )
 #' surfSpawn <- CalcSurfSpawn(
 #'   where = surfLoc, a = areas, widths = barWidth, yrs = 2010:2015
@@ -146,31 +143,6 @@ CalcSurfSpawn <- function(where,
     dplyr::select(SAR, Region, StatArea, Section, LocationCode, Bed) %>%
     dplyr::distinct() %>%
     tibble::as_tibble()
-  # Access the region worksheet and wrangle
-  regStd <- RODBC::sqlFetch(channel = accessDB, sqtable = where$fns$regionStd) %>%
-    dplyr::rename(SAR = REGION, WidthReg = WIDMED) %>%
-    dplyr::left_join(y = areasSm, by = "SAR") %>%
-    dplyr::filter(SAR %in% areasSm$SAR) %>%
-    dplyr::select(SAR, Region, WidthReg) %>%
-    dplyr::distinct() %>%
-    tibble::as_tibble()
-  # Access the section worksheet and wrangle
-  secStd <- RODBC::sqlFetch(
-    channel = accessDB,
-    sqtable = where$fns$sectionStd
-  ) %>%
-    dplyr::rename(Section = SECTION, WidthSec = WIDMED) %>%
-    dplyr::filter(Section %in% a$Section) %>%
-    dplyr::select(Section, WidthSec) %>%
-    dplyr::distinct() %>%
-    tibble::as_tibble()
-  # Access the bed worksheet and wrangle
-  bedStd <- RODBC::sqlFetch(channel = accessDB, sqtable = where$fns$poolStd) %>%
-    dplyr::rename(Section = SECTION, Bed = BED, WidthBed = WIDMED) %>%
-    dplyr::filter(Section %in% a$Section) %>%
-    dplyr::select(Section, Bed, WidthBed) %>%
-    dplyr::distinct() %>%
-    tibble::as_tibble()
   # Load all spawn
   spawn <- RODBC::sqlFetch(channel = accessDB, sqtable = where$fns$allSpawn) %>%
     dplyr::rename(
@@ -191,14 +163,11 @@ CalcSurfSpawn <- function(where,
     dplyr::left_join(y = areasSm, by = "LocationCode") %>%
     dplyr::left_join(y = spawn, by = c("Year", "LocationCode", "SpawnNumber")) %>%
     tidyr::replace_na(replace = list(
-      Lay_Grass = 0, Grass_Percent = 0,
-      Lay_Rockweed = 0, Rockweed_Percent = 0,
-      Lay_Kelp = 0, Kelp_Percent = 0,
-      Lay_Brown_Algae = 0, Brown_Algae_Percent = 0,
-      Lay_Leafy_Red = 0, Leafy_Red_Percent = 0,
-      Lay_Stringy_Red = 0, Stringy_Red_Percent = 0,
-      Lay_Rock = 0, Rock_Percent = 0, Lay_Other = 0,
-      Other_Percent = 0
+      Lay_Grass = 0, Grass_Percent = 0, Lay_Rockweed = 0, Rockweed_Percent = 0,
+      Lay_Kelp = 0, Kelp_Percent = 0, Lay_Brown_Algae = 0,
+      Brown_Algae_Percent = 0, Lay_Leafy_Red = 0, Leafy_Red_Percent = 0,
+      Lay_Stringy_Red = 0, Stringy_Red_Percent = 0, Lay_Rock = 0,
+      Rock_Percent = 0, Lay_Other = 0, Other_Percent = 0
     )) %>%
     # Substrate i: EggLyrs_i
     dplyr::mutate(
