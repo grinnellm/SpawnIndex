@@ -169,7 +169,7 @@ CalcSurfSpawn <- function(where,
       Lay_Stringy_Red = 0, Stringy_Red_Percent = 0, Lay_Rock = 0,
       Rock_Percent = 0, Lay_Other = 0, Other_Percent = 0
     )) %>%
-    # Substrate i: EggLyrs_i
+    # Substrate i
     dplyr::mutate(
       Grass = Lay_Grass * Grass_Percent / 100,
       Rockweed = Lay_Rockweed * Rockweed_Percent / 100,
@@ -190,7 +190,7 @@ CalcSurfSpawn <- function(where,
   }
   # Continue with calculating egg layers
   surface <- surface %>%
-    # Sample j: EggLyrs_j
+    # Sample j
     dplyr::mutate(
       EggLyrs = Grass + Rockweed + Kelp + BrownAlgae + LeafyRed +
         StringyRed + Rock + Other,
@@ -217,8 +217,7 @@ CalcSurfSpawn <- function(where,
       EggLyrs = ifelse(Year %in% intYrs, Layers, EggLyrs),
       # Egg density in thousands (eggs * 10^3 / m^2; Schweigert et al.
       # 1997). Yes, thousands: the report is wrong (J. Schweigert,
-      # personal communication, 21 February 2017)
-      # Sampe j: EggDens_j
+      # personal communication, 21 February 2017); sample j
       EggDens = alpha + beta * EggLyrs
     )
   # These are the 'original' manual updates that were in the Microsoft Access
@@ -270,7 +269,7 @@ CalcSurfSpawn <- function(where,
       Year, Region, StatArea, Section, LocationCode, SpawnNumber,
       Bed
     ) %>%
-    # Spawn s: bar(EggDens_s)
+    # Spawn s
     dplyr::summarise(EggDens = gfiscamutils::MeanNA(EggDens)) %>%
     dplyr::ungroup()
   # Calculate annual fish biomass by spawn number/bed
@@ -291,7 +290,7 @@ CalcSurfSpawn <- function(where,
       Year, Region, StatArea, Section, LocationCode,
       SpawnNumber
     ) %>%
-    # Spawn s: SurfSI_s
+    # Spawn s
     dplyr::summarise(SurfSI = gfiscamutils::SumNA(SurfSI)) %>%
     dplyr::ungroup() %>%
     dplyr::full_join(y = eggLyrs, by = c(
@@ -435,8 +434,7 @@ CalcMacroSpawn <- function(where,
       Year, Region, StatArea, Section, LocationCode, SpawnNumber,
       Transect
     ) %>%
-    # Transect t: Width_t, Swath, Area_t, bar(Height_t), bar(EggLyrs_t),
-    # and Stalks_t, P_t
+    # Transect t
     dplyr::summarise(
       # Transect metrics for all transects (not just those with mature plants)
       Width = unique(Width),
@@ -460,8 +458,7 @@ CalcMacroSpawn <- function(where,
       Year, Region, StatArea, Section, LocationCode,
       SpawnNumber
     ) %>%
-    # Spawn s: bar(Width_s), Area_s, P_s, Stalks_s, bar(Height_s),
-    # bar(EggLyrs_s), bar(StalksPerPlant_s)
+    # Spawn s
     dplyr::summarise(
       LengthMacro = unique(LengthMacro),
       Width = gfiscamutils::MeanNA(Width),
@@ -472,15 +469,13 @@ CalcMacroSpawn <- function(where,
       EggLyrs = gfiscamutils::MeanNA(EggLyrs),
       StalksPerPlant = Stalks / Plants,
       # Eggs per plant in thousands (eggs * 10^3 / plant; Haegele and
-      # Schweigert 1990)
-      # Spawn s: bar(EggsPerPlant_s)
+      # Schweigert 1990); spawn s
       EggsPerPlant = beta * EggLyrs^gamma * Height^delta *
         StalksPerPlant^epsilon * 1000,
-      # Eggs density in thousands (eggs * 10^3 / m^2)
-      # Spawn s: bar(EggDens_s)
+      # Eggs density in thousands (eggs * 10^3 / m^2; spawn s
       EggDens = EggsPerPlant * Plants / Area,
-      # Biomass in tonnes, based on Hay (1985), and Hay and Brett (1988)
-      # Spawn s: MacroSI_s
+      # Biomass in tonnes, based on Hay (1985), and Hay and Brett (1988); spawn
+      # s
       MacroSI = EggDens * LengthMacro * Width * 1000 / theta
     ) %>%
     dplyr::rename(MacroLyrs = EggLyrs) %>%
@@ -705,8 +700,8 @@ CalcUnderSpawn <- function(where,
       "Transect"
     )) %>%
     dplyr::left_join(y = areasSm2, by = c("Region", "LocationCode")) %>%
-    # Egg density in thousands (eggs x 10^3 / m^2; Haegele et al. 1979)
-    # Quadrat q: EggDensSub_q
+    # Egg density in thousands (eggs x 10^3 / m^2; Haegele et al. 1979);
+    # quadrat q
     dplyr::mutate(EggDensSub = alpha * SubLyrs * SubProp) %>%
     tidyr::replace_na(replace = list(EggDensSub = 0)) %>%
     dplyr::select(
@@ -729,14 +724,14 @@ CalcUnderSpawn <- function(where,
     ) %>%
     # Egg density in thousands (eggs * 10^3 / m^2; Schweigert 2005); quadrat
     # size coefficients not required because all quadrats are 0.5m^2 (1.0512)
-    # Algae a: EggDensAlg_a
+    # Algae a
     dplyr::mutate(EggDensAlg = beta * AlgLyrs^gamma * AlgProp^delta * Coef *
       1.0512) %>%
     dplyr::group_by(
       Year, Region, StatArea, Section, LocationCode, SpawnNumber,
       Transect, Station
     ) %>%
-    # Quadrat q: EggDensAlg_q
+    # Quadrat q
     dplyr::summarise(EggDensAlg = gfiscamutils::SumNA(EggDensAlg)) %>%
     tidyr::replace_na(replace = list(EggDensAlg = 0)) %>%
     dplyr::ungroup()
@@ -751,8 +746,7 @@ CalcUnderSpawn <- function(where,
     dplyr::mutate(EggDensSub = ifelse(Width > 0, EggDensSub, 0))
   # Calculate total egg density by station/quadrat
   eggsStation <- eggs %>%
-    # Total egg density in thousands (eggs * 10^3 / m)
-    # Quadrat q: EggDens_q
+    # Total egg density in thousands (eggs * 10^3 / m); quadrat q
     dplyr::mutate(EggDens = EggDensSub + EggDensAlg) %>%
     dplyr::filter(!is.na(Station))
   # Widths
@@ -766,7 +760,7 @@ CalcUnderSpawn <- function(where,
       Year, Region, StatArea, Section, LocationCode,
       SpawnNumber
     ) %>%
-    # Spawn s: Width_s, bar(Width_s)
+    # Spawn s
     dplyr::summarise(
       WidthTot = gfiscamutils::SumNA(Width),
       WidthBar = gfiscamutils::MeanNA(Width)
@@ -779,7 +773,7 @@ CalcUnderSpawn <- function(where,
       Year, Region, StatArea, Section, LocationCode, SpawnNumber,
       Transect
     ) %>%
-    # Transect t: bar(EggDensL_t)
+    # Transect t
     dplyr::summarise(EggDensL = gfiscamutils::MeanNA(EggDens) *
       unique(Width)) %>%
     dplyr::ungroup()
@@ -798,7 +792,7 @@ CalcUnderSpawn <- function(where,
       Year, Region, StatArea, Section, LocationCode,
       SpawnNumber
     ) %>%
-    # Spawn s: Width_s, bar(Width_s), EggDensL_s
+    # Spawn s
     dplyr::summarise(
       WidthTot = unique(WidthTot), WidthBar = unique(WidthBar),
       LengthAlgae = unique(LengthAlgae),
@@ -808,11 +802,10 @@ CalcUnderSpawn <- function(where,
   # Calculate understory biomass by spawn number
   biomassSpawn <- eggsSpawn %>%
     dplyr::mutate(
-      # Weighted egg density in thousands (eggs * 10^3 / m^2)
-      # Spawn s: EggDens_s
+      # Weighted egg density in thousands (eggs * 10^3 / m^2); spawn s
       EggDens = EggDensL / WidthTot,
-      # Biomass in tonnes, based on Hay (1985), and Hay and Brett (1988)
-      # Spawn s: UnderSI_s
+      # Biomass in tonnes, based on Hay (1985), and Hay and Brett (1988); spawn
+      # s
       UnderSI = EggDens * LengthAlgae * WidthBar * 1000 / theta
     ) %>%
     dplyr::left_join(y = eggLyrs, by = c("Year", "LocationCode", "SpawnNumber"))

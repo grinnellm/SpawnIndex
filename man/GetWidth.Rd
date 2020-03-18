@@ -15,8 +15,8 @@ spawn survey observations to inlude in calculations. Returned from
 \code{\link{LoadAreaData}}.}
 }
 \value{
-Table with median widths in metres (m) for the region(s), section(s),
-  and bed(s) in \code{a}.
+Table with median region (WidthReg), section (WidthSec), and bed
+  (WidthBed) widths in metres (m) for the areas in \code{a}.
 }
 \description{
 Load median spawn width in metres (m) for Pacific Herring surface spawn index
@@ -35,8 +35,8 @@ widthLoc <- list(
     regionStd = "RegionStd", sectionStd = "SectionStd", poolStd = "PoolStd"
   )
 )
-medWidth <- GetWidth(where = widthLoc, a = areas)
-medWidth
+barWidth <- GetWidth(where = widthLoc, a = areas)
+barWidth
 }
 \seealso{
 \code{\link{CalcSurfSpawn}} \code{\link{LoadAreaData}}

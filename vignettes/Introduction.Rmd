@@ -34,8 +34,10 @@ library(magrittr) # Pipe %>%
 # Black and white theme
 ggplot2::theme_set(ggplot2::theme_bw())
 # Canada: coarse polygons for mapping
-canada <- rnaturalearth::ne_countries(scale = "large", returnclass = "sf",
-                                      country = "canada")
+canada <- rnaturalearth::ne_countries(
+  scale = "large", returnclass = "sf",
+  country = "canada"
+)
 ```
 
 # Set up
@@ -81,8 +83,10 @@ Here we show the first 10 Locations.
 
 ```{r areasTable, echo = FALSE, results = 'asis'}
 areas %>%
-  dplyr::select(Region, StatArea, Section, LocationName, Longitude,
-                Latitude) %>%
+  dplyr::select(
+    Region, StatArea, Section, LocationName, Longitude,
+    Latitude
+  ) %>%
   dplyr::arrange(StatArea, Section, LocationName) %>%
   dplyr::slice(1:10) %>%
   knitr::kable(
@@ -109,7 +113,35 @@ surface, Macrocystis, and understory.
 ## Surface spawn index
 
 Calculate the surface spawn index.
-Surface spawn index calculations require a table to convert intensity categories to the number of egg layers.
+Surface spawn index calculations require
+a table to convert intensity categories to the number of egg layers, and
+a table of median spawn width estimates.
+Median spawn width estimates are required because width estimates from surfaces surveys are inaccurate.
+
+```{r width}
+widthLoc <- list(
+  loc = dbLoc, db = "HerringSpawn.mdb",
+  fns = list(
+    regionStd = "RegionStd", sectionStd = "SectionStd", poolStd = "PoolStd"
+  )
+)
+barWidth <- GetWidth(where = widthLoc, a = areas)
+```
+
+```{r widthTable, echo = FALSE, results = 'asis'}
+barWidth %>%
+  dplyr::rename(
+    `Region width` = WidthReg, `Section width` = WidthSec,
+    `Bed width` = WidthBed
+  ) %>%
+  dplyr::slice(1:10) %>%
+  knitr::kable(
+    caption = paste(
+      "Example spawn width estimates (m) in the", region, "region."
+    ),
+    booktabs = TRUE
+  )
+```
 
 ```{r surf}
 # Data
@@ -117,13 +149,12 @@ data(intensity) # Spawn intensity categories and number of egg layers
 # List indicating the necessary tables
 surfLoc <- list(
   loc = dbLoc, db = "HerringSpawn.mdb",
-  fns = list(
-    regionStd = "RegionStd", sectionStd = "SectionStd", poolStd = "PoolStd",
-    surface = "tSSSurface", allSpawn = "tSSAllspawn"
-  )
+  fns = list(surface = "tSSSurface", allSpawn = "tSSAllspawn")
 )
 # Calculate the surface spawn index
-surfSpawn <- CalcSurfSpawn(where = surfLoc, a = areas, yrs = yrRange)
+surfSpawn <- CalcSurfSpawn(
+  where = surfLoc, a = areas, widths = barWidth, yrs = yrRange
+)
 ```
 
 Show surface spawn on a map, aggregated by Location and year.
@@ -296,7 +327,8 @@ totalYr <- dplyr::full_join(x = surfYr, y = macroYr, by = "Year") %>%
   dplyr::full_join(y = underYr, by = "Year") %>%
   dplyr::group_by(Year) %>%
   dplyr::mutate(Total = sum(c(Surface, Macrocystis, Understory),
-                            na.rm = TRUE)) %>%
+    na.rm = TRUE
+  )) %>%
   dplyr::ungroup() %>%
   tidyr::complete(Year = yrRange) %>%
   dplyr::arrange(Year)
