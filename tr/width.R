@@ -1,25 +1,32 @@
 require(SpawnIndex)
 require(tidyverse)
 require(RODBC)
+require(scales)
 
 # Region of interest
 region <- "WCVI"
 
+# Figure width
+figWidth <- 6.5
+
 # Database location
-dbLoc <- system.file("extdata", package = "SpawnIndex")
+# dbLoc <- system.file("extdata", package = "SpawnIndex")
+dbLoc <- file.path("..", "Data", "Local")
+# dbName <- "HerringSpawn.mdb"
+dbName <- "HSA_Program_v6.2.mdb"
 
 # Tables etc for area info
 areaLoc <- list(
-  loc = dbLoc, db = "HerringSpawn.mdb",
+  loc = dbLoc, db = dbName,
   fns = list(sections = "Sections", locations = "Location")
 )
 
 # Load area data
-areas <- LoadAreaData(reg = region, where = areaLoc)
+areas <- LoadAreaData(reg = region, where = areaLoc, quiet = TRUE)
 
 # Tables etc for median widths
 widthLoc <- list(
-  loc = dbLoc, db = "HerringSpawn.mdb",
+  loc = dbLoc, db = dbName,
   fns = list(
     regionStd = "RegionStd", sectionStd = "SectionStd", poolStd = "PoolStd"
   )
@@ -30,7 +37,7 @@ barWidth <- GetWidth(where = widthLoc, a = areas)
 
 # Tables etc for surface data
 surfLoc <- list(
-  loc = dbLoc, db = "HerringSpawn.mdb",
+  loc = dbLoc, db = dbName,
   fns = list(surface = "tSSSurface", allSpawn = "tSSAllspawn")
 )
 
@@ -90,22 +97,24 @@ surfWidth <- GetSurfWidth(where = surfLoc, a = areas, widths = barWidth)
 
 # Plot observed width with lines for median pool, section, and region width
 poolPlot <- ggplot(data = surfWidth, mapping = aes(y = Pool)) +
-  labs(x = "Width") +
+  geom_boxplot(
+    mapping = aes(x = WidthObs), outlier.alpha = 0.5, outlier.size = 1
+  ) +
   geom_vline(
     mapping = aes(xintercept = WidthReg), colour = "red", na.rm = TRUE,
-    size = 2
+    alpha = 0.5
   ) +
   geom_vline(
     mapping = aes(xintercept = WidthSec), colour = "blue", na.rm = TRUE,
-    size = 2
+    alpha = 0.5
   ) +
   geom_point(
-    mapping = aes(x = WidthObs), alpha = 0.5, na.rm = TRUE, size = 4
+    mapping = aes(x = WidthPool), colour = "green", na.rm = TRUE, alpha = 0.5
   ) +
-  geom_point(
-    mapping = aes(x = WidthPool), colour = "green", na.rm = TRUE, size = 3
-  ) +
+  labs(x = "Width (m)") +
   expand_limits(x = 0) +
+  scale_x_continuous(labels = comma) +
   facet_grid(Section ~ ., scales = "free_y", space = "free_y") +
-  theme_bw()
-print(poolPlot)
+  theme_bw() +
+  theme(strip.text.y = element_text(angle = 0)) +
+  ggsave(filename = "PoolWidth.png", width = figWidth, height = figWidth * 1.33)
