@@ -72,12 +72,13 @@ GetSurfWidth <- function(where, a, widths) {
       y = widths %>% select(Region, Section, Pool, WidthPool) %>% distinct(),
       by = c("Region", "Section", "Pool")
     ) %>%
-    unite(col = Group, Section, Pool, sep = "-") %>%
+    # unite(col = Group, Section, Pool, sep = "-") %>%
     select(
-      Year, Region, StatArea, Group, LocationCode, SpawnNumber, WidthReg,
+      Year, Region, StatArea, Section, Pool, LocationCode, SpawnNumber, WidthReg,
       WidthSec, WidthPool, WidthObs
     ) %>%
-    arrange(Year, Region, StatArea, Group, LocationCode, SpawnNumber)
+    mutate(Pool = as.character(Pool)) %>%
+    arrange(Year, Region, StatArea, Section, Pool, LocationCode, SpawnNumber)
   # Close the connection
   RODBC::odbcClose(accessDB)
   # Return the table
@@ -88,20 +89,23 @@ GetSurfWidth <- function(where, a, widths) {
 surfWidth <- GetSurfWidth(where = surfLoc, a = areas, widths = barWidth)
 
 # Plot observed width with lines for median pool, section, and region width
-poolPlot <- ggplot(data = surfWidth, mapping = aes(y = Group, group = Group)) +
-  labs(x = "Width", y = "Section-Pool") +
-  geom_point(
-    mapping = aes(x = WidthObs), alpha = 0.5, na.rm = TRUE, size = 4
+poolPlot <- ggplot(data = surfWidth, mapping = aes(y = Pool)) +
+  labs(x = "Width") +
+  geom_vline(
+    mapping = aes(xintercept = WidthReg), colour = "red", na.rm = TRUE,
+    size = 2
   ) +
   geom_vline(
-    mapping = aes(xintercept = WidthReg), colour = "red", na.rm = TRUE
+    mapping = aes(xintercept = WidthSec), colour = "blue", na.rm = TRUE,
+    size = 2
   ) +
   geom_point(
-    mapping = aes(x = WidthSec), colour = "blue", na.rm = TRUE, size = 3
+    mapping = aes(x = WidthObs), alpha = 0.5, na.rm = TRUE, size = 4
   ) +
   geom_point(
     mapping = aes(x = WidthPool), colour = "green", na.rm = TRUE, size = 3
   ) +
   expand_limits(x = 0) +
+  facet_grid(Section ~ ., scales = "free_y", space = "free_y") +
   theme_bw()
 print(poolPlot)
