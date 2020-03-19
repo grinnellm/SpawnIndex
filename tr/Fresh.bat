@@ -18,3 +18,4 @@ del SpawnIndex.tex
 del SpawnIndex.pdf
 rmdir /S /Q knitr-cache
 rmdir /S /Q knitr-figs
+rmdir /S /Q cache

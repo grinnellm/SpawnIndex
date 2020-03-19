@@ -5,7 +5,7 @@ require(RODBC)
 require(scales)
 
 # Region of interest
-region <- "WCVI"
+region <- "HG"
 
 # Figure path
 figPath <- file.path("tr", "cache")
@@ -13,8 +13,8 @@ figPath <- file.path("tr", "cache")
 # Figure width
 figWidth <- 6.5
 
-# Make the directory
-dir.create( path=figPath )
+# Make the directory if required
+if (!dir.exists(figPath)) dir.create(path = figPath)
 
 # Database location
 # dbLoc <- system.file("extdata", package = "SpawnIndex")
@@ -43,18 +43,12 @@ widthLoc <- list(
 barWidth <- GetWidth(where = widthLoc, a = areas)
 
 # Tables etc for surface data
-surfLoc <- list(
-  loc = dbLoc, db = dbName,
-  fns = list(surface = "tSSSurface", allSpawn = "tSSAllspawn")
-)
+surfLoc <- list(loc = dbLoc, db = dbName, fns = list(allSpawn = "tSSAllspawn"))
 
 # Get surface widths
 GetSurfWidth <- function(where, a, widths) {
   # Establish connection with access
-  accessDB <- odbcConnectAccess(access.file = file.path(
-    where$loc,
-    where$db
-  ))
+  accessDB <- odbcConnectAccess(access.file = file.path(where$loc, where$db))
   # Get a small subset of area data
   areasSm <- a %>%
     select(Region, StatArea, Section, LocationCode, Pool) %>%
@@ -87,11 +81,11 @@ GetSurfWidth <- function(where, a, widths) {
       by = c("Region", "Section", "Pool")
     ) %>%
     # unite(col = Group, Section, Pool, sep = "-") %>%
+    mutate(Pool = as.character(Pool), Survey = "Surface") %>%
     select(
-      Year, Region, StatArea, Section, Pool, LocationCode, SpawnNumber, WidthReg,
-      WidthSec, WidthPool, WidthObs
+      Survey, Year, Region, StatArea, Section, Pool, LocationCode, SpawnNumber,
+      WidthReg, WidthSec, WidthPool, WidthObs
     ) %>%
-    mutate(Pool = as.character(Pool)) %>%
     arrange(Year, Region, StatArea, Section, Pool, LocationCode, SpawnNumber)
   # Close the connection
   RODBC::odbcClose(accessDB)
@@ -105,7 +99,8 @@ surfWidth <- GetSurfWidth(where = surfLoc, a = areas, widths = barWidth)
 # Plot observed width with lines for median pool, section, and region width
 poolPlot <- ggplot(data = surfWidth, mapping = aes(y = Pool)) +
   geom_boxplot(
-    mapping = aes(x = WidthObs), outlier.alpha = 0.5, outlier.size = 1
+    mapping = aes(x = WidthObs), outlier.alpha = 0.5, outlier.size = 1,
+    na.rm = TRUE
   ) +
   geom_vline(
     mapping = aes(xintercept = WidthReg), colour = "red", na.rm = TRUE,
@@ -124,5 +119,7 @@ poolPlot <- ggplot(data = surfWidth, mapping = aes(y = Pool)) +
   facet_grid(Section ~ ., scales = "free_y", space = "free_y") +
   theme_bw() +
   theme(strip.text.y = element_text(angle = 0)) +
-  ggsave(filename = file.path(figPath, "PoolWidth.png"), width = figWidth,
-         height = figWidth * 1.33)
+  ggsave(
+    filename = file.path(figPath, "PoolWidth.png"), width = figWidth,
+    height = figWidth * 1.33
+  )
