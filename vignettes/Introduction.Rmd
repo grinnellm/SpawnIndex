@@ -14,7 +14,8 @@ vignette: >
 ---
 
 ```{r setup, include = FALSE}
-knitr::opts_chunk$set(
+library(knitr)
+opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.width = 7,
@@ -25,31 +26,33 @@ options(knitr.kable.NA = "")
 
 This vignette provides an example on how to calculate the spawn index for Pacific Herring (*Clupea pallasii*) in British Columbia, Canada.
 See the technical report for background information [@GrinnellEtalYYYY].
-Source code is on the [GitHub repository](https://github.com/grinnellm/SpawnIndex).
-Load the `SpawnIndex` package and some data for maps.
+Source code is on the
+[GitHub repository](https://github.com/grinnellm/SpawnIndex).
+Load the `SpawnIndex` package and a few other packages for analyses, tables, and figures.
 
 ```{r libraries, message = FALSE, warning = FALSE}
 library(SpawnIndex)
-library(magrittr) # Pipe %>%
-# Black and white theme
-ggplot2::theme_set(ggplot2::theme_bw())
-# Canada: coarse polygons for mapping
-canada <- rnaturalearth::ne_countries(
-  scale = "large", returnclass = "sf",
-  country = "canada"
-)
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+library(sf)
+library(kableExtra)
+library(rnaturalearth)
 ```
 
 # Set up
 
 Specify the region and years of interest.
 Also, load the parameter values required for spawn index calculations.
+Finally, load some land polygons for maps
 
 ```{r pars}
 # Parameters
 region <- "WCVI" # Region: HG, PRD, CC, SoG, WCVI, A27, or A2W
 yrRange <- 2010:2015 # Years (>= 1951)
 data(pars) # Parameters for spawn index calculations
+# Canada: coarse polygons for mapping
+canada <- ne_countries(scale = "large", returnclass = "sf", country = "canada")
 ```
 
 This example will focus on `r region` from `r min(yrRange)` to `r max(yrRange)`.
@@ -76,20 +79,17 @@ yLims <- range(areas$Latitude)
 ```
 
 In this example database, `r region` has
-`r dplyr::n_distinct(areas$StatArea)` Statistical Areas,
-`r dplyr::n_distinct(areas$Section)` Sections, and
-`r dplyr::n_distinct(areas$LocationName)` Locations.
+`r n_distinct(areas$StatArea)` Statistical Areas,
+`r n_distinct(areas$Section)` Sections, and
+`r n_distinct(areas$LocationName)` Locations.
 Here we show the first 10 Locations.
 
 ```{r areasTable, echo = FALSE, results = 'asis'}
 areas %>%
-  dplyr::select(
-    Region, StatArea, Section, LocationName, Longitude,
-    Latitude
-  ) %>%
-  dplyr::arrange(StatArea, Section, LocationName) %>%
-  dplyr::slice(1:10) %>%
-  knitr::kable(
+  select(Region, StatArea, Section, LocationName, Longitude, Latitude) %>%
+  arrange(StatArea, Section, LocationName) %>%
+  slice(1:10) %>%
+  kable(
     caption = paste("Example spawn survey Locations in the", region, "region."),
     booktabs = TRUE
   )
@@ -127,12 +127,12 @@ barWidth <- GetWidth(where = widthLoc, a = areas)
 
 ```{r widthTable, echo = FALSE, results = 'asis'}
 barWidth %>%
-  dplyr::rename(
+  rename(
     `Region width` = WidthReg, `Section width` = WidthSec,
     `Pool width` = WidthPool
   ) %>%
-  dplyr::slice(1:10) %>%
-  knitr::kable(
+  slice(1:10) %>%
+  kable(
     caption = paste(
       "Example spawn width estimates in metres (m) in the", region, "region."
     ),
@@ -161,22 +161,23 @@ Show surface spawn on a map, aggregated by Location and year.
 ```{r surfLocYr, fig.cap = "Surface spawn index in tonnes (t)."}
 # Make a spatial object for mapping
 surfLocYr <- surfSpawn$SI %>%
-  dplyr::group_by(Year, LocationCode) %>%
-  dplyr::summarise(Surface = round(sum(SurfSI, na.rm = TRUE))) %>%
-  dplyr::ungroup() %>%
-  dplyr::left_join(
-    y = dplyr::select(.data = areas, LocationCode, Longitude, Latitude),
+  group_by(Year, LocationCode) %>%
+  summarise(Surface = round(sum(SurfSI, na.rm = TRUE))) %>%
+  ungroup() %>%
+  left_join(
+    y = select(.data = areas, LocationCode, Longitude, Latitude),
     by = "LocationCode"
   ) %>%
-  sf::st_as_sf(coords = c("Longitude", "Latitude"), crs = 4326)
+  st_as_sf(coords = c("Longitude", "Latitude"), crs = 4326)
 # Map
-ggplot2::ggplot(data = surfLocYr) +
-  ggplot2::geom_sf(data = canada) +
-  ggplot2::geom_sf(mapping = ggplot2::aes(colour = Surface), size = 3) +
-  ggplot2::scale_colour_viridis_c() +
-  ggplot2::labs(colour = "Spawn\nindex (t)") +
-  ggplot2::coord_sf(xlim = xLims, ylim = yLims) +
-  ggplot2::facet_wrap(Year ~ ., ncol = 2)
+ggplot(data = surfLocYr) +
+  geom_sf(data = canada) +
+  geom_sf(mapping = aes(colour = Surface), size = 3) +
+  scale_colour_viridis_c() +
+  labs(colour = "Spawn\nindex (t)") +
+  coord_sf(xlim = xLims, ylim = yLims) +
+  facet_wrap(Year ~ ., ncol = 2) +
+  theme_bw()
 ```
 
 Calculate the total surface spawn by year.
@@ -184,15 +185,15 @@ Calculate the total surface spawn by year.
 ```{r surfYr, results = 'asis'}
 # Aggregate the surface spawn index by year
 surfYr <- surfSpawn$SI %>%
-  dplyr::group_by(Year) %>%
-  dplyr::summarise(Surface = sum(SurfSI, na.rm = TRUE)) %>%
-  dplyr::ungroup() %>%
-  tidyr::complete(Year = yrRange) %>%
-  dplyr::arrange(Year)
+  group_by(Year) %>%
+  summarise(Surface = sum(SurfSI, na.rm = TRUE)) %>%
+  ungroup() %>%
+  complete(Year = yrRange) %>%
+  arrange(Year)
 # Table
-knitr::kable(
-  x = surfYr, digits = 1, caption = "Surface spawn index in tonnes (t) by year.",
-  booktabs = TRUE
+kable(
+  x = surfYr, digits = 1, booktabs = TRUE,
+  caption = "Surface spawn index in tonnes (t) by year.",
 )
 ```
 
@@ -205,8 +206,7 @@ Calculate the Macrocystis spawn index.
 macroLoc <- list(
   loc = file.path(dbLoc), db = "HerringSpawn.mdb",
   fns = list(
-    allSpawn = "tSSAllspawn", plants = "tSSMacPlant",
-    transects = "tSSMacTrans"
+    allSpawn = "tSSAllspawn", plants = "tSSMacPlant", transects = "tSSMacTrans"
   )
 )
 # Calculate the Macrocystis spawn index
@@ -218,22 +218,23 @@ Show Macrocystis spawn on a map, aggregated by Location and year.
 ```{r macroLocYr, fig.cap = "Macrocystis spawn index in tonnes (t)."}
 # Make a spatial object for mapping
 macroLocYr <- macroSpawn$SI %>%
-  dplyr::group_by(Year, LocationCode) %>%
-  dplyr::summarise(Macrocystis = round(sum(MacroSI, na.rm = TRUE))) %>%
-  dplyr::ungroup() %>%
-  dplyr::left_join(
-    y = dplyr::select(.data = areas, LocationCode, Longitude, Latitude),
+  group_by(Year, LocationCode) %>%
+  summarise(Macrocystis = round(sum(MacroSI, na.rm = TRUE))) %>%
+  ungroup() %>%
+  left_join(
+    y = select(.data = areas, LocationCode, Longitude, Latitude),
     by = "LocationCode"
   ) %>%
-  sf::st_as_sf(coords = c("Longitude", "Latitude"), crs = 4326)
+  st_as_sf(coords = c("Longitude", "Latitude"), crs = 4326)
 # Map
-ggplot2::ggplot(data = macroLocYr) +
-  ggplot2::geom_sf(data = canada) +
-  ggplot2::geom_sf(mapping = ggplot2::aes(colour = Macrocystis), size = 3) +
-  ggplot2::scale_colour_viridis_c() +
-  ggplot2::labs(colour = "Spawn\nindex (t)") +
-  ggplot2::coord_sf(xlim = xLims, ylim = yLims) +
-  ggplot2::facet_wrap(Year ~ ., ncol = 2)
+ggplot(data = macroLocYr) +
+  geom_sf(data = canada) +
+  geom_sf(mapping = aes(colour = Macrocystis), size = 3) +
+  scale_colour_viridis_c() +
+  labs(colour = "Spawn\nindex (t)") +
+  coord_sf(xlim = xLims, ylim = yLims) +
+  facet_wrap(Year ~ ., ncol = 2) +
+  theme_bw()
 ```
 
 Calculate the total Macrocystis spawn by year.
@@ -241,15 +242,15 @@ Calculate the total Macrocystis spawn by year.
 ```{r macroYr, results = 'asis'}
 # Aggregate the Macrocystis spawn index by year
 macroYr <- macroSpawn$SI %>%
-  dplyr::group_by(Year) %>%
-  dplyr::summarise(Macrocystis = sum(MacroSI, na.rm = TRUE)) %>%
-  dplyr::ungroup() %>%
-  tidyr::complete(Year = yrRange) %>%
-  dplyr::arrange(Year)
+  group_by(Year) %>%
+  summarise(Macrocystis = sum(MacroSI, na.rm = TRUE)) %>%
+  ungroup() %>%
+  complete(Year = yrRange) %>%
+  arrange(Year)
 # Table
-knitr::kable(
-  x = macroYr, digits = 1,
-  caption = "Macrocystis spawn index in tonnes (t) by year.", booktabs = TRUE
+kable(
+  x = macroYr, digits = 1, booktabs = TRUE,
+  caption = "Macrocystis spawn index in tonnes (t) by year."
 )
 ```
 
@@ -280,22 +281,23 @@ Show understory spawn on a map, aggregated by Location and year.
 ```{r underLocYr, fig.cap = "Understory spawn index in tonnes (t)."}
 # Make a spatial object for mapping
 underLocYr <- underSpawn$SI %>%
-  dplyr::group_by(Year, LocationCode) %>%
-  dplyr::summarise(Understory = round(sum(UnderSI, na.rm = TRUE))) %>%
-  dplyr::ungroup() %>%
-  dplyr::left_join(
-    y = dplyr::select(.data = areas, LocationCode, Longitude, Latitude),
+  group_by(Year, LocationCode) %>%
+  summarise(Understory = round(sum(UnderSI, na.rm = TRUE))) %>%
+  ungroup() %>%
+  left_join(
+    y = select(.data = areas, LocationCode, Longitude, Latitude),
     by = "LocationCode"
   ) %>%
-  sf::st_as_sf(coords = c("Longitude", "Latitude"), crs = 4326)
+  st_as_sf(coords = c("Longitude", "Latitude"), crs = 4326)
 # Map
-ggplot2::ggplot(data = underLocYr) +
-  ggplot2::geom_sf(data = canada) +
-  ggplot2::geom_sf(mapping = ggplot2::aes(colour = Understory), size = 3) +
-  ggplot2::scale_colour_viridis_c() +
-  ggplot2::labs(colour = "Spawn\nindex (t)") +
-  ggplot2::coord_sf(xlim = xLims, ylim = yLims) +
-  ggplot2::facet_wrap(Year ~ ., ncol = 2)
+ggplot(data = underLocYr) +
+  geom_sf(data = canada) +
+  geom_sf(mapping = aes(colour = Understory), size = 3) +
+  scale_colour_viridis_c() +
+  labs(colour = "Spawn\nindex (t)") +
+  coord_sf(xlim = xLims, ylim = yLims) +
+  facet_wrap(Year ~ ., ncol = 2) +
+  theme_bw()
 ```
 
 Calculate the total understory spawn by year.
@@ -303,15 +305,15 @@ Calculate the total understory spawn by year.
 ```{r underYr, results = 'asis'}
 # Aggregate the understory spawn index by year
 underYr <- underSpawn$SI %>%
-  dplyr::group_by(Year) %>%
-  dplyr::summarise(Understory = sum(UnderSI, na.rm = TRUE)) %>%
-  dplyr::ungroup() %>%
-  tidyr::complete(Year = yrRange) %>%
-  dplyr::arrange(Year)
+  group_by(Year) %>%
+  summarise(Understory = sum(UnderSI, na.rm = TRUE)) %>%
+  ungroup() %>%
+  complete(Year = yrRange) %>%
+  arrange(Year)
 # Table
-knitr::kable(
-  x = underYr, digits = 1,
-  caption = "Understory spawn index in tonnes (t) by year.", booktabs = TRUE
+kable(
+  x = underYr, digits = 1, booktabs = TRUE,
+  caption = "Understory spawn index in tonnes (t) by year."
 )
 ```
 
@@ -322,21 +324,19 @@ surface, Macrocystis, and understory.
 
 ```{r totalYr, results = 'asis'}
 # Total spawn index
-totalYr <- dplyr::full_join(x = surfYr, y = macroYr, by = "Year") %>%
-  dplyr::full_join(y = underYr, by = "Year") %>%
-  dplyr::group_by(Year) %>%
-  dplyr::mutate(Total = sum(c(Surface, Macrocystis, Understory),
-    na.rm = TRUE
-  )) %>%
-  dplyr::ungroup() %>%
-  tidyr::complete(Year = yrRange) %>%
-  dplyr::arrange(Year)
+totalYr <- full_join(x = surfYr, y = macroYr, by = "Year") %>%
+  full_join(y = underYr, by = "Year") %>%
+  group_by(Year) %>%
+  mutate(Total = sum(c(Surface, Macrocystis, Understory), na.rm = TRUE)) %>%
+  ungroup() %>%
+  complete(Year = yrRange) %>%
+  arrange(Year)
 # Table
-knitr::kable(
-  x = totalYr, digits = 1,
-  caption = "Total spawn index in tonnes (t) by year.", booktabs = TRUE
+kable(
+  x = totalYr, digits = 1, booktabs = TRUE,
+  caption = "Total spawn index in tonnes (t) by year."
 ) %>%
-  kableExtra::add_header_above(header = c("", "Survey" = 3, ""))
+  add_header_above(header = c("", "Survey" = 3, ""))
 ```
 
 # References
