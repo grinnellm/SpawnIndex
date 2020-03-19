@@ -18,6 +18,7 @@
 #'   \href{https://spatialreference.org/}{use EPSG codes if desired}.
 #' @param outCRS Chracter. Output coordinate reference system;
 #'   \href{https://spatialreference.org/}{use EPSG codes if desired}.
+#' @param quiet Logical. Set to TRUE to prevent messages.
 #' @importFrom readr read_csv cols
 #' @importFrom dplyr filter select mutate full_join %>%
 #' @importFrom tidyr unite
@@ -41,7 +42,8 @@ LoadAreaData <- function(reg,
                          secSub = NA,
                          where,
                          inCRS = "+init=epsg:4326",
-                         outCRS = "+init=epsg:3005") {
+                         outCRS = "+init=epsg:3005",
+                         quiet = FALSE) {
   # Cross-walk table for SAR to region and region name
   regions <- readr::read_csv(
     file =
@@ -94,7 +96,9 @@ LoadAreaData <- function(reg,
   # If the region is Johnstone Strait
   if (reg == "JS") {
     # Message
-    cat("Note overlap between JS and SoG: Sections 132 and 135\n")
+    if (!quiet) {
+      cat("Note overlap between JS and SoG: Sections 132 and 135\n")
+    }
     # Access the sections worksheet and wrangle
     sections <- RODBC::sqlFetch(
       channel = accessDB,
@@ -243,7 +247,7 @@ LoadAreaData <- function(reg,
     # Check if none or all have groups
     noneOrAll <- nrow(grpU) == nrow(grpUNA)
     # Message re some sections(s) missing group info
-    if (!noneOrAll) {
+    if (!noneOrAll & !quiet) {
       cat("Incomplete `Group' info for Section(s): ",
         paste(grpUNA$Section, collapse = ", "), "\n",
         sep = ""
@@ -270,7 +274,9 @@ LoadAreaData <- function(reg,
       dplyr::filter(Section %in% secSub) %>%
       droplevels()
     # Message
-    cat("Sections: ", paste(secSub, collapse = ", "), "\n", sep = "")
+    if (!quiet) {
+      cat("Sections: ", paste(secSub, collapse = ", "), "\n", sep = "")
+    }
   } # End if subsetting areas
   # Close the connection
   RODBC::odbcClose(accessDB)

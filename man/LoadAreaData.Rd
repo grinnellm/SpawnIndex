@@ -9,7 +9,8 @@ LoadAreaData(
   secSub = NA,
   where,
   inCRS = "+init=epsg:4326",
-  outCRS = "+init=epsg:3005"
+  outCRS = "+init=epsg:3005",
+  quiet = FALSE
 )
 }
 \arguments{
@@ -27,6 +28,8 @@ examples).}
 
 \item{outCRS}{Chracter. Output coordinate reference system;
 \href{https://spatialreference.org/}{use EPSG codes if desired}.}
+
+\item{quiet}{Logical. Set to TRUE to prevent messages.}
 }
 \value{
 Tibble. Table of geographic information for Pacific Herring: SAR,
