@@ -1,3 +1,4 @@
+# Packages
 require(SpawnIndex)
 require(tidyverse)
 require(RODBC)
@@ -6,8 +7,14 @@ require(scales)
 # Region of interest
 region <- "WCVI"
 
+# Figure path
+figPath <- file.path("tr", "cache")
+
 # Figure width
 figWidth <- 6.5
+
+# Make the directory
+dir.create( path=figPath )
 
 # Database location
 # dbLoc <- system.file("extdata", package = "SpawnIndex")
@@ -117,4 +124,5 @@ poolPlot <- ggplot(data = surfWidth, mapping = aes(y = Pool)) +
   facet_grid(Section ~ ., scales = "free_y", space = "free_y") +
   theme_bw() +
   theme(strip.text.y = element_text(angle = 0)) +
-  ggsave(filename = "PoolWidth.png", width = figWidth, height = figWidth * 1.33)
+  ggsave(filename = file.path(figPath, "PoolWidth.png"), width = figWidth,
+         height = figWidth * 1.33)
