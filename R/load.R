@@ -280,6 +280,8 @@ LoadAreaData <- function(reg,
   } # End if subsetting areas
   # Close the connection
   RODBC::odbcClose(accessDB)
+  # Error if there is no data
+  if(nrow(res)==0) stop("No locations; check inputs")
   # Return herring areas
   return(res)
 } # End LoadAreaData function

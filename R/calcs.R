@@ -587,8 +587,7 @@ CalcUnderSpawn <- function(where,
     dplyr::mutate(Method = stringr::str_to_title(Method)) %>%
     dplyr::filter(Year %in% yrs, LocationCode %in% a$LocationCode) %>%
     dplyr::select(
-      Year, LocationCode, SpawnNumber, LengthAlgae, Length,
-      Method
+      Year, LocationCode, SpawnNumber, LengthAlgae, Length, Method
     ) %>%
     tibble::as_tibble()
   # Load algae transects
@@ -657,8 +656,8 @@ CalcUnderSpawn <- function(where,
       AlgProp = ifelse(AlgProp > 1, 1, AlgProp)
     ) %>%
     dplyr::select(
-      Year, LocationCode, SpawnNumber, Transect, Station, AlgType,
-      AlgLyrs, AlgProp
+      Year, LocationCode, SpawnNumber, Transect, Station, AlgType, AlgLyrs,
+      AlgProp
     ) %>%
     tibble::as_tibble()
   # Get egg layer info: algae
