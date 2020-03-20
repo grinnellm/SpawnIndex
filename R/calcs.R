@@ -363,7 +363,7 @@ CalcSurfSpawn <- function(where,
 #' areas <- LoadAreaData(reg = "WCVI", where = areaLoc)
 #' data(pars)
 #' macroLoc <- list(
-#'   loc = file.path(dbLoc), db = "HerringSpawn.mdb",
+#'   loc = dbLoc, db = "HerringSpawn.mdb",
 #'   fns = list(
 #'     allSpawn = "tSSAllspawn", plants = "tSSMacPlant",
 #'     transects = "tSSMacTrans"
@@ -549,7 +549,7 @@ CalcMacroSpawn <- function(where,
 #' )
 #' areas <- LoadAreaData(reg = "WCVI", where = areaLoc)
 #' underLoc <- list(
-#'   loc = file.path(dbLoc), db = "HerringSpawn.mdb",
+#'   loc = dbLoc, db = "HerringSpawn.mdb",
 #'   fns = list(
 #'     allSpawn = "tSSAllspawn", algTrans = "tSSVegTrans",
 #'     stations = "tSSStations", algae = "tSSVegetation"

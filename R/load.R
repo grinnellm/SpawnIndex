@@ -319,7 +319,7 @@ LoadAreaData <- function(reg,
 #' )
 #' areas <- LoadAreaData(reg = "WCVI", where = areaLoc)
 #' allSpawnLoc <- list(
-#'   loc = file.path(dbLoc), db = "HerringSpawn.mdb",
+#'   loc = dbLoc, db = "HerringSpawn.mdb",
 #'   fns = list(allSpawn = "tSSAllspawn", stations = "tSSStations")
 #' )
 #' allSpawn <- LoadAllSpawn(
