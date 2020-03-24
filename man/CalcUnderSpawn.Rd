@@ -22,7 +22,7 @@ CalcUnderSpawn(
 (see examples).}
 
 \item{a}{Tibble. Table of geographic information indicating the subset of
-spawn survey observations to inlude in calculations. Returned from
+spawn survey observations to inlude in calculations; from
 \code{\link{LoadAreaData}}.}
 
 \item{yrs}{Numeric vector. Years(s) to include in the calculations, usually
@@ -50,17 +50,17 @@ staring in 1951.}
 \code{\link{CalcEggConversion}}.}
 }
 \value{
-List. The element `SI` is a tibble with understory spawn index
-  (`UnderSI`) in tonnes by spawn number and year. The spawn number is the
-  finest spatial scale at which we calculate the spawn index. Other
-  information in this tibble comes from `a`: Region, Statistical Area,
+List. The element \code{SI} is a tibble with understory spawn index
+  (\code{UnderSI}) in tonnes by spawn number and year. The spawn number is
+  the finest spatial scale at which we calculate the spawn index. Other
+  information in this tibble comes from \code{a}: Region, Statistical Area,
   Section, and Location code.
 }
 \description{
 Calculate the Pacific Herring understory spawn index in tonnes.
 }
 \note{
-The 'spawn index' is a relative index of spawning biomass.
+The `spawn index' is a relative index of spawning biomass.
 }
 \examples{
 dbLoc <- system.file("extdata", package = "SpawnIndex")
@@ -70,7 +70,7 @@ areaLoc <- list(
 )
 areas <- LoadAreaData(reg = "WCVI", where = areaLoc)
 underLoc <- list(
-  loc = file.path(dbLoc), db = "HerringSpawn.mdb",
+  loc = dbLoc, db = "HerringSpawn.mdb",
   fns = list(
     allSpawn = "tSSAllspawn", algTrans = "tSSVegTrans",
     stations = "tSSStations", algae = "tSSVegetation"

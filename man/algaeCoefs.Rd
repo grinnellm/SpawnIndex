@@ -12,7 +12,8 @@ algaeCoefs
 \description{
 Algae types and coefficients for Pacific Herring understory spawn surveys
 \insertCite{Schweigert2005}{SpawnIndex}. Algae coefficients account for the
-effect of algae morphology on Pacific Herring egg density.
+effect of algae morphology on Pacific Herring egg density
+\insertCite{GrinnellEtalYYYY}{SpawnIndex}.
 }
 \examples{
 data(algaeCoefs)

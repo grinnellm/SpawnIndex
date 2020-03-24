@@ -14,7 +14,7 @@ spawn index calculations. Read the technical report for more details on
 spawn index calculations \insertCite{GrinnellEtalYYYY}{SpawnIndex}.
 }
 \note{
-The 'spawn index' is a relative index of spawning biomass. In addition,
+The `spawn index' is a relative index of spawning biomass. In addition,
   32-bit R is required to get data from the 32-bit MS Access database.
 }
 \references{

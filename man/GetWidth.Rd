@@ -11,16 +11,20 @@ GetWidth(where, a = areas)
 (see examples).}
 
 \item{a}{Tibble. Table of geographic information indicating the subset of
-spawn survey observations to inlude in calculations. Returned from
+spawn survey observations to inlude in calculations; from
 \code{\link{LoadAreaData}}.}
 }
 \value{
-Table with median region (WidthReg), section (WidthSec), and pool
-  (WidthPool) widths in metres (m) for the areas in \code{a}.
+Table with median region (\code{WidthReg}), section
+  (\code{WidthSec}), and pool (\code{WidthPool}) widths in metres (m) for the
+  areas in \code{a}.
 }
 \description{
 Load median spawn width in metres (m) for Pacific Herring surface spawn index
-calculations.
+calculations. Observed width is not preferred for surface spawn surveys
+because surveyors tend to underestimate spawn width
+\insertCite{HayKronlund1987}{SpawnIndex}. Instead, the preferred with comes
+from underwater surveys \insertCite{GrinnellEtalYYYY}{SpawnIndex}.
 }
 \examples{
 dbLoc <- system.file("extdata", package = "SpawnIndex")
@@ -37,6 +41,9 @@ widthLoc <- list(
 )
 barWidth <- GetWidth(where = widthLoc, a = areas)
 barWidth
+}
+\references{
+\insertAllCited
 }
 \seealso{
 \code{\link{CalcSurfSpawn}} \code{\link{LoadAreaData}}

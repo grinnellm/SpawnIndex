@@ -1,7 +1,9 @@
 #' Understory spawn width correction factors.
 #'
 #' Spawn width correction factors for Pacific Herring understory spawn surveys
-#' by region and year.
+#' by region and year. These correction factors account for an error that resulted
+#' in underestimated spawn width for understory dive surveys
+#' \insertCite{ClearyEtal2017,GrinnellEtalYYYY}{SpawnIndex}.
 #'
 #' @format Tibble with 12 rows and 8 columns (one for year, and one for each
 #'   regions).
@@ -9,6 +11,7 @@
 #'   the observed width by the corresponding correction fator for the affected
 #'   years.
 #' @docType data
+#' @references \insertAllCited{}
 #' @seealso \code{\link{CalcUnderSpawn}}
 #' @examples
 #' data(underWidthFac)
@@ -68,8 +71,10 @@
 #' Spawn intensity categories and number of egg layers.
 #'
 #' Spawn intensity categories and number of egg layers for Pacific Herring
-#' surface spawn surveys
-#' \insertCite{HayKronlund1987,SchweigertStocker1988}{SpawnIndex}.
+#' surface spawn surveys. From 1928 to 1978, surface spawn surveyors catetorized
+#' spawn by subjective `intensity' categories instead of directly estimating the
+#' number of egg layers
+#' \insertCite{HayKronlund1987,SchweigertStocker1988,GrinnellEtalYYYY}{SpawnIndex}.
 #'
 #' @format Tibble with 9 rows and 3 columns: intensity category, description,
 #'   and number of egg layers.
@@ -86,7 +91,8 @@
 #'
 #' Algae types and coefficients for Pacific Herring understory spawn surveys
 #' \insertCite{Schweigert2005}{SpawnIndex}. Algae coefficients account for the
-#' effect of algae morphology on Pacific Herring egg density.
+#' effect of algae morphology on Pacific Herring egg density
+#' \insertCite{GrinnellEtalYYYY}{SpawnIndex}.
 #'
 #' @format Tibble with 8 rows and 3 columns: algae type, algae code, and
 #'   coefficient.

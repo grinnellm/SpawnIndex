@@ -11,7 +11,7 @@ require(scales)
 ##### Controls #####
 
 # Region of interest
-region <- "WCVI"
+region <- "SoG"
 
 # Years to consider
 yrRange <- 1951:2019
@@ -23,7 +23,7 @@ figPath <- file.path("tr", "cache")
 figWidth <- 6.5
 
 # Section subset
-sectionSub <- 250:259
+sectionSub <- 140:149
 
 ##### Paths #####
 
@@ -31,12 +31,12 @@ sectionSub <- 250:259
 if (!dir.exists(figPath)) dir.create(path = figPath)
 
 # Database location
-dbLoc <- system.file("extdata", package = "SpawnIndex")
-# dbLoc <- file.path("..", "Data", "Local")
+# dbLoc <- system.file("extdata", package = "SpawnIndex")
+dbLoc <- file.path("..", "Data", "Local")
 
 # Database name
-dbName <- "HerringSpawn.mdb"
-# dbName <- "HSA_Program_v6.2.mdb"
+# dbName <- "HerringSpawn.mdb"
+dbName <- "HSA_Program_v6.2.mdb"
 
 # Tables etc for area info
 areaLoc <- list(

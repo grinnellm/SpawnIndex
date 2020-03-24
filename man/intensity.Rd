@@ -11,8 +11,10 @@ intensity
 }
 \description{
 Spawn intensity categories and number of egg layers for Pacific Herring
-surface spawn surveys
-\insertCite{HayKronlund1987,SchweigertStocker1988}{SpawnIndex}.
+surface spawn surveys. From 1928 to 1978, surface spawn surveyors catetorized
+spawn by subjective 'intensity' categories instead of directly estimating the
+number of egg layers
+\insertCite{HayKronlund1987,SchweigertStocker1988,GrinnellEtalYYYY}{SpawnIndex}.
 }
 \examples{
 data(intensity)

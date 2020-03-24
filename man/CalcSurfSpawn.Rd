@@ -22,11 +22,11 @@ CalcSurfSpawn(
 (see examples).}
 
 \item{a}{Tibble. Table of geographic information indicating the subset of
-spawn survey observations to inlude in calculations. Returned from
+spawn survey observations to inlude in calculations; from
 \code{\link{LoadAreaData}}.}
 
 \item{widths}{Tibble. Table of median region, section, and pool widths in
-metres (m). Returned from \code{\link{GetWidth}}.}
+metres (m); from \code{\link{GetWidth}}.}
 
 \item{yrs}{Numeric vector. Years(s) to include in the calculations, usually
 staring in 1951.}
@@ -50,17 +50,17 @@ determine egg layers.}
 \code{\link{CalcEggConversion}}.}
 }
 \value{
-List. The element `SI` is a tibble with surface spawn index
-  (`SurfSI`) in tonnes by spawn number and year. The spawn number is the
+List. The element \code{SI} is a tibble with surface spawn index
+  (\code{SurfSI}) in tonnes by spawn number and year. The spawn number is the
   finest spatial scale at which we calculate the spawn index. Other
-  information in this tibble comes from `a`: Region, Statistical Area,
+  information in this tibble comes from \code{a}: Region, Statistical Area,
   Section, and Location code.
 }
 \description{
 Calculate the Pacific Herring surface spawn index in tonnes.
 }
 \note{
-The 'spawn index' is a relative index of spawning biomass.
+The `spawn index' is a relative index of spawning biomass.
 }
 \examples{
 dbLoc <- system.file("extdata", package = "SpawnIndex")

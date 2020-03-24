@@ -64,10 +64,10 @@ CalcBiomassSOK <- function(SOK,
 #' @param where List. Location of the Pacific Herring surface spawn database
 #'   (see examples).
 #' @param a Tibble. Table of geographic information indicating the subset of
-#'   spawn survey observations to inlude in calculations. Returned from
+#'   spawn survey observations to inlude in calculations; from
 #'   \code{\link{LoadAreaData}}.
 #' @param widths Tibble. Table of median region, section, and pool widths in
-#'   metres (m). Returned from \code{\link{GetWidth}}.
+#'   metres (m); from \code{\link{GetWidth}}.
 #' @param yrs Numeric vector. Years(s) to include in the calculations, usually
 #'   staring in 1951.
 #' @param intense Tibble. Table of spawn intensity categories and number of egg
@@ -89,13 +89,13 @@ CalcBiomassSOK <- function(SOK,
 #' @importFrom gfiscamutils MeanNA SumNA
 #' @importFrom tidyr replace_na
 #' @importFrom Rdpack reprompt
-#' @return List. The element `SI` is a tibble with surface spawn index
-#'   (`SurfSI`) in tonnes by spawn number and year. The spawn number is the
+#' @return List. The element \code{SI} is a tibble with surface spawn index
+#'   (\code{SurfSI}) in tonnes by spawn number and year. The spawn number is the
 #'   finest spatial scale at which we calculate the spawn index. Other
-#'   information in this tibble comes from `a`: Region, Statistical Area,
+#'   information in this tibble comes from \code{a}: Region, Statistical Area,
 #'   Section, and Location code.
 #' @references \insertAllCited
-#' @note The 'spawn index' is a relative index of spawning biomass.
+#' @note The `spawn index' is a relative index of spawning biomass.
 #' @seealso \code{\link{LoadAreaData}} \code{\link{GetWidth}}
 #'   \code{\link{CalcEggConversion}} \code{\link{pars}} \code{\link{intensity}}
 #' @export
@@ -322,7 +322,7 @@ CalcSurfSpawn <- function(where,
 #' @param where List. Location of the Pacific Herring Macrocystis spawn database
 #'   (see examples).
 #' @param a Tibble. Table of geographic information indicating the subset of
-#'   spawn survey observations to inlude in calculations. Returned from
+#'   spawn survey observations to inlude in calculations; from
 #'   \code{\link{LoadAreaData}}.
 #' @param yrs Numeric vector. Years(s) to include in the calculations, usually
 #'   staring in 1951.
@@ -344,13 +344,13 @@ CalcSurfSpawn <- function(where,
 #' @importFrom gfiscamutils MeanNA SumNA UniqueNA
 #' @importFrom tidyr replace_na
 #' @importFrom Rdpack reprompt
-#' @return List. The element `SI` is a tibble with Macrocystis spawn index
-#'   (`MacroSI`) in tonnes by spawn number and year. The spawn number is the
-#'   finest spatial scale at which we calculate the spawn index. Other
-#'   information in this tibble comes from `a`: Region, Statistical Area,
+#' @return List. The element \code{SI} is a tibble with Macrocystis spawn index
+#'   (\code{MacroSI}) in tonnes by spawn number and year. The spawn number is
+#'   the finest spatial scale at which we calculate the spawn index. Other
+#'   information in this tibble comes from \code{a}: Region, Statistical Area,
 #'   Section, and Location code.
 #' @references \insertAllCited
-#' @note The 'spawn index' is a relative index of spawning biomass.
+#' @note The `spawn index' is a relative index of spawning biomass.
 #' @seealso \code{\link{LoadAreaData}} \code{\link{CalcEggConversion}}
 #'   \code{\link{pars}}
 #' @export
@@ -506,7 +506,7 @@ CalcMacroSpawn <- function(where,
 #' @param where List. Location of the Pacific Herring understory spawn database
 #'   (see examples).
 #' @param a Tibble. Table of geographic information indicating the subset of
-#'   spawn survey observations to inlude in calculations. Returned from
+#'   spawn survey observations to inlude in calculations; from
 #'   \code{\link{LoadAreaData}}.
 #' @param yrs Numeric vector. Years(s) to include in the calculations, usually
 #'   staring in 1951.
@@ -531,13 +531,13 @@ CalcMacroSpawn <- function(where,
 #' @importFrom gfiscamutils MeanNA SumNA UniqueNA
 #' @importFrom tidyr replace_na gather
 #' @importFrom Rdpack reprompt
-#' @return List. The element `SI` is a tibble with understory spawn index
-#'   (`UnderSI`) in tonnes by spawn number and year. The spawn number is the
-#'   finest spatial scale at which we calculate the spawn index. Other
-#'   information in this tibble comes from `a`: Region, Statistical Area,
+#' @return List. The element \code{SI} is a tibble with understory spawn index
+#'   (\code{UnderSI}) in tonnes by spawn number and year. The spawn number is
+#'   the finest spatial scale at which we calculate the spawn index. Other
+#'   information in this tibble comes from \code{a}: Region, Statistical Area,
 #'   Section, and Location code.
 #' @references \insertAllCited
-#' @note The 'spawn index' is a relative index of spawning biomass.
+#' @note The `spawn index' is a relative index of spawning biomass.
 #' @seealso \code{\link{LoadAreaData}} \code{\link{CalcEggConversion}}
 #'   \code{\link{pars}} \code{\link{algaeCoefs}}
 #' @export

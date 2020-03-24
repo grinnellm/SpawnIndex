@@ -293,7 +293,7 @@ LoadAreaData <- function(reg,
 #' @param where List. Location of the Pacific Herring understory spawn database
 #'   (see examples).
 #' @param a Tibble. Table of geographic information indicating the subset of
-#'   spawn survey observations to inlude in calculations. Returned from
+#'   spawn survey observations to inlude in calculations; from
 #'   \code{\link{LoadAreaData}}.
 #' @param yrs Numeric vector. Years(s) to include in the calculations, usually
 #'   staring in 1951.
@@ -307,7 +307,7 @@ LoadAreaData <- function(reg,
 #' @importFrom Rdpack reprompt
 #' @return Tibble. Contains additional spawn survey data including start and end
 #'   dates, as well as spawn length, width, and depth. Other information in this
-#'   tibble comes from `a`: Region, Statistical Area, Section, and Location
+#'   tibble comes from \code{a}: Region, Statistical Area, Section, and Location
 #'   code.
 #' @seealso \code{\link{LoadAreaData}}
 #' @export
@@ -386,19 +386,24 @@ LoadAllSpawn <- function(where, a, yrs, ft2m = 0.3048) {
 #' Load median spawn width.
 #'
 #' Load median spawn width in metres (m) for Pacific Herring surface spawn index
-#' calculations.
+#' calculations. Observed width is not preferred for surface spawn surveys
+#' because surveyors tend to underestimate spawn width
+#' \insertCite{HayKronlund1987}{SpawnIndex}. Instead, the preferred with comes
+#' from underwater surveys \insertCite{GrinnellEtalYYYY}{SpawnIndex}.
 #'
 #' @param where List. Location of the Pacific Herring surface spawn database
 #'   (see examples).
 #' @param a Tibble. Table of geographic information indicating the subset of
-#'   spawn survey observations to inlude in calculations. Returned from
+#'   spawn survey observations to inlude in calculations; from
 #'   \code{\link{LoadAreaData}}.
 #' @importFrom RODBC odbcConnectAccess sqlFetch odbcClose
 #' @importFrom dplyr select distinct rename left_join filter %>%
 #' @importFrom tibble as_tibble
 #' @importFrom Rdpack reprompt
-#' @return Table with median region (WidthReg), section (WidthSec), and pool
-#'   (WidthPool) widths in metres (m) for the areas in \code{a}.
+#' @return Table with median region (\code{WidthReg}), section
+#'   (\code{WidthSec}), and pool (\code{WidthPool}) widths in metres (m) for the
+#'   areas in \code{a}.
+#' @references \insertAllCited
 #' @seealso \code{\link{CalcSurfSpawn}} \code{\link{LoadAreaData}}
 #' @export
 #' @examples

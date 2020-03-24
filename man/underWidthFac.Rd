@@ -11,7 +11,9 @@ underWidthFac
 }
 \description{
 Spawn width correction factors for Pacific Herring understory spawn surveys
-by region and year.
+by region and year. These correction factors account for an error that resulted
+in underestimated spawn width for understory dive surveys
+\insertCite{ClearyEtal2017,GrinnellEtalYYYY}{SpawnIndex}.
 }
 \note{
 Adjust spawn width for affected understory spawn surveys by multiplying
@@ -21,6 +23,9 @@ Adjust spawn width for affected understory spawn surveys by multiplying
 \examples{
 data(underWidthFac)
 underWidthFac
+}
+\references{
+\insertAllCited{}
 }
 \seealso{
 \code{\link{CalcUnderSpawn}}

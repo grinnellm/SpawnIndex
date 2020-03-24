@@ -11,7 +11,7 @@ LoadAllSpawn(where, a, yrs, ft2m = 0.3048)
 (see examples).}
 
 \item{a}{Tibble. Table of geographic information indicating the subset of
-spawn survey observations to inlude in calculations. Returned from
+spawn survey observations to inlude in calculations; from
 \code{\link{LoadAreaData}}.}
 
 \item{yrs}{Numeric vector. Years(s) to include in the calculations, usually
@@ -36,7 +36,7 @@ areaLoc <- list(
 )
 areas <- LoadAreaData(reg = "WCVI", where = areaLoc)
 allSpawnLoc <- list(
-  loc = file.path(dbLoc), db = "HerringSpawn.mdb",
+  loc = dbLoc, db = "HerringSpawn.mdb",
   fns = list(allSpawn = "tSSAllspawn", stations = "tSSStations")
 )
 allSpawn <- LoadAllSpawn(

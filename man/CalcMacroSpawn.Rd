@@ -21,7 +21,7 @@ CalcMacroSpawn(
 (see examples).}
 
 \item{a}{Tibble. Table of geographic information indicating the subset of
-spawn survey observations to inlude in calculations. Returned from
+spawn survey observations to inlude in calculations; from
 \code{\link{LoadAreaData}}.}
 
 \item{yrs}{Numeric vector. Years(s) to include in the calculations, usually
@@ -45,17 +45,17 @@ from \code{\link{pars}} \insertCite{HaegeleSchweigert1990}{SpawnIndex}.}
 \code{\link{CalcEggConversion}}.}
 }
 \value{
-List. The element `SI` is a tibble with Macrocystis spawn index
-  (`MacroSI`) in tonnes by spawn number and year. The spawn number is the
-  finest spatial scale at which we calculate the spawn index. Other
-  information in this tibble comes from `a`: Region, Statistical Area,
+List. The element \code{SI} is a tibble with Macrocystis spawn index
+  (\code{MacroSI}) in tonnes by spawn number and year. The spawn number is
+  the finest spatial scale at which we calculate the spawn index. Other
+  information in this tibble comes from \code{a}: Region, Statistical Area,
   Section, and Location code.
 }
 \description{
 Calculate the Pacific Herring Macrocystis spawn index in tonnes.
 }
 \note{
-The 'spawn index' is a relative index of spawning biomass.
+The `spawn index' is a relative index of spawning biomass.
 }
 \examples{
 dbLoc <- system.file("extdata", package = "SpawnIndex")
@@ -66,7 +66,7 @@ areaLoc <- list(
 areas <- LoadAreaData(reg = "WCVI", where = areaLoc)
 data(pars)
 macroLoc <- list(
-  loc = file.path(dbLoc), db = "HerringSpawn.mdb",
+  loc = dbLoc, db = "HerringSpawn.mdb",
   fns = list(
     allSpawn = "tSSAllspawn", plants = "tSSMacPlant",
     transects = "tSSMacTrans"
