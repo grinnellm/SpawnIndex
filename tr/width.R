@@ -11,7 +11,7 @@ require(scales)
 ##### Controls #####
 
 # Region of interest
-region <- "SoG"
+region <- "A2W"
 
 # Years to consider
 yrRange <- 1951:2019
@@ -23,7 +23,7 @@ figPath <- file.path("tr", "cache")
 figWidth <- 6.5
 
 # Section subset
-sectionSub <- 140:149
+sectionSub <- NA
 
 ##### Paths #####
 
@@ -127,9 +127,7 @@ GetSurfWidth <- function(where,
 } # End GetSurfWidth function
 
 # Load surface widths
-surfWidth <- GetSurfWidth(
-  where = surfLoc, a = areas, widths = barWidth
-)
+surfWidth <- GetSurfWidth(where = surfLoc, a = areas, widths = barWidth)
 
 # Get dive widths
 GetDiveWidth <- function(where,
@@ -170,13 +168,15 @@ GetDiveWidth <- function(where,
       Width
     ) %>%
     rename(WidthObs = Width) %>%
-    # group_by(Region) %>%
-    # mutate(WidthReg = median(WidthObs)) %>%
-    # group_by(Section) %>%
-    # mutate(WidthReg = median(WidthObs)) %>%
-    # group_by(Section, Pool) %>%
-    # mutate(WidthReg = median(WidthObs)) %>%
-    # ungroup() %>%
+    group_by(Region) %>%
+    mutate(WidthReg = median(WidthObs, na.rm = TRUE)) %>%
+    group_by(StatArea) %>%
+    mutate(WidthStat = median(WidthObs, na.rm = TRUE)) %>%
+    group_by(Section) %>%
+    mutate(WidthSec = median(WidthObs, na.rm = TRUE)) %>%
+    group_by(LocationCode) %>%
+    mutate(WidthLoc = median(WidthObs, na.rm = TRUE)) %>%
+    ungroup() %>%
     arrange(
       Year, Region, StatArea, Section, Pool, LocationCode, SpawnNumber, WidthObs
     )
@@ -188,6 +188,7 @@ GetDiveWidth <- function(where,
   return(res)
 } # End GetDiveWidth function
 
+# Get dive widths
 diveWidth <- GetDiveWidth(where = diveLoc, a = areas)
 
 # Combine surface and dive widths
@@ -198,19 +199,24 @@ allWidth <- bind_rows(surfWidth, diveWidth)
 # Plot observed width with lines for median pool, section, and region width
 poolPlot <- ggplot(data = allWidth, mapping = aes(y = Pool)) +
   geom_boxplot(
-    mapping = aes(x = WidthObs, fill=Survey), outlier.alpha = 0.5, outlier.size = 1,
-    na.rm = TRUE
+    mapping = aes(x = WidthObs, fill = Survey),
+    outlier.alpha = 0.5, outlier.size = 1, na.rm = TRUE
   ) +
   geom_vline(
-    mapping = aes(xintercept = WidthReg), colour = "red", na.rm = TRUE,
-    alpha = 0.5
+    mapping = aes(xintercept = WidthReg, linetype = Survey),
+    colour = "seagreen", na.rm = TRUE
   ) +
   geom_vline(
-    mapping = aes(xintercept = WidthSec), colour = "blue", na.rm = TRUE,
-    alpha = 0.5
+    mapping = aes(xintercept = WidthStat, linetype = Survey),
+    colour = "sienna", na.rm = TRUE
+  ) +
+  geom_vline(
+    mapping = aes(xintercept = WidthSec, linetype = Survey),
+    colour = "slateblue", na.rm = TRUE
   ) +
   geom_point(
-    mapping = aes(x = WidthPool), colour = "green", na.rm = TRUE, alpha = 0.5
+    mapping = aes(x = WidthPool),
+    colour = "blue", na.rm = TRUE
   ) +
   labs(x = "Width (m)") +
   expand_limits(x = 0) +
