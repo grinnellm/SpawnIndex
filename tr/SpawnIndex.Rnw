@@ -1652,7 +1652,7 @@ One issue with comparing these two partly overlapping protocols is that surface 
 To improve the consistency of spawn index estimates throughout the time period from 1951 to present, we adjust surface spawn width estimates using underwater estimates when available \citep{SchweigertEtal1993}.
 Our preferred width is the median width from all dive surveys within a `pool.'
 A pool is a group of Locations within a Section that are often adjacent, contain similar algae and substrate, and can be treated as a group with likely similar widths.
-We summarise spawn width by the median instead of the mean because widths are not normally distributed \citep{SchweigertEtal1993}.
+We summarise spawn width by the median because width is not normally distributed \citep{SchweigertEtal1993}.
 If there are no dive data that meet those criteria, we use the median width from all dive surveys within the Section, or within the SAR if there are no dives within the Section.
 If there are still no dive data that meet those criteria, we use the observed width $W^\prime$ from the surface survey.
 We update the aforementioned median width values periodically, not annually.
@@ -1697,10 +1697,10 @@ We correct understory spawn widths by multiplying the observed width by the corr
 \begin{equation}\label{eqWidthCorT}
 W_{txsnry} = W^\prime_{txsnry} \tau_{ry}
 \end{equation}
-where $W^\prime_{txsnry}$ is the observed spawn width for transect $t$ in spawn survey type $x$, spawn $s$, Location $n$, SAR $r$, and year $y$,
+where $W^\prime_{txsnry}$ is the observed spawn width for transect $t$ in spawn survey type $x$ (i.e., understory), spawn $s$, Location $n$, SAR $r$, and year $y$,
 $\tau_{ry}$ is the spawn width correction factor for SAR $r$ and year $y$ (\autoref{tab:WidthFac}), and
 $W_{txsnry}$ is the corrected understory spawn width in metres (\autoref{tabNotationWidth}).
-Instead of updating the database permanently, we adjust spawn widths in the \textbf{R} package script to be transparent, and to prevent a mismatch between the original data sheets and the database.
+Instead of updating the database permanently, we adjust spawn width in the \textbf{R} package script to be transparent, and to prevent mismatches between the original data sheets and databases.
 
 <<WidthFac>>=
 # Caption
@@ -1756,10 +1756,10 @@ We update intensity from 0 to 1 because spawn was surveyed but not reported.
 Spawn survey records prior to 1951 have additional missing or inaccurate egg layer information, and are unreliable for indexing purposes.
 Therefore, we do not include spawn data prior to 1951 in stock assessments.
 
-While reviewing the spawn index calculations and translating them from the \textbf{Microsoft Access} database to \textbf{R}, we found several cases where good quality spawn index data were being over-written with no documented reason.
+While reviewing the spawn index calculations and translating them from the \textbf{Microsoft Access} database to \textbf{R}, we found several cases where index data were being over-written with no documented reason.
 These updates have been omitted, and affected the following records:
 \begin{enumerate}
-\item Update $E_{js}$ to 2.1496 for the 15 records in the year 1979, Statistical Area 2, and with intensity 4;
+\item Update $E_{js}$ (i.e., the total number of egg layers) to 2.1496 for the 15 records in the year 1979, Statistical Area 2, and with intensity 4;
 \item Update $E_{js}$ to 0.5529 for the 4 records in the year 1981, Statistical Area 24, and with $E_{js} = 0.0$;
 \item Update $E_{js}$ to 1.3360 for the 7 records in the year 1982, Statistical Area 23, and with intensity 3;
 \item Update $E_{js}$ to 2.3300 for 41 records in the year 1984, Statistical Area 24, and with intensity 0; and
