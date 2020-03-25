@@ -11,7 +11,7 @@ require(scales)
 ##### Controls #####
 
 # Region of interest
-region <- "A2W"
+region <- "WCVI"
 
 # Years to consider
 yrRange <- 1951:2019
@@ -23,7 +23,7 @@ figPath <- file.path("tr", "cache")
 figWidth <- 6.5
 
 # Section subset
-sectionSub <- NA
+sectionSub <- 233:242
 
 ##### Paths #####
 
@@ -198,25 +198,25 @@ allWidth <- bind_rows(surfWidth, diveWidth)
 
 # Plot observed width with lines for median pool, section, and region width
 poolPlot <- ggplot(data = allWidth, mapping = aes(y = Pool)) +
-  geom_boxplot(
-    mapping = aes(x = WidthObs, fill = Survey),
-    outlier.alpha = 0.5, outlier.size = 1, na.rm = TRUE
-  ) +
   geom_vline(
     mapping = aes(xintercept = WidthReg, linetype = Survey),
-    colour = "seagreen", na.rm = TRUE
+    colour = "seagreen", na.rm = TRUE, size = 1
   ) +
   geom_vline(
     mapping = aes(xintercept = WidthStat, linetype = Survey),
-    colour = "sienna", na.rm = TRUE
+    colour = "sienna", na.rm = TRUE, size = 1
   ) +
   geom_vline(
     mapping = aes(xintercept = WidthSec, linetype = Survey),
-    colour = "slateblue", na.rm = TRUE
+    colour = "slateblue", na.rm = TRUE, size = 1
+  ) +
+  geom_boxplot(
+    mapping = aes(x = WidthObs, fill = Survey),
+    outlier.alpha = 0.5, outlier.size = 1.5, na.rm = TRUE
   ) +
   geom_point(
     mapping = aes(x = WidthPool),
-    colour = "blue", na.rm = TRUE
+    shape = 8, na.rm = TRUE, size = 2
   ) +
   labs(x = "Width (m)") +
   expand_limits(x = 0) +
