@@ -22,7 +22,7 @@ staring in 1951.}
 \value{
 Tibble. Contains additional spawn survey data including start and end
   dates, as well as spawn length, width, and depth. Other information in this
-  tibble comes from `a`: Region, Statistical Area, Section, and Location
+  tibble comes from \code{a}: Region, Statistical Area, Section, and Location
   code.
 }
 \description{
