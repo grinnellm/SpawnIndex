@@ -44,6 +44,8 @@ LoadAreaData <- function(reg,
                          inCRS = "+init=epsg:4326",
                          outCRS = "+init=epsg:3005",
                          quiet = FALSE) {
+  # Warning if R is not 32-bit
+  if (.Machine$sizeof.pointer != 4) warning("32-bit R required")
   # Cross-walk table for SAR to region and region name
   regions <- readr::read_csv(
     file =
@@ -281,7 +283,7 @@ LoadAreaData <- function(reg,
   # Close the connection
   RODBC::odbcClose(accessDB)
   # Error if there is no data
-  if(nrow(res)==0) stop("No locations; check inputs")
+  if (nrow(res) == 0) stop("No locations; check inputs")
   # Return herring areas
   return(res)
 } # End LoadAreaData function
