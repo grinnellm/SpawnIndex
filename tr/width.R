@@ -10,8 +10,8 @@ require(scales)
 
 ##### Controls #####
 
-# Region of interest
-region <- "WCVI"
+# Region of interest: major (HG, PRD, CC, SoG, WCVI); minor (A27, A2W)
+region <- "SoG"
 
 # Years to consider
 yrRange <- 1951:2019
@@ -23,7 +23,7 @@ figPath <- file.path("tr", "cache")
 figWidth <- 6.5
 
 # Section subset
-sectionSub <- 233:242
+sectionSub <- NA
 
 ##### Paths #####
 
@@ -111,7 +111,6 @@ GetSurfWidth <- function(where,
       y = widths %>% select(Region, Section, Pool, WidthPool) %>% distinct(),
       by = c("Region", "Section", "Pool")
     ) %>%
-    # unite(col = Group, Section, Pool, sep = "-") %>%
     mutate(Pool = as.character(Pool), Survey = "Surface") %>%
     select(
       Survey, Year, Region, StatArea, Section, Pool, LocationCode, SpawnNumber,
@@ -191,8 +190,77 @@ GetDiveWidth <- function(where,
 # Get dive widths
 diveWidth <- GetDiveWidth(where = diveLoc, a = areas)
 
+# Get median dive widths
+barWidth2 <- diveWidth %>%
+  select(
+    Region, StatArea, Section, LocationCode, WidthReg, WidthStat,
+    WidthSec, WidthLoc
+  ) %>%
+  distinct() %>%
+  arrange(Region, StatArea, Section, LocationCode)
+
 # Combine surface and dive widths
 allWidth <- bind_rows(surfWidth, diveWidth)
+
+# Get surface widths (second option)
+GetSurfWidth2 <- function(where,
+                          a,
+                          yrs = yrRange,
+                          widths) {
+  # Establish connection with access
+  accessDB <- odbcConnectAccess(access.file = file.path(where$loc, where$db))
+  # Get a small subset of area data
+  areasSm <- a %>%
+    select(Region, StatArea, Section, LocationCode) %>%
+    distinct() %>%
+    as_tibble()
+  # Load all spawn
+  spawn <- sqlFetch(channel = accessDB, sqtable = where$fns$allSpawn) %>%
+    rename(
+      LocationCode = Loc_Code, SpawnNumber = Spawn_Number, WidthObs = Width
+    ) %>%
+    filter(Year %in% yrs, LocationCode %in% a$LocationCode) %>%
+    select(Year, LocationCode, SpawnNumber, WidthObs) %>%
+    as_tibble()
+  # Bind the tables
+  res <- spawn %>%
+    left_join(y = areasSm, by = "LocationCode") %>%
+    # Merge widths incrementally: region
+    left_join(
+      y = widths %>% select(Region, WidthReg) %>% distinct(),
+      by = "Region"
+    ) %>%
+    # Merge widths incrementally: statistical area
+    left_join(
+      y = widths %>% select(StatArea, WidthStat) %>% distinct(),
+      by = "StatArea"
+    ) %>%
+    # Merge widths incrementally: section
+    left_join(
+      y = widths %>% select(Section, WidthSec) %>% distinct(),
+      by = "Section"
+    ) %>%
+    # Merge widths incrementally: location
+    left_join(
+      y = widths %>% select(LocationCode, WidthLoc) %>% distinct(),
+      by = "LocationCode"
+    ) %>%
+    mutate(Survey = "Surface") %>% # Pool = as.character(Pool),
+    select(
+      Survey, Year, Region, StatArea, Section, LocationCode, SpawnNumber,
+      WidthReg, WidthStat, WidthSec, WidthLoc, WidthObs
+    ) %>%
+    arrange(
+      Year, Region, StatArea, Section, LocationCode, SpawnNumber, WidthObs
+    )
+  # Close the connection
+  odbcClose(accessDB)
+  # Return the table
+  return(res)
+} # End GetSurfWidths2 function
+
+# Load surface widths
+surfWidth2 <- GetSurfWidth2(where = surfLoc, a = areas, widths = barWidth2)
 
 ##### Figures #####
 
@@ -230,3 +298,57 @@ poolPlot <- ggplot(data = allWidth, mapping = aes(y = Pool)) +
     height = figWidth * 1.33
   )
 # print(poolPlot)
+
+##### Tables #####
+
+# Determine where widths come from
+propWidth <- surfWidth %>%
+  mutate(
+    Width = ifelse(is.na(WidthPool),
+                   ifelse(is.na(WidthSec), "Region", "Section"),
+                   "Pool"
+    ),
+    Width = factor(Width, levels = c("Pool", "Section", "Region"))
+  )
+
+# Proportions by method
+pt <- as.data.frame(table(propWidth$Width) / nrow(propWidth) * 100)
+
+# Make a nice table
+df <- matrix(data = pt$Freq, dimnames = list(NULL, pt$Var1), nrow = 1) %>%
+  as_tibble() %>%
+  mutate(SAR = region) %>%
+  select(SAR, pt$Var1)
+
+# Determine where widths come from (2)
+propWidth2 <- surfWidth2 %>%
+  mutate(
+    Width = ifelse(is.na(WidthLoc),
+                   ifelse(is.na(WidthSec),
+                          ifelse(is.na(WidthStat), "Region", "StatArea"),
+                          "Section"
+                   ),
+                   "Location"
+    ),
+    Width = factor(Width,
+                   levels = c("Location", "Section", "StatArea", "Region")
+    )
+  )
+
+# Proportions by method
+pt2 <- as.data.frame(table(propWidth2$Width) / nrow(propWidth) * 100)
+
+# Make a nice table
+df2 <- matrix(data = pt2$Freq, dimnames = list(NULL, pt2$Var1), nrow = 1) %>%
+  as_tibble() %>%
+  mutate(SAR = region) %>%
+  select(SAR, pt2$Var1)
+
+# Write to file
+if( file.exists("Old.csv") ) {
+  write_csv(x=df, path="Old.csv", append=TRUE)
+  write_csv(x=df2, path="New.csv", append=TRUE)
+} else {
+  write_csv(x=df, path="Old.csv", append=FALSE)
+  write_csv(x=df2, path="New.csv", append=FALSE)
+}
