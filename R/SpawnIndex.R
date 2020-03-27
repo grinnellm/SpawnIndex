@@ -5,12 +5,12 @@
 #' calculate the spawn index for Pacific Herring (\emph{Clupea pallasii}) in
 #' British Columbia, Canada. Methods inluclude converting eggs to biomass,
 #' spawn-on-kelp calculations, as well as surface, Macrocystis, and understory
-#' spawn index calculations. Read the technical report for more details on
-#' spawn index calculations \insertCite{GrinnellEtalYYYY}{SpawnIndex}.
+#' spawn index calculations. Read the technical report for more details and
+#' background on spawn index calculations
+#' \insertCite{GrinnellEtalYYYY}{SpawnIndex}.
 #'
 #' @docType package
 #' @name SpawnIndex
-#' @note The `spawn index' is a relative index of spawning biomass. In addition,
-#'   32-bit R is required to get data from the 32-bit MS Access database.
+#' @note The `spawn index' is a relative index of spawning biomass.
 #' @references \insertAllCited{}
 NULL
