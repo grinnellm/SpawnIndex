@@ -324,10 +324,10 @@ Surface spawn surveys are believed to be the least accurate of the three survey 
 For example, surface spawn surveys were the only survey type prior to 1988, and they are still used extensively for minor spawns, remote spawns (i.e., outside stock assessment region boundaries; see below), as well as unusually early or late spawns.
 Macrocystis and understory spawn surveys are conducted using SCUBA gear, and have been used for all major spawns since 1988.
 Thus, we describe the spawn index as having two periods based on the predominant survey type:
-the surface survey period from 1951 to 1987, and
-the dive survey period from 1988 to present.
+the surface survey period from \Sexpr{min(yrRange)} to \Sexpr{newSurvYr-1}, and
+the dive survey period from \Sexpr{newSurvYr} to present.
 
-The inclusion of dive surveys in 1988 makes it challenging to compare the spawn index between these two periods.
+The inclusion of dive surveys in \Sexpr{newSurvYr} makes it challenging to compare the spawn index between these two periods.
 For example, surface surveys are less accurate than dive surveys (\hyperref[secWidthAdjust]{appendix \ref{secWidthSurface}}), and
 spawn surveyors used subjective intensity categories instead of direct egg layer estimates until 1981 (\autoref{secIntensity}).
 In addition, \fishName{} spawn survey effort has been inconsistent over the time series due to available resources and departmental priorities.
@@ -801,13 +801,13 @@ Data from surface surveys are combined with data from dive surveys (i.e., Macroc
 
 \subsubsection{SPAWN INTENSITY CATEGORIES}\label{secIntensity}
 % TODO: Automate these numbers
-From 1928 to 1978, surface spawn surveyors categorized spawn by subjective `intensity' categories instead of directly estimating the number of egg layers (\autoref{tab:Intensity}).
-From 1928 to 1968 there were five intensity categories described as very light, light, medium, heavy, and very heavy (numbered 1 to 5, respectively).
-Starting in 1969 there were nine intensity categories;
+From 1928 to \Sexpr{directEggYr-1}, surface spawn surveyors categorized spawn by subjective `intensity' categories instead of directly estimating the number of egg layers (\autoref{tab:Intensity}).
+From 1928 to \Sexpr{cat9Yr-1} there were five intensity categories described as very light, light, medium, heavy, and very heavy (numbered 1 to 5, respectively).
+Starting in \Sexpr{cat9Yr} there were nine intensity categories;
 the change from five to nine intensity categories was probably to accommodate the practice of reporting intermediate categories such as 3.5 \citep{HayKronlund1987}.
-Starting in 1979, spawn surveyors estimated the number of egg layers directly, and they continued to record intensity categories until 1981 to provide overlap between the two methods.
+Starting in \Sexpr{directEggYr}, spawn surveyors estimated the number of egg layers directly, and they continued to record intensity categories until 1981 to provide overlap between the two methods.
 In addition to the number of egg layers, intensity was sometimes recorded after being officially discontinued in 1981.
-We have converted spawn intensity observations in the \fishName{} spawn survey database from five to nine categories for spawns that used the five category scale between 1951 and 1968.
+We have converted spawn intensity observations in the \fishName{} spawn survey database from five to nine categories for spawns that used the five category scale between \Sexpr{min(yrRange)} and \Sexpr{cat9Yr-1}
 Thus, spawn data used for stock assessments is represented either by a nine category intensity scale, or a direct estimate of the number of egg layers.
 
 <<Intensity>>=
