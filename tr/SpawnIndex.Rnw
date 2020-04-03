@@ -1383,7 +1383,7 @@ Thus, we assume that eggs on substrate and algae are independent, and can be add
 \subsection{TRANSECT OBSERVATIONS AND CALCULATIONS}
 
 % TODO: Is the linear weighted egg density necessary? Seems complicated and maybe a simpler way is possible?
-At the transect level (\autoref{figFlow}, step \ref{uTrans}), the mean linear understory egg density in transect $t$ and spawn $s$ is
+At the transect level (\autoref{figFlow}, step \ref{uTrans}), the mean \emph{linear} understory egg density in transect $t$ and spawn $s$ is
 \begin{equation}\label{eqUnderDensLinTS}
 \mean{\rho^\prime_{ts}} = W_{ts} \frac{1}{Q} \sum_{q=1}^Q \rho_{qts}
 \end{equation}
@@ -1391,9 +1391,9 @@ where $W_{ts}$ is the spawn width in metres,
 $Q$ is the number of quadrats in transect $t$,
 $\rho_{qts}$ is total understory egg density in quadrat $q$ from \autoref{eqUnderDensQTS}, and
 $\mean{\rho^\prime_{ts}}$ is in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-1}$.
-We calculate a weighted mean egg density because spawn width can vary along the spawn length;
+We calculate a weighted mean egg density because spawn width varies along the spawn length;
 a weighted mean ensures that transects contribute proportionally to their area.
-Note that we update spawn width to correct for errors regarding the assumed accuracy of transect lines used to measure spawn width for understory surveys between 2003 and 2014 (\autoref{secWidthUnder}).
+Note that we update spawn width to correct for errors regarding the assumed accuracy of transect lines used to measure spawn width for understory surveys between \Sexpr{min(underWidthFac$Year)} and \Sexpr{max(underWidthFac$Year)} (\autoref{secWidthUnder}).
 
 \subsection{SPAWN OBSERVATIONS AND CALCULATIONS}
 
@@ -1413,7 +1413,7 @@ $\mean{W_s}$ is in metres.
 The length of the algae bed in spawn $s$ is $L^v_s$, also in metres.
 As with Macrocystis spawn calculations,
 if $L^v_s$ is inadvertently not recorded, we set $L^v_s$ to the spawn length $L_s$.
-Thus, we assume that eggs on the substrate and eggs on algae are represented by the same length measurement.
+Thus, we assume that eggs on substrate and eggs on algae are represented by the same length measurement.
 The sum of transect egg densities in spawn $s$ is
 \begin{equation}\label{eqUnderDensLinS}
 \rho^\prime_s = \sum_{t=1}^T \mean{\rho^\prime_{ts}}
@@ -1683,12 +1683,12 @@ lead lines are replaced every 5 to 10 years, with some segments being replaced m
 segments in some SARs are replaced more frequently than in other SARs).
 DFO staff believe that a change in lead line manufacturing prevents new lead lines from shrinking.
 
-The earliest written instructions that describe the modified protocol of marking $1.15\,\text{m}$ increments is from 2003, and this protocol was used until 2013.
-Note that some SARs continued to use old lead lines in 2014.
+The earliest written instructions that describe the modified protocol of marking $1.15\,\text{m}$ increments is from \Sexpr{min(underWidthFac$Year)}, and this protocol was used until 2013.
+Note that some SARs continued to use old lead lines in \Sexpr{max(underWidthFac$Year)}.
 The practice of annually re-measuring lead line increments ceased around 2005;
 thus we are unable to determine when lead lines ceased shrinking.
 Given the observations summarized above, we adjust spawn width estimates based on written instructions for the marking protocol in 2003.
-Accordingly, our best estimate of years impacted by marking lead lines at $1.15\,\text{m}$ increments (when shrinking no longer occurred) is from 2003 to 2014.
+Accordingly, our best estimate of years impacted by marking lead lines at $1.15\,\text{m}$ increments (when shrinking no longer occurred) is from \Sexpr{min(underWidthFac$Year)} and \Sexpr{max(underWidthFac$Year)}.
 However, not all SARs $r$ and years $y$ are impacted equally by this issue (\autoref{tab:WidthFac}):
 some SARs and years had all $1.0\,\text{m}$ increment lengths (no correction factor needed; $\tau_{ry} = 1.0$),
 others had all $1.15\,\text{m}$ increment lengths ($\tau_{ry} = 1.15$),
