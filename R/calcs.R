@@ -745,7 +745,7 @@ CalcUnderSpawn <- function(where,
     dplyr::mutate(EggDensSub = ifelse(Width > 0, EggDensSub, 0))
   # Calculate total egg density by station/quadrat
   eggsStation <- eggs %>%
-    # Total egg density in thousands (eggs * 10^3 / m); quadrat q
+    # Total egg density in thousands (eggs * 10^3 / m^2); quadrat q
     dplyr::mutate(EggDens = EggDensSub + EggDensAlg) %>%
     dplyr::filter(!is.na(Station))
   # Widths
@@ -770,8 +770,7 @@ CalcUnderSpawn <- function(where,
       Year, Region, StatArea, Section, LocationCode, SpawnNumber, Transect
     ) %>%
     # Transect t
-    dplyr::summarise(EggDensL = gfiscamutils::MeanNA(EggDens) *
-      unique(Width)) %>%
+    dplyr::summarise(EggDensL = gfiscamutils::WtMeanNA(EggDens, w=Width)) %>%
     dplyr::ungroup()
   # Calculate spawn number-level metrics
   eggsSpawn <- eggsTrans %>%
@@ -803,7 +802,7 @@ CalcUnderSpawn <- function(where,
       EggDens = EggDensL / WidthTot,
       # Biomass in tonnes, based on Hay (1985), and Hay and Brett (1988); spawn
       # s
-      UnderSI = EggDens * LengthAlgae * WidthBar * 1000 / theta
+      UnderSI = EggDensL * LengthAlgae * WidthBar * 1000 / theta
     ) %>%
     dplyr::left_join(y = eggLyrs, by = c("Year", "LocationCode", "SpawnNumber"))
   # Calculate understory SI by spawn number
