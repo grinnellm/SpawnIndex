@@ -199,7 +199,7 @@ CalcSurfSpawn <- function(where,
       EggLyrs = Grass + Rockweed + Kelp + BrownAlgae + LeafyRed +
         StringyRed + Rock + Other,
       Intensity = ifelse(Year %in% rsYrs & Intensity > 0,
-                         Intensity * 2 - 1, Intensity
+        Intensity * 2 - 1, Intensity
       )
     ) %>%
     dplyr::filter(Method %in% c("Surface", "Dive")) %>%
@@ -212,7 +212,7 @@ CalcSurfSpawn <- function(where,
     dplyr::mutate(
       # SoG (1 record): update Intensity from 0 to 1 (surveyed but not reported)
       Intensity = ifelse(Year == 1962 & StatArea == 14 & Section == 142 &
-                           LocationCode == 820 & Intensity == 0, 1, Intensity)
+        LocationCode == 820 & Intensity == 0, 1, Intensity)
     )
   # Calculate egg density based on intensity or direct measurements
   eggs <- surface %>%
@@ -255,8 +255,8 @@ CalcSurfSpawn <- function(where,
   # Error if there are missing values
   if (nrow(noLayers) > 0) {
     stop("Missing egg layers for ", nrow(noLayers), " record(s):",
-         print(noLayers),
-         sep = ""
+      print(noLayers),
+      sep = ""
     )
   }
   # Output egg layer info
@@ -679,10 +679,10 @@ CalcUnderSpawn <- function(where,
   if (any(!algae$AlgType %in% algCoefs$AlgType)) {
     # Get missing algae type(s)
     missAlg <- unique(algae$AlgType[!algae$AlgType %in%
-                                      algCoefs$AlgType])
+      algCoefs$AlgType])
     # Error, and show missing type(s)
     stop("Missing algae type(s): ", paste(missAlg, collapse = ", "),
-         call. = FALSE
+      call. = FALSE
     )
   } # End if there are missing algae types
   # Get a small subset of area data
@@ -724,7 +724,7 @@ CalcUnderSpawn <- function(where,
     # size coefficients not required because all quadrats are 0.5m^2 (1.0512)
     # Algae a
     dplyr::mutate(EggDensAlg = beta * AlgLyrs^gamma * AlgProp^delta * Coef *
-                    1.0512) %>%
+      1.0512) %>%
     dplyr::group_by(
       Year, Region, StatArea, Section, LocationCode, SpawnNumber, Transect,
       Station
@@ -771,7 +771,7 @@ CalcUnderSpawn <- function(where,
     ) %>%
     # Transect t
     dplyr::summarise(EggDensL = gfiscamutils::MeanNA(EggDens) *
-                       unique(Width)) %>%
+      unique(Width)) %>%
     dplyr::ungroup()
   # Calculate spawn number-level metrics
   eggsSpawn <- eggsTrans %>%
@@ -780,7 +780,7 @@ CalcUnderSpawn <- function(where,
       by = c("Year", "LocationCode", "SpawnNumber")
     ) %>%
     dplyr::mutate(LengthAlgae = ifelse(is.na(LengthAlgae), Length,
-                                       LengthAlgae
+      LengthAlgae
     )) %>%
     dplyr::filter(Method %in% c("Surface", "Dive")) %>%
     dplyr::left_join(y = widths, by = c(
