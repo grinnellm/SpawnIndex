@@ -812,7 +812,7 @@ Thus, spawn data used for stock assessments is represented either by a nine cate
 
 <<Intensity>>=
 # Caption
-tabCap <- paste("Spawn intensity categories, description, and number of egg layers for \\fishName{} surface spawn surveys for the periods", firstYr, "to ", cat9Yr-1, ", and ", cat9Yr, " to ", directEggYr, " \\citep{HayKronlund1987, SchweigertStocker1988}.", sep="")
+tabCap <- paste("Spawn intensity categories, description, and number of egg layers for \\fishName{} surface spawn surveys for the periods", firstYr, "to ", cat9Yr - 1, ", and ", cat9Yr, " to ", directEggYr, " \\citep{HayKronlund1987, SchweigertStocker1988}.", sep = "")
 # Short caption
 tabSCap <- "Spawn intensity categories and number of egg layers for \\fishName{} surface spawn surveys"
 # Format the table
@@ -1273,8 +1273,8 @@ EggDensSubPlot <- ggplot(
   geom_line(mapping = aes(colour = Proportion)) +
   labs(
     x = "Number of egg layers on substrate",
-    y = expression(paste("Substrate egg density (eggs" %.% 10^3 %.% "m"^-2,
-      ")", sep = ""
+    y = expression(paste("Substrate egg density (eggs" %.% 10^3 %.% "m"^-2, ")",
+      sep = ""
     )),
     colour = "Proportion of substrate\ncovered in spawn"
   ) +
@@ -1345,7 +1345,8 @@ dat <- as_tibble(df) %>%
   arrange(Coefficient) %>%
   mutate(
     EggDens = EggDensAlg(
-      AlgLyrs = Layers, AlgProp = Proportion, Coef = Coefficient),
+      AlgLyrs = Layers, AlgProp = Proportion, Coef = Coefficient
+    ),
     Coefficient = paste("Algae coefficient: ", format(Coefficient, digits = 4),
       sep = ""
     )
