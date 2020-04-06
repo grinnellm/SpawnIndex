@@ -321,8 +321,8 @@ There are three types of spawn survey observations:
 \item Underwater observations of spawn on other types of algae and the substrate, which we refer to as `understory.'
 \end{enumerate}
 Surface spawn surveys are believed to be the least accurate of the three survey types, but they have the greatest temporal and spatial extent \citep{Schweigert1993b}.
-For example, surface spawn surveys were the only survey type prior to 1988, and they are still used extensively for minor spawns, remote spawns (i.e., outside stock assessment region boundaries; see below), as well as unusually early or late spawns.
-Macrocystis and understory spawn surveys are conducted using SCUBA gear, and have been used for all major spawns since 1988.
+For example, surface spawn surveys were the only survey type prior to \Sexpr{newSurvYr}, and they are still used extensively for minor spawns, remote spawns (i.e., outside stock assessment region boundaries; see below), as well as unusually early or late spawns.
+Macrocystis and understory spawn surveys are conducted using SCUBA gear, and have been used for all major spawns since \Sexpr{newSurvYr}.
 Thus, we describe the spawn index as having two periods based on the predominant survey type:
 the surface survey period from \Sexpr{min(yrRange)} to \Sexpr{newSurvYr-1}, and
 the dive survey period from \Sexpr{newSurvYr} to present.
@@ -334,7 +334,7 @@ In addition, \fishName{} spawn survey effort has been inconsistent over the time
 For example, in the past, surveyors often dedicated several months each year to spawn surveys; they used small vessels to search for spawn, and surface surveys to estimate spawn biomass.
 Currently, surveyors use flights to search for spawn, and underwater SCUBA surveys to estimate spawn biomass.
 Thus, widespread effort (both spatially and temporally) in the past has been replaced with intense effort in the present.
-\fishName{} spawn surveys began in 1928, but are considered incomplete for indexing purposes prior to 1937 because many potential areas were not surveyed \citep{HayKronlund1987}.
+\fishName{} spawn surveys began in \Sexpr{firstYr}, but are considered incomplete for indexing purposes prior to 1937 because many potential areas were not surveyed \citep{HayKronlund1987}.
 
 \fishName{} spawn survey observations have a nested hierarchical structure: samples, Macrocystis plants, and quadrats are nested within transects, transects are nested within spawns, and spawns are nested within Locations.
 To develop spawn indices, Locations are nested within Sections (\autoref{figRegionSec}), Sections are nested within Statistical Areas (\autoref{figRegionSA}), and Statistical Areas are nested within stock assessment regions (SARs; \autoref{figRegionReg}).
@@ -550,7 +550,7 @@ as well as available sampling tools such as boats, rakes, and viewers.
 The data are analysed assuming simple random sampling,
 which likely generates a biased estimate of mean egg density.
 
-In contrast, underwater dive surveys using SCUBA gear instituted in 1988 follow a two-stage systematic sampling design where
+In contrast, underwater dive surveys using SCUBA gear instituted in \Sexpr{newSurvYr} follow a two-stage systematic sampling design where
 transects are the first sampling stage, and
 individual quadrats within transects are the second sampling stage \citep{Jessen1978}.
 Two steps are required to calculate mean understory egg density in each surveyed spawn $s$  (\autoref{tabNotationIndices}).
@@ -686,7 +686,7 @@ The sampling design was tested during a 1983 survey in the Strait of Georgia tha
 applied a systematic rather than a random sampling protocol to simplify the logistics;
 variance estimates were similar to those from the 1981 study.
 This sampling protocol was further re-evaluated after additional surveys occurred in all areas of the coast during 1984 and 1985;
-the protocol was found to be robust and has been in routine use since 1988 \citep{SchweigertEtal1990}.
+the protocol was found to be robust and has been in routine use since \Sexpr{newSurvYr} \citep{SchweigertEtal1990}.
 Although samples are collected systematically within each spawn,
 we assume that transects and quadrats are located randomly with respect to the underlying spawn distribution,
 and so these estimators are applicable.
@@ -795,14 +795,14 @@ Surveyors may deploy a viewing box in shallow water, and at low tide a portion o
 We refer to these surface spawn observations as `samples.'
 
 Recall that there are two cases of surface spawn surveys:
-all surveys prior to 1988, and
-surveys since 1988 when dive surveys are not possible.
+all surveys prior to \Sexpr{newSurvYr}, and
+surveys since \Sexpr{newSurvYr} when dive surveys are not possible.
 Data from surface surveys are combined with data from dive surveys (i.e., Macrocystis, understory) to produce the total spawn index (\autoref{secTotal}).
 
 \subsubsection{SPAWN INTENSITY CATEGORIES}\label{secIntensity}
 % TODO: Automate these numbers
-From 1928 to \Sexpr{directEggYr-1}, surface spawn surveyors categorized spawn by subjective `intensity' categories instead of directly estimating the number of egg layers (\autoref{tab:Intensity}).
-From 1928 to \Sexpr{cat9Yr-1} there were five intensity categories described as very light, light, medium, heavy, and very heavy (numbered 1 to 5, respectively).
+From \Sexpr{firstYr} to \Sexpr{directEggYr-1}, surface spawn surveyors categorized spawn by subjective `intensity' categories instead of directly estimating the number of egg layers (\autoref{tab:Intensity}).
+From \Sexpr{firstYr} to \Sexpr{cat9Yr-1} there were five intensity categories described as very light, light, medium, heavy, and very heavy (numbered 1 to 5, respectively).
 Starting in \Sexpr{cat9Yr} there were nine intensity categories;
 the change from five to nine intensity categories was probably to accommodate the practice of reporting intermediate categories such as 3.5 \citep{HayKronlund1987}.
 Starting in \Sexpr{directEggYr}, spawn surveyors estimated the number of egg layers directly, and they continued to record intensity categories until 1981 to provide overlap between the two methods.
@@ -812,7 +812,7 @@ Thus, spawn data used for stock assessments is represented either by a nine cate
 
 <<Intensity>>=
 # Caption
-tabCap <- paste("Spawn intensity categories, description, and number of egg layers for \\fishName{} surface spawn surveys for the periods 1928 to ", cat9Yr-1, ", and ", cat9Yr, " to ", directEggYr, " \\citep{HayKronlund1987, SchweigertStocker1988}.", sep="")
+tabCap <- paste("Spawn intensity categories, description, and number of egg layers for \\fishName{} surface spawn surveys for the periods", firstYr, "to ", cat9Yr-1, ", and ", cat9Yr, " to ", directEggYr, " \\citep{HayKronlund1987, SchweigertStocker1988}.", sep="")
 # Short caption
 tabSCap <- "Spawn intensity categories and number of egg layers for \\fishName{} surface spawn surveys"
 # Format the table
@@ -1639,17 +1639,18 @@ They also thank Paul Starr and Rob Kronlund for their thorough reviews that impr
 \setcounter{equation}{0}
 
 Spawn width is a critical component in spawn index calculations.
-There are two cases where we adjust spawn width estimates to improve spawn index accuracy: surface surveys in all years from 1951 to present, and understory dive surveys between 2003 and 2014.
+There are two cases where we adjust spawn width estimates to improve spawn index accuracy: surface surveys in all years from \Sexpr{min(yrRange)} to present, and understory dive surveys between 2003 and 2014.
 
 \subsection{SURFACE SPAWN WIDTH}\label{secWidthSurface}
 
-Surface surveys were the only survey type prior to 1988, while the majority of spawns since 1988 have been surveyed using SCUBA gear.
+Surface surveys were the only survey type prior to \Sexpr{newSurvYr}, while the majority of spawns since \Sexpr{newSurvYr} have been surveyed using SCUBA gear.
 Recall that we describe the spawn index as having two periods based on the predominant survey type:
-the surface survey period from 1951 to 1987, and
-the dive survey period from 1988 to present.
+the surface survey period from \Sexpr{min(yrRange)} to \Sexpr{newSurvYr-1}, and
+the dive survey period from \Sexpr{newSurvYr} to present.
 
 One issue with comparing these two partly overlapping protocols is that surface surveyors tend to underestimate spawn width \citep{HayKronlund1987}.
-To improve the consistency of spawn index estimates throughout the time period from 1951 to present, we adjust surface spawn width estimates using underwater estimates when available \citep{SchweigertEtal1993}.
+To improve the consistency of spawn index estimates throughout the time period from \Sexpr{min(yrRange)} to present,
+we adjust surface spawn width estimates using underwater estimates when available \citep{SchweigertEtal1993}.
 Our preferred width is the median width from all dive surveys within a `pool.'
 A pool is a group of Locations within a Section that are often adjacent, contain similar algae and substrate, and can be treated as a group with likely similar widths.
 We summarise spawn width by the median because width is not normally distributed \citep{SchweigertEtal1993}.
@@ -1746,15 +1747,15 @@ $W$ & Corrected spawn width & m \\
 \setcounter{table}{0}
 \setcounter{equation}{0}
 
-One record in the surface spawn database since 1951 requires an update to fill-in missing egg layer information.
+One record in the surface spawn database since \Sexpr{min(yrRange)} requires an update to fill-in missing egg layer information.
 As with understory spawn width updates, we make this update in the \textbf{R} package script.
 This affects the following record:
 \begin{enumerate}
 \item Update `intensity' from 0 to 1 for the 1 record in the year 1962, Statistical Area 14, Section 142, Location code 820, and with $\text{intensity} = 0$.
 We update intensity from 0 to 1 because spawn was surveyed but not reported.
 \end{enumerate}
-Spawn survey records prior to 1951 have additional missing or inaccurate egg layer information, and are unreliable for indexing purposes.
-Therefore, we do not include spawn data prior to 1951 in stock assessments.
+Spawn survey records prior to \Sexpr{min(yrRange)} have additional missing or inaccurate egg layer information, and are unreliable for indexing purposes.
+Therefore, we do not include spawn data prior to \Sexpr{min(yrRange)} in stock assessments.
 
 While reviewing the spawn index calculations and translating them from the \textbf{Microsoft Access} database to \textbf{R}, we found several cases where index data were being over-written with no documented reason.
 These updates have been omitted, and affected the following records:
