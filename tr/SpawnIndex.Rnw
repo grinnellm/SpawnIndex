@@ -1228,11 +1228,10 @@ $C$ & Algae coefficient & see \autoref{tab:AlgaeCoefs} & \\
 $\rho^v$ & Algae egg density & $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \\
 $\rho$ & Egg density & $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \\
 $W$ & Spawn width & m & \\
-$\mean{\rho^\prime}$ & Mean linear weighted egg density & $\text{eggs} \cdot 10^3 \cdot \text{m}^{-1}$ & \\
+$\mean{\rho}$ & Mean egg density & $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \\
 $\mean{W}$ & Mean spawn width & m & \\
 $L^v$ & Length of the algae bed & m & \\
 $L$ & Spawn length & m & \\
-$\rho^\prime$ & Sum of linear weighted egg density & $\text{eggs} \cdot 10^3 \cdot \text{m}^{-1}$ & \\
 $B$ & Understory spawn index (i.e., biomass) & t & \\
 \bottomrule
 \end{tabulary}
@@ -1383,57 +1382,45 @@ Thus, we assume that eggs on substrate and algae are independent, and can be add
 
 \subsection{TRANSECT OBSERVATIONS AND CALCULATIONS}
 
-% TODO: Is the linear weighted egg density necessary? Seems complicated and maybe a simpler way is possible?
-At the transect level (\autoref{figFlow}, step \ref{uTrans}), the mean \emph{linear} understory egg density in transect $t$ and spawn $s$ is
-\begin{equation}\label{eqUnderDensLinTS}
-\mean{\rho^\prime_{ts}} = W_{ts} \frac{1}{Q} \sum_{q=1}^Q \rho_{qts}
+At the transect level (\autoref{figFlow}, step \ref{uTrans}), the mean understory egg density in transect $t$ and spawn $s$ is
+\begin{equation}\label{eqUnderDensTS}
+\mean{\rho_{ts}} = \frac{1}{Q} \sum_{q=1}^Q \rho_{qts}
 \end{equation}
-where $W_{ts}$ is the spawn width in metres,
-$Q$ is the number of quadrats in transect $t$,
+where $Q$ is the number of quadrats in transect $t$,
 $\rho_{qts}$ is total understory egg density in quadrat $q$ from \autoref{eqUnderDensQTS}, and
-$\mean{\rho^\prime_{ts}}$ is in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-1}$.
-We calculate a weighted mean egg density because spawn width varies along the spawn length;
-a weighted mean ensures that transects contribute proportionally to their area.
+$\mean{\rho_{ts}}$ is in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$.
 Note that we update spawn width to correct for errors regarding the assumed accuracy of transect lines used to measure spawn width for understory surveys between \Sexpr{min(underWidthFac$Year)} and \Sexpr{max(underWidthFac$Year)} (\autoref{secWidthUnder}).
 
 \subsection{SPAWN OBSERVATIONS AND CALCULATIONS}
 
-At the spawn level (\autoref{figFlow}, step \ref{uSpawn}), the sum of spawn widths in spawn $s$ is
-\begin{equation}\label{eqUnderWidthSumS}
-W_s = \sum_{t=1}^T W_{ts}
-\end{equation}
-where $W_{ts}$ is the spawn width in transect $t$, and
-$W_s$ is in metres.
-The mean width of spawn $s$ is
+At the spawn level (\autoref{figFlow}, step \ref{uSpawn}), the mean width of spawn $s$ is
 \begin{equation}\label{eqUnderWidthMuS}
-\mean{W_s} = \frac{W_s} {T}
+\mean{W_s} = \frac{1}{T} \sum_{t=1}^T W_{ts}
 \end{equation}
-where $W_s$ is the sum of widths from \autoref{eqUnderWidthSumS},
+where $W_{ts}$ is the spawn width in transect $t$,
 $T$ is the number of transects in spawn $s$, and
 $\mean{W_s}$ is in metres.
 The length of the algae bed in spawn $s$ is $L^v_s$, also in metres.
 As with Macrocystis spawn calculations,
 if $L^v_s$ is inadvertently not recorded, we set $L^v_s$ to the spawn length $L_s$.
 Thus, we assume that eggs on substrate and eggs on algae are represented by the same length measurement.
-The sum of transect egg densities in spawn $s$ is
-\begin{equation}\label{eqUnderDensLinS}
-\rho^\prime_s = \sum_{t=1}^T \mean{\rho^\prime_{ts}}
+Next we calculate the weighted mean egg density in spawn $s$,
+where transect egg density is weighted by spawn width at transect $t$.
+We calculate a weighted mean because spawn width varies along the spawn length;
+a weighted mean ensures that transects contribute proportionally to their area.
+The mean egg density in spawn $s$ is
+\begin{equation}\label{eqUnderDensMuS}
+\mean{\rho_s} = \frac{\sum_{t=1}^T \mean{\rho_{ts}} W_{ts}}
+{\sum_{t=1}^T W_{ts}}
 \end{equation}
-where $\mean{\rho^\prime_{ts}}$ is the mean linear weighted understory egg density in transect $t$ from \autoref{eqUnderDensLinTS}, and
-$\rho^\prime_s$ is in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-1}$.
-Next we convert from linear density to area density.
-Understory egg density in spawn $s$ is
-\begin{equation}\label{eqUnderDensS}
-\rho_s = \frac{\rho^\prime_s} {W_s}
-\end{equation}
-where $\rho^\prime_s$ is the sum of transect egg densities in spawn $s$ from \autoref{eqUnderDensLinS},
-$W_s$ is the sum of spawn widths in spawn $s$ from \autoref{eqUnderWidthSumS}, and
-$\rho_s$ is in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$.
+where $\mean{\rho_{ts}}$ is the mean understory egg density in transect $t$ from \autoref{eqUnderDensTS},
+$W_{ts}$ is the spawn width for transect $t$ in metres, and
+$\mean{\rho_s}$ is in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$.
 The understory spawn index in spawn $s$ is
 \begin{equation}\label{eqUnderIndS}
-B_s = \frac{\rho_s L^v_s \mean{W_s} 10^3} {\theta}
+B_s = \frac{\mean{\rho_s} L^v_s \mean{W_s} 10^3} {\theta}
 \end{equation}
-where $\rho_s$ is understory egg density from \autoref{eqUnderDensS},
+where $\mean{\rho_s}$ is the mean understory egg density from \autoref{eqUnderDensMuS},
 $L^v_s$ is the length of the algae bed,
 $\mean{W_s}$ is the mean spawn width from \autoref{eqUnderWidthMuS},
 $\theta$ is the egg conversion factor from \autoref{eqECF}, and
