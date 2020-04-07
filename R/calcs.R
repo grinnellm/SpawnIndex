@@ -562,6 +562,7 @@ CalcMacroSpawn <- function(where,
 #'   where = underLoc, a = areas, yrs = 2010:2015
 #' )
 #' underSpawn$SI
+#' readr::write_csv(x = underSpawn$SI, path = "under.csv")
 CalcUnderSpawn <- function(where,
                            a,
                            yrs,
@@ -770,7 +771,8 @@ CalcUnderSpawn <- function(where,
       Year, Region, StatArea, Section, LocationCode, SpawnNumber, Transect
     ) %>%
     # Transect t
-    dplyr::summarise(EggDens = gfiscamutils::MeanNA(EggDens)) %>%
+    dplyr::summarise(EggDens = gfiscamutils::MeanNA(EggDens),
+                     Width = unique(Width)) %>%
     dplyr::ungroup()
   # Calculate spawn number-level metrics
   eggsSpawn <- eggsTrans %>%
