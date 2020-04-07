@@ -745,7 +745,7 @@ CalcUnderSpawn <- function(where,
     dplyr::mutate(EggDensSub = ifelse(Width > 0, EggDensSub, 0))
   # Calculate total egg density by station/quadrat
   eggsStation <- eggs %>%
-    # Total egg density in thousands (eggs * 10^3 / m); quadrat q
+    # Total egg density in thousands (eggs * 10^3 / m^2); quadrat q
     dplyr::mutate(EggDens = EggDensSub + EggDensAlg) %>%
     dplyr::filter(!is.na(Station))
   # Widths
@@ -759,7 +759,6 @@ CalcUnderSpawn <- function(where,
     ) %>%
     # Spawn s
     dplyr::summarise(
-      WidthTot = gfiscamutils::SumNA(Width),
       WidthBar = gfiscamutils::MeanNA(Width)
     ) %>%
     dplyr::ungroup()
@@ -770,8 +769,8 @@ CalcUnderSpawn <- function(where,
       Year, Region, StatArea, Section, LocationCode, SpawnNumber, Transect
     ) %>%
     # Transect t
-    dplyr::summarise(EggDensL = gfiscamutils::MeanNA(EggDens) *
-      unique(Width)) %>%
+    dplyr::summarise(EggDens = gfiscamutils::MeanNA(EggDens),
+                     Width = unique(Width)) %>%
     dplyr::ungroup()
   # Calculate spawn number-level metrics
   eggsSpawn <- eggsTrans %>%
@@ -791,16 +790,14 @@ CalcUnderSpawn <- function(where,
     ) %>%
     # Spawn s
     dplyr::summarise(
-      WidthTot = unique(WidthTot), WidthBar = unique(WidthBar),
+      WidthBar = unique(WidthBar),
       LengthAlgae = unique(LengthAlgae),
-      EggDensL = gfiscamutils::SumNA(EggDensL)
+      EggDens = gfiscamutils::WtMeanNA(EggDens, w = Width)
     ) %>%
     dplyr::ungroup()
   # Calculate understory biomass by spawn number
   biomassSpawn <- eggsSpawn %>%
     dplyr::mutate(
-      # Weighted egg density in thousands (eggs * 10^3 / m^2); spawn s
-      EggDens = EggDensL / WidthTot,
       # Biomass in tonnes, based on Hay (1985), and Hay and Brett (1988); spawn
       # s
       UnderSI = EggDens * LengthAlgae * WidthBar * 1000 / theta
