@@ -562,7 +562,6 @@ CalcMacroSpawn <- function(where,
 #'   where = underLoc, a = areas, yrs = 2010:2015
 #' )
 #' underSpawn$SI
-#' readr::write_csv(x = underSpawn$SI, path = "under.csv")
 CalcUnderSpawn <- function(where,
                            a,
                            yrs,
