@@ -812,7 +812,7 @@ Thus, spawn data used for stock assessments is represented either by a nine cate
 
 <<Intensity>>=
 # Caption
-tabCap <- paste("Spawn intensity categories, description, and number of egg layers for \\fishName{} surface spawn surveys for the periods", firstYr, "to ", cat9Yr - 1, ", and ", cat9Yr, " to ", directEggYr, " \\citep{HayKronlund1987, SchweigertStocker1988}.", sep = "")
+tabCap <- paste("Spawn intensity categories, description, and number of egg layers for \\fishName{} surface spawn surveys for the periods ", firstYr, " to ", cat9Yr - 1, ", and ", cat9Yr, " to ", directEggYr-1, " \\citep{HayKronlund1987, SchweigertStocker1988}.", sep = "")
 # Short caption
 tabSCap <- "Spawn intensity categories and number of egg layers for \\fishName{} surface spawn surveys"
 # Format the table
@@ -1627,7 +1627,9 @@ They also thank Paul Starr and Rob Kronlund for their thorough reviews that impr
 \setcounter{equation}{0}
 
 Spawn width is a critical component in spawn index calculations.
-There are two cases where we adjust spawn width estimates to improve spawn index accuracy: surface surveys in all years from \Sexpr{min(yrRange)} to present, and understory dive surveys between 2003 and 2014.
+There are two cases where we adjust spawn width estimates to improve spawn index accuracy:
+surface surveys in all years from \Sexpr{min(yrRange)} to present, and
+understory dive surveys from \Sexpr{min(underWidthFac$Year)} to \Sexpr{max(underWidthFac$Year)}.
 
 \subsection{SURFACE SPAWN WIDTH}\label{secWidthSurface}
 
@@ -1676,8 +1678,8 @@ The earliest written instructions that describe the modified protocol of marking
 Note that some SARs continued to use old lead lines in \Sexpr{max(underWidthFac$Year)}.
 The practice of annually re-measuring lead line increments ceased around 2005;
 thus we are unable to determine when lead lines ceased shrinking.
-Given the observations summarized above, we adjust spawn width estimates based on written instructions for the marking protocol in 2003.
-Accordingly, our best estimate of years impacted by marking lead lines at $1.15\,\text{m}$ increments (when shrinking no longer occurred) is from \Sexpr{min(underWidthFac$Year)} and \Sexpr{max(underWidthFac$Year)}.
+Given the observations summarized above, we adjust spawn width estimates based on written instructions for the marking protocol in \Sexpr{min(underWidthFac$Year)}.
+Accordingly, our best estimate of years impacted by marking lead lines at $1.15\,\text{m}$ increments (when shrinking no longer occurred) is from \Sexpr{min(underWidthFac$Year)} to \Sexpr{max(underWidthFac$Year)}.
 However, not all SARs $r$ and years $y$ are impacted equally by this issue (\autoref{tab:WidthFac}):
 some SARs and years had all $1.0\,\text{m}$ increment lengths (no correction factor needed; $\tau_{ry} = 1.0$),
 others had all $1.15\,\text{m}$ increment lengths ($\tau_{ry} = 1.15$),
