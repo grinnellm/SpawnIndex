@@ -812,15 +812,18 @@ Thus, spawn data used for stock assessments is represented either by a nine cate
 
 <<Intensity>>=
 # Caption
-tabCap <- paste("Spawn intensity categories, description, and number of egg layers for \\fishName{} surface spawn surveys for the periods ", firstYr, " to ", cat9Yr - 1, ", and ", cat9Yr, " to ", directEggYr-1, " \\citep{HayKronlund1987, SchweigertStocker1988}.", sep = "")
+tabCap <- paste("Spawn intensity categories, description, and number of egg layers for \\fishName{} surface spawn surveys for the periods ", firstYr, " to ", cat9Yr - 1, ", and ", cat9Yr, " to ", directEggYr - 1, " \\citep{HayKronlund1987, SchweigertStocker1988}.", sep = "")
 # Short caption
 tabSCap <- "Spawn intensity categories and number of egg layers for \\fishName{} surface spawn surveys"
+# Column name (5 categories)
+p5 <- paste(firstYr, "to", cat9Yr - 1)
+# Column name (9 categories)
+p9 <- paste(cat9Yr, "to", directEggYr - 1)
 # Format the table
 kIntensity <- intensity %>%
   arrange(Layers) %>%
   rename(
-    `1928 to 1968` = Period5,
-    `1969 to 1978` = Period9,
+    !!p5 := Period5, !!p9 := Period9,
     `Number of egg layers` = Layers
   ) %>%
   kable(
