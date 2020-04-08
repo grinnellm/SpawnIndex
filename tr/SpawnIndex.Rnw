@@ -1037,7 +1037,6 @@ $\mean{H}$ & Mean plant height & m & \\
 $\mean{E}$ & Mean number of egg layers & $> 0$ & \\
 $L^m$ & Length of the Macrocystis bed & m & \\
 $L$ & Spawn length & m & \\
-$A$ & Area of spawn $s$ & $\text{m}^2$ & \\
 $P$ & Number of plants & $> 0$ & \\
 $\mean{\kappa}$ & Mean number of stalks per plant & $> 0$ & \\
 $\beta$ & Regression slope & \Sexpr{pars$macrocystis$beta}$~\text{eggs} \cdot 10^3 \cdot \text{plant}^{-1}$ & \cite{HaegeleSchweigert1990} \\
@@ -1293,21 +1292,21 @@ Although quadrats have only one substrate, they can have one or more algae types
 \citet{Schweigert2005} developed a predictive model of algae egg density from egg layers, proportion of the quadrat covered by algae, and an algae coefficient using a generalized linear model.
 Algae coefficients account for the effect of algae morphology on \fishName{} egg density (\autoref{tab:AlgaeCoefs}).
 Egg density on algae $v$ in quadrat $q$, transect $t$, and spawn $s$ \citep{Schweigert2005} is
-\begin{equation}\label{eqUnderDensAlgAQTS}
-\rho^v_{aqts} = \beta E^{v^\gamma}_{aqts} \phi^{v^\delta}_{aqts} C_v
+\begin{equation}\label{eqUnderDensAlgVQTS}
+\rho^v_{vqts} = \beta E^{v^\gamma}_{vqts} \phi^{v^\delta}_{vqts} C_v
 \end{equation}
 where $\beta$ is the regression slope,
-$E^v_{aqts}$ is the number of egg layers on algae $v$,
-$\gamma$ is the regression exponent on $E^v_{aqts}$,
-$\phi^v_{aqts}$ is the proportion of quadrat $q$ covered by algae $v$,
-$\delta$ is the regression exponent on $\phi^v_{aqts}$,
+$E^v_{vqts}$ is the number of egg layers on algae $v$,
+$\gamma$ is the regression exponent on $E^v_{vqts}$,
+$\phi^v_{vqts}$ is the proportion of quadrat $q$ covered by algae $v$,
+$\delta$ is the regression exponent on $\phi^v_{vqts}$,
 $C_v$ is the coefficient for algae $v$, and
-$\rho^v_{aqts}$ is in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ (\autoref{figUnderDensAlgAQTS}).
+$\rho^v_{vqts}$ is in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ (\autoref{figUnderDensAlgVQTS}).
 The total algae egg density for quadrat $q$ in transect $t$ and spawn $s$ is
 \begin{equation}\label{eqUnderDensAlgQTS}
-\rho^v_{qts} = \sum_{a=1}^{A} \rho^v_{aqts}
+\rho^v_{qts} = \sum_{v=1}^{V} \rho^v_{vqts}
 \end{equation}
-where $\rho^v_{aqts}$ is egg density in algae $v$ from \autoref{eqUnderDensAlgAQTS}, and
+where $\rho^v_{vqts}$ is egg density on algae $v$ from \autoref{eqUnderDensAlgVQTS}, and
 $\rho^v_{qts}$ is in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$.
 
 <<AlgaeCoefs>>=
@@ -1326,9 +1325,9 @@ kAlgaeCoefs <- algaeCoefs %>%
 kAlgaeCoefs
 @
 
-<<UnderDensAlgAQTS, fig.width=6, fig.asp=1, fig.lp="fig", echo=FALSE, fig.cap=figCap, fig.scap="Algae egg density for \\fishName{} underwater spawn surveys">>=
+<<UnderDensAlgVQTS, fig.width=6, fig.asp=1, fig.lp="fig", echo=FALSE, fig.cap=figCap, fig.scap="Algae egg density for \\fishName{} underwater spawn surveys">>=
 # Caption
-figCap <- paste("Algae egg density in thousands of eggs per square metre (m) as a function of number of egg layers on algae, proportion of substrate covered in algae, and algae coefficient (\\autoref{tab:AlgaeCoefs}) for \\fishName{} underwater spawn surveys (\\autoref{eqUnderDensAlgAQTS}; \\citealt{Schweigert2005}). Note that number of egg layers can exceed those shown in this figure; values shown are for demonstration only.")
+figCap <- paste("Algae egg density in thousands of eggs per square metre (m) as a function of number of egg layers on algae, proportion of substrate covered in algae, and algae coefficient (\\autoref{tab:AlgaeCoefs}) for \\fishName{} underwater spawn surveys (\\autoref{eqUnderDensAlgVQTS}; \\citealt{Schweigert2005}). Note that number of egg layers can exceed those shown in this figure; values shown are for demonstration only.")
 # Expand the values
 df <- expand.grid(
   Layers = lyrs, Proportion = prop,
@@ -1407,8 +1406,8 @@ The length of the algae bed in spawn $s$ is $L^v_s$, also in metres.
 As with Macrocystis spawn calculations,
 if $L^v_s$ is inadvertently not recorded, we set $L^v_s$ to the spawn length $L_s$.
 Thus, we assume that eggs on substrate and eggs on algae are represented by the same length measurement.
-Next we calculate the weighted mean egg density in spawn $s$,
-where transect egg density is weighted by spawn width at transect $t$.
+Next, we calculate the weighted mean egg density in spawn $s$,
+where transect egg density is weighted by spawn width at transect $t$, $W_{ts}$.
 We calculate a weighted mean because spawn width varies along the spawn length;
 a weighted mean ensures that transects contribute proportionally to their area.
 The mean egg density in spawn $s$ is
@@ -1569,7 +1568,7 @@ Even with a stable budget, there is a trade-off between high survey effort in so
 Many of the parameters and prediction models used to calculate the spawn index are dated;
 these analyses could be checked with new information, and updated if required.
 Parameters include $\omega$, $\phi^f$, $\nu$, $\upsilon$, and $M$.
-Prediction models include \autoref{eqSurfDensJS}, \autoref{eqMacroEggsPerPlantS}, \autoref{eqUnderDensSubQTS}, and \autoref{eqUnderDensAlgAQTS}.
+Prediction models include \autoref{eqSurfDensJS}, \autoref{eqMacroEggsPerPlantS}, \autoref{eqUnderDensSubQTS}, and \autoref{eqUnderDensAlgVQTS}.
 In addition, parameter and prediction model uncertainty should be propagated through the calculations to quantify spawn index uncertainty (\autoref{secUncertain}).
 One approach to account for prediction model uncertainty is to incorporate the underlying data that informs these equations into spawn index calculations.
 In addition, future work could review the assumed statistical framework.
