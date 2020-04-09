@@ -11,9 +11,8 @@ Description: Calculate the spawn index for Pacific Herring (Clupea pallasii) in
     observations: surface spawn, Macrocystis spawn, and understory spawn. These
     calculations rely on an estimate of female fecundity to convert the number
     of eggs to the spawn index (i.e., biomass). In addition, we provide a method
-    to estimate the biomass of fish that spawned for spawn-on-kelp (SOK)
-    operations. Note that the 'spawn index' is a relative index of spawning
-    biomass.
+    to estimate the biomass of fish from spawn-on-kelp (SOK) operations. Note
+    that the 'spawn index' is a relative index of spawning biomass.
 Depends: R (>= 3.5.0)
 Note: 32-bit R is required to get data from the 32-bit MS Access database.
 License: GPL (>=2)

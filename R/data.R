@@ -5,8 +5,7 @@
 #' in underestimated spawn width for understory dive surveys
 #' \insertCite{ClearyEtal2017,GrinnellEtalYYYY}{SpawnIndex}.
 #'
-#' @format Tibble with 12 rows and 8 columns (one for year, and one for each
-#'   regions).
+#' @format Tibble with rows for years and columns for regions.
 #' @note Adjust spawn width for affected understory spawn surveys by multiplying
 #'   the observed width by the corresponding correction fator for the affected
 #'   years.

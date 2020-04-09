@@ -324,9 +324,7 @@ LoadAreaData <- function(reg,
 #'   loc = dbLoc, db = "HerringSpawn.mdb",
 #'   fns = list(allSpawn = "tSSAllspawn", stations = "tSSStations")
 #' )
-#' allSpawn <- LoadAllSpawn(
-#'   where = allSpawnLoc, a = areas, yrs = 2010:2015
-#' )
+#' allSpawn <- LoadAllSpawn(where = allSpawnLoc, a = areas, yrs = 2010:2015)
 #' allSpawn
 LoadAllSpawn <- function(where, a, yrs, ft2m = 0.3048) {
   # Establish connection with access

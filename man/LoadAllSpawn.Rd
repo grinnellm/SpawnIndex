@@ -39,9 +39,7 @@ allSpawnLoc <- list(
   loc = dbLoc, db = "HerringSpawn.mdb",
   fns = list(allSpawn = "tSSAllspawn", stations = "tSSStations")
 )
-allSpawn <- LoadAllSpawn(
-  where = allSpawnLoc, a = areas, yrs = 2010:2015
-)
+allSpawn <- LoadAllSpawn(where = allSpawnLoc, a = areas, yrs = 2010:2015)
 allSpawn
 }
 \seealso{

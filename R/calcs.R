@@ -369,9 +369,7 @@ CalcSurfSpawn <- function(where,
 #'     transects = "tSSMacTrans"
 #'   )
 #' )
-#' macroSpawn <- CalcMacroSpawn(
-#'   where = macroLoc, a = areas, yrs = 2010:2015
-#' )
+#' macroSpawn <- CalcMacroSpawn(where = macroLoc, a = areas, yrs = 2010:2015)
 #' macroSpawn$SI
 CalcMacroSpawn <- function(where,
                            a,
@@ -558,9 +556,7 @@ CalcMacroSpawn <- function(where,
 #' data(underWidthFac)
 #' data(pars)
 #' data(algaeCoefs)
-#' underSpawn <- CalcUnderSpawn(
-#'   where = underLoc, a = areas, yrs = 2010:2015
-#' )
+#' underSpawn <- CalcUnderSpawn(where = underLoc, a = areas, yrs = 2010:2015)
 #' underSpawn$SI
 CalcUnderSpawn <- function(where,
                            a,
@@ -769,8 +765,10 @@ CalcUnderSpawn <- function(where,
       Year, Region, StatArea, Section, LocationCode, SpawnNumber, Transect
     ) %>%
     # Transect t
-    dplyr::summarise(EggDens = gfiscamutils::MeanNA(EggDens),
-                     Width = unique(Width)) %>%
+    dplyr::summarise(
+      EggDens = gfiscamutils::MeanNA(EggDens),
+      Width = unique(Width)
+    ) %>%
     dplyr::ungroup()
   # Calculate spawn number-level metrics
   eggsSpawn <- eggsTrans %>%

@@ -79,9 +79,7 @@ underLoc <- list(
 data(underWidthFac)
 data(pars)
 data(algaeCoefs)
-underSpawn <- CalcUnderSpawn(
-  where = underLoc, a = areas, yrs = 2010:2015
-)
+underSpawn <- CalcUnderSpawn(where = underLoc, a = areas, yrs = 2010:2015)
 underSpawn$SI
 }
 \references{

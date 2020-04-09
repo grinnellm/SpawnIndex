@@ -72,9 +72,7 @@ macroLoc <- list(
     transects = "tSSMacTrans"
   )
 )
-macroSpawn <- CalcMacroSpawn(
-  where = macroLoc, a = areas, yrs = 2010:2015
-)
+macroSpawn <- CalcMacroSpawn(where = macroLoc, a = areas, yrs = 2010:2015)
 macroSpawn$SI
 }
 \references{
