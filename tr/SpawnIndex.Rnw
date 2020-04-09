@@ -306,14 +306,13 @@ data(underWidthFac)
 Statistical age-structured stock assessment models rely on an indicator of relative population abundance to reconstruct a time series of estimated abundance.
 For \fishName{} (\scienceName{}) in British Columbia (BC), Canada, an index of relative population abundance is provided by monitoring the extent and intensity of spawn (i.e., egg) deposition throughout coastal BC \citeyearpar[DFO][]{DFO2019a}.
 This document describes our calculations to convert spawn survey observations (e.g., spawn extent, number of egg layers, substrate type) to the spawn index for \fishName{} in BC.
-
-\cite{HartTester1934} first demonstrated that an estimate of \fishName{} abundance could be determined from a count of egg deposition in a small set of sampling quadrats.
-The calculations in this document have been described elsewhere, in either published or informal, internal documents.
+These calculations have been described elsewhere, in either published or informal, internal documents.
 The objective of this document is to collate the various calculations in their order of application.
 Spawn index calculations have been updated over the years as more data and analyses justify improvements;
 we restrict this document to describing the current method.
 
-Annual monitoring surveys of egg deposition collect data used to calculate the spawn index.
+\cite{HartTester1934} first demonstrated that an estimate of \fishName{} abundance could be determined from a count of egg deposition in a small set of sampling quadrats.
+Based on their work, annual spawn surveys collect data used to calculate the spawn index.
 There are three types of spawn survey observations:
 \begin{enumerate}
 \item Observations of spawn taken from the surface usually at low tide,
@@ -322,14 +321,14 @@ There are three types of spawn survey observations:
 \end{enumerate}
 Surface spawn surveys are believed to be the least accurate of the three survey types, but they have the greatest temporal and spatial extent \citep{Schweigert1993b}.
 For example, surface spawn surveys were the only survey type prior to \Sexpr{newSurvYr}, and they are still used extensively for minor spawns, remote spawns (i.e., outside stock assessment region boundaries; see below), as well as unusually early or late spawns.
-Macrocystis and understory spawn surveys are conducted using SCUBA gear, and have been used for all major spawns since \Sexpr{newSurvYr}.
+Macrocystis and understory spawn surveys are conducted under water using SCUBA gear, and have been used for all major spawns since \Sexpr{newSurvYr}.
 Thus, we describe the spawn index as having two periods based on the predominant survey type:
 the surface survey period from \Sexpr{min(yrRange)} to \Sexpr{newSurvYr-1}, and
 the dive survey period from \Sexpr{newSurvYr} to present.
 
 The inclusion of dive surveys in \Sexpr{newSurvYr} makes it challenging to compare the spawn index between these two periods.
 For example, surface surveys are less accurate than dive surveys (\hyperref[secWidthAdjust]{appendix \ref{secWidthSurface}}), and
-spawn surveyors used subjective intensity categories instead of direct egg layer estimates until 1981 (\autoref{secIntensity}).
+spawn surveyors used subjective intensity categories instead of direct egg layer estimates until \Sexpr{directEggYr-1} (\autoref{secIntensity}).
 In addition, \fishName{} spawn survey effort has been inconsistent over the time series due to available resources and departmental priorities.
 For example, in the past, surveyors often dedicated several months each year to spawn surveys; they used small vessels to search for spawn, and surface surveys to estimate spawn biomass.
 Currently, surveyors use flights to search for spawn, and underwater SCUBA surveys to estimate spawn biomass.
@@ -338,12 +337,13 @@ Thus, widespread effort (both spatially and temporally) in the past has been rep
 
 \fishName{} spawn survey observations have a nested hierarchical structure: samples, Macrocystis plants, and quadrats are nested within transects, transects are nested within spawns, and spawns are nested within Locations.
 To develop spawn indices, Locations are nested within Sections (\autoref{figRegionSec}), Sections are nested within Statistical Areas (\autoref{figRegionSA}), and Statistical Areas are nested within stock assessment regions (SARs; \autoref{figRegionReg}).
-There are \Sexpr{Num2Word(nrow(regions))} SARs in BC (\autoref{figBC}; \citealt{HaistRosenfeld1988}).
+There are \Sexpr{Num2Word(nrow(regions))} SARs in BC,
+which we categorize as either `major' or `minor' (\autoref{figBC}; \citealt{HaistRosenfeld1988}).
+The terms `major' and `minor' describe relative differences in geographic and biomass scales.
 The major SARs are Haida Gwaii (formerly known as Queen Charlotte Islands), Prince Rupert District, Central Coast, Strait of Georgia, and West Coast of Vancouver Island.
 The minor SARs are
 \Sexpr{PasteNicely(regions$RegionName[!regions$Major])};
 we do not develop spawn indices for minor SARs.
-The terms `major' and `minor' describe relative differences in geographic and biomass scales.
 
 <<Region>>=
 # Number of plots
@@ -487,8 +487,7 @@ We calculate the spawn index in four steps.
 First, we develop a sampling protocol to estimate the number of eggs in a given area (\autoref{secStat}, \autoref{secSamp}).
 Second, we develop a conversion factor to convert \fishName{} eggs to biomass (\autoref{secProd}), which is critical to calculating the spawn index.
 Third, we calculate the spawn index for each of the three aforementioned spawn survey types: surface (\autoref{secSurf}), Macrocystis (\autoref{secMacro}), and understory (\autoref{secUnder}).
-We separate calculations for each type in separate sections;
-within each section, we separate each level of spatial aggregation (e.g., calculations at the quadrat, or transect level) into subsections (\autoref{figFlow}).
+Within each section, we use subsections to separate levels of spatial aggregation (e.g., calculations at the quadrat, or transect level; \autoref{figFlow}).
 Finally, we combine the three spawn indices, and aggregate by stock assessment region and year to produce a relative index of combined sex spawning biomass (\autoref{secTotal}).
 
 \begin{figure}
@@ -536,7 +535,7 @@ First, the database has been used for various purposes over the last two decades
 Second, the database is difficult to troubleshoot because it is hard to differentiate between input (i.e., data) and derived values.
 Third, the \textbf{R} package is open and transparent;
 researchers can view and download the package and an example spawn survey database.
-For example, run the \textbf{R} package functions to implement the calculations described in this document using a small set of actual observations.
+For example, users can run the \textbf{R} package functions to implement the calculations described in this document using a small set of actual observations.
 Fourth, we consider it good practice to separate data from analyses.
 Fifth, an \textbf{R} package will facilitate future research to quantify spawn index uncertainty.
 Finally, an \textbf{R} package will allow us to generate dynamic documents in the spirit of reproducible research using \textbf{knitr} \citep{Xie2015, MarwickEtal2018}.
@@ -555,12 +554,13 @@ transects are the first sampling stage, and
 individual quadrats within transects are the second sampling stage \citep{Jessen1978}.
 Two steps are required to calculate mean understory egg density in each surveyed spawn $s$  (\autoref{tabNotationIndices}).
 Note that we simplify index notation in this section by suppressing subscripts for spawn survey type $x$, Location $n$, SAR $r$, and year $y$.
-First, mean egg density in eggs per square metre (m) for transect $t$ in spawn $s$ is
+First, mean egg density for transect $t$ in spawn $s$ is
 \begin{equation}\label{eqStatRhoTS}
 \mean{\rho_{ts}} = \frac{1}{Q}\sum_{q=1}^Q \rho_{qts}
 \end{equation}
-where $\rho_{qts}$ is egg density per square metre (m) for quadrat $q$, and
-$Q$ is the number of quadrats in transect $t$ (\autoref{tabNotationStat}).
+where $\rho_{qts}$ is egg density in thousands of eggs per square metre (m) for quadrat $q$,
+$Q$ is the number of quadrats in transect $t$ (\autoref{tabNotationStat}),
+and $\mean{\rho_{ts}}$ is in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$.
 Before we calculate the mean egg density for spawn $s$, we determine the mean number of potential quadrats in spawn $s$
 \begin{equation}\label{eqStatQSPrime}
 \mean{Q_s^\prime} = \frac{1}{T} \sum_{t=1}^{T} Q^\prime
