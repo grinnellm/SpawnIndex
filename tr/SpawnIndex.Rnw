@@ -558,9 +558,9 @@ First, mean egg density for transect $t$ in spawn $s$ is
 \begin{equation}\label{eqStatRhoTS}
 \mean{\rho_{ts}} = \frac{1}{Q}\sum_{q=1}^Q \rho_{qts}
 \end{equation}
-where $\rho_{qts}$ is egg density in thousands of eggs per square metre (m) for quadrat $q$,
-$Q$ is the number of quadrats in transect $t$ (\autoref{tabNotationStat}),
-and $\mean{\rho_{ts}}$ is in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$.
+where $\rho_{qts}$ is egg density in thousands of eggs per square metre (m) for quadrat $q$ ($\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$),
+$Q$ is the number of quadrats in transect $t$ (\autoref{tabNotationStat}), and
+$\mean{\rho_{ts}}$ is in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$.
 Before we calculate the mean egg density for spawn $s$, we determine the mean number of potential quadrats in spawn $s$
 \begin{equation}\label{eqStatQSPrime}
 \mean{Q_s^\prime} = \frac{1}{T} \sum_{t=1}^{T} Q^\prime
@@ -572,8 +572,9 @@ Then, we calculate mean egg density in eggs per square metre for spawn $s$
 \end{equation}
 where $T$ is the number of transects in spawn $s$,
 $\mean{Q_s^\prime}$ is the mean number of potential quadrats in spawn $s$ from \autoref{eqStatQSPrime},
-$Q^\prime$ is the number of potential quadrats in transect $t$, and
-$\mean{\rho_{ts}}$ is the mean transect egg density from \autoref{eqStatRhoTS}.
+$Q^\prime$ is the number of potential quadrats in transect $t$,
+$\mean{\rho_{ts}}$ is the mean transect egg density from \autoref{eqStatRhoTS}, and
+$\mean{\rho_s}$ is in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$.
 The egg density estimator from \autoref{eqStatRhoS} is unbiased, and the variance is
 \begin{equation}\label{eqStatSigmaS}
 \sigma_s^2 =
@@ -624,7 +625,7 @@ $P$ & Number of plants in transect $t$, type $x$, spawn $s$, Location $n$, SAR $
 $t$ & Transect & 1, 2, 3, ..., $T$ \\
 $T$ & Number of transects in type $x$, spawn $s$, Location $n$, SAR $r$, and year $y$ & \\
 $T^\prime$ & Number of potential transects in type $x$, spawn $s$, Location $n$, SAR $r$, and year $y$ & \\
-$v$ & Algae (i.e., vegetation) type & 1, 2, 3, ..., $V$ \\
+$v$ & Algae (aka vegetation) type & 1, 2, 3, ..., $V$ \\
 $V$ & Number of algae types in quadrat $q$, transect $t$, type $x$, spawn $s$, Location $n$, SAR $r$, and year $y$ & \\
 $q$ & Quadrat & 1, 2, 3, ..., $Q$ \\
 $Q$ & Number of quadrats in transect $t$, type $x$, spawn $s$, Location $n$, SAR $r$, and year $y$ & \\
@@ -680,8 +681,8 @@ divers had difficulty making the necessary calculations underwater.
 Nevertheless, data from these studies were used to determine a sampling protocol
 to estimate mean egg density with a standard error of no more than 25\%.
 The results indicated that the sampling required to achieve this level of precision included
-surveying 3 transects per kilometre of spawn length, and
-sampling at least 5 quadrats per transect (i.e., spawn width).
+surveying three transects per kilometre of spawn length, and
+sampling at least five quadrats per transect (i.e., spawn width).
 The sampling design was tested during a 1983 survey in the Strait of Georgia that
 applied a systematic rather than a random sampling protocol to simplify the logistics;
 variance estimates were similar to those from the 1981 study.
@@ -727,7 +728,7 @@ for surface spawn surveys that don't use transects (\autoref{secSurfSamp}), surv
 \fishName{} spawns typically extend along the shore;
 from above, spawns are identified by a milky or turquoise discolouration of the ocean caused by the release of milt, and often appear as bands running parallel to the shore (\autoref{figSpawnFlight}).
 Thus, spawn `length' refers to distance parallel to the shore, and `width' refers to distance perpendicular to the shore.
-Similarly, Macrocystis bed length $L^m$ and algae (i.e., vegetation) bed length $L^v$ refer to distances that Macrocystis and algae beds extend parallel to the shore, respectively.
+Similarly, Macrocystis bed length $L^m$ and algae (aka vegetation) bed length $L^v$ refer to distances that Macrocystis and algae beds extend parallel to the shore, respectively.
 
 \begin{figure}
 \centering
@@ -790,7 +791,7 @@ Diagrams copied with permission from the \href{http://www.pac.dfo-mpo.gc.ca/scie
 Surface spawn surveyors use the aforementioned transect interval when possible, but the sampling interval relies on surveyor judgement and available resources.
 If the spawn area is sufficiently large, surface surveyors usually sample along permanent transects.
 Small spawns can still be mapped as they were historically, with surveyors deciding how to sample the spawn.
-To sample, surveyors deploy specialized rakes throughout the spawn to determine algae (i.e., vegetation) type, number of egg layers, and percent cover.
+To sample, surveyors deploy specialized rakes throughout the spawn to determine algae (aka vegetation) type, number of egg layers, and percent cover.
 Surveyors may deploy a viewing box in shallow water, and at low tide a portion of the spawn may be visible for direct observation.
 We refer to these surface spawn observations as `samples.'
 
@@ -1033,6 +1034,7 @@ $K$ & Number of stalks & $> 0$ & \\
 $W$ & Spawn width & m & \\
 $\chi$ & Transect swath & m & \\
 $A$ & Area & $\text{m}^2$ & \\
+$\mean{W}$ & Mean spawn width & m & \\
 $\mean{H}$ & Mean plant height & m & \\
 $\mean{E}$ & Mean number of egg layers & $> 0$ & \\
 $L^m$ & Length of the Macrocystis bed & m & \\
@@ -1083,7 +1085,7 @@ The mean width of spawn $s$ is
 \begin{equation}\label{eqMacroWidthS}
 \mean{W_s} = \frac{1}{T} \sum_{t=1}^T W_{ts}
 \end{equation}
-where $W_{ts}$ is the transect width,
+where $W_{ts}$ is the spawn width at transect $t$,
 $T$ is the number of transects in spawn $s$, and
 $\mean{W_s}$ is in metres.
 The total area of transects in spawn $s$ is
@@ -1205,7 +1207,7 @@ print(NumEggPlot)
 
 This section describes steps \ref{uQuad} to \ref{uInd} in \autoref{figFlow}.
 As with the previous two sections, we simplify index notation in this section by suppressing subscripts for spawn survey type $x$, Location $n$, SAR $r$, and year $y$.
-Understory spawn surveyors use SCUBA gear to collect underwater data for algae (i.e., vegetation) types $v$, quadrats $q$, transects $t$, and spawns $s$;
+Understory spawn surveyors use SCUBA gear to collect underwater data for algae (aka vegetation) types $v$, quadrats $q$, transects $t$, and spawns $s$;
 we calculate metrics at the algae type $v$, quadrat $q$, transect $t$, and spawn $s$ levels (\autoref{tabNotationUnder}).
 
 \begin{table}
@@ -1311,7 +1313,7 @@ $\rho^v_{qts}$ is in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$.
 
 <<AlgaeCoefs>>=
 # Caption
-tabCap <- "Algae (i.e., vegetation) types $v$ and coefficients $C$ for \\fishName{} understory spawn surveys \\citep{Schweigert2005}."
+tabCap <- "Algae (aka vegetation) types $v$ and coefficients $C$ for \\fishName{} understory spawn surveys \\citep{Schweigert2005}."
 # Short caption
 tabSCap <- "Algae types and coefficients for \\fishName{} understory spawn surveys"
 # Format the table
@@ -1399,7 +1401,7 @@ At the spawn level (\autoref{figFlow}, step \ref{uSpawn}), the mean width of spa
 \begin{equation}\label{eqUnderWidthMuS}
 \mean{W_s} = \frac{1}{T} \sum_{t=1}^T W_{ts}
 \end{equation}
-where $W_{ts}$ is the spawn width in transect $t$,
+where $W_{ts}$ is the spawn width at transect $t$,
 $T$ is the number of transects in spawn $s$, and
 $\mean{W_s}$ is in metres.
 The length of the algae bed in spawn $s$ is $L^v_s$, also in metres.
@@ -1645,7 +1647,7 @@ To improve the consistency of spawn index estimates throughout the time period f
 we adjust surface spawn width estimates using underwater estimates when available \citep{SchweigertEtal1993}.
 Our preferred width is the median width from all dive surveys within a `pool.'
 A pool is a group of Locations within a Section that are often adjacent, contain similar algae and substrate, and can be treated as a group with likely similar widths.
-We summarise spawn width by the median because width is not normally distributed \citep{SchweigertEtal1993}.
+We summarise spawn width by the median because widths are not normally distributed \citep{SchweigertEtal1993}.
 If there are no dive data that meet those criteria, we use the median width from all dive surveys within the Section, or within the SAR if there are no dives within the Section.
 If there are still no dive data that meet those criteria, we use the observed width $W^\prime$ from the surface survey.
 We update the aforementioned median width values periodically, not annually.
