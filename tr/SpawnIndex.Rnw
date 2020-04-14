@@ -1290,7 +1290,7 @@ EggDensSubPlot <- ggplot(
 print(EggDensSubPlot)
 @
 
-Although quadrats have only one substrate, they can have one or more algae types $v$.
+Although quadrats have only one substrate type, they can have up to three algae types $v$ (\autoref{secUnderProt}).
 \citet{Schweigert2005} developed a predictive model of algae egg density from egg layers, proportion of the quadrat covered by algae, and an algae coefficient using a generalized linear model.
 Algae coefficients account for the effect of algae morphology on \fishName{} egg density (\autoref{tab:AlgaeCoefs}).
 Egg density on algae $v$ in quadrat $q$, transect $t$, and spawn $s$ \citep{Schweigert2005} is
@@ -1439,7 +1439,7 @@ The total spawn index in spawn $s$, Location $n$, region $r$, and year $y$ is
 B_{snry} = \sum_{x=1}^X B_{xsnry}
 \end{equation}
 where $B_{xsnry}$ is spawn index for surface, Macrocystis, and understory spawn surveys from \autoref{eqSurfIndS}, \autoref{eqMacroIndS}, and \autoref{eqUnderIndS}, respectively, and
-$B_{snry}$ is the total spawn index in tonnes (\autoref{figFlow}, step \ref{tIndex}).
+$B_{snry}$ is in tonnes (\autoref{figFlow}, step \ref{tIndex}).
 Finally, we aggregate the total spawn index by SAR $r$ and year $y$
 \begin{equation}\label{eqTotIndRY}
 B_{ry} = \sum_{n=1}^N \sum_{s=1}^S B_{snry}
@@ -1479,7 +1479,7 @@ The most direct is to estimate the quantity of eggs removed from the population,
 They determined that kelp represents an average of 12\% of the total product weight.
 Since SOK product is universally brined at the time of harvest, it is necessary to also consider the uptake of salt by the eggs, which increases the overall product weight.
 However, there is uncertainty in the degree of brining that occurs prior to weighing the product.
-Nevertheless, \cite{WhyteEnglar1977} determined that following a 24\,hour brining period, wet product weight increases by about 13\% due to salt uptake.
+Nevertheless, \cite{WhyteEnglar1977} determined that following a 24-hour brining period, wet product weight increases by about 13\% due to salt uptake.
 By osmosis, brining would also draw some water from the eggs;
 unfortunately we are unable to account for osmosis at this time.
 The last factor to consider is the mean fertilized egg weight, which was determined by \cite{HayMiller1982} to be $2.38 \cdot 10^{-6}\,\text{kg}$.
@@ -1493,6 +1493,12 @@ $\nu$ is the proportion of SOK product that is eggs, not kelp,
 $\upsilon$ is the proportion of SOK product that is eggs after brining,
 $M$ is the average mass in kilograms of a fertilized egg, and
 $B_{fry}$ is spawning biomass in tonnes for SOK fishery $f$ (\autoref{tabNotationSOK}).
+Then we aggregate spawning biomass by stock assessment region (SAR) $r$ and year $y$
+\begin{equation}\label{eqSOKBioRY}
+B_{ry} = \sum_{f=1}^F B_{fry}
+\end{equation}
+where $B_{fry}$ is spawning biomass by fishery $f$ from \autoref{eqSOKBioFRY},
+and $B_{ry}$ is estimated spawning biomass removed by SOK fisheries in SAR $r$ and year $y$ in tonnes.
 
 \begin{table}
 \centering
@@ -1512,13 +1518,6 @@ $B$ & Spawning biomass & t & \\
 \end{tabulary}
 \label{tabNotationSOK}
 \end{table}
-
-Then we aggregate spawning biomass by stock assessment region (SAR) $r$ and year $y$
-\begin{equation}\label{eqSOKBioRY}
-B_{ry} = \sum_{f=1}^F B_{fry}
-\end{equation}
-where $B_{fry}$ is spawning biomass by fishery $f$ from \autoref{eqSOKBioFRY},
-and $B_{ry}$ is estimated spawning biomass removed by SOK fisheries in SAR $r$ and year $y$ in tonnes.
 
 \section{SOURCES OF UNCERTAINTY}\label{secUncertain}
 
@@ -1557,7 +1556,7 @@ Therefore, understanding this trade-off is important if, for example, budget red
 Potential strategies to improve spawn survey efficiency include:
 \begin{enumerate}
 \item Conduct underwater surveys for major spawns in core areas, and surface surveys for other spawns;
-\item Quantify the precision and accuracy of spawn width estimates (e.g., \hyperref[secWidthAdjust]{appendix \ref{secWidthAdjust}});
+\item Quantify the precision and accuracy of spawn width estimates (e.g., \hyperref[secWidthAdjust]{appendix \ref{secWidthSurface}});
 \item Review transect and quadrat spacing \citep[\autoref{secStat}; see][]{Schweigert1993b};
 \item Review egg prediction model accuracy (\autoref{eqECF});
 \item Review temporal stability of egg layer estimates; and
@@ -1577,16 +1576,16 @@ In addition, future work could review the assumed statistical framework.
 
 \section{CAVEATS}
 
-In addition to the issues regarding uncertainty (\autoref{secUncertain}),
+In addition to issues regarding uncertainty (\autoref{secUncertain}),
 there are a few caveats to keep in mind when interpreting the \fishName{} spawn index, and using the spawn index in analyses:
 \begin{enumerate}
-\item the spawn index a relative index of spawning biomass,
-\item the spawn index is derived data with uncertainty and assumptions, as opposed to observed data (\autoref{secUncertain}),
-\item there are two different survey periods with substantial differences in survey effort and method (surface surveys from \Sexpr{min(yrRange)} to \Sexpr{newSurvYr-1}, and dive surveys from \Sexpr{newSurvYr} to present),
-\item the surface survey period used two different methods to estimate the number of egg layers:
+\item The spawn index a relative index of spawning biomass,
+\item The spawn index is derived data with uncertainty and assumptions, as opposed to observed data (\autoref{secUncertain}),
+\item There are two different survey periods with substantial differences in survey effort and method (surface surveys from \Sexpr{min(yrRange)} to \Sexpr{newSurvYr-1}, and dive surveys from \Sexpr{newSurvYr} to present),
+\item Surface surveys use two different methods to estimate the number of egg layers:
 spawn intensity categories (five categories from \Sexpr{min(yrRange)} to \Sexpr{cat9Yr-1}, and nine categories from \Sexpr{cat9Yr} to \Sexpr{directEggYr-1}), and
-direct estimates (from \Sexpr{directEggYr} to \Sexpr{newSurvYr-1}), and
-\item the spawn index is presence only and does not indicate the absence of spawn.
+direct estimates (from \Sexpr{directEggYr} to present), and
+\item The spawn index is presence only and does not indicate the absence of spawn.
 \end{enumerate}
 
 \section{DOWNLOAD}\label{secDown}
@@ -1595,9 +1594,9 @@ The \textbf{R} package to calculate the \fishName{} spawn index \texttt{SpawnInd
 \href{https://github.com/grinnellm/SpawnIndex}{\fishName{} spawn index repository}.
 The package includes an example database of \fishName{} spawn survey observations,
 and a vignette with examples.
-The \textbf{R} package contains the functions to imports tables from the database, and calculate the spawn index.
+The \textbf{R} package contains functions to import tables from the database, and calculate the spawn index.
 This document is meant to accompany the \textbf{R} package, which implements the calculations described here.
-The \textbf{R} package is documented to promote accessibility and transparency.
+The \textbf{R} package is documented and has examples to promote accessibility and transparency.
 
 \section{ACKNOWLEDGEMENTS}
 
