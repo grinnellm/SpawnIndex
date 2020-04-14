@@ -484,7 +484,7 @@ print(mapBC)
 @
 
 We calculate the spawn index in four steps.
-First, we develop a sampling protocol to estimate the number of eggs in a given area (\autoref{secStat}, \autoref{secSamp}).
+First, we develop a sampling protocol to estimate the number of eggs in a given area (\autoref{secStat}, \autoref{secProt}).
 Second, we develop a conversion factor to convert \fishName{} eggs to biomass (\autoref{secProd}), which is critical to calculating the spawn index.
 Third, we calculate the spawn index for each of the three aforementioned spawn survey types: surface (\autoref{secSurf}), Macrocystis (\autoref{secMacro}), and understory (\autoref{secUnder}).
 Within each section, we use subsections to separate levels of spatial aggregation (e.g., calculations at the quadrat, or transect level; \autoref{figFlow}).
@@ -493,21 +493,21 @@ Finally, we combine the three spawn indices, and aggregate by stock assessment r
 \begin{figure}
 \centering
 \begin{tikzpicture}[node distance=0.95cm and 0.1cm, font=\footnotesize]
-\node [terminal, label={[text width=9.5em] \textbf{Macrocystis (M)}}] (mExt) {\labelMacro{mExt} Determine spatial extent and transect locations.};
-\node [process, below=of mExt] (mPlant) {\labelMacro{mPlant} Plant $p$ observations for mature plants (e.g., number of stalks).};
-\node [process, below=of mPlant] (mTrans) {\labelMacro{mTrans} Transect $t$ observations and calculations (e.g., spawn width, mean number of egg layers, mean plant height).};
-\node [process, below=of mTrans] (mSpawn) {\labelMacro{mSpawn} Spawn $s$ observations and calculations (e.g., Macrocystis bed length, mean spawn width, mean egg density).};
-\node [inout, below=of mSpawn] (mInd) {\labelMacro{mInd} Macrocystis spawn index $B_{xs}$.};
-\node [terminal, label={[text width=9.5em] \textbf{Surface (S)}}, left=of mExt] (sExt) {\labelSurf{sExt} Determine spatial extent and sample locations (along transects if possible).};
-\node [process, left=of mPlant] (sSamp) {\labelSurf{sSamp} Sample $j$ observations and calculations (e.g., number of egg layers, substrate type $i$).};
-\node [process, below=of sSamp, left=of mSpawn] (sSpawn) {\labelSurf{sSpawn} Spawn $s$ observations and calculations (e.g., spawn length, spawn width, mean egg density).};
-\node [inout, below=of sSpawn, left=of mInd] (sInd) {\labelSurf{sInd} Surface spawn index $B_{xs}$.};
-\node [terminal, label={[text width=9.5em] \textbf{Understory (U)}}, right=of mExt] (uExt) {\labelUnder{uExt} Determine spatial extent, transect locations, and quadrat spacing.};
-\node [process, below=of uExt, right=of mPlant] (uQuad) {\labelUnder{uQuad} Quadrat $q$ observations and calculations (e.g., number of egg layers, algae type $v$).};
-\node [process, below=of uQuad, right=of mTrans] (uTrans) {\labelUnder{uTrans} Transect $t$ observations and calculations weighted by spawn width (e.g., spawn width, mean egg density).};
-\node [process, below=of uTrans, right=of mSpawn] (uSpawn) {\labelUnder{uSpawn} Spawn $s$ observations and calculations (e.g., algae bed length, mean spawn width, egg density).};
-\node [inout, below=of uSpawn, right=of mInd] (uInd) {\labelUnder{uInd} Understory spawn index $B_{xs}$.};
-\node [inout, below=of mInd] (tIndex) {\labelTotal{tIndex} Total spawn index $B_s=\sum_{x=1}^X B_{xs}$.};
+\node [terminal, label={[text width=9.5em] \textbf{Macrocystis (M)}}] (mExt) {\labelMacro{mExt} Determine spatial extent and transect locations (\S\ref{secMacroProt}).};
+\node [process, below=of mExt] (mPlant) {\labelMacro{mPlant} Plant $p$ observations for mature plants (e.g., number of stalks; \S\ref{secMacroP}).};
+\node [process, below=of mPlant] (mTrans) {\labelMacro{mTrans} Transect $t$ observations and calculations (e.g., spawn width, mean number of egg layers, mean plant height; \S\ref{secMacroT}).};
+\node [process, below=of mTrans] (mSpawn) {\labelMacro{mSpawn} Spawn $s$ observations and calculations (e.g., Macrocystis bed length, mean spawn width, mean egg density; \S\ref{secMacroS}).};
+\node [inout, below=of mSpawn] (mInd) {\labelMacro{mInd} Macrocystis spawn index $B_{xs}$ (Eq \ref{eqMacroIndS}).};
+\node [terminal, label={[text width=9.5em] \textbf{Surface (S)}}, left=of mExt] (sExt) {\labelSurf{sExt} Determine spatial extent and sample locations (along transects if possible; \S\ref{secSurfProt}).};
+\node [process, left=of mPlant] (sSamp) {\labelSurf{sSamp} Sample $j$ observations and calculations (e.g., number of egg layers, substrate type $i$; \S\ref{secSurfJ}).};
+\node [process, below=of sSamp, left=of mSpawn] (sSpawn) {\labelSurf{sSpawn} Spawn $s$ observations and calculations (e.g., spawn length, spawn width, mean egg density; \S\ref{secSurfS}).};
+\node [inout, below=of sSpawn, left=of mInd] (sInd) {\labelSurf{sInd} Surface spawn index $B_{xs}$ (Eq \ref{eqSurfIndS}).};
+\node [terminal, label={[text width=9.5em] \textbf{Understory (U)}}, right=of mExt] (uExt) {\labelUnder{uExt} Determine spatial extent, transect locations, and quadrat spacing (\S\ref{secUnderProt}).};
+\node [process, below=of uExt, right=of mPlant] (uQuad) {\labelUnder{uQuad} Quadrat $q$ observations and calculations (e.g., number of egg layers, algae type $v$; \S\ref{secUnderQ}).};
+\node [process, below=of uQuad, right=of mTrans] (uTrans) {\labelUnder{uTrans} Transect $t$ observations and calculations weighted by spawn width (e.g., spawn width, mean egg density; \S\ref{secUnderT}).};
+\node [process, below=of uTrans, right=of mSpawn] (uSpawn) {\labelUnder{uSpawn} Spawn $s$ observations and calculations (e.g., algae bed length, mean spawn width, egg density; \S\ref{secUnderS}).};
+\node [inout, below=of uSpawn, right=of mInd] (uInd) {\labelUnder{uInd} Understory spawn index $B_{xs}$ (Eq \ref{eqUnderIndS}).};
+\node [inout, below=of mInd] (tIndex) {\labelTotal{tIndex} Total spawn index $B_s=\sum_{x=1}^X B_{xs}$ (Eq \ref{eqTotIndSLRY}).};
 \draw [line] (mExt) -- (mPlant);
 \draw [line] (mPlant) -- (mTrans);
 \draw [line] (mTrans) -- (mSpawn);
@@ -525,7 +525,7 @@ Finally, we combine the three spawn indices, and aggregate by stock assessment r
 \end{tikzpicture}
 \caption[Sequence of steps for \fishName{} spawn index calculations]
 {Sequence of steps (e.g., \ref{sExt}, \ref{sSamp}) for \fishName{} spawn index calculations for the three spawn survey types $x = \{\text{surface}, \text{Macrocystis}, \text{understory}\}$.
-Legend: rounded rectangles indicate start, rectangles indicate observations and calculations, parallelograms indicate output, and arrows show order of operation.}
+Legend: rounded rectangles indicate start, rectangles indicate observations and calculations, parallelograms indicate output, arrows show order of operation, `\S{}' indicates section, and `Eq' indicates equation.}
 \label{figFlow}
 \end{figure}
 
@@ -708,7 +708,7 @@ number of fronds in each plant holdfast, and
 number of giant kelp plants occurring within a 1~m swath on each side of the transect line.
 These data are used to determine the total egg deposition on \emph{Macrocystis} sp. for each spawning bed (\autoref{secMacroS}).
 
-\section{SAMPLING PROTOCOL}\label{secSamp}
+\section{SAMPLING PROTOCOL}\label{secProt}
 
 The following is a brief summary of the spawn survey sampling protocol in the \href{http://www.pac.dfo-mpo.gc.ca/science/species-especes/pelagic-pelagique/herring-hareng/hertags/pdf/SurveyManual.pdf}{\fishName{} spawn survey manual}.
 \fishName{} in BC primarily spawn in sheltered bays and inlets, depositing their eggs on rocks and algae between depths of
@@ -723,7 +723,7 @@ this is the finest scale at which we calculate the spawn index.
 A break in egg deposition is determined by the absence of \fishName{} spawn on two consecutive transects, or by a temporal gap in spawning.
 Most spawns are also characterized by longitude and latitude, as well as start and end dates of spawning.
 Surveyors usually collect longitude and latitude at the start and end of each transect;
-for surface spawn surveys that don't use transects (\autoref{secSurfSamp}), surveyors collect longitude and latitude at the start and ends of the spawn (i.e., overall length and width).
+for surface spawn surveys that don't use transects (\autoref{secSurfProt}), surveyors collect longitude and latitude at the start and ends of the spawn (i.e., overall length and width).
 
 \fishName{} spawns typically extend along the shore;
 from above, spawns are identified by a milky or turquoise discolouration of the ocean caused by the release of milt, and often appear as bands running parallel to the shore (\autoref{figSpawnFlight}).
@@ -750,12 +750,12 @@ Transects generally go from the deep edge of the spawn towards shore until diver
 the near-shore edge can be out of the water depending on the tide height.
 
 \fishName{} spawn surveyors first determine the spatial extent of the spawn in terms of length of shoreline to survey (\autoref{figFlow}, steps \ref{sExt}, \ref{mExt}, \& \ref{uExt});
-this is done by raking (\autoref{secSurfSamp}) or brief dives to determine the presence or absence of spawn.
+this is done by raking (\autoref{secSurfProt}) or brief dives to determine the presence or absence of spawn.
 Surveyors place the first transect in from one end (i.e., at the first permanent transect, or $200\,\text{m}$ if there are no permanent transects) to avoid surveying areas with patchy and sparse egg layers.
 Within the spawn area, surveyors use transects to determine spawn width, quadrat placement, and which Macrocystis plants to survey.
 In some cases, we adjust spawn width to improve the accuracy of spawn index estimates (\hyperref[secWidthAdjust]{appendix \ref{secWidthAdjust}}).
 
-After determining the spatial extent, surveyors determine the number of egg layers on substrate and algae according to sampling protocols described in \autoref{secSurfSamp}, \autoref{secMacroSamp}, \& \autoref{secUnderSamp}.
+After determining the spatial extent, surveyors determine the number of egg layers on substrate and algae according to sampling protocols described in \autoref{secSurfProt}, \autoref{secMacroProt}, \& \autoref{secUnderProt}.
 For eggs on substrate, one egg layer is a layer of eggs one egg thick over the entire spawned surface (\autoref{figLayersSubstrate}).
 For eggs on algae, surveyors count egg layers one of two ways depending on whether the algae is flat or round in cross-section.
 Egg layers on flat algae are counted on both sides of the algae (\autoref{figLayersAlgaeFlat});
@@ -786,7 +786,7 @@ Diagrams copied with permission from the \href{http://www.pac.dfo-mpo.gc.ca/scie
 \label{figLayers}
 \end{figure}
 
-\subsection{SURFACE SPAWN PROTOCOL}\label{secSurfSamp}
+\subsection{SURFACE SPAWN PROTOCOL}\label{secSurfProt}
 
 Surface spawn surveyors use the aforementioned transect interval when possible, but the sampling interval relies on surveyor judgement and available resources.
 If the spawn area is sufficiently large, surface surveyors usually sample along permanent transects.
@@ -836,7 +836,7 @@ kIntensity <- intensity %>%
 kIntensity
 @
 
-\subsection{MACROCYSTIS SPAWN PROTOCOL}\label{secMacroSamp}
+\subsection{MACROCYSTIS SPAWN PROTOCOL}\label{secMacroProt}
 
 Macrocystis spawn surveyors take a census of Macrocystis plants within $1\,\text{m}$ of the transect line, on both the left- and right-hand sides.
 We refer to the swath of substrate along Macrocystis transects as the transect swath, $\chi_{ts} = 2\,\text{m}$ in transect $t$ and spawn $s$.
@@ -849,7 +849,7 @@ For each mature plant, divers record the number of stalks.
 For each transect, divers record the average number of egg layers, and average plant height.
 \cite{HaegeleSchweigert1990} provide a description of the sampling technique, and the basis for estimating the total number of eggs per plant.
 
-\subsection{UNDERSTORY SPAWN PROTOCOL}\label{secUnderSamp}
+\subsection{UNDERSTORY SPAWN PROTOCOL}\label{secUnderProt}
 
 Understory spawn surveyors place quadrats along transects, with a target frequency of $\geq 5$ quadrats per transect, given a minimum spacing of $2\,\text{m}$ and a maximum spacing of $40\,\text{m}$.
 Similar to how the first transect is moved in from one end of the spawn, the first quadrat is moved in from the edge of the spawn to the first $5\,\text{m}$ mark on the transect line to avoid surveying areas with patchy and sparse egg layers.
@@ -902,7 +902,7 @@ As in \autoref{secStat}, we simplify index notation in this section by suppressi
 Surface spawn surveyors sample along transects or using their judgement.
 Surveyors collect data for at the substrate type $i$, sample $j$, and spawn $s$ levels;
 we calculate metrics at the substrate type $i$, sample $j$, and spawn $s$ levels (\autoref{tabNotationSurf}).
-Recall that surface spawn `samples' include observations collected using specialized rakes and viewing boxes (\autoref{secSurfSamp}).
+Recall that surface spawn `samples' include observations collected using specialized rakes and viewing boxes (\autoref{secSurfProt}).
 Occasionally, we use field data sheets to fill-in missing egg layer information for surface survey data (\hyperref[secUpdate]{appendix \ref{secUpdate}}).
 
 \begin{table}
@@ -929,7 +929,7 @@ $B$ & Surface spawn index (i.e., biomass) & t & \\
 \label{tabNotationSurf}
 \end{table}
 
-\subsection{SAMPLE OBSERVATIONS AND CALCULATIONS}
+\subsection{SAMPLE OBSERVATIONS AND CALCULATIONS}\label{secSurfJ}
 
 Each sample $j$ (\autoref{figFlow}, step \ref{sSamp}) can have one or more substrate types $i$.
 The number of egg layers in substrate $i$, sample $j$, and spawn $s$ is
@@ -991,7 +991,7 @@ EggDensSubPlot <- ggplot(
 print(EggDensSubPlot)
 @
 
-\subsection{SPAWN OBSERVATIONS AND CALCULATIONS}
+\subsection{SPAWN OBSERVATIONS AND CALCULATIONS}\label{secSurfS}
 
 The mean egg density in spawn $s$ (\autoref{figFlow}, step \ref{sSpawn}) is
 \begin{equation}\label{eqSurfDensS}
@@ -1053,11 +1053,11 @@ $B$ & Macrocystis spawn index (i.e., biomass) & t & \\
 \label{tabNotationMacro}
 \end{table}
 
-\subsection{PLANT OBSERVATIONS}
+\subsection{PLANT OBSERVATIONS}\label{secMacroP}
 
 For each mature plant $p$ in transect $t$ and spawn $s$ (\autoref{figFlow}, step \ref{mPlant}), surveyors count the number of stalks $K_{pts}$.
 
-\subsection{TRANSECT OBSERVATIONS AND CALCULATIONS}
+\subsection{TRANSECT OBSERVATIONS AND CALCULATIONS}\label{secMacroT}
 
 At the transect $t$ level (\autoref{figFlow}, step \ref{mTrans}),
 spawn width is $W_{ts}$, and
@@ -1242,7 +1242,7 @@ $B$ & Understory spawn index (i.e., biomass) & t & \\
 \label{tabNotationUnder}
 \end{table}
 
-\subsection{QUADRAT OBSERVATIONS AND CALCULATIONS}
+\subsection{QUADRAT OBSERVATIONS AND CALCULATIONS}\label{secUnderQ}
 
 We calculate two separate estimates of egg density at the quadrat level (\autoref{figFlow}, step \ref{uQuad}): spawn on substrate, and spawn on algae $v$.
 \citet{HaegeleEtal1979} developed a predictive model of substrate egg density in quadrat $q$, transect $t$, and spawn $s$ from egg layers using a linear regression model
@@ -1384,7 +1384,7 @@ $\rho^v_{qts}$ is algae egg density from \autoref{eqUnderDensAlgQTS}, and
 $\rho_{qts}$ is in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$.
 Thus, we assume that eggs on substrate and algae are independent, and can be added without bias.
 
-\subsection{TRANSECT OBSERVATIONS AND CALCULATIONS}
+\subsection{TRANSECT OBSERVATIONS AND CALCULATIONS}\label{secUnderT}
 
 At the transect level (\autoref{figFlow}, step \ref{uTrans}), the mean understory egg density in transect $t$ and spawn $s$ is
 \begin{equation}\label{eqUnderDensTS}
@@ -1395,7 +1395,7 @@ $\rho_{qts}$ is total understory egg density in quadrat $q$ from \autoref{eqUnde
 $\mean{\rho_{ts}}$ is in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$.
 Note that we update spawn width to correct for errors regarding the assumed accuracy of transect lines used to measure spawn width for understory surveys between \Sexpr{min(underWidthFac$Year)} and \Sexpr{max(underWidthFac$Year)} (\autoref{secWidthUnder}).
 
-\subsection{SPAWN OBSERVATIONS AND CALCULATIONS}
+\subsection{SPAWN OBSERVATIONS AND CALCULATIONS}\label{secUnderS}
 
 At the spawn level (\autoref{figFlow}, step \ref{uSpawn}), the mean width of spawn $s$ is
 \begin{equation}\label{eqUnderWidthMuS}
