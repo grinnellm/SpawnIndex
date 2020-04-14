@@ -1647,8 +1647,9 @@ we adjust surface spawn width estimates using underwater estimates when availabl
 Our preferred width is the median width from all dive surveys within a `pool.'
 A pool is a group of Locations within a Section that are often adjacent, contain similar algae and substrate, and can be treated as a group with likely similar widths.
 We summarise spawn width by the median because widths are not normally distributed \citep{SchweigertEtal1993}.
-If there are no dive data that meet those criteria, we use the median width from all dive surveys within the Section, or within the SAR if there are no dives within the Section.
-If there are still no dive data that meet those criteria, we use the observed width $W^\prime$ from the surface survey.
+If there are no dive data that meet these criteria,
+we use the median width from all dives within the Section, or within the SAR if there are no dives within the Section.
+If there are still no dive data that meet these criteria, we use the observed width $W^\prime$ from the surface survey.
 We update the aforementioned median width values periodically, not annually.
 
 \subsection{UNDERSTORY SPAWN WIDTH}\label{secWidthUnder}
