@@ -492,7 +492,7 @@ Finally, we combine the three spawn indices, and aggregate by stock assessment r
 
 \begin{figure}
 \centering
-\begin{tikzpicture}[node distance=0.85cm and 0.1cm, font=\footnotesize]
+\begin{tikzpicture}[node distance=0.9cm and 0.1cm, font=\footnotesize]
 \node [terminal, label={[text width=9.5em] \textbf{Macrocystis (M)}}] (mExt) {\labelMacro{mExt} Determine spatial extent and transect locations (\S{}~\ref{secMacroProt}).};
 \node [process, below=of mExt] (mPlant) {\labelMacro{mPlant} Plant $p$ observations for mature plants (e.g., number of stalks; \S{}~\ref{secMacroP}).};
 \node [process, below=of mPlant] (mTrans) {\labelMacro{mTrans} Transect $t$ observations and calculations (e.g., spawn width, mean number of egg layers, mean plant height; \S{}~\ref{secMacroT}).};
@@ -524,7 +524,7 @@ Finally, we combine the three spawn indices, and aggregate by stock assessment r
 \draw [line] (uInd) |- (tIndex);
 \end{tikzpicture}
 \caption[Sequence of steps for \fishName{} spawn index calculations]
-{Sequence of steps (e.g., \ref{sExt}, \ref{sSamp}) for \fishName{} spawn index calculations for the three spawn survey types $x = \{\text{surface}, \text{Macrocystis}, \text{understory}\}$.
+{Sequence of steps (e.g., \ref{sExt}) for \fishName{} spawn index calculations for the three spawn survey types $x = \{\text{surface, Macrocystis, understory}\}$.
 Legend: rounded rectangles indicate start, rectangles indicate observations and calculations, parallelograms indicate output, arrows show order of operation, `\S{}' indicates section, and `Eq' indicates equation.}
 \label{figFlow}
 \end{figure}
@@ -716,7 +716,7 @@ $1.5\,\text{m}$ above and $18\,\text{m}$ below the 0-tide level \citep{Humphreys
 We identify distinct spawns (both spatially and temporally) by a unique combination of year, Location, and `spawn number.'
 Spawns are numbered $s=1,\,2,\,3,\,...,\,S_{xnry}$ where
 $S_{xnry}$ is the number of spawns in spawn survey type $x$
-(i.e., $x = \{\text{surface}, \text{Macrocystis}, \text{understory}\}$),
+(i.e., $x = \{\text{surface, Macrocystis, understory}\}$),
 Location $n$, SAR $r$, and year $y$.
 A distinct spawn is a continuous stretch of shoreline with no detectable break in egg deposition;
 this is the finest scale at which we calculate the spawn index.
