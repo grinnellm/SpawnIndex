@@ -807,7 +807,7 @@ From \Sexpr{firstYr} to \Sexpr{cat9Yr-1} there were five intensity categories de
 Starting in \Sexpr{cat9Yr} there were nine intensity categories;
 the change from five to nine intensity categories was probably to accommodate the practice of reporting intermediate categories such as 3.5 \citep{HayKronlund1987}.
 Starting in \Sexpr{directEggYr}, spawn surveyors estimated the number of egg layers directly, and they continued to record intensity categories until 1981 to provide overlap between the two methods.
-In addition to the number of egg layers, intensity was sometimes recorded after being officially discontinued in 1981.
+In addition to recording the number of egg layers, surveyors sometimes recorded intensity after it was officially discontinued in 1981.
 We have converted spawn intensity observations in the \fishName{} spawn survey database from five to nine categories for spawns that used the five category scale between \Sexpr{min(yrRange)} and \Sexpr{cat9Yr-1}
 Thus, spawn data used for stock assessments is represented either by a nine category intensity scale, or a direct estimate of the number of egg layers.
 
@@ -1530,7 +1530,7 @@ Fecundity could be influenced by biological processes such as the observed non-s
 In addition, spawn index prediction models are dated, and our understanding of these processes could have changed in the intervening years.
 \item Uncertainty in fixed parameters that are used as data without error (e.g., \autoref{eqSurfDensJS});
 uncertainty in spawn index parameters is currently unknown.
-\item Uncertainty in the number of egg layers for spawn intensity catetories (\autoref{tab:Intensity}), and algae coefficients (\autoref{tab:AlgaeCoefs}).
+\item Uncertainty in the number of egg layers for spawn intensity categories (\autoref{tab:Intensity}), and algae coefficients (\autoref{tab:AlgaeCoefs}).
 Again, uncertainty in these values is currently unknown.
 \end{enumerate}
 Despite these assumptions and potential sources of uncertainty, the spawn index has typically been reported without quantifying uncertainty \citep[but see][]{SchweigertEtal1993}.
@@ -1662,7 +1662,7 @@ these lines are marked in $1\,\text{m}$ increments, and are standardized to $20\
 Segments refer to individual sections of line, which may be linked together to make complete transects.
 
 Sometime in the mid- to late-1990s, spawn surveyors observed that the $20\,\text{m}$ segments shrank by approximately $1\,\text{m}$ during the first season of use, and continued to shrink over time.
-DFO staff noticed that this issue was occurring coastwide, and began re-measuring lead lines each season.
+DFO staff noticed that this issue was occurring coast wide, and began re-measuring lead lines each season.
 They also modified the lead line marking protocol to account for shrinkage by marking $1.15\,\text{m}$ increments;
 thus, segments were extended to $23\,\text{m}$.
 DFO staff derived this 15\% increase by measuring and re-marking lead lines each year.
