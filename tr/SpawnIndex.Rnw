@@ -296,7 +296,6 @@ data(underWidthFac)
 \linenumbers  % Line numbers
 \renewcommand{\headrulewidth}{0.5pt}  % Header line
 \renewcommand{\footrulewidth}{0.5pt}  % Footer line
-\onehalfspacing  % Extra space between lines
 \fancyhead[c]{Draft: Do not cite or circulate}  % Header text
 
 %%%%% Main document %%%%%
@@ -1705,7 +1704,7 @@ Legend: ", PasteNicely(c(majorRegions, minorRegions)), ".", sep = "")
 tabSCap <- "Spawn width correction factors for \\fishName{} understory spawn surveys"
 # Format the table
 kWidthFac <- underWidthFac %>%
-  mutate_if(is.double, funs(format(., nsmall = 3))) %>%
+  mutate_if(is.double, ~format(., nsmall = 3)) %>%
   mutate(Year = as.integer(Year)) %>%
   arrange(Year) %>%
   kable(
