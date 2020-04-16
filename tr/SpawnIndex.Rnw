@@ -492,17 +492,17 @@ Finally, we combine the three spawn indices, and aggregate by stock assessment r
 
 \begin{figure}
 \centering
-\begin{tikzpicture}[node distance=0.9cm and 0.1cm, font=\footnotesize]
-\node [terminal, label={[text width=9.5em] \textbf{Macrocystis (M)}}] (mExt) {\labelMacro{mExt} Determine spatial extent and transect locations (\S{}~\ref{secMacroProt}).};
+\begin{tikzpicture}[node distance=1.1cm and 0.2cm, font=\footnotesize]
+\node [terminal, label={[text width=10em] \textbf{Macrocystis (M)}}] (mExt) {\labelMacro{mExt} Determine spatial extent and transect locations (\S{}~\ref{secMacroProt}).};
 \node [process, below=of mExt] (mPlant) {\labelMacro{mPlant} Plant $p$ observations for mature plants (e.g., number of stalks; \S{}~\ref{secMacroP}).};
 \node [process, below=of mPlant] (mTrans) {\labelMacro{mTrans} Transect $t$ observations and calculations (e.g., spawn width, mean number of egg layers, mean plant height; \S{}~\ref{secMacroT}).};
 \node [process, below=of mTrans] (mSpawn) {\labelMacro{mSpawn} Spawn $s$ observations and calculations (e.g., Macrocystis bed length, mean spawn width, mean egg density; \S{}~\ref{secMacroS}).};
 \node [inout, below=of mSpawn] (mInd) {\labelMacro{mInd} Macrocystis spawn index $B_{xs}$ (Eq~\ref{eqMacroIndS}).};
-\node [terminal, label={[text width=9.5em] \textbf{Surface (S)}}, left=of mExt] (sExt) {\labelSurf{sExt} Determine spatial extent and sample locations (along transects if possible; \S{}~\ref{secSurfProt}).};
+\node [terminal, label={[text width=10em] \textbf{Surface (S)}}, left=of mExt] (sExt) {\labelSurf{sExt} Determine spatial extent and sample locations (along transects if possible; \S{}~\ref{secSurfProt}).};
 \node [process, left=of mPlant] (sSamp) {\labelSurf{sSamp} Sample $j$ observations and calculations (e.g., number of egg layers, substrate type $i$; \S{}~\ref{secSurfJ}).};
 \node [process, below=of sSamp, left=of mSpawn] (sSpawn) {\labelSurf{sSpawn} Spawn $s$ observations and calculations (e.g., spawn length, spawn width, mean egg density; \S{}~\ref{secSurfS}).};
 \node [inout, below=of sSpawn, left=of mInd] (sInd) {\labelSurf{sInd} Surface spawn index $B_{xs}$ (Eq~\ref{eqSurfIndS}).};
-\node [terminal, label={[text width=9.5em] \textbf{Understory (U)}}, right=of mExt] (uExt) {\labelUnder{uExt} Determine spatial extent, transect locations, and quadrat spacing (\S{}~\ref{secUnderProt}).};
+\node [terminal, label={[text width=10em] \textbf{Understory (U)}}, right=of mExt] (uExt) {\labelUnder{uExt} Determine spatial extent, transect locations, and quadrat spacing (\S{}~\ref{secUnderProt}).};
 \node [process, below=of uExt, right=of mPlant] (uQuad) {\labelUnder{uQuad} Quadrat $q$ observations and calculations (e.g., number of egg layers, algae type $v$; \S{}~\ref{secUnderQ}).};
 \node [process, below=of uQuad, right=of mTrans] (uTrans) {\labelUnder{uTrans} Transect $t$ observations and calculations weighted by spawn width (e.g., spawn width, mean egg density; \S{}~\ref{secUnderT}).};
 \node [process, below=of uTrans, right=of mSpawn] (uSpawn) {\labelUnder{uSpawn} Spawn $s$ observations and calculations (e.g., algae bed length, mean spawn width, egg density; \S{}~\ref{secUnderS}).};
