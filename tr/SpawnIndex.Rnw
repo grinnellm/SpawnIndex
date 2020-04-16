@@ -297,6 +297,7 @@ data(underWidthFac)
 \renewcommand{\headrulewidth}{0.5pt}  % Header line
 \renewcommand{\footrulewidth}{0.5pt}  % Footer line
 \fancyhead[c]{Draft: Do not cite or circulate}  % Header text
+\setlength{\parskip}{3pt}
 
 %%%%% Main document %%%%%
 
