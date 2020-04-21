@@ -104,10 +104,9 @@ Calculate the conversion factor to convert the number of eggs to the spawn index
 theta <- CalcEggConversion()
 ```
 
-Thus, we divide the number of eggs by `r theta` to estimate the biomass of fish that spawned.
-This conversion factor is the default in the spawn index calculations below
-(e.g., `CalcSurfSpawn()`).
-Calculate the spawn index for the three spawn survey types:
+Thus, we divide the number of eggs by $`r theta`$ to estimate the biomass of fish that spawned.
+This is the default conversion factor for the spawn index calculations below (e.g., `CalcSurfSpawn()`).
+Then we calculate the spawn index for the three spawn survey types:
 surface, Macrocystis, and understory.
 
 ## Surface spawn index
@@ -158,7 +157,7 @@ surfSpawn <- CalcSurfSpawn(
 
 Show surface spawn on a map, aggregated by Location and year.
 
-```{r surfLocYr, fig.cap = "Surface spawn index in tonnes (t)."}
+```{r surfLocYr, fig.cap = "Surface spawn index in tonnes (t) by location and year."}
 # Make a spatial object for mapping
 surfLocYr <- surfSpawn$SI %>%
   group_by(Year, LocationCode) %>%
@@ -193,7 +192,7 @@ surfYr <- surfSpawn$SI %>%
 # Table
 kable(
   x = surfYr, digits = 1, booktabs = TRUE,
-  caption = "Surface spawn index in tonnes (t) by year.",
+  caption = "Surface spawn index in tonnes (t) by year."
 )
 ```
 
@@ -215,7 +214,7 @@ macroSpawn <- CalcMacroSpawn(where = macroLoc, a = areas, yrs = yrRange)
 
 Show Macrocystis spawn on a map, aggregated by Location and year.
 
-```{r macroLocYr, fig.cap = "Macrocystis spawn index in tonnes (t)."}
+```{r macroLocYr, fig.cap = "Macrocystis spawn index in tonnes (t) by location and year."}
 # Make a spatial object for mapping
 macroLocYr <- macroSpawn$SI %>%
   group_by(Year, LocationCode) %>%
@@ -278,7 +277,7 @@ underSpawn <- CalcUnderSpawn(where = underLoc, a = areas, yrs = yrRange)
 
 Show understory spawn on a map, aggregated by Location and year.
 
-```{r underLocYr, fig.cap = "Understory spawn index in tonnes (t)."}
+```{r underLocYr, fig.cap = "Understory spawn index in tonnes (t) by location and year."}
 # Make a spatial object for mapping
 underLocYr <- underSpawn$SI %>%
   group_by(Year, LocationCode) %>%
