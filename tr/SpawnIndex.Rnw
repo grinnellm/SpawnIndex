@@ -1583,8 +1583,10 @@ there are a few caveats to keep in mind when interpreting the \fishName{} spawn 
 \item The spawn index is derived data with uncertainty and assumptions, as opposed to observed data (\autoref{secUncertain}),
 \item There are two different survey periods with substantial differences in survey effort and method (surface surveys from \Sexpr{min(yrRange)} to \Sexpr{newSurvYr-1}, and dive surveys from \Sexpr{newSurvYr} to present),
 \item Surface surveys use two different methods to estimate the number of egg layers:
-spawn intensity categories (five categories from \Sexpr{min(yrRange)} to \Sexpr{cat9Yr-1}, and nine categories from \Sexpr{cat9Yr} to \Sexpr{directEggYr-1}), and
-direct estimates (from \Sexpr{directEggYr} to present), and
+\begin{enumerate}
+\item Spawn intensity categories (five categories from \Sexpr{min(yrRange)} to \Sexpr{cat9Yr-1}, and nine categories from \Sexpr{cat9Yr} to \Sexpr{directEggYr-1}), and
+\item Direct estimates (from \Sexpr{directEggYr} to present), and
+\end{enumerate}
 \item The spawn index is presence only and does not indicate the absence of spawn.
 \end{enumerate}
 
