@@ -1576,8 +1576,7 @@ In addition, future work could review the assumed statistical framework.
 
 \section{CAVEATS}
 
-In addition to issues regarding uncertainty (\autoref{secUncertain}),
-there are a few caveats to keep in mind when interpreting the \fishName{} spawn index, and using the spawn index in analyses:
+There are a few caveats to keep in mind when interpreting the \fishName{} spawn index, and using spawn index data in analyses:
 \begin{enumerate}
 \item The spawn index a relative index of spawning biomass,
 \item The spawn index is derived data with uncertainty and assumptions, as opposed to observed data (\autoref{secUncertain}),
