@@ -1595,9 +1595,11 @@ the absence of spawn index data does not indicate the absence of spawn,
 \item The spawn index is derived data with uncertainty and assumptions, as opposed to observed data (\autoref{secUncertain}).
 \end{enumerate}
 
-For example, we calculate separate scalars for each survey period when use \fishName{} spawn index data in stock assessments \citeyearpar[DFO][]{DFO2020}.
-That is to say, we estimate one spawn index scaling parameter $q_1$ for the surface survey period using an uninformative prior, and
-a second spawn index scalign parameter $q_2$ for the dive survey period using an informative prior approximating 1.0.
+For example, in stock assessments, we scale the Pacific Herring spawn index to abundance by dividing the index by $q$,
+which we refer to as the `spawn index scaling parameter', and
+we calculate separate scalars for each survey period \citeyearpar[DFO][]{DFO2020}.
+That is to say, we estimate one spawn index scaling parameter $q_1$ for the surface survey period, and
+a second spawn index scalign parameter $q_2$ for the dive survey period.
 
 \section{DOWNLOAD}\label{secDown}
 
