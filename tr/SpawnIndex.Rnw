@@ -1564,7 +1564,7 @@ Potential strategies to improve spawn survey efficiency include:
 \end{enumerate}
 Even with a stable budget, there is a trade-off between high survey effort in some areas, versus low survey effort or no information in other areas.
 
-\section{FUTURE RESEARCH}
+\section{FUTURE RESEARCH}\label{secFuture}
 
 Many of the parameters and prediction models used to calculate the spawn index are dated;
 these analyses could be checked with new information, and updated if required.
@@ -1589,17 +1589,22 @@ the absence of spawn index data does not indicate the absence of spawn,
 \end{enumerate}
 \item Surface surveys use two different methods to estimate the number of egg layers (\autoref{secIntensity}):
 \begin{enumerate}
-\item Spawn intensity categories (five categories from \Sexpr{min(yrRange)} to \Sexpr{cat9Yr-1}, and nine categories from \Sexpr{cat9Yr} to \Sexpr{directEggYr-1}), and
-\item Direct estimates from \Sexpr{directEggYr} to present, as well as
+\item Spawn intensity categories:
+\begin{enumerate}
+\item five categories from \Sexpr{min(yrRange)} to \Sexpr{cat9Yr-1}, and
+\item nine categories from \Sexpr{cat9Yr} to \Sexpr{directEggYr-1}, and
 \end{enumerate}
-\item The spawn index is derived data with uncertainty and assumptions, as opposed to observed data (\autoref{secUncertain}).
+\item Direct estimates from \Sexpr{directEggYr} to present,
+\end{enumerate}
+\item The spawn index is derived data with uncertainty and assumptions, as opposed to observed data (\autoref{secUncertain}), and
+\item Spawn index calculations rely on dated parameters and models (\autoref{secFuture}).
 \end{enumerate}
 
 For example, in stock assessments, we scale the Pacific Herring spawn index to abundance by dividing the index by $q$,
 which we refer to as the `spawn index scaling parameter', and
-we calculate separate scalars for each survey period \citeyearpar[DFO][]{DFO2020}.
-That is to say, we estimate one spawn index scaling parameter $q_1$ for the surface survey period, and
-a second spawn index scalign parameter $q_2$ for the dive survey period.
+we calculate a separate scalar for each period \citeyearpar[DFO][]{DFO2020}.
+That is to say, we estimate one spawn index scaling parameter for the surface survey period $q_1$, and
+a second spawn index scaling parameter for the dive survey period $q_2$.
 
 \section{DOWNLOAD}\label{secDown}
 
