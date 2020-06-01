@@ -304,7 +304,7 @@ data(underWidthFac)
 \section{INTRODUCTION}
 
 Statistical age-structured stock assessment models rely on an indicator of relative population abundance to reconstruct a time series of estimated abundance.
-For \fishName{} (\scienceName{}) in British Columbia (BC), Canada, an index of relative population abundance is provided by monitoring the extent and intensity of spawn (i.e., egg) deposition throughout coastal BC \citeyearpar[DFO][]{DFO2019a}.
+For \fishName{} (\scienceName{}) in British Columbia (BC), Canada, an index of relative population abundance is provided by monitoring the extent and intensity of spawn (i.e., egg) deposition throughout coastal BC \citeyearpar[DFO][]{DFO2020}.
 This document describes our calculations to convert spawn survey observations (e.g., spawn extent, number of egg layers, substrate type) to the spawn index for \fishName{} in BC.
 These calculations have been described elsewhere, in either published or informal, internal documents.
 The objective of this document is to collate the various calculations in their order of application.
@@ -1576,19 +1576,28 @@ In addition, future work could review the assumed statistical framework.
 
 \section{CAVEATS}
 
-There are a few caveats to keep in mind when interpreting the \fishName{} spawn index, and using spawn index data in analyses:
+There are a few caveats to consider when interpreting the \fishName{} spawn index, and using spawn index data in analyses.
+These caveats include:
 \begin{enumerate}
 \item The spawn index a relative index of spawning biomass,
 \item The spawn index is presence only;
 the absence of spawn index data does not indicate the absence of spawn,
-\item There are two different survey periods with substantial differences in survey effort and method (surface period from \Sexpr{min(yrRange)} to \Sexpr{newSurvYr-1}, and dive period from \Sexpr{newSurvYr} to present; \autoref{secSurfProt}),
+\item There are two different spawn survey periods with substantial differences in survey effort and method (\autoref{secSurfProt}):
+\begin{enumerate}
+\item surface period from \Sexpr{min(yrRange)} to \Sexpr{newSurvYr-1}, and
+\item dive period from \Sexpr{newSurvYr} to present,
+\end{enumerate}
 \item Surface surveys use two different methods to estimate the number of egg layers (\autoref{secIntensity}):
 \begin{enumerate}
 \item Spawn intensity categories (five categories from \Sexpr{min(yrRange)} to \Sexpr{cat9Yr-1}, and nine categories from \Sexpr{cat9Yr} to \Sexpr{directEggYr-1}), and
-\item Direct estimates from \Sexpr{directEggYr} to present, and
+\item Direct estimates from \Sexpr{directEggYr} to present, as well as
 \end{enumerate}
 \item The spawn index is derived data with uncertainty and assumptions, as opposed to observed data (\autoref{secUncertain}).
 \end{enumerate}
+
+For example, we calculate separate scalars for each survey period when use \fishName{} spawn index data in stock assessments \citeyearpar[DFO][]{DFO2020}.
+That is to say, we estimate one spawn index scaling parameter $q_1$ for the surface survey period using an uninformative prior, and
+a second spawn index scalign parameter $q_2$ for the dive survey period using an informative prior approximating 1.0.
 
 \section{DOWNLOAD}\label{secDown}
 
