@@ -1587,7 +1587,7 @@ thus the spawn index is a minimum spawning biomass,
 \item Surface period from \Sexpr{min(yrRange)} to \Sexpr{newSurvYr-1}, and
 \item Dive period from \Sexpr{newSurvYr} to present,
 \end{enumerate}
-\item Surface surveys use two different methods to estimate the number of egg layers (\autoref{secIntensity}):
+\item Surface spawn surveys use two different methods to estimate the number of egg layers (\autoref{secIntensity}):
 \begin{enumerate}
 \item Spawn intensity categories:
 \begin{enumerate}
@@ -1596,7 +1596,7 @@ thus the spawn index is a minimum spawning biomass,
 \end{enumerate}
 \item Direct estimates from \Sexpr{directEggYr} to present,
 \end{enumerate}
-\item The spawn index is derived from surface and dive observations,
+\item The spawn index is derived from surface and dive observations of egg deposition,
 and includes uncertainty and assumptions (\autoref{secUncertain}), and
 \item Spawn index calculations rely on dated parameters and models (\autoref{secFuture}).
 \end{enumerate}
