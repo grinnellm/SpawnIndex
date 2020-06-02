@@ -1579,24 +1579,25 @@ In addition, future work could review the assumed statistical framework.
 There are a few caveats to consider when interpreting the \fishName{} spawn index, and using spawn index data in analyses.
 These caveats include:
 \begin{enumerate}
-\item The spawn index a relative index of spawning biomass,
-\item The spawn index is presence only;
-the absence of spawn index data does not indicate the absence of spawn,
+\item The spawn index is a relative index of spawning biomass,
+\item The spawn survey is a presence only survey;
+thus the spawn index is a minimum spawning biomass,
 \item There are two different spawn survey periods with substantial differences in survey effort and method (\autoref{secSurfProt}):
 \begin{enumerate}
-\item surface period from \Sexpr{min(yrRange)} to \Sexpr{newSurvYr-1}, and
-\item dive period from \Sexpr{newSurvYr} to present,
+\item Surface period from \Sexpr{min(yrRange)} to \Sexpr{newSurvYr-1}, and
+\item Dive period from \Sexpr{newSurvYr} to present,
 \end{enumerate}
 \item Surface surveys use two different methods to estimate the number of egg layers (\autoref{secIntensity}):
 \begin{enumerate}
 \item Spawn intensity categories:
 \begin{enumerate}
-\item five categories from \Sexpr{min(yrRange)} to \Sexpr{cat9Yr-1}, and
-\item nine categories from \Sexpr{cat9Yr} to \Sexpr{directEggYr-1}, and
+\item Five categories from \Sexpr{min(yrRange)} to \Sexpr{cat9Yr-1}, and
+\item Nine categories from \Sexpr{cat9Yr} to \Sexpr{directEggYr-1}, and
 \end{enumerate}
 \item Direct estimates from \Sexpr{directEggYr} to present,
 \end{enumerate}
-\item The spawn index is derived data with uncertainty and assumptions, as opposed to observed data (\autoref{secUncertain}), and
+\item The spawn index is derived from surface and dive observations,
+and includes uncertainty and assumptions (\autoref{secUncertain}), and
 \item Spawn index calculations rely on dated parameters and models (\autoref{secFuture}).
 \end{enumerate}
 
