@@ -867,7 +867,9 @@ For each of these algae types, divers record the percentage of the quadrat cover
 After estimating the number of eggs in a spawn,
 the next step is to estimate the biomass of \fishName{} that spawned.
 Female \fishName{} produce an average of approximately $200\,000$ eggs per kilogram (kg) of total body weight \citep{Hay1985}; we refer to this as fecundity.
-Average fecundity is derived from studies of BC \fishName{} BC in 1974 and 1980 (North Coast, Strait of Georgia, and West Coast of Vancouver Island), and of Califorina \fishName{} in 1975 \citep{RabinBarnhart1977}.
+Average fecundity is derived from studies of
+BC \fishName{} BC in 1974 and 1980 (North Coast, Strait of Georgia, and West Coast of Vancouver Island), and
+Califorina \fishName{} in 1975 \citep{RabinBarnhart1977}.
 We assume that females account for 50\% of spawners,
 and we convert eggs to tonnes (t) of spawners using
 \begin{equation}\label{eqECF}
