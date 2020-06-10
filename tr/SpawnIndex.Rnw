@@ -529,7 +529,7 @@ Legend: rounded rectangles indicate start, rectangles indicate observations and 
 \label{figFlow}
 \end{figure}
 
-We developed this document while converting spawn index calculations implemented in a \textbf{Microsoft Access} database to an \textbf{R} \citeyearpar[RCT][]{R-3.4.1} package, \texttt{SpawnIndex}.
+We developed this document while converting spawn index calculations implemented in a \textbf{Microsoft Access} database to an \textbf{R} \citeyearpar[RCT][]{R-3.6.1-32} package, \texttt{SpawnIndex}.
 We updated the calculations from a database to an \textbf{R} package for several reasons.
 First, the database has been used for various purposes over the last two decades and has incidental calculations that make it overly complex.
 Second, the database is difficult to troubleshoot because it is hard to differentiate between input (i.e., data) and derived values.
@@ -866,16 +866,17 @@ For each of these algae types, divers record the percentage of the quadrat cover
 
 After estimating the number of eggs in a spawn,
 the next step is to estimate the biomass of \fishName{} that spawned.
-Female \fishName{} produce an average of approximately $200\,000$ eggs per kilogram (kg) of total body weight \citep{Hay1985, HayBrett1988}.
+Female \fishName{} produce an average of approximately $200\,000$ eggs per kilogram (kg) of total body weight \citep{Hay1985}; we refer to this as fecundity.
+Average fecundity is derived from studies of BC \fishName{} BC in 1974 and 1980 (North Coast, Strait of Georgia, and West Coast of Vancouver Island), and of Califorina \fishName{} in 1975 \citep{RabinBarnhart1977}.
 We assume that females account for 50\% of spawners,
 and we convert eggs to tonnes (t) of spawners using
 \begin{equation}\label{eqECF}
 \theta = \omega \phi^f \frac{10^3~\text{kg}} {\text{t}}
 \end{equation}
-where $\omega$ is the number of eggs per kilogram of total female body weight,
-$\phi^f$ is the proportion of spawners that are female, and
+where $\omega$ is female fecundity,
+$\phi^f$ is proportion of spawners that are female, and
 $\theta$ is the egg conversion factor (\autoref{tabNotationEggs}).
-Thus we convert eggs to biomass in tonnes of both sexes combined by dividing the number of eggs by $\theta$.
+Thus, we convert eggs to biomass of both sexes combined in tonnes by dividing the number of eggs by $\theta$.
 Although \fishName{} egg production is affected by environmental variability and other factors \citep{TanasichukWare1987, HayBrett1988}, we assume that bias to the spawn index from \autoref{eqECF} is insignificant in most areas and years \citep{Schweigert1993b, Ware1985}.
 
 \begin{table}
@@ -1605,7 +1606,7 @@ For example, in stock assessments, we scale the Pacific Herring spawn index to a
 which we refer to as the `spawn index scaling parameter', and
 we calculate a separate scalar for each period \citeyearpar[DFO][]{DFO2020}.
 That is to say, we estimate one spawn index scaling parameter for the surface survey period $q_1$, and
-a second spawn index scaling parameter for the dive survey period $q_2$.
+a second one for the dive survey period $q_2$.
 
 \section{DOWNLOAD}\label{secDown}
 
