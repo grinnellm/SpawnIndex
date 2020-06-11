@@ -1536,7 +1536,7 @@ Like all biological models, spawn index calculations are affected by various pot
 Some examples illustrate these sources of uncertainty: % (\autoref{tabUncertainty}).
 \begin{enumerate}
 \item Natural variability could affect \fishName{} fecundity, and the sex ratio of spawning \fishName{} (\autoref{eqECF}).
-Fecundity could be influenced by biological processes such as the observed non-stationarity of weight-at-age, or a truncated age distribution caused by selective fishing or high natural mortality.
+Fecundity could be influenced by biological processes such as the observed non-stationarity of weight-at-age \citeyearpar[DFO][]{DFO2020}, or a truncated age distribution caused by selective fishing or high natural mortality.
 \item Measurement error could affect input data (e.g., number of egg layers, spawn length and width), while model structural complexity could affect estimated prediction model parameters, or the form of their relationship, or both (e.g., \autoref{eqSurfDensJS}).
 In addition, spawn index prediction models are dated, and our understanding of these processes could have changed in the intervening years.
 \item Uncertainty in fixed parameters that are used as data without error (e.g., \autoref{eqSurfDensJS});
@@ -1576,6 +1576,7 @@ Potential strategies to improve spawn survey efficiency include:
 Even with a stable budget, there is a trade-off between high survey effort in some areas, versus low survey effort or no information in other areas.
 
 \section{FUTURE RESEARCH}\label{secFuture}
+% This section is very similar to the previous one on Uncertainty -- combine them together somehow, or make them more distinct.
 
 Many of the parameters and prediction models used to calculate the spawn index are dated;
 these analyses could be checked with new information, and updated if required.
@@ -1586,12 +1587,13 @@ One approach to account for prediction model uncertainty is to incorporate the u
 In addition to work mentioned here and in the previous section, other future work could include:
 \begin{enumerate}
 \item Review the assumed statistical framework,
-\item Compare two methods to calculate the mean number of stalks per plant (\autoref{eqMacroStalksPerPlantS}): ratio of means (i.e., current method) versus mean of ratios, and
+\item Compare two methods to calculate the mean number of stalks per plant (\autoref{eqMacroStalksPerPlantS}): ratio of means (i.e., current method) versus mean of ratios,
 \item Investigate the assumptions that eggs on substrate and algae are
 \begin{enumerate}
 \item Independent (\autoref{eqUnderDensQTS}), and
-\item Represented by the same length measurement (\autoref{secUnderS}).
+\item Represented by the same length measurement (\autoref{secUnderS}), and
 \end{enumerate}
+\item Investigate surface spawn width adjustments (e.g,, use mean instead of median, update annually; \autoref{secWidthSurface}).
 \end{enumerate}
 
 \section{CAVEATS}
@@ -1685,7 +1687,7 @@ To improve the consistency of spawn index estimates throughout the time period f
 we adjust surface spawn width estimates using underwater estimates when available \citep{SchweigertEtal1993}.
 Our preferred width is the median width from all dive surveys within a `pool.'
 A pool is a group of Locations within a Section that are often adjacent, contain similar algae and substrate, and can be treated as a group with likely similar widths.
-We summarise spawn width by the median because widths are not normally distributed \citep{SchweigertEtal1993}.
+We summarise spawn width by the median because widths are skewed \citep{SchweigertEtal1993}.
 If there are no dive data that meet these criteria,
 we use the median width from all dives within the Section, or within the SAR if there are no dives within the Section.
 If there are still no dive data that meet these criteria, we use the observed width $W^\prime$ from the surface survey.
