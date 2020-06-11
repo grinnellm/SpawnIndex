@@ -1024,6 +1024,7 @@ This section describes steps \ref{mPlant} to \ref{mInd} in \autoref{figFlow}.
 As with the previous section, we simplify index notation in this section by suppressing subscripts for spawn survey type $x$, Location $n$, SAR $r$, and year $y$.
 Macrocystis spawn surveyors use SCUBA gear to collect underwater data for individual plants $p$, transects $t$, and spawns $s$ (\autoref{secMacroProt});
 we calculate metrics at the transect $t$, and spawn $s$ levels (\autoref{tabNotationMacro}).
+Recall that divers enumerate every Macrocystis plant within the transect swath.
 
 \begin{table}
 \centering
@@ -1098,16 +1099,17 @@ A_s = \sum_{t=1}^T A_{ts}
 \end{equation}
 where $A_{ts}$ is the transect area from \autoref{eqMacroAreaTS},
 and $A_s$ is in square metres.
-The total number of stalks in spawn $s$ is
-\begin{equation}\label{eqMacroStalksS}
-K_s = \sum_{t=1}^T K_{ts}
+
+Three measurements are required to calculate the number of eggs on Macrocystis plants \citep{HaegeleSchweigert1990}:
+number of egg layers,
+plant height, and
+number of stalks per plant.
+The mean number of egg layers in spawn $s$ is
+\begin{equation}\label{eqMacroLyrsS}
+\mean{E_s} = \frac{1}{T} \sum_{t=1}^T \mean{E_{ts}}
 \end{equation}
-where $K_{ts}$ is the number of stalks in transect $t$ from \autoref{eqMacroStalksTS}.
-The total number of plants in spawn $s$ is
-\begin{equation}\label{eqMacroPlantsS}
-P_s = \sum_{t=1}^T P_t
-\end{equation}
-where $P_t$ is the number of plants in transect $t$.
+where $\mean{E_{ts}}$ is the mean number of egg layers in transect $t$, and
+$T$ is the number of transects in spawn $s$.
 The mean plant height in spawn $s$ is
 \begin{equation}\label{eqMacroHeightS}
 \mean{H_s} = \frac{1}{T} \sum_{t=1}^T \mean{H_{ts}}
@@ -1115,12 +1117,16 @@ The mean plant height in spawn $s$ is
 where $\mean{H_{ts}}$ is the mean plant height in transect $t$,
 $T$ is the number of transects in spawn $s$, and
 $\mean{H_s}$ is in metres.
-The mean number of egg layers in spawn $s$ is
-\begin{equation}\label{eqMacroLyrsS}
-\mean{E_s} = \frac{1}{T} \sum_{t=1}^T \mean{E_{ts}}
+The total number of observed stalks in spawn $s$ is
+\begin{equation}\label{eqMacroStalksS}
+K_s = \sum_{t=1}^T K_{ts}
 \end{equation}
-where $\mean{E_{ts}}$ is the mean number of egg layers in transect $t$, and
-$T$ is the number of transects in spawn $s$.
+where $K_{ts}$ is the number of stalks in transect $t$ from \autoref{eqMacroStalksTS}.
+The total number of observed plants in spawn $s$ is
+\begin{equation}\label{eqMacroPlantsS}
+P_s = \sum_{t=1}^T P_t
+\end{equation}
+where $P_t$ is the number of plants in transect $t$.
 The mean number of stalks per plant in spawn $s$ is
 \begin{equation}\label{eqMacroStalksPerPlantS}
 \mean{\kappa_s} = \frac{K_s}{P_s}
@@ -1128,7 +1134,7 @@ The mean number of stalks per plant in spawn $s$ is
 where $K_s$ is the number of stalks in spawn $s$ from \autoref{eqMacroStalksS}, and
 $P_s$ is the number of plants in spawn $s$ from \autoref{eqMacroPlantsS}.
 
-\citet{HaegeleSchweigert1990} developed a predictive model of number of eggs per plant as a function of number of egg layers on plants, plant height, and number of stalks per plant using a nonlinear multiple regression model
+\citet{HaegeleSchweigert1990} developed a predictive model of number of eggs per plant as a function of number of egg layers, plant height, and number of stalks per plant using a nonlinear multiple regression model
 \begin{equation}\label{eqMacroEggsPerPlantS}
 \mean{\psi_s} = \beta \mean{E_s}^{\gamma} \mean{H_s}^{\delta} \mean{\kappa_s}^{\epsilon} 10^3
 \end{equation}
@@ -1213,6 +1219,7 @@ This section describes steps \ref{uQuad} to \ref{uInd} in \autoref{figFlow}.
 As with the previous two sections, we simplify index notation in this section by suppressing subscripts for spawn survey type $x$, Location $n$, SAR $r$, and year $y$.
 Understory spawn surveyors use SCUBA gear to collect underwater data for algae (aka vegetation) types $v$, quadrats $q$, transects $t$, and spawns $s$ (\autoref{secUnderProt});
 we calculate metrics at the algae type $v$, quadrat $q$, transect $t$, and spawn $s$ levels (\autoref{tabNotationUnder}).
+Recall that divers collect understory observations in quadrats, which are distributed along transects.
 
 \begin{table}
 \centering
@@ -1530,7 +1537,7 @@ Some examples illustrate these sources of uncertainty: % (\autoref{tabUncertaint
 \begin{enumerate}
 \item Natural variability could affect \fishName{} fecundity, and the sex ratio of spawning \fishName{} (\autoref{eqECF}).
 Fecundity could be influenced by biological processes such as the observed non-stationarity of weight-at-age, or a truncated age distribution caused by selective fishing or high natural mortality.
-\item Measurement error could affect input data such as the number of egg layers, while model structural complexity could affect estimated prediction model parameters, or the form of their relationship, or both (e.g., \autoref{eqSurfDensJS}).
+\item Measurement error could affect input data (e.g., number of egg layers, spawn length and width), while model structural complexity could affect estimated prediction model parameters, or the form of their relationship, or both (e.g., \autoref{eqSurfDensJS}).
 In addition, spawn index prediction models are dated, and our understanding of these processes could have changed in the intervening years.
 \item Uncertainty in fixed parameters that are used as data without error (e.g., \autoref{eqSurfDensJS});
 uncertainty in spawn index parameters is currently unknown.
@@ -1544,9 +1551,9 @@ There are several potential benefits to addressing spawn index uncertainty.
 First, quantifying uncertainty could identify parameters to target with future research.
 Potential analyses to quantify spawn index uncertainty include:
 \begin{enumerate}
-\item Investigate factors that influence fecundity and sex ratios (\autoref{eqECF});
-\item Quantify and report variability in estimated prediction model parameters and equations (e.g., \autoref{eqSurfDensJS});
-\item Bootstrap observed input data \citep[see][]{Schweigert1993b}; and
+\item Investigate factors that influence fecundity and sex ratios (\autoref{eqECF}),
+\item Quantify and report variability in estimated prediction model parameters and equations (e.g., \autoref{eqSurfDensJS}),
+\item Bootstrap observed input data \citep[see][]{Schweigert1993b}, and
 \item Conduct sensitivity analyses.
 \end{enumerate}
 Second, acknowledging uncertainty can reduce another source of uncertainty: inadequate communication among scientists, managers, and stakeholders, which can lead to misapplication of scientific advice \citep{LinkEtal2012}.
@@ -1559,11 +1566,11 @@ Ideally, reducing survey effort does not result in biased target variable estima
 Therefore, understanding this trade-off is important if, for example, budget reductions cause reduced survey effort.
 Potential strategies to improve spawn survey efficiency include:
 \begin{enumerate}
-\item Conduct underwater surveys for major spawns in core areas, and surface surveys for other spawns;
-\item Quantify the precision and accuracy of spawn width estimates (e.g., \hyperref[secWidthAdjust]{appendix \ref{secWidthSurface}});
-\item Review transect and quadrat spacing \citep[\autoref{secStat}; see][]{Schweigert1993b};
-\item Review egg prediction model accuracy (\autoref{eqECF});
-\item Review temporal stability of egg layer estimates; and
+\item Conduct underwater surveys for major spawns in core areas, and surface surveys for other spawns,
+\item Quantify the precision and accuracy of spawn width estimates (e.g., \hyperref[secWidthAdjust]{appendix \ref{secWidthSurface}}),
+\item Review transect and quadrat spacing \citep[\autoref{secStat}; see][]{Schweigert1993b},
+\item Review egg prediction model accuracy (\autoref{eqECF}),
+\item Review temporal stability of egg layer estimates, and
 \item Conduct periodic versus annual surveys.
 \end{enumerate}
 Even with a stable budget, there is a trade-off between high survey effort in some areas, versus low survey effort or no information in other areas.
@@ -1574,9 +1581,18 @@ Many of the parameters and prediction models used to calculate the spawn index a
 these analyses could be checked with new information, and updated if required.
 Parameters include $\omega$, $\phi^f$, $\nu$, $\upsilon$, and $M$.
 Prediction models include \autoref{eqSurfDensJS}, \autoref{eqMacroEggsPerPlantS}, \autoref{eqUnderDensSubQTS}, and \autoref{eqUnderDensAlgVQTS}.
-In addition, parameter and prediction model uncertainty should be propagated through the calculations to quantify spawn index uncertainty (\autoref{secUncertain}).
+In addition, parameter and prediction model uncertainty could be propagated through the calculations to quantify spawn index uncertainty (\autoref{secUncertain}).
 One approach to account for prediction model uncertainty is to incorporate the underlying data that informs these equations into spawn index calculations.
-In addition, future work could review the assumed statistical framework.
+In addition to work mentioned here and in the previous section, other future work could include:
+\begin{enumerate}
+\item Review the assumed statistical framework,
+\item Compare two methods to calculate the mean number of stalks per plant (\autoref{eqMacroStalksPerPlantS}): ratio of means (i.e., current method) versus mean of ratios, and
+\item Investigate the assumptions that eggs on substrate and algae are
+\begin{enumerate}
+\item Independent (\autoref{eqUnderDensQTS}), and
+\item Represented by the same length measurement (\autoref{secUnderS}).
+\end{enumerate}
+\end{enumerate}
 
 \section{CAVEATS}
 
