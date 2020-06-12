@@ -475,19 +475,6 @@ Alternative harvest methods such as "open ponds" have several advantages over th
   groups      = {SpawnIndex},
 }
 
-@TechReport{DFO2019a,
-  author      = {{DFO (Fisheries and Oceans Canada)}},
-  title       = {Status of {Pacific} {Herring} (\emph{{Clupea} pallasii}) in 2018 and forecast for 2019},
-  institution = {Canadian Science Advisory Secretariat, Fisheries and Oceans Canada},
-  year        = {2019},
-  type        = {Science Response},
-  number      = {2019/001},
-  pagetotal   = {38},
-  url         = {http://www.dfo-mpo.gc.ca/csas-sccs/Publications/SCR-RS/2019/2019_001-eng.html},
-  file        = {:Reports/DFO2019a - Status of Pacific Herring in 2018 and forecast for 2019.pdf:PDF},
-  groups      = {SpawnIndex},
-}
-
 @TechReport{RabinBarnhart1977,
   author = {D J Rabin and R A Barnhart},
   title  = {Fecundity of {Pacific} {Herring}, \emph{{Clupea} harengus pallasi}, in {Humboldt} {Bay}},
@@ -509,4 +496,17 @@ Alternative harvest methods such as "open ponds" have several advantages over th
   owner        = {GrinnellM},
   timestamp    = {2011-12-21},
   year         = {2019},
+}
+
+@Article{BrunelPiet2013,
+  author       = {Thomas Brunel and Gerlan J Piet},
+  date         = {2013},
+  journaltitle = {ICES Journal of Marine Science},
+  title        = {Is age structure a relevant criterion for the health of fish stocks?},
+  doi          = {10.1093/icesjms/fss184},
+  issue        = {2},
+  pages        = {270-283},
+  volume       = {70},
+  abstract     = {The age and size structure of exploited fish stocks is one of the criteria for Good Environmental Status of commercial fish. However, two underlying assumptions to this criterion remain to be tested: first, that a well-balanced age structure is indeed indicative of a “healthier” stock, and second, that managers can exert a control on the age structure, independently from the regulation of stock abundance. This study investigates these questions using simulations from a population model in which recruitment is based on egg production, which is more sensitive to age structure variations than the traditionally used spawning stock biomass (SSB) and that was parameterized to represent the population dynamics of North Sea cod, plaice, and herring. Our results show that (i) the age structure is highly dependent on the selection pattern, as well as on the level of fishing mortality; (ii) the selection pattern determines the ability of fish stocks to withstand, and recover from, external perturbation; and (iii) the selection pattern determines the output of the fishery providing the management option to balance stable but relatively low yields vs strongly fluctuating high yields. Therefore, we propose to make the selection pattern, for which clear management targets can be set, a policy goal instead of the age structure that is currently in place.},
+  groups       = {SpawnIndex},
 }
