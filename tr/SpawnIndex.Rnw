@@ -327,7 +327,7 @@ the surface survey period from \Sexpr{min(yrRange)} to \Sexpr{newSurvYr-1}, and
 the dive survey period from \Sexpr{newSurvYr} to present.
 
 The inclusion of dive surveys in \Sexpr{newSurvYr} makes it challenging to compare the spawn index between these two periods.
-For example, surface surveys are less accurate than dive surveys (\hyperref[secWidthAdjust]{appendix \ref{secWidthSurface}}), and
+For example, surface surveys are less accurate than dive surveys (\hyperref[secWidthSurface]{appendix \ref{secWidthSurface}}), and
 spawn surveyors used subjective intensity categories instead of direct egg layer estimates until \Sexpr{directEggYr-1} (\autoref{secIntensity}).
 In addition, \fishName{} spawn survey effort has been inconsistent over the time series due to available resources and departmental priorities.
 For example, in the past, surveyors often dedicated several months each year to spawn surveys; they used small vessels to search for spawn, and surface surveys to estimate spawn biomass.
@@ -1544,14 +1544,16 @@ uncertainty in spawn index parameters is currently unknown.
 \item Uncertainty in the number of egg layers for spawn intensity categories (\autoref{tab:Intensity}), and algae coefficients (\autoref{tab:AlgaeCoefs}).
 Again, uncertainty in these values is currently unknown.
 \end{enumerate}
-Despite these assumptions and potential sources of uncertainty, the spawn index has typically been reported without quantifying uncertainty \citep[but see][]{SchweigertEtal1993}.
+Despite these assumptions and potential sources of uncertainty, the spawn index has typically been reported without quantifying uncertainty (but see \citet{SchweigertEtal1993} who estimated the variance).
 Reporting the spawn index without uncertainty may perpetuate the misconception that the spawn index is observed data, whereas it is derived data with assumptions and uncertainties.
+An additional issue for stock assessments is that models will interpret spawn index data as being more certain than it is,
+and estimates of stock status and future prognosis will be artificially precise.
 
 There are several potential benefits to addressing spawn index uncertainty.
 First, quantifying uncertainty could identify parameters to target with future research.
 Potential analyses to quantify spawn index uncertainty include:
 \begin{enumerate}
-\item Investigate factors that influence fecundity and sex ratios (\autoref{eqECF}),
+\item Check for non-stationarity of fecundity and sex ratios (\autoref{eqECF}),
 \item Quantify and report variability in estimated prediction model parameters and equations (e.g., \autoref{eqSurfDensJS}),
 \item Bootstrap observed input data \citep[see][]{Schweigert1993b}, and
 \item Conduct sensitivity analyses.
@@ -1560,14 +1562,14 @@ Second, acknowledging uncertainty can reduce another source of uncertainty: inad
 Finally, acknowledging uncertainty will increase transparency, and enable users to assess potential impacts to \fishName{} stock assessments in a management strategy evaluation (MSE) approach \citeyearpar[e.g., DFO][]{DFO2019}.
 Addressing data and model uncertainty is a required component of MSE approaches \citep{PuntEtal2016}.
 
-Quantifying uncertainty may also identify options to increase survey program efficiency, in terms of data precision and accuracy.
+Quantifying uncertainty may also identify options to increase survey program efficiency by targeting data that have the largest impact on spawn index accuracy.
 Sampling surveys trade off precision of estimated quantities versus survey effort or cost.
 Ideally, reducing survey effort does not result in biased target variable estimates.
 Therefore, understanding this trade-off is important if, for example, budget reductions cause reduced survey effort.
 Potential strategies to improve spawn survey efficiency include:
 \begin{enumerate}
 \item Conduct underwater surveys for major spawns in core areas, and surface surveys for other spawns,
-\item Quantify the precision and accuracy of spawn width estimates (e.g., \hyperref[secWidthAdjust]{appendix \ref{secWidthSurface}}),
+\item Quantify the precision and accuracy of spawn width estimates (e.g., \hyperref[secWidthSurface]{appendix \ref{secWidthSurface}}),
 \item Review transect and quadrat spacing \citep[\autoref{secStat}; see][]{Schweigert1993b},
 \item Review egg prediction model accuracy (\autoref{eqECF}),
 \item Review temporal stability of egg layer estimates, and
