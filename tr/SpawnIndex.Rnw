@@ -1563,7 +1563,7 @@ Finally, acknowledging uncertainty will increase transparency, and enable users 
 Addressing data and model uncertainty is a required component of MSE approaches \citep{PuntEtal2016}.
 
 Quantifying uncertainty may also identify options to increase survey program efficiency by targeting data that have the largest impact on spawn index accuracy.
-Sampling surveys trade off precision of estimated quantities versus survey effort or cost.
+In addition, there is a trade-off between precision of estimated quantities versus survey effort or cost.
 Ideally, reducing survey effort does not result in biased target variable estimates.
 Therefore, understanding this trade-off is important if, for example, budget reductions cause reduced survey effort.
 Potential strategies to improve spawn survey efficiency include:
