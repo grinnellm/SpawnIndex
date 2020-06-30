@@ -1484,7 +1484,7 @@ Although SOK fisheries do not directly remove spawning \fishName{}, they do remo
 Note that closed-pond operations also cause incidental mortality to spawning \fishName{} \citep{ShieldsEtal1985}, but we do not address this issue here.
 Thus, SOK fisheries present an issue in terms of their impact to the population, and accounting in stock assessment and monitoring \citep{SchweigertEtal2018}.
 Although \fishName{} stock assessments do not account for eggs removed by SOK fisheries at this time, there are a few options to account for the impact of SOK harvest.
-The most direct is to estimate the quantity of eggs removed from the population, and treat them as though they would have spawned and contributed to spawning biomass.
+The most direct is to estimate the quantity of eggs removed from the population.
 
 \cite{ShieldsEtal1985} collected information on the relationship between the number of egg layers in SOK product, and proportion of product weight that consists of eggs and kelp.
 They determined that kelp represents an average of 12\% of the total product weight.
