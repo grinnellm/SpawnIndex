@@ -1701,7 +1701,7 @@ In 2013, Fisheries and Oceans Canada (DFO) staff realized that they were inadver
 The issue was caused by the assumed accuracy of transect lines used by spawn surveyors to measure spawn width.
 Spawn surveyors determine spawn width by placing transects perpendicular to the shore.
 Surveyors use weighted lead lines to ensure that lines rest on the substrate;
-these lines are marked in $1\,\text{m}$ increments, and are standardized to $20\,\text{m}$ segments.
+these lines are marked in $1\,\text{m}$ increments, and are standardized to $20\,\text{m}$ segments (i.e., one chain).
 Segments refer to individual sections of line, which may be linked together to make complete transects.
 
 Sometime in the mid- to late-1990s, spawn surveyors observed that the $20\,\text{m}$ segments shrank by approximately $1\,\text{m}$ during the first season of use, and continued to shrink over time.
