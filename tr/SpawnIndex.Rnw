@@ -679,7 +679,7 @@ However, this proved to be logistically difficult because
 neither the spawn length or width is known a priori, and
 divers had difficulty making the necessary calculations underwater.
 Nevertheless, data from these studies were used to determine a sampling protocol
-to estimate mean egg density with a standard error of no more than 25\%.
+to estimate mean egg density with a standard error of at most 25\%.
 The results indicated that the sampling required to achieve this level of precision included
 surveying three transects per kilometre of spawn length, and
 sampling at least five quadrats per transect (i.e., spawn width).
@@ -811,6 +811,7 @@ In addition to recording the number of egg layers, surveyors sometimes recorded 
 We have converted spawn intensity observations in the \fishName{} spawn survey database from five to nine categories for spawns that used the five category scale between \Sexpr{min(yrRange)} and \Sexpr{cat9Yr-1}
 Thus, spawn data used for stock assessments is represented either by a nine category intensity scale, or a direct estimate of the number of egg layers.
 
+% TODO: Add details re when, where, number of samples, uncertainty, etc.
 <<Intensity>>=
 # Caption
 tabCap <- paste("Spawn intensity categories, description, and number of egg layers for \\fishName{} surface spawn surveys for the periods ", firstYr, " to ", cat9Yr - 1, ", and ", cat9Yr, " to ", directEggYr - 1, " \\citep{HayKronlund1987, SchweigertStocker1988}.", sep = "")
@@ -891,7 +892,7 @@ Legend: kilograms (kg), tonnes (t).}
 Name & Description & Value or unit & Reference \\
 \midrule
 $\omega$ & Female fecundity & \Sexpr{format(pars$conversion$omega, big.mark=",", scientific=FALSE)}$~\text{eggs} \cdot \text{kg}^{-1}$ & \cite{Hay1985, HayBrett1988} \\
-$\phi^f$ & Proportion female & \Sexpr{pars$conversion$phi} & \cite{Hay1985, HayBrett1988} \\
+$\phi^f$ & Proportion female & \Sexpr{pars$conversion$phi} & \\
 $\theta$ & Egg conversion factor & $\text{eggs} \cdot 10^8 \cdot \text{t}^{-1}$ & \\
 \bottomrule
 \end{tabulary}
@@ -1322,6 +1323,7 @@ The total algae egg density for quadrat $q$ in transect $t$ and spawn $s$ is
 where $\rho^v_{vqts}$ is egg density on algae $v$ from \autoref{eqUnderDensAlgVQTS}, and
 $\rho^v_{qts}$ is in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$.
 
+% TODO: Add details re when, where, number of samples, uncertainty, etc.
 <<AlgaeCoefs>>=
 # Caption
 tabCap <- "Algae (aka vegetation) types $v$ and coefficients $C$ for \\fishName{} understory spawn surveys \\citep{Schweigert2005}."
@@ -1533,7 +1535,7 @@ $B$ & Spawning biomass & t & \\
 \section{SOURCES OF UNCERTAINTY}\label{secUncertain}
 
 Like all biological models, spawn index calculations are affected by various potential sources of uncertainty including natural variability, observation error (e.g., bias, precision), measurement error, and model structural complexity \citep{LinkEtal2012}.
-Some examples illustrate these sources of uncertainty: % (\autoref{tabUncertainty}).
+Some examples illustrate these sources of uncertainty (\autoref{tabUncertainty}):
 \begin{enumerate}
 \item Natural variability could affect \fishName{} fecundity, and the sex ratio of spawning \fishName{} (\autoref{eqECF}).
 Fecundity could be influenced by biological processes such as the observed non-stationarity of weight-at-age \citeyearpar[DFO][]{DFO2020}, or a truncated age distribution caused by selective fishing \citep{BrunelPiet2013}.
@@ -1548,6 +1550,27 @@ Despite these assumptions and potential sources of uncertainty, the spawn index 
 Reporting the spawn index without uncertainty may perpetuate the misconception that the spawn index is observed data, whereas it is derived data with assumptions and uncertainties.
 An additional issue for stock assessments is that models will interpret spawn index data as being more certain than it is,
 and estimates of stock status and future prognosis will be artificially precise.
+
+% TODO: Add details re when, where, number of samples, uncertainty, etc.
+\begin{landscape}
+\begin{table}
+\centering
+\caption[Details for parameters and models used in \fishName{} spawn index calculations]
+{Details for parameters and models used in \fishName{} spawn index calculations.
+Legend: standard error (SE), Strait of Georgia (SoG), West Coast of Vancouver Island (WCVI), North Coast (NC), sample size $n$, standard deviation (SD), and equation (Eq).}
+\begin{tabulary}{\linewidth}{LLLLL}
+\toprule
+Parameter or model & Description & Study details & Uncertainty & Reference \\
+\midrule
+$f^t$, $f^q$ & Transect and quadrat sampling fractions, respectively (Eq \ref{eqStatSigmaS}). & SoG in 1981 and 1983; WCVI in 1982. & Mean egg density $\text{SE}\leq 25$\% & \cite{SchweigertEtal1985, SchweigertEtal1990} \\
+$\omega$ & Female fecundity (Eq \ref{eqECF}). & NC, WCVI, and SoG in 1974 and 1980 ($n$ from 290 to 1,715; total $n=$ 4,935); California in 1975 ($n=37$). & SD from 16.9 to 53.5 & \cite{Hay1985, HayBrett1988} \\
+$\phi^f$ & Proportion female (Eq \ref{eqECF}). & & & \\
+Eq \ref{eqSurfDensJS} & Surface egg density & ($n=$ 5,111). & & \cite{SchweigertEtal1997} \\
+\bottomrule
+\end{tabulary}
+\label{tabUncertainty}
+\end{table}
+\end{landscape}
 
 There are several potential benefits to addressing spawn index uncertainty.
 First, quantifying uncertainty could identify parameters to target with future research.
@@ -1577,7 +1600,7 @@ Even with a stable budget, there is a trade-off between high survey effort in so
 
 \section{FUTURE RESEARCH}\label{secFuture}
 
-Many of the parameters and prediction models used to calculate the spawn index are dated;
+Many of the parameters and prediction models used to calculate the spawn index are dated (\autoref{tabUncertainty});
 these analyses could be checked with new information, and updated if required.
 Parameters include $\omega$, $\phi^f$, $\nu$, $\upsilon$, and $M$.
 Prediction models include \autoref{eqSurfDensJS}, \autoref{eqMacroEggsPerPlantS}, \autoref{eqUnderDensSubQTS}, and \autoref{eqUnderDensAlgVQTS}.
@@ -1718,9 +1741,9 @@ DFO staff re-measured lead line increments in about 2005, and found that they st
 In 2013, spawn surveyors observed that lead line increments were consistently $1.15\,\text{m}$, and no longer appeared to be shrinking.
 Following this observation, DFO staff re-measured additional lead lines and found that lead lines were made up of a combination of $1.0\,\text{m}$ and $1.15\,\text{m}$ increments.
 The combination of observed increment lengths is explained by the lifespan of lead lines:
-lead lines are replaced every 5 to 10 years, with some segments being replaced more frequently
-(i.e., inner segments are replaced more frequently than seaward segments, and
-segments in some SARs are replaced more frequently than in other SARs).
+lead lines are replaced every 5 to 10 years, with some segments being replaced more frequently.
+For example, inner segments are replaced more frequently than seaward segments, and
+segments in some SARs are replaced more frequently than in other SARs.
 DFO staff believe that a change in lead line manufacturing prevents new lead lines from shrinking.
 
 The earliest written instructions that describe the modified protocol of marking $1.15\,\text{m}$ increments is from \Sexpr{min(underWidthFac$Year)}, and this protocol was used until 2013.
