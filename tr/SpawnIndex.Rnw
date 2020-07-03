@@ -801,7 +801,7 @@ surveys since \Sexpr{newSurvYr} when dive surveys are not possible.
 Data from surface surveys are combined with data from dive surveys (i.e., Macrocystis, understory) to produce the total spawn index (\autoref{secTotal}).
 
 \subsubsection{SPAWN INTENSITY CATEGORIES}\label{secIntensity}
-% TODO: Automate these numbers
+
 From \Sexpr{firstYr} to \Sexpr{directEggYr-1}, surface spawn surveyors categorized spawn by subjective `intensity' categories instead of directly estimating the number of egg layers (\autoref{tab:Intensity}).
 From \Sexpr{firstYr} to \Sexpr{cat9Yr-1} there were five intensity categories described as very light, light, medium, heavy, and very heavy (numbered 1 to 5, respectively).
 Starting in \Sexpr{cat9Yr} there were nine intensity categories;
@@ -1581,7 +1581,7 @@ Many of the parameters and prediction models used to calculate the spawn index a
 these analyses could be checked with new information, and updated if required.
 Parameters include $\omega$, $\phi^f$, $\nu$, $\upsilon$, and $M$.
 Prediction models include \autoref{eqSurfDensJS}, \autoref{eqMacroEggsPerPlantS}, \autoref{eqUnderDensSubQTS}, and \autoref{eqUnderDensAlgVQTS}.
-In addition to work mentioned above and in the previous section, other future work could include:
+In addition to work mentioned above and in the previous section, other potential research includes:
 \begin{enumerate}
 \item Review the assumed statistical framework,
 \item Check accuracy and temporal stability of fecundity and sex ratios (\autoref{eqECF}),
@@ -1724,7 +1724,7 @@ segments in some SARs are replaced more frequently than in other SARs).
 DFO staff believe that a change in lead line manufacturing prevents new lead lines from shrinking.
 
 The earliest written instructions that describe the modified protocol of marking $1.15\,\text{m}$ increments is from \Sexpr{min(underWidthFac$Year)}, and this protocol was used until 2013.
-Note that some SARs continued to use old lead lines in \Sexpr{max(underWidthFac$Year)}.
+Note that some remote SARs continued to use old lead lines in \Sexpr{max(underWidthFac$Year)}.
 The practice of annually re-measuring lead line increments ceased around 2005;
 thus we are unable to determine when lead lines ceased shrinking.
 Given the observations summarized above, we adjust spawn width estimates based on written instructions for the marking protocol in \Sexpr{min(underWidthFac$Year)}.
@@ -1741,7 +1741,7 @@ where $W^\prime_{txsnry}$ is the observed spawn width for transect $t$ in spawn 
 $\tau_{ry}$ is the spawn width correction factor for SAR $r$ and year $y$ (\autoref{tab:WidthFac}), and
 $W_{txsnry}$ is the corrected understory spawn width in metres (\autoref{tabNotationWidth}).
 Instead of updating the database permanently, we adjust spawn width in the \textbf{R} package script to be transparent, and to prevent mismatches between the original data sheets and databases.
-It is now standard practice to re-measure transect segments annually to ensure that this issue does not occur egain.
+It is now standard practice to re-measure transect segments annually to ensure that this issue does not reoccur due to another change in lead line manufacturing.
 
 <<WidthFac>>=
 # Caption
@@ -1808,7 +1808,7 @@ These updates have been omitted, and affected the following records:
 \end{enumerate}
 In the first three cases, $E_{js}$ was updated using intensity categories (\autoref{tab:Intensity});
 in the last two cases, $E_{js}$ was updated using historical averages.
-These changes had negligible effects on spawn index values.
+These changes had negligible effects on the spawn index.
 
 % End appendices
 \end{appendices}
