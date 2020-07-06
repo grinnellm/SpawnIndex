@@ -340,7 +340,7 @@ To develop spawn indices, Locations are nested within Sections (\autoref{figRegi
 There are \Sexpr{Num2Word(nrow(regions))} SARs in BC,
 which we categorize as either `major' or `minor' (\autoref{figBC}; \citealt{HaistRosenfeld1988}).
 The terms `major' and `minor' describe relative differences in geographic and biomass scales.
-The major SARs are Haida Gwaii (formerly known as Queen Charlotte Islands), Prince Rupert District, Central Coast, Strait of Georgia, and West Coast of Vancouver Island.
+The major SARs are Haida Gwaii (formerly known as Queen Charlotte Islands), Prince Rupert District (formerly known as North Coast), Central Coast, Strait of Georgia, and West Coast of Vancouver Island.
 The minor SARs are
 \Sexpr{PasteNicely(regions$RegionName[!regions$Major])};
 we do not develop spawn indices for minor SARs.
@@ -889,7 +889,7 @@ Although \fishName{} egg production is affected by environmental variability and
 Legend: kilograms (kg), tonnes (t).}
 \begin{tabulary}{\linewidth}{lLLL}
 \toprule
-Name & Description & Value or unit & Reference \\
+Name & Description & Value or unit & References \\
 \midrule
 $\omega$ & Female fecundity & \Sexpr{format(pars$conversion$omega, big.mark=",", scientific=FALSE)}$~\text{eggs} \cdot \text{kg}^{-1}$ & \cite{Hay1985, HayBrett1988} \\
 $\phi^f$ & Proportion female & \Sexpr{pars$conversion$phi} & \\
@@ -917,7 +917,7 @@ Occasionally, we use field data sheets to fill-in missing egg layer information 
 Legend: metres (m), tonnes (t).}
 \begin{tabulary}{\linewidth}{lLLL}
 \toprule
-Name & Description & Value or unit & Reference \\
+Name & Description & Value or unit & References \\
 \midrule
 $E^\prime$ & Number of egg layers & $> 0$ & \\
 $\phi^b$ & Proportion of substrate covered in eggs & $(0,1]$ & \\
@@ -1034,7 +1034,7 @@ Recall that divers enumerate every Macrocystis plant within the transect swath.
 Legend: metres (m), tonnes (t).}
 \begin{tabulary}{\linewidth}{lLLL}
 \toprule
-Name & Description & Value or unit & Reference \\
+Name & Description & Value or unit & References \\
 \midrule
 $K$ & Number of stalks & $> 0$ & \\
 $W$ & Spawn width & m & \\
@@ -1229,7 +1229,7 @@ Recall that divers collect understory observations in quadrats, which are distri
 Legend: metres (m), tonnes (t).}
 \begin{tabulary}{\linewidth}{lLLL}
 \toprule
-Name & Description & Value or unit & Reference \\
+Name & Description & Value or unit & References \\
 \midrule
 $E^b$ & Number of substrate egg layers & $> 0$ & \\
 $\phi^b$ & Proportion of substrate covered in eggs & $(0,1]$ & \\
@@ -1520,7 +1520,7 @@ and $B_{ry}$ is estimated spawning biomass removed by SOK fisheries in SAR $r$ a
 Legend: kilograms (kg), tonnes (t).}
 \begin{tabulary}{\linewidth}{lLLL}
 \toprule
-Name & Description & Value or unit & Reference \\
+Name & Description & Value or unit & References \\
 \midrule
 $H$ & Weight of SOK harvest & kg & \\
 $\nu$ & Proportion of SOK product that is eggs, not kelp & \Sexpr{pars$SOK$nu} & \cite{ShieldsEtal1985} \\
@@ -1552,25 +1552,45 @@ An additional issue for stock assessments is that models will interpret spawn in
 and estimates of stock status and future prognosis will be artificially precise.
 
 % TODO: Add details re when, where, number of samples, uncertainty, etc.
-\begin{landscape}
-\begin{table}
-\centering
+% \begin{landscape}
+\begin{longtable}{lllll}
 \caption[Details for parameters and models used in \fishName{} spawn index calculations]
 {Details for parameters and models used in \fishName{} spawn index calculations.
-Legend: standard error (SE), Strait of Georgia (SoG), West Coast of Vancouver Island (WCVI), North Coast (NC), sample size $n$, standard deviation (SD), and equation (Eq).}
-\begin{tabulary}{\linewidth}{LLLLL}
+Legend:
+Haida Gwaii (HG),
+Prince Rupert District (PRD),
+Central Coast (CC),
+Strait of Georgia (SoG),
+West Coast of Vancouver Island (WCVI),
+sample size $n$,
+standard error (SE),
+standard deviation (SD), and
+equation (Eq).}
 \toprule
-Parameter or model & Description & Study details & Uncertainty & Reference \\
+Parameters & Description & Study details & Uncertainty & References \\
 \midrule
-$f^t$, $f^q$ & Transect and quadrat sampling fractions, respectively (Eq \ref{eqStatSigmaS}). & SoG in 1981 and 1983; WCVI in 1982. & Mean egg density $\text{SE}\leq 25$\% & \cite{SchweigertEtal1985, SchweigertEtal1990} \\
-$\omega$ & Female fecundity (Eq \ref{eqECF}). & NC, WCVI, and SoG in 1974 and 1980 ($n$ from 290 to 1,715; total $n=$ 4,935); California in 1975 ($n=37$). & SD from 16.9 to 53.5 & \cite{Hay1985, HayBrett1988} \\
-$\phi^f$ & Proportion female (Eq \ref{eqECF}). & & & \\
-Eq \ref{eqSurfDensJS} & Surface egg density & ($n=$ 5,111). & & \cite{SchweigertEtal1997} \\
+\endfirsthead
+\toprule
+Parameters & Description & Study details & Uncertainty & References \\
+\midrule
+\endhead
 \bottomrule
-\end{tabulary}
+\endfoot
+\bottomrule
+\endlastfoot
+$f^t$, $f^q$ & Transect and quadrat sampling fractions, respectively (Eq \ref{eqStatSigmaS}). & SoG in 1981 and 1983; WCVI in 1982. & Mean egg density $\text{SE}\leq 25$\%. & \cite{SchweigertEtal1985, SchweigertEtal1990} \\
+$\omega$ & Female fecundity (Eq \ref{eqECF}). & NC, WCVI, and SoG in 1974 and 1980 ($n$ ranges from 290 to 1,715; total $n=$ 4,935); California in 1975 ($n=37$). & SD ranges from 16.9 to 53.5. & \cite{Hay1985, HayBrett1988} \\
+$\phi^f$ & Proportion female (Eq \ref{eqECF}). & & & \\
+$\alpha$, $\beta$ & Parameters for surface egg density (Eq \ref{eqSurfDensJS}). & Coastwide from 1976 to 1987 ($n=$ 5,111). & & \cite{SchweigertEtal1997} \\
+$\beta$, $\gamma$, $\delta$, $\epsilon$ & Parameters for number of eggs per Macrocystis plant (Eq \ref{eqMacroEggsPerPlantS}). & HG in 1981 and 1987 ($n=$ 112); PRD in 1986 ($n=$ 15); CC in 1986 ($n=$ 5); WCVI in 1985 and 1986 ($n=$ 35). & Model accounts for 78\% of variation in eggs per plant. & \cite{HaegeleSchweigert1990} \\
+$\alpha$ & Parameter for substrate egg density (Eq \ref{eqUnderDensSubQTS}). & SoG in 1976, 1977, and 1978; PRD, CC, and WCVI in 1977. & & \cite{HaegeleHumphreys1976, HaegeleHumphreys1978a, HaegeleHumphreys1978b, HaegeleEtal1979} \\
+$\beta$, $\gamma$, $\delta$ & Parameters for algae egg density (Eq \ref{eqUnderDensAlgVQTS}). & Coastwide from 1976 to 1987 ($n=$ 5,111). & Model accounts for 40\% of variation in egg density. & \cite{Schweigert2005} \\
+$\nu$ & Proportion of SOK product that is eggs, not kelp & & & \cite{ShieldsEtal1985} \\
+$\upsilon$ & Proportion of SOK product that is eggs after brining & & & \cite{WhyteEnglar1977} \\
+$M$ & Average mass of a fertilized egg & & & \cite{HayMiller1982} \\
 \label{tabUncertainty}
-\end{table}
-\end{landscape}
+\end{longtable}
+% \end{landscape}
 
 There are several potential benefits to addressing spawn index uncertainty.
 First, quantifying uncertainty could identify parameters to target with future research.
