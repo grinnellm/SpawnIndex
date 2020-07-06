@@ -1,3 +1,4 @@
+% Encoding: UTF-8
 
 @TechReport{SchweigertEtal1997,
   author      = {Jake F. Schweigert and Charles Fort and L. Hamer},
@@ -513,7 +514,6 @@ Alternative harvest methods such as "open ponds" have several advantages over th
 
 @TechReport{HaegeleHumphreys1978b,
   author      = {C W Haegele and R D Humphreys},
-  date        = {1978},
   institution = {Fisheries and Marine Service},
   title       = {Data record for 1978 herring spawn studies},
   number      = {107},
@@ -526,7 +526,6 @@ Alternative harvest methods such as "open ponds" have several advantages over th
 
 @TechReport{HaegeleHumphreys1976,
   author      = {C W Haegele and R D Humphreys},
-  date        = {1976},
   institution = {Fisheries and Marine Service},
   title       = {Data record for 1976 shoreline vegetation and herring spawn surveys},
   number      = {15},
@@ -539,7 +538,6 @@ Alternative harvest methods such as "open ponds" have several advantages over th
 
 @TechReport{HaegeleHumphreys1978a,
   author      = {C W Haegele and R D Humphreys},
-  date        = {1978},
   institution = {Fisheries and Marine Service},
   title       = {Data record for 1977 herring spawn studies},
   number      = {75},
@@ -549,3 +547,5 @@ Alternative harvest methods such as "open ponds" have several advantages over th
   file        = {:Articles/HaegeleHumphreys1978 - Data record for 1977 herring spawn samples.pdf:PDF},
   groups      = {SpawnIndex},
 }
+
+@Comment{jabref-meta: databaseType:bibtex;}
