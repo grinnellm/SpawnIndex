@@ -1552,8 +1552,8 @@ An additional issue for stock assessments is that models will interpret spawn in
 and estimates of stock status and future prognosis will be artificially precise.
 
 \begin{landscape}
-\begin{longtable}{p{1.75cm}p{5cm}p{5cm}p{3cm}p{3cm}}
-\caption{Details for parameters and models used in \fishName{} spawn index calculations. Legend: Haida Gwaii (HG), Prince Rupert District (PRD), Central Coast (CC), Strait of Georgia (SoG), West Coast of Vancouver Island (WCVI), sample size $n$, standard error (SE), standard deviation (SD), spawn-on-kelp (SOK), and equation (Eq).}
+\begin{longtable}{P{1.75cm}P{5cm}P{5cm}P{3cm}P{3cm}}
+% \caption{Details for parameters and models used in \fishName{} spawn index calculations. Legend: Haida Gwaii (HG), Prince Rupert District (PRD), Central Coast (CC), Strait of Georgia (SoG), West Coast of Vancouver Island (WCVI), sample size $n$, standard error (SE), standard deviation (SD), spawn-on-kelp (SOK), and equation (Eq).}
 % [Details for parameters and models used in \fishName{} spawn index calculations]
 \toprule
 Parameters & Description & Study details & Uncertainty & References \\
