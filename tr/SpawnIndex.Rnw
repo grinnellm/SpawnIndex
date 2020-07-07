@@ -814,7 +814,7 @@ Thus, spawn data used for stock assessments is represented either by a nine cate
 % TODO: Add details re when, where, number of samples, uncertainty, etc.
 <<Intensity>>=
 # Caption
-tabCap <- paste("Spawn intensity categories, description, and number of egg layers for \\fishName{} surface spawn surveys for the periods ", firstYr, " to ", cat9Yr - 1, ", and ", cat9Yr, " to ", directEggYr - 1, " \\citep{HayKronlund1987, SchweigertStocker1988}. Uncertainty for number of egg layers is not available.", sep = "")
+tabCap <- paste("Spawn intensity categories, description, and number of egg layers for \\fishName{} surface spawn surveys for the periods ", firstYr, " to ", cat9Yr - 1, ", and ", cat9Yr, " to ", directEggYr - 1, " \\citep{HayKronlund1987, SchweigertStocker1988}. Uncertainty in number of egg layers is not available.", sep = "")
 # Short caption
 tabSCap <- "Spawn intensity categories and number of egg layers for \\fishName{} surface spawn surveys"
 # Column name (5 categories)
@@ -1326,7 +1326,7 @@ $\rho^v_{qts}$ is in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$.
 % TODO: Add details re when, where, number of samples, uncertainty, etc.
 <<AlgaeCoefs>>=
 # Caption
-tabCap <- "Algae (aka vegetation) types $v$ and coefficients $C$ for \\fishName{} understory spawn surveys \\citep{Schweigert2005}. Uncertainty for algae coefficients is not available."
+tabCap <- "Algae (aka vegetation) types $v$ and coefficients $C$ for \\fishName{} understory spawn surveys \\citep{Schweigert2005}. Uncertainty in algae coefficients is not available."
 # Short caption
 tabSCap <- "Algae types and coefficients for \\fishName{} understory spawn surveys"
 # Format the table
@@ -1623,12 +1623,13 @@ Parameters & Description & Study details & Uncertainty & References \\
 \bottomrule
 \endlastfoot
 $f^t$, $f^q$ & Parameters for statistical framework (Eq \ref{eqStatSigmaS}). & SoG in 1981 and 1983; WCVI in 1982. & Mean egg density $\text{SE}\leq 25$\%. & \cite{SchweigertEtal1985, SchweigertEtal1990} \\
+Intensity & Intensity categories and number of egg layers (\autoref{tab:Intensity}). & NA & NA & \cite{HayKronlund1987, SchweigertStocker1988} \\
 $\omega$ & Female fecundity (Eq \ref{eqECF}). & NC, WCVI, and SoG in 1974 ($n=$ 3,293 fish) and 1980 ($n=$ 1,642 fish); California in 1975 ($n=37$ fish). & SD ranges from 16.9 to 53.5. & \cite{Hay1985, HayBrett1988} \\
 $\phi^f$ & Proportion female (Eq \ref{eqECF}). & NA & NA & NA \\
 $\alpha$, $\beta$ & Parameters for surface egg density model (Eq \ref{eqSurfDensJS}). & Coastwide from 1976 to 1987 ($n=$ 5,111 samples). & NA & \cite{SchweigertEtal1997} \\
 $\beta$, $\gamma$, $\delta$, $\epsilon$ & Parameters for number of eggs per Macrocystis plant model (Eq \ref{eqMacroEggsPerPlantS}). & HG in 1981 and 1987 ($n=112$ plants); PRD in 1986 ($n=15$ plants); CC in 1986 ($n=5$ plants); WCVI in 1985 and 1986 ($n=35$ plants). & Model accounts for 78\% of variation in eggs per plant. & \cite{HaegeleSchweigert1990} \\
 $\alpha$ & Parameter for substrate egg density model (Eq \ref{eqUnderDensSubQTS}). & SoG in 1976, 1977, and 1978; PRD, CC, and WCVI in 1977. & NA & \cite{HaegeleHumphreys1976, HaegeleHumphreys1978a, HaegeleHumphreys1978b, HaegeleEtal1979} \\
-$\beta$, $\gamma$, $\delta$ & Parameters for algae egg density model (Eq \ref{eqUnderDensAlgVQTS}). & Coastwide from 1976 to 1987 ($n=$ 5,111 samples). & Model accounts for 40\% of variation in egg density. & \cite{Schweigert2005} \\
+$\beta$, $\gamma$, $\delta$, $C_v$ & Parameters for algae egg density model (Eq \ref{eqUnderDensAlgVQTS}, \autoref{tab:AlgaeCoefs}). & Coastwide from 1976 to 1987 ($n=$ 5,111 samples). & Model accounts for 40\% of variation in egg density. & \cite{Schweigert2005} \\
 $\nu$ & Proportion of SOK product that is eggs, not kelp (Eq \ref{eqSOKBioFRY}). & HG in 1983 ($n=10$ open ponds). & NA & \cite{ShieldsEtal1985} \\
 $\upsilon$ & Proportion of SOK product that is eggs after brining (Eq \ref{eqSOKBioFRY}). & SoG. & NA & \cite{WhyteEnglar1977} \\
 $M$ & Average mass of a fertilized egg (Eq \ref{eqSOKBioFRY}). & SoG in 1980 ($n=7$ samples). & $\text{SE}=3.4 \times 10^{-7}$. & \cite{HayMiller1982}
