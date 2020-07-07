@@ -1551,10 +1551,24 @@ Reporting the spawn index without uncertainty may perpetuate the misconception t
 An additional issue for stock assessments is that models will interpret spawn index data as being more certain than it is,
 and estimates of stock status and future prognosis will be artificially precise.
 
+There are several potential benefits to addressing spawn index uncertainty.
+First, quantifying uncertainty could identify parameters to target with future research.
+Potential analyses to quantify spawn index uncertainty include:
+\begin{enumerate}
+\item Quantify and report variability in estimated prediction model parameters and equations (e.g., \autoref{eqSurfDensJS}),
+\item Propagate uncertainty in parameters and prediction models through spawn index calculations,
+\item Incorporate the underlying data that informs the prediction model equations into spawn index calculations,
+\item Bootstrap observed input data \citep[see][]{Schweigert1993b}, and
+\item Conduct sensitivity analyses.
+\end{enumerate}
+Second, acknowledging uncertainty can reduce another source of uncertainty: inadequate communication among scientists, managers, and stakeholders, which can lead to misapplication of scientific advice \citep{LinkEtal2012}.
+Finally, acknowledging uncertainty will increase transparency, and enable users to assess potential impacts to \fishName{} stock assessments in a management strategy evaluation (MSE) approach \citeyearpar[e.g., DFO][]{DFO2019}.
+Addressing data and model uncertainty is a required component of MSE approaches \citep{PuntEtal2016}.
+
+\FloatBarrier
 \begin{landscape}
-\begin{longtable}{P{1.75cm}P{5cm}P{5cm}P{3cm}P{3cm}}
-% \caption{Details for parameters and models used in \fishName{} spawn index calculations. Legend: Haida Gwaii (HG), Prince Rupert District (PRD), Central Coast (CC), Strait of Georgia (SoG), West Coast of Vancouver Island (WCVI), sample size $n$, standard error (SE), standard deviation (SD), spawn-on-kelp (SOK), and equation (Eq).}
-% [Details for parameters and models used in \fishName{} spawn index calculations]
+\begin{longtable}{P{1.5cm}P{5cm}P{5cm}P{3cm}P{3cm}}
+\caption[Details for parameters and models used in \fishName{} spawn index calculations]{Details for parameters and models used in \fishName{} spawn index calculations. Legend: Haida Gwaii (HG), Prince Rupert District (PRD), Central Coast (CC), Strait of Georgia (SoG), West Coast of Vancouver Island (WCVI), sample size $n$, standard error (SE), standard deviation (SD), spawn-on-kelp (SOK), and equation (Eq).} \\
 \toprule
 Parameters & Description & Study details & Uncertainty & References \\
 \midrule
@@ -1569,32 +1583,21 @@ Parameters & Description & Study details & Uncertainty & References \\
 \bottomrule
 \endlastfoot
 $f^t$, $f^q$ & Parameters for statistical framework (Eq \ref{eqStatSigmaS}). & SoG in 1981 and 1983; WCVI in 1982. & Mean egg density $\text{SE}\leq 25$\%. & \cite{SchweigertEtal1985, SchweigertEtal1990} \\
-$\omega$ & Female fecundity (Eq \ref{eqECF}). & NC, WCVI, and SoG in 1974 and 1980 ($n$ ranges from 290 to 1,715; total $n=$ 4,935); California in 1975 ($n=37$). & SD ranges from 16.9 to 53.5. & \cite{Hay1985, HayBrett1988} \\
+$\omega$ & Female fecundity (Eq \ref{eqECF}). & NC, WCVI, and SoG in 1974 ($n=$ 3,293 fish) and 1980 ($n=$ 1,642 fish); California in 1975 ($n=37$ fish). & SD ranges from 16.9 to 53.5. & \cite{Hay1985, HayBrett1988} \\
 $\phi^f$ & Proportion female (Eq \ref{eqECF}). & & & \\
-$\alpha$, $\beta$ & Parameters for surface egg density model (Eq \ref{eqSurfDensJS}). & Coastwide from 1976 to 1987 ($n=$ 5,111). & & \cite{SchweigertEtal1997} \\
-$\beta$, $\gamma$, $\delta$, $\epsilon$ & Parameters for number of eggs per Macrocystis plant model (Eq \ref{eqMacroEggsPerPlantS}). & HG in 1981 and 1987 ($n=$ 112); PRD in 1986 ($n=$ 15); CC in 1986 ($n=$ 5); WCVI in 1985 and 1986 ($n=$ 35). & Model accounts for 78\% of variation in eggs per plant. & \cite{HaegeleSchweigert1990} \\
+$\alpha$, $\beta$ & Parameters for surface egg density model (Eq \ref{eqSurfDensJS}). & Coastwide from 1976 to 1987 ($n=$ 5,111 samples). & & \cite{SchweigertEtal1997} \\
+$\beta$, $\gamma$, $\delta$, $\epsilon$ & Parameters for number of eggs per Macrocystis plant model (Eq \ref{eqMacroEggsPerPlantS}). & HG in 1981 and 1987 ($n=112$ plants); PRD in 1986 ($n=15$ plants); CC in 1986 ($n=5$ plants); WCVI in 1985 and 1986 ($n=35$ plants). & Model accounts for 78\% of variation in eggs per plant. & \cite{HaegeleSchweigert1990} \\
 $\alpha$ & Parameter for substrate egg density model (Eq \ref{eqUnderDensSubQTS}). & SoG in 1976, 1977, and 1978; PRD, CC, and WCVI in 1977. & & \cite{HaegeleHumphreys1976, HaegeleHumphreys1978a, HaegeleHumphreys1978b, HaegeleEtal1979} \\
-$\beta$, $\gamma$, $\delta$ & Parameters for algae egg density model (Eq \ref{eqUnderDensAlgVQTS}). & Coastwide from 1976 to 1987 ($n=$ 5,111). & Model accounts for 40\% of variation in egg density. & \cite{Schweigert2005} \\
-$\nu$ & Proportion of SOK product that is eggs, not kelp. & & & \cite{ShieldsEtal1985} \\
-$\upsilon$ & Proportion of SOK product that is eggs after brining. & & & \cite{WhyteEnglar1977} \\
-$M$ & Average mass of a fertilized egg. & & & \cite{HayMiller1982}
+$\beta$, $\gamma$, $\delta$ & Parameters for algae egg density model (Eq \ref{eqUnderDensAlgVQTS}). & Coastwide from 1976 to 1987 ($n=$ 5,111 samples). & Model accounts for 40\% of variation in egg density. & \cite{Schweigert2005} \\
+$\nu$ & Proportion of SOK product that is eggs, not kelp (Eq \ref{eqSOKBioFRY}). & HG in 1983 ($n=10$ open ponds). & & \cite{ShieldsEtal1985} \\
+$\upsilon$ & Proportion of SOK product that is eggs after brining (Eq \ref{eqSOKBioFRY}). & SoG. & & \cite{WhyteEnglar1977} \\
+$M$ & Average mass of a fertilized egg (Eq \ref{eqSOKBioFRY}). & SoG in 1980 ($n=7$ samples). & $\text{SE}=3.4 \times 10^{-7}$. & \cite{HayMiller1982}
 \label{tabUncertainty}
 \end{longtable}
 \end{landscape}
-
-There are several potential benefits to addressing spawn index uncertainty.
-First, quantifying uncertainty could identify parameters to target with future research.
-Potential analyses to quantify spawn index uncertainty include:
-\begin{enumerate}
-\item Quantify and report variability in estimated prediction model parameters and equations (e.g., \autoref{eqSurfDensJS}),
-\item Propagate uncertainty in parameters and prediction models through spawn index calculations,
-\item Incorporate the underlying data that informs the prediction model equations into spawn index calculations,
-\item Bootstrap observed input data \citep[see][]{Schweigert1993b}, and
-\item Conduct sensitivity analyses.
-\end{enumerate}
-Second, acknowledging uncertainty can reduce another source of uncertainty: inadequate communication among scientists, managers, and stakeholders, which can lead to misapplication of scientific advice \citep{LinkEtal2012}.
-Finally, acknowledging uncertainty will increase transparency, and enable users to assess potential impacts to \fishName{} stock assessments in a management strategy evaluation (MSE) approach \citeyearpar[e.g., DFO][]{DFO2019}.
-Addressing data and model uncertainty is a required component of MSE approaches \citep{PuntEtal2016}.
+\FloatBarrier
+% Range from xx to xx\%.
+% HG ($n=$ 10 ponds) and PRD ($n=$ 8 ponds) in 1982;
 
 Quantifying uncertainty may also identify options to increase survey program efficiency by targeting data that have the largest impact on spawn index accuracy.
 In addition, there is a trade-off between precision of estimated quantities versus survey effort or cost.
