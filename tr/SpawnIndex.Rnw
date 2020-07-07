@@ -814,7 +814,7 @@ Thus, spawn data used for stock assessments is represented either by a nine cate
 % TODO: Add details re when, where, number of samples, uncertainty, etc.
 <<Intensity>>=
 # Caption
-tabCap <- paste("Spawn intensity categories, description, and number of egg layers for \\fishName{} surface spawn surveys for the periods ", firstYr, " to ", cat9Yr - 1, ", and ", cat9Yr, " to ", directEggYr - 1, " \\citep{HayKronlund1987, SchweigertStocker1988}.", sep = "")
+tabCap <- paste("Spawn intensity categories, description, and number of egg layers for \\fishName{} surface spawn surveys for the periods ", firstYr, " to ", cat9Yr - 1, ", and ", cat9Yr, " to ", directEggYr - 1, " \\citep{HayKronlund1987, SchweigertStocker1988}. Uncertainty for number of egg layers is not available.", sep = "")
 # Short caption
 tabSCap <- "Spawn intensity categories and number of egg layers for \\fishName{} surface spawn surveys"
 # Column name (5 categories)
@@ -1326,7 +1326,7 @@ $\rho^v_{qts}$ is in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$.
 % TODO: Add details re when, where, number of samples, uncertainty, etc.
 <<AlgaeCoefs>>=
 # Caption
-tabCap <- "Algae (aka vegetation) types $v$ and coefficients $C$ for \\fishName{} understory spawn surveys \\citep{Schweigert2005}."
+tabCap <- "Algae (aka vegetation) types $v$ and coefficients $C$ for \\fishName{} understory spawn surveys \\citep{Schweigert2005}. Uncertainty for algae coefficients is not available."
 # Short caption
 tabSCap <- "Algae types and coefficients for \\fishName{} understory spawn surveys"
 # Format the table
