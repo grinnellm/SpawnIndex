@@ -1535,7 +1535,7 @@ $B$ & Spawning biomass & t & \\
 \section{SOURCES OF UNCERTAINTY}\label{secUncertain}
 
 Like all biological models, spawn index calculations are affected by various potential sources of uncertainty including natural variability, observation error (e.g., bias, precision), measurement error, and model structural complexity \citep{LinkEtal2012}.
-Some examples illustrate these sources of uncertainty (\autoref{tabUncertainty}):
+Some examples illustrate these sources of uncertainty:
 \begin{enumerate}
 \item Natural variability could affect \fishName{} fecundity, and the sex ratio of spawning \fishName{} (\autoref{eqECF}).
 Fecundity could be influenced by biological processes such as the observed non-stationarity of weight-at-age \citeyearpar[DFO][]{DFO2020}, or a truncated age distribution caused by selective fishing \citep{BrunelPiet2013}.
@@ -1564,6 +1564,43 @@ Potential analyses to quantify spawn index uncertainty include:
 Second, acknowledging uncertainty can reduce another source of uncertainty: inadequate communication among scientists, managers, and stakeholders, which can lead to misapplication of scientific advice \citep{LinkEtal2012}.
 Finally, acknowledging uncertainty will increase transparency, and enable users to assess potential impacts to \fishName{} stock assessments in a management strategy evaluation (MSE) approach \citeyearpar[e.g., DFO][]{DFO2019}.
 Addressing data and model uncertainty is a required component of MSE approaches \citep{PuntEtal2016}.
+
+Quantifying uncertainty may also identify options to increase survey program efficiency by targeting data that have the largest impact on spawn index accuracy.
+In addition, there is a trade-off between precision of estimated quantities versus survey effort or cost.
+Ideally, reducing survey effort does not result in biased target variable estimates.
+Therefore, understanding this trade-off is important if, for example, budget reductions cause reduced survey effort.
+Potential strategies to improve spawn survey efficiency include:
+\begin{enumerate}
+\item Conduct underwater surveys for major spawns in core areas, and surface surveys for other spawns,
+\item Review transect and quadrat spacing \citep[\autoref{secStat}; see][]{Schweigert1993b}, and
+\item Conduct periodic versus annual surveys.
+\end{enumerate}
+Even with a stable budget, there is a trade-off between high survey effort in some areas, versus low survey effort or no information in other areas.
+
+\section{FUTURE RESEARCH}\label{secFuture}
+
+Many of the parameters and prediction models used to calculate the spawn index are dated (\autoref{tabUncertainty});
+these analyses could be checked with new information, and updated if required.
+In addition, some of these analyses have a limited number of samples, as well as limited spatial or temporal range, or both.
+Parameters include $\omega$, $\phi^f$, $\nu$, $\upsilon$, and $M$.
+Prediction models include \autoref{eqSurfDensJS}, \autoref{eqMacroEggsPerPlantS}, \autoref{eqUnderDensSubQTS}, and \autoref{eqUnderDensAlgVQTS}.
+In addition to work mentioned above and in the previous section, other potential research includes:
+\begin{enumerate}
+\item Review the assumed statistical framework,
+\item Check accuracy and temporal stability of fecundity and sex ratios (\autoref{eqECF}),
+\item Compare two methods to calculate the mean number of stalks per plant (\autoref{eqMacroStalksPerPlantS}): ratio of means (i.e., current method) versus mean of ratios,
+\item Investigate the assumptions that eggs on substrate and algae are:
+\begin{enumerate}
+\item Independent (\autoref{eqUnderDensQTS}), and
+\item Represented by the same length measurement (\autoref{secUnderS}), and
+\end{enumerate}
+\item Investigate surface spawn width adjustments (\autoref{secWidthSurface}):
+\begin{enumerate}
+\item Mean vs median width,
+\item Annual vs periodic updates, and
+\item Consistency of spawn width over time at a range of abundance levels.
+\end{enumerate}
+\end{enumerate}
 
 \FloatBarrier
 \begin{landscape}
@@ -1598,42 +1635,6 @@ $M$ & Average mass of a fertilized egg (Eq \ref{eqSOKBioFRY}). & SoG in 1980 ($n
 \FloatBarrier
 % Range from xx to xx\%.
 % HG ($n=$ 10 ponds) and PRD ($n=$ 8 ponds) in 1982;
-
-Quantifying uncertainty may also identify options to increase survey program efficiency by targeting data that have the largest impact on spawn index accuracy.
-In addition, there is a trade-off between precision of estimated quantities versus survey effort or cost.
-Ideally, reducing survey effort does not result in biased target variable estimates.
-Therefore, understanding this trade-off is important if, for example, budget reductions cause reduced survey effort.
-Potential strategies to improve spawn survey efficiency include:
-\begin{enumerate}
-\item Conduct underwater surveys for major spawns in core areas, and surface surveys for other spawns,
-\item Review transect and quadrat spacing \citep[\autoref{secStat}; see][]{Schweigert1993b}, and
-\item Conduct periodic versus annual surveys.
-\end{enumerate}
-Even with a stable budget, there is a trade-off between high survey effort in some areas, versus low survey effort or no information in other areas.
-
-\section{FUTURE RESEARCH}\label{secFuture}
-
-Many of the parameters and prediction models used to calculate the spawn index are dated (\autoref{tabUncertainty});
-these analyses could be checked with new information, and updated if required.
-Parameters include $\omega$, $\phi^f$, $\nu$, $\upsilon$, and $M$.
-Prediction models include \autoref{eqSurfDensJS}, \autoref{eqMacroEggsPerPlantS}, \autoref{eqUnderDensSubQTS}, and \autoref{eqUnderDensAlgVQTS}.
-In addition to work mentioned above and in the previous section, other potential research includes:
-\begin{enumerate}
-\item Review the assumed statistical framework,
-\item Check accuracy and temporal stability of fecundity and sex ratios (\autoref{eqECF}),
-\item Compare two methods to calculate the mean number of stalks per plant (\autoref{eqMacroStalksPerPlantS}): ratio of means (i.e., current method) versus mean of ratios,
-\item Investigate the assumptions that eggs on substrate and algae are:
-\begin{enumerate}
-\item Independent (\autoref{eqUnderDensQTS}), and
-\item Represented by the same length measurement (\autoref{secUnderS}), and
-\end{enumerate}
-\item Investigate surface spawn width adjustments (\autoref{secWidthSurface}):
-\begin{enumerate}
-\item Mean vs median width,
-\item Annual vs periodic updates, and
-\item Consistency of spawn width over time at a range of abundance levels.
-\end{enumerate}
-\end{enumerate}
 
 \section{CAVEATS}
 
