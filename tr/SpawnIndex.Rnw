@@ -1579,7 +1579,7 @@ Even with a stable budget, there is a trade-off between high survey effort in so
 
 \section{FUTURE RESEARCH}\label{secFuture}
 
-Many of the parameters and prediction models used to calculate the spawn index are dated (\autoref{tabUncertainty});
+Many of the analyses to quantify parameters and prediction models used in spawn index calculations are dated (\autoref{tabUncertainty});
 these analyses could be checked with new information, and updated if required.
 In addition, some of these analyses have a limited number of samples, as well as limited spatial or temporal range, or both.
 Parameters include $\omega$, $\phi^f$, $\nu$, $\upsilon$, and $M$.
