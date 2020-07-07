@@ -1579,9 +1579,9 @@ Even with a stable budget, there is a trade-off between high survey effort in so
 
 \section{FUTURE RESEARCH}\label{secFuture}
 
-Many of the analyses to quantify parameters and prediction models used in spawn index calculations are dated (\autoref{tabUncertainty});
+Many of the studies to quantify parameters and prediction models used in spawn index calculations are dated (\autoref{tabUncertainty});
 these analyses could be checked with new information, and updated if required.
-In addition, some of these analyses have a limited number of samples, as well as limited spatial or temporal range, or both.
+In addition, some of these studies had a limited number of samples, as well as limited spatial or temporal range, or both.
 Parameters include $\omega$, $\phi^f$, $\nu$, $\upsilon$, and $M$.
 Prediction models include \autoref{eqSurfDensJS}, \autoref{eqMacroEggsPerPlantS}, \autoref{eqUnderDensSubQTS}, and \autoref{eqUnderDensAlgVQTS}.
 In addition to work mentioned above and in the previous section, other potential research includes:
@@ -1605,13 +1605,16 @@ In addition to work mentioned above and in the previous section, other potential
 \FloatBarrier
 \begin{landscape}
 \begin{longtable}{P{1.5cm}P{5cm}P{5cm}P{3cm}P{3cm}}
-\caption[Details for parameters and models used in \fishName{} spawn index calculations]{Details for parameters and models used in \fishName{} spawn index calculations. Legend: Haida Gwaii (HG), Prince Rupert District (PRD), Central Coast (CC), Strait of Georgia (SoG), West Coast of Vancouver Island (WCVI), sample size $n$, standard error (SE), standard deviation (SD), spawn-on-kelp (SOK), and equation (Eq).} \\
+\caption[Details for parameters and models used in \fishName{} spawn index calculations]
+{Details for studies to quantify parameters and models used in \fishName{} spawn index calculations.
+Legend: Haida Gwaii (HG), Prince Rupert District (PRD), Central Coast (CC), Strait of Georgia (SoG), West Coast of Vancouver Island (WCVI),
+equation (Eq), sample size $n$, standard error (SE), standard deviation (SD), spawn-on-kelp (SOK), and not available (NA).} \\
 \toprule
 Parameters & Description & Study details & Uncertainty & References \\
 \midrule
 \endfirsthead
 \toprule
-\multicolumn{5}{c}{\emph{\tablename~\thetable~continued}}\\
+\multicolumn{5}{c}{\emph{\tablename~\thetable~continued}} \\
 Parameters & Description & Study details & Uncertainty & References \\
 \midrule
 \endhead
@@ -1621,13 +1624,13 @@ Parameters & Description & Study details & Uncertainty & References \\
 \endlastfoot
 $f^t$, $f^q$ & Parameters for statistical framework (Eq \ref{eqStatSigmaS}). & SoG in 1981 and 1983; WCVI in 1982. & Mean egg density $\text{SE}\leq 25$\%. & \cite{SchweigertEtal1985, SchweigertEtal1990} \\
 $\omega$ & Female fecundity (Eq \ref{eqECF}). & NC, WCVI, and SoG in 1974 ($n=$ 3,293 fish) and 1980 ($n=$ 1,642 fish); California in 1975 ($n=37$ fish). & SD ranges from 16.9 to 53.5. & \cite{Hay1985, HayBrett1988} \\
-$\phi^f$ & Proportion female (Eq \ref{eqECF}). & & & \\
-$\alpha$, $\beta$ & Parameters for surface egg density model (Eq \ref{eqSurfDensJS}). & Coastwide from 1976 to 1987 ($n=$ 5,111 samples). & & \cite{SchweigertEtal1997} \\
+$\phi^f$ & Proportion female (Eq \ref{eqECF}). & NA & NA & NA \\
+$\alpha$, $\beta$ & Parameters for surface egg density model (Eq \ref{eqSurfDensJS}). & Coastwide from 1976 to 1987 ($n=$ 5,111 samples). & NA & \cite{SchweigertEtal1997} \\
 $\beta$, $\gamma$, $\delta$, $\epsilon$ & Parameters for number of eggs per Macrocystis plant model (Eq \ref{eqMacroEggsPerPlantS}). & HG in 1981 and 1987 ($n=112$ plants); PRD in 1986 ($n=15$ plants); CC in 1986 ($n=5$ plants); WCVI in 1985 and 1986 ($n=35$ plants). & Model accounts for 78\% of variation in eggs per plant. & \cite{HaegeleSchweigert1990} \\
-$\alpha$ & Parameter for substrate egg density model (Eq \ref{eqUnderDensSubQTS}). & SoG in 1976, 1977, and 1978; PRD, CC, and WCVI in 1977. & & \cite{HaegeleHumphreys1976, HaegeleHumphreys1978a, HaegeleHumphreys1978b, HaegeleEtal1979} \\
+$\alpha$ & Parameter for substrate egg density model (Eq \ref{eqUnderDensSubQTS}). & SoG in 1976, 1977, and 1978; PRD, CC, and WCVI in 1977. & NA & \cite{HaegeleHumphreys1976, HaegeleHumphreys1978a, HaegeleHumphreys1978b, HaegeleEtal1979} \\
 $\beta$, $\gamma$, $\delta$ & Parameters for algae egg density model (Eq \ref{eqUnderDensAlgVQTS}). & Coastwide from 1976 to 1987 ($n=$ 5,111 samples). & Model accounts for 40\% of variation in egg density. & \cite{Schweigert2005} \\
-$\nu$ & Proportion of SOK product that is eggs, not kelp (Eq \ref{eqSOKBioFRY}). & HG in 1983 ($n=10$ open ponds). & & \cite{ShieldsEtal1985} \\
-$\upsilon$ & Proportion of SOK product that is eggs after brining (Eq \ref{eqSOKBioFRY}). & SoG. & & \cite{WhyteEnglar1977} \\
+$\nu$ & Proportion of SOK product that is eggs, not kelp (Eq \ref{eqSOKBioFRY}). & HG in 1983 ($n=10$ open ponds). & NA & \cite{ShieldsEtal1985} \\
+$\upsilon$ & Proportion of SOK product that is eggs after brining (Eq \ref{eqSOKBioFRY}). & SoG. & NA & \cite{WhyteEnglar1977} \\
 $M$ & Average mass of a fertilized egg (Eq \ref{eqSOKBioFRY}). & SoG in 1980 ($n=7$ samples). & $\text{SE}=3.4 \times 10^{-7}$. & \cite{HayMiller1982}
 \label{tabUncertainty}
 \end{longtable}
