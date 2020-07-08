@@ -1637,7 +1637,6 @@ $M$ & Average mass of a fertilized egg (Eq \ref{eqSOKBioFRY}). & SoG in 1980 ($n
 \end{longtable}
 \end{landscape}
 \FloatBarrier
-% Range from xx to xx\%.
 
 \section{CAVEATS}
 
