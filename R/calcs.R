@@ -30,9 +30,9 @@ CalcEggConversion <- function(omega = pars$conversion$omega,
 #' kilograms.
 #'
 #' @param SOK Numeric. Weight of spawn-on-kelp (SOK) harvest in kilograms.
-#' @param nu Numeric. Proportion of SOK product that is eggs, not kelp; from
+#' @param nu Numeric. Proportion of SOK product that is kelp; from
 #'   \code{\link{pars}}.
-#' @param upsilon Numeric. Proportion of SOK product that is eggs after brining;
+#' @param upsilon Numeric. Weight increase due to brining as a proportion;
 #'   from \code{\link{pars}}.
 #' @param M Numeric. Average weight in kilograms of a fertilized egg; from
 #'   \code{\link{pars}}.
@@ -52,7 +52,7 @@ CalcBiomassSOK <- function(SOK,
                            theta = CalcEggConversion()) {
   # Spawnin biomass in tonnes: (kg SOK * proportion eggs * proportion eggs) /
   # (kg per egg * eggs per tonne )
-  SB <- (SOK * nu * upsilon) / (M * theta)
+  SB <- (SOK * (1 - nu) * 1 / (1 + upsilon)) / (M * theta)
   # Return the spawning biomass
   return(SB)
 } # End CalcBiomassSOK
