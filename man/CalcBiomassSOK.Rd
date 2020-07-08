@@ -15,10 +15,10 @@ CalcBiomassSOK(
 \arguments{
 \item{SOK}{Numeric. Weight of spawn-on-kelp (SOK) harvest in kilograms.}
 
-\item{nu}{Numeric. Proportion of SOK product that is eggs, not kelp; from
+\item{nu}{Numeric. Proportion of SOK product that is kelp; from
 \code{\link{pars}}.}
 
-\item{upsilon}{Numeric. Proportion of SOK product that is eggs after brining;
+\item{upsilon}{Numeric. Weight increase due to brining as a proportion;
 from \code{\link{pars}}.}
 
 \item{M}{Numeric. Average weight in kilograms of a fertilized egg; from
