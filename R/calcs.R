@@ -32,8 +32,8 @@ CalcEggConversion <- function(omega = pars$conversion$omega,
 #' @param SOK Numeric. Weight of spawn-on-kelp (SOK) harvest in kilograms.
 #' @param nu Numeric. Proportion of SOK product that is kelp; from
 #'   \code{\link{pars}}.
-#' @param upsilon Numeric. Weight increase due to brining as a proportion;
-#'   from \code{\link{pars}}.
+#' @param upsilon Numeric. SOK product weight increase due to brining as a
+#'   proportion; from \code{\link{pars}}.
 #' @param M Numeric. Average weight in kilograms of a fertilized egg; from
 #'   \code{\link{pars}}.
 #' @param theta Numeric. Egg conversion factor (eggs to biomass); from

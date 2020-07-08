@@ -31,8 +31,8 @@
 #'   proportion of spawners that are female.}
 #' \item{SOK}{List with items:
 #'   \emph{nu} is the proportion of SOK product that is kelp
-#'   \insertCite{ShieldsEtal1985}{SpawnIndex}, \emph{upsilon} is the weight
-#'   increase due to brining as a proportion
+#'   \insertCite{ShieldsEtal1985}{SpawnIndex}, \emph{upsilon} is the SOK
+#'   product weight increase due to brining as a proportion
 #'   \insertCite{WhyteEnglar1977}{SpawnIndex}, and \emph{M} is the average
 #'   weight in kilograms of a fertilized egg
 #'   \insertCite{HayMiller1982}{SpawnIndex}.}

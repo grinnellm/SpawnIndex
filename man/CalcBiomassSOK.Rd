@@ -18,8 +18,8 @@ CalcBiomassSOK(
 \item{nu}{Numeric. Proportion of SOK product that is kelp; from
 \code{\link{pars}}.}
 
-\item{upsilon}{Numeric. Weight increase due to brining as a proportion;
-from \code{\link{pars}}.}
+\item{upsilon}{Numeric. SOK product weight increase due to brining as a
+proportion; from \code{\link{pars}}.}
 
 \item{M}{Numeric. Average weight in kilograms of a fertilized egg; from
 \code{\link{pars}}.}
