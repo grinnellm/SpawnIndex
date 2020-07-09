@@ -1492,7 +1492,7 @@ The most direct is to estimate the quantity of eggs removed from the population.
 They determined that kelp represents an average of 12\% of the total product weight.
 Since SOK product is universally brined at the time of harvest, it is necessary to also consider the uptake of salt by the eggs, which increases the overall product weight.
 However, there is uncertainty in the degree of brining that occurs prior to weighing the product.
-Nevertheless, \cite{WhyteEnglar1977} determined that following a 24-hour brining period, wet product weight increases by 13\% due to salt uptake.
+Nevertheless, \cite{WhyteEnglar1977} determined that wet product weight increases by approximately 13\% due to salt uptake during brining periods that ranged from 1.5 to 24 hours.
 By osmosis, brining would also draw some water from the eggs;
 unfortunately we are unable to account for osmosis at this time.
 The last factor to consider is the mean fertilized egg weight, which was determined by \cite{HayMiller1982} to be $2.38 \cdot 10^{-6}\,\text{kg}$.
@@ -1504,7 +1504,8 @@ B_{fry} = \frac{H_{fry} \left(1 - \nu\right) \frac{1}{1+\upsilon}} {M \theta}
 where $H_{fry}$ is the weight in kilograms of \fishName{} SOK harvest in fishery $f$, SAR $r$, and year $y$,
 $\nu$ is the proportion of SOK product that is kelp,
 $\upsilon$ is the SOK product weight increase due to brining as a proportion,
-$M$ is the average mass in kilograms of a fertilized egg, and
+$M$ is the average mass in kilograms of a fertilized egg,
+$\theta$ is the egg conversion factor from \autoref{eqECF}, and
 $B_{fry}$ is spawning biomass in tonnes for SOK fishery $f$ (\autoref{tabNotationSOK}).
 Then we aggregate spawning biomass by stock assessment region (SAR) $r$ and year $y$
 \begin{equation}\label{eqSOKBioRY}
