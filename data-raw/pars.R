@@ -1,7 +1,7 @@
 # Parameter values
 pars <- list(
   conversion = list(omega = 200000, phi = 0.5),
-  SOK = list(nu = 0.12, upsilon = 0.2, M = 2.38 * 10^-6),
+  SOK = list(nu = 0.12, upsilon = 0.132, M = 2.38 * 10^-6),
   surface = list(alpha = 14.698, beta = 212.218),
   macrocystis = list(
     beta = 0.073, gamma = 0.673, delta = 0.932, epsilon = 0.703
