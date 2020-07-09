@@ -679,7 +679,7 @@ However, this proved to be logistically difficult because
 neither the spawn length or width is known a priori, and
 divers had difficulty making the necessary calculations underwater.
 Nevertheless, data from these studies were used to determine a sampling protocol
-to estimate mean egg density with a standard error of at most 25\%.
+to estimate mean egg density with standard error of 25\% or less.
 The results indicated that the sampling required to achieve this level of precision included
 surveying three transects per kilometre of spawn length, and
 sampling at least five quadrats per transect (i.e., spawn width).
@@ -1607,8 +1607,9 @@ In addition to work mentioned above and in the previous section, other potential
 \begin{longtable}{P{1.5cm}P{5cm}P{5cm}P{3cm}P{3cm}}
 \caption[Details for parameters and models used in \fishName{} spawn index calculations]
 {Details for studies to quantify parameters and models used in \fishName{} spawn index calculations.
-Legend: Haida Gwaii (HG), Prince Rupert District (PRD), Central Coast (CC), Strait of Georgia (SoG), West Coast of Vancouver Island (WCVI),
-equation (Eq), sample size $n$, standard error (SE), standard deviation (SD), spawn-on-kelp (SOK), and not available (NA).} \\
+Study details include where, when, and how many samples, when available.
+The major stock assessment regions are \Sexpr{PasteNicely(majorRegions)} (\autoref{figBC}).
+Legend: equation (Eq), sample size $n$, standard error (SE), standard deviation (SD), spawn-on-kelp (SOK), and not available (NA).} \\
 \toprule
 Parameters & Description & Study details & Uncertainty & References \\
 \midrule
@@ -1622,7 +1623,7 @@ Parameters & Description & Study details & Uncertainty & References \\
 \endfoot
 \bottomrule
 \endlastfoot
-$f^t$, $f^q$ & Parameters for statistical framework (Eq \ref{eqStatSigmaS}). & SoG in 1981 and 1983; WCVI in 1982. & Mean egg density $\text{SE}\leq 25$\%. & \cite{SchweigertEtal1985, SchweigertEtal1990} \\
+$f^t$, $f^q$ & Parameters for statistical framework (Eq \ref{eqStatSigmaS}). & SoG in 1981 and 1983; WCVI in 1982. & Objective is mean egg density $\text{SE}\leq 25$\%. & \cite{SchweigertEtal1985, SchweigertEtal1990} \\
 Intensity & Intensity categories and number of egg layers (\autoref{tab:Intensity}). & NA & NA & \cite{HayKronlund1987, SchweigertStocker1988} \\
 $\omega$ & Female fecundity (Eq \ref{eqECF}). & NC, WCVI, and SoG in 1974 ($n=$ 3,293 fish) and 1980 ($n=$ 1,642 fish); California in 1975 ($n=37$ fish). & SD ranges from 16.9 to 53.5. & \cite{Hay1985, HayBrett1988} \\
 $\phi^f$ & Proportion female (Eq \ref{eqECF}). & NA & NA & NA \\
