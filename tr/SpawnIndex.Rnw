@@ -1625,7 +1625,7 @@ Parameters & Description & Study details & Uncertainty & References \\
 \bottomrule
 \endlastfoot
 $f^t$, $f^q$ & Parameters for statistical framework (Eq \ref{eqStatSigmaS}). & SoG in 1981 and 1983; WCVI in 1982. & Objective is mean egg density $\text{SE}\leq 25$\%. & \cite{SchweigertEtal1985, SchweigertEtal1990} \\
-Intensity & Intensity categories and number of egg layers (\autoref{tab:Intensity}). & NA & NA & \cite{HayKronlund1987, SchweigertStocker1988} \\
+Intensity & Spawn intensity categories and number of egg layers (\autoref{tab:Intensity}). & NA & NA & \cite{HayKronlund1987, SchweigertStocker1988} \\
 $\omega$ & Female fecundity (Eq \ref{eqECF}). & PRD, WCVI, and SoG in 1974 ($n=$ 3,293 fish) and 1980 ($n=$ 1,642); California in 1975 ($n=37$). & $186.8 \leq \omega \leq 224.5$; $16.9 \leq \text{SD} \leq 53.5$. & \cite{Hay1985, HayBrett1988} \\
 $\phi^f$ & Proportion female (Eq \ref{eqECF}). & NA & NA & NA \\
 $\alpha$, $\beta$ & Parameters for surface egg density model (Eq \ref{eqSurfDensJS}). & Coastwide from 1976 to 1987 ($n=$ 5,111 samples). & NA & \cite{SchweigertEtal1997} \\
