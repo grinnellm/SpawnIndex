@@ -614,7 +614,7 @@ $\mean{\rho_{ts}}$ is the mean transect egg density from \autoref{eqStatRhoTS}.
 Legend: stock assessment region (SAR), spawn on kelp (SOK).}
 \begin{tabulary}{\linewidth}{lLl}
 \toprule
-Name & Description & Range \\
+\textbf{Name} & \textbf{Description} & \textbf{Range} \\
 \midrule
 $i$ & Substrate type & 1, 2, 3, ..., $I$ \\
 $I$ & Number of substrate types in sample $j$, type $x$, spawn $s$, Location $n$, SAR $r$, and year $y$ & \\
@@ -654,7 +654,7 @@ $Y$ & Last year of time series & \\
 Legend: metres (m).}
 \begin{tabulary}{\linewidth}{lLL}
 \toprule
-Name & Description & Value or unit \\
+\textbf{Name} & \textbf{Description} & \textbf{Value or unit} \\
 \midrule
 $\rho$ & Egg density & $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ \\
 $\mean{\rho}$ & Mean egg density & $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ \\
@@ -832,7 +832,8 @@ kIntensity <- intensity %>%
     caption = tabCap, caption.short = tabSCap, booktabs = TRUE, linesep = "",
     escape = FALSE
   ) %>%
-  add_header_above(header = c("Intensity category" = 2, "", ""))
+  row_spec(0, bold = TRUE) %>%
+  add_header_above(header = c("Intensity category" = 2, "", ""), bold = TRUE)
 # Print the table
 kIntensity
 @
@@ -889,7 +890,7 @@ Although \fishName{} egg production is affected by environmental variability and
 Legend: kilograms (kg), tonnes (t).}
 \begin{tabulary}{\linewidth}{lLLL}
 \toprule
-Name & Description & Value or unit & References \\
+\textbf{Name} & \textbf{Description} & \textbf{Value or unit} & \textbf{References} \\
 \midrule
 $\omega$ & Female fecundity & \Sexpr{format(pars$conversion$omega, big.mark=",", scientific=FALSE)}$~\text{eggs} \cdot \text{kg}^{-1}$ & \cite{Hay1985, HayBrett1988} \\
 $\phi^f$ & Proportion female & \Sexpr{pars$conversion$phi} & \\
@@ -917,7 +918,7 @@ Occasionally, we use field data sheets to fill-in missing egg layer information 
 Legend: metres (m), tonnes (t).}
 \begin{tabulary}{\linewidth}{lLLL}
 \toprule
-Name & Description & Value or unit & References \\
+\textbf{Name} & \textbf{Description} & \textbf{Value or unit} & \textbf{References} \\
 \midrule
 $E^\prime$ & Number of egg layers & $> 0$ & \\
 $\phi^b$ & Proportion of substrate covered in eggs & $(0,1]$ & \\
@@ -1034,7 +1035,7 @@ Recall that divers enumerate every Macrocystis plant within the transect swath.
 Legend: metres (m), tonnes (t).}
 \begin{tabulary}{\linewidth}{lLLL}
 \toprule
-Name & Description & Value or unit & References \\
+\textbf{Name} & \textbf{Description} & \textbf{Value or unit} & \textbf{References} \\
 \midrule
 $K$ & Number of stalks & $> 0$ & \\
 $W$ & Spawn width & m & \\
@@ -1229,7 +1230,7 @@ Recall that divers collect understory observations in quadrats, which are distri
 Legend: metres (m), tonnes (t).}
 \begin{tabulary}{\linewidth}{lLLL}
 \toprule
-Name & Description & Value or unit & References \\
+\textbf{Name} & \textbf{Description} & \textbf{Value or unit} & \textbf{References} \\
 \midrule
 $E^b$ & Number of substrate egg layers & $> 0$ & \\
 $\phi^b$ & Proportion of substrate covered in eggs & $(0,1]$ & \\
@@ -1335,7 +1336,8 @@ kAlgaeCoefs <- algaeCoefs %>%
   kable(
     caption = tabCap, caption.short = tabSCap, booktabs = TRUE, linesep = "",
     escape = FALSE
-  )
+  ) %>%
+  row_spec(0, bold = TRUE)
 # Print the table
 kAlgaeCoefs
 @
@@ -1468,7 +1470,7 @@ We use $B_{ry}$ as an indicator of \fishName{} relative population abundance (i.
 Legend: tonnes (t).}
 \begin{tabulary}{\linewidth}{lLL}
 \toprule
-Name & Description & Value or unit \\
+\textbf{Name} & \textbf{Description} & \textbf{Value or unit} \\
 \midrule
 $B$ & Spawn index (i.e., biomass) & t \\
 \bottomrule
@@ -1521,7 +1523,7 @@ and $B_{ry}$ is estimated spawning biomass removed by SOK fisheries in SAR $r$ a
 Legend: kilograms (kg), tonnes (t).}
 \begin{tabulary}{\linewidth}{lLLL}
 \toprule
-Name & Description & Value or unit & References \\
+\textbf{Name} & \textbf{Description} & \textbf{Value or unit} & \textbf{References} \\
 \midrule
 $H$ & Weight of SOK harvest & kg & \\
 $\nu$ & Proportion of SOK product that is kelp & \Sexpr{pars$SOK$nu} & \cite{ShieldsEtal1985} \\
@@ -1582,10 +1584,10 @@ Even with a stable budget, there is a trade-off between high survey effort in so
 
 Many of the studies to quantify parameters and prediction models used in spawn index calculations are dated (\autoref{tabUncertainty});
 these analyses could be checked with new information, and updated if required.
-In addition, some of these studies had a limited number of samples, as well as limited spatial or temporal range, or both.
 Parameters include $\omega$, $\phi^f$, $\nu$, $\upsilon$, and $M$.
 Prediction models include \autoref{eqSurfDensJS}, \autoref{eqMacroEggsPerPlantS}, \autoref{eqUnderDensSubQTS}, and \autoref{eqUnderDensAlgVQTS}.
-In addition to work mentioned above and in the previous section, other potential research includes:
+In addition, some of these studies had limited number of samples, as well as limited spatial or temporal range, or both.
+In addition to work mentioned here and in the previous section, other potential research includes:
 \begin{enumerate}
 \item Review the assumed statistical framework,
 \item Check accuracy and temporal stability of fecundity and sex ratios (\autoref{eqECF}),
@@ -1613,12 +1615,12 @@ Study details include where, when, and how many samples, when available.
 The major stock assessment regions are \Sexpr{PasteNicely(majorRegions)} (\autoref{figBC}).
 Legend: equation (Eq), sample size $n$, standard error (SE), standard deviation (SD), spawn-on-kelp (SOK), and not available (NA).} \\
 \toprule
-Parameters & Description & Study details & Uncertainty & References \\
+\textbf{Parameters} & \textbf{Description} & \textbf{Study details} & \textbf{Uncertainty} & \textbf{References} \\
 \midrule
 \endfirsthead
 \toprule
 \multicolumn{5}{c}{\emph{\tablename~\thetable~continued}} \\
-Parameters & Description & Study details & Uncertainty & References \\
+\textbf{Parameters} & \textbf{Description} & \textbf{Study details} & \textbf{Uncertainty} & \textbf{References} \\
 \midrule
 \endhead
 \bottomrule
@@ -1801,7 +1803,8 @@ kWidthFac <- underWidthFac %>%
     caption = tabCap, caption.short = tabSCap, booktabs = TRUE, linesep = "",
     escape = FALSE, digits = c(0, 3, 3, 3, 3, 3, 3, 3)
   ) %>%
-  add_header_above(header = c("", "SAR" = 7))
+  row_spec(0, bold = TRUE) %>%
+  add_header_above(header = c("", "SAR" = 7), bold = TRUE)
 # Print the table
 kWidthFac
 @
@@ -1813,7 +1816,7 @@ kWidthFac
 Legend: metres (m).}
 \begin{tabulary}{\linewidth}{LLL}
 \toprule
-Name & Description & Value or unit \\
+\textbf{Name} & \textbf{Description} & \textbf{Value or unit} \\
 \midrule
 $W^\prime$ & Observed spawn width & m \\
 $\tau$ & Spawn width correction factor & see \autoref{tab:WidthFac} \\
