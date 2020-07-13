@@ -1603,6 +1603,7 @@ In addition to work mentioned above and in the previous section, other potential
 \end{enumerate}
 \end{enumerate}
 
+\afterpage{
 \FloatBarrier
 \begin{landscape}
 \begin{longtable}{P{1.5cm}P{5cm}P{5cm}P{3cm}P{3cm}}
@@ -1639,6 +1640,7 @@ $M$ & Average mass of a fertilized egg (Eq \ref{eqSOKBioFRY}). & SoG in 1980 ($n
 \end{longtable}
 \end{landscape}
 \FloatBarrier
+}
 
 \section{CAVEATS}
 
