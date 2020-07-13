@@ -20,13 +20,16 @@
 #'   \item{tSSVegTrans}{Understory spawn transect information.}
 #' }
 #' @docType data
+#' @name HerringSpawn
 #' @seealso \code{\link{LoadAreaData}} \code{\link{CalcSurfSpawn}}
 #'   \code{\link{CalcMacroSpawn}} \code{\link{CalcUnderSpawn}}
 #' @note This is a 32-bit MS Access database, and it requires 32-bit R to access
 #'   the data. In addition, MS Windows is required to access the data using the
 #'   RODBC package. This example database only includes WCVI from 2010 to 2015.
-#'
-system.file("extdata", "HerringSpawn.mdb",
-  package = "SpawnIndex",
-  mustWork = TRUE
-)
+#' @examples
+#' # Location of the file
+#' system.file("extdata", "HerringSpawn.mdb",
+#'   package = "SpawnIndex",
+#'   mustWork = TRUE
+#' )
+NULL
