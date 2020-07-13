@@ -907,7 +907,7 @@ As in \autoref{secStat}, we simplify index notation in this section by suppressi
 As previously mentioned, surface spawn surveyors sample along transects or using their judgement (\autoref{secSurfProt}).
 Surveyors collect data for at the substrate type $i$, sample $j$, and spawn $s$ levels;
 we calculate metrics at the substrate type $i$, sample $j$, and spawn $s$ levels (\autoref{tabNotationSurf}).
-In this document, the term `metric' refers to a measure of quantitative assessment.
+We use the term `metric' to refer to a measure of quantitative assessment.
 Recall that surface spawn `samples' include observations collected using specialized rakes and viewing boxes (\autoref{secSurfProt}).
 Occasionally, we use field data sheets to fill-in missing egg layer information for surface survey data (\hyperref[secUpdate]{appendix \ref{secUpdate}}).
 
