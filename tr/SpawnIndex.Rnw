@@ -1582,29 +1582,6 @@ Even with a stable budget, there is a trade-off between high survey effort in so
 
 \section{FUTURE RESEARCH}\label{secFuture}
 
-Many of the studies to quantify parameters and prediction models used in spawn index calculations are dated (\autoref{tabUncertainty});
-these analyses could be checked with new information, and updated if required.
-Parameters include $\omega$, $\phi^f$, $\nu$, $\upsilon$, and $M$.
-Prediction models include \autoref{eqSurfDensJS}, \autoref{eqMacroEggsPerPlantS}, \autoref{eqUnderDensSubQTS}, and \autoref{eqUnderDensAlgVQTS}.
-In addition, some of these studies had limited number of samples, as well as limited spatial or temporal range, or both.
-In addition to work mentioned here and in the previous section, other potential research includes:
-\begin{enumerate}
-\item Review the assumed statistical framework,
-\item Check accuracy and temporal stability of fecundity and sex ratios (\autoref{eqECF}),
-\item Compare two methods to calculate the mean number of stalks per plant (\autoref{eqMacroStalksPerPlantS}): ratio of means (i.e., current method) versus mean of ratios,
-\item Investigate the assumptions that eggs on substrate and algae are:
-\begin{enumerate}
-\item Independent (\autoref{eqUnderDensQTS}), and
-\item Represented by the same length measurement (\autoref{secUnderS}), and
-\end{enumerate}
-\item Investigate surface spawn width adjustments (\autoref{secWidthSurface}):
-\begin{enumerate}
-\item Mean vs median width,
-\item Annual vs periodic updates, and
-\item Consistency of spawn width over time at a range of abundance levels.
-\end{enumerate}
-\end{enumerate}
-
 \afterpage{
 \FloatBarrier
 \begin{landscape}
@@ -1643,6 +1620,27 @@ $M$ & Average mass of a fertilized egg (Eq \ref{eqSOKBioFRY}). & SoG in 1980 ($n
 \end{landscape}
 \FloatBarrier
 }
+
+Many of the studies to quantify parameters and prediction models used in spawn index calculations are dated (\autoref{tabUncertainty});
+these analyses could be checked with new information, and updated if required.
+In addition, some of these studies had limited number of samples, as well as limited spatial or temporal range, or both.
+In addition to work mentioned here and in \autoref{secUncertain}, potential research includes:
+\begin{enumerate}
+\item Review the assumed statistical framework,
+\item Check accuracy and temporal stability of fecundity and sex ratios (\autoref{eqECF}),
+\item Compare two methods to calculate the mean number of stalks per plant (\autoref{eqMacroStalksPerPlantS}): ratio of means (i.e., current method) versus mean of ratios,
+\item Investigate the assumptions that eggs on substrate and algae are:
+\begin{enumerate}
+\item Independent (\autoref{eqUnderDensQTS}), and
+\item Represented by the same length measurement (\autoref{secUnderS}), and
+\end{enumerate}
+\item Investigate surface spawn width adjustments (\autoref{secWidthSurface}):
+\begin{enumerate}
+\item Mean vs median width,
+\item Annual vs periodic updates, and
+\item Consistency of spawn width over time at a range of abundance levels.
+\end{enumerate}
+\end{enumerate}
 
 \section{CAVEATS}
 
