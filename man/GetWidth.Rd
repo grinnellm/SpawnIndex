@@ -46,5 +46,6 @@ barWidth
 \insertAllCited
 }
 \seealso{
-\code{\link{CalcSurfSpawn}} \code{\link{LoadAreaData}}
+\code{\link{HerringSpawn}} \code{\link{LoadAreaData}}
+  \code{\link{CalcSurfSpawn}}
 }

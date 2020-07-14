@@ -43,5 +43,5 @@ allSpawn <- LoadAllSpawn(where = allSpawnLoc, a = areas, yrs = 2010:2015)
 allSpawn
 }
 \seealso{
-\code{\link{LoadAreaData}}
+\code{\link{HerringSpawn}} \code{\link{LoadAreaData}}
 }

@@ -57,3 +57,6 @@ areaLoc <- list(
 )
 LoadAreaData(reg = "WCVI", where = areaLoc)
 }
+\seealso{
+\code{\link{HerringSpawn}}
+}

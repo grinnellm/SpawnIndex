@@ -96,8 +96,9 @@ CalcBiomassSOK <- function(SOK,
 #'   Section, and Location code.
 #' @references \insertAllCited
 #' @note The `spawn index' is a relative index of spawning biomass.
-#' @seealso \code{\link{LoadAreaData}} \code{\link{GetWidth}}
-#'   \code{\link{CalcEggConversion}} \code{\link{pars}} \code{\link{intensity}}
+#' @seealso \code{\link{HerringSpawn}} \code{\link{LoadAreaData}}
+#'   \code{\link{GetWidth}} \code{\link{CalcEggConversion}} \code{\link{pars}}
+#'   \code{\link{intensity}}
 #' @export
 #' @examples
 #' dbLoc <- system.file("extdata", package = "SpawnIndex")
@@ -351,8 +352,8 @@ CalcSurfSpawn <- function(where,
 #'   Section, and Location code.
 #' @references \insertAllCited
 #' @note The `spawn index' is a relative index of spawning biomass.
-#' @seealso \code{\link{LoadAreaData}} \code{\link{CalcEggConversion}}
-#'   \code{\link{pars}}
+#' @seealso \code{\link{HerringSpawn}} \code{\link{LoadAreaData}}
+#'   \code{\link{CalcEggConversion}} \code{\link{pars}}
 #' @export
 #' @examples
 #' dbLoc <- system.file("extdata", package = "SpawnIndex")
@@ -536,8 +537,8 @@ CalcMacroSpawn <- function(where,
 #'   Section, and Location code.
 #' @references \insertAllCited
 #' @note The `spawn index' is a relative index of spawning biomass.
-#' @seealso \code{\link{LoadAreaData}} \code{\link{CalcEggConversion}}
-#'   \code{\link{pars}} \code{\link{algaeCoefs}}
+#' @seealso \code{\link{HerringSpawn}} \code{\link{LoadAreaData}}
+#'   \code{\link{CalcEggConversion}} \code{\link{pars}} \code{\link{algaeCoefs}}
 #' @export
 #' @examples
 #' dbLoc <- system.file("extdata", package = "SpawnIndex")

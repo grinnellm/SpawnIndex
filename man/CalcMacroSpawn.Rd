@@ -79,6 +79,6 @@ macroSpawn$SI
 \insertAllCited
 }
 \seealso{
-\code{\link{LoadAreaData}} \code{\link{CalcEggConversion}}
-  \code{\link{pars}}
+\code{\link{HerringSpawn}} \code{\link{LoadAreaData}}
+  \code{\link{CalcEggConversion}} \code{\link{pars}}
 }

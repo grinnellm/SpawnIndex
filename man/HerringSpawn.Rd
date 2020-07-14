@@ -30,13 +30,17 @@ This is a 32-bit MS Access database, and it requires 32-bit R to access
   RODBC package. This example database only includes WCVI from 2010 to 2015.
 }
 \examples{
-# Location
-system.file("extdata", "HerringSpawn.mdb",
-  package = "SpawnIndex",
-  mustWork = TRUE
-)
+dbLoc <- system.file("extdata", "HerringSpawn.mdb", package = "SpawnIndex")
+dbLoc
+\dontrun{
+accessDB <- RODBC::odbcConnectAccess(access.file = dbLoc)
+hTables <- RODBC::sqlTables(channel = accessDB)
+tibble::as_tibble(hTables)
+RODBC::odbcClose(channel = accessDB)
+}
 }
 \seealso{
-\code{\link{LoadAreaData}} \code{\link{CalcSurfSpawn}}
+\code{\link{LoadAreaData}} \code{\link{LoadAllSpawn}}
+  \code{\link{GetWidth}} \code{\link{CalcSurfSpawn}}
   \code{\link{CalcMacroSpawn}} \code{\link{CalcUnderSpawn}}
 }

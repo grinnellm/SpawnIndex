@@ -86,6 +86,6 @@ underSpawn$SI
 \insertAllCited
 }
 \seealso{
-\code{\link{LoadAreaData}} \code{\link{CalcEggConversion}}
-  \code{\link{pars}} \code{\link{algaeCoefs}}
+\code{\link{HerringSpawn}} \code{\link{LoadAreaData}}
+  \code{\link{CalcEggConversion}} \code{\link{pars}} \code{\link{algaeCoefs}}
 }

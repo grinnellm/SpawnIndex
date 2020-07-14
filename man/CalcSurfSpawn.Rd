@@ -91,6 +91,7 @@ surfSpawn$SI
 \insertAllCited
 }
 \seealso{
-\code{\link{LoadAreaData}} \code{\link{GetWidth}}
-  \code{\link{CalcEggConversion}} \code{\link{pars}} \code{\link{intensity}}
+\code{\link{HerringSpawn}} \code{\link{LoadAreaData}}
+  \code{\link{GetWidth}} \code{\link{CalcEggConversion}} \code{\link{pars}}
+  \code{\link{intensity}}
 }
