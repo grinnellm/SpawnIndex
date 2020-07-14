@@ -1632,14 +1632,15 @@ In addition to work mentioned here and in \autoref{secUncertain}, potential rese
 \item Investigate the assumptions that eggs on substrate and algae are:
 \begin{enumerate}
 \item Independent (\autoref{eqUnderDensQTS}), and
-\item Represented by the same length measurement (\autoref{secUnderS}), and
+\item Represented by the same length measurement (\autoref{secUnderS}),
 \end{enumerate}
 \item Investigate surface spawn width adjustments (\autoref{secWidthSurface}):
 \begin{enumerate}
 \item Mean vs median width,
 \item Annual vs periodic updates, and
-\item Consistency of spawn width over time at a range of abundance levels.
+\item Consistency of spawn width over time at a range of abundance levels, and
 \end{enumerate}
+\item Account for osmosis in SOK calculations (\autoref{eqSOKBioFRY}).
 \end{enumerate}
 
 \section{CAVEATS}
