@@ -1495,7 +1495,7 @@ They determined that kelp represents an average of 12\% of the total product wei
 Since SOK product is universally brined at the time of harvest, it is necessary to also consider the uptake of salt by the eggs, which increases the overall product weight.
 However, there is uncertainty in the degree of brining that occurs prior to weighing the product.
 Nevertheless, \cite{WhyteEnglar1977} determined that wet product weight increases by approximately 13\% due to salt uptake during brining periods that range from 1.5 to 24 hours.
-By osmosis, brining would also draw some water from the eggs;
+By osmosis, brining would also draw some water from the eggs \citep{AldericeEtal1979};
 unfortunately we are unable to account for osmosis at this time.
 The last factor to consider is the mean fertilized egg weight, which was determined by \cite{HayMiller1982} to be $2.38 \cdot 10^{-6}\,\text{kg}$.
 
