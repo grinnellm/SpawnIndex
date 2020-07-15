@@ -4,3 +4,4 @@
 ^Meta$
 ^tr$
 ^data-raw$
+.travis.yml
