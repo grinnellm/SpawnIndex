@@ -328,7 +328,7 @@ the surface survey period from \Sexpr{min(yrRange)} to \Sexpr{newSurvYr-1}, and
 the dive survey period from \Sexpr{newSurvYr} to present.
 
 The inclusion of dive surveys in \Sexpr{newSurvYr} makes it challenging to compare the spawn index between these two periods.
-For example, surface surveys are less accurate than dive surveys (\hyperref[secWidthSurface]{appendix \ref{secWidthSurface}}), and
+For example, surface surveys are less accurate than dive surveys (\autoref{secWidthSurface}), and
 spawn surveyors used subjective intensity categories instead of direct egg layer estimates until \Sexpr{directEggYr-1} (\autoref{secIntensity}).
 In addition, \fishName{} spawn survey effort has been inconsistent over the time series due to available resources and departmental priorities.
 For example, in the past, surveyors often dedicated several months each year to spawn surveys; they used small vessels to search for spawn, and surface surveys to estimate spawn biomass.
@@ -754,7 +754,7 @@ the near-shore edge can be out of the water depending on the tide height.
 this is done by raking (\autoref{secSurfProt}) or brief dives to determine the presence or absence of spawn.
 Surveyors place the first transect in from one end (i.e., at the first permanent transect, or $200\,\text{m}$ if there are no permanent transects) to avoid surveying areas with patchy and sparse egg layers.
 Within the spawn area, surveyors use transects to determine spawn width, quadrat placement, and which Macrocystis plants to survey.
-In some cases, we adjust spawn width to improve the accuracy of spawn index estimates (\hyperref[secWidthAdjust]{appendix \ref{secWidthAdjust}}).
+In some cases, we adjust spawn width to improve the accuracy of spawn index estimates (\autoref{secWidthAdjust}).
 
 After determining the spatial extent, surveyors determine the number of egg layers on substrate and algae according to sampling protocols described in \autoref{secSurfProt}, \autoref{secMacroProt}, \& \autoref{secUnderProt}.
 For eggs on substrate, one egg layer is a layer of eggs one egg thick over the entire spawned surface (\autoref{figLayersSubstrate}).
@@ -910,7 +910,7 @@ Surveyors collect data for at the substrate type $i$, sample $j$, and spawn $s$ 
 we calculate metrics at the substrate type $i$, sample $j$, and spawn $s$ levels (\autoref{tabNotationSurf}).
 We use the term `metric' to refer to a measure of quantitative assessment.
 Recall that surface spawn `samples' include observations collected using specialized rakes and viewing boxes (\autoref{secSurfProt}).
-Occasionally, we use field data sheets to fill-in missing egg layer information for surface survey data (\hyperref[secUpdate]{appendix \ref{secUpdate}}).
+Occasionally, we use field data sheets to fill-in missing egg layer information for surface survey data (\autoref{secUpdate}).
 
 \begin{table}
 \centering
