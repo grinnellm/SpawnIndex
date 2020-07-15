@@ -1,4 +1,6 @@
-# Calculate the Pacific Herring spawn index [![Travis build status](https://travis-ci.org/grinnellm/SpawnIndex.svg?branch=master)](https://travis-ci.org/github/grinnellm/SpawnIndex)
+# Calculate the Pacific Herring spawn index
+
+[![Travis build status](https://travis-ci.org/grinnellm/SpawnIndex.svg?branch=master)](https://travis-ci.org/github/grinnellm/SpawnIndex)
 
 The **SpawnIndex** package calculates the spawn index for
 Pacific Herring (*Clupea pallasii*) in British Columbia, Canada.
