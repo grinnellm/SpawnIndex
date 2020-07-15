@@ -1,3 +1,5 @@
+[![Travis build status](https://travis-ci.org/grinnellm/SpawnIndex.svg?branch=master)](https://travis-ci.org/github/grinnellm/SpawnIndex)
+
 # Calculate the Pacific Herring spawn index
 
 The **SpawnIndex** package calculates the spawn index for
