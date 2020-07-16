@@ -5,3 +5,8 @@ sudo: false
 cache: packages
 arch: i386
 warnings_are_errors: false
+
+addons:
+  apt:
+    packages:
+      - libudunits2-dev libgdal1-dev
