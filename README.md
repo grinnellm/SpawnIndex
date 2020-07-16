@@ -6,9 +6,7 @@ Note that the 'spawn index' is a relative index of spawning biomass.
 
 ## Build status
 
-Travis: [![Travis build status]
-(https://travis-ci.org/grinnellm/SpawnIndex.svg?branch=master)]
-(https://travis-ci.org/github/grinnellm/SpawnIndex)
+Travis: [![Travis build status](https://travis-ci.org/grinnellm/SpawnIndex.svg?branch=master)](https://travis-ci.org/github/grinnellm/SpawnIndex)
 
 ## Download and install
 
