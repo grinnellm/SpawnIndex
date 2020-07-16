@@ -4,6 +4,7 @@ language: R
 sudo: false
 cache: packages
 arch: i386
+warnings_are_errors: false
 
 addons:
   apt:
