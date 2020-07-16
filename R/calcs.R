@@ -135,39 +135,39 @@ CalcSurfSpawn <- function(where,
                           beta = pars$surface$beta,
                           theta = CalcEggConversion()) {
   # Establish connection with access
-  accessDB <- RODBC::odbcConnectAccess(access.file = file.path(
+  accessDB <- odbcConnectAccess(access.file = file.path(
     where$loc,
     where$db
   ))
   # Get a small subset of area data
   areasSm <- a %>%
-    dplyr::select(SAR, Region, StatArea, Section, LocationCode, Pool) %>%
-    dplyr::distinct() %>%
-    tibble::as_tibble()
+    select(SAR, Region, StatArea, Section, LocationCode, Pool) %>%
+    distinct() %>%
+    as_tibble()
   # Load all spawn
-  spawn <- RODBC::sqlFetch(channel = accessDB, sqtable = where$fns$allSpawn) %>%
-    dplyr::rename(
+  spawn <- sqlFetch(channel = accessDB, sqtable = where$fns$allSpawn) %>%
+    rename(
       LocationCode = Loc_Code, SpawnNumber = Spawn_Number, WidthObs = Width
     ) %>%
-    dplyr::mutate(Method = stringr::str_to_title(Method)) %>%
-    dplyr::filter(Year %in% yrs, LocationCode %in% a$LocationCode) %>%
-    dplyr::select(
+    mutate(Method = str_to_title(Method)) %>%
+    filter(Year %in% yrs, LocationCode %in% a$LocationCode) %>%
+    select(
       Year, LocationCode, SpawnNumber, Length, WidthObs, Method
     ) %>%
-    tibble::as_tibble()
+    as_tibble()
   # Extract relevant surface data
-  surface <- RODBC::sqlFetch(
+  surface <- sqlFetch(
     channel = accessDB,
     sqtable = where$fns$surface
   ) %>%
-    dplyr::rename(LocationCode = Loc_Code, SpawnNumber = Spawn_Number) %>%
-    dplyr::filter(Year %in% yrs, LocationCode %in% a$LocationCode) %>%
-    dplyr::left_join(y = areasSm, by = "LocationCode") %>%
-    dplyr::left_join(
+    rename(LocationCode = Loc_Code, SpawnNumber = Spawn_Number) %>%
+    filter(Year %in% yrs, LocationCode %in% a$LocationCode) %>%
+    left_join(y = areasSm, by = "LocationCode") %>%
+    left_join(
       y = spawn,
       by = c("Year", "LocationCode", "SpawnNumber")
     ) %>%
-    tidyr::replace_na(replace = list(
+    replace_na(replace = list(
       Lay_Grass = 0, Grass_Percent = 0, Lay_Rockweed = 0, Rockweed_Percent = 0,
       Lay_Kelp = 0, Kelp_Percent = 0, Lay_Brown_Algae = 0,
       Brown_Algae_Percent = 0, Lay_Leafy_Red = 0, Leafy_Red_Percent = 0,
@@ -175,7 +175,7 @@ CalcSurfSpawn <- function(where,
       Rock_Percent = 0, Lay_Other = 0, Other_Percent = 0
     )) %>%
     # Substrate i
-    dplyr::mutate(
+    mutate(
       Grass = Lay_Grass * Grass_Percent / 100,
       Rockweed = Lay_Rockweed * Rockweed_Percent / 100,
       Kelp = Lay_Kelp * Kelp_Percent / 100,
@@ -185,10 +185,10 @@ CalcSurfSpawn <- function(where,
       Rock = Lay_Rock * Rock_Percent / 100,
       Other = Lay_Other * Other_Percent / 100
     ) %>%
-    tibble::as_tibble()
+    as_tibble()
   # Grab the percent cover data
   pCover <- surface %>%
-    dplyr::select(dplyr::ends_with("Percent"))
+    select(ends_with("Percent"))
   # Error if any percents are greater than 100
   if (any(pCover > 100, na.rm = TRUE)) {
     stop("Percent cover > 100 in surface spawn data", call. = FALSE)
@@ -196,29 +196,29 @@ CalcSurfSpawn <- function(where,
   # Continue with calculating egg layers
   surface <- surface %>%
     # Sample j
-    dplyr::mutate(
+    mutate(
       EggLyrs = Grass + Rockweed + Kelp + BrownAlgae + LeafyRed +
         StringyRed + Rock + Other,
       Intensity = ifelse(Year %in% rsYrs & Intensity > 0,
         Intensity * 2 - 1, Intensity
       )
     ) %>%
-    dplyr::filter(Method %in% c("Surface", "Dive")) %>%
-    dplyr::select(
+    filter(Method %in% c("Surface", "Dive")) %>%
+    select(
       Year, Region, StatArea, Section, LocationCode, Pool, SpawnNumber, Length,
       WidthObs, Intensity, EggLyrs
     )
   # Fill-in missing egg layers manually
   surface <- surface %>%
-    dplyr::mutate(
+    mutate(
       # SoG (1 record): update Intensity from 0 to 1 (surveyed but not reported)
       Intensity = ifelse(Year == 1962 & StatArea == 14 & Section == 142 &
         LocationCode == 820 & Intensity == 0, 1, Intensity)
     )
   # Calculate egg density based on intensity or direct measurements
   eggs <- surface %>%
-    dplyr::left_join(y = intense, by = "Intensity") %>%
-    dplyr::mutate(
+    left_join(y = intense, by = "Intensity") %>%
+    mutate(
       EggLyrs = ifelse(Year %in% intYrs, Layers, EggLyrs),
       # Egg density in thousands (eggs * 10^3 / m^2; Schweigert et al.
       # 1997). Yes, thousands: the report is wrong (J. Schweigert,
@@ -246,7 +246,7 @@ CalcSurfSpawn <- function(where,
   # 6. A27 (14 records): Year 1982, SA 27, EggLyrs 0 (update EggLyrs to
   #    2.98 using a historical average)
   # Get the number of records with no egg layer info
-  noLayers <- eggs %>% dplyr::filter(EggLyrs == 0) # %>%
+  noLayers <- eggs %>% filter(EggLyrs == 0) # %>%
   # left_join( y=select(areas, LocationCode, LocationName),
   #   by="LocationCode" ) %>%
   # select( Year, Region, StatArea, Section, LocationCode, LocationName,
@@ -262,25 +262,25 @@ CalcSurfSpawn <- function(where,
   }
   # Output egg layer info
   eggLyrs <- eggs %>%
-    dplyr::group_by(
+    group_by(
       Year, Region, StatArea, Section, LocationCode, SpawnNumber
     ) %>%
-    dplyr::summarise(SurfLyrs = gfiscamutils::MeanNA(EggLyrs)) %>%
-    dplyr::ungroup()
+    summarise(SurfLyrs = MeanNA(EggLyrs)) %>%
+    ungroup()
   # Calculate egg density per spawn number/pool
   eggsSpawn <- eggs %>%
-    dplyr::group_by(
+    group_by(
       Year, Region, StatArea, Section, LocationCode, SpawnNumber, Pool
     ) %>%
     # Spawn s
-    dplyr::summarise(EggDens = gfiscamutils::MeanNA(EggDens)) %>%
-    dplyr::ungroup()
+    summarise(EggDens = MeanNA(EggDens)) %>%
+    ungroup()
   # Calculate annual fish biomass by spawn number/pool
   biomassSpawn <- eggsSpawn %>%
-    dplyr::left_join(y = spawn, by = c("Year", "LocationCode", "SpawnNumber")) %>%
-    dplyr::left_join(y = widths, by = c("Region", "Section", "Pool")) %>%
+    left_join(y = spawn, by = c("Year", "LocationCode", "SpawnNumber")) %>%
+    left_join(y = widths, by = c("Region", "Section", "Pool")) %>%
     # Width is set to pool, section, region, or observed width (in that order)
-    dplyr::mutate(
+    mutate(
       Width = WidthPool,
       Width = ifelse(is.na(Width), WidthSec, Width),
       Width = ifelse(is.na(Width), WidthReg, Width),
@@ -289,13 +289,13 @@ CalcSurfSpawn <- function(where,
       SurfSI = EggDens * Length * Width * 1000 / theta
     ) %>%
     # Group to account for 'pool' level (want 'spawn' level)
-    dplyr::group_by(
+    group_by(
       Year, Region, StatArea, Section, LocationCode, SpawnNumber
     ) %>%
     # Spawn s
-    dplyr::summarise(SurfSI = gfiscamutils::SumNA(SurfSI)) %>%
-    dplyr::ungroup() %>%
-    dplyr::full_join(
+    summarise(SurfSI = SumNA(SurfSI)) %>%
+    ungroup() %>%
+    full_join(
       y = eggLyrs,
       by = c(
         "Year", "Region", "StatArea", "Section", "LocationCode",
@@ -304,11 +304,11 @@ CalcSurfSpawn <- function(where,
     )
   # Calculate annual SI by spawn number
   SI <- biomassSpawn %>%
-    dplyr::select(
+    select(
       Year, Region, StatArea, Section, LocationCode, SpawnNumber, SurfSI
     )
   # Close the connection
-  RODBC::odbcClose(accessDB)
+  odbcClose(accessDB)
   # Return the data
   return(list(
     surface = surface, eggs = eggs, eggsSpawn = eggsSpawn,
@@ -339,7 +339,7 @@ CalcSurfSpawn <- function(where,
 #' @param theta Numeric. Egg conversion factor (eggs to biomass); from
 #'   \code{\link{CalcEggConversion}}.
 #' @importFrom RODBC odbcConnectAccess sqlFetch odbcClose
-#' @importFrom dplyr select distinct rename left_join filter %>%
+#' @importFrom dplyr select distinct rename left_join filter %>% group_by
 #' @importFrom tibble as_tibble
 #' @importFrom stringr str_to_title
 #' @importFrom gfiscamutils MeanNA SumNA UniqueNA
@@ -382,96 +382,96 @@ CalcMacroSpawn <- function(where,
                            epsilon = pars$macrocystis$epsilon,
                            theta = CalcEggConversion()) {
   # Establish connection with access
-  accessDB <- RODBC::odbcConnectAccess(access.file = file.path(
+  accessDB <- odbcConnectAccess(access.file = file.path(
     where$loc,
     where$db
   ))
   # Load all spawn
-  spawn <- RODBC::sqlFetch(channel = accessDB, sqtable = where$fns$allSpawn) %>%
-    dplyr::rename(
+  spawn <- sqlFetch(channel = accessDB, sqtable = where$fns$allSpawn) %>%
+    rename(
       LocationCode = Loc_Code, SpawnNumber = Spawn_Number,
       LengthMacro = Length_Macrocystis
     ) %>%
-    dplyr::mutate(Method = stringr::str_to_title(Method)) %>%
-    dplyr::filter(Year %in% yrs, LocationCode %in% a$LocationCode) %>%
-    dplyr::select(
+    mutate(Method = str_to_title(Method)) %>%
+    filter(Year %in% yrs, LocationCode %in% a$LocationCode) %>%
+    select(
       Year, LocationCode, SpawnNumber, LengthMacro, Length, Method
     ) %>%
-    tibble::as_tibble()
+    as_tibble()
   # Get plant-level data
-  plants <- RODBC::sqlFetch(channel = accessDB, sqtable = where$fns$plants) %>%
-    dplyr::rename(LocationCode = Loc_Code, SpawnNumber = Spawn_Number) %>%
-    dplyr::filter(
+  plants <- sqlFetch(channel = accessDB, sqtable = where$fns$plants) %>%
+    rename(LocationCode = Loc_Code, SpawnNumber = Spawn_Number) %>%
+    filter(
       Year %in% yrs, LocationCode %in% a$LocationCode,
       !is.na(Mature)
     ) %>%
-    dplyr::select(Year, LocationCode, SpawnNumber, Transect, Mature) %>%
-    tibble::as_tibble()
+    select(Year, LocationCode, SpawnNumber, Transect, Mature) %>%
+    as_tibble()
   # Get a small subset of area data
   areasSm <- a %>%
-    dplyr::select(Region, StatArea, Section, LocationCode, Pool) %>%
-    dplyr::distinct() %>%
-    tibble::as_tibble()
+    select(Region, StatArea, Section, LocationCode, Pool) %>%
+    distinct() %>%
+    as_tibble()
   # Get transect-level data
-  transects <- RODBC::sqlFetch(
+  transects <- sqlFetch(
     channel = accessDB,
     sqtable = where$fns$transects
   ) %>%
-    dplyr::rename(LocationCode = Loc_Code, SpawnNumber = Spawn_Number) %>%
-    dplyr::filter(Year %in% yrs, LocationCode %in% a$LocationCode) %>%
-    dplyr::left_join(y = areasSm, by = "LocationCode") %>%
-    dplyr::select(
+    rename(LocationCode = Loc_Code, SpawnNumber = Spawn_Number) %>%
+    filter(Year %in% yrs, LocationCode %in% a$LocationCode) %>%
+    left_join(y = areasSm, by = "LocationCode") %>%
+    select(
       Year, Region, StatArea, Section, LocationCode, SpawnNumber, Transect,
       Height, Width, Layers
     ) %>%
-    tibble::as_tibble()
+    as_tibble()
   # Merge the data
   dat <- transects %>%
-    dplyr::left_join(y = plants, by = c(
+    left_join(y = plants, by = c(
       "Year", "LocationCode", "SpawnNumber", "Transect"
     )) %>%
-    tidyr::replace_na(replace = list(Mature = 0)) %>%
-    dplyr::mutate(Swath = tSwath)
+    replace_na(replace = list(Mature = 0)) %>%
+    mutate(Swath = tSwath)
   # Calculate transect-level data
   datTrans <- dat %>%
-    dplyr::group_by(
+    group_by(
       Year, Region, StatArea, Section, LocationCode, SpawnNumber, Transect
     ) %>%
     # Transect t
-    dplyr::summarise(
+    summarise(
       # Transect metrics for all transects (not just those with mature plants)
       Width = unique(Width),
       Swath = unique(Swath),
       Area = Width * Swath,
       # Plant metrics for mature plants only
-      Height = gfiscamutils::UniqueNA(Height[Mature > 0]),
-      EggLyrs = gfiscamutils::UniqueNA(Layers[Mature > 0]),
-      Stalks = gfiscamutils::SumNA(Mature[Mature > 0]),
+      Height = UniqueNA(Height[Mature > 0]),
+      EggLyrs = UniqueNA(Layers[Mature > 0]),
+      Stalks = SumNA(Mature[Mature > 0]),
       Plants = length(Mature[Mature > 0])
     ) %>%
-    dplyr::ungroup()
+    ungroup()
   # Calculate spawn-level data
   biomassSpawn <- datTrans %>%
-    dplyr::left_join(
+    left_join(
       y = spawn,
       by = c("Year", "LocationCode", "SpawnNumber")
     ) %>%
-    dplyr::mutate(
+    mutate(
       LengthMacro = ifelse(is.na(LengthMacro), Length, LengthMacro)
     ) %>%
-    dplyr::filter(Method %in% c("Surface", "Dive")) %>%
-    dplyr::group_by(
+    filter(Method %in% c("Surface", "Dive")) %>%
+    group_by(
       Year, Region, StatArea, Section, LocationCode, SpawnNumber
     ) %>%
     # Spawn s
-    dplyr::summarise(
+    summarise(
       LengthMacro = unique(LengthMacro),
-      Width = gfiscamutils::MeanNA(Width),
-      Area = gfiscamutils::SumNA(Area),
-      Plants = gfiscamutils::SumNA(Plants),
-      Stalks = gfiscamutils::SumNA(Stalks),
-      Height = gfiscamutils::MeanNA(Height),
-      EggLyrs = gfiscamutils::MeanNA(EggLyrs),
+      Width = MeanNA(Width),
+      Area = SumNA(Area),
+      Plants = SumNA(Plants),
+      Stalks = SumNA(Stalks),
+      Height = MeanNA(Height),
+      EggLyrs = MeanNA(EggLyrs),
       StalksPerPlant = Stalks / Plants,
       # Eggs per plant in thousands (eggs * 10^3 / plant; Haegele and
       # Schweigert 1990); spawn s
@@ -483,15 +483,15 @@ CalcMacroSpawn <- function(where,
       # s
       MacroSI = EggDens * LengthMacro * Width * 1000 / theta
     ) %>%
-    dplyr::rename(MacroLyrs = EggLyrs) %>%
-    dplyr::ungroup()
+    rename(MacroLyrs = EggLyrs) %>%
+    ungroup()
   # Return the macrocystis spawn
   SI <- biomassSpawn %>%
-    dplyr::select(
+    select(
       Year, Region, StatArea, Section, LocationCode, SpawnNumber, MacroSI
     )
   # Close the connection
-  RODBC::odbcClose(accessDB)
+  odbcClose(accessDB)
   # Return the data
   return(list(
     dat = dat, datTrans = datTrans, biomassSpawn = biomassSpawn, SI = SI
@@ -526,8 +526,8 @@ CalcMacroSpawn <- function(where,
 #' @importFrom RODBC odbcConnectAccess sqlFetch odbcClose
 #' @importFrom dplyr select distinct rename left_join filter %>%
 #' @importFrom tibble as_tibble
-#' @importFrom stringr str_to_title
-#' @importFrom gfiscamutils MeanNA SumNA UniqueNA
+#' @importFrom stringr str_to_title str_to_upper
+#' @importFrom gfiscamutils MeanNA SumNA UniqueNA WtMeanNA
 #' @importFrom tidyr replace_na gather
 #' @importFrom Rdpack reprompt
 #' @return List. The element \code{SI} is a tibble with understory spawn index
@@ -570,108 +570,108 @@ CalcUnderSpawn <- function(where,
                            delta = pars$understory$delta,
                            theta = CalcEggConversion()) {
   # Establish connection with access
-  accessDB <- RODBC::odbcConnectAccess(access.file = file.path(
+  accessDB <- odbcConnectAccess(access.file = file.path(
     where$loc,
     where$db
   ))
   # Get a small subset of area data
   areasSm1 <- a %>%
-    dplyr::select(Region, LocationCode) %>%
-    dplyr::distinct() %>%
-    tibble::as_tibble()
+    select(Region, LocationCode) %>%
+    distinct() %>%
+    as_tibble()
   # Load all spawn
-  spawn <- RODBC::sqlFetch(channel = accessDB, sqtable = where$fns$allSpawn) %>%
-    dplyr::rename(
+  spawn <- sqlFetch(channel = accessDB, sqtable = where$fns$allSpawn) %>%
+    rename(
       LocationCode = Loc_Code, SpawnNumber = Spawn_Number,
       LengthAlgae = Length_Vegetation
     ) %>%
-    dplyr::mutate(Method = stringr::str_to_title(Method)) %>%
-    dplyr::filter(Year %in% yrs, LocationCode %in% a$LocationCode) %>%
-    dplyr::select(
+    mutate(Method = str_to_title(Method)) %>%
+    filter(Year %in% yrs, LocationCode %in% a$LocationCode) %>%
+    select(
       Year, LocationCode, SpawnNumber, LengthAlgae, Length, Method
     ) %>%
-    tibble::as_tibble()
+    as_tibble()
   # Load algae transects
-  algTrans <- RODBC::sqlFetch(
+  algTrans <- sqlFetch(
     channel = accessDB,
     sqtable = where$fns$algTrans
   ) %>%
-    dplyr::rename(
+    rename(
       LocationCode = Loc_Code, SpawnNumber = Spawn_Number,
       QuadratSize = Quadrat_Size, WidthObs = Width_Recorded
     ) %>%
-    dplyr::filter(Year %in% yrs, LocationCode %in% a$LocationCode) %>%
+    filter(Year %in% yrs, LocationCode %in% a$LocationCode) %>%
     # TODO: This is a temporary cludge (all survey quadrats are 0.5); MT will
     # fix it in the database
-    dplyr::mutate(QuadratSize = ifelse(QuadratSize == 0, 0.5, QuadratSize)) %>%
-    dplyr::select(
+    mutate(QuadratSize = ifelse(QuadratSize == 0, 0.5, QuadratSize)) %>%
+    select(
       Year, LocationCode, SpawnNumber, Transect, WidthObs, QuadratSize
     ) %>%
-    dplyr::left_join(y = areasSm1, by = "LocationCode") %>%
-    tibble::as_tibble()
+    left_join(y = areasSm1, by = "LocationCode") %>%
+    as_tibble()
   # Correction factors for region(s) by year (to fix lead line shrinkage issue)
   widthFacs <- tau %>%
-    tidyr::gather(key = Region, value = WidthFac, -Year)
+    gather(key = Region, value = WidthFac, -Year)
   # Merge the width factors and correct transect widths
   algTrans <- algTrans %>%
-    dplyr::left_join(y = widthFacs, by = c("Year", "Region")) %>%
-    tidyr::replace_na(replace = list(WidthFac = 1.0)) %>%
-    dplyr::mutate(Width = WidthObs * WidthFac)
+    left_join(y = widthFacs, by = c("Year", "Region")) %>%
+    replace_na(replace = list(WidthFac = 1.0)) %>%
+    mutate(Width = WidthObs * WidthFac)
   # Error if any quadrats are not 0.5 m^2
   if (any(algTrans$QuadratSize != 0.5)) {
     stop("All quadrats must be 0.5m^2", call. = FALSE)
   }
   # Load station data
-  stations <- RODBC::sqlFetch(
+  stations <- sqlFetch(
     channel = accessDB,
     sqtable = where$fns$stations
   ) %>%
-    dplyr::rename(
+    rename(
       LocationCode = Loc_Code, SpawnNumber = Spawn_Number,
       SubLyrs = Layers_Bottom
     ) %>%
-    dplyr::filter(Year %in% yrs, LocationCode %in% a$LocationCode) %>%
-    dplyr::mutate(SubProp = Percent_Bottom / 100) %>%
-    dplyr::select(
+    filter(Year %in% yrs, LocationCode %in% a$LocationCode) %>%
+    mutate(SubProp = Percent_Bottom / 100) %>%
+    select(
       Year, LocationCode, SpawnNumber, Transect, Station, SubLyrs, SubProp
     ) %>%
-    tibble::as_tibble()
+    as_tibble()
   # Get egg layer info: substrate
   eggLyrsSub <- stations %>%
-    dplyr::group_by(Year, LocationCode, SpawnNumber, Transect) %>%
-    dplyr::summarise(Layers = gfiscamutils::MeanNA(SubLyrs)) %>%
-    dplyr::ungroup() %>%
-    dplyr::mutate(Source = "Substrate")
+    group_by(Year, LocationCode, SpawnNumber, Transect) %>%
+    summarise(Layers = MeanNA(SubLyrs)) %>%
+    ungroup() %>%
+    mutate(Source = "Substrate")
   # Load algae
-  algae <- RODBC::sqlFetch(channel = accessDB, sqtable = where$fns$algae) %>%
-    dplyr::rename(
+  algae <- sqlFetch(channel = accessDB, sqtable = where$fns$algae) %>%
+    rename(
       LocationCode = Loc_Code, SpawnNumber = Spawn_Number,
       AlgType = Type_Vegetation, AlgLyrs = Layers_Vegetation
     ) %>%
-    dplyr::filter(Year %in% yrs, LocationCode %in% a$LocationCode) %>%
-    dplyr::mutate(
-      AlgType = stringr::str_to_upper(AlgType),
+    filter(Year %in% yrs, LocationCode %in% a$LocationCode) %>%
+    mutate(
+      AlgType = str_to_upper(AlgType),
       AlgProp = Percent_Vegetation / 100,
       AlgProp = ifelse(AlgProp > 1, 1, AlgProp)
     ) %>%
-    dplyr::select(
+    select(
       Year, LocationCode, SpawnNumber, Transect, Station, AlgType, AlgLyrs,
       AlgProp
     ) %>%
-    tibble::as_tibble()
+    as_tibble()
   # Get egg layer info: algae
   eggLyrsAlg <- algae %>%
-    dplyr::group_by(Year, LocationCode, SpawnNumber, Transect) %>%
-    dplyr::summarise(Layers = gfiscamutils::MeanNA(AlgLyrs)) %>%
-    dplyr::ungroup() %>%
-    dplyr::mutate(Source = "Algae")
+    group_by(Year, LocationCode, SpawnNumber, Transect) %>%
+    summarise(Layers = MeanNA(AlgLyrs)) %>%
+    ungroup() %>%
+    mutate(Source = "Algae")
   # Combine egg layer info
-  eggLyrs <- dplyr::bind_rows(eggLyrsSub, eggLyrsAlg) %>%
-    dplyr::group_by(Year, LocationCode, SpawnNumber, Transect) %>%
-    dplyr::summarise(Layers = gfiscamutils::MeanNA(Layers)) %>%
-    dplyr::group_by(Year, LocationCode, SpawnNumber) %>%
-    dplyr::summarise(UnderLyrs = gfiscamutils::MeanNA(Layers)) %>%
-    dplyr::ungroup()
+  eggLyrs <- bind_rows(eggLyrsSub, eggLyrsAlg) %>%
+    group_by(Year, LocationCode, SpawnNumber, Transect) %>%
+    summarise(Layers = MeanNA(Layers)) %>%
+    group_by(Year, LocationCode, SpawnNumber) %>%
+    summarise(UnderLyrs = MeanNA(Layers)) %>%
+    ungroup()
   # If there are missing algae types
   if (any(!algae$AlgType %in% algCoefs$AlgType)) {
     # Get missing algae type(s)
@@ -684,24 +684,24 @@ CalcUnderSpawn <- function(where,
   } # End if there are missing algae types
   # Get a small subset of area data
   areasSm2 <- a %>%
-    dplyr::select(Region, StatArea, Section, LocationCode) %>%
-    dplyr::distinct() %>%
-    tibble::as_tibble()
+    select(Region, StatArea, Section, LocationCode) %>%
+    distinct() %>%
+    as_tibble()
   # Error if proportion > 1
   if (any(stations$SubProp > 1, na.rm = TRUE)) {
     stop("Substrate proportion > 1 in understory spawn data", call. = FALSE)
   }
   # Calculate substrate egg density
   eggsSub <- stations %>%
-    dplyr::full_join(y = algTrans, by = c(
+    full_join(y = algTrans, by = c(
       "Year", "LocationCode", "SpawnNumber", "Transect"
     )) %>%
-    dplyr::left_join(y = areasSm2, by = c("Region", "LocationCode")) %>%
+    left_join(y = areasSm2, by = c("Region", "LocationCode")) %>%
     # Egg density in thousands (eggs x 10^3 / m^2; Haegele et al. 1979);
     # quadrat q
-    dplyr::mutate(EggDensSub = alpha * SubLyrs * SubProp) %>%
-    tidyr::replace_na(replace = list(EggDensSub = 0)) %>%
-    dplyr::select(
+    mutate(EggDensSub = alpha * SubLyrs * SubProp) %>%
+    replace_na(replace = list(EggDensSub = 0)) %>%
+    select(
       Year, Region, StatArea, Section, LocationCode, SpawnNumber, Transect,
       Station, Width, EggDensSub
     )
@@ -711,104 +711,104 @@ CalcUnderSpawn <- function(where,
   }
   # Calculate substrate egg density by quadrat/station
   eggsAlg <- algae %>%
-    dplyr::left_join(y = algCoefs, by = "AlgType") %>%
-    dplyr::left_join(y = areasSm2, by = "LocationCode") %>%
-    dplyr::left_join(
-      y = dplyr::select(.data = algTrans, -Width),
+    left_join(y = algCoefs, by = "AlgType") %>%
+    left_join(y = areasSm2, by = "LocationCode") %>%
+    left_join(
+      y = select(.data = algTrans, -Width),
       by = c("Year", "Region", "LocationCode", "SpawnNumber", "Transect")
     ) %>%
     # Egg density in thousands (eggs * 10^3 / m^2; Schweigert 2005); quadrat
     # size coefficients not required because all quadrats are 0.5m^2 (1.0512)
     # Algae a
-    dplyr::mutate(EggDensAlg = beta * AlgLyrs^gamma * AlgProp^delta * Coef *
+    mutate(EggDensAlg = beta * AlgLyrs^gamma * AlgProp^delta * Coef *
       1.0512) %>%
-    dplyr::group_by(
+    group_by(
       Year, Region, StatArea, Section, LocationCode, SpawnNumber, Transect,
       Station
     ) %>%
     # Quadrat q
-    dplyr::summarise(EggDensAlg = gfiscamutils::SumNA(EggDensAlg)) %>%
-    tidyr::replace_na(replace = list(EggDensAlg = 0)) %>%
-    dplyr::ungroup()
+    summarise(EggDensAlg = SumNA(EggDensAlg)) %>%
+    replace_na(replace = list(EggDensAlg = 0)) %>%
+    ungroup()
   # Combine eggs
   eggs <- eggsSub %>%
-    dplyr::full_join(y = eggsAlg, by = c(
+    full_join(y = eggsAlg, by = c(
       "Year", "Region", "StatArea", "Section", "LocationCode", "SpawnNumber",
       "Transect", "Station"
     )) %>%
-    tidyr::replace_na(replace = list(
+    replace_na(replace = list(
       Width = 0, EggDensSub = 0, EggDensAlg = 0
     )) %>%
-    dplyr::mutate(EggDensSub = ifelse(Width > 0, EggDensSub, 0))
+    mutate(EggDensSub = ifelse(Width > 0, EggDensSub, 0))
   # Calculate total egg density by station/quadrat
   eggsStation <- eggs %>%
     # Total egg density in thousands (eggs * 10^3 / m^2); quadrat q
-    dplyr::mutate(EggDens = EggDensSub + EggDensAlg) %>%
-    dplyr::filter(!is.na(Station))
+    mutate(EggDens = EggDensSub + EggDensAlg) %>%
+    filter(!is.na(Station))
   # Widths
   widths <- eggsStation %>%
-    dplyr::group_by(
+    group_by(
       Year, Region, StatArea, Section, LocationCode, SpawnNumber, Transect
     ) %>%
-    dplyr::summarise(Width = unique(Width)) %>%
-    dplyr::group_by(
+    summarise(Width = unique(Width)) %>%
+    group_by(
       Year, Region, StatArea, Section, LocationCode, SpawnNumber
     ) %>%
     # Spawn s
-    dplyr::summarise(
-      WidthBar = gfiscamutils::MeanNA(Width)
+    summarise(
+      WidthBar = MeanNA(Width)
     ) %>%
-    dplyr::ungroup()
+    ungroup()
   # Calculate transect-level metrics
   eggsTrans <- eggsStation %>%
-    dplyr::filter(Width > 0) %>%
-    dplyr::group_by(
+    filter(Width > 0) %>%
+    group_by(
       Year, Region, StatArea, Section, LocationCode, SpawnNumber, Transect
     ) %>%
     # Transect t
-    dplyr::summarise(
-      EggDens = gfiscamutils::MeanNA(EggDens),
+    summarise(
+      EggDens = MeanNA(EggDens),
       Width = unique(Width)
     ) %>%
-    dplyr::ungroup()
+    ungroup()
   # Calculate spawn number-level metrics
   eggsSpawn <- eggsTrans %>%
-    dplyr::left_join(
+    left_join(
       y = spawn,
       by = c("Year", "LocationCode", "SpawnNumber")
     ) %>%
-    dplyr::mutate(LengthAlgae = ifelse(is.na(LengthAlgae), Length,
+    mutate(LengthAlgae = ifelse(is.na(LengthAlgae), Length,
       LengthAlgae
     )) %>%
-    dplyr::filter(Method %in% c("Surface", "Dive")) %>%
-    dplyr::left_join(y = widths, by = c(
+    filter(Method %in% c("Surface", "Dive")) %>%
+    left_join(y = widths, by = c(
       "Year", "Region", "StatArea", "Section", "LocationCode", "SpawnNumber"
     )) %>%
-    dplyr::group_by(
+    group_by(
       Year, Region, StatArea, Section, LocationCode, SpawnNumber
     ) %>%
     # Spawn s
-    dplyr::summarise(
+    summarise(
       WidthBar = unique(WidthBar),
       LengthAlgae = unique(LengthAlgae),
-      EggDens = gfiscamutils::WtMeanNA(EggDens, w = Width)
+      EggDens = WtMeanNA(EggDens, w = Width)
     ) %>%
-    dplyr::ungroup()
+    ungroup()
   # Calculate understory biomass by spawn number
   biomassSpawn <- eggsSpawn %>%
-    dplyr::mutate(
+    mutate(
       # Biomass in tonnes, based on Hay (1985), and Hay and Brett (1988); spawn
       # s
       UnderSI = EggDens * LengthAlgae * WidthBar * 1000 / theta
     ) %>%
-    dplyr::left_join(y = eggLyrs, by = c("Year", "LocationCode", "SpawnNumber"))
+    left_join(y = eggLyrs, by = c("Year", "LocationCode", "SpawnNumber"))
   # Calculate understory SI by spawn number
   SI <- biomassSpawn %>%
-    dplyr::select(
+    select(
       Year, Region, StatArea, Section, LocationCode, SpawnNumber, UnderSI
     )
   # Close the connection
-  RODBC::odbcClose(accessDB)
+  odbcClose(accessDB)
   # Return the data
   return(list(
     stations = stations, algae = algae, eggs = eggs, eggsStation = eggsStation,

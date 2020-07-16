@@ -1,3 +1,7 @@
+# R packages
+library(tibble)
+library(readr)
+
 # Parameter values
 pars <- list(
   conversion = list(omega = 200000, phi = 0.5),
@@ -11,7 +15,7 @@ pars <- list(
 save(pars, file = file.path("data", "pars.RData"))
 
 # Intensity categories
-intensity <- tibble::tibble(
+intensity <- tibble(
   Intensity = 1:9,
   Description = c(
     "Very light", NA, "Light", NA, "Medium", NA, "Heavy", NA, "Very heavy"
@@ -23,7 +27,7 @@ intensity <- tibble::tibble(
 save(intensity, file = file.path("data", "intensity.RData"))
 
 # Algae coefficients
-algaeCoefs <- tibble::tibble(
+algaeCoefs <- tibble(
   AlgaeName = c(
     "Grasses", "Grunge", "Kelp (flat)", "Kelp (standing)", "Leafy algae",
     "Rockweed", "Sargassum", "Stringy algae"
@@ -34,7 +38,7 @@ algaeCoefs <- tibble::tibble(
 save(algaeCoefs, file = file.path("data", "algaeCoefs.RData"))
 
 # Understory spawn width correction factors
-underWidthFac <- readr::read_csv(
+underWidthFac <- read_csv(
   "Year, HG, PRD, CC, SoG, WCVI, A27, A2W
    2003, 1, 1.075, 1.075, 1.075, 1.075, 1.075, 1
    2004, 1, 1.075, 1.075, 1.075, 1.075, 1.075, 1

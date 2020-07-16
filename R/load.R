@@ -20,7 +20,7 @@
 #'   \href{https://spatialreference.org/}{use EPSG codes if desired}.
 #' @param quiet Logical. Set to TRUE to prevent messages.
 #' @importFrom readr read_csv cols
-#' @importFrom dplyr filter select mutate full_join %>%
+#' @importFrom dplyr filter select mutate full_join %>% transmute right_join
 #' @importFrom tidyr unite
 #' @importFrom RODBC odbcConnectAccess sqlFetch odbcClose
 #' @importFrom tibble as_tibble
@@ -48,7 +48,7 @@ LoadAreaData <- function(reg,
   # Warning if R is not 32-bit
   if (.Machine$sizeof.pointer != 4) warning("32-bit R required")
   # Cross-walk table for SAR to region and region name
-  regions <- readr::read_csv(
+  regions <- read_csv(
     file =
       "SAR, Region, RegionName, Major
           1, HG, Haida Gwaii, TRUE
@@ -59,19 +59,19 @@ LoadAreaData <- function(reg,
           6, A27, Area 27, FALSE
           7, A2W, Area 2 West, FALSE
           8, JS, Johnstone Strait, FALSE",
-    col_types = readr::cols("i", "c", "c", "l")
+    col_types = cols("i", "c", "c", "l")
   )
   # If region isn't JS, remove it
   if (!reg %in% c("JS", "All")) {
-    regions <- dplyr::filter(.data = regions, SAR != 8)
+    regions <- filter(.data = regions, SAR != 8)
   }
   # Return the regions table to the main environment
   regions <- regions
   # Return region names
   regionNames <- regions %>%
-    dplyr::select(RegionName, Region, Major) %>%
-    dplyr::mutate(Region = paste("(", Region, ")", sep = "")) %>%
-    tidyr::unite(RegionName, Region, col = "Region", sep = " ")
+    select(RegionName, Region, Major) %>%
+    mutate(Region = paste("(", Region, ")", sep = "")) %>%
+    unite(RegionName, Region, col = "Region", sep = " ")
   # Make a nice list
   allRegionNames <- list(
     major = regionNames$Region[regionNames$Major],
@@ -89,7 +89,7 @@ LoadAreaData <- function(reg,
     )
   }
   # Establish connection with access
-  accessDB <- RODBC::odbcConnectAccess(access.file = file.path(
+  accessDB <- odbcConnectAccess(access.file = file.path(
     where$loc,
     where$db
   ))
@@ -103,92 +103,86 @@ LoadAreaData <- function(reg,
       cat("Note overlap between JS and SoG: Sections 132 and 135\n")
     }
     # Access the sections worksheet and wrangle
-    sections <- RODBC::sqlFetch(
-      channel = accessDB,
-      sqtable = where$fns$sections
-    )
+    sections <- sqlFetch(channel = accessDB, sqtable = where$fns$sections)
     # Error if data was not fetched
     if (class(sections) != "data.frame") {
       stop("No data available in MS Access connection")
     }
     sections <- sections %>%
-      dplyr::filter(Section %in% jsSections) %>%
-      dplyr::mutate(SAR = 8) %>%
-      dplyr::full_join(y = regions, by = "SAR") %>%
-      dplyr::filter(Region %in% reg) %>%
-      dplyr::select(SAR, Region, RegionName, Section) %>%
-      dplyr::distinct() %>%
-      tibble::as_tibble()
+      filter(Section %in% jsSections) %>%
+      mutate(SAR = 8) %>%
+      full_join(y = regions, by = "SAR") %>%
+      filter(Region %in% reg) %>%
+      select(SAR, Region, RegionName, Section) %>%
+      distinct() %>%
+      as_tibble()
   } else { # End if Johnstone Strait, otherwise
     # Access the sections worksheet and wrangle
-    sections <- RODBC::sqlFetch(
-      channel = accessDB,
-      sqtable = where$fns$sections
-    )
+    sections <- sqlFetch(channel = accessDB, sqtable = where$fns$sections)
     # Error if data was not fetched
     if (class(sections) != "data.frame") {
       stop("No data available in MS Access connection")
     }
     sections <- sections %>%
-      dplyr::full_join(y = regions, by = "SAR") %>%
-      dplyr::select(SAR, Region, RegionName, Section) %>%
-      dplyr::distinct() %>%
-      tibble::as_tibble()
+      full_join(y = regions, by = "SAR") %>%
+      select(SAR, Region, RegionName, Section) %>%
+      distinct() %>%
+      as_tibble()
     # If we only want a specific region
     if (reg != "All") {
       # Remove areas outside SARs, and other regions
       sections <- sections %>%
-        dplyr::filter(SAR != -1, Region == reg)
+        filter(SAR != -1, Region == reg)
     } # End if we only want a specific region
   } # End if the region is not Johnstone Strait
   # Access the locations worksheet
-  loc <- RODBC::sqlFetch(channel = accessDB, sqtable = where$fns$locations)
+  loc <- sqlFetch(channel = accessDB, sqtable = where$fns$locations)
   # Error if data was not fetched
   if (class(loc) != "data.frame") {
     stop("No data available in MS Access connection")
   }
   # Wrangle the locations table
-  locDat <- tibble::as_tibble(loc) %>%
-    dplyr::select(
+  locDat <- as_tibble(loc) %>%
+    select(
       Loc_Code, Location, StatArea, Section, Bed, Location_Latitude,
       Location_Longitude
     ) %>%
-    dplyr::mutate(Location = as.character(Location)) %>%
-    dplyr::rename(
+    mutate(Location = as.character(Location)) %>%
+    rename(
       LocationCode = Loc_Code, LocationName = Location, StatArea = StatArea,
       Section = Section, Latitude = Location_Latitude,
       Longitude = Location_Longitude, Pool = Bed
     ) %>%
-    tidyr::replace_na(replace = list(Longitude = 0, Latitude = 0)) %>%
-    dplyr::select(
+    replace_na(replace = list(Longitude = 0, Latitude = 0)) %>%
+    select(
       LocationCode, LocationName, Pool, Section, StatArea, Longitude,
       Latitude
     ) %>%
-    dplyr::arrange(LocationCode) %>%
-    dplyr::distinct()
+    arrange(LocationCode) %>%
+    distinct()
   # Grab the spatial info (X and Y)
   locSP <- locDat %>%
-    dplyr::transmute(X = Longitude, Y = Latitude)
+    transmute(X = Longitude, Y = Latitude)
   # Put X and Y into a spatial points object
-  locPts <- sp::SpatialPoints(coords = locSP, proj4string = sp::CRS(inCRS))
+  locPts <- SpatialPoints(coords = locSP, proj4string = CRS(inCRS))
   # Convert X and Y from WGS to Albers
-  locPtsAlb <- sp::spTransform(x = locPts, CRSobj = sp::CRS(outCRS))
+  locPtsAlb <- spTransform(x = locPts, CRSobj = CRS(outCRS))
   # Extract spatial info
-  dfAlb <- tibble::as_tibble(locPtsAlb)
+  dfAlb <- as_tibble(locPtsAlb)
   # Extract relevant location data
   locations <- locDat %>%
     cbind(dfAlb) %>%
-    dplyr::mutate(
+    mutate(
       Eastings = ifelse(is.na(Longitude), Longitude, X),
       Northings = ifelse(is.na(Latitude), Latitude, Y)
     ) %>%
-    dplyr::select(
+    select(
       StatArea, Section, LocationCode, LocationName, Pool, Eastings,
       Northings, Latitude, Longitude
     ) %>%
-    dplyr::filter(Section %in% sections$Section) %>%
-    dplyr::distinct() %>%
-    tibble::as_tibble()
+    filter(Section %in% sections$Section) %>%
+    distinct() %>%
+    as_tibble()
   # Intialize an additional column for groups: NA
   locations$Group <- NA
   # Manually determine groups: Haida Gwaii
@@ -241,12 +235,12 @@ LoadAreaData <- function(reg,
   if (any(is.na(locations$Group))) {
     # Get distinct rows
     grpU <- locations %>%
-      dplyr::select(StatArea, Section, Group) %>%
-      dplyr::distinct() %>%
-      dplyr::arrange(StatArea, Section)
+      select(StatArea, Section, Group) %>%
+      distinct() %>%
+      arrange(StatArea, Section)
     # Get distinct rows with no missing groups
     grpUNA <- grpU %>%
-      dplyr::filter(is.na(Group))
+      filter(is.na(Group))
     # Check if none or all have groups
     noneOrAll <- nrow(grpU) == nrow(grpUNA)
     # Message re some sections(s) missing group info
@@ -259,22 +253,22 @@ LoadAreaData <- function(reg,
   } # End if any groups are NA
   # Extract required data
   res <- locations %>%
-    dplyr::right_join(y = sections, by = "Section") %>%
-    dplyr::filter(!is.na(StatArea), !is.na(Section)) %>%
-    dplyr::select(
+    right_join(y = sections, by = "Section") %>%
+    filter(!is.na(StatArea), !is.na(Section)) %>%
+    select(
       SAR, Region, RegionName, StatArea, Group, Section, LocationCode,
       LocationName, Pool, Eastings, Northings, Longitude, Latitude
     ) %>%
     #      mutate( StatArea=formatC(StatArea, width=2, format="d", flag="0"),
     #          Section=formatC(Section, width=3, format="d", flag="0") ) %>%
-    dplyr::arrange(Region, StatArea, Group, Section, LocationCode) %>%
-    dplyr::distinct() %>%
+    arrange(Region, StatArea, Group, Section, LocationCode) %>%
+    distinct() %>%
     droplevels()
   # If not all sections are included
   if (!all(is.na(secSub))) {
     # Grab a subset of sections
     res <- res %>%
-      dplyr::filter(Section %in% secSub) %>%
+      filter(Section %in% secSub) %>%
       droplevels()
     # Message
     if (!quiet) {
@@ -282,7 +276,7 @@ LoadAreaData <- function(reg,
     }
   } # End if subsetting areas
   # Close the connection
-  RODBC::odbcClose(accessDB)
+  odbcClose(accessDB)
   # Error if there is no data
   if (nrow(res) == 0) stop("No locations; check inputs")
   # Return herring areas
@@ -302,7 +296,7 @@ LoadAreaData <- function(reg,
 #'   staring in 1951.
 #' @param ft2m Numeric. Conversion factor for feet to metres.
 #' @importFrom RODBC odbcConnectAccess sqlFetch odbcClose
-#' @importFrom dplyr select rename full_join filter mutate %>%
+#' @importFrom dplyr select rename full_join filter mutate %>% arrange
 #' @importFrom tibble as_tibble
 #' @importFrom stringr str_to_title
 #' @importFrom lubridate as_date
@@ -329,57 +323,57 @@ LoadAreaData <- function(reg,
 #' allSpawn
 LoadAllSpawn <- function(where, a, yrs, ft2m = 0.3048) {
   # Establish connection with access
-  accessDB <- RODBC::odbcConnectAccess(access.file = file.path(
+  accessDB <- odbcConnectAccess(access.file = file.path(
     where$loc,
     where$db
   ))
   # Extract relevant spawn data
-  spawn <- RODBC::sqlFetch(channel = accessDB, sqtable = where$fns$allSpawn) %>%
-    dplyr::rename(LocationCode = Loc_Code, SpawnNumber = Spawn_Number) %>%
-    dplyr::mutate(
-      Start = lubridate::as_date(Start), End = lubridate::as_date(End),
-      Method = stringr::str_to_title(Method)
+  spawn <- sqlFetch(channel = accessDB, sqtable = where$fns$allSpawn) %>%
+    rename(LocationCode = Loc_Code, SpawnNumber = Spawn_Number) %>%
+    mutate(
+      Start = as_date(Start), End = as_date(End),
+      Method = str_to_title(Method)
     ) %>%
-    dplyr::filter(Year %in% yrs, LocationCode %in% a$LocationCode) %>%
-    dplyr::select(
+    filter(Year %in% yrs, LocationCode %in% a$LocationCode) %>%
+    select(
       Year, LocationCode, SpawnNumber, Start, End, Length, Width, Method
     ) %>%
-    tibble::as_tibble()
+    as_tibble()
   # Extrac relevant stations data
   stations <- sqlFetch(channel = accessDB, sqtable = where$fns$stations) %>%
-    dplyr::rename(LocationCode = Loc_Code, SpawnNumber = Spawn_Number) %>%
-    dplyr::filter(LocationCode %in% areas$LocationCode) %>%
-    dplyr::mutate(DepthM = Depth * ft2m * -1) %>%
-    dplyr::group_by(Year, LocationCode, SpawnNumber) %>%
-    dplyr::summarise(Depth = gfiscamutils::MaxNA(DepthM)) %>%
-    dplyr::ungroup() %>%
-    dplyr::arrange(Year, LocationCode, SpawnNumber)
+    rename(LocationCode = Loc_Code, SpawnNumber = Spawn_Number) %>%
+    filter(LocationCode %in% areas$LocationCode) %>%
+    mutate(DepthM = Depth * ft2m * -1) %>%
+    group_by(Year, LocationCode, SpawnNumber) %>%
+    summarise(Depth = MaxNA(DepthM)) %>%
+    ungroup() %>%
+    arrange(Year, LocationCode, SpawnNumber)
   # Combine spawn and station data
-  spawnStation <- dplyr::full_join(
+  spawnStation <- full_join(
     x = spawn, y = stations,
     by = c("Year", "LocationCode", "SpawnNumber")
   )
   # Get a small subset of area data
   areasSm <- a %>%
-    dplyr::select(
+    select(
       Region, StatArea, Group, Section, LocationCode, LocationName, Eastings,
       Northings, Longitude, Latitude
     ) %>%
-    dplyr::distinct() %>%
-    tibble::as_tibble()
+    distinct() %>%
+    as_tibble()
   # Combine spawn and station data with area data
   res <- spawnStation %>%
-    dplyr::left_join(y = areasSm, by = c("LocationCode")) %>%
-    dplyr::select(
+    left_join(y = areasSm, by = c("LocationCode")) %>%
+    select(
       Year, Region, StatArea, Group, Section, LocationCode, LocationName,
       SpawnNumber, Eastings, Northings, Longitude, Latitude, Start, End,
       Length, Width, Depth, Method
     ) %>%
-    dplyr::arrange(
+    arrange(
       Year, Region, StatArea, Section, LocationCode, SpawnNumber, Start
     )
   # Close the connection
-  RODBC::odbcClose(accessDB)
+  odbcClose(accessDB)
   # Return the table
   return(res)
 } # End LoadAllSpawn function
@@ -426,51 +420,51 @@ LoadAllSpawn <- function(where, a, yrs, ft2m = 0.3048) {
 GetWidth <- function(where, a = areas) {
   # Get area info
   aSm <- a %>%
-    dplyr::select(SAR, Region, StatArea, Section, LocationCode, Pool) %>%
-    dplyr::distinct() %>%
-    tibble::as_tibble()
+    select(SAR, Region, StatArea, Section, LocationCode, Pool) %>%
+    distinct() %>%
+    as_tibble()
   # Establish connection with access
-  accessDB <- RODBC::odbcConnectAccess(access.file = file.path(
+  accessDB <- odbcConnectAccess(access.file = file.path(
     where$loc,
     where$db
   ))
   # Access the region worksheet and wrangle
-  regStd <- RODBC::sqlFetch(channel = accessDB, sqtable = where$fns$regionStd) %>%
-    dplyr::rename(SAR = REGION, WidthReg = WIDMED) %>%
-    dplyr::left_join(y = aSm, by = "SAR") %>%
-    dplyr::filter(SAR %in% aSm$SAR) %>%
-    dplyr::select(Region, WidthReg) %>%
-    dplyr::distinct() %>%
-    tibble::as_tibble()
+  regStd <- sqlFetch(channel = accessDB, sqtable = where$fns$regionStd) %>%
+    rename(SAR = REGION, WidthReg = WIDMED) %>%
+    left_join(y = aSm, by = "SAR") %>%
+    filter(SAR %in% aSm$SAR) %>%
+    select(Region, WidthReg) %>%
+    distinct() %>%
+    as_tibble()
   # Access the section worksheet and wrangle
-  secStd <- RODBC::sqlFetch(
+  secStd <- sqlFetch(
     channel = accessDB,
     sqtable = where$fns$sectionStd
   ) %>%
-    dplyr::rename(Section = SECTION, WidthSec = WIDMED) %>%
-    dplyr::left_join(y = aSm, by = "Section") %>%
-    dplyr::filter(Section %in% aSm$Section) %>%
-    dplyr::select(Region, Section, WidthSec) %>%
-    dplyr::distinct() %>%
-    tibble::as_tibble()
+    rename(Section = SECTION, WidthSec = WIDMED) %>%
+    left_join(y = aSm, by = "Section") %>%
+    filter(Section %in% aSm$Section) %>%
+    select(Region, Section, WidthSec) %>%
+    distinct() %>%
+    as_tibble()
   # Access the pool worksheet and wrangle
-  poolStd <- RODBC::sqlFetch(
+  poolStd <- sqlFetch(
     channel = accessDB, sqtable = where$fns$poolStd
   ) %>%
-    dplyr::rename(Section = SECTION, Pool = BED, WidthPool = WIDMED) %>%
-    dplyr::left_join(y = aSm, by = c("Section", "Pool")) %>%
-    dplyr::filter(Section %in% aSm$Section) %>%
-    dplyr::select(Region, Section, Pool, WidthPool) %>%
-    dplyr::distinct() %>%
-    tibble::as_tibble()
+    rename(Section = SECTION, Pool = BED, WidthPool = WIDMED) %>%
+    left_join(y = aSm, by = c("Section", "Pool")) %>%
+    filter(Section %in% aSm$Section) %>%
+    select(Region, Section, Pool, WidthPool) %>%
+    distinct() %>%
+    as_tibble()
   # Merge the tables
   res <- regStd %>%
-    dplyr::left_join(y = secStd, by = "Region") %>%
-    dplyr::left_join(y = poolStd, by = c("Region", "Section")) %>%
-    dplyr::arrange(Region, Section, Pool) %>%
-    dplyr::distinct()
+    left_join(y = secStd, by = "Region") %>%
+    left_join(y = poolStd, by = c("Region", "Section")) %>%
+    arrange(Region, Section, Pool) %>%
+    distinct()
   # Close the connection
-  RODBC::odbcClose(accessDB)
+  odbcClose(accessDB)
   # Table to return
   return(res)
 } # End GetWidth function
