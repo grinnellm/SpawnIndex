@@ -1639,8 +1639,9 @@ In addition to work mentioned here and in \autoref{secUncertain}, potential rese
 \begin{enumerate}
 \item Mean vs median width,
 \item Annual vs periodic updates, and
-\item Consistency of spawn width over time at a range of abundance levels, and
+\item Consistency of spawn width over time at a range of abundance levels,
 \end{enumerate}
+\item Quantify incidental mortality in SOK operations, and
 \item Account for osmosis in SOK calculations (\autoref{eqSOKBioFRY}).
 \end{enumerate}
 
