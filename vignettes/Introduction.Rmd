@@ -338,4 +338,22 @@ kable(
   add_header_above(header = c("", "Survey" = 3, ""))
 ```
 
+# Spawn on kelp calculations
+
+Calculate the biomass of spawning Pacific Herring from spawn on kelp (SOK) operations.
+Note that these are fictional values.
+
+```{r sokYr, results='asis'}
+# SOK harvest (kg) by year -- make up some values
+kgSOK <- tibble(
+  Year = yrRange,
+  Harvest = sample(x = 500:10000, size = length(yrRange))
+) %>%
+  mutate(Biomass = CalcBiomassSOK(Harvest))
+# Table
+kable(x=kgSOK, digits=1, booktabs=TRUE,
+      caption="SOK harvest in kilograms (kg) and associated biomass in tonnes (t).")
+```
+
+
 # References
