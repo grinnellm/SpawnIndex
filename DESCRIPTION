@@ -26,6 +26,6 @@ Imports: Rdpack, RODBC, dplyr, gfiscamutils, readr, sp, stringr, tibble, tidyr,
 Remotes: pbs-assess/gfiscamutils
 RdMacros: Rdpack
 Suggests: knitr, rmarkdown, ggplot2, magrittr, kableExtra, sf, rnaturalearth,
-    rnaturalearthdata, units
+    rnaturalearthdata
 VignetteBuilder: knitr
 Vignette: Introduction
