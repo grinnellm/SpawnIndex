@@ -550,10 +550,10 @@
 }
 
 @TechReport{GrinnellEtalYYYY,
-  author      = {M H Grinnell and J S Schweigert and M Thompson and J S Cleary},
+  author      = {Matthew H Grinnell and Jake S Schweigert and Matt Thompson and S Hawkshaw and Jaclyn S Cleary},
   date        = {2020},
   institution = {Fisheries and Oceans Canada},
-  title       = {Calculatin the spawn index for {Pacific} {Herring} (\emph{{Clupea} pallasii}) in {British} {Columbia}},
+  title       = {Calculating the spawn index for {Pacific} {Herring} (\emph{{Clupea} pallasii}) in {British} {Columbia}},
   note        = {In prep},
   number      = {nnnn},
   type        = {Canadian Technical Report of Fisheries and Aquatic Sciences},
@@ -566,8 +566,8 @@
   author   = {D F Alderice and H Rosenthal and F P J Velsen},
   title    = {Influence of salinity and cadmium on the volume of {Pacific} herring eggs},
   doi      = {10.1007/BF02189895},
-  issue    = {32},
   pages    = {163-178},
+  volume   = {32},
   abstract = {Changes in total volume and volume of the yolk and perivitelline space of Pacific herring eggs were examined throughout incubation at 5°C in relation to salinity of the incubation medium (5, 20, 35‰ S), and after exposure to cadmium (0.05–10 ppm Cd) at 20‰ S. After fertilization and filling of the perivitelline space there was a decline in total egg volume in all salinities until 60–80 hr after fertilization. There followed a period of relative stability of total volume (100–240 hr), then a slow decline until hatching (240–618 hr). There was an inverse relation, between egg volume and salinity at all stages of egg development. Eggs transferred from 20‰ to 5 or 35‰ S, 87.4 hr after fertilization (90% blastodermal overgrowth of the yolk), showed only minor changes in total egg volume within the period of relative stability (100–240 hr). Prior to 80 hr, changes in egg volume appeared primarily to be simpleadjustments to prevailing osmotic and ionic conditions, modified, however, by presumed irreversible changes induced in the egg in relation to salinity experience at, and shortly after, fertilization. Subsequently, between 80–100 hr, egg volume appears to becomeregulated, commencing in the interval between late blastodermal overgrowth and blastopore closure. Yolk volume declined after fertilization, reached a minimum 40–60 hr after fertilization, increased to 100 hr, then decreased in the period of relative stability of total volume — presumably in relation to rapid growth of the embryo. In the latter period, yolk volume appeared resistant to change when eggs are transferred from 20 ‰ to 5 or 35 ‰ S, 87.4 hr, after fertilization. Volume of the perivitelline space reached a maximum after fertilization, then decreased until about 100 hr; between 100 and 240 hr it increased rapidly and was influenced only in a minor way by salinity changes in the incubation medium 87.4 hr after fertilization. Eggs exposed to cadmium in the interval between 1/2 and 30 hr after fertilization showed major reductions in total egg volume; total volume in the period of relative stability (100–240 hr) was much reduced and normal volume was not recovered after removal of such eggs to uncontaminated water at 30 hr.},
   file     = {:Articles/AlderdiceEtal1979 - Influence of salinity and cadmium on the volumne of Pacific herring eggs.pdf:PDF},
   groups   = {SpawnIndex},
