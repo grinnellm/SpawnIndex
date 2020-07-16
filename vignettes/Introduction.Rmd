@@ -317,7 +317,7 @@ kable(
 )
 ```
 
-# Total spawn index
+## Total spawn index
 
 Calculate the total spawn index by year as the sum of the spawn index in the three survey types:
 surface, Macrocystis, and understory.
