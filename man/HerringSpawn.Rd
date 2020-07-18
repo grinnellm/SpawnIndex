@@ -32,12 +32,12 @@ This is a 32-bit MS Access database, and it requires 32-bit R to access
 \examples{
 dbLoc <- system.file("extdata", "HerringSpawn.mdb", package = "SpawnIndex")
 dbLoc
-\dontrun{
-accessDB <- RODBC::odbcConnectAccess(access.file = dbLoc)
-hTables <- RODBC::sqlTables(channel = accessDB)
-tibble::as_tibble(hTables)
-RODBC::odbcClose(channel = accessDB)
-}
+library(RODBC)
+library(tibble)
+accessDB <- odbcConnectAccess(access.file = dbLoc)
+hTables <- sqlTables(channel = accessDB)
+as_tibble(hTables)
+odbcClose(channel = accessDB)
 }
 \seealso{
 \code{\link{LoadAreaData}} \code{\link{LoadAllSpawn}}

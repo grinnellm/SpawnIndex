@@ -137,9 +137,9 @@ GetDiveWidth <- function(where,
   accessDB <- odbcConnectAccess(access.file = file.path(where$loc, where$db))
   # Get a small subset of area data
   areasSm <- a %>%
-    dplyr::select(Region, StatArea, Section, Pool, LocationCode) %>%
-    dplyr::distinct() %>%
-    tibble::as_tibble()
+    select(Region, StatArea, Section, Pool, LocationCode) %>%
+    distinct() %>%
+    as_tibble()
   # Transect data
   algTrans <- sqlFetch(channel = accessDB, sqtable = where$fns$algTrans) %>%
     rename(

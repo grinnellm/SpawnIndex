@@ -296,7 +296,7 @@ LoadAreaData <- function(reg,
 #'   staring in 1951.
 #' @param ft2m Numeric. Conversion factor for feet to metres.
 #' @importFrom RODBC odbcConnectAccess sqlFetch odbcClose
-#' @importFrom dplyr select rename full_join filter mutate %>% arrange
+#' @importFrom dplyr select rename full_join filter mutate %>% arrange ungroup
 #' @importFrom tibble as_tibble
 #' @importFrom stringr str_to_title
 #' @importFrom lubridate as_date

@@ -83,7 +83,8 @@ CalcBiomassSOK <- function(SOK,
 #' @param theta Numeric. Egg conversion factor (eggs to biomass); from
 #'   \code{\link{CalcEggConversion}}.
 #' @importFrom RODBC odbcConnectAccess sqlFetch odbcClose
-#' @importFrom dplyr select distinct rename left_join filter %>%
+#' @importFrom dplyr select distinct rename left_join filter %>% ends_with
+#'   ungroup
 #' @importFrom tibble as_tibble
 #' @importFrom stringr str_to_title
 #' @importFrom gfiscamutils MeanNA SumNA
@@ -340,6 +341,7 @@ CalcSurfSpawn <- function(where,
 #'   \code{\link{CalcEggConversion}}.
 #' @importFrom RODBC odbcConnectAccess sqlFetch odbcClose
 #' @importFrom dplyr select distinct rename left_join filter %>% group_by
+#'   summarise ungroup
 #' @importFrom tibble as_tibble
 #' @importFrom stringr str_to_title
 #' @importFrom gfiscamutils MeanNA SumNA UniqueNA
@@ -524,7 +526,8 @@ CalcMacroSpawn <- function(where,
 #' @param theta Numeric. Egg conversion factor (eggs to biomass); from
 #'   \code{\link{CalcEggConversion}}.
 #' @importFrom RODBC odbcConnectAccess sqlFetch odbcClose
-#' @importFrom dplyr select distinct rename left_join filter %>%
+#' @importFrom dplyr select distinct rename left_join filter %>% ungroup
+#'   bind_rows
 #' @importFrom tibble as_tibble
 #' @importFrom stringr str_to_title str_to_upper
 #' @importFrom gfiscamutils MeanNA SumNA UniqueNA WtMeanNA
