@@ -39,7 +39,6 @@ library(tidyr)
 library(sf)
 library(kableExtra)
 library(rnaturalearth)
-install.packages("rnaturalearthhires", repos = "http://packages.ropensci.org", type = "source")
 library(rnaturalearthhires)
 ```
 
@@ -354,8 +353,11 @@ kgSOK <- tibble(
 ) %>%
   mutate(Biomass = CalcBiomassSOK(Harvest))
 # Table
-kable(x=kgSOK, digits=1, booktabs=TRUE,
-      caption="SOK harvest in kilograms (kg) and associated biomass in tonnes (t).")
+kable(
+  x = kgSOK, digits = 1, booktabs = TRUE,
+  caption = paste("SOK harvest in kilograms (kg) by year and",
+                  "associated biomass in tonnes (t).")
+)
 ```
 
 
