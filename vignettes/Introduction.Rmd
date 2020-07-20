@@ -39,6 +39,7 @@ library(tidyr)
 library(sf)
 library(kableExtra)
 library(rnaturalearth)
+library(rnaturalearthhires)
 ```
 
 # Set up

@@ -13,5 +13,6 @@ r_packages:
   - covr
 r_github_packages:
   - pbs-assess/gfiscamutils
+  - ropensci/rnaturalearthhires
 after_success:
     - Rscript -e 'covr::codecov()'
