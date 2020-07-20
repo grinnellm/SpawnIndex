@@ -39,6 +39,8 @@ library(tidyr)
 library(sf)
 library(kableExtra)
 library(rnaturalearth)
+install.packages("rnaturalearthhires", repos = "http://packages.ropensci.org", type = "source")
+library(rnaturalearthhires)
 ```
 
 # Set up
