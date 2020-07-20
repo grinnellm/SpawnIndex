@@ -79,7 +79,12 @@ GetSurfWidth <- function(where,
                          yrs = yrRange,
                          widths) {
   # Establish connection with access
-  accessDB <- odbcConnectAccess(access.file = file.path(where$loc, where$db))
+  accessDB <- odbcDriverConnect(
+    paste("Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=",
+          file.path(where$loc, where$db),
+          sep = ""
+    )
+  )
   # Get a small subset of area data
   areasSm <- a %>%
     select(Region, StatArea, Section, LocationCode, Pool) %>%
@@ -134,7 +139,12 @@ GetDiveWidth <- function(where,
                          yrs = yrRange,
                          tau = underWidthFac) {
   # Establish connection with access
-  accessDB <- odbcConnectAccess(access.file = file.path(where$loc, where$db))
+  accessDB <- odbcDriverConnect(
+    paste("Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=",
+          file.path(where$loc, where$db),
+          sep = ""
+    )
+  )
   # Get a small subset of area data
   areasSm <- a %>%
     select(Region, StatArea, Section, Pool, LocationCode) %>%
@@ -208,7 +218,12 @@ GetSurfWidth2 <- function(where,
                           yrs = yrRange,
                           widths) {
   # Establish connection with access
-  accessDB <- odbcConnectAccess(access.file = file.path(where$loc, where$db))
+  accessDB <- odbcDriverConnect(
+    paste("Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=",
+          file.path(where$loc, where$db),
+          sep = ""
+    )
+  )
   # Get a small subset of area data
   areasSm <- a %>%
     select(Region, StatArea, Section, LocationCode) %>%

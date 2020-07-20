@@ -327,8 +327,8 @@ LoadAllSpawn <- function(where, a, yrs, ft2m = 0.3048) {
   # Establish connection with access
   accessDB <- odbcDriverConnect(
     paste("Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=",
-          file.path(where$loc, where$db),
-          sep = ""
+      file.path(where$loc, where$db),
+      sep = ""
     )
   )
   # Extract relevant spawn data
@@ -430,8 +430,8 @@ GetWidth <- function(where, a = areas) {
   # Establish connection with access
   accessDB <- odbcDriverConnect(
     paste("Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=",
-          file.path(where$loc, where$db),
-          sep = ""
+      file.path(where$loc, where$db),
+      sep = ""
     )
   )
   # Access the region worksheet and wrangle

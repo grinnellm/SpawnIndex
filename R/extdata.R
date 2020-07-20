@@ -32,7 +32,12 @@
 #' dbLoc
 #' library(RODBC)
 #' library(tibble)
-#' accessDB <- odbcConnectAccess(access.file = dbLoc)
+#' accessDB <- odbcDriverConnect(
+#'   paste("Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=",
+#'     dbLoc,
+#'     sep = ""
+#'   )
+#' )
 #' hTables <- sqlTables(channel = accessDB)
 #' as_tibble(hTables)
 #' odbcClose(channel = accessDB)
