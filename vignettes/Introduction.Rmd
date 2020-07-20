@@ -39,7 +39,6 @@ library(tidyr)
 library(sf)
 library(kableExtra)
 library(rnaturalearth)
-library(rnaturalearthhires)
 ```
 
 # Set up
@@ -355,8 +354,10 @@ kgSOK <- tibble(
 # Table
 kable(
   x = kgSOK, digits = 1, booktabs = TRUE,
-  caption = paste("SOK harvest in kilograms (kg) by year and",
-                  "associated biomass in tonnes (t).")
+  caption = paste(
+    "SOK harvest in kilograms (kg) by year and",
+    "associated biomass in tonnes (t)."
+  )
 )
 ```
 
