@@ -82,7 +82,7 @@ CalcBiomassSOK <- function(SOK,
 #'   \insertCite{SchweigertEtal1997}{SpawnIndex}.
 #' @param theta Numeric. Egg conversion factor (eggs to biomass); from
 #'   \code{\link{CalcEggConversion}}.
-#' @importFrom RODBC odbcConnectAccess sqlFetch odbcClose
+#' @importFrom RODBC odbcDriverConnect sqlFetch odbcClose
 #' @importFrom dplyr select distinct rename left_join filter %>% ends_with
 #'   ungroup
 #' @importFrom tibble as_tibble
@@ -136,10 +136,12 @@ CalcSurfSpawn <- function(where,
                           beta = pars$surface$beta,
                           theta = CalcEggConversion()) {
   # Establish connection with access
-  accessDB <- odbcConnectAccess(access.file = file.path(
-    where$loc,
-    where$db
-  ))
+  accessDB <- odbcDriverConnect(
+    paste("Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=",
+      file.path(where$loc, where$db),
+      sep = ""
+    )
+  )
   # Get a small subset of area data
   areasSm <- a %>%
     select(SAR, Region, StatArea, Section, LocationCode, Pool) %>%
@@ -339,7 +341,7 @@ CalcSurfSpawn <- function(where,
 #'   from \code{\link{pars}} \insertCite{HaegeleSchweigert1990}{SpawnIndex}.
 #' @param theta Numeric. Egg conversion factor (eggs to biomass); from
 #'   \code{\link{CalcEggConversion}}.
-#' @importFrom RODBC odbcConnectAccess sqlFetch odbcClose
+#' @importFrom RODBC odbcDriverConnect sqlFetch odbcClose
 #' @importFrom dplyr select distinct rename left_join filter %>% group_by
 #'   summarise ungroup
 #' @importFrom tibble as_tibble
@@ -384,10 +386,12 @@ CalcMacroSpawn <- function(where,
                            epsilon = pars$macrocystis$epsilon,
                            theta = CalcEggConversion()) {
   # Establish connection with access
-  accessDB <- odbcConnectAccess(access.file = file.path(
-    where$loc,
-    where$db
-  ))
+  accessDB <- odbcDriverConnect(
+    paste("Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=",
+      file.path(where$loc, where$db),
+      sep = ""
+    )
+  )
   # Load all spawn
   spawn <- sqlFetch(channel = accessDB, sqtable = where$fns$allSpawn) %>%
     rename(
@@ -525,7 +529,7 @@ CalcMacroSpawn <- function(where,
 #'   \code{\link{pars}} \insertCite{Schweigert2005}{SpawnIndex}.
 #' @param theta Numeric. Egg conversion factor (eggs to biomass); from
 #'   \code{\link{CalcEggConversion}}.
-#' @importFrom RODBC odbcConnectAccess sqlFetch odbcClose
+#' @importFrom RODBC odbcDriverConnect sqlFetch odbcClose
 #' @importFrom dplyr select distinct rename left_join filter %>% ungroup
 #'   bind_rows
 #' @importFrom tibble as_tibble
@@ -573,10 +577,12 @@ CalcUnderSpawn <- function(where,
                            delta = pars$understory$delta,
                            theta = CalcEggConversion()) {
   # Establish connection with access
-  accessDB <- odbcConnectAccess(access.file = file.path(
-    where$loc,
-    where$db
-  ))
+  accessDB <- odbcDriverConnect(
+    paste("Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=",
+      file.path(where$loc, where$db),
+      sep = ""
+    )
+  )
   # Get a small subset of area data
   areasSm1 <- a %>%
     select(Region, LocationCode) %>%

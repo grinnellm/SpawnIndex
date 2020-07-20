@@ -22,7 +22,7 @@
 #' @importFrom readr read_csv cols
 #' @importFrom dplyr filter select mutate full_join %>% transmute right_join
 #' @importFrom tidyr unite
-#' @importFrom RODBC odbcConnectAccess sqlFetch odbcClose
+#' @importFrom RODBC odbcDriverConnect sqlFetch odbcClose
 #' @importFrom tibble as_tibble
 #' @importFrom sp SpatialPoints spTransform CRS
 #' @return Tibble. Table of geographic information for Pacific Herring: SAR,
@@ -89,10 +89,12 @@ LoadAreaData <- function(reg,
     )
   }
   # Establish connection with access
-  accessDB <- odbcConnectAccess(access.file = file.path(
-    where$loc,
-    where$db
-  ))
+  accessDB <- odbcDriverConnect(
+    paste("Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=",
+      file.path(where$loc, where$db),
+      sep = ""
+    )
+  )
   # TODO: Sections 132 and 135 are also SoG sections -- how to resolve?
   # Manual fix: Johnstone Strait herring sections
   jsSections <- c(111, 112, 121:127, 131:136)
@@ -295,7 +297,7 @@ LoadAreaData <- function(reg,
 #' @param yrs Numeric vector. Years(s) to include in the calculations, usually
 #'   staring in 1951.
 #' @param ft2m Numeric. Conversion factor for feet to metres.
-#' @importFrom RODBC odbcConnectAccess sqlFetch odbcClose
+#' @importFrom RODBC odbcDriverConnect sqlFetch odbcClose
 #' @importFrom dplyr select rename full_join filter mutate %>% arrange ungroup
 #' @importFrom tibble as_tibble
 #' @importFrom stringr str_to_title
@@ -323,10 +325,12 @@ LoadAreaData <- function(reg,
 #' allSpawn
 LoadAllSpawn <- function(where, a, yrs, ft2m = 0.3048) {
   # Establish connection with access
-  accessDB <- odbcConnectAccess(access.file = file.path(
-    where$loc,
-    where$db
-  ))
+  accessDB <- odbcDriverConnect(
+    paste("Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=",
+          file.path(where$loc, where$db),
+          sep = ""
+    )
+  )
   # Extract relevant spawn data
   spawn <- sqlFetch(channel = accessDB, sqtable = where$fns$allSpawn) %>%
     rename(LocationCode = Loc_Code, SpawnNumber = Spawn_Number) %>%
@@ -391,7 +395,7 @@ LoadAllSpawn <- function(where, a, yrs, ft2m = 0.3048) {
 #' @param a Tibble. Table of geographic information indicating the subset of
 #'   spawn survey observations to inlude in calculations; from
 #'   \code{\link{LoadAreaData}}.
-#' @importFrom RODBC odbcConnectAccess sqlFetch odbcClose
+#' @importFrom RODBC odbcDriverConnect sqlFetch odbcClose
 #' @importFrom dplyr select distinct rename left_join filter %>%
 #' @importFrom tibble as_tibble
 #' @importFrom Rdpack reprompt
@@ -424,10 +428,12 @@ GetWidth <- function(where, a = areas) {
     distinct() %>%
     as_tibble()
   # Establish connection with access
-  accessDB <- odbcConnectAccess(access.file = file.path(
-    where$loc,
-    where$db
-  ))
+  accessDB <- odbcDriverConnect(
+    paste("Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=",
+          file.path(where$loc, where$db),
+          sep = ""
+    )
+  )
   # Access the region worksheet and wrangle
   regStd <- sqlFetch(channel = accessDB, sqtable = where$fns$regionStd) %>%
     rename(SAR = REGION, WidthReg = WIDMED) %>%
