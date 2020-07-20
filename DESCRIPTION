@@ -25,6 +25,7 @@ Imports: Rdpack, RODBC, dplyr, gfiscamutils, readr, sp, stringr, tibble, tidyr,
     lubridate
 Remotes: pbs-assess/gfiscamutils
 RdMacros: Rdpack
-Suggests: knitr, rmarkdown, ggplot2, magrittr, kableExtra, sf, rnaturalearth
+Suggests: knitr, rmarkdown, ggplot2, magrittr, kableExtra, sf, rnaturalearth,
+    rnaturalearthhires
 VignetteBuilder: knitr
 Vignette: Introduction
