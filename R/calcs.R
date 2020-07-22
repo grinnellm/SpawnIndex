@@ -281,7 +281,21 @@ CalcSurfSpawn <- function(where,
   # Calculate annual fish biomass by spawn number/pool
   biomassSpawn <- eggsSpawn %>%
     left_join(y = spawn, by = c("Year", "LocationCode", "SpawnNumber")) %>%
-    left_join(y = widths, by = c("Region", "Section", "Pool")) %>%
+    # Join by Region
+    left_join(
+      y = widths %>% select(Region, WidthReg) %>% distinct(),
+      by = "Region"
+    ) %>%
+    # Join by Section
+    left_join(
+      y = widths %>% select(Section, WidthSec) %>% distinct(),
+      by = "Section"
+    ) %>%
+    # Join by Pool within Section
+    left_join(
+      y = widths %>% select(Section, Pool, WidthPool) %>% distinct(),
+      by = c("Section", "Pool")
+    ) %>%
     # Width is set to pool, section, region, or observed width (in that order)
     mutate(
       Width = WidthPool,
@@ -291,10 +305,10 @@ CalcSurfSpawn <- function(where,
       # Biomass in tonnes, based on Hay (1985), and Hay and Brett (1988)
       SurfSI = EggDens * Length * Width * 1000 / theta
     ) %>%
-    # Group to account for 'pool' level (want 'spawn' level)
-    group_by(
-      Year, Region, StatArea, Section, LocationCode, SpawnNumber
-    ) %>%
+  # Group to account for 'pool' level (want 'spawn' level)
+  group_by(
+    Year, Region, StatArea, Section, LocationCode, SpawnNumber
+  ) %>%
     # Spawn s
     summarise(SurfSI = SumNA(SurfSI)) %>%
     ungroup() %>%
