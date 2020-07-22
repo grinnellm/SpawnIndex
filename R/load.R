@@ -22,7 +22,8 @@
 #' @importFrom readr read_csv cols
 #' @importFrom dplyr filter select mutate full_join %>% transmute right_join
 #' @importFrom tidyr unite
-#' @importFrom RODBC odbcDriverConnect sqlFetch odbcClose
+#' @importFrom odbc dbConnect odbc dbDisconnect
+#' @importFrom DBI dbReadTable
 #' @importFrom tibble as_tibble
 #' @importFrom sp SpatialPoints spTransform CRS
 #' @return Tibble. Table of geographic information for Pacific Herring: SAR,
@@ -89,12 +90,11 @@ LoadAreaData <- function(reg,
     )
   }
   # Establish connection with access
-  accessDB <- odbcDriverConnect(
-    paste("Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=",
-      file.path(where$loc, where$db),
-      sep = ""
-    )
-  )
+  accessDB <- dbConnect(drv=odbc(),
+                        .connection_string = paste(
+                          "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=",
+                          file.path(where$loc, where$db),
+                          sep=""))
   # TODO: Sections 132 and 135 are also SoG sections -- how to resolve?
   # Manual fix: Johnstone Strait herring sections
   jsSections <- c(111, 112, 121:127, 131:136)
@@ -105,11 +105,12 @@ LoadAreaData <- function(reg,
       cat("Note overlap between JS and SoG: Sections 132 and 135\n")
     }
     # Access the sections worksheet and wrangle
-    sections <- sqlFetch(channel = accessDB, sqtable = where$fns$sections)
+    sections <- dbReadTable(conn = accessDB, name = where$fns$sections)
     # Error if data was not fetched
     if (class(sections) != "data.frame") {
       stop("No data available in MS Access connection")
     }
+    # Wrangle the sections worksheet
     sections <- sections %>%
       filter(Section %in% jsSections) %>%
       mutate(SAR = 8) %>%
@@ -119,12 +120,13 @@ LoadAreaData <- function(reg,
       distinct() %>%
       as_tibble()
   } else { # End if Johnstone Strait, otherwise
-    # Access the sections worksheet and wrangle
-    sections <- sqlFetch(channel = accessDB, sqtable = where$fns$sections)
+    # Wrangle the sections worksheet
+    sections <- dbReadTable(conn = accessDB, name = where$fns$sections)
     # Error if data was not fetched
     if (class(sections) != "data.frame") {
       stop("No data available in MS Access connection")
     }
+    # Wrangle the sections table
     sections <- sections %>%
       full_join(y = regions, by = "SAR") %>%
       select(SAR, Region, RegionName, Section) %>%
@@ -138,7 +140,7 @@ LoadAreaData <- function(reg,
     } # End if we only want a specific region
   } # End if the region is not Johnstone Strait
   # Access the locations worksheet
-  loc <- sqlFetch(channel = accessDB, sqtable = where$fns$locations)
+  loc <- dbReadTable(conn = accessDB, name = where$fns$locations)
   # Error if data was not fetched
   if (class(loc) != "data.frame") {
     stop("No data available in MS Access connection")
@@ -151,9 +153,8 @@ LoadAreaData <- function(reg,
     ) %>%
     mutate(Location = as.character(Location)) %>%
     rename(
-      LocationCode = Loc_Code, LocationName = Location, StatArea = StatArea,
-      Section = Section, Latitude = Location_Latitude,
-      Longitude = Location_Longitude, Pool = Bed
+      LocationCode = Loc_Code, LocationName = Location,
+      Latitude = Location_Latitude, Longitude = Location_Longitude, Pool = Bed
     ) %>%
     replace_na(replace = list(Longitude = 0, Latitude = 0)) %>%
     select(
@@ -261,6 +262,7 @@ LoadAreaData <- function(reg,
       SAR, Region, RegionName, StatArea, Group, Section, LocationCode,
       LocationName, Pool, Eastings, Northings, Longitude, Latitude
     ) %>%
+    mutate(Section = as.integer(Section), Pool = as.integer(Pool)) %>%
     #      mutate( StatArea=formatC(StatArea, width=2, format="d", flag="0"),
     #          Section=formatC(Section, width=3, format="d", flag="0") ) %>%
     arrange(Region, StatArea, Group, Section, LocationCode) %>%
@@ -278,7 +280,7 @@ LoadAreaData <- function(reg,
     }
   } # End if subsetting areas
   # Close the connection
-  odbcClose(accessDB)
+  dbDisconnect(accessDB)
   # Error if there is no data
   if (nrow(res) == 0) stop("No locations; check inputs")
   # Return herring areas
