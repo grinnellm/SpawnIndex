@@ -82,9 +82,10 @@ CalcBiomassSOK <- function(SOK,
 #'   \insertCite{SchweigertEtal1997}{SpawnIndex}.
 #' @param theta Numeric. Egg conversion factor (eggs to biomass); from
 #'   \code{\link{CalcEggConversion}}.
-#' @importFrom RODBC odbcDriverConnect sqlFetch odbcClose
+#' @importFrom odbc dbConnect odbc dbDisconnect
+#' @importFrom DBI dbReadTable
 #' @importFrom dplyr select distinct rename left_join filter %>% ends_with
-#'   ungroup
+#'   ungroup mutate_at vars starts_with ends_with
 #' @importFrom tibble as_tibble
 #' @importFrom stringr str_to_title
 #' @importFrom gfiscamutils MeanNA SumNA
@@ -136,8 +137,10 @@ CalcSurfSpawn <- function(where,
                           beta = pars$surface$beta,
                           theta = CalcEggConversion()) {
   # Establish connection with access
-  accessDB <- odbcDriverConnect(
-    paste("Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=",
+  accessDB <- dbConnect(
+    drv = odbc(),
+    .connection_string = paste(
+      "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=",
       file.path(where$loc, where$db),
       sep = ""
     )
@@ -148,7 +151,7 @@ CalcSurfSpawn <- function(where,
     distinct() %>%
     as_tibble()
   # Load all spawn
-  spawn <- sqlFetch(channel = accessDB, sqtable = where$fns$allSpawn) %>%
+  spawn <- dbReadTable(conn = accessDB, name = where$fns$allSpawn) %>%
     rename(
       LocationCode = Loc_Code, SpawnNumber = Spawn_Number, WidthObs = Width
     ) %>%
@@ -159,10 +162,7 @@ CalcSurfSpawn <- function(where,
     ) %>%
     as_tibble()
   # Extract relevant surface data
-  surface <- sqlFetch(
-    channel = accessDB,
-    sqtable = where$fns$surface
-  ) %>%
+  surface <- dbReadTable(conn = accessDB, name = where$fns$surface) %>%
     rename(LocationCode = Loc_Code, SpawnNumber = Spawn_Number) %>%
     filter(Year %in% yrs, LocationCode %in% a$LocationCode) %>%
     left_join(y = areasSm, by = "LocationCode") %>%
@@ -177,6 +177,9 @@ CalcSurfSpawn <- function(where,
       Lay_Stringy_Red = 0, Stringy_Red_Percent = 0, Lay_Rock = 0,
       Rock_Percent = 0, Lay_Other = 0, Other_Percent = 0
     )) %>%
+    mutate_at(.vars = vars(starts_with("Lay_")), .funs = as.numeric) %>%
+    mutate_at(.vars = vars(ends_with("_Percent")), .funs = as.numeric) %>%
+    mutate(Intensity = as.integer(Intensity)) %>%
     # Substrate i
     mutate(
       Grass = Lay_Grass * Grass_Percent / 100,
@@ -308,7 +311,7 @@ CalcSurfSpawn <- function(where,
   SI <- biomassSpawn %>%
     select(Year, Region, StatArea, Section, LocationCode, SpawnNumber, SurfSI)
   # Close the connection
-  odbcClose(accessDB)
+  dbDisconnect(conn = accessDB)
   # Return the data
   return(list(
     surface = surface, eggs = eggs, eggsSpawn = eggsSpawn,
@@ -338,7 +341,8 @@ CalcSurfSpawn <- function(where,
 #'   from \code{\link{pars}} \insertCite{HaegeleSchweigert1990}{SpawnIndex}.
 #' @param theta Numeric. Egg conversion factor (eggs to biomass); from
 #'   \code{\link{CalcEggConversion}}.
-#' @importFrom RODBC odbcDriverConnect sqlFetch odbcClose
+#' @importFrom odbc dbConnect odbc dbDisconnect
+#' @importFrom DBI dbReadTable
 #' @importFrom dplyr select distinct rename left_join filter %>% group_by
 #'   summarise ungroup
 #' @importFrom tibble as_tibble
@@ -383,14 +387,16 @@ CalcMacroSpawn <- function(where,
                            epsilon = pars$macrocystis$epsilon,
                            theta = CalcEggConversion()) {
   # Establish connection with access
-  accessDB <- odbcDriverConnect(
-    paste("Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=",
+  accessDB <- dbConnect(
+    drv = odbc(),
+    .connection_string = paste(
+      "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=",
       file.path(where$loc, where$db),
       sep = ""
     )
   )
   # Load all spawn
-  spawn <- sqlFetch(channel = accessDB, sqtable = where$fns$allSpawn) %>%
+  spawn <- dbReadTable(conn = accessDB, name = where$fns$allSpawn) %>%
     rename(
       LocationCode = Loc_Code, SpawnNumber = Spawn_Number,
       LengthMacro = Length_Macrocystis
@@ -402,7 +408,7 @@ CalcMacroSpawn <- function(where,
     ) %>%
     as_tibble()
   # Get plant-level data
-  plants <- sqlFetch(channel = accessDB, sqtable = where$fns$plants) %>%
+  plants <- dbReadTable(conn = accessDB, name = where$fns$plants) %>%
     rename(LocationCode = Loc_Code, SpawnNumber = Spawn_Number) %>%
     filter(
       Year %in% yrs, LocationCode %in% a$LocationCode,
@@ -416,10 +422,7 @@ CalcMacroSpawn <- function(where,
     distinct() %>%
     as_tibble()
   # Get transect-level data
-  transects <- sqlFetch(
-    channel = accessDB,
-    sqtable = where$fns$transects
-  ) %>%
+  transects <- dbReadTable(conn = accessDB, name = where$fns$transects) %>%
     rename(LocationCode = Loc_Code, SpawnNumber = Spawn_Number) %>%
     filter(Year %in% yrs, LocationCode %in% a$LocationCode) %>%
     left_join(y = areasSm, by = "LocationCode") %>%
@@ -494,7 +497,7 @@ CalcMacroSpawn <- function(where,
       Year, Region, StatArea, Section, LocationCode, SpawnNumber, MacroSI
     )
   # Close the connection
-  odbcClose(accessDB)
+  dbDisconnect(conn = accessDB)
   # Return the data
   return(list(
     dat = dat, datTrans = datTrans, biomassSpawn = biomassSpawn, SI = SI
@@ -526,7 +529,8 @@ CalcMacroSpawn <- function(where,
 #'   \code{\link{pars}} \insertCite{Schweigert2005}{SpawnIndex}.
 #' @param theta Numeric. Egg conversion factor (eggs to biomass); from
 #'   \code{\link{CalcEggConversion}}.
-#' @importFrom RODBC odbcDriverConnect sqlFetch odbcClose
+#' @importFrom odbc dbConnect odbc dbDisconnect
+#' @importFrom DBI dbReadTable
 #' @importFrom dplyr select distinct rename left_join filter %>% ungroup
 #'   bind_rows
 #' @importFrom tibble as_tibble
@@ -574,8 +578,10 @@ CalcUnderSpawn <- function(where,
                            delta = pars$understory$delta,
                            theta = CalcEggConversion()) {
   # Establish connection with access
-  accessDB <- odbcDriverConnect(
-    paste("Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=",
+  accessDB <- dbConnect(
+    drv = odbc(),
+    .connection_string = paste(
+      "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=",
       file.path(where$loc, where$db),
       sep = ""
     )
@@ -586,7 +592,7 @@ CalcUnderSpawn <- function(where,
     distinct() %>%
     as_tibble()
   # Load all spawn
-  spawn <- sqlFetch(channel = accessDB, sqtable = where$fns$allSpawn) %>%
+  spawn <- dbReadTable(conn = accessDB, name = where$fns$allSpawn) %>%
     rename(
       LocationCode = Loc_Code, SpawnNumber = Spawn_Number,
       LengthAlgae = Length_Vegetation
@@ -598,10 +604,7 @@ CalcUnderSpawn <- function(where,
     ) %>%
     as_tibble()
   # Load algae transects
-  algTrans <- sqlFetch(
-    channel = accessDB,
-    sqtable = where$fns$algTrans
-  ) %>%
+  algTrans <- dbReadTable(conn = accessDB, name = where$fns$algTrans) %>%
     rename(
       LocationCode = Loc_Code, SpawnNumber = Spawn_Number,
       QuadratSize = Quadrat_Size, WidthObs = Width_Recorded
@@ -628,10 +631,7 @@ CalcUnderSpawn <- function(where,
     stop("All quadrats must be 0.5m^2", call. = FALSE)
   }
   # Load station data
-  stations <- sqlFetch(
-    channel = accessDB,
-    sqtable = where$fns$stations
-  ) %>%
+  stations <- dbReadTable(conn = accessDB, name = where$fns$stations) %>%
     rename(
       LocationCode = Loc_Code, SpawnNumber = Spawn_Number,
       SubLyrs = Layers_Bottom
@@ -649,7 +649,7 @@ CalcUnderSpawn <- function(where,
     ungroup() %>%
     mutate(Source = "Substrate")
   # Load algae
-  algae <- sqlFetch(channel = accessDB, sqtable = where$fns$algae) %>%
+  algae <- dbReadTable(conn = accessDB, name = where$fns$algae) %>%
     rename(
       LocationCode = Loc_Code, SpawnNumber = Spawn_Number,
       AlgType = Type_Vegetation, AlgLyrs = Layers_Vegetation
@@ -814,7 +814,7 @@ CalcUnderSpawn <- function(where,
       Year, Region, StatArea, Section, LocationCode, SpawnNumber, UnderSI
     )
   # Close the connection
-  odbcClose(accessDB)
+  dbDisconnect(conn = accessDB)
   # Return the data
   return(list(
     stations = stations, algae = algae, eggs = eggs, eggsStation = eggsStation,
