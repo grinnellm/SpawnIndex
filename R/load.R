@@ -90,11 +90,14 @@ LoadAreaData <- function(reg,
     )
   }
   # Establish connection with access
-  accessDB <- dbConnect(drv=odbc(),
-                        .connection_string = paste(
-                          "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=",
-                          file.path(where$loc, where$db),
-                          sep=""))
+  accessDB <- dbConnect(
+    drv = odbc(),
+    .connection_string = paste(
+      "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=",
+      file.path(where$loc, where$db),
+      sep = ""
+    )
+  )
   # TODO: Sections 132 and 135 are also SoG sections -- how to resolve?
   # Manual fix: Johnstone Strait herring sections
   jsSections <- c(111, 112, 121:127, 131:136)
@@ -403,7 +406,7 @@ LoadAllSpawn <- function(where, a, yrs, ft2m = 0.3048) {
 #' @importFrom dplyr select distinct rename left_join filter %>%
 #' @importFrom tibble as_tibble
 #' @importFrom Rdpack reprompt
-#' @return Table with median region (\code{WidthReg}), section
+#' @return List with three tables: median region (\code{WidthReg}), section
 #'   (\code{WidthSec}), and pool (\code{WidthPool}) widths in metres (m) for the
 #'   areas in \code{a}.
 #' @references \insertAllCited
@@ -467,12 +470,8 @@ GetWidth <- function(where, a = areas) {
     select(Region, Section, Pool, WidthPool) %>%
     distinct() %>%
     as_tibble()
-  # Merge the tables
-  res <- regStd %>%
-    left_join(y = secStd, by = "Region") %>%
-    left_join(y = poolStd, by = c("Region", "Section")) %>%
-    arrange(Region, Section, Pool) %>%
-    distinct()
+  # Merge the tables to a list
+  res <- list(region = regStd, section = secStd, pool = poolStd)
   # Close the connection
   odbcClose(accessDB)
   # Table to return

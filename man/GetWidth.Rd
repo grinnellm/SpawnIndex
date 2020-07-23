@@ -15,7 +15,7 @@ spawn survey observations to inlude in calculations; from
 \code{\link{LoadAreaData}}.}
 }
 \value{
-Table with median region (\code{WidthReg}), section
+List with three tables: median region (\code{WidthReg}), section
   (\code{WidthSec}), and pool (\code{WidthPool}) widths in metres (m) for the
   areas in \code{a}.
 }

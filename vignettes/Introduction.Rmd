@@ -127,7 +127,11 @@ barWidth <- GetWidth(where = widthLoc, a = areas)
 ```
 
 ```{r widthTable, echo = FALSE, results = 'asis'}
-barWidth %>%
+full_join(
+  x = barWidth$region,
+  y = barWidth$section, by = "Region"
+) %>%
+  full_join(y = barWidth$pool, by = c("Region", "Section")) %>%
   rename(
     `Region width` = WidthReg, `Section width` = WidthSec,
     `Pool width` = WidthPool
@@ -135,7 +139,7 @@ barWidth %>%
   slice(1:10) %>%
   kable(
     caption = paste(
-      "Example spawn width estimates in metres (m) in the", region, "region."
+      "Median spawn widths in metres (m) in the", region, "region."
     ),
     booktabs = TRUE
   )

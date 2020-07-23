@@ -66,8 +66,8 @@ CalcBiomassSOK <- function(SOK,
 #' @param a Tibble. Table of geographic information indicating the subset of
 #'   spawn survey observations to inlude in calculations; from
 #'   \code{\link{LoadAreaData}}.
-#' @param widths Tibble. Table of median region, section, and pool widths in
-#'   metres (m); from \code{\link{GetWidth}}.
+#' @param widths List. List of three tables: median region, section, and pool
+#'   widths in metres (m); from \code{\link{GetWidth}}.
 #' @param yrs Numeric vector. Years(s) to include in the calculations, usually
 #'   staring in 1951.
 #' @param intense Tibble. Table of spawn intensity categories and number of egg
@@ -138,8 +138,8 @@ CalcSurfSpawn <- function(where,
   # Establish connection with access
   accessDB <- odbcDriverConnect(
     paste("Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=",
-          file.path(where$loc, where$db),
-          sep = ""
+      file.path(where$loc, where$db),
+      sep = ""
     )
   )
   # Get a small subset of area data
@@ -203,7 +203,7 @@ CalcSurfSpawn <- function(where,
       EggLyrs = Grass + Rockweed + Kelp + BrownAlgae + LeafyRed +
         StringyRed + Rock + Other,
       Intensity = ifelse(Year %in% rsYrs & Intensity > 0,
-                         Intensity * 2 - 1, Intensity
+        Intensity * 2 - 1, Intensity
       )
     ) %>%
     filter(Method %in% c("Surface", "Dive")) %>%
@@ -216,7 +216,7 @@ CalcSurfSpawn <- function(where,
     mutate(
       # SoG (1 record): update Intensity from 0 to 1 (surveyed but not reported)
       Intensity = ifelse(Year == 1962 & StatArea == 14 & Section == 142 &
-                           LocationCode == 820 & Intensity == 0, 1, Intensity)
+        LocationCode == 820 & Intensity == 0, 1, Intensity)
     )
   # Calculate egg density based on intensity or direct measurements
   eggs <- surface %>%
@@ -259,8 +259,8 @@ CalcSurfSpawn <- function(where,
   # Error if there are missing values
   if (nrow(noLayers) > 0) {
     stop("Missing egg layers for ", nrow(noLayers), " record(s):",
-         print(noLayers),
-         sep = ""
+      print(noLayers),
+      sep = ""
     )
   }
   # Output egg layer info
@@ -281,21 +281,9 @@ CalcSurfSpawn <- function(where,
   # Calculate annual fish biomass by spawn number/pool
   biomassSpawn <- eggsSpawn %>%
     left_join(y = spawn, by = c("Year", "LocationCode", "SpawnNumber")) %>%
-    # Join by Region
-    left_join(
-      y = widths %>% select(Region, WidthReg) %>% distinct(),
-      by = "Region"
-    ) %>%
-    # Join by Section
-    left_join(
-      y = widths %>% select(Section, WidthSec) %>% distinct(),
-      by = "Section"
-    ) %>%
-    # Join by Pool within Section
-    left_join(
-      y = widths %>% select(Section, Pool, WidthPool) %>% distinct(),
-      by = c("Section", "Pool")
-    ) %>%
+    left_join(y = widths$region, by = "Region") %>%
+    left_join(y = widths$section, by = c("Region", "Section")) %>%
+    left_join(y = widths$pool, by = c("Region", "Section", "Pool")) %>%
     # Width is set to pool, section, region, or observed width (in that order)
     mutate(
       Width = WidthPool,
@@ -397,8 +385,8 @@ CalcMacroSpawn <- function(where,
   # Establish connection with access
   accessDB <- odbcDriverConnect(
     paste("Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=",
-          file.path(where$loc, where$db),
-          sep = ""
+      file.path(where$loc, where$db),
+      sep = ""
     )
   )
   # Load all spawn
@@ -588,8 +576,8 @@ CalcUnderSpawn <- function(where,
   # Establish connection with access
   accessDB <- odbcDriverConnect(
     paste("Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=",
-          file.path(where$loc, where$db),
-          sep = ""
+      file.path(where$loc, where$db),
+      sep = ""
     )
   )
   # Get a small subset of area data
@@ -694,10 +682,10 @@ CalcUnderSpawn <- function(where,
   if (any(!algae$AlgType %in% algCoefs$AlgType)) {
     # Get missing algae type(s)
     missAlg <- unique(algae$AlgType[!algae$AlgType %in%
-                                      algCoefs$AlgType])
+      algCoefs$AlgType])
     # Error, and show missing type(s)
     stop("Missing algae type(s): ", paste(missAlg, collapse = ", "),
-         call. = FALSE
+      call. = FALSE
     )
   } # End if there are missing algae types
   # Get a small subset of area data
@@ -739,7 +727,7 @@ CalcUnderSpawn <- function(where,
     # size coefficients not required because all quadrats are 0.5m^2 (1.0512)
     # Algae a
     mutate(EggDensAlg = beta * AlgLyrs^gamma * AlgProp^delta * Coef *
-             1.0512) %>%
+      1.0512) %>%
     group_by(
       Year, Region, StatArea, Section, LocationCode, SpawnNumber, Transect,
       Station
@@ -796,7 +784,7 @@ CalcUnderSpawn <- function(where,
       by = c("Year", "LocationCode", "SpawnNumber")
     ) %>%
     mutate(LengthAlgae = ifelse(is.na(LengthAlgae), Length,
-                                LengthAlgae
+      LengthAlgae
     )) %>%
     filter(Method %in% c("Surface", "Dive")) %>%
     left_join(y = widths, by = c(

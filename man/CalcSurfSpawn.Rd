@@ -25,8 +25,8 @@ CalcSurfSpawn(
 spawn survey observations to inlude in calculations; from
 \code{\link{LoadAreaData}}.}
 
-\item{widths}{Tibble. Table of median region, section, and pool widths in
-metres (m); from \code{\link{GetWidth}}.}
+\item{widths}{List. List of three tables: median region, section, and pool
+widths in metres (m); from \code{\link{GetWidth}}.}
 
 \item{yrs}{Numeric vector. Years(s) to include in the calculations, usually
 staring in 1951.}
