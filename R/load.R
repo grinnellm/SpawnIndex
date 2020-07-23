@@ -130,6 +130,7 @@ LoadAreaData <- function(reg,
     sections <- sections %>%
       full_join(y = regions, by = "SAR") %>%
       select(SAR, Region, RegionName, Section) %>%
+      # mutate(Section = as.integer(Section)) %>%
       distinct() %>%
       as_tibble()
     # If we only want a specific region
@@ -184,6 +185,7 @@ LoadAreaData <- function(reg,
       Northings, Latitude, Longitude
     ) %>%
     filter(Section %in% sections$Section) %>%
+    # mutate(Section = as.integer(Section)) %>%
     distinct() %>%
     as_tibble()
   # Intialize an additional column for groups: NA
