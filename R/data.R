@@ -1,8 +1,8 @@
 #' Understory spawn width correction factors.
 #'
 #' Spawn width correction factors for Pacific Herring understory spawn surveys
-#' by region and year. These correction factors account for an error that resulted
-#' in underestimated spawn width for understory dive surveys
+#' by region and year. These correction factors account for an error that
+#' resulted in underestimated spawn width for understory dive surveys
 #' \insertCite{ClearyEtal2017,GrinnellEtalYYYY}{SpawnIndex}.
 #'
 #' @format Tibble with rows for years and columns for regions.

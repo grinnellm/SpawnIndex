@@ -36,10 +36,10 @@ library(DBI)
 accessDB <- dbConnect(
   drv = odbc(),
   .connection_string = paste(
-   "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=",
-   dbLoc,
-   sep = ""
- )
+    "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=",
+    dbLoc,
+    sep = ""
+  )
 )
 dbListTables(conn = accessDB)
 dbDisconnect(conn = accessDB)
