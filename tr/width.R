@@ -5,7 +5,8 @@ rm(list = ls())
 # Packages
 require(SpawnIndex)
 require(tidyverse)
-require(RODBC)
+require(odbc)
+require(DBI)
 require(scales)
 
 ##### Controls #####
