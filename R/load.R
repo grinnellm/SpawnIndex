@@ -304,7 +304,8 @@ LoadAreaData <- function(reg,
 #' @param yrs Numeric vector. Years(s) to include in the calculations, usually
 #'   staring in 1951.
 #' @param ft2m Numeric. Conversion factor for feet to metres.
-#' @importFrom RODBC odbcDriverConnect sqlFetch odbcClose
+#' @importFrom odbc dbConnect odbc dbDisconnect
+#' @importFrom DBI dbReadTable
 #' @importFrom dplyr select rename full_join filter mutate %>% arrange ungroup
 #' @importFrom tibble as_tibble
 #' @importFrom stringr str_to_title
@@ -332,14 +333,16 @@ LoadAreaData <- function(reg,
 #' allSpawn
 LoadAllSpawn <- function(where, a, yrs, ft2m = 0.3048) {
   # Establish connection with access
-  accessDB <- odbcDriverConnect(
-    paste("Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=",
+  accessDB <- dbConnect(
+    drv = odbc(),
+    .connection_string = paste(
+      "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=",
       file.path(where$loc, where$db),
       sep = ""
     )
   )
   # Extract relevant spawn data
-  spawn <- sqlFetch(channel = accessDB, sqtable = where$fns$allSpawn) %>%
+  spawn <- dbReadTable(conn = accessDB, name = where$fns$allSpawn) %>%
     rename(LocationCode = Loc_Code, SpawnNumber = Spawn_Number) %>%
     mutate(
       Start = as_date(Start), End = as_date(End),
@@ -351,7 +354,7 @@ LoadAllSpawn <- function(where, a, yrs, ft2m = 0.3048) {
     ) %>%
     as_tibble()
   # Extrac relevant stations data
-  stations <- sqlFetch(channel = accessDB, sqtable = where$fns$stations) %>%
+  stations <- dbReadTable(conn = accessDB, name = where$fns$stations) %>%
     rename(LocationCode = Loc_Code, SpawnNumber = Spawn_Number) %>%
     filter(LocationCode %in% areas$LocationCode) %>%
     mutate(DepthM = Depth * ft2m * -1) %>%
@@ -384,7 +387,7 @@ LoadAllSpawn <- function(where, a, yrs, ft2m = 0.3048) {
       Year, Region, StatArea, Section, LocationCode, SpawnNumber, Start
     )
   # Close the connection
-  odbcClose(accessDB)
+  dbDisconnect(accessDB)
   # Return the table
   return(res)
 } # End LoadAllSpawn function
@@ -402,7 +405,8 @@ LoadAllSpawn <- function(where, a, yrs, ft2m = 0.3048) {
 #' @param a Tibble. Table of geographic information indicating the subset of
 #'   spawn survey observations to inlude in calculations; from
 #'   \code{\link{LoadAreaData}}.
-#' @importFrom RODBC odbcDriverConnect sqlFetch odbcClose
+#' @importFrom odbc dbConnect odbc dbDisconnect
+#' @importFrom DBI dbReadTable
 #' @importFrom dplyr select distinct rename left_join filter %>%
 #' @importFrom tibble as_tibble
 #' @importFrom Rdpack reprompt
@@ -435,14 +439,16 @@ GetWidth <- function(where, a = areas) {
     distinct() %>%
     as_tibble()
   # Establish connection with access
-  accessDB <- odbcDriverConnect(
-    paste("Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=",
+  accessDB <- dbConnect(
+    drv = odbc(),
+    .connection_string = paste(
+      "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=",
       file.path(where$loc, where$db),
       sep = ""
     )
   )
   # Access the region worksheet and wrangle
-  regStd <- sqlFetch(channel = accessDB, sqtable = where$fns$regionStd) %>%
+  regStd <- dbReadTable(conn = accessDB, name = where$fns$regionStd) %>%
     rename(SAR = REGION, WidthReg = WIDMED) %>%
     left_join(y = aSm, by = "SAR") %>%
     filter(SAR %in% aSm$SAR) %>%
@@ -450,10 +456,7 @@ GetWidth <- function(where, a = areas) {
     distinct() %>%
     as_tibble()
   # Access the section worksheet and wrangle
-  secStd <- sqlFetch(
-    channel = accessDB,
-    sqtable = where$fns$sectionStd
-  ) %>%
+  secStd <- dbReadTable(conn = accessDB, name = where$fns$sectionStd) %>%
     rename(Section = SECTION, WidthSec = WIDMED) %>%
     left_join(y = aSm, by = "Section") %>%
     filter(Section %in% aSm$Section) %>%
@@ -461,9 +464,7 @@ GetWidth <- function(where, a = areas) {
     distinct() %>%
     as_tibble()
   # Access the pool worksheet and wrangle
-  poolStd <- sqlFetch(
-    channel = accessDB, sqtable = where$fns$poolStd
-  ) %>%
+  poolStd <- dbReadTable(conn = accessDB, name = where$fns$poolStd) %>%
     rename(Section = SECTION, Pool = BED, WidthPool = WIDMED) %>%
     left_join(y = aSm, by = c("Section", "Pool")) %>%
     filter(Section %in% aSm$Section) %>%
@@ -473,7 +474,7 @@ GetWidth <- function(where, a = areas) {
   # Merge the tables to a list
   res <- list(region = regStd, section = secStd, pool = poolStd)
   # Close the connection
-  odbcClose(accessDB)
+  dbDisconnect(accessDB)
   # Table to return
   return(res)
 } # End GetWidth function
