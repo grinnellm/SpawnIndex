@@ -30,15 +30,16 @@
 #' @examples
 #' dbLoc <- system.file("extdata", "HerringSpawn.mdb", package = "SpawnIndex")
 #' dbLoc
-#' library(RODBC)
-#' library(tibble)
-#' accessDB <- odbcDriverConnect(
-#'   paste("Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=",
-#'     dbLoc,
-#'     sep = ""
-#'   )
+#' library(odbc)
+#' library(DBI)
+#' accessDB <- dbConnect(
+#'   drv = odbc(),
+#'   .connection_string = paste(
+#'    "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=",
+#'    dbLoc,
+#'    sep = ""
+#'  )
 #' )
-#' hTables <- sqlTables(channel = accessDB)
-#' as_tibble(hTables)
-#' odbcClose(channel = accessDB)
+#' dbListTables(conn = accessDB)
+#' dbDisconnect(conn = accessDB)
 NULL

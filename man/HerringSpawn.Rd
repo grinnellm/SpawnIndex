@@ -32,17 +32,18 @@ This is a 32-bit MS Access database, and it requires 32-bit R to access
 \examples{
 dbLoc <- system.file("extdata", "HerringSpawn.mdb", package = "SpawnIndex")
 dbLoc
-library(RODBC)
-library(tibble)
-accessDB <- odbcDriverConnect(
-  paste("Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=",
-    dbLoc,
-    sep = ""
-  )
+library(odbc)
+library(DBI)
+accessDB <- dbConnect(
+  drv = odbc(),
+  .connection_string = paste(
+   "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=",
+   dbLoc,
+   sep = ""
+ )
 )
-hTables <- sqlTables(channel = accessDB)
-as_tibble(hTables)
-odbcClose(channel = accessDB)
+dbListTables(conn = accessDB)
+dbDisconnect(conn = accessDB)
 }
 \seealso{
 \code{\link{LoadAreaData}} \code{\link{LoadAllSpawn}}

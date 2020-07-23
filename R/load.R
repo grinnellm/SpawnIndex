@@ -285,7 +285,7 @@ LoadAreaData <- function(reg,
     }
   } # End if subsetting areas
   # Close the connection
-  dbDisconnect(accessDB)
+  dbDisconnect(conn = accessDB)
   # Error if there is no data
   if (nrow(res) == 0) stop("No locations; check inputs")
   # Return herring areas
@@ -387,7 +387,7 @@ LoadAllSpawn <- function(where, a, yrs, ft2m = 0.3048) {
       Year, Region, StatArea, Section, LocationCode, SpawnNumber, Start
     )
   # Close the connection
-  dbDisconnect(accessDB)
+  dbDisconnect(conn = accessDB)
   # Return the table
   return(res)
 } # End LoadAllSpawn function
@@ -476,7 +476,7 @@ GetWidth <- function(where, a = areas) {
   # Merge the tables to a list
   res <- list(region = regStd, section = secStd, pool = poolStd)
   # Close the connection
-  dbDisconnect(accessDB)
+  dbDisconnect(conn = accessDB)
   # Table to return
   return(res)
 } # End GetWidth function
