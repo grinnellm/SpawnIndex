@@ -458,6 +458,7 @@ GetWidth <- function(where, a = areas) {
   # Access the section worksheet and wrangle
   secStd <- dbReadTable(conn = accessDB, name = where$fns$sectionStd) %>%
     rename(Section = SECTION, WidthSec = WIDMED) %>%
+    mutate(Section = as.integer(Section)) %>%
     left_join(y = aSm, by = "Section") %>%
     filter(Section %in% aSm$Section) %>%
     select(Region, Section, WidthSec) %>%
@@ -466,6 +467,7 @@ GetWidth <- function(where, a = areas) {
   # Access the pool worksheet and wrangle
   poolStd <- dbReadTable(conn = accessDB, name = where$fns$poolStd) %>%
     rename(Section = SECTION, Pool = BED, WidthPool = WIDMED) %>%
+    mutate(Section = as.integer(Section), Pool = as.integer(Pool)) %>%
     left_join(y = aSm, by = c("Section", "Pool")) %>%
     filter(Section %in% aSm$Section) %>%
     select(Region, Section, Pool, WidthPool) %>%
