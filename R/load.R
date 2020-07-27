@@ -66,8 +66,6 @@ LoadAreaData <- function(reg,
   if (!reg %in% c("JS", "All")) {
     regions <- filter(.data = regions, SAR != 8)
   }
-  # Return the regions table to the main environment
-  regions <- regions
   # Return region names
   regionNames <- regions %>%
     select(RegionName, Region, Major) %>%
@@ -120,6 +118,7 @@ LoadAreaData <- function(reg,
       full_join(y = regions, by = "SAR") %>%
       filter(Region %in% reg) %>%
       select(SAR, Region, RegionName, Section) %>%
+      mutate(Section = as.integer(Section)) %>%
       distinct() %>%
       as_tibble()
   } else { # End if Johnstone Strait, otherwise
@@ -133,7 +132,7 @@ LoadAreaData <- function(reg,
     sections <- sections %>%
       full_join(y = regions, by = "SAR") %>%
       select(SAR, Region, RegionName, Section) %>%
-      # mutate(Section = as.integer(Section)) %>%
+      mutate(Section = as.integer(Section)) %>%
       distinct() %>%
       as_tibble()
     # If we only want a specific region
@@ -181,14 +180,14 @@ LoadAreaData <- function(reg,
     cbind(dfAlb) %>%
     mutate(
       Eastings = ifelse(is.na(Longitude), Longitude, X),
-      Northings = ifelse(is.na(Latitude), Latitude, Y)
+      Northings = ifelse(is.na(Latitude), Latitude, Y),
+      Section = as.integer(Section)
     ) %>%
     select(
       StatArea, Section, LocationCode, LocationName, Pool, Eastings,
       Northings, Latitude, Longitude
     ) %>%
     filter(Section %in% sections$Section) %>%
-    # mutate(Section = as.integer(Section)) %>%
     distinct() %>%
     as_tibble()
   # Intialize an additional column for groups: NA
