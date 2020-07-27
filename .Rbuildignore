@@ -5,3 +5,4 @@
 ^tr$
 ^data-raw$
 .travis.yml
+travis.txt
