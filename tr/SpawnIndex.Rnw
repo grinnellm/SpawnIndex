@@ -1259,11 +1259,11 @@ $B$ & Understory spawn index (i.e., biomass) & t & \\
 \subsection{QUADRAT OBSERVATIONS AND CALCULATIONS}\label{secUnderQ}
 
 We calculate two separate estimates of egg density at the quadrat level (\autoref{figFlow}, step \ref{uQuad}): spawn on substrate, and spawn on algae $v$.
-\citet{HaegeleEtal1979} developed a model of substrate egg density in quadrat $q$, transect $t$, and spawn $s$ from egg layers using a linear regression model
+\citet{HaegeleEtal1979} developed a model of substrate egg density in quadrat $q$, transect $t$, and spawn $s$ from egg layers using a linear model
 \begin{equation}\label{eqUnderDensSubQTS}
 \rho^b_{qts} = \alpha E^b_{qts} \phi^b_{qts}
 \end{equation}
-where $\alpha$ is the regression slope,
+where $\alpha$ is the slope,
 $E^b_{qts}$ is the number of egg layers on substrate in quadrat $q$,
 $\phi^b_{qts}$ is the proportion of substrate in quadrat $q$ covered by spawn, and
 $\rho^b_{qts}$ is substrate egg density in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ (\autoref{figUnderDensSubQTS}).
@@ -1481,7 +1481,7 @@ $B$ & Spawn index (i.e., biomass) & t \\
 
 \section{SPAWN ON KELP CALCULATIONS}\label{secSOK}
 
-Spawn on kelp (SOK) fisheries collect \fishName{} roe that adhere to algae such as Macrocystis after spawning.
+Spawn on kelp (SOK) fisheries collect \fishName{} roe that adheres to algae such as Macrocystis after spawning.
 Other similar fisheries include spawn on bough, in which operators collect roe that adhere to tree boughs;
 we refer to these fisheries collectively as SOK in this document.
 There are two types of SOK fisheries in BC: `open-pond' in which operators provide algae to spawning \fishName{}, and `closed-pond' in which operators impound spawning \fishName{} in floating nets that contain algae \citep{ShieldsEtal1985}.
@@ -1505,7 +1505,7 @@ We estimate spawning biomass removed from the population by SOK fishery $f$ in S
 B_{fry} = \frac{H_{fry} \left(1 - \nu\right) \frac{1}{1+\upsilon}} {M \theta}
 \end{equation}
 where $H_{fry}$ is the weight in kilograms of \fishName{} SOK harvest in fishery $f$, SAR $r$, and year $y$,
-$\nu$ is the proportion of SOK product that is kelp,
+$\nu$ is the proportion of SOK product weight that is kelp,
 $\upsilon$ is the SOK product weight increase due to brining as a proportion,
 $M$ is the average mass in kilograms of a fertilized egg,
 $\theta$ is the egg conversion factor from \autoref{eqECF}, and
@@ -1550,7 +1550,7 @@ uncertainty in spawn index parameters is currently unknown.
 \item Uncertainty in the number of egg layers for spawn intensity categories (\autoref{tab:Intensity}), and algae coefficients (\autoref{tab:AlgaeCoefs}).
 Again, uncertainty in these values is currently unknown.
 \end{enumerate}
-Despite these assumptions and potential sources of uncertainty, the spawn index has typically been reported without quantifying uncertainty (but see \citet{SchweigertEtal1993} who estimated the variance).
+Despite these assumptions and potential sources of uncertainty, the spawn index has typically been reported without quantifying uncertainty (but see \citet{SchweigertEtal1993} who derived a variance estimator).
 Reporting the spawn index without uncertainty may perpetuate the misconception that the spawn index is observed data, whereas it is derived data with assumptions and uncertainties.
 An additional issue for stock assessments is that models will interpret spawn index data as being more certain than it is,
 and estimates of stock status and future prognosis will be artificially precise.
@@ -1607,9 +1607,9 @@ Legend: equation (Eq), sample size $n$, standard error (SE), standard deviation 
 \endlastfoot
 $f^t$, $f^q$ & Parameters for statistical framework (Eq \ref{eqStatSigmaS}). & SoG in 1981 and 1983; WCVI in 1982. & Objective is mean egg density $\text{SE}\leq 25$\%. & \cite{SchweigertEtal1985, SchweigertEtal1990} \\
 Intensity & Spawn intensity categories and number of egg layers (\autoref{tab:Intensity}). & NA & NA & \cite{HayKronlund1987, SchweigertStocker1988} \\
-$\omega$ & Female fecundity (Eq \ref{eqECF}). & PRD, WCVI, and SoG in 1974 ($n=$ 3,293 fish) and 1980 ($n=$ 1,642); California in 1975 ($n=37$). & $186.8 \leq \omega \leq 224.5$; $16.9 \leq \text{SD} \leq 53.5$. & \cite{Hay1985, HayBrett1988} \\
+$\omega$ & Female fecundity (Eq \ref{eqECF}); values in $\text{eggs} \cdot \text{kg}^{-1}$. & PRD, WCVI, and SoG in 1974 ($n=$ 3,293 fish) and 1980 ($n=$ 1,642); California in 1975 ($n=37$). & 186,800 $\leq \omega \leq$ 224,500; 16,900 $\leq \text{SD} \leq$ 53,500. & \cite{Hay1985, HayBrett1988} \\
 $\phi^f$ & Proportion female (Eq \ref{eqECF}). & NA & NA & NA \\
-$\alpha$, $\beta$ & Parameters for surface egg density model (Eq \ref{eqSurfDensJS}). & Coastwide from 1976 to 1987 ($n=$ 5,111 samples). & NA & \cite{SchweigertEtal1997} \\
+$\alpha$, $\beta$ & Parameters for surface survey egg density model (Eq \ref{eqSurfDensJS}). & Coastwide from 1976 to 1987 ($n=$ 5,111 samples). & NA & \cite{SchweigertEtal1997} \\
 $\beta$, $\gamma$, $\delta$, $\epsilon$ & Parameters for number of eggs per Macrocystis plant model (Eq \ref{eqMacroEggsPerPlantS}). & HG in 1981 and 1987 ($n=112$ plants); PRD in 1986 ($n=15$); CC in 1986 ($n=5$); WCVI in 1985 and 1986 ($n=35$). & Model accounts for 78\% of variation in eggs per plant. & \cite{HaegeleSchweigert1990} \\
 $\alpha$ & Parameter for substrate egg density model (Eq \ref{eqUnderDensSubQTS}). & SoG in 1976, 1977, and 1978; PRD, CC, and WCVI in 1977. & NA & \cite{HaegeleHumphreys1976, HaegeleHumphreys1978a, HaegeleHumphreys1978b, HaegeleEtal1979} \\
 $\beta$, $\gamma$, $\delta$, $C_v$ & Parameters for algae egg density model (Eq \ref{eqUnderDensAlgVQTS}, \autoref{tab:AlgaeCoefs}). & Coastwide from 1976 to 1987 ($n=$ 5,111 samples). & Model accounts for 40\% of variation in egg density. & \cite{Schweigert2005} \\
