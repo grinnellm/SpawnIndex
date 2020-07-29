@@ -1623,24 +1623,25 @@ $M$ & Average mass of a fertilized egg (Eq \ref{eqSOKBioFRY}). & SoG in 1980 ($n
 }
 
 Many of the studies to quantify parameters and prediction models used in spawn index calculations are dated (\autoref{tabUncertainty});
-these analyses could be checked with new information, and updated if required.
+these analyses could be reviewed with new information, and updated if required.
 In addition, some of these studies had limited number of samples, as well as limited spatial or temporal range, or both.
 In addition to work mentioned here and in \autoref{secUncertain}, potential research includes:
 \begin{enumerate}
-\item Review the assumed statistical framework,
+\item Check the assumed statistical framework for spawn index calculations,
 \item Check accuracy and temporal stability of fecundity and sex ratios (\autoref{eqECF}),
 \item Compare two methods to calculate the mean number of stalks per plant (\autoref{eqMacroStalksPerPlantS}): ratio of means (i.e., current method) versus mean of ratios,
-\item Investigate the assumptions that eggs on substrate and algae are:
+\item Review the assumptions that eggs on substrate and algae are:
 \begin{enumerate}
 \item Independent (\autoref{eqUnderDensQTS}), and
 \item Represented by the same length measurement (\autoref{secUnderS}),
 \end{enumerate}
-\item Investigate surface spawn width adjustments (\autoref{secWidthSurface}):
+\item Review surface spawn width adjustments (\autoref{secWidthSurface}):
 \begin{enumerate}
-\item Mean vs median width,
-\item Annual vs periodic updates, and
-\item Consistency of spawn width over time at a range of abundance levels,
+\item Mean versus median width,
+\item Annual versus periodic updates, and
+\item Occurrence of relationship between spawn width and spawning biomass,
 \end{enumerate}
+\item Periodically review the accuracy of egg density models using egg layer and vegetation cover estimates compared to egg counts in a subset of sampled quadrats,
 \item Quantify incidental mortality in SOK operations, and
 \item Account for osmosis in SOK calculations (\autoref{eqSOKBioFRY}).
 \end{enumerate}
@@ -1752,7 +1753,7 @@ Surveyors use weighted lead lines to ensure that lines rest on the substrate;
 these lines are marked in $1\,\text{m}$ increments, and are standardized to $20\,\text{m}$ segments (i.e., a `chain').
 Segments refer to individual sections of line, which may be linked together to make complete transects.
 
-Sometime in the mid- to late-1990s, spawn surveyors observed that the $20\,\text{m}$ segments shrank by approximately $1\,\text{m}$ during the first season of use, and continued to shrink over time.
+During the late 1990s it became apparent that the $20\,\text{m}$ segments shrank by approximately $1\,\text{m}$ during the first season of use, and continued to shrink over time.
 DFO staff noticed that this issue was occurring coast wide, and began re-measuring lead lines each season.
 They also modified the lead line marking protocol to account for shrinkage by marking $1.15\,\text{m}$ increments;
 thus, segments were extended to $23\,\text{m}$.
@@ -1838,7 +1839,7 @@ One record in the surface spawn database since \Sexpr{min(yrRange)} requires an 
 As with understory spawn width updates, we make this update in the \textbf{R} package script.
 This affects the following record:
 \begin{enumerate}
-\item Update `intensity' from 0 to 1 for the 1 record in the year 1962, Statistical Area 14, Section 142, Location code 820, and with $\text{intensity} = 0$.
+\item Update `intensity' from 0 to 1 for the one record in the year 1962, Statistical Area 14, Section 142, Location code 820, and with $\text{intensity} = 0$.
 We update intensity from 0 to 1 because spawn was surveyed but not reported.
 \end{enumerate}
 Spawn survey records prior to \Sexpr{min(yrRange)} have additional missing or inaccurate egg layer information, and are unreliable for indexing purposes.
@@ -1848,8 +1849,8 @@ While reviewing the spawn index calculations and translating them from the \text
 These updates have been omitted, and affected the following records:
 \begin{enumerate}
 \item Update $E_{js}$ (i.e., the total number of egg layers) to 2.1496 for the 15 records in the year 1979, Statistical Area 2, and with intensity 4;
-\item Update $E_{js}$ to 0.5529 for the 4 records in the year 1981, Statistical Area 24, and with $E_{js} = 0.0$;
-\item Update $E_{js}$ to 1.3360 for the 7 records in the year 1982, Statistical Area 23, and with intensity 3;
+\item Update $E_{js}$ to 0.5529 for the four records in the year 1981, Statistical Area 24, and with $E_{js} = 0.0$;
+\item Update $E_{js}$ to 1.3360 for the seven records in the year 1982, Statistical Area 23, and with intensity 3;
 \item Update $E_{js}$ to 2.3300 for 41 records in the year 1984, Statistical Area 24, and with intensity 0; and
 \item Update $E_{js}$ to 2.9800 for 14 records in the year 1982, Statistical Area 27, and with $E_{js} = 0.0$.
 \end{enumerate}
