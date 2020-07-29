@@ -552,7 +552,7 @@
 @TechReport{GrinnellEtalYYYY,
   author      = {Matthew H Grinnell and Jake S Schweigert and Matt Thompson and S Hawkshaw and Jaclyn S Cleary},
   date        = {2020},
-  institution = {Fisheries and Oceans Canada},
+  institution = {{Fisheries and Oceans Canada}},
   title       = {Calculating the spawn index for {Pacific} {Herring} (\emph{{Clupea} pallasii}) in {British} {Columbia}},
   note        = {In prep},
   number      = {nnnn},
