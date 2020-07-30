@@ -607,8 +607,6 @@ where $\rho_{qts}$ is egg density for quadrat $q$, and
 $\mean{\rho_{ts}}$ is the mean transect egg density from \autoref{eqStatRhoTS}.
 
 \begin{table}
-\small
-\captionsetup{font=small}
 \centering
 \caption[Index notation for \fishName{} spawn index calculations]
 {Index notation for \fishName{} spawn index calculations.
@@ -871,7 +869,7 @@ After estimating the number of eggs in a spawn,
 the next step is to estimate the biomass of \fishName{} that spawned.
 Female \fishName{} produce an average of approximately $200\,000$ eggs per kilogram (kg) of total body weight \citep{Hay1985}; we refer to this as fecundity.
 Average fecundity is derived from studies of
-BC \fishName{} BC in 1974 and 1980 (North Coast, Strait of Georgia, and West Coast of Vancouver Island), and
+BC \fishName{} in 1974 and 1980 (Prince Rupert District, Strait of Georgia, and West Coast of Vancouver Island), and
 California \fishName{} in 1975 \citep{RabinBarnhart1977}.
 We assume that females account for 50\% of spawners,
 and we convert eggs to tonnes (t) of spawners using
@@ -1641,7 +1639,7 @@ In addition to work mentioned here and in \autoref{secUncertain}, potential rese
 \item Annual versus periodic updates, and
 \item Occurrence of relationship between spawn width and spawning biomass,
 \end{enumerate}
-\item Periodically review the accuracy of egg density models using egg layer and vegetation cover estimates compared to egg counts in a subset of sampled quadrats,
+\item Periodically review the accuracy of egg density models using egg layer and vegetation cover estimates collected underwater, compared to egg counts in a subset of sampled quadrats,
 \item Quantify incidental mortality in SOK operations, and
 \item Account for osmosis in SOK calculations (\autoref{eqSOKBioFRY}).
 \end{enumerate}
