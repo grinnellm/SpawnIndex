@@ -882,7 +882,7 @@ where $\omega$ is female fecundity,
 $\phi^f$ is proportion of spawners that are female, and
 $\theta$ is the egg conversion factor (\autoref{tabNotationEggs}).
 Thus, we convert eggs to biomass of both sexes combined in tonnes by dividing the number of eggs by $\theta$.
-Although \fishName{} egg production is affected by environmental variability and other factors \citep{TanasichukWare1987, HayBrett1988}, we assume that bias to the spawn index from \autoref{eqECF} is insignificant in most areas and years \citep{Schweigert1993b, Ware1985}.
+Although \fishName{} egg production is affected by environmental variability and other factors \citep{TanasichukWare1987, HayBrett1988}, we assume that bias to the spawn index from \autoref{eqECF} is insignificant in most areas and years \citep{Ware1985, Schweigert1993b}.
 
 \begin{table}
 \centering
@@ -1740,7 +1740,8 @@ A pool is a group of Locations within a Section that are often adjacent, contain
 We summarise spawn width by the median because widths are skewed \citep{SchweigertEtal1993}.
 If there are no dive data that meet these criteria,
 we use the median width from all dives within the Section, or within the SAR if there are no dives within the Section.
-If there are still no dive data that meet these criteria, we use the observed width $W^\prime$ from the surface survey.
+In the rare instances where no dive data meet these criteria (e.g., outside SAR boundaries),
+we use the observed width $W^\prime$ from the surface survey.
 We update the aforementioned median width values periodically, not annually.
 Note that we use this process to update widths for spawns in previous years using current observations.
 
@@ -1836,10 +1837,9 @@ $W$ & Corrected spawn width & m \\
 \setcounter{equation}{0}
 
 One record in the surface spawn database since \Sexpr{min(yrRange)} requires an update to fill-in missing egg layer information.
-As with understory spawn width updates, we make this update in the \textbf{R} package script.
-This affects the following record:
+As with understory spawn width updates, we make this update in the \textbf{R} package script:
 \begin{enumerate}
-\item Update `intensity' from 0 to 1 for the one record in the year 1962, Statistical Area 14, Section 142, Location code 820, and with $\text{intensity} = 0$.
+\item Update `intensity' from 0 to 1 for 1 record in the year 1962, Statistical Area 14, Section 142, Location code 820, and with $\text{intensity} = 0$.
 We update intensity from 0 to 1 because spawn was surveyed but not reported.
 \end{enumerate}
 Spawn survey records prior to \Sexpr{min(yrRange)} have additional missing or inaccurate egg layer information, and are unreliable for indexing purposes.
@@ -1848,9 +1848,9 @@ Therefore, we do not include spawn data prior to \Sexpr{min(yrRange)} in stock a
 While reviewing the spawn index calculations and translating them from the \textbf{Microsoft Access} database to \textbf{R}, we found several cases where index data were being over-written with no documented reason.
 These updates have been omitted, and affected the following records:
 \begin{enumerate}
-\item Update $E_{js}$ (i.e., the total number of egg layers) to 2.1496 for the 15 records in the year 1979, Statistical Area 2, and with intensity 4;
-\item Update $E_{js}$ to 0.5529 for the four records in the year 1981, Statistical Area 24, and with $E_{js} = 0.0$;
-\item Update $E_{js}$ to 1.3360 for the seven records in the year 1982, Statistical Area 23, and with intensity 3;
+\item Update $E_{js}$ (i.e., the total number of egg layers) to 2.1496 for 15 records in the year 1979, Statistical Area 2, and with intensity 4;
+\item Update $E_{js}$ to 0.5529 for 4 records in the year 1981, Statistical Area 24, and with $E_{js} = 0.0$;
+\item Update $E_{js}$ to 1.3360 for 7 records in the year 1982, Statistical Area 23, and with intensity 3;
 \item Update $E_{js}$ to 2.3300 for 41 records in the year 1984, Statistical Area 24, and with intensity 0; and
 \item Update $E_{js}$ to 2.9800 for 14 records in the year 1982, Statistical Area 27, and with $E_{js} = 0.0$.
 \end{enumerate}
