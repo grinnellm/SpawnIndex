@@ -879,7 +879,7 @@ After estimating the number of eggs in a spawn,
 the next step is to estimate the biomass of \fishName{} that spawned.
 Female \fishName{} produce an average of approximately $200\,000$ eggs per kilogram (kg) of total body weight \citep{Hay1985}; we refer to this as fecundity.
 Average fecundity is derived from studies of
-BC \fishName{} in 1974 and 1980 (Prince Rupert District, Strait of Georgia, and West Coast of Vancouver Island), and
+BC \fishName{} in 1974 and 1980 (Prince Rupert District, Strait of Georgia, and West Coast of Vancouver Island; \citealp{Hay1985}), and
 California \fishName{} in 1975 \citep{RabinBarnhart1977}.
 We assume that females account for 50\% of spawners,
 and we convert eggs to tonnes (t) of spawners using
@@ -1503,7 +1503,7 @@ The most direct is to estimate the quantity of eggs removed from the population.
 They determined that kelp represents an average of 12\% of the total product weight.
 Since SOK product is universally brined at the time of harvest, it is necessary to also consider the uptake of salt by the eggs, which increases the overall product weight.
 However, there is uncertainty in the degree of brining that occurs prior to weighing the product.
-Nevertheless, \cite{WhyteEnglar1977} determined that wet product weight increases by approximately 13\% due to salt uptake during brining periods that range from 1.5 to 24 hours.
+Nevertheless, \cite{WhyteEnglar1977} determined that wet product weight increases by approximately 13\% due to salt uptake during a 24-hour brining period.
 By osmosis, brining would also draw some water from the eggs \citep{AldericeEtal1979};
 unfortunately we are unable to account for osmosis at this time.
 The last factor to consider is the mean fertilized egg weight, which was determined by \cite{HayMiller1982} to be $2.38 \cdot 10^{-6}\,\text{kg}$.
@@ -1536,7 +1536,7 @@ Legend: kilograms (kg), tonnes (t).}
 \midrule
 $H$ & Weight of SOK harvest & kg & \\
 $\nu$ & Proportion of SOK product that is kelp & \Sexpr{pars$SOK$nu} & \cite{ShieldsEtal1985} \\
-$\upsilon$ & SOK product weight increase due to brining (proportion) & \Sexpr{round(pars$SOK$upsilon, digits=4)} & \cite{WhyteEnglar1977} \\
+$\upsilon$ & SOK product weight increase due to brining (proportion) & \Sexpr{pars$SOK$upsilon} & \cite{WhyteEnglar1977} \\
 $M$ & Average mass of a fertilized egg & \Sexpr{pars$SOK$M}$\,\text{kg}$ & \cite{HayMiller1982} \\
 $B$ & Spawning biomass & t & \\
 \bottomrule
