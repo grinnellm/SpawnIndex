@@ -834,7 +834,8 @@ p9 <- paste(cat9Yr, "to", directEggYr - 1)
 kIntensity <- intensity %>%
   arrange(Layers) %>%
   rename(
-    !!p5 := Period5, !!p9 := Period9, `Number of egg layers` = Layers
+    !!p5 := Period5, !!p9 := Period9,
+    `Number of egg layers` = Layers
   ) %>%
   kable(
     caption = tabCap, caption.short = tabSCap, booktabs = TRUE, linesep = "",
@@ -1196,7 +1197,8 @@ dat <- as_tibble(df) %>%
       EggLyrs = Layers, Height = PlantHeight, StalksPerPlant = Stalks
     ),
     Stalks = paste("Number of stalks per plant: ",
-      formatC(Stalks, width = 2, flag = "0"), sep = ""
+      formatC(Stalks, width = 2, flag = "0"),
+      sep = ""
     )
   )
 # Figure
@@ -1384,7 +1386,8 @@ EggDensAlgPlot <- ggplot(
   labs(
     x = "Number of egg layers on algae",
     y = expression(paste("Algae egg density (eggs" %.% 10^3 %.% "m"^-2, ")",
-                         sep = "")),
+      sep = ""
+    )),
     colour = "Proportion of substrate\ncovered in algae"
   ) +
   scale_y_continuous(labels = comma) +
@@ -1805,7 +1808,7 @@ Legend: ", PasteNicely(c(majorRegions, minorRegions)), ".", sep = "")
 tabSCap <- "Spawn width correction factors for \\fishName{} understory spawn surveys"
 # Format the table
 kWidthFac <- underWidthFac %>%
-  mutate_if(is.double, ~format(., nsmall = 3)) %>%
+  mutate_if(is.double, ~ format(., nsmall = 3)) %>%
   mutate(Year = as.integer(Year)) %>%
   arrange(Year) %>%
   kable(
