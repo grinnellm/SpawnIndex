@@ -408,8 +408,7 @@ mapSA <- BaseMap +
 # Plot SAR
 mapReg <- BaseMap +
   geom_path(
-    data = shapes$saDF, aes(group = StatArea), size = 0.25,
-    colour = "black"
+    data = shapes$saDF, aes(group = StatArea), size = 0.25, colour = "black"
   ) +
   geom_path(
     data = filter(shapes$saDF, id == zoomSA), aes(group = StatArea),
@@ -422,7 +421,8 @@ mapReg <- BaseMap +
   theme(panel.border = element_rect(colour = "black", fill = NA, size = 0.5)) +
   ggsave(
     filename = file.path("knitr-figs", "MapRegion.png"),
-    width = figWidth / nMaps, height = figWidth / nMaps / shapes$xyRatio, dpi = 600
+    width = figWidth / nMaps, height = figWidth / nMaps / shapes$xyRatio,
+    dpi = 600
   )
 @
 
@@ -834,8 +834,7 @@ p9 <- paste(cat9Yr, "to", directEggYr - 1)
 kIntensity <- intensity %>%
   arrange(Layers) %>%
   rename(
-    !!p5 := Period5, !!p9 := Period9,
-    `Number of egg layers` = Layers
+    !!p5 := Period5, !!p9 := Period9, `Number of egg layers` = Layers
   ) %>%
   kable(
     caption = tabCap, caption.short = tabSCap, booktabs = TRUE, linesep = "",
@@ -1197,8 +1196,7 @@ dat <- as_tibble(df) %>%
       EggLyrs = Layers, Height = PlantHeight, StalksPerPlant = Stalks
     ),
     Stalks = paste("Number of stalks per plant: ",
-      formatC(Stalks, width = 2, flag = "0"),
-      sep = ""
+      formatC(Stalks, width = 2, flag = "0"), sep = ""
     )
   )
 # Figure
@@ -1356,8 +1354,7 @@ kAlgaeCoefs
 figCap <- paste("Algae egg density in thousands of eggs per square metre (m) as a function of number of egg layers on algae, proportion of substrate covered in algae, and algae coefficient (\\autoref{tab:AlgaeCoefs}) for \\fishName{} underwater spawn surveys (\\autoref{eqUnderDensAlgVQTS}; \\citealt{Schweigert2005}). Note that number of egg layers can exceed those shown in this figure; values shown are for demonstration only.")
 # Expand the values
 df <- expand.grid(
-  Layers = lyrs, Proportion = prop,
-  Coefficient = unique(algaeCoefs$Coef)
+  Layers = lyrs, Proportion = prop, Coefficient = unique(algaeCoefs$Coef)
 )
 # Equation for understory egg density on algae
 EggDensAlg <- function(AlgLyrs, AlgProp, Coef) {
@@ -1386,7 +1383,8 @@ EggDensAlgPlot <- ggplot(
   geom_line(mapping = aes(colour = Proportion)) +
   labs(
     x = "Number of egg layers on algae",
-    y = expression(paste("Algae egg density (eggs" %.% 10^3 %.% "m"^-2, ")", sep = "")),
+    y = expression(paste("Algae egg density (eggs" %.% 10^3 %.% "m"^-2, ")",
+                         sep = "")),
     colour = "Proportion of substrate\ncovered in algae"
   ) +
   scale_y_continuous(labels = comma) +
