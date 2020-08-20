@@ -453,11 +453,10 @@ mapReg <- BaseMap +
 <<BC, fig.width=figWidth*0.67, fig.height=figWidth/shapes$xyRatio*0.67, fig.lp="fig", echo=FALSE, fig.cap=figCap, fig.scap="Spatial boundaries for \\fishName{} stock assessment regions in British Columbia">>=
 # Caption
 figCap <- paste("Spatial boundaries for \\fishName{} stock assessment regions (SARs) in British Columbia. There are ", Num2Word(length(majorRegions)), " major SARs: ", PasteNicely(majorRegions), ". There are ", Num2Word(length(minorRegions)), " minor SARs: ", PasteNicely(minorRegions), ". Units: kilometres (km).", sep = "")
-# Plot the BC coast and regions
+# Plot BC coast and regions
 mapBC <- ggplot(data = shapes$landAllCropDF, aes(x = Eastings, y = Northings)) +
   geom_polygon(
-    data = shapes$landAllCropDF, aes(group = group),
-    fill = "darkgrey"
+    data = shapes$landAllCropDF, aes(group = group), fill = "darkgrey"
   ) +
   geom_point(data = shapes$extAllDF, colour = "transparent") +
   geom_path(
