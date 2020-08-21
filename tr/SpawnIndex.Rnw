@@ -1056,9 +1056,9 @@ $L^m$ & Length of the Macrocystis bed & m & \\
 $L$ & Spawn length & m & \\
 $P$ & Number of plants & $P > 0$ & \\
 $\mean{\kappa}$ & Mean number of stalks per plant & $\mean{\kappa} > 0$ & \\
-$\zeta$ & Regression slope & \Sexpr{pars$macrocystis$beta}$~\text{eggs} \cdot 10^3 \cdot \text{plant}^{-1}$ & \cite{HaegeleSchweigert1990} \\
-$\eta$ & Regression exponent on $\mean{E}$ & \Sexpr{pars$macrocystis$gamma} & \cite{HaegeleSchweigert1990} \\
-$\xi$ & Regression exponent on $\mean{H}$ & \Sexpr{pars$macrocystis$delta} & \cite{HaegeleSchweigert1990} \\
+$\beta$ & Regression slope & \Sexpr{pars$macrocystis$beta}$~\text{eggs} \cdot 10^3 \cdot \text{plant}^{-1}$ & \cite{HaegeleSchweigert1990} \\
+$\gamma$ & Regression exponent on $\mean{E}$ & \Sexpr{pars$macrocystis$gamma} & \cite{HaegeleSchweigert1990} \\
+$\delta$ & Regression exponent on $\mean{H}$ & \Sexpr{pars$macrocystis$delta} & \cite{HaegeleSchweigert1990} \\
 $\epsilon$ & Regression exponent on $\mean{\kappa}$ & \Sexpr{pars$macrocystis$epsilon} & \cite{HaegeleSchweigert1990} \\
 $\mean{\psi}$ & Mean number of eggs per plant & $\text{eggs} \cdot 10^3 \cdot \text{plant}^{-1}$ & \\
 $\mean{\rho}$ & Mean egg density & $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \\
@@ -1146,13 +1146,13 @@ $P_s$ is the number of plants in spawn $s$ from \autoref{eqMacroPlantsS}.
 
 \citet{HaegeleSchweigert1990} developed a model of number of eggs per plant as a function of number of egg layers, plant height, and number of stalks per plant using a nonlinear multiple regression model
 \begin{equation}\label{eqMacroEggsPerPlantS}
-\mean{\psi_s} = \zeta \mean{E_s}^{\eta} \mean{H_s}^{\xi} \mean{\kappa_s}^{\epsilon} 10^3
+\mean{\psi_s} = \beta \mean{E_s}^{\gamma} \mean{H_s}^{\delta} \mean{\kappa_s}^{\epsilon} 10^3
 \end{equation}
-where $\zeta$ is the regression slope,
+where $\beta$ is the regression slope,
 $\mean{E_s}$ is the mean number of egg layers in spawn $s$ from \autoref{eqMacroLyrsS},
-$\eta$ is the regression exponent on $\mean{E_s}$,
+$\gamma$ is the regression exponent on $\mean{E_s}$,
 $\mean{H_s}$ is the mean plant height in spawn $s$ from \autoref{eqMacroHeightS},
-$\xi$ is the regression exponent on $\mean{H_s}$,
+$\delta$ is the regression exponent on $\mean{H_s}$,
 $\mean{\kappa_s}$ is the mean number of stalks per plant in spawn $s$ from \autoref{eqMacroStalksPerPlantS},
 $\epsilon$ is the regression exponent on $\mean{\kappa_s}$, and
 $\mean{\psi_s}$ is in $\text{eggs} \cdot 10^3 \cdot \text{plant}^{-1}$ (\autoref{figMacroEggsPerPlantS}).
@@ -1242,13 +1242,13 @@ Legend: metres (m), tonnes (t).}
 \midrule
 $E^b$ & Number of substrate egg layers & $E^b > 0$ & \\
 $\phi^b$ & Proportion of substrate covered in eggs & $0 < \phi^b \leq 1$ & \\
-$\lambda$ & Regression slope for substrate & \Sexpr{pars$understory$alpha}$~\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \cite{HaegeleEtal1979} \\
+$\alpha$ & Regression slope for substrate & \Sexpr{pars$understory$alpha}$~\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \cite{HaegeleEtal1979} \\
 $\rho^b$ & Substrate egg density & $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \\
-$\pi$ & Regression slope for algae & \Sexpr{pars$understory$beta}$~\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \cite{Schweigert2005} \\
+$\beta$ & Regression slope for algae & \Sexpr{pars$understory$beta}$~\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \cite{Schweigert2005} \\
 $E^v$ & Number of algae egg layers & $E^v > 0$ & \\
-$\iota$ & Regression exponent on $E^v$ & \Sexpr{pars$understory$gamma} & \cite{Schweigert2005} \\
+$\gamma$ & Regression exponent on $E^v$ & \Sexpr{pars$understory$gamma} & \cite{Schweigert2005} \\
 $\phi^v$ & Proportion of algae covered in eggs & $0 < \phi^v \leq 1$ & \\
-$\Delta$ & Regression exponent on $\phi^v$ & \Sexpr{pars$understory$delta} & \cite{Schweigert2005} \\
+$\delta$ & Regression exponent on $\phi^v$ & \Sexpr{pars$understory$delta} & \cite{Schweigert2005} \\
 $C$ & Algae coefficient & see \autoref{tab:AlgaeCoefs} & \\
 $\rho^v$ & Algae egg density & $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \\
 $\rho$ & Egg density & $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \\
@@ -1268,9 +1268,9 @@ $B$ & Understory spawn index (i.e., biomass) & t & \\
 We calculate two separate estimates of egg density at the quadrat level (\autoref{figFlow}, step \ref{uQuad}): spawn on substrate, and spawn on algae $v$.
 \citet{HaegeleEtal1979} developed a model of substrate egg density in quadrat $q$, transect $t$, and spawn $s$ from egg layers using a linear model
 \begin{equation}\label{eqUnderDensSubQTS}
-\rho^b_{qts} = \lambda E^b_{qts} \phi^b_{qts}
+\rho^b_{qts} = \alpha E^b_{qts} \phi^b_{qts}
 \end{equation}
-where $\lambda$ is the slope,
+where $\alpha$ is the slope,
 $E^b_{qts}$ is the number of egg layers on substrate in quadrat $q$,
 $\phi^b_{qts}$ is the proportion of substrate in quadrat $q$ covered by spawn, and
 $\rho^b_{qts}$ is substrate egg density in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ (\autoref{figUnderDensSubQTS}).
@@ -1316,13 +1316,13 @@ Although quadrats have only one substrate type, they can have up to three algae 
 Algae coefficients account for the effect of algae morphology on \fishName{} egg density (\autoref{tab:AlgaeCoefs}).
 Egg density on algae $v$ in quadrat $q$, transect $t$, and spawn $s$ \citep{Schweigert2005} is
 \begin{equation}\label{eqUnderDensAlgVQTS}
-\rho^v_{vqts} = \pi E^{v^{\iota}}_{vqts} \phi^{v^{\Delta}}_{vqts} C_v
+\rho^v_{vqts} = \beta E^{v^\gamma}_{vqts} \phi^{v^\delta}_{vqts} C_v
 \end{equation}
-where $\pi$ is the regression slope,
+where $\beta$ is the regression slope,
 $E^v_{vqts}$ is the number of egg layers on algae $v$,
-$\iota$ is the regression exponent on $E^v_{vqts}$,
+$\gamma$ is the regression exponent on $E^v_{vqts}$,
 $\phi^v_{vqts}$ is the proportion of quadrat $q$ covered by algae $v$,
-$\Delta$ is the regression exponent on $\phi^v_{vqts}$,
+$\delta$ is the regression exponent on $\phi^v_{vqts}$,
 $C_v$ is the coefficient for algae $v$, and
 $\rho^v_{vqts}$ is in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ (\autoref{figUnderDensAlgVQTS}).
 The total algae egg density for quadrat $q$ in transect $t$ and spawn $s$ is
@@ -1618,9 +1618,9 @@ Intensity & Spawn intensity categories and number of egg layers (\autoref{tab:In
 $\omega$ & Female fecundity (Eq \ref{eqECF}); values in $\text{eggs} \cdot \text{kg}^{-1}$. & PRD, WCVI, and SoG in 1974 ($n=$ 3,293 fish) and 1980 ($n=$ 1,642); California in 1975 ($n=37$). & 186,800 $\leq \omega \leq$ 224,500; 16,900 $\leq \text{SD} \leq$ 53,500. & \cite{Hay1985, HayBrett1988} \\
 $\phi^f$ & Proportion female (Eq \ref{eqECF}). & NA & NA & NA \\
 $\alpha$, $\beta$ & Parameters for surface survey egg density model (Eq \ref{eqSurfDensJS}). & Coastwide from 1976 to 1987 ($n=$ 5,111 samples). & NA & \cite{SchweigertEtal1997} \\
-$\zeta$, $\eta$, $\xi$, $\epsilon$ & Parameters for number of eggs per Macrocystis plant model (Eq \ref{eqMacroEggsPerPlantS}). & HG in 1981 and 1987 ($n=112$ plants); PRD in 1986 ($n=15$); CC in 1986 ($n=5$); WCVI in 1985 and 1986 ($n=35$). & Model accounts for 78\% of variation in eggs per plant. & \cite{HaegeleSchweigert1990} \\
-$\lambda$ & Parameter for substrate egg density model (Eq \ref{eqUnderDensSubQTS}). & SoG in 1976, 1977, and 1978; PRD, CC, and WCVI in 1977. & NA & \cite{HaegeleHumphreys1976, HaegeleHumphreys1978a, HaegeleHumphreys1978b, HaegeleEtal1979} \\
-$\pi$, $\iota$, $\Delta$, $C_v$ & Parameters for algae egg density model (Eq \ref{eqUnderDensAlgVQTS}, \autoref{tab:AlgaeCoefs}). & Coastwide from 1976 to 1987 ($n=$ 5,111 samples). & Model accounts for 40\% of variation in egg density. & \cite{Schweigert2005} \\
+$\beta$, $\gamma$, $\delta$, $\epsilon$ & Parameters for number of eggs per Macrocystis plant model (Eq \ref{eqMacroEggsPerPlantS}). & HG in 1981 and 1987 ($n=112$ plants); PRD in 1986 ($n=15$); CC in 1986 ($n=5$); WCVI in 1985 and 1986 ($n=35$). & Model accounts for 78\% of variation in eggs per plant. & \cite{HaegeleSchweigert1990} \\
+$\alpha$ & Parameter for substrate egg density model (Eq \ref{eqUnderDensSubQTS}). & SoG in 1976, 1977, and 1978; PRD, CC, and WCVI in 1977. & NA & \cite{HaegeleHumphreys1976, HaegeleHumphreys1978a, HaegeleHumphreys1978b, HaegeleEtal1979} \\
+$\beta$, $\gamma$, $\delta$, $C_v$ & Parameters for algae egg density model (Eq \ref{eqUnderDensAlgVQTS}, \autoref{tab:AlgaeCoefs}). & Coastwide from 1976 to 1987 ($n=$ 5,111 samples). & Model accounts for 40\% of variation in egg density. & \cite{Schweigert2005} \\
 $\nu$ & Proportion of SOK product that is kelp (Eq \ref{eqSOKBioFRY}). & HG in 1982 and 1983; PRD in 1982. & $\text{SD}=4.2$. & \cite{ShieldsEtal1985} \\
 $\upsilon$ & SOK product weight increase due to brining (proportion; Eq \ref{eqSOKBioFRY}). & SoG ca. 1977. & $11.88 \leq \upsilon \leq 13.37$ for 1.5- to 24-hour brining periods. & \cite{WhyteEnglar1977} \\
 $M$ & Average mass of a fertilized egg (Eq \ref{eqSOKBioFRY}). & SoG in 1980 ($n=7$ samples). & $\text{SE}=3.4 \times 10^{-7}$. & \cite{HayMiller1982}
