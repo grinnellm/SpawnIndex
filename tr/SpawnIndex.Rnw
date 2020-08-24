@@ -1056,7 +1056,7 @@ $L^m$ & Length of the Macrocystis bed & m & \\
 $L$ & Spawn length & m & \\
 $P$ & Number of plants & $P > 0$ & \\
 $\mean{\kappa}$ & Mean number of stalks per plant & $\mean{\kappa} > 0$ & \\
-$\beta$ & Regression slope & \Sexpr{pars$macrocystis$beta}$~\text{eggs} \cdot 10^3 \cdot \text{plant}^{-1}$ & \cite{HaegeleSchweigert1990} \\
+$\xi$ & Regression slope & \Sexpr{pars$macrocystis$beta}$~\text{eggs} \cdot 10^3 \cdot \text{plant}^{-1}$ & \cite{HaegeleSchweigert1990} \\
 $\gamma$ & Regression exponent on $\mean{E}$ & \Sexpr{pars$macrocystis$gamma} & \cite{HaegeleSchweigert1990} \\
 $\delta$ & Regression exponent on $\mean{H}$ & \Sexpr{pars$macrocystis$delta} & \cite{HaegeleSchweigert1990} \\
 $\epsilon$ & Regression exponent on $\mean{\kappa}$ & \Sexpr{pars$macrocystis$epsilon} & \cite{HaegeleSchweigert1990} \\
@@ -1146,9 +1146,9 @@ $P_s$ is the number of plants in spawn $s$ from \autoref{eqMacroPlantsS}.
 
 \citet{HaegeleSchweigert1990} developed a model of number of eggs per plant as a function of number of egg layers, plant height, and number of stalks per plant using a nonlinear multiple regression model
 \begin{equation}\label{eqMacroEggsPerPlantS}
-\mean{\psi_s} = \beta \mean{E_s}^{\gamma} \mean{H_s}^{\delta} \mean{\kappa_s}^{\epsilon} 10^3
+\mean{\psi_s} = \xi \mean{E_s}^{\gamma} \mean{H_s}^{\delta} \mean{\kappa_s}^{\epsilon} 10^3
 \end{equation}
-where $\beta$ is the regression slope,
+where $\xi$ is the regression slope,
 $\mean{E_s}$ is the mean number of egg layers in spawn $s$ from \autoref{eqMacroLyrsS},
 $\gamma$ is the regression exponent on $\mean{E_s}$,
 $\mean{H_s}$ is the mean plant height in spawn $s$ from \autoref{eqMacroHeightS},
@@ -1618,7 +1618,7 @@ Intensity & Spawn intensity categories and number of egg layers (\autoref{tab:In
 $\omega$ & Female fecundity (Eq \ref{eqECF}); values in $\text{eggs} \cdot \text{kg}^{-1}$. & PRD, WCVI, and SoG in 1974 ($n=$ 3,293 fish) and 1980 ($n=$ 1,642); California in 1975 ($n=37$). & 186,800 $\leq \omega \leq$ 224,500; 16,900 $\leq \text{SD} \leq$ 53,500. & \cite{Hay1985, HayBrett1988} \\
 $\phi^f$ & Proportion female (Eq \ref{eqECF}). & NA & NA & NA \\
 $\alpha$, $\beta$ & Parameters for surface survey egg density model (Eq \ref{eqSurfDensJS}). & Coastwide from 1976 to 1987 ($n=$ 5,111 samples). & NA & \cite{SchweigertEtal1997} \\
-$\beta$, $\gamma$, $\delta$, $\epsilon$ & Parameters for number of eggs per Macrocystis plant model (Eq \ref{eqMacroEggsPerPlantS}). & HG in 1981 and 1987 ($n=112$ plants); PRD in 1986 ($n=15$); CC in 1986 ($n=5$); WCVI in 1985 and 1986 ($n=35$). & Model accounts for 78\% of variation in eggs per plant. & \cite{HaegeleSchweigert1990} \\
+$\xi$, $\gamma$, $\delta$, $\epsilon$ & Parameters for number of eggs per Macrocystis plant model (Eq \ref{eqMacroEggsPerPlantS}). & HG in 1981 and 1987 ($n=112$ plants); PRD in 1986 ($n=15$); CC in 1986 ($n=5$); WCVI in 1985 and 1986 ($n=35$). & Model accounts for 78\% of variation in eggs per plant. & \cite{HaegeleSchweigert1990} \\
 $\alpha$ & Parameter for substrate egg density model (Eq \ref{eqUnderDensSubQTS}). & SoG in 1976, 1977, and 1978; PRD, CC, and WCVI in 1977. & NA & \cite{HaegeleHumphreys1976, HaegeleHumphreys1978a, HaegeleHumphreys1978b, HaegeleEtal1979} \\
 $\beta$, $\gamma$, $\delta$, $C_v$ & Parameters for algae egg density model (Eq \ref{eqUnderDensAlgVQTS}, \autoref{tab:AlgaeCoefs}). & Coastwide from 1976 to 1987 ($n=$ 5,111 samples). & Model accounts for 40\% of variation in egg density. & \cite{Schweigert2005} \\
 $\nu$ & Proportion of SOK product that is kelp (Eq \ref{eqSOKBioFRY}). & HG in 1982 and 1983; PRD in 1982. & $\text{SD}=4.2$. & \cite{ShieldsEtal1985} \\
