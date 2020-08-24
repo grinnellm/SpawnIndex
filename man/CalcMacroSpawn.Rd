@@ -9,7 +9,7 @@ CalcMacroSpawn(
   a,
   yrs,
   tSwath = 2,
-  beta = pars$macrocystis$beta,
+  xi = pars$macrocystis$xi,
   gamma = pars$macrocystis$gamma,
   delta = pars$macrocystis$delta,
   epsilon = pars$macrocystis$epsilon,
@@ -29,7 +29,7 @@ staring in 1951.}
 
 \item{tSwath}{Numeric. Transect swath (i.e., width) in metres.}
 
-\item{beta}{Numeric. Regression slope; from \code{\link{pars}}
+\item{xi}{Numeric. Regression slope; from \code{\link{pars}}
 \insertCite{HaegeleSchweigert1990}{SpawnIndex}.}
 
 \item{gamma}{Numeric. Regression exponent on egg layers; from

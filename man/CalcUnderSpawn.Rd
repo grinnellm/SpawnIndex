@@ -10,10 +10,10 @@ CalcUnderSpawn(
   yrs,
   algCoefs = algaeCoefs,
   tau = underWidthFac,
-  alpha = pars$understory$alpha,
-  beta = pars$understory$beta,
-  gamma = pars$under$gamma,
-  delta = pars$understory$delta,
+  varphi = pars$understory$varphi,
+  vartheta = pars$understory$vartheta,
+  varrho = pars$under$varrho,
+  varsigma = pars$understory$varsigma,
   theta = CalcEggConversion()
 )
 }
@@ -34,16 +34,16 @@ staring in 1951.}
 \item{tau}{Tibble. Table of understory spawn width adjustment factors from
 \code{\link{underWidthFac}}.}
 
-\item{alpha}{Numeric. Regression slope for substrate; from \code{\link{pars}}
+\item{varphi}{Numeric. Regression slope for substrate; from \code{\link{pars}}
 \insertCite{HaegeleEtal1979}{SpawnIndex}.}
 
-\item{beta}{Numeric. Regression slope for algae; from \code{\link{pars}}
+\item{vartheta}{Numeric. Regression slope for algae; from \code{\link{pars}}
 \insertCite{Schweigert2005}{SpawnIndex}.}
 
-\item{gamma}{Numeric. Regression exponent on number of egg layers; from
+\item{varrho}{Numeric. Regression exponent on number of egg layers; from
 \code{\link{pars}} \insertCite{Schweigert2005}{SpawnIndex}.}
 
-\item{delta}{Numeric. Regression exponent on proportion of algae; from
+\item{varsigma}{Numeric. Regression exponent on proportion of algae; from
 \code{\link{pars}} \insertCite{Schweigert2005}{SpawnIndex}.}
 
 \item{theta}{Numeric. Egg conversion factor (eggs to biomass); from

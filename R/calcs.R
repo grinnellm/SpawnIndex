@@ -331,7 +331,7 @@ CalcSurfSpawn <- function(where,
 #' @param yrs Numeric vector. Years(s) to include in the calculations, usually
 #'   staring in 1951.
 #' @param tSwath Numeric. Transect swath (i.e., width) in metres.
-#' @param beta Numeric. Regression slope; from \code{\link{pars}}
+#' @param xi Numeric. Regression slope; from \code{\link{pars}}
 #'   \insertCite{HaegeleSchweigert1990}{SpawnIndex}.
 #' @param gamma Numeric. Regression exponent on egg layers; from
 #'   \code{\link{pars}} \insertCite{HaegeleSchweigert1990}{SpawnIndex}.
@@ -381,7 +381,7 @@ CalcMacroSpawn <- function(where,
                            a,
                            yrs,
                            tSwath = 2,
-                           beta = pars$macrocystis$beta,
+                           xi = pars$macrocystis$xi,
                            gamma = pars$macrocystis$gamma,
                            delta = pars$macrocystis$delta,
                            epsilon = pars$macrocystis$epsilon,
@@ -481,7 +481,7 @@ CalcMacroSpawn <- function(where,
       StalksPerPlant = Stalks / Plants,
       # Eggs per plant in thousands (eggs * 10^3 / plant; Haegele and
       # Schweigert 1990); spawn s
-      EggsPerPlant = beta * EggLyrs^gamma * Height^delta *
+      EggsPerPlant = xi * EggLyrs^gamma * Height^delta *
         StalksPerPlant^epsilon * 1000,
       # Eggs density in thousands (eggs * 10^3 / m^2; spawn s
       EggDens = EggsPerPlant * Plants / Area,
@@ -519,13 +519,13 @@ CalcMacroSpawn <- function(where,
 #'   \code{\link{algaeCoefs}}.
 #' @param tau Tibble. Table of understory spawn width adjustment factors from
 #'   \code{\link{underWidthFac}}.
-#' @param alpha Numeric. Regression slope for substrate; from \code{\link{pars}}
+#' @param varphi Numeric. Regression slope for substrate; from \code{\link{pars}}
 #'   \insertCite{HaegeleEtal1979}{SpawnIndex}.
-#' @param beta Numeric. Regression slope for algae; from \code{\link{pars}}
+#' @param vartheta Numeric. Regression slope for algae; from \code{\link{pars}}
 #'   \insertCite{Schweigert2005}{SpawnIndex}.
-#' @param gamma Numeric. Regression exponent on number of egg layers; from
+#' @param varrho Numeric. Regression exponent on number of egg layers; from
 #'   \code{\link{pars}} \insertCite{Schweigert2005}{SpawnIndex}.
-#' @param delta Numeric. Regression exponent on proportion of algae; from
+#' @param varsigma Numeric. Regression exponent on proportion of algae; from
 #'   \code{\link{pars}} \insertCite{Schweigert2005}{SpawnIndex}.
 #' @param theta Numeric. Egg conversion factor (eggs to biomass); from
 #'   \code{\link{CalcEggConversion}}.
@@ -572,10 +572,10 @@ CalcUnderSpawn <- function(where,
                            yrs,
                            algCoefs = algaeCoefs,
                            tau = underWidthFac,
-                           alpha = pars$understory$alpha,
-                           beta = pars$understory$beta,
-                           gamma = pars$under$gamma,
-                           delta = pars$understory$delta,
+                           varphi = pars$understory$varphi,
+                           vartheta = pars$understory$vartheta,
+                           varrho = pars$under$varrho,
+                           varsigma = pars$understory$varsigma,
                            theta = CalcEggConversion()) {
   # Establish connection with access
   accessDB <- dbConnect(
@@ -705,7 +705,7 @@ CalcUnderSpawn <- function(where,
     left_join(y = areasSm2, by = c("Region", "LocationCode")) %>%
     # Egg density in thousands (eggs x 10^3 / m^2; Haegele et al. 1979);
     # quadrat q
-    mutate(EggDensSub = alpha * SubLyrs * SubProp) %>%
+    mutate(EggDensSub = varphi * SubLyrs * SubProp) %>%
     replace_na(replace = list(EggDensSub = 0)) %>%
     select(
       Year, Region, StatArea, Section, LocationCode, SpawnNumber, Transect,
@@ -726,7 +726,7 @@ CalcUnderSpawn <- function(where,
     # Egg density in thousands (eggs * 10^3 / m^2; Schweigert 2005); quadrat
     # size coefficients not required because all quadrats are 0.5m^2 (1.0512)
     # Algae a
-    mutate(EggDensAlg = beta * AlgLyrs^gamma * AlgProp^delta * Coef *
+    mutate(EggDensAlg = vartheta * AlgLyrs^varrho * AlgProp^varsigma * Coef *
       1.0512) %>%
     group_by(
       Year, Region, StatArea, Section, LocationCode, SpawnNumber, Transect,
