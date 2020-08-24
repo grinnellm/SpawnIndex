@@ -41,7 +41,7 @@
 #'   \insertCite{SchweigertEtal1997}{SpawnIndex}, and \emph{beta} is the
 #'   regression slope \insertCite{SchweigertEtal1997}{SpawnIndex}.}
 #' \item{macrocystis}{List with items:
-#'   \emph{beta} is the regression slope
+#'   \emph{xi} is the regression slope
 #'   \insertCite{HaegeleSchweigert1990}{SpawnIndex}, \emph{gamma} is the
 #'   regression exponent on egg layers
 #'   \insertCite{HaegeleSchweigert1990}{SpawnIndex}, \emph{delta} is the
@@ -50,12 +50,13 @@
 #'   regression exponent on number of stalks per plant
 #'   \insertCite{HaegeleSchweigert1990}{SpawnIndex}.}
 #' \item{understory}{List with items:
-#'   \emph{alpha} is the regression slope for substrate
-#'   \insertCite{HaegeleEtal1979}{SpawnIndex}, \emph{beta} is the regression
-#'   slope for algae \insertCite{Schweigert2005}{SpawnIndex}, \emph{gamma} is
+#'   \emph{varphi} is the regression slope for substrate
+#'   \insertCite{HaegeleEtal1979}{SpawnIndex}, \emph{vartheta} is the regression
+#'   slope for algae \insertCite{Schweigert2005}{SpawnIndex}, \emph{varrho} is
 #'   the regression exponent on number of egg layers
-#'   \insertCite{Schweigert2005}{SpawnIndex}, and \emph{delta} is the regression
-#'   exponent on proportion of algae \insertCite{Schweigert2005}{SpawnIndex}.} }
+#'   \insertCite{Schweigert2005}{SpawnIndex}, and \emph{varsigma} is the
+#'   regression exponent on proportion of algae
+#'   \insertCite{Schweigert2005}{SpawnIndex}.} }
 #' @docType data
 #' @importFrom Rdpack reprompt
 #' @references \insertAllCited{}
