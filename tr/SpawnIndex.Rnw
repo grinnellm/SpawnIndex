@@ -1246,7 +1246,7 @@ $\varphi$ & Regression slope for substrate & \Sexpr{pars$understory$alpha}$~\tex
 $\rho^b$ & Substrate egg density & $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \\
 $\vartheta$ & Regression slope for algae & \Sexpr{pars$understory$beta}$~\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \cite{Schweigert2005} \\
 $E^v$ & Number of algae egg layers & $E^v > 0$ & \\
-$\gamma$ & Regression exponent on $E^v$ & \Sexpr{pars$understory$gamma} & \cite{Schweigert2005} \\
+$\varrho$ & Regression exponent on $E^v$ & \Sexpr{pars$understory$gamma} & \cite{Schweigert2005} \\
 $\phi^v$ & Proportion of algae covered in eggs & $0 < \phi^v \leq 1$ & \\
 $\delta$ & Regression exponent on $\phi^v$ & \Sexpr{pars$understory$delta} & \cite{Schweigert2005} \\
 $C$ & Algae coefficient & see \autoref{tab:AlgaeCoefs} & \\
@@ -1316,11 +1316,11 @@ Although quadrats have only one substrate type, they can have up to three algae 
 Algae coefficients account for the effect of algae morphology on \fishName{} egg density (\autoref{tab:AlgaeCoefs}).
 Egg density on algae $v$ in quadrat $q$, transect $t$, and spawn $s$ \citep{Schweigert2005} is
 \begin{equation}\label{eqUnderDensAlgVQTS}
-\rho^v_{vqts} = \vartheta E^{v^\gamma}_{vqts} \phi^{v^\delta}_{vqts} C_v
+\rho^v_{vqts} = \vartheta E^{v^\varrho}_{vqts} \phi^{v^\delta}_{vqts} C_v
 \end{equation}
 where $\vartheta$ is the regression slope,
 $E^v_{vqts}$ is the number of egg layers on algae $v$,
-$\gamma$ is the regression exponent on $E^v_{vqts}$,
+$\varrho$ is the regression exponent on $E^v_{vqts}$,
 $\phi^v_{vqts}$ is the proportion of quadrat $q$ covered by algae $v$,
 $\delta$ is the regression exponent on $\phi^v_{vqts}$,
 $C_v$ is the coefficient for algae $v$, and
@@ -1620,7 +1620,7 @@ $\phi^f$ & Proportion female (Eq \ref{eqECF}). & NA & NA & NA \\
 $\alpha$, $\beta$ & Parameters for surface survey egg density model (Eq \ref{eqSurfDensJS}). & Coastwide from 1976 to 1987 ($n=$ 5,111 samples). & NA & \cite{SchweigertEtal1997} \\
 $\xi$, $\gamma$, $\delta$, $\epsilon$ & Parameters for number of eggs per Macrocystis plant model (Eq \ref{eqMacroEggsPerPlantS}). & HG in 1981 and 1987 ($n=112$ plants); PRD in 1986 ($n=15$); CC in 1986 ($n=5$); WCVI in 1985 and 1986 ($n=35$). & Model accounts for 78\% of variation in eggs per plant. & \cite{HaegeleSchweigert1990} \\
 $\varphi$ & Parameter for substrate egg density model (Eq \ref{eqUnderDensSubQTS}). & SoG in 1976, 1977, and 1978; PRD, CC, and WCVI in 1977. & NA & \cite{HaegeleHumphreys1976, HaegeleHumphreys1978a, HaegeleHumphreys1978b, HaegeleEtal1979} \\
-$\vartheta$, $\gamma$, $\delta$, $C_v$ & Parameters for algae egg density model (Eq \ref{eqUnderDensAlgVQTS}, \autoref{tab:AlgaeCoefs}). & Coastwide from 1976 to 1987 ($n=$ 5,111 samples). & Model accounts for 40\% of variation in egg density. & \cite{Schweigert2005} \\
+$\vartheta$, $\varrho$, $\delta$, $C_v$ & Parameters for algae egg density model (Eq \ref{eqUnderDensAlgVQTS}, \autoref{tab:AlgaeCoefs}). & Coastwide from 1976 to 1987 ($n=$ 5,111 samples). & Model accounts for 40\% of variation in egg density. & \cite{Schweigert2005} \\
 $\nu$ & Proportion of SOK product that is kelp (Eq \ref{eqSOKBioFRY}). & HG in 1982 and 1983; PRD in 1982. & $\text{SD}=4.2$. & \cite{ShieldsEtal1985} \\
 $\upsilon$ & SOK product weight increase due to brining (proportion; Eq \ref{eqSOKBioFRY}). & SoG ca. 1977. & $11.88 \leq \upsilon \leq 13.37$ for 1.5- to 24-hour brining periods. & \cite{WhyteEnglar1977} \\
 $M$ & Average mass of a fertilized egg (Eq \ref{eqSOKBioFRY}). & SoG in 1980 ($n=7$ samples). & $\text{SE}=3.4 \times 10^{-7}$. & \cite{HayMiller1982}
