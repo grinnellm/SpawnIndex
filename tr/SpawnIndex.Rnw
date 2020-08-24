@@ -1350,7 +1350,7 @@ kAlgaeCoefs <- algaeCoefs %>%
 kAlgaeCoefs
 @
 
-<<UnderDensAlgVQTS, fig.width=6, fig.asp=1, fig.lp="fig", echo=FALSE, fig.cap=figCap, fig.scap="Algae egg density for \\fishName{} underwater spawn surveys">>=
+<<UnderDensAlgVQTS, fig.width=6, fig.asp=1.2, fig.lp="fig", echo=FALSE, fig.cap=figCap, fig.scap="Algae egg density for \\fishName{} underwater spawn surveys">>=
 # Caption
 figCap <- paste("Algae egg density in thousands of eggs per square metre (m) as a function of number of egg layers on algae, proportion of substrate covered in algae, and algae coefficient (\\autoref{tab:AlgaeCoefs}) for \\fishName{} underwater spawn surveys (\\autoref{eqUnderDensAlgVQTS}; \\citealt{Schweigert2005}). Note that number of egg layers can exceed those shown in this figure; values shown are for demonstration only.")
 # Expand the values
