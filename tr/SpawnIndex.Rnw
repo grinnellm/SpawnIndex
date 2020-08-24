@@ -1842,7 +1842,7 @@ $W$ & Corrected spawn width & m \\
 One record in the surface spawn database since \Sexpr{min(yrRange)} requires an update to fill-in missing egg layer information.
 As with understory spawn width updates, we make this update in the \textbf{R} package script:
 \begin{enumerate}
-\item Update `intensity' from 0 to 1 for the records (1 record) in the year 1962, Statistical Area 14, Section 142, Location code 820, and with $\text{intensity} = 0$.
+\item Update `intensity' from 0 to 1 for the records (there is 1 record) in the year 1962, Statistical Area 14, Section 142, Location code 820, and with $\text{intensity} = 0$.
 We update intensity from 0 to 1 because spawn was surveyed but not reported.
 \end{enumerate}
 Spawn survey records prior to \Sexpr{min(yrRange)} have additional missing or inaccurate egg layer information, and are unreliable for indexing purposes.
@@ -1851,7 +1851,7 @@ Therefore, we do not include spawn data prior to \Sexpr{min(yrRange)} in stock a
 While reviewing the spawn index calculations and translating them from the \textbf{Microsoft Access} database to \textbf{R}, we found several cases where index data were being over-written with no documented reason.
 These updates have been omitted, and affected the following records:
 \begin{enumerate}
-\item Update $E_{js}$ (i.e., the total number of egg layers) to 2.1496 for the records (15 records) in the year 1979, Statistical Area 2, and with intensity 4;
+\item Update $E_{js}$ (i.e., the total number of egg layers) to 2.1496 for the records (there are 15 records) in the year 1979, Statistical Area 2, and with intensity 4;
 \item Update $E_{js}$ to 0.5529 for the records (4) in the year 1981, Statistical Area 24, and with $E_{js} = 0.0$;
 \item Update $E_{js}$ to 1.3360 for the records (7) in the year 1982, Statistical Area 23, and with intensity 3;
 \item Update $E_{js}$ to 2.3300 for the records (41) in the year 1984, Statistical Area 24, and with intensity 0; and
