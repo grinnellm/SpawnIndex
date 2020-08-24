@@ -239,8 +239,7 @@ xyRatioSec <- (extSec$ymax - extSec$ymin) / (extSec$xmax - extSec$xmin)
 # Create a base map for the region
 BaseMap <- ggplot(data = shapes$landCropDF, aes(x = Eastings, y = Northings)) +
   geom_polygon(
-    data = shapes$landCropDF, aes(group = group),
-    fill = "darkgrey"
+    data = shapes$landCropDF, aes(group = group), fill = "darkgrey"
   ) +
   geom_point(data = shapes$extDF, colour = "transparent") +
   coord_equal() +
@@ -390,8 +389,7 @@ mapSA <- BaseMap +
   ) +
   geom_label(
     data = filter(shapes$secCentDF, Section %in% sectionsSA),
-    alpha = 0.75, aes(label = paste("Sec", Section, sep = " ")),
-    size = 3
+    alpha = 0.75, aes(label = paste("Sec", Section, sep = " ")), size = 3
   ) +
   coord_cartesian(
     xlim = c(extSA$xmin, extSA$xmax),
@@ -833,8 +831,7 @@ p9 <- paste(cat9Yr, "to", directEggYr - 1)
 kIntensity <- intensity %>%
   arrange(Layers) %>%
   rename(
-    !!p5 := Period5, !!p9 := Period9,
-    `Number of egg layers` = Layers
+    !!p5 := Period5, !!p9 := Period9, `Number of egg layers` = Layers
   ) %>%
   kable(
     caption = tabCap, caption.short = tabSCap, booktabs = TRUE, linesep = "",
@@ -1196,8 +1193,7 @@ dat <- as_tibble(df) %>%
       EggLyrs = Layers, Height = PlantHeight, StalksPerPlant = Stalks
     ),
     Stalks = paste("Number of stalks per plant: ",
-      formatC(Stalks, width = 2, flag = "0"),
-      sep = ""
+      formatC(Stalks, width = 2, flag = "0"), sep = ""
     )
   )
 # Figure
@@ -1210,8 +1206,7 @@ NumEggPlot <- ggplot(
   labs(
     x = "Number of egg layers on plants",
     y = expression(paste("Number of eggs per plant (eggs" %.% 10^3 %.%
-      "plant"^-1, ")", sep = "")),
-    colour = "Plant height (m)"
+      "plant"^-1, ")", sep = "")), colour = "Plant height (m)"
   ) +
   scale_y_continuous(labels = comma) +
   scale_colour_viridis() +
@@ -1378,8 +1373,7 @@ dat <- as_tibble(df) %>%
   )
 # Figure
 EggDensAlgPlot <- ggplot(
-  data = dat,
-  mapping = aes(x = Layers, y = EggDens, group = Proportion)
+  data = dat, mapping = aes(x = Layers, y = EggDens, group = Proportion)
 ) +
   geom_line(mapping = aes(colour = Proportion)) +
   labs(
