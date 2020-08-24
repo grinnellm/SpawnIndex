@@ -1702,6 +1702,7 @@ The \textbf{R} package is documented and has examples to promote accessibility a
 The authors thank Ashleen Benson for translating the calculations in the \textbf{Microsoft Access} database to an \textbf{R} script,
 which they referenced when developing the \texttt{SpawnIndex} package.
 They also thank Paul Starr and Rob Kronlund for their thorough reviews that improved this document.
+Finally, they thank Chris Grandin for help creating the \textbf{R} package.
 
 %%%%% References %%%%%
 

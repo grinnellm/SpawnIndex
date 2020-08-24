@@ -366,5 +366,4 @@ kable(
 )
 ```
 
-
 # References
