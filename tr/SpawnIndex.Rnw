@@ -1056,7 +1056,7 @@ $L^m$ & Length of the Macrocystis bed & m & \\
 $L$ & Spawn length & m & \\
 $P$ & Number of plants & $P > 0$ & \\
 $\mean{\kappa}$ & Mean number of stalks per plant & $\mean{\kappa} > 0$ & \\
-$\xi$ & Regression slope & \Sexpr{pars$macrocystis$beta}$~\text{eggs} \cdot 10^3 \cdot \text{plant}^{-1}$ & \cite{HaegeleSchweigert1990} \\
+$\xi$ & Regression slope & \Sexpr{pars$macrocystis$xi}$~\text{eggs} \cdot 10^3 \cdot \text{plant}^{-1}$ & \cite{HaegeleSchweigert1990} \\
 $\gamma$ & Regression exponent on $\mean{E}$ & \Sexpr{pars$macrocystis$gamma} & \cite{HaegeleSchweigert1990} \\
 $\delta$ & Regression exponent on $\mean{H}$ & \Sexpr{pars$macrocystis$delta} & \cite{HaegeleSchweigert1990} \\
 $\epsilon$ & Regression exponent on $\mean{\kappa}$ & \Sexpr{pars$macrocystis$epsilon} & \cite{HaegeleSchweigert1990} \\
@@ -1183,7 +1183,7 @@ df <- expand.grid(Layers = lyrs, PlantHeight = ht, Stalks = stlks)
 # Equation for Macrocystis number of eggs per plant
 NumEggs <- function(EggLyrs, Height, StalksPerPlant) {
   # Calculate the number of eggs
-  Number <- pars$macrocystis$beta * EggLyrs^pars$macrocystis$gamma *
+  Number <- pars$macrocystis$xi * EggLyrs^pars$macrocystis$gamma *
     Height^pars$macrocystis$delta * StalksPerPlant^pars$macrocystis$epsilon *
     1000
   # Return number
@@ -1242,13 +1242,13 @@ Legend: metres (m), tonnes (t).}
 \midrule
 $E^b$ & Number of substrate egg layers & $E^b > 0$ & \\
 $\phi^b$ & Proportion of substrate covered in eggs & $0 < \phi^b \leq 1$ & \\
-$\varphi$ & Regression slope for substrate & \Sexpr{pars$understory$alpha}$~\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \cite{HaegeleEtal1979} \\
+$\varphi$ & Regression slope for substrate & \Sexpr{pars$understory$varphi}$~\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \cite{HaegeleEtal1979} \\
 $\rho^b$ & Substrate egg density & $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \\
-$\vartheta$ & Regression slope for algae & \Sexpr{pars$understory$beta}$~\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \cite{Schweigert2005} \\
+$\vartheta$ & Regression slope for algae & \Sexpr{pars$understory$vartheta}$~\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \cite{Schweigert2005} \\
 $E^v$ & Number of algae egg layers & $E^v > 0$ & \\
-$\varrho$ & Regression exponent on $E^v$ & \Sexpr{pars$understory$gamma} & \cite{Schweigert2005} \\
+$\varrho$ & Regression exponent on $E^v$ & \Sexpr{pars$understory$varrho} & \cite{Schweigert2005} \\
 $\phi^v$ & Proportion of algae covered in eggs & $0 < \phi^v \leq 1$ & \\
-$\varsigma$ & Regression exponent on $\phi^v$ & \Sexpr{pars$understory$delta} & \cite{Schweigert2005} \\
+$\varsigma$ & Regression exponent on $\phi^v$ & \Sexpr{pars$understory$varsigma} & \cite{Schweigert2005} \\
 $C$ & Algae coefficient & see \autoref{tab:AlgaeCoefs} & \\
 $\rho^v$ & Algae egg density & $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \\
 $\rho$ & Egg density & $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \\
@@ -1283,7 +1283,7 @@ df <- expand.grid(Layers = lyrs, Proportion = prop)
 # Equation for understory egg density on substrate
 EggDensSub <- function(SubLyrs, SubProp) {
   # Calculate egg density
-  Density <- pars$understory$alpha * SubLyrs * SubProp
+  Density <- pars$understory$varphi * SubLyrs * SubProp
   # Return density
   return(Density)
 } # End EggDensSub function
@@ -1360,8 +1360,8 @@ df <- expand.grid(
 # Equation for understory egg density on algae
 EggDensAlg <- function(AlgLyrs, AlgProp, Coef) {
   # Calculate egg density
-  Density <- pars$understory$beta * AlgLyrs^pars$understory$gamma *
-    AlgProp^pars$understory$delta * Coef
+  Density <- pars$understory$vartheta * AlgLyrs^pars$understory$varrho *
+    AlgProp^pars$understory$varsigma * Coef
   # Return density
   return(Density)
 } # End EggDensAlg function
