@@ -8,35 +8,37 @@
 \describe{
 \item{conversion}{List with items:
   \emph{omega} is the number of eggs per kilogram of female spawners
-  \insertCite{Hay1985,HayBrett1988}{SpawnIndex}, and \emph{phi} is the
-  proportion of spawners that are female.}
+  \insertCite{Hay1985,HayBrett1988}{SpawnIndex}, and
+  \emph{phi} is the proportion of spawners that are female.}
 \item{SOK}{List with items:
   \emph{nu} is the proportion of SOK product that is kelp
-  \insertCite{ShieldsEtal1985}{SpawnIndex}, \emph{upsilon} is the SOK
-  product weight increase due to brining as a proportion
-  \insertCite{WhyteEnglar1977}{SpawnIndex}, and \emph{M} is the average
-  weight in kilograms of a fertilized egg
+  \insertCite{ShieldsEtal1985}{SpawnIndex},
+  \emph{upsilon} is the SOK product weight increase during a 24-hour brining
+  period as a proportion \insertCite{WhyteEnglar1977}{SpawnIndex}, and
+  \emph{M} is the average weight in kilograms of a fertilized egg
   \insertCite{HayMiller1982}{SpawnIndex}.}
 \item{surface}{List with items:
   \emph{alpha} is the regression intercept
-  \insertCite{SchweigertEtal1997}{SpawnIndex}, and \emph{beta} is the
-  regression slope \insertCite{SchweigertEtal1997}{SpawnIndex}.}
+  \insertCite{SchweigertEtal1997}{SpawnIndex}, and
+  \emph{beta} is the regression slope
+  \insertCite{SchweigertEtal1997}{SpawnIndex}.}
 \item{macrocystis}{List with items:
   \emph{xi} is the regression slope
-  \insertCite{HaegeleSchweigert1990}{SpawnIndex}, \emph{gamma} is the
-  regression exponent on egg layers
-  \insertCite{HaegeleSchweigert1990}{SpawnIndex}, \emph{delta} is the
-  regression exponent on plant height
-  \insertCite{HaegeleSchweigert1990}{SpawnIndex}, and \emph{epsilon} is the
-  regression exponent on number of stalks per plant
+  \insertCite{HaegeleSchweigert1990}{SpawnIndex},
+  \emph{gamma} is the regression exponent on egg layers
+  \insertCite{HaegeleSchweigert1990}{SpawnIndex},
+  \emph{delta} is the regression exponent on plant height
+  \insertCite{HaegeleSchweigert1990}{SpawnIndex}, and
+  \emph{epsilon} is the regression exponent on number of stalks per plant
   \insertCite{HaegeleSchweigert1990}{SpawnIndex}.}
 \item{understory}{List with items:
   \emph{varphi} is the regression slope for substrate
-  \insertCite{HaegeleEtal1979}{SpawnIndex}, \emph{vartheta} is the regression
-  slope for algae \insertCite{Schweigert2005}{SpawnIndex}, \emph{varrho} is
-  the regression exponent on number of egg layers
-  \insertCite{Schweigert2005}{SpawnIndex}, and \emph{varsigma} is the
-  regression exponent on proportion of algae
+  \insertCite{HaegeleEtal1979}{SpawnIndex},
+  \emph{vartheta} is the regression slope for algae
+  \insertCite{Schweigert2005}{SpawnIndex},
+  \emph{varrho} is the regression exponent on number of egg layers
+  \insertCite{Schweigert2005}{SpawnIndex}, and
+  \emph{varsigma} is the regression exponent on proportion of algae
   \insertCite{Schweigert2005}{SpawnIndex}.} }}
 \usage{
 pars
