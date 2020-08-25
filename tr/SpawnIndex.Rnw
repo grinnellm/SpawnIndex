@@ -817,7 +817,6 @@ In addition to recording the number of egg layers, surveyors sometimes recorded 
 We have converted spawn intensity observations in the \fishName{} spawn survey database from five to nine categories for spawns that used the five category scale between \Sexpr{min(yrRange)} and \Sexpr{cat9Yr-1}
 Thus, spawn data used for stock assessments is represented either by a nine category intensity scale, or a direct estimate of the number of egg layers.
 
-% TODO: Add details re when, where, number of samples, uncertainty, etc.
 <<Intensity>>=
 # Caption
 tabCap <- paste("Spawn intensity categories, description, and number of egg layers for \\fishName{} surface spawn surveys for the periods ", firstYr, " to ", cat9Yr - 1, ", and ", cat9Yr, " to ", directEggYr - 1, " \\citep{HayKronlund1987, SchweigertStocker1988}. Uncertainty in number of egg layers is not available.", sep = "")
@@ -1327,7 +1326,6 @@ The total algae egg density for quadrat $q$ in transect $t$ and spawn $s$ is
 where $\rho^v_{vqts}$ is egg density on algae $v$ from \autoref{eqUnderDensAlgVQTS}, and
 $\rho^v_{qts}$ is in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$.
 
-% TODO: Add details re when, where, number of samples, uncertainty, etc.
 <<AlgaeCoefs>>=
 # Caption
 tabCap <- "Algae (i.e., vegetation) types $v$ and coefficients $C$ for \\fishName{} understory spawn surveys \\citep{Schweigert2005}. Uncertainty in algae coefficients is not available."
