@@ -1614,7 +1614,7 @@ $\xi$, $\gamma$, $\delta$, $\epsilon$ & Parameters for number of eggs per Macroc
 $\varphi$ & Parameter for substrate egg density model (Eq \ref{eqUnderDensSubQTS}). & SoG in 1976, 1977, and 1978; PRD, CC, and WCVI in 1977. & NA & \cite{HaegeleHumphreys1976, HaegeleHumphreys1978a, HaegeleHumphreys1978b, HaegeleEtal1979} \\
 $\vartheta$, $\varrho$, $\varsigma$, $C_v$ & Parameters for algae egg density model (Eq \ref{eqUnderDensAlgVQTS}, \autoref{tab:AlgaeCoefs}). & Coastwide from 1976 to 1987 ($n=$ 5,111 samples). & Model accounts for 40\% of variation in egg density. & \cite{Schweigert2005} \\
 $\nu$ & Proportion of SOK product that is kelp (Eq \ref{eqSOKBioFRY}). & HG in 1982 and 1983; PRD in 1982. & $\text{SD}=4.2$. & \cite{ShieldsEtal1985} \\
-$\upsilon$ & SOK product weight increase due to brining (proportion; Eq \ref{eqSOKBioFRY}). & SoG ca. 1977. & $11.88 \leq \upsilon \leq 13.37$ for 1.5- to 24-hour brining periods. & \cite{WhyteEnglar1977} \\
+$\upsilon$ & SOK product weight increase due to brining (proportion; Eq \ref{eqSOKBioFRY}). & SoG ca. 1977. & NA & \cite{WhyteEnglar1977} \\
 $M$ & Average mass of a fertilized egg (Eq \ref{eqSOKBioFRY}). & SoG in 1980 ($n=7$ samples). & $\text{SE}=3.4 \times 10^{-7}$. & \cite{HayMiller1982}
 \label{tabUncertainty}
 \end{longtable}
