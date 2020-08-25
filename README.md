@@ -7,6 +7,7 @@ Note that the 'spawn index' is a relative index of spawning biomass.
 ## Status
 
 Travis: [![Travis build status](https://travis-ci.org/grinnellm/SpawnIndex.svg?branch=master)](https://travis-ci.org/github/grinnellm/SpawnIndex)
+Note: Travis is not currently implemented (see #12).
 
 ## Download and install
 
@@ -17,10 +18,10 @@ Download and install the package as follows:
 ## Additional information
 
 The technical report has background information on the spawn index and calculations.
-A draft technical report is available here: "tr/Draft.pdf".
+A draft technical report is available here: "./tr/Draft.pdf".
 Please do not cite or circulate this draft.
 The vignette has an example workflow; build the vignette like so:
 
 `build_vignettes(pkg = "SpawnIndex")`
 
-and open the file "doc/Introduction.html".
+and open the file "./doc/Introduction.html".
