@@ -610,9 +610,6 @@ CalcUnderSpawn <- function(where,
       QuadratSize = Quadrat_Size, WidthObs = Width_Recorded
     ) %>%
     filter(Year %in% yrs, LocationCode %in% a$LocationCode) %>%
-    # TODO: This is a temporary cludge (all survey quadrats are 0.5); MT will
-    # fix it in the database
-    mutate(QuadratSize = ifelse(QuadratSize == 0, 0.5, QuadratSize)) %>%
     select(
       Year, LocationCode, SpawnNumber, Transect, WidthObs, QuadratSize
     ) %>%
