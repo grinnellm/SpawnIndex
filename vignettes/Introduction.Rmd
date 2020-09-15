@@ -6,7 +6,10 @@ output:
       rmarkdown::html_vignette:
         fig_caption: yes
         toc: true
-bibliography: "../inst/REFERENCES.bib"
+bibliography:
+  - "../inst/REFERENCES.bib"
+  - "../inst/PACKAGES.bib"
+csl: "../inst/cjfas.csl"
 link-citations: true
 vignette: >
   %\VignetteIndexEntry{Pacific Herring spawn index: An example}
@@ -25,11 +28,16 @@ opts_chunk$set(
 options(knitr.kable.NA = "")
 ```
 
+```{r citation, include = FALSE}
+knitr::write_bib(x = "SpawnIndex", file = "../inst/PACKAGES.bib")
+```
+
 This vignette provides an example on how to calculate the spawn index for Pacific Herring (*Clupea pallasii*) in British Columbia, Canada.
 See the technical report for background information [@GrinnellEtalYYYY].
 Source code is on the
 [GitHub repository](https://github.com/grinnellm/SpawnIndex).
-Load the `SpawnIndex` package and a few other packages for analyses, tables, and figures.
+Load the `SpawnIndex` package [@R-SpawnIndex], and
+a few other packages for analyses, tables, and figures.
 
 ```{r libraries, message = FALSE, warning = FALSE}
 library(SpawnIndex)
@@ -45,8 +53,8 @@ library(rnaturalearthhires)
 # Set up
 
 Specify the region and years of interest.
-Also, load the parameter values required for spawn index calculations.
-Finally, load some land polygons for maps
+Then load the parameters required for spawn index calculations, and
+load some land polygons for maps.
 
 ```{r pars}
 # Parameters
@@ -352,8 +360,7 @@ Note that these are fictional values.
 ```{r sokYr, results='asis'}
 # SOK harvest (kg) by year -- make up some values
 kgSOK <- tibble(
-  Year = yrRange,
-  Harvest = sample(x = 500:10000, size = length(yrRange))
+  Year = yrRange, Harvest = sample(x = 500:10000, size = length(yrRange))
 ) %>%
   mutate(Biomass = CalcBiomassSOK(Harvest))
 # Table
