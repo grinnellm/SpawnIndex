@@ -7,8 +7,8 @@ Date: 2020-09-15
 Authors@R: c(
     person(given = c("Matthew", "H."), family = "Grinnell",
     role = c("aut", "cre"), email = "matthew.grinnell@dfo-mpo.gc.ca") )
-Description: Calculate the spawn index for {Pacific} {Herring} ({Clupea}
-    {pallasii}) in {British} {Columbia}, {Canada}. There are three types of
+Description: Calculate the spawn index for Pacific Herring (Clupea
+    pallasii) in British Columbia, Canada. There are three types of
     spawn survey observations: surface spawn, Macrocystis spawn, and understory
     spawn. These calculations rely on an estimate of female fecundity to convert
     the number of eggs to the spawn index (i.e., biomass). In addition, we
