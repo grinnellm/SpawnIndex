@@ -4,7 +4,8 @@
 \name{pars}
 \alias{pars}
 \title{Parameters for spawn index calculations.}
-\format{List with items:
+\format{
+List with items:
 \describe{
 \item{conversion}{List with items:
   \emph{omega} is the number of eggs per kilogram of female spawners
@@ -39,7 +40,8 @@
   \emph{varrho} is the regression exponent on number of egg layers
   \insertCite{Schweigert2005}{SpawnIndex}, and
   \emph{varsigma} is the regression exponent on proportion of algae
-  \insertCite{Schweigert2005}{SpawnIndex}.} }}
+  \insertCite{Schweigert2005}{SpawnIndex}.} }
+}
 \usage{
 pars
 }

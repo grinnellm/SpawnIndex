@@ -4,8 +4,10 @@
 \name{algaeCoefs}
 \alias{algaeCoefs}
 \title{Algae types and coefficients.}
-\format{Tibble with 8 rows and 3 columns: algae type, algae code, and
-  coefficient.}
+\format{
+Tibble with 8 rows and 3 columns: algae type, algae code, and
+  coefficient.
+}
 \usage{
 algaeCoefs
 }

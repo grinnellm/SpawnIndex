@@ -4,8 +4,10 @@
 \name{intensity}
 \alias{intensity}
 \title{Spawn intensity categories and number of egg layers.}
-\format{Tibble with 9 rows and 3 columns: intensity category, description,
-  and number of egg layers.}
+\format{
+Tibble with 9 rows and 3 columns: intensity category, description,
+  and number of egg layers.
+}
 \usage{
 intensity
 }

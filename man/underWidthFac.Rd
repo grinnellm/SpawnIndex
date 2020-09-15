@@ -4,7 +4,9 @@
 \name{underWidthFac}
 \alias{underWidthFac}
 \title{Understory spawn width correction factors.}
-\format{Tibble with rows for years and columns for regions.}
+\format{
+Tibble with rows for years and columns for regions.
+}
 \usage{
 underWidthFac
 }

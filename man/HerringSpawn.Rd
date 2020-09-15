@@ -4,7 +4,8 @@
 \name{HerringSpawn}
 \alias{HerringSpawn}
 \title{Example Pacific Herring spawn survey database.}
-\format{MS Access databases with tables:
+\format{
+MS Access databases with tables:
 \describe{
   \item{Location}{Spatial information for Locations.}
   \item{Sections}{Spatial information for Sections.}
@@ -18,7 +19,8 @@
   \item{tSSSurface}{Surface spawn information}
   \item{tSSVegetation}{Understory spawn algae information.}
   \item{tSSVegTrans}{Understory spawn transect information.}
-}}
+}
+}
 \description{
 Example Pacific Herring spawn survey database. This database contains a
 subset of tables from the spawn survey database, and some additional tables
