@@ -21,6 +21,9 @@
 /tr/SpawnIndex-concordance.tex
 /tr/SpawnIndex.synctex.gz
 
+/vignettes/*.html
+/vignettes/*.R
+
 doc
 Meta
 inst/doc
