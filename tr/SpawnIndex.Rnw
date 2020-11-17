@@ -126,6 +126,8 @@ require(kableExtra)
 require(mapproj)
 require(ggrepel)
 require(SpawnIndex)
+# Suppress summarise info
+options(dplyr.summarise.inform = FALSE)
 # Change default ggplot theme to 'black and white'
 theme_set(theme_bw())
 # Modify default theme
