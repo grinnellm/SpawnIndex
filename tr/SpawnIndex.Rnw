@@ -1593,7 +1593,7 @@ Even with a stable budget, there is a trade-off between high survey effort in so
 {Details for studies to quantify parameters and prediction models used in \fishName{} spawn index calculations.
 Study details include where, when, and how many samples, when available.
 The major stock assessment regions are \Sexpr{PasteNicely(majorRegions)} (\autoref{figBC}).
-Legend: equation (Eq), sample size $n$, standard error (SE), standard deviation (SD), spawn-on-kelp (SOK), and not available (NA).} \\
+Legend: equation (Eq), sample size ($n$), standard error (SE), standard deviation (SD), spawn-on-kelp (SOK), and not available (NA).} \\
 \toprule
 \textbf{Parameters} & \textbf{Description} & \textbf{Study details} & \textbf{Uncertainty} & \textbf{References} \\
 \midrule
