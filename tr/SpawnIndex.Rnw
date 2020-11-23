@@ -126,6 +126,10 @@ require(kableExtra)
 require(mapproj)
 require(ggrepel)
 require(SpawnIndex)
+# Omit xcolor warning(s)
+knit_hooks$set(document = function(x) {
+  sub('\\usepackage[]{color}', '\\usepackage{xcolor}', x, fixed = TRUE)
+})
 # Suppress summarise info
 options(dplyr.summarise.inform = FALSE)
 # Change default ggplot theme to 'black and white'
@@ -309,7 +313,7 @@ Statistical age-structured stock assessment models rely on an indicator of relat
 For \fishName{} (\scienceName{}) in British Columbia (BC), Canada, an index of relative population abundance is provided by monitoring the extent and intensity of spawn (i.e., egg) deposition throughout coastal BC \citeyearpar[DFO][]{DFO2020}.
 This document describes our calculations to convert spawn survey observations (e.g., spawn extent, number of egg layers, substrate type) to the spawn index for \fishName{} in BC.
 These calculations have been described elsewhere, in either published or informal, internal documents.
-The objective of this document is to collate the various calculations in their order of application.
+The objective of this document is to collate the calculations in their order of application.
 Spawn index calculations have been updated over the years as more data and analyses justify improvements;
 we restrict this document to describing the current method.
 
