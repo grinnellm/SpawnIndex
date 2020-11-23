@@ -57,7 +57,7 @@ There are three types of spawn survey observations:
 (2) underwater observations of spawn on giant kelp, Macrocystis (\emph{Macrocystis} spp.); and
 (3) underwater observations of spawn on other types of algae and the substrate, which we refer to as `understory.'
 We calculate the spawn index in four steps.
-First, we develop a sampling protocol to estimate the number of eggs in a given area.
+First, we develop a statistical framework and sampling protocol to estimate the number of eggs in a given area.
 Second, we develop a conversion factor to convert \fishName{} eggs to biomass, which is critical to calculating the spawn index.
 Third, we calculate the spawn index for each of the three aforementioned spawn survey types: surface, Macrocystis, and understory.
 Finally, we combine the three spawn indices, and aggregate by stock assessment region and year to produce a relative index of combined sex spawning biomass.
@@ -73,7 +73,7 @@ Il existe trois types d'observations du relevé des frayères:
 (2) les observations sous-marines des frayères sur varech géant, Macrocystis (\emph{Macrocystis} spp.); et
 (3) les observations sous-marines des frayères sur les autres algues et le substrat, que nous appelons <<sous-étage>>.
 Nous calculons l'indice de frai en quatre étapes.
-Premièrement, nous élaborons un protocole d'échantillonnage pour estimer le nombre d'oeufs dans une zone donnée.
+Premièrement, nous élaborons un cadre statistique et un protocole d'échantillonnage pour estimer le nombre d'oeufs dans une zone donnée.
 Deuxièmement, nous élaborons un facteur de conversion pour convertir les oeufs de hareng du Pacifique en biomasse, ce qui est essentiel pour calculer l'indice de reproduction.
 Troisièmement, nous calculons l'indice de frai pour chacun des trois types de relevés de frai susmentionnés: surface, Macrocystis, et sous-étage.
 Enfin, nous combinons les trois indices de frai, et les regroupons par région d'évaluation du stock et par année pour produire un indice relatif de la biomasse reproductrice combinée des sexes.
@@ -311,13 +311,13 @@ data(underWidthFac)
 
 Statistical age-structured stock assessment models rely on an indicator of relative population abundance to reconstruct a time series of estimated abundance.
 For \fishName{} (\scienceName{}) in British Columbia (BC), Canada, an index of relative population abundance is provided by monitoring the extent and intensity of spawn (i.e., egg) deposition throughout coastal BC \citeyearpar[DFO][]{DFO2020}.
-This document describes our calculations to convert spawn survey observations (e.g., spawn extent, number of egg layers, substrate type) to the spawn index for \fishName{} in BC.
+This document describes our calculations to convert spawn survey observations (e.g., spawn extent, number of egg layers, substrate type) to the \fishName{} spawn index in BC.
 These calculations have been described elsewhere, in either published or informal, internal documents.
 The objective of this document is to collate the calculations in their order of application.
 Spawn index calculations have been updated over the years as more data and analyses justify improvements;
 we restrict this document to describing the current method.
 
-\cite{HartTester1934} first demonstrated that an estimate of \fishName{} abundance could be determined from a count of egg deposition in a small set of sampling quadrats.
+\cite{HartTester1934} first demonstrated that an estimate of \fishName{} abundance could be determined by counting egg deposition in a small set of sampling quadrats.
 Based on their work, annual spawn surveys collect data used to calculate the spawn index.
 There are three types of spawn survey observations:
 \begin{enumerate}
@@ -335,7 +335,7 @@ the dive survey period from \Sexpr{newSurvYr} to present.
 The inclusion of dive surveys in \Sexpr{newSurvYr} makes it challenging to compare the spawn index between these two periods.
 For example, surface surveys are less accurate than dive surveys (\autoref{secWidthSurface}), and
 spawn surveyors used subjective intensity categories instead of direct egg layer estimates until \Sexpr{directEggYr-1} (\autoref{secIntensity}).
-In addition, \fishName{} spawn survey effort has been inconsistent over the time series due to available resources and departmental priorities.
+In addition, \fishName{} spawn survey effort has been inconsistent over time due to available resources and departmental priorities.
 For example, in the past, surveyors often dedicated several months each year to spawn surveys; they used small vessels to search for spawn, and surface surveys to estimate spawn biomass.
 Currently, surveyors use flights to search for spawn, and underwater SCUBA surveys to estimate spawn biomass.
 Thus, widespread effort (both spatially and temporally) in the past has been replaced with intense effort in the present.
@@ -487,12 +487,13 @@ mapBC <- ggplot(data = shapes$landAllCropDF, aes(x = Eastings, y = Northings)) +
 print(mapBC)
 @
 
-We calculate the spawn index in four steps.
-First, we develop a sampling protocol to estimate the number of eggs in a given area (\autoref{secStat}, \autoref{secProt}).
+We calculate the spawn index in four main steps.
+First, we develop a statistical framework (\autoref{secStat}) and sampling protocol (\autoref{secProt}) to estimate the number of eggs in a given area.
 Second, we develop a conversion factor to convert \fishName{} eggs to biomass (\autoref{secProd}), which is critical to calculating the spawn index.
-Third, we calculate the spawn index for each of the three aforementioned spawn survey types: surface (\autoref{secSurf}), Macrocystis (\autoref{secMacro}), and understory (\autoref{secUnder}).
-Within each section, we use subsections to separate levels of spatial aggregation (e.g., calculations at the quadrat, or transect level; \autoref{figFlow}).
-Finally, we combine the three spawn indices, and aggregate by stock assessment region and year to produce a relative index of combined sex spawning biomass (\autoref{secTotal}).
+Third, we calculate the spawn index for each of the three aforementioned spawn survey types:
+surface (\autoref{secSurf}), Macrocystis (\autoref{secMacro}), and understory (\autoref{secUnder}).
+Note that we use subsections to separate levels of spatial aggregation within each section (e.g., calculations at the quadrat, or transect level; \autoref{figFlow}).
+Finally, we combine the three spawn indices, and aggregate by SAR and year to produce a relative index of combined sex spawning biomass (\autoref{secTotal}).
 
 \begin{figure}
 \centering
@@ -539,7 +540,7 @@ First, the database has been used for various purposes over the last two decades
 Second, the database is difficult to troubleshoot because it is hard to differentiate between input (i.e., data) and derived values.
 Third, the \textbf{R} package is open and transparent;
 researchers can view and download the package and an example spawn survey database.
-For example, users can run the \textbf{R} package functions to implement the calculations described in this document using a small set of actual observations.
+For example, users can run \textbf{R} package functions to implement calculations described in this document using a small set of actual observations.
 Fourth, we consider it good practice to separate data from analyses.
 Fifth, an \textbf{R} package will facilitate future research to quantify spawn index uncertainty.
 Finally, an \textbf{R} package will allow us to generate dynamic documents in the spirit of reproducible research using \textbf{knitr} \citep{Xie2015, MarwickEtal2018}.
@@ -703,17 +704,19 @@ the protocol was found to be robust and has been in routine use since \Sexpr{new
 Although samples are collected systematically within each spawn,
 we assume that transects and quadrats are located randomly with respect to the underlying spawn distribution,
 and so these estimators are applicable.
-An analogous approach had previously been adopted in the sampling of various commercial fisheries where vessels arrive in port at random
-but are sampled in a systematic fashion to obtain a random sample \citep{QuinnEtal1983, Sen1984}.
+An analogous approach has previously been adopted to sample commercial fisheries,
+where vessels arrive in port randomly but are sampled systematically
+to obtain a random sample \citep{QuinnEtal1983, Sen1984}.
 
 Giant kelp, \emph{Macrocystis} sp., requires a different sampling protocol than the aforementioned understory spawn survey protocol.
 Giant kelp routinely reach heights of 15~m,
 but once weighed down with herring eggs the plants can sink to lay flat on the bottom.
-After sampling dozens of giant kelp plants covered with herring eggs, it was determined that
+After sampling dozens of giant kelp plants covered with herring eggs,
+\citet{HaegeleSchweigert1990} determined that
 plant height,
 number of fronds per plant, and
 number egg layers per plant
-were key counts required to estimate the number of eggs per plant \citep{HaegeleSchweigert1990}.
+were key counts required to estimate the number of eggs per plant.
 The survey design employed to capture these data for each spawning bed rely on determining the
 average plant height,
 number of fronds in each plant holdfast, and
