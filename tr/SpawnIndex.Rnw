@@ -899,8 +899,8 @@ Although \fishName{} egg production is affected by environmental variability and
 
 \begin{table}
 \centering
-\caption[Notation for converting \fishName{} eggs to biomass]
-{Notation for converting the number of \fishName{} eggs to biomass.
+\caption[Notation for converting \fishName{} eggs to spawning biomass]
+{Notation for converting the number of \fishName{} eggs to spawning biomass.
 Legend: kilograms (kg), tonnes (t).}
 \begin{tabulary}{\linewidth}{lLLL}
 \toprule
@@ -1116,23 +1116,25 @@ A_s = \sum_{t=1}^T A_{ts}
 where $A_{ts}$ is the transect area from \autoref{eqMacroAreaTS},
 and $A_s$ is in square metres.
 
-Three measurements are required to calculate the number of eggs on Macrocystis plants \citep{HaegeleSchweigert1990}:
+Three metrics are required to calculate the number of eggs on Macrocystis plants \citep{HaegeleSchweigert1990}:
 number of egg layers,
 plant height, and
 number of stalks per plant.
-The mean number of egg layers in spawn $s$ is
+First, the mean number of egg layers in spawn $s$ is
 \begin{equation}\label{eqMacroLyrsS}
 \mean{E_s} = \frac{1}{T} \sum_{t=1}^T \mean{E_{ts}}
 \end{equation}
 where $\mean{E_{ts}}$ is the mean number of egg layers in transect $t$, and
 $T$ is the number of transects in spawn $s$.
-The mean plant height in spawn $s$ is
+Second, the mean plant height in spawn $s$ is
 \begin{equation}\label{eqMacroHeightS}
 \mean{H_s} = \frac{1}{T} \sum_{t=1}^T \mean{H_{ts}}
 \end{equation}
 where $\mean{H_{ts}}$ is the mean plant height in transect $t$,
 $T$ is the number of transects in spawn $s$, and
 $\mean{H_s}$ is in metres.
+The third metric is the number of stalks per plant,
+which we calculate in three steps.
 The total number of observed stalks in spawn $s$ is
 \begin{equation}\label{eqMacroStalksS}
 K_s = \sum_{t=1}^T K_{ts}
@@ -1143,14 +1145,17 @@ The total number of observed plants in spawn $s$ is
 P_s = \sum_{t=1}^T P_t
 \end{equation}
 where $P_t$ is the number of plants in transect $t$.
-The mean number of stalks per plant in spawn $s$ is
+Thus, the mean number of stalks per plant in spawn $s$ is
 \begin{equation}\label{eqMacroStalksPerPlantS}
 \mean{\kappa_s} = \frac{K_s}{P_s}
 \end{equation}
 where $K_s$ is the number of stalks in spawn $s$ from \autoref{eqMacroStalksS}, and
 $P_s$ is the number of plants in spawn $s$ from \autoref{eqMacroPlantsS}.
 
-\citet{HaegeleSchweigert1990} developed a model of number of eggs per plant as a function of number of egg layers, plant height, and number of stalks per plant using a nonlinear multiple regression model
+\citet{HaegeleSchweigert1990} developed a model of the number of eggs per plant
+as a function of the three aforementioned metrics
+(number of egg layers, plant height, and number of stalks per plant)
+using a nonlinear multiple regression model
 \begin{equation}\label{eqMacroEggsPerPlantS}
 \mean{\psi_s} = \xi \mean{E_s}^{\gamma} \mean{H_s}^{\delta} \mean{\kappa_s}^{\epsilon} 10^3
 \end{equation}
