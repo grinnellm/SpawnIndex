@@ -1576,7 +1576,7 @@ Potential analyses to quantify spawn index uncertainty include:
 \begin{enumerate}
 \item Quantify and report variability in estimated prediction model parameters and equations (e.g., \autoref{eqSurfDensJS}),
 \item Propagate uncertainty in parameters and prediction models through spawn index calculations,
-\item Incorporate the underlying data that informs the prediction model equations into spawn index calculations,
+\item Incorporate the underlying data that informs prediction model equations into spawn index calculations,
 \item Bootstrap observed input data \citep[see][]{Schweigert1993b}, and
 \item Conduct sensitivity analyses.
 \end{enumerate}
@@ -1584,7 +1584,7 @@ Second, acknowledging uncertainty can reduce another source of uncertainty: inad
 Finally, acknowledging uncertainty will increase transparency, and enable users to assess potential impacts to \fishName{} stock assessments in a management strategy evaluation (MSE) approach \citeyearpar[e.g., DFO][]{DFO2019}.
 Addressing data and model uncertainty is a required component of MSE approaches \citep{PuntEtal2016}.
 
-Quantifying uncertainty may also identify options to increase survey program efficiency by targeting data that have the largest impact on spawn index accuracy.
+Quantifying uncertainty may also identify options to increase survey program efficiency by targeting data that have the greatest impact on spawn index accuracy.
 In addition, there is a trade-off between precision of estimated quantities versus survey effort or cost.
 Ideally, reducing survey effort does not result in biased target variable estimates.
 Therefore, understanding this trade-off is important if, for example, budget reductions cause reduced survey effort.
@@ -1639,7 +1639,7 @@ $M$ & Average mass of a fertilized egg (Eq \ref{eqSOKBioFRY}). & SoG in 1980 ($n
 
 Many of the studies to quantify parameters and prediction models used in spawn index calculations are dated (\autoref{tabUncertainty});
 these analyses could be reviewed with new information, and updated if required.
-In addition, some of these studies had limited number of samples, as well as limited spatial or temporal range, or both.
+In addition, some of these studies had limited number of samples, limited spatial or temporal range, or both.
 In addition to work mentioned here and in \autoref{secUncertain}, potential research includes:
 \begin{enumerate}
 \item Check the assumed statistical framework for spawn index calculations,
