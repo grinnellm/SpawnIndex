@@ -717,11 +717,11 @@ plant height,
 number of fronds per plant, and
 number egg layers per plant
 were key counts required to estimate the number of eggs per plant.
-The survey design employed to capture these data for each spawning bed rely on determining the
+The survey design employed to capture these data relies on determining the
 average plant height,
 number of fronds in each plant holdfast, and
-number of giant kelp plants occurring within a 1~m swath on each side of the transect line.
-These data are used to determine the total egg deposition on \emph{Macrocystis} sp. for each spawning bed (\autoref{secMacroS}).
+number of giant kelp plants occurring within a 1~m swath on both sides of the transect line in a given spawn.
+These data are used to determine the total egg deposition on \emph{Macrocystis} sp. for each spawn (\autoref{secMacroS}).
 
 \section{SAMPLING PROTOCOL}\label{secProt}
 
@@ -738,7 +738,7 @@ this is the finest scale at which we calculate the spawn index.
 A break in egg deposition is determined by the absence of \fishName{} spawn on two consecutive transects, or by a temporal gap in spawning.
 Most spawns are also characterized by longitude and latitude, as well as start and end dates of spawning.
 Surveyors usually collect longitude and latitude at the start and end of each transect;
-for surface spawn surveys that don't use transects (\autoref{secSurfProt}), surveyors collect longitude and latitude at the start and ends of the spawn (i.e., overall length and width).
+for surface spawn surveys that don't use transects (\autoref{secSurfProt}), surveyors collect longitude and latitude at the start and end of the spawn (i.e., overall length and width).
 
 \fishName{} spawns typically extend along the shore;
 from above, spawns are identified by a milky or turquoise discolouration of the ocean caused by the release of milt, and often appear as bands running parallel to the shore (\autoref{figSpawnFlight}).
@@ -817,13 +817,14 @@ Data from surface surveys are combined with data from dive surveys (i.e., Macroc
 
 \subsubsection{SPAWN INTENSITY CATEGORIES}\label{secIntensity}
 
-From \Sexpr{firstYr} to \Sexpr{directEggYr-1}, surface spawn surveyors categorized spawn by subjective `intensity' categories instead of directly estimating the number of egg layers (\autoref{tab:Intensity}).
+From \Sexpr{firstYr} to \Sexpr{directEggYr-1}, surface spawn surveyors categorized spawn by subjective `intensity' categories instead of direct egg layer estimates (\autoref{tab:Intensity}).
 From \Sexpr{firstYr} to \Sexpr{cat9Yr-1} there were five intensity categories described as very light, light, medium, heavy, and very heavy (numbered 1 to 5, respectively).
 Starting in \Sexpr{cat9Yr} there were nine intensity categories;
 the change from five to nine intensity categories was probably to accommodate the practice of reporting intermediate categories such as 3.5 \citep{HayKronlund1987}.
-Starting in \Sexpr{directEggYr}, spawn surveyors estimated the number of egg layers directly, and they continued to record intensity categories until 1981 to provide overlap between the two methods.
+Starting in \Sexpr{directEggYr}, spawn surveyors estimated the number of egg layers directly, and
+continued to record intensity categories until 1981 to provide overlap between the two methods.
 In addition to recording the number of egg layers, surveyors sometimes recorded intensity after it was officially discontinued in 1981.
-We have converted spawn intensity observations in the \fishName{} spawn survey database from five to nine categories for spawns that used the five category scale between \Sexpr{min(yrRange)} and \Sexpr{cat9Yr-1}
+We have converted spawn intensity observations in the \fishName{} spawn survey database from five to nine categories for spawns that used the five category scale between \Sexpr{min(yrRange)} and \Sexpr{cat9Yr-1}.
 Thus, spawn data used for stock assessments is represented either by a nine category intensity scale, or a direct estimate of the number of egg layers.
 
 <<Intensity>>=
@@ -832,9 +833,9 @@ tabCap <- paste("Spawn intensity categories, description, and number of egg laye
 # Short caption
 tabSCap <- "Spawn intensity categories and number of egg layers for \\fishName{} surface spawn surveys"
 # Column name (5 categories)
-p5 <- paste(firstYr, "to", cat9Yr - 1)
+p5 <- paste0(firstYr, "--", cat9Yr - 1)
 # Column name (9 categories)
-p9 <- paste(cat9Yr, "to", directEggYr - 1)
+p9 <- paste0(cat9Yr, "--", directEggYr - 1)
 # Format the table
 kIntensity <- intensity %>%
   arrange(Layers) %>%
