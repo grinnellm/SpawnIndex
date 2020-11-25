@@ -488,12 +488,15 @@ print(mapBC)
 @
 
 We calculate the spawn index in four main steps.
-First, we develop a statistical framework (\autoref{secStat}) and sampling protocol (\autoref{secProt}) to estimate the number of eggs in a given area.
-Second, we develop a conversion factor to convert \fishName{} eggs to spawning biomass (\autoref{secProd}), which is critical to calculating the spawn index.
+First, we develop a statistical framework (\autoref{secStat}) and sampling protocol (\autoref{secProt})
+to estimate the number of eggs in each spawn.
+Second, we develop a conversion factor to convert \fishName{} eggs to spawning biomass (\autoref{secProd}),
+which is critical to spawn index calculations.
 Third, we calculate the spawn index for each of the three aforementioned spawn survey types:
 surface (\autoref{secSurf}), Macrocystis (\autoref{secMacro}), and understory (\autoref{secUnder}).
 Note that we use subsections to separate levels of spatial aggregation within each section (e.g., calculations at the quadrat, or transect level; \autoref{figFlow}).
-Finally, we combine the three spawn indices, and aggregate by SAR and year to produce a relative index of combined sex spawning biomass (\autoref{secTotal}).
+Finally, we combine the three spawn indices, and aggregate by SAR and year
+to produce a relative index of combined sex spawning biomass (\autoref{secTotal}).
 
 \begin{figure}
 \centering
