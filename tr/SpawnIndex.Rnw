@@ -714,7 +714,7 @@ to obtain a random sample \citep{QuinnEtal1983, Sen1984}.
 Giant kelp, \emph{Macrocystis} sp., requires a different sampling protocol than the aforementioned understory spawn survey protocol.
 Giant kelp routinely reach heights of 15~m,
 but once weighed down with herring eggs the plants can sink to lay flat on the bottom.
-After sampling dozens of giant kelp plants covered with herring eggs,
+After sampling \fishName{} eggs on \emph{Macrocystis} plants,
 \citet{HaegeleSchweigert1990} determined that
 plant height,
 number of fronds per plant, and
