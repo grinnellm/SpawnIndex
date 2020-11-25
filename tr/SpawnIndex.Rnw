@@ -919,7 +919,7 @@ $\theta$ & Egg conversion factor & $\text{eggs} \cdot 10^8 \cdot \text{t}^{-1}$ 
 
 \section{SURFACE SPAWN CALCULATIONS}\label{secSurf}
 
-This section describes steps \ref{sSamp} to \ref{sInd} in \autoref{figFlow}.
+This section describes steps \ref{sSamp} to \ref{sInd} (\autoref{figFlow}).
 As in \autoref{secStat}, we simplify index notation in this section by suppressing subscripts for spawn survey type $x$, Location $n$, SAR $r$, and year $y$.
 As previously mentioned, surface spawn surveyors sample along transects or using their judgement (\autoref{secSurfProt}).
 Surveyors collect data at the substrate type $i$, sample $j$, and spawn $s$ levels;
@@ -1039,7 +1039,7 @@ $B_s$ is in tonnes (\autoref{figFlow}, step \ref{sInd}).
 
 \section{MACROCYSTIS SPAWN CALCULATIONS}\label{secMacro}
 
-This section describes steps \ref{mPlant} to \ref{mInd} in \autoref{figFlow}.
+This section describes steps \ref{mPlant} to \ref{mInd} (\autoref{figFlow}).
 As with the previous section, we simplify index notation in this section by suppressing subscripts for spawn survey type $x$, Location $n$, SAR $r$, and year $y$.
 Macrocystis spawn surveyors use SCUBA gear to collect underwater data for individual plants $p$, transects $t$, and spawns $s$ (\autoref{secMacroProt});
 we calculate metrics at the transect $t$, and spawn $s$ levels (\autoref{tabNotationMacro}).
@@ -1237,7 +1237,7 @@ print(NumEggPlot)
 
 \section{UNDERSTORY SPAWN CALCULATIONS}\label{secUnder}
 
-This section describes steps \ref{uQuad} to \ref{uInd} in \autoref{figFlow}.
+This section describes steps \ref{uQuad} to \ref{uInd} (\autoref{figFlow}).
 As with the previous two sections, we simplify index notation in this section by suppressing subscripts for spawn survey type $x$, Location $n$, SAR $r$, and year $y$.
 Understory spawn surveyors use SCUBA gear to collect underwater data for algae (i.e., vegetation) types $v$, quadrats $q$, transects $t$, and spawns $s$ (\autoref{secUnderProt});
 we calculate metrics at the algae type $v$, quadrat $q$, transect $t$, and spawn $s$ levels (\autoref{tabNotationUnder}).
@@ -1466,7 +1466,7 @@ $B_s$ is in tonnes (\autoref{figFlow}, step \ref{uInd}).
 
 \section{TOTAL SPAWN CALCULATIONS}\label{secTotal}
 
-This section describes step \ref{tIndex} in \autoref{figFlow}.
+This section describes step \ref{tIndex} (\autoref{figFlow}).
 Unlike the previous three sections, we include subscripts for spawn survey type $x$, Location $n$, SAR $r$, and year $y$ in the equations in this section (\autoref{tabNotationTotal}).
 The total spawn index in spawn $s$, Location $n$, region $r$, and year $y$ is
 \begin{equation}\label{eqTotIndSLRY}
