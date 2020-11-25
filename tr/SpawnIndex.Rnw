@@ -713,7 +713,7 @@ to obtain a random sample \citep{QuinnEtal1983, Sen1984}.
 
 Giant kelp, Macrocystis (\emph{Macrocystis} spp.), requires a different sampling protocol than the aforementioned understory spawn survey protocol.
 Macrocystis plants routinely reach heights of 15~m,
-but once weighed down with herring eggs the plants can sink to lay flat on the bottom.
+but once weighed down with \fishName{} eggs the plants can sink to lay flat on the substrate.
 After sampling \fishName{} eggs on \emph{Macrocystis} plants,
 \citet{HaegeleSchweigert1990} determined that
 plant height,
@@ -1695,7 +1695,7 @@ and includes uncertainty and assumptions (\autoref{secUncertain}), and
 \item Spawn index calculations rely on dated parameters and models (\autoref{secFuture}).
 \end{enumerate}
 
-For example, in stock assessments, we scale the Pacific Herring spawn index to abundance by dividing the index by $q$,
+For example, in stock assessments, we scale the \fishName{} spawn index to abundance by dividing the index by $q$,
 which we refer to as the `spawn index scaling parameter', and
 we calculate a separate scalar for each period \citeyearpar[DFO][]{DFO2020}.
 That is to say, we estimate one spawn index scaling parameter for the surface survey period $q_1$, and
