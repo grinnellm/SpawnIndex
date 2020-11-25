@@ -1027,6 +1027,7 @@ Two other metrics are required at the spawn level:
 spawn length $L_s$, and
 spawn width $W_s$, both in metres.
 We set $W_s$ to the first non-missing value of median pool width, median Section width, median SAR width, or observed width $W^\prime$ (in that order; \autoref{secWidthSurface}).
+
 The surface spawn index in spawn $s$ is
 \begin{equation}\label{eqSurfIndS}
 B_s = \frac{\mean{\rho_s} L_s W_s 10^3} {\theta}
@@ -1179,6 +1180,7 @@ $\mean{\psi_s}$ is the mean number of eggs per plant in spawn $s$ from \autoref{
 $P_s$ is the number of plants in spawn $s$ from \autoref{eqMacroPlantsS},
 $A_s$ is the total area of transects in spawn $s$ from \autoref{eqMacroAreaS}, and
 $\mean{\rho_s}$ is in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$.
+
 The Macrocystis spawn index in spawn $s$ is
 \begin{equation}\label{eqMacroIndS}
 B_s = \frac{\mean{\rho_s} L^m_s \mean{W_s} 10^3} {\theta}
@@ -1454,6 +1456,7 @@ The mean egg density in spawn $s$ is
 where $\mean{\rho_{ts}}$ is the mean understory egg density in transect $t$ from \autoref{eqUnderDensTS},
 $W_{ts}$ is the spawn width for transect $t$ in metres, and
 $\mean{\rho_s}$ is in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$.
+
 The understory spawn index in spawn $s$ is
 \begin{equation}\label{eqUnderIndS}
 B_s = \frac{\mean{\rho_s} L^v_s \mean{W_s} 10^3} {\theta}
@@ -1474,6 +1477,7 @@ B_{snry} = \sum_{x=1}^X B_{xsnry}
 \end{equation}
 where $B_{xsnry}$ is spawn index for surface, Macrocystis, and understory spawn surveys from \autoref{eqSurfIndS}, \autoref{eqMacroIndS}, and \autoref{eqUnderIndS}, respectively, and
 $B_{snry}$ is in tonnes (\autoref{figFlow}, step \ref{tIndex}).
+
 Finally, we aggregate the total spawn index by SAR $r$ and year $y$
 \begin{equation}\label{eqTotIndRY}
 B_{ry} = \sum_{n=1}^N \sum_{s=1}^S B_{snry}
