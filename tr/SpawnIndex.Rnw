@@ -714,7 +714,7 @@ to obtain a random sample \citep{QuinnEtal1983, Sen1984}.
 Giant kelp, Macrocystis (\emph{Macrocystis} spp.), requires a different sampling protocol than the aforementioned understory spawn survey protocol.
 Macrocystis plants routinely reach heights of 15~m,
 but once weighed down with \fishName{} eggs the plants can sink to lay flat on the substrate.
-After sampling \fishName{} eggs on \emph{Macrocystis} plants,
+After sampling \fishName{} eggs on Macrocystis plants,
 \citet{HaegeleSchweigert1990} determined that
 plant height,
 number of fronds per plant, and
@@ -724,7 +724,7 @@ The survey design employed to capture these data relies on determining the
 average plant height,
 number of fronds in each plant holdfast, and
 number of Macrocystis plants occurring within a 1~m swath on both sides of the transect line in a given spawn.
-These data are used to determine the total egg deposition on \emph{Macrocystis} sp. for each spawn (\autoref{secMacroS}).
+These data are used to determine the total egg deposition on Macrocystis plants for each spawn (\autoref{secMacroS}).
 
 \section{SAMPLING PROTOCOL}\label{secProt}
 
