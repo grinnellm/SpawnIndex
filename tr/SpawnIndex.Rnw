@@ -538,7 +538,7 @@ aggregate by SAR and year to produce a relative index of combined sex spawning b
 \draw [line] (uInd) |- (tIndex);
 \end{tikzpicture}
 \caption[Sequence of steps for \fishName{} spawn index calculations]
-{Sequence of steps (e.g., \ref{sExt}) for \fishName{} spawn index calculations for the three spawn survey types $x = \{\text{surface, Macrocystis, understory}\}$.
+{Sequence of steps (e.g., \ref{sExt}) for \fishName{} spawn index calculations for the three spawn survey observation types $x = \{\text{surface, Macrocystis, understory}\}$.
 Legend: rounded rectangles indicate start, rectangles indicate observations and calculations, parallelograms indicate output, arrows show order of operation, `\S{}' indicates section, and `Eq' indicates equation.}
 \label{figFlow}
 \end{figure}
@@ -556,6 +556,13 @@ Finally, an \textbf{R} package will allow us to generate dynamic documents in th
 Essentially, we have attempted to follow `good enough' practices in scientific computing \citep{WilsonEtal2016}.
 
 \section{STATISTICAL FRAMEWORK}\label{secStat}
+
+Each type of spawn survey observation has a specific statistical framework:
+surface observations, and
+two types of dive observations:
+Macrocystis, and understory.
+
+\subsection{SURFACE SPAWN FRAMEWORK}
 
 Historical and recent surface spawn surveys use an ad hoc sampling regimen,
 where surveys are often opportunistic given the state of the tide,
@@ -613,13 +620,18 @@ $Y$ & Last year of time series &
 \FloatBarrier
 }
 
-In contrast, underwater dive surveys using SCUBA gear instituted in \Sexpr{newSurvYr} follow a two-stage systematic sampling design where
+\subsection{DIVE FRAMEWORK}
+
+In contrast to surface surveys, underwater dive surveys using SCUBA gear instituted in \Sexpr{newSurvYr} follow a two-stage systematic sampling design where
 transects are the first sampling stage, and
 individual quadrats within transects are the second sampling stage \citep{Jessen1978}.
+First we describe the understory spawn framework,
+then we describe the Macrocystis spawn framework which is related to understory, but simpler.
+
+\subsubsection{UNDERSTORY SPAWN FRAMEWORK}
+
 Two steps are required to calculate mean understory egg density in each surveyed spawn $s$ (\autoref{tabNotationIndices}).
 Note that we simplify index notation in this section by suppressing subscripts for spawn survey type $x$, Location $n$, SAR $r$, and year $y$.
-Also note that this section pertains to the understory spawn survey protocol;
-the Macrocystis spawn survey protocol is discussed below.
 First, mean egg density for transect $t$ in spawn $s$ is
 \begin{equation}\label{eqStatRhoTS}
 \mean{\rho_{ts}} = \frac{1}{Q}\sum_{q=1}^Q \rho_{qts}
@@ -714,14 +726,17 @@ This sampling protocol was further re-evaluated after additional surveys occurre
 the protocol was found to be robust and has been in routine use since \Sexpr{newSurvYr} \citep{SchweigertEtal1990}.
 Although samples are collected systematically within each spawn,
 we assume that transects and quadrats are located randomly with respect to the underlying spawn distribution,
-and so these estimators are applicable.
-% TODO: RF - This systematic sampling approach has advantages and disadvancages
-\citep{SchaefferEtal2012}
+and so these estimators are applicable \citep{SchaefferEtal2012}.
+Systematic sampling has advantages and disadvantages \citep{SchaefferEtal2012}:
+advantages include ease of implementation in the field, and more precision in certain situations;
+disadvantages include biased estimators when populations are periodic.
 An analogous approach has previously been adopted to sample commercial fisheries,
 where vessels arrive in port randomly but are sampled systematically
 to obtain a random sample \citep{QuinnEtal1983, Sen1984}.
 
-Giant kelp, Macrocystis (\emph{Macrocystis} spp.), requires a different sampling protocol than the aforementioned understory spawn survey protocol.
+\subsubsection{MACROCYSTIS SPAWN FRAMEWORK}
+
+Giant kelp, Macrocystis (\emph{Macrocystis} spp.), requires a different framework than the aforementioned understory spawn framework.
 Macrocystis plants routinely reach heights of 15~m,
 but once weighed down with \fishName{} eggs the plants can sink to lay flat on the substrate.
 After sampling \fishName{} eggs on Macrocystis plants,
@@ -743,7 +758,7 @@ The following is a brief summary of the spawn survey sampling protocol in the \h
 $1.5\,\text{m}$ above and $18\,\text{m}$ below the 0-tide level \citep{HumphreysHourston1978, HaegeleSchweigert1985}.
 We identify distinct spawns (both spatially and temporally) by a unique combination of year, Location, and `spawn number.'
 Spawns are numbered $s=1,\,2,\,3,\,...,\,S_{xnry}$ where
-$S_{xnry}$ is the number of spawns in spawn survey type $x$
+$S_{xnry}$ is the number of spawns in spawn survey observation type $x$
 (i.e., $x = \{\text{surface, Macrocystis, understory}\}$),
 Location $n$, SAR $r$, and year $y$.
 A distinct spawn is a continuous stretch of shoreline with no detectable break in egg deposition;
@@ -842,7 +857,7 @@ Thus, spawn data used for stock assessments is represented either by a nine cate
 
 <<Intensity>>=
 # Caption
-tabCap <- paste("Spawn intensity categories, description, and number of egg layers for \\fishName{} surface spawn surveys for the periods ", firstYr, " to ", cat9Yr - 1, ", and ", cat9Yr, " to ", directEggYr - 1, " \\citep{HayKronlund1987, SchweigertStocker1988}. Uncertainty in number of egg layers is not available.", sep = "")
+tabCap <- paste("Spawn intensity categories, description, and number of egg layers for \\fishName{} surface spawn surveys for the periods ", firstYr, " to ", cat9Yr - 1, ", and ", cat9Yr, " to ", directEggYr - 1, " \\citep{HayKronlund1987, SchweigertStocker1988}. Uncertainty in the number of egg layers is not available.", sep = "")
 # Short caption
 tabSCap <- "Spawn intensity categories and number of egg layers for \\fishName{} surface spawn surveys"
 # Column name (5 categories)
@@ -882,8 +897,8 @@ For each transect, divers record the average number of egg layers, and average p
 
 Understory spawn surveyors place quadrats along transects, with a target frequency of $\geq 5$ quadrats per transect, given a minimum spacing of $2\,\text{m}$ and a maximum spacing of $40\,\text{m}$.
 Similar to how the first transect is moved in from one end of the spawn, the first quadrat is moved in from the edge of the spawn to the first $5\,\text{m}$ mark on the transect line to avoid surveying areas with patchy and sparse egg layers.
-Note that transect line position along permanent transects varies year to year:
-spawn location causes transects to shift seaward or shoreward, and
+Note that quadrat position along permanent transects varies among years due to the location and extent (i.e., width) of spawn with respect to the shoreline:
+spawn location causes quadrats to shift seaward or shoreward, and
 spawn width causes transects to be shorter or longer.
 Understory spawn surveys use $0.5\,\text{m}^2$ quadrats;
 other sizes (e.g., $0.25$ and $1.0\,\text{m}^2$) have been used for research, but are not used to calculate the spawn index \citep{Schweigert1993b}.
@@ -893,7 +908,7 @@ For each of these algae types, divers record the percentage of the quadrat cover
 
 \section{CONVERTING EGGS TO BIOMASS}\label{secProd}
 
-After estimating the number of eggs in a spawn,
+After estimating the number of eggs in a spawn by survey observation type,
 the next step is to estimate the biomass of \fishName{} that spawned.
 Female \fishName{} produce an average of approximately $200\,000$ eggs per kilogram (kg) of total body weight \citep{Hay1985}; we refer to this as fecundity.
 Average fecundity is derived from studies of
@@ -906,7 +921,7 @@ and we convert eggs to tonnes (t) of spawners using
 \end{equation}
 where $\omega$ is female fecundity,
 $\phi^f$ is proportion of spawners that are female, and
-$\theta$ is the egg conversion factor (\autoref{tabNotationEggs}).
+$\theta$ is the egg conversion factor in $\text{eggs} \cdot 10^8 \cdot \text{t}^{-1}$ (\autoref{tabNotationEggs}).
 Thus, we convert eggs to biomass of both sexes combined in tonnes by dividing the number of eggs by $\theta$.
 Although \fishName{} egg production is affected by environmental variability and other factors \citep{TanasichukWare1987, HayBrett1988}, we assume that bias to the spawn index from \autoref{eqECF} is insignificant in most areas and years \citep{Ware1985, Schweigert1993b}.
 
@@ -992,7 +1007,7 @@ Note that we only calculate $\rho_{js}$ if $E_{js} > 0$.
 
 <<SurfDensJS, fig.width=3.5, fig.asp=0.67, fig.lp="fig", echo=FALSE, fig.cap=figCap, fig.scap="Egg density for \\fishName{} surface spawn surveys">>=
 # Caption
-figCap <- paste("Egg density in thousands of eggs per square metre (m) as a function of number of egg layers for \\fishName{} surface spawn surveys (\\autoref{eqSurfDensJS}; \\citealt{SchweigertEtal1997}). Note that number of egg layers can exceed those shown in this figure; values shown are for demonstration only.")
+figCap <- paste("Relationship between egg density in thousands of eggs per square metre (m; line), and number of egg layers for \\fishName{} surface spawn surveys based on \\autoref{eqSurfDensJS} \\citep{SchweigertEtal1997}. Note that number of egg layers can exceed those shown in this figure.")
 # Expand the values
 df <- expand.grid(Layers = lyrs)
 # Equation for surface egg density
@@ -1037,6 +1052,7 @@ Two other metrics are required at the spawn level:
 spawn length $L_s$, and
 spawn width $W_s$, both in metres.
 We set $W_s$ to the first non-missing value of median pool width, median Section width, median SAR width, or observed width $W^\prime$ (in that order; \autoref{secWidthSurface}).
+A pool is a group of Locations within a Section that are often adjacent, contain similar algae and substrate, and can be treated as a group with likely similar widths.
 
 The surface spawn index in spawn $s$ is
 \begin{equation}\label{eqSurfIndS}
@@ -1181,7 +1197,7 @@ $\delta$ is the regression exponent on $\mean{H_s}$,
 $\mean{\kappa_s}$ is the mean number of stalks per plant in spawn $s$ from \autoref{eqMacroStalksPerPlantS},
 $\epsilon$ is the regression exponent on $\mean{\kappa_s}$, and
 $\mean{\psi_s}$ is in $\text{eggs} \cdot 10^3 \cdot \text{plant}^{-1}$ (\autoref{figMacroEggsPerPlantS}).
-Mean macrocystis egg density in spawn $s$ is
+Mean Macrocystis egg density in spawn $s$ is
 \begin{equation}\label{eqMacroDensS}
 \mean{\rho_s} = \frac{\mean{\psi_s} P_s}{A_s}
 \end{equation}
@@ -1203,7 +1219,7 @@ $B_s$ is in tonnes (\autoref{figFlow}, step \ref{mInd}).
 
 <<MacroEggsPerPlantS, fig.width=6, fig.asp=0.9, fig.lp="fig", echo=FALSE, fig.cap=figCap, fig.scap="Number of eggs per plant for \\fishName{} Macrocystis spawn surveys">>=
 # Caption
-figCap <- paste("Number of eggs in thousands per Macrocystis plant as a function of number of egg layers on plants, plant height in metres (m), and number of stalks per plant for \\fishName{} Macrocystis spawn surveys (\\autoref{eqMacroEggsPerPlantS}; \\citealt{HaegeleSchweigert1990}). Note that number of egg layers, plant height, and number of stalks per plant can exceed those shown in this figure; values shown are for demonstration only.")
+figCap <- paste("Relationship between number of eggs in thousands per Macrocystis plant (lines), and number of egg layers on plants, plant height in metres (m), and number of stalks per plant for \\fishName{} Macrocystis spawn surveys based on \\autoref{eqMacroEggsPerPlantS} \\citep{HaegeleSchweigert1990}. Note that number of egg layers, plant height, and number of stalks per plant can exceed those shown in this figure.")
 # Expand the values
 df <- expand.grid(Layers = lyrs, PlantHeight = ht, Stalks = stlks)
 # Equation for Macrocystis number of eggs per plant
@@ -1301,7 +1317,7 @@ $\rho^b_{qts}$ is substrate egg density in $\text{eggs} \cdot 10^3 \cdot \text{m
 
 <<UnderDensSubQTS, fig.width=3.5, fig.asp=0.85, fig.lp="fig", echo=FALSE, fig.cap=figCap, fig.scap="Substrate egg density for \\fishName{} underwater spawn surveys">>=
 # Caption
-figCap <- paste("Substrate egg density in thousands of eggs per square metre (m) as a function of number of egg layers on substrate and proportion of substrate covered in spawn for \\fishName{} underwater spawn surveys (\\autoref{eqUnderDensSubQTS}; \\citealt{HaegeleEtal1979}). Note that number of egg layers can exceed those shown in this figure; values shown are for demonstration only.")
+figCap <- paste("Relationship between substrate egg density in thousands of eggs per square metre (m; lines), and number of egg layers on substrate and proportion of substrate covered in spawn for \\fishName{} underwater spawn surveys based on \\autoref{eqUnderDensSubQTS} \\citep{HaegeleEtal1979}. Note that number of egg layers can exceed those shown in this figure.")
 # Expand the values
 df <- expand.grid(Layers = lyrs, Proportion = prop)
 # Equation for understory egg density on substrate
@@ -1375,7 +1391,7 @@ kAlgaeCoefs
 
 <<UnderDensAlgVQTS, fig.width=6, fig.asp=1.1, fig.lp="fig", echo=FALSE, fig.cap=figCap, fig.scap="Algae egg density for \\fishName{} underwater spawn surveys">>=
 # Caption
-figCap <- paste("Algae egg density in thousands of eggs per square metre (m) as a function of number of egg layers on algae, proportion of substrate covered in algae, and algae coefficient (\\autoref{tab:AlgaeCoefs}) for \\fishName{} underwater spawn surveys (\\autoref{eqUnderDensAlgVQTS}; \\citealt{Schweigert2005}). Note that number of egg layers can exceed those shown in this figure; values shown are for demonstration only.")
+figCap <- paste("Relationship between algae egg density in thousands of eggs per square metre (m; lines), and number of egg layers on algae, proportion of substrate covered in algae, and algae coefficient (\\autoref{tab:AlgaeCoefs}) for \\fishName{} underwater spawn surveys based on  \\autoref{eqUnderDensAlgVQTS} \\citep{Schweigert2005}. Note that number of egg layers can exceed those shown in this figure.")
 # Expand the values
 df <- expand.grid(
   Layers = lyrs, Proportion = prop, Coefficient = unique(algaeCoefs$Coef)
@@ -1495,6 +1511,12 @@ B_{ry} = \sum_{n=1}^N \sum_{s=1}^S B_{snry}
 where $B_{snry}$ is the total spawn index from \autoref{eqTotIndSLRY},
 and $B_{ry}$ is a relative index of combined sex spawning biomass for SAR $r$ and year $y$ in tonnes.
 We use $B_{ry}$ as an indicator of \fishName{} relative population abundance (i.e., biomass) in stock assessment models.
+For example, we scale the \fishName{} spawn index to abundance by dividing the index by $q$,
+which we refer to as the `spawn index scaling parameter', and
+we calculate a separate scalar for each period \citeyearpar[DFO][]{DFO2020}.
+That is to say, we estimate one spawn index scaling parameter for
+the surface survey period $q_1$ (\Sexpr{min(yrRange)} to \Sexpr{newSurvYr-1}), and
+a second one for the dive survey period $q_2$ (\Sexpr{newSurvYr} to present).
 
 \begin{table}
 \centering
@@ -1512,6 +1534,8 @@ $B$ & Spawn index (i.e., biomass) & t \\
 \end{table}
 
 \section{SPAWN ON KELP CALCULATIONS}\label{secSOK}
+
+% TODO: RF - I haven't thought about this much. Help me out. We need to account for the spawners that deposited the eggs and add them to the spawn index, right? But why do we need to account for the adult biomass represented by these eggs HAD THEY BEEN allowed to grow and survive to be spawners? This process is like increasing mortality at a (very) young age. To account for future adults that would have survived you also have to account for natural mortality as they mature and then age-dependent mortality at maturity.  But, like I said, I haven't thought about this much.
 
 Spawn on kelp (SOK) fisheries collect \fishName{} roe that adheres to algae such as Macrocystis after spawning.
 Other similar fisheries include spawn on bough, in which operators collect roe that adhere to tree boughs;
@@ -1532,6 +1556,7 @@ By osmosis, brining would also draw some water from the eggs \citep{AldericeEtal
 unfortunately we are unable to account for osmosis at this time.
 The last factor to consider is the mean fertilized egg weight, which was determined by \cite{HayMiller1982} to be $2.38 \cdot 10^{-6}\,\text{kg}$.
 
+% TODO: RK - Future spawning biomass! But, those eggs would have had to go through natural mortality and fisheries to be future spawning biomass.
 We estimate spawning biomass removed from the population by SOK fishery $f$ in SAR $r$ and year $y$ as
 \begin{equation}\label{eqSOKBioFRY}
 B_{fry} = \frac{H_{fry} \left(1 - \nu\right) \frac{1}{1+\upsilon}} {M \theta}
@@ -1576,7 +1601,7 @@ Some examples illustrate these sources of uncertainty:
 \item Natural variability could affect \fishName{} fecundity, and the sex ratio of spawning \fishName{} (\autoref{eqECF}).
 Fecundity could be influenced by biological processes such as the observed non-stationarity of weight-at-age \citeyearpar[DFO][]{DFO2020}, or a truncated age distribution caused by selective fishing \citep{BrunelPiet2013}.
 \item Measurement error could affect input data (e.g., number of egg layers, spawn length and width), while model structural complexity could affect estimated prediction model parameters, or the form of their relationship, or both (e.g., \autoref{eqSurfDensJS}).
-In addition, spawn index prediction models are dated, and the processes could have changed in the intervening years.
+In addition, spawn index prediction models are dated, and the processes could have changed in the intervening years (e.g., \autoref{eqSurfDensJS}, \autoref{eqMacroEggsPerPlantS}).
 \item Uncertainty in fixed parameters that are used as data without error (e.g., \autoref{eqSurfDensJS});
 uncertainty in spawn index parameters is currently unknown.
 \item Uncertainty in the number of egg layers for spawn intensity categories (\autoref{tab:Intensity}), and algae coefficients (\autoref{tab:AlgaeCoefs}).
@@ -1584,8 +1609,9 @@ Again, uncertainty in these values is currently unknown.
 \end{enumerate}
 Despite these assumptions and potential sources of uncertainty, the spawn index has typically been reported without quantifying uncertainty (but see \citet{SchweigertEtal1993} who derived a variance estimator).
 Reporting the spawn index without uncertainty may perpetuate the misconception that the spawn index is observed data, whereas it is derived data with assumptions and uncertainties.
-An additional issue for stock assessments is that models will interpret spawn index data as being more certain than it is,
-and estimates of stock status and future prognosis will be artificially precise.
+An additional issue for stock assessments is that the model formulation could
+interpret the spawn index as being more precise than it actually is,
+and estimates of stock status and future prognosis could be artificially precise.
 
 There are several potential benefits to addressing spawn index uncertainty.
 First, quantifying uncertainty could identify parameters to target with future research.
@@ -1704,12 +1730,6 @@ thus the spawn index is a minimum spawning biomass,
 and includes uncertainty and assumptions (\autoref{secUncertain}), and
 \item Spawn index calculations rely on dated parameters and models (\autoref{secFuture}).
 \end{enumerate}
-
-For example, in stock assessments, we scale the \fishName{} spawn index to abundance by dividing the index by $q$,
-which we refer to as the `spawn index scaling parameter', and
-we calculate a separate scalar for each period \citeyearpar[DFO][]{DFO2020}.
-That is to say, we estimate one spawn index scaling parameter for the surface survey period $q_1$, and
-a second one for the dive survey period $q_2$.
 
 \section{DOWNLOAD}\label{secDown}
 
