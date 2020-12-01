@@ -550,7 +550,7 @@
 }
 
 @TechReport{GrinnellEtalYYYY,
-  author      = {Matthew H Grinnell and Jake S Schweigert and Matt Thompson and S Hawkshaw and Jaclyn S Cleary},
+  author      = {Matthew H Grinnell and Jake S Schweigert and Matt Thompson and Sarah Hawkshaw and Jaclyn S Cleary},
   date        = {2020},
   institution = {{Fisheries and Oceans Canada}},
   title       = {Calculating the spawn index for {Pacific} {Herring} (\emph{{Clupea} pallasii}) in {British} {Columbia}},
@@ -573,4 +573,18 @@
   groups   = {SpawnIndex},
   journal  = {Helgol\"{a}nder wissenschaftliche Meeresuntersuchungen},
   year     = {1979},
+}
+
+@Book{SchaefferEtal2012,
+  author    = {Richard L. Schaeffer and William Mendenhall and R. L. Ott and Kenneth Gerow},
+  title     = {Elementary survey sampling},
+  edition   = {Seventh},
+  isbn      = {978-0-8400-5361-9},
+  pagetotal = {448},
+  publisher = {Brooks/Cole},
+  series    = {Duxbury advenced series},
+  abstract  = {Elementary survey sampling is an engaging and practical introduction to survey sampling. The book begins with real-world scenarios and uses easy-to-understand formulas, methodologies, and concepts to show how sample surveys are used in a wide variety of situations.},
+  file      = {:Books/ScheafferEtal2012 - Elementary survey sampling.pdf:PDF},
+  groups    = {SpawnIndex},
+  year      = {2012},
 }
