@@ -60,8 +60,10 @@ We calculate the spawn index in four steps.
 First, we develop a statistical framework and sampling protocol to estimate the number of eggs in a given area.
 Second, we develop a conversion factor to convert \fishName{} eggs to biomass, which is critical to calculating the spawn index.
 Third, we calculate the spawn index for each of the three aforementioned spawn survey types: surface, Macrocystis, and understory.
-Finally, we combine the three spawn indices, and aggregate by stock assessment region and year to produce a relative index of combined sex spawning biomass.
-In addition, we identify uncertainties in spawn index calculations, and we describe how users can install the \textbf{R} package to calculate the spawn index using an example database.
+Finally, we combine the spawn indices from the three types of survey observations, and
+aggregate by stock assessment region and year to produce a relative index of combined sex spawning biomass.
+We identify uncertainties in spawn index calculations, and
+describe how users can install the \textbf{R} package to calculate the spawn index using an example database.
 Although we transform the spawn survey data from egg density to biomass in tonnes, the annual time series of egg density and biomass are relative indices of spawning biomass.}
 
 % Resume (i.e., French abstract)
@@ -76,8 +78,10 @@ Nous calculons l'indice de frai en quatre étapes.
 Premièrement, nous élaborons un cadre statistique et un protocole d'échantillonnage pour estimer le nombre d'oeufs dans une zone donnée.
 Deuxièmement, nous élaborons un facteur de conversion pour convertir les oeufs de hareng du Pacifique en biomasse, ce qui est essentiel pour calculer l'indice de reproduction.
 Troisièmement, nous calculons l'indice de frai pour chacun des trois types de relevés de frai susmentionnés: surface, Macrocystis, et sous-étage.
-Enfin, nous combinons les trois indices de frai, et les regroupons par région d'évaluation du stock et par année pour produire un indice relatif de la biomasse reproductrice combinée des sexes.
-De plus, nous identifions les incertitudes dans le calcul de l'indice de frai, et nous décrivons comment les utilisateurs peuvent installer le packet \textbf{R} pour calculer l'indice de frai à l'aide d'une base de données exemple.
+Enfin, nous combinons les indices de frai des trois types d'observations des relevés, et
+nous les agrégeons par région d'évaluation des stocks et par année pour produire un indice relatif de la biomasse reproductrice des sexes combinés.
+Nous identifions les incertitudes dans le calcul de l'indice de frai,
+et décrivons comment les utilisateurs peuvent installer le packet \textbf{R} pour calculer l'indice de frai à l'aide d'une base de données exemple.
 Bien que nous transformions les données du relevé de la densité des œufs en biomasse en tonnes, les séries chronologiques annuelles de la densité et de la biomasse des œufs sont des indices relatifs de la biomasse des géniteurs.}
 
 % Label flow diagram steps: surface, Macrocystis, and understory
@@ -327,18 +331,20 @@ There are three types of spawn survey observations:
 \end{enumerate}
 Surface spawn surveys are believed to be the least accurate of the three survey types, but they have the greatest temporal and spatial extent \citep{Schweigert1993b}.
 For example, surface spawn surveys were the only survey type prior to \Sexpr{newSurvYr}, and they are still used extensively for minor spawns, remote spawns (i.e., outside stock assessment region boundaries; see below), as well as unusually early or late spawns.
-Macrocystis and understory spawn surveys are conducted under water using SCUBA gear, and have been used for all major spawns since \Sexpr{newSurvYr}.
-Thus, we describe the spawn index as having two periods based on the predominant survey type:
+Macrocystis and understory spawn surveys are conducted under water using SCUBA gear and have been used for all major spawns since \Sexpr{newSurvYr}.
+Thus, we describe the spawn index as having two survey periods based on the predominant survey type:
 the surface survey period from \Sexpr{min(yrRange)} to \Sexpr{newSurvYr-1}, and
 the dive survey period from \Sexpr{newSurvYr} to present.
 
-The inclusion of dive surveys in \Sexpr{newSurvYr} makes it challenging to compare the spawn index between these two periods.
+The introduction of dive surveys in \Sexpr{newSurvYr} makes it challenging to compare the spawn index between these two periods.
 For example, surface surveys are less accurate than dive surveys (\autoref{secWidthSurface}), and
 spawn surveyors used subjective intensity categories instead of direct egg layer estimates until \Sexpr{directEggYr-1} (\autoref{secIntensity}).
-In addition, \fishName{} spawn survey effort has been inconsistent over time due to available resources and departmental priorities.
-For example, in the past, surveyors often dedicated several months each year to spawn surveys; they used small vessels to search for spawn, and surface surveys to estimate spawn biomass.
-Currently, surveyors use flights to search for spawn, and underwater SCUBA surveys to estimate spawn biomass.
+In addition, \fishName{} spawn survey effort has been inconsistent over time due to variation in available resources and departmental priorities.
+For example, in the past, surveyors often dedicated several months each year to spawn surveys;
+they used small vessels to search for spawn, and surface surveys to estimate spawn biomass.
+Currently, surveyors use aircraft to search for spawn, and underwater SCUBA surveys to estimate egg deposition.
 Thus, widespread effort (both spatially and temporally) in the past has been replaced with intense effort in the present.
+% TODO: RK - I think what you mean is effort searching for spawn may take less time when over-flights are available, while the effort to measure egg deposition has increased.
 \fishName{} spawn surveys began in \Sexpr{firstYr}, but are considered incomplete for indexing purposes prior to 1937 because many potential areas were not surveyed \citep{HayKronlund1987}.
 
 \fishName{} spawn survey observations have a nested hierarchical structure: samples, Macrocystis plants, and quadrats are nested within transects, transects are nested within spawns, and spawns are nested within Locations.
@@ -494,9 +500,9 @@ Second, we develop a conversion factor to convert \fishName{} eggs to spawning b
 which is critical to spawn index calculations.
 Third, we calculate the spawn index for each of the three aforementioned spawn survey types:
 surface (\autoref{secSurf}), Macrocystis (\autoref{secMacro}), and understory (\autoref{secUnder}).
-Note that we use subsections to separate levels of spatial aggregation within each section (e.g., calculations at the quadrat, or transect level; \autoref{figFlow}).
-Finally, we combine the three spawn indices, and aggregate by SAR and year
-to produce a relative index of combined sex spawning biomass (\autoref{secTotal}).
+Note that we use subsections to separate levels of spatial aggregation within each section of this report (e.g., calculations at the quadrat, or transect level; \autoref{figFlow}).
+Finally, we combine the spawn indices from the three types of suvery observations, and
+aggregate by SAR and year to produce a relative index of combined sex spawning biomass (\autoref{secTotal}).
 
 \begin{figure}
 \centering
@@ -612,6 +618,8 @@ transects are the first sampling stage, and
 individual quadrats within transects are the second sampling stage \citep{Jessen1978}.
 Two steps are required to calculate mean understory egg density in each surveyed spawn $s$ (\autoref{tabNotationIndices}).
 Note that we simplify index notation in this section by suppressing subscripts for spawn survey type $x$, Location $n$, SAR $r$, and year $y$.
+Also note that this section pertains to the understory spawn survey protocol;
+the Macrocystis spawn survey protocol is discussed below.
 First, mean egg density for transect $t$ in spawn $s$ is
 \begin{equation}\label{eqStatRhoTS}
 \mean{\rho_{ts}} = \frac{1}{Q}\sum_{q=1}^Q \rho_{qts}
@@ -687,7 +695,7 @@ total spawn length,
 mean spawn width,
 length of each transect sampled, and
 estimated egg density in each sampling quadrat.
-The protocol to optimize sampling was determined through a series of studies conducted in
+The sampling protocol was determined through a series of studies conducted in
 the Strait of Georgia in 1981 and 1983 \citep{SchweigertEtal1985, SchweigertEtal1990}, and
 on the West Coast of Vancouver Island in 1982 \citep{SchweigertEtal1990}.
 In the 1981 study, the location of transects and sampling quadrats along transects was determined using random allocation \citep{SchweigertEtal1985}.
@@ -707,6 +715,8 @@ the protocol was found to be robust and has been in routine use since \Sexpr{new
 Although samples are collected systematically within each spawn,
 we assume that transects and quadrats are located randomly with respect to the underlying spawn distribution,
 and so these estimators are applicable.
+% TODO: RF - This systematic sampling approach has advantages and disadvancages
+\citep{SchaefferEtal2012}
 An analogous approach has previously been adopted to sample commercial fisheries,
 where vessels arrive in port randomly but are sampled systematically
 to obtain a random sample \citep{QuinnEtal1983, Sen1984}.
