@@ -1505,26 +1505,6 @@ B_{snry} = \sum_{x=1}^X B_{xsnry}
 where $B_{xsnry}$ is spawn index for surface, Macrocystis, and understory spawn surveys from \autoref{eqSurfIndS}, \autoref{eqMacroIndS}, and \autoref{eqUnderIndS}, respectively, and
 $B_{snry}$ is in tonnes (\autoref{figFlow}, step \ref{tIndex}).
 
-Finally, we aggregate the total spawn index by SAR $r$ and year $y$
-\begin{equation}\label{eqTotIndRY}
-B_{ry} = \sum_{n=1}^N \sum_{s=1}^S B_{snry}
-\end{equation}
-where $B_{snry}$ is the total spawn index from \autoref{eqTotIndSLRY},
-and $B_{ry}$ is a relative index of combined sex spawning biomass for SAR $r$ and year $y$ in tonnes.
-
-We use $B_{ry}$ as an indicator of \fishName{} relative population abundance (i.e., biomass) in stock assessment models.
-We scale $B_{ry}$ to abundance
-\begin{equation}\label{eqAbundRY}
-B^\prime_{ry} = \frac{B_{ry}} {q}
-\end{equation}
-where
-$B_{ry}$ is the spawn index in tonnes from \autoref{eqTotIndRY},
-$q$ is the spawn index scaling parameter \citeyearpar[DFO][]{DFO2020}, and
-$B^\prime_{ry}$ is scaled abundance for SAR $r$ and year $y$ in tonnes.
-Note that we estimate one spawn index scaling parameter for
-the surface survey period $q_1$ (\Sexpr{min(yrRange)} to \Sexpr{newSurvYr-1}), and
-a second one for the dive survey period $q_2$ (\Sexpr{newSurvYr} to present).
-
 \begin{table}
 \centering
 \caption[Notation for \fishName{} total spawn index calculations]
@@ -1542,9 +1522,29 @@ $B^\prime$ & Scaled abundance (i.e., biomass) & t \\
 \label{tabNotationTotal}
 \end{table}
 
-\section{SPAWN ON KELP CALCULATIONS}\label{secSOK}
+Finally, we aggregate the total spawn index by SAR $r$ and year $y$
+\begin{equation}\label{eqTotIndRY}
+B_{ry} = \sum_{n=1}^N \sum_{s=1}^S B_{snry}
+\end{equation}
+where $B_{snry}$ is the total spawn index from \autoref{eqTotIndSLRY},
+and $B_{ry}$ is a relative index of combined sex spawning biomass for SAR $r$ and year $y$ in tonnes.
 
-% TODO: RK - I haven't thought about this much. Help me out. We need to account for the spawners that deposited the eggs and add them to the spawn index, right? But why do we need to account for the adult biomass represented by these eggs HAD THEY BEEN allowed to grow and survive to be spawners? This process is like increasing mortality at a (very) young age. To account for future adults that would have survived you also have to account for natural mortality as they mature and then age-dependent mortality at maturity.  But, like I said, I haven't thought about this much.
+\subsection{SCALED ABUNDANCE}
+
+We use $B_{ry}$ as an indicator of \fishName{} relative population abundance (i.e., biomass) in stock assessment models.
+We scale $B_{ry}$ to abundance
+\begin{equation}\label{eqAbundRY}
+B^\prime_{ry} = \frac{B_{ry}} {q}
+\end{equation}
+where
+$B_{ry}$ is the spawn index in tonnes from \autoref{eqTotIndRY},
+$q$ is the spawn index scaling parameter \citeyearpar[DFO][]{DFO2020}, and
+$B^\prime_{ry}$ is scaled abundance for SAR $r$ and year $y$ in tonnes.
+Note that we estimate one spawn index scaling parameter for
+the surface survey period $q_1$ (\Sexpr{min(yrRange)} to \Sexpr{newSurvYr-1}), and
+a second one for the dive survey period $q_2$ (\Sexpr{newSurvYr} to present).
+
+\section{SPAWN ON KELP CALCULATIONS}\label{secSOK}
 
 Spawn on kelp (SOK) fisheries collect \fishName{} roe that adheres to algae such as Macrocystis after spawning.
 Other similar fisheries include spawn on bough, in which operators collect roe that adhere to tree boughs;
@@ -1565,7 +1565,6 @@ By osmosis, brining would also draw some water from the eggs \citep{AldericeEtal
 unfortunately we are unable to account for osmosis at this time.
 The last factor to consider is the mean fertilized egg weight, which was determined by \cite{HayMiller1982} to be $2.38 \cdot 10^{-6}\,\text{kg}$.
 
-% TODO: RK - Future spawning biomass! But, those eggs would have had to go through natural mortality and fisheries to be future spawning biomass.
 We estimate spawning biomass removed from the population by SOK fishery $f$ in SAR $r$ and year $y$ as
 \begin{equation}\label{eqSOKBioFRY}
 B_{fry} = \frac{H_{fry} \left(1 - \nu\right) \frac{1}{1+\upsilon}} {M \theta}
