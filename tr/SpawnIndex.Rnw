@@ -341,10 +341,11 @@ For example, surface surveys are less accurate than dive surveys (\autoref{secWi
 spawn surveyors used subjective intensity categories instead of direct egg layer estimates until \Sexpr{directEggYr-1} (\autoref{secIntensity}).
 In addition, \fishName{} spawn survey effort has been inconsistent over time due to variation in available resources and departmental priorities.
 For example, in the past, surveyors often dedicated several months each year to spawn surveys;
-they used small vessels to search for spawn, and surface surveys to estimate spawn biomass.
+they used small vessels to search for spawn, and surface surveys to estimate egg deposition.
 Currently, surveyors use aircraft to search for spawn, and underwater SCUBA surveys to estimate egg deposition.
+It typically takes less time to search for spawn using aircraft, and
+more effort to measure egg deposition using SCUBA surveys,
 Thus, widespread effort (both spatially and temporally) in the past has been replaced with intense effort in the present.
-% TODO: RK - I think what you mean is effort searching for spawn may take less time when over-flights are available, while the effort to measure egg deposition has increased.
 \fishName{} spawn surveys began in \Sexpr{firstYr}, but are considered incomplete for indexing purposes prior to 1937 because many potential areas were not surveyed \citep{HayKronlund1987}.
 
 \fishName{} spawn survey observations have a nested hierarchical structure: samples, Macrocystis plants, and quadrats are nested within transects, transects are nested within spawns, and spawns are nested within Locations.
@@ -1510,11 +1511,17 @@ B_{ry} = \sum_{n=1}^N \sum_{s=1}^S B_{snry}
 \end{equation}
 where $B_{snry}$ is the total spawn index from \autoref{eqTotIndSLRY},
 and $B_{ry}$ is a relative index of combined sex spawning biomass for SAR $r$ and year $y$ in tonnes.
+
 We use $B_{ry}$ as an indicator of \fishName{} relative population abundance (i.e., biomass) in stock assessment models.
-For example, we scale the \fishName{} spawn index to abundance by dividing the index by $q$,
-which we refer to as the `spawn index scaling parameter', and
-we calculate a separate scalar for each period \citeyearpar[DFO][]{DFO2020}.
-That is to say, we estimate one spawn index scaling parameter for
+We scale $B_{ry}$ to abundance
+\begin{equation}\label{eqAbundRY}
+B^\prime_{ry} = \frac{B_{ry}} {q}
+\end{equation}
+where
+$B_{ry}$ is the spawn index in tonnes from \autoref{eqTotIndRY},
+$q$ is the spawn index scaling parameter \citeyearpar[DFO][]{DFO2020}, and
+$B^\prime_{ry}$ is scaled abundance for SAR $r$ and year $y$ in tonnes.
+Note that we estimate one spawn index scaling parameter for
 the surface survey period $q_1$ (\Sexpr{min(yrRange)} to \Sexpr{newSurvYr-1}), and
 a second one for the dive survey period $q_2$ (\Sexpr{newSurvYr} to present).
 
@@ -1528,6 +1535,8 @@ Legend: tonnes (t).}
 \textbf{Name} & \textbf{Description} & \textbf{Value or unit} \\
 \midrule
 $B$ & Spawn index (i.e., biomass) & t \\
+$q$ & Spawn index scaling parameter & \\
+$B^\prime$ & Scaled abundance (i.e., biomass) & t \\
 \bottomrule
 \end{tabulary}
 \label{tabNotationTotal}
@@ -1535,7 +1544,7 @@ $B$ & Spawn index (i.e., biomass) & t \\
 
 \section{SPAWN ON KELP CALCULATIONS}\label{secSOK}
 
-% TODO: RF - I haven't thought about this much. Help me out. We need to account for the spawners that deposited the eggs and add them to the spawn index, right? But why do we need to account for the adult biomass represented by these eggs HAD THEY BEEN allowed to grow and survive to be spawners? This process is like increasing mortality at a (very) young age. To account for future adults that would have survived you also have to account for natural mortality as they mature and then age-dependent mortality at maturity.  But, like I said, I haven't thought about this much.
+% TODO: RK - I haven't thought about this much. Help me out. We need to account for the spawners that deposited the eggs and add them to the spawn index, right? But why do we need to account for the adult biomass represented by these eggs HAD THEY BEEN allowed to grow and survive to be spawners? This process is like increasing mortality at a (very) young age. To account for future adults that would have survived you also have to account for natural mortality as they mature and then age-dependent mortality at maturity.  But, like I said, I haven't thought about this much.
 
 Spawn on kelp (SOK) fisheries collect \fishName{} roe that adheres to algae such as Macrocystis after spawning.
 Other similar fisheries include spawn on bough, in which operators collect roe that adhere to tree boughs;
