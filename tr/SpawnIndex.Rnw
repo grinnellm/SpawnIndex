@@ -1531,15 +1531,15 @@ and $B^\prime_{ry}$ is a relative index of combined sex spawning biomass for SAR
 
 \subsection{SCALED ABUNDANCE}
 
-We use $B^\prime_{ry}$ as an indicator of \fishName{} relative population abundance (i.e., biomass) in stock assessment models.
+We use $B^\prime_{ry}$ as an indicator of \fishName{} relative population abundance (i.e., biomass) in stock assessment models \citeyearpar[DFO][]{DFO2020}.
 We scale $B^\prime_{ry}$ to abundance
 \begin{equation}\label{eqAbundRY}
-B_{ry} = \frac{B^\prime_{ry}} {q}
+B_{ry} = \frac{B^\prime_{ry}} {q_y}
 \end{equation}
 where $B^\prime_{ry}$ is the total spawn index in tonnes from \autoref{eqTotIndRY},
-$q$ is the spawn index scaling parameter \citeyearpar[DFO][]{DFO2020}, and
+$q_y$ is the spawn index scaling parameter, and
 $B_{ry}$ is scaled abundance (i.e., biomass) for SAR $r$ and year $y$ in tonnes.
-Briefly, $q$ accounts \fishName{} eggs lost to predation prior to being measured, and for unobserved \fishName{} spawns \citeyearpar[DFO]{}{DFO2016}.
+Briefly, $q$ accounts \fishName{} eggs lost to predation prior to being measured, and for unobserved spawns \citeyearpar[DFO][]{DFO2016}.
 Because of differences between the two spawn survey periods, we estimate one spawn index scaling parameter for
 the surface survey period $q_1$ (\Sexpr{min(yrRange)} to \Sexpr{newSurvYr-1}), and
 a second one for the dive survey period $q_2$ (\Sexpr{newSurvYr} to present).
