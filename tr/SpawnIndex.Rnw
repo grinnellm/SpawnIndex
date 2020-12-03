@@ -1509,6 +1509,8 @@ $B'_{snry}$ is in tonnes (\autoref{figFlow}, step \ref{tIndex}).
 \centering
 \caption[Notation for \fishName{} total spawn index calculations]
 {Notation for \fishName{} total spawn index calculations.
+Note that in this table $q$ represents the spawn index scaling parameter,
+not the quadrat number as in other sections of this report.
 Legend: tonnes (t).}
 \begin{tabulary}{\linewidth}{lLL}
 \toprule
@@ -1537,8 +1539,10 @@ We scale $B'_{ry}$ to abundance
 B_{ry} = \frac{B'_{ry}} {q}
 \end{equation}
 where $B'_{ry}$ is the total spawn index in tonnes from \autoref{eqTotIndRY},
-$q$ is the spawn index scaling parameter, and
+$q$ is the spawn index scaling parameter \citeyearpar[DFO][]{DFO2016}, and
 $B_{ry}$ is scaled abundance (i.e., biomass) for SAR $r$ and year $y$ in tonnes.
+To be consistent with stock assessments, in this section $q$ represents the spawn index scaling parameter,
+not the quadrat number as in other sections of this report.
 Briefly, $q$ accounts \fishName{} eggs lost to predation prior to being measured, and for unobserved spawns \citeyearpar[DFO][]{DFO2016}.
 Because of differences between the two spawn survey periods, we estimate one spawn index scaling parameter for
 the surface survey period $q_1$ (\Sexpr{min(yrRange)} to \Sexpr{newSurvYr-1}), and
