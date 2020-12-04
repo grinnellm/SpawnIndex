@@ -1512,13 +1512,13 @@ $B'_{snry}$ is in tonnes (\autoref{figFlow}, step \ref{tIndex}).
 Note that in this table $q$ represents the spawn index scaling parameter,
 not the quadrat number as in other sections of this report.
 Legend: tonnes (t).}
-\begin{tabulary}{\linewidth}{lLL}
+\begin{tabulary}{\linewidth}{lLLL}
 \toprule
-\textbf{Name} & \textbf{Description} & \textbf{Value or unit} \\
+\textbf{Name} & \textbf{Description} & \textbf{Value or unit} & \textbf{References} \\
 \midrule
-$B'$ & Spawn index (i.e., biomass) & t \\
-$q$ & Spawn index scaling parameter & \\
-$B$ & Scaled abundance (i.e., biomass) & t \\
+$B'$ & Spawn index (i.e., biomass) & t & \\
+$q$ & Spawn index scaling parameter & & DFO \citeyearpar{DFO2020} \\
+$B$ & Scaled abundance (i.e., biomass) & t & \\
 \bottomrule
 \end{tabulary}
 \label{tabNotationTotal}
