@@ -330,7 +330,11 @@ There are three types of spawn survey observations:
 \item Underwater observations of spawn on other types of algae and the substrate, which we refer to as `understory.'
 \end{enumerate}
 Surface spawn surveys are believed to be the least accurate of the three survey types, but they have the greatest temporal and spatial extent \citep{Schweigert1993b}.
-For example, surface spawn surveys were the only survey type prior to \Sexpr{newSurvYr}, and they are still used extensively for minor spawns, remote spawns (i.e., outside stock assessment region boundaries; see below), as well as unusually early or late spawns.
+For example, surface spawn surveys were the only survey type prior to \Sexpr{newSurvYr}, and
+they are still used extensively for minor spawns,
+remote spawns (i.e., outside stock assessment region boundaries; see below),
+unusually early or late spawns, and
+during exceptional circumstances (e.g., the COVID-19 pandemic).
 Macrocystis and understory spawn surveys are conducted under water using SCUBA gear and have been used for all major spawns since \Sexpr{newSurvYr}.
 Thus, we describe the spawn index as having two survey periods based on the predominant survey type:
 the surface survey period from \Sexpr{min(yrRange)} to \Sexpr{newSurvYr-1}, and
@@ -355,8 +359,7 @@ which we categorize as either `major' or `minor' (\autoref{figBC}; \citealt{Hais
 The terms `major' and `minor' describe relative differences in geographic and biomass scales.
 The major SARs are Haida Gwaii (formerly known as Queen Charlotte Islands), Prince Rupert District (formerly known as North Coast), Central Coast, Strait of Georgia, and West Coast of Vancouver Island.
 The minor SARs are
-\Sexpr{PasteNicely(regions$RegionName[!regions$Major])};
-we do not develop spawn indices for minor SARs.
+\Sexpr{PasteNicely(regions$RegionName[!regions$Major])}.
 
 <<Region>>=
 # Number of plots
@@ -1533,7 +1536,7 @@ and $B'_{ry}$ is a relative index of combined sex spawning biomass for SAR $r$ a
 
 \subsection{SCALED ABUNDANCE}
 
-We use $B'_{ry}$ as an indicator of \fishName{} relative population abundance (i.e., biomass) in stock assessment models \citeyearpar[DFO][]{DFO2020}.
+We use $B'_{ry}$ as an indicator of relative population abundance (i.e., biomass) in \fishName{} stock assessment models \citeyearpar[DFO][]{DFO2020}.
 We scale $B'_{ry}$ to abundance
 \begin{equation}\label{eqAbundRY}
 B_{ry} = \frac{B'_{ry}} {q}
@@ -1543,8 +1546,12 @@ $q$ is the spawn index scaling parameter \citeyearpar[DFO][]{DFO2016}, and
 $B_{ry}$ is scaled abundance (i.e., biomass) for SAR $r$ and year $y$ in tonnes.
 To be consistent with stock assessments, in this section $q$ represents the spawn index scaling parameter,
 not the quadrat number as in other sections of this report.
-Briefly, $q$ accounts \fishName{} eggs lost to predation prior to being measured, and for unobserved spawns \citeyearpar[DFO][]{DFO2016}.
-Because of differences between the two spawn survey periods, we estimate one spawn index scaling parameter for
+In \fishName{} stock assessment models,
+$q$ describes the proportion of spawn observed by spawn surveys,
+accounting for egg loss (e.g., due to predation) and unobserved spawns \citeyearpar[DFO][]{DFO2016}.
+Although $q$ is highly uncertain and a number of assumptions are made within the assessment model,
+there are undeniable differences between the proportion of spawn observed in the two spawn survey periods \citeyearpar[DFO][]{DFO2020}.
+Therefore, we estimate one spawn index scaling parameter for
 the surface survey period $q_1$ (\Sexpr{min(yrRange)} to \Sexpr{newSurvYr-1}), and
 a second one for the dive survey period $q_2$ (\Sexpr{newSurvYr} to present).
 
@@ -1558,7 +1565,7 @@ Although SOK fisheries do not directly remove spawning \fishName{}, they do remo
 Note that closed-pond operations also cause incidental mortality to spawning \fishName{} \citep{ShieldsEtal1985}, but we do not address this issue here.
 Thus, SOK fisheries present an issue in terms of their impact to the population, and accounting in stock assessment and monitoring \citep{SchweigertEtal2018}.
 Although \fishName{} stock assessments do not account for eggs removed by SOK fisheries at this time, there are a few options to account for the impact of SOK harvest.
-The most direct is to estimate the quantity of eggs removed from the population.
+The most direct is to estimate the quantity of eggs removed from the population, and determine the biomass of \fishName{} that produced those eggs.
 
 \cite{ShieldsEtal1985} collected information on the relationship between the number of egg layers in SOK product, and proportion of product weight that consists of eggs and kelp.
 They determined that kelp represents an average of 12\% of the total product weight.
@@ -1569,7 +1576,7 @@ By osmosis, brining would also draw some water from the eggs \citep{AldericeEtal
 unfortunately we are unable to account for osmosis at this time.
 The last factor to consider is the mean fertilized egg weight, which was determined by \cite{HayMiller1982} to be $2.38 \cdot 10^{-6}\,\text{kg}$.
 
-We estimate spawning biomass removed from the population by SOK fishery $f$ in SAR $r$ and year $y$ as
+We estimate the biomass of \fishName{} that spawned and produced eggs which were removed from the population by SOK fishery $f$ in SAR $r$ and year $y$ as
 \begin{equation}\label{eqSOKBioFRY}
 B_{fry} = \frac{H_{fry} \left(1 - \nu\right) \frac{1}{1+\upsilon}} {M \theta}
 \end{equation}
