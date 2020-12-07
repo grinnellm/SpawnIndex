@@ -1586,12 +1586,12 @@ $\upsilon$ is the SOK product weight increase due to brining as a proportion,
 $M$ is the average mass in kilograms of a fertilized egg,
 $\theta$ is the egg conversion factor from \autoref{eqECF}, and
 $B_{fry}$ is spawning biomass in tonnes for SOK fishery $f$ (\autoref{tabNotationSOK}).
-Then we aggregate spawning biomass by stock assessment region (SAR) $r$ and year $y$
+Then we aggregate spawning biomass by SAR $r$ and year $y$
 \begin{equation}\label{eqSOKBioRY}
 B_{ry} = \sum_{f=1}^F B_{fry}
 \end{equation}
-where $B_{fry}$ is spawning biomass by fishery $f$ from \autoref{eqSOKBioFRY},
-and $B_{ry}$ is the estimated biomass that produced eggs which were removed by SOK fisheries in SAR $r$ and year $y$ in tonnes.
+where $B_{fry}$ is spawning biomass for fishery $f$ from \autoref{eqSOKBioFRY}, and
+$B_{ry}$ is the estimated biomass that produced eggs which were removed by SOK fisheries in SAR $r$ and year $y$ in tonnes.
 
 \begin{table}
 \centering
