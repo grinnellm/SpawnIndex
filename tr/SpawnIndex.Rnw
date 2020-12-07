@@ -1591,7 +1591,7 @@ Then we aggregate spawning biomass by stock assessment region (SAR) $r$ and year
 B_{ry} = \sum_{f=1}^F B_{fry}
 \end{equation}
 where $B_{fry}$ is spawning biomass by fishery $f$ from \autoref{eqSOKBioFRY},
-and $B_{ry}$ is estimated spawning biomass removed by SOK fisheries in SAR $r$ and year $y$ in tonnes.
+and $B_{ry}$ is the estimated biomass that produced eggs which were removed by SOK fisheries in SAR $r$ and year $y$ in tonnes.
 
 \begin{table}
 \centering
