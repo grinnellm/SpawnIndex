@@ -206,7 +206,7 @@ bufSA <- 3000
 # Buffer for Section map
 bufSec <- 1000
 # Year (for spawn index)
-yrIndex <- 2019
+yrIndex <- 2020
 # Calculate spawn summary in current year by location code
 spawnByLocXY <- spawnRaw %>%
   filter(Year == yrIndex, StatArea == zoomSA, Section == zoomSec) %>%
@@ -339,7 +339,7 @@ For example, surface spawn surveys were the only survey type prior to \Sexpr{new
 they are still used extensively for minor spawns,
 remote spawns (i.e., outside stock assessment region boundaries; see below),
 unusually early or late spawns, and
-during exceptional circumstances (e.g., the COVID-19 pandemic).
+during exceptional circumstances such as the COVID-19 pandemic.
 Macrocystis and understory spawn surveys are conducted under water using SCUBA gear and have been used for all major spawns since \Sexpr{newSurvYr}.
 Thus, we describe the spawn index as having two survey periods based on the predominant survey type:
 the surface survey period from \Sexpr{min(yrRange)} to \Sexpr{newSurvYr-1}, and
@@ -1812,7 +1812,8 @@ The \textbf{R} package to calculate the \fishName{} spawn index \texttt{SpawnInd
 The package includes an example database of \fishName{} spawn survey observations,
 and a vignette with examples.
 The \texttt{SpawnIndex} package contains functions to import tables from the database, and calculate the spawn index.
-This document is meant to accompany the \texttt{SpawnIndex} package, which implements the calculations described here.
+This document is meant to accompany the package,
+which implements the calculations described here.
 The \texttt{SpawnIndex} package is documented, and
 has examples to promote accessibility and transparency.
 
