@@ -21,7 +21,7 @@
 \newcommand{\trTitle}{Calculating the spawn index for \fishName{} (\scienceName{}) in British Columbia, Canada}
 
 % Publication year
-\newcommand{\trYear}{yyyy}
+\newcommand{\trYear}{2021}
 
 % Publication number
 \newcommand{\trReportNum}{nnnn}
