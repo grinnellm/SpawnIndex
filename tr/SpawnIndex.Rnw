@@ -226,7 +226,7 @@ extSA <- shapes$saDF %>%
     ymin = min(Northings) - bufSA, ymax = max(Northings) + bufSA
   ) %>%
   ungroup()
-# Ratio for Statistica Area figure
+# Ratio for Statistical Area figure
 xyRatioSA <- (extSA$ymax - extSA$ymin) / (extSA$xmax - extSA$xmin)
 # Determine Sections in the Stat Area
 sectionsSA <- areas %>%
@@ -505,7 +505,7 @@ which is critical to spawn index calculations.
 Third, we calculate the spawn index for each of the three aforementioned spawn survey types:
 surface (\autoref{secSurf}), Macrocystis (\autoref{secMacro}), and understory (\autoref{secUnder}).
 Note that we use subsections to separate levels of spatial aggregation within each section of this report (e.g., calculations at the quadrat, or transect level; \autoref{figFlow}).
-Finally, we combine the spawn indices from the three types of suvery observations, and
+Finally, we combine the spawn indices from the three types of survey observations, and
 aggregate by SAR and year to produce a relative index of combined sex spawning biomass (\autoref{secTotal}).
 
 \begin{figure}
@@ -1560,10 +1560,13 @@ a second one for the dive survey period $q_2$ (\Sexpr{newSurvYr} to present).
 Spawn on kelp (SOK) fisheries collect \fishName{} roe that adheres to algae such as Macrocystis after spawning.
 Other similar fisheries include spawn on bough, in which operators collect roe that adhere to tree boughs;
 we refer to these fisheries collectively as SOK in this document.
-There are two types of SOK fisheries in BC: `open-pond' in which operators provide algae to spawning \fishName{}, and `closed-pond' in which operators impound spawning \fishName{} in floating nets that contain algae \citep{ShieldsEtal1985}.
+There are two types of SOK fisheries in BC:
+`open-pond' in which operators provide algae to spawning \fishName{}, and
+`closed-pond' in which operators impound spawning \fishName{} in floating nets that contain algae \citep{ShieldsEtal1985}.
 Although SOK fisheries do not directly remove spawning \fishName{}, they do remove eggs that could otherwise have contributed to recruitment.
 Note that closed-pond operations also cause incidental mortality to spawning \fishName{} \citep{ShieldsEtal1985}, but we do not address this issue here.
 Thus, SOK fisheries present an issue in terms of their impact to the population, and accounting in stock assessment and monitoring \citep{SchweigertEtal2018}.
+% TODO: SH - Relate this back to the discussion on $q$ and missed spawns.
 Although \fishName{} stock assessments do not account for eggs removed by SOK fisheries at this time, there are a few options to account for the impact of SOK harvest.
 The most direct is to estimate the quantity of eggs removed from the population, and determine the biomass of \fishName{} that produced those eggs.
 
