@@ -793,7 +793,7 @@ Similarly, Macrocystis bed length $L^m$ and algae (i.e., vegetation) bed length 
 \fbox{\includegraphics[width=0.67\linewidth]{pictures/SpawnFlight.jpg}}
 \caption[Aerial view of \fishName{} spawn]
 {Aerial view of \fishName{} spawn taken during a spawn reconnaissance flight in the Strait of Georgia.
-The spawn is identified by the band of discoloured water parallel to the shore.}
+Spawn is identified by the band of discoloured water parallel to the shore.}
 \label{figSpawnFlight}
 \end{figure}
 
@@ -1811,9 +1811,9 @@ The \textbf{R} package to calculate the \fishName{} spawn index \texttt{SpawnInd
 \href{https://github.com/grinnellm/SpawnIndex}{\fishName{} spawn index repository}.
 The package includes an example database of \fishName{} spawn survey observations,
 and a vignette with examples.
-The \texttt{SpawnIndex} package contains functions to import tables from the database, and calculate the spawn index.
-This document is meant to accompany the package,
-which implements the calculations described here.
+The \texttt{SpawnIndex} package contains functions to import tables from the database and calculate the spawn index.
+This document is meant to accompany the \textbf{R} package,
+which implements the calculations described herein.
 The \texttt{SpawnIndex} package is documented, and
 has examples to promote accessibility and transparency.
 
