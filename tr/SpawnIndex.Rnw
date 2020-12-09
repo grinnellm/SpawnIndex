@@ -593,7 +593,7 @@ Legend: stock assessment region (SAR), spawn on kelp (SOK).} \\
 \midrule
 \endfirsthead
 \toprule
-\multicolumn{3}{c}{\emph{\tablename~\thetable~continued}} \\
+\multicolumn{3}{c}{\textsl{\tablename~\thetable~continued}} \\
 \textbf{Name} & \textbf{Description} & \textbf{Range} \\
 \midrule
 \endhead
