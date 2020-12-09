@@ -1571,7 +1571,7 @@ B'_{ry} = \sum_{n=1}^N \sum_{s=1}^S B'_{snry}
 where $B'_{snry}$ is the total spawn index from \autoref{eqTotIndSLRY},
 and $B'_{ry}$ is a relative index of combined sex spawning biomass for SAR $r$ and year $y$ in tonnes.
 
-\subsection{SCALED ABUNDANCE}
+\subsection{SCALED ABUNDANCE}\label{secScaled}
 
 We use $B'_{ry}$ as an indicator of relative population abundance (i.e., biomass) in \fishName{} stock assessment models \citeyearpar[DFO][]{DFO2020}.
 We scale $B'_{ry}$ to abundance
@@ -1602,16 +1602,22 @@ There are two types of SOK fisheries in BC:
 `closed-pond' in which operators impound spawning \fishName{} in floating nets that contain algae \citep{ShieldsEtal1985}.
 Although SOK fisheries do not directly remove spawning \fishName{}, they do remove eggs that could otherwise have contributed to recruitment.
 Note that closed-pond operations also cause incidental mortality to spawning \fishName{} \citep{ShieldsEtal1985}, but we do not address this issue here.
-Thus, SOK fisheries present an issue in terms of their impact to the population, and accounting in stock assessment and monitoring \citep{SchweigertEtal2018}.
-% TODO: SH - Relate this back to the discussion on $q$ and missed spawns.
-Although \fishName{} stock assessments do not account for eggs removed by SOK fisheries at this time, there are a few options to account for the impact of SOK harvest.
-The most direct is to estimate the quantity of eggs removed from the population, and determine the biomass of \fishName{} that produced those eggs.
+Thus, SOK fisheries present an issue in terms of their impact to the population,
+and accounting in stock assessment and monitoring \citep{SchweigertEtal2018}.
+For example, failing to account for SOK spawn in assessments is analogous to
+treating it as missed spawn via the $q$ parameter (\autoref{secScaled});
+conversely, accounting for SOK spawn directly in assessments would remove some uncertainty from $q$.
+Although \fishName{} stock assessments do not account for eggs removed by SOK fisheries at this time,
+there are a few options to account for the impact of SOK harvest.
+The most direct is to estimate the quantity of eggs removed from the population,
+and determine the biomass of \fishName{} that produced those eggs.
 
 \cite{ShieldsEtal1985} collected information on the relationship between the number of egg layers in SOK product, and proportion of product weight that consists of eggs and kelp.
 They determined that kelp represents an average of 12\% of the total product weight.
 Since SOK product is universally brined at the time of harvest, it is necessary to also consider the uptake of salt by the eggs, which increases the overall product weight.
 However, there is uncertainty in the degree of brining that occurs prior to weighing the product.
-Nevertheless, \cite{WhyteEnglar1977} determined that wet product weight increases by approximately 13\% due to salt uptake during a 24-hour brining period.
+Nevertheless, \cite{WhyteEnglar1977} determined that wet product weight increases
+by approximately 13\% due to salt uptake during a 24-hour brining period.
 By osmosis, brining would also draw some water from the eggs \citep{AldericeEtal1979};
 unfortunately we are unable to account for osmosis at this time.
 The last factor to consider is the mean fertilized egg weight, which was determined by \cite{HayMiller1982} to be $2.38 \cdot 10^{-6}\,\text{kg}$.
