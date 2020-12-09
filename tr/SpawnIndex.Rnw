@@ -1620,7 +1620,8 @@ Nevertheless, \cite{WhyteEnglar1977} determined that wet product weight increase
 by approximately 13\% due to salt uptake during a 24-hour brining period.
 By osmosis, brining would also draw some water from the eggs \citep{AldericeEtal1979};
 unfortunately we are unable to account for osmosis at this time.
-The last factor to consider is the mean fertilized egg weight, which was determined by \cite{HayMiller1982} to be $2.38 \cdot 10^{-6}\,\text{kg}$.
+The last factor to consider is the mean fertilized egg weight,
+$2.38 \cdot 10^{-6}\,\text{kg}$ \citep{HayMiller1982}.
 
 We estimate the biomass of \fishName{} that spawned and produced eggs which were removed from the population by SOK fishery $f$ in SAR $r$ and year $y$ as
 \begin{equation}\label{eqSOKBioFRY}
