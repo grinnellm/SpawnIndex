@@ -1325,7 +1325,6 @@ $\vartheta$ & Regression slope for algae & \Sexpr{pars$understory$vartheta}$~\te
 $\varrho$ & Regression exponent on $E$ & \Sexpr{pars$understory$varrho} & \cite{Schweigert2005} \\
 $\varsigma$ & Regression exponent on $\phi$ & \Sexpr{pars$understory$varsigma} & \cite{Schweigert2005} \\
 $C$ & Algae coefficient & see \autoref{tab:AlgaeCoefs} & \\
-$\rho$ & Egg density & $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \\
 $W$ & Spawn width & m & \\
 $\mean{\rho}$ & Mean egg density & $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \\
 $\mean{W}$ & Mean spawn width & m & \\
@@ -1393,7 +1392,7 @@ an algae coefficient using a generalized linear model.
 Algae coefficients account for the effect of algae morphology on \fishName{} egg density (\autoref{tab:AlgaeCoefs}).
 Egg density on algae $v$ in quadrat $q$, transect $t$, and spawn $s$ \citep{Schweigert2005} is
 \begin{equation}\label{eqUnderDensAlgVQTS}
-\rho_{vqts} = \vartheta E^{v^\varrho}_{vqts} \phi^{v^\varsigma}_{vqts} C_v
+\rho_{vqts} = \vartheta E^\varrho_{vqts} \phi^\varsigma_{vqts} C_v
 \end{equation}
 where $\vartheta$ is the regression slope,
 $E_{vqts}$ is the number of egg layers on algae $v$,
