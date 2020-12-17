@@ -621,8 +621,8 @@ $s$ & Spawn & 1, 2, 3, ..., $S$ \\
 $S$ & Number of spawns in Location $n$, SAR $r$, and year $y$ & \\
 $n$ & Location & 1, 2, 3, ..., $N$ \\
 $N$ & Number of locations in SAR $r$ and year $y$ & \\
-$f$ & SOK fishery & 1, 2, 3, ..., $F$ \\
-$F$ & Number of SOK fisheries in SAR $r$ and year $y$ & \\
+$g$ & SOK fishery & 1, 2, 3, ..., $G$ \\
+$G$ & Number of SOK fisheries in SAR $r$ and year $y$ & \\
 $r$ & SAR & 1, 2, 3, ..., $R$ \\
 $R$ & Number of SARs & \\
 $y$ & Year & $y_1$, $y_2$, $y_3$, ..., $Y$ \\
@@ -948,7 +948,7 @@ and we convert eggs to tonnes (t) of spawners using
 \theta = \omega \female \frac{10^3~\text{kg}} {\text{t}}
 \end{equation}
 where $\omega$ is female fecundity,
-$\female$ is proportion of spawners that are female, and
+$\female$ is the proportion of spawners that are female, and
 $\theta$ is the egg conversion factor in $\text{eggs} \cdot 10^8 \cdot \text{t}^{-1}$ (\autoref{tabNotationEggs}).
 Thus, we convert eggs to biomass of both sexes combined in tonnes by dividing the number of eggs by $\theta$.
 Although \fishName{} egg production is affected by environmental variability and other factors \citep{TanasichukWare1987, HayBrett1988},
@@ -1623,21 +1623,21 @@ unfortunately we are unable to account for osmosis at this time.
 The last factor to consider is the mean fertilized egg weight,
 $2.38 \cdot 10^{-6}\,\text{kg}$ \citep{HayMiller1982}.
 
-We estimate the biomass of \fishName{} that spawned and produced eggs which were removed from the population by SOK fishery $f$ in SAR $r$ and year $y$ as
-\begin{equation}\label{eqSOKBioFRY}
-B_{fry} = \frac{H_{fry} \left(1 - \nu\right) \frac{1}{1+\upsilon}} {M \theta}
+We estimate the biomass of \fishName{} that spawned and produced eggs which were removed from the population by SOK fishery $g$ in SAR $r$ and year $y$ as
+\begin{equation}\label{eqSOKBioGRY}
+B_{gry} = \frac{H_{gry} \left(1 - \nu\right) \frac{1}{1+\upsilon}} {M \theta}
 \end{equation}
-where $H_{fry}$ is the weight in kilograms of \fishName{} SOK harvest in fishery $f$, SAR $r$, and year $y$,
+where $H_{gry}$ is the weight in kilograms of \fishName{} SOK harvest in fishery $g$, SAR $r$, and year $y$,
 $\nu$ is the proportion of SOK product weight that is kelp,
 $\upsilon$ is the SOK product weight increase due to brining as a proportion,
 $M$ is the average mass in kilograms of a fertilized egg,
 $\theta$ is the egg conversion factor from \autoref{eqECF}, and
-$B_{fry}$ is spawning biomass in tonnes for SOK fishery $f$ (\autoref{tabNotationSOK}).
+$B_{gry}$ is spawning biomass in tonnes for SOK fishery $g$ (\autoref{tabNotationSOK}).
 Then we aggregate spawning biomass by SAR $r$ and year $y$
 \begin{equation}\label{eqSOKBioRY}
-B_{ry} = \sum_{f=1}^F B_{fry}
+B_{ry} = \sum_{g=1}^G B_{gry}
 \end{equation}
-where $B_{fry}$ is spawning biomass for fishery $f$ from \autoref{eqSOKBioFRY}, and
+where $B_{gry}$ is spawning biomass for fishery $g$ from \autoref{eqSOKBioGRY}, and
 $B_{ry}$ is the estimated \fishName{} biomass that produced eggs which were removed by SOK fisheries in SAR $r$ and year $y$ in tonnes.
 
 \begin{table}
@@ -1751,9 +1751,9 @@ $\alpha$, $\beta$ & Parameters for surface survey egg density model (Eq \ref{eqS
 $\xi$, $\gamma$, $\delta$, $\epsilon$ & Parameters for number of eggs per Macrocystis plant model (Eq \ref{eqMacroEggsPerPlantS}). & HG in 1981 and 1987 ($n=112$ plants); PRD in 1986 ($n=15$); CC in 1986 ($n=5$); WCVI in 1985 and 1986 ($n=35$). & Model accounts for 78\% of variation in eggs per plant. & \cite{HaegeleSchweigert1990} \\
 $\varphi$ & Parameter for substrate egg density model (Eq \ref{eqUnderDensSubQTS}). & SoG in 1976, 1977, and 1978; PRD, CC, and WCVI in 1977. & NA & \cite{HaegeleHumphreys1976, HaegeleHumphreys1978a, HaegeleHumphreys1978b, HaegeleEtal1979} \\
 $\vartheta$, $\varrho$, $\varsigma$, $C_v$ & Parameters for algae egg density model (Eq \ref{eqUnderDensAlgVQTS}, \autoref{tab:AlgaeCoefs}). & Coastwide from 1976 to 1987 ($n=$ 5,111 samples). & Model accounts for 40\% of variation in egg density. & \cite{Schweigert2005} \\
-$\nu$ & Proportion of SOK product that is kelp (Eq \ref{eqSOKBioFRY}). & HG in 1982 and 1983; PRD in 1982. & $\text{SD}=4.2$. & \cite{ShieldsEtal1985} \\
-$\upsilon$ & SOK product weight increase due to brining (proportion; Eq \ref{eqSOKBioFRY}). & SoG ca. 1977. & NA & \cite{WhyteEnglar1977} \\
-$M$ & Average mass of a fertilized egg (Eq \ref{eqSOKBioFRY}). & SoG in 1980 ($n=7$ samples). & $\text{SE}=3.4 \times 10^{-7}$. & \cite{HayMiller1982}
+$\nu$ & Proportion of SOK product that is kelp (Eq \ref{eqSOKBioGRY}). & HG in 1982 and 1983; PRD in 1982. & $\text{SD}=4.2$. & \cite{ShieldsEtal1985} \\
+$\upsilon$ & SOK product weight increase due to brining (proportion; Eq \ref{eqSOKBioGRY}). & SoG ca. 1977. & NA & \cite{WhyteEnglar1977} \\
+$M$ & Average mass of a fertilized egg (Eq \ref{eqSOKBioGRY}). & SoG in 1980 ($n=7$ samples). & $\text{SE}=3.4 \times 10^{-7}$. & \cite{HayMiller1982}
 \label{tabUncertainty}
 \end{longtable}
 \end{landscape}
@@ -1782,7 +1782,7 @@ In addition to work mentioned here and in \autoref{secUncertain}, potential rese
 \end{enumerate}
 \item Periodically review the accuracy of egg density models using egg layer and vegetation cover estimates collected underwater, compared to egg counts in a subset of sampled quadrats,
 \item Quantify incidental mortality in SOK operations, and
-\item Account for osmosis in SOK calculations (\autoref{eqSOKBioFRY}).
+\item Account for osmosis in SOK calculations (\autoref{eqSOKBioGRY}).
 \end{enumerate}
 
 \section{CAVEATS}
