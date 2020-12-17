@@ -1320,11 +1320,13 @@ Legend: metres (m), tonnes (t).}
 $E$ & Number of egg layers & $E > 0$ & \\
 $\phi$ & Proportion covered in eggs & $0 < \phi \leq 1$ & \\
 $\varphi$ & Regression slope for substrate & \Sexpr{pars$understory$varphi}$~\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \cite{HaegeleEtal1979} \\
-$\rho$ & Egg density & $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \\
+$\rho'$ & Substrate egg density & $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \\
 $\vartheta$ & Regression slope for algae & \Sexpr{pars$understory$vartheta}$~\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \cite{Schweigert2005} \\
 $\varrho$ & Regression exponent on $E$ & \Sexpr{pars$understory$varrho} & \cite{Schweigert2005} \\
 $\varsigma$ & Regression exponent on $\phi$ & \Sexpr{pars$understory$varsigma} & \cite{Schweigert2005} \\
 $C$ & Algae coefficient & see \autoref{tab:AlgaeCoefs} & \\
+$\rho''$ & Algae egg density & $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \\
+$\rho$ & Egg density & $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \\
 $W$ & Spawn width & m & \\
 $\mean{\rho}$ & Mean egg density & $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \\
 $\mean{W}$ & Mean spawn width & m & \\
@@ -1341,12 +1343,12 @@ $B'$ & Understory spawn index (i.e., biomass) & t & \\
 We calculate two separate estimates of egg density at the quadrat level (\autoref{figFlow}, step \ref{uQuad}): spawn on substrate, and spawn on algae $v$.
 \citet{HaegeleEtal1979} developed a model of substrate egg density in quadrat $q$, transect $t$, and spawn $s$ from egg layers using a linear model
 \begin{equation}\label{eqUnderDensSubQTS}
-\rho_{qts} = \varphi E_{qts} \phi_{qts}
+\rho'_{qts} = \varphi E_{qts} \phi_{qts}
 \end{equation}
 where $\varphi$ is the slope,
 $E_{qts}$ is the number of egg layers on substrate in quadrat $q$,
 $\phi_{qts}$ is the proportion of substrate in quadrat $q$ covered by spawn, and
-$\rho_{qts}$ is substrate egg density in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ (\autoref{figUnderDensSubQTS}).
+$\rho'_{qts}$ is substrate egg density in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ (\autoref{figUnderDensSubQTS}).
 
 <<UnderDensSubQTS, fig.width=3.5, fig.asp=0.85, fig.lp="fig", echo=FALSE, fig.cap=figCap, fig.scap="Substrate egg density for \\fishName{} underwater spawn surveys">>=
 # Caption
@@ -1392,7 +1394,7 @@ an algae coefficient using a generalized linear model.
 Algae coefficients account for the effect of algae morphology on \fishName{} egg density (\autoref{tab:AlgaeCoefs}).
 Egg density on algae $v$ in quadrat $q$, transect $t$, and spawn $s$ \citep{Schweigert2005} is
 \begin{equation}\label{eqUnderDensAlgVQTS}
-\rho_{vqts} = \vartheta E^\varrho_{vqts} \phi^\varsigma_{vqts} C_v
+\rho''_{vqts} = \vartheta E^\varrho_{vqts} \phi^\varsigma_{vqts} C_v
 \end{equation}
 where $\vartheta$ is the regression slope,
 $E_{vqts}$ is the number of egg layers on algae $v$,
@@ -1400,13 +1402,13 @@ $\varrho$ is the regression exponent on $E_{vqts}$,
 $\phi_{vqts}$ is the proportion of quadrat $q$ covered by algae $v$,
 $\varsigma$ is the regression exponent on $\phi_{vqts}$,
 $C_v$ is the coefficient for algae $v$, and
-$\rho_{vqts}$ is in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ (\autoref{figUnderDensAlgVQTS}).
+$\rho''_{vqts}$ is in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ (\autoref{figUnderDensAlgVQTS}).
 The total algae egg density for quadrat $q$ in transect $t$ and spawn $s$ is
 \begin{equation}\label{eqUnderDensAlgQTS}
-\rho_{qts} = \sum_{v=1}^{V} \rho_{vqts}
+\rho''_{qts} = \sum_{v=1}^{V} \rho''_{vqts}
 \end{equation}
-where $\rho_{vqts}$ is egg density on algae $v$ from \autoref{eqUnderDensAlgVQTS}, and
-$\rho_{qts}$ is in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$.
+where $\rho''_{vqts}$ is egg density on algae $v$ from \autoref{eqUnderDensAlgVQTS}, and
+$\rho''_{qts}$ is in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$.
 
 <<AlgaeCoefs>>=
 # Caption
@@ -1475,10 +1477,10 @@ print(EggDensAlgPlot)
 
 The total understory egg density for quadrat $q$ in transect $t$ and spawn $s$ is
 \begin{equation}\label{eqUnderDensQTS}
-\rho_{qts} = \rho_{qts} + \rho_{qts}
+\rho_{qts} = \rho'_{qts} + \rho''_{qts}
 \end{equation}
-where $\rho_{qts}$ is substrate egg density from \autoref{eqUnderDensSubQTS},
-$\rho_{qts}$ is algae egg density from \autoref{eqUnderDensAlgQTS}, and
+where $\rho'_{qts}$ is substrate egg density from \autoref{eqUnderDensSubQTS},
+$\rho''_{qts}$ is algae egg density from \autoref{eqUnderDensAlgQTS}, and
 $\rho_{qts}$ is in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$.
 Thus, we assume that eggs on substrate and algae are independent, and can be added without bias.
 
