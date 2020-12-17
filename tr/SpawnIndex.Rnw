@@ -786,7 +786,7 @@ surveyors collect longitude and latitude at the start and end of the spawn
 from above, spawns are identified by a milky or turquoise discolouration of the ocean caused by the release of milt,
 and often appear as bands running parallel to the shore (\autoref{figSpawnFlight}).
 Thus, spawn `length' refers to distance parallel to the shore, and `width' refers to distance perpendicular to the shore.
-Similarly, Macrocystis bed length $L^m$ and algae (i.e., vegetation) bed length $L^v$ refer to distances that Macrocystis and algae beds extend parallel to the shore, respectively.
+Similarly, Macrocystis bed length $L'$ and algae (i.e., vegetation) bed length $L''$ refer to distances that Macrocystis and algae beds extend parallel to the shore, respectively.
 
 \begin{figure}
 \centering
@@ -1124,7 +1124,7 @@ $A$ & Area & $\text{m}^2$ & \\
 $\mean{W}$ & Mean spawn width & m & \\
 $\mean{H}$ & Mean plant height & m & \\
 $\mean{E}$ & Mean number of egg layers & $\mean{E} > 0$ & \\
-$L^m$ & Length of the Macrocystis bed & m & \\
+$L'$ & Length of the Macrocystis bed & m & \\
 $L$ & Spawn length & m & \\
 $P$ & Number of plants & $P > 0$ & \\
 $\mean{\kappa}$ & Mean number of stalks per plant & $\mean{\kappa} > 0$ & \\
@@ -1166,8 +1166,8 @@ where $K_{pts}$ is the number of stalks on plant $p$.
 
 \subsection{SPAWN OBSERVATIONS AND CALCULATIONS}\label{secMacroS}
 
-At the spawn $s$ level (\autoref{figFlow}, step \ref{mSpawn}), we determine the length of the Macrocystis bed $L^m_s$ in metres.
-If $L^m_s$ is inadvertently not recorded, we set $L^m_s$ to the spawn length $L_s$.
+At the spawn $s$ level (\autoref{figFlow}, step \ref{mSpawn}), we determine the length of the Macrocystis bed $L'_s$ in metres.
+If $L'_s$ is inadvertently not recorded, we set $L'_s$ to the spawn length $L_s$.
 The mean width of spawn $s$ is
 \begin{equation}\label{eqMacroWidthS}
 \mean{W_s} = \frac{1}{T} \sum_{t=1}^T W_{ts}
@@ -1245,10 +1245,10 @@ $\mean{\rho_s}$ is in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$.
 
 The Macrocystis spawn index in spawn $s$ is
 \begin{equation}\label{eqMacroIndS}
-B'_s = \frac{\mean{\rho_s} L^m_s \mean{W_s} 10^3} {\theta}
+B'_s = \frac{\mean{\rho_s} L'_s \mean{W_s} 10^3} {\theta}
 \end{equation}
 where $\mean{\rho_s}$ is the mean egg density in spawn $s$ from \autoref{eqMacroDensS},
-$L^m_s$ is the length of the Macrocystis bed in spawn $s$,
+$L'_s$ is the length of the Macrocystis bed in spawn $s$,
 $\mean{W_s}$ is the mean width of spawn $s$ from \autoref{eqMacroWidthS},
 $\theta$ is the egg conversion factor from \autoref{eqECF}, and
 $B'_s$ is in tonnes (\autoref{figFlow}, step \ref{mInd}).
@@ -1332,7 +1332,7 @@ $\rho$ & Egg density & $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \\
 $W$ & Spawn width & m & \\
 $\mean{\rho}$ & Mean egg density & $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \\
 $\mean{W}$ & Mean spawn width & m & \\
-$L^v$ & Length of the algae bed & m & \\
+$L''$ & Length of the algae bed & m & \\
 $L$ & Spawn length & m & \\
 $B'$ & Understory spawn index (i.e., biomass) & t & \\
 \bottomrule
@@ -1507,9 +1507,9 @@ At the spawn level (\autoref{figFlow}, step \ref{uSpawn}), the mean width of spa
 where $W_{ts}$ is the spawn width at transect $t$,
 $T$ is the number of transects in spawn $s$, and
 $\mean{W_s}$ is in metres.
-The length of the algae bed in spawn $s$ is $L^v_s$, also in metres.
+The length of the algae bed in spawn $s$ is $L''_s$, also in metres.
 As with Macrocystis spawn calculations,
-if $L^v_s$ is inadvertently not recorded, we set $L^v_s$ to the spawn length $L_s$.
+if $L''_s$ is inadvertently not recorded, we set $L''_s$ to the spawn length $L_s$.
 Thus, we assume that eggs on substrate and eggs on algae are represented by the same length measurement.
 Next, we calculate the weighted mean egg density in spawn $s$,
 where transect egg density is weighted by spawn width at transect $t$, $W_{ts}$.
@@ -1526,10 +1526,10 @@ $\mean{\rho_s}$ is in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$.
 
 The understory spawn index in spawn $s$ is
 \begin{equation}\label{eqUnderIndS}
-B'_s = \frac{\mean{\rho_s} L^v_s \mean{W_s} 10^3} {\theta}
+B'_s = \frac{\mean{\rho_s} L''_s \mean{W_s} 10^3} {\theta}
 \end{equation}
 where $\mean{\rho_s}$ is the mean understory egg density from \autoref{eqUnderDensMuS},
-$L^v_s$ is the length of the algae bed,
+$L''_s$ is the length of the algae bed,
 $\mean{W_s}$ is the mean spawn width from \autoref{eqUnderWidthMuS},
 $\theta$ is the egg conversion factor from \autoref{eqECF}, and
 $B'_s$ is in tonnes (\autoref{figFlow}, step \ref{uInd}).
