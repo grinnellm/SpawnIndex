@@ -993,7 +993,7 @@ Legend: metres (m), tonnes (t).}
 \textbf{Name} & \textbf{Description} & \textbf{Value or unit} & \textbf{References} \\
 \midrule
 $E'$ & Number of egg layers & $E' > 0$ & \\
-$\phi^b$ & Proportion of substrate covered in eggs & $0 < \phi^b \leq 1$ & \\
+$\phi$ & Proportion covered in eggs & $0 < \phi \leq 1$ & \\
 $E$ & Number of egg layers & $E > 0$ & \\
 $\alpha$ & Regression intercept & \Sexpr{pars$surface$alpha}$~\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \cite{SchweigertEtal1997} \\
 $\beta$ & Regression slope & \Sexpr{pars$surface$beta}$~\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \cite{SchweigertEtal1997} \\
@@ -1012,10 +1012,10 @@ $B'$ & Surface spawn index (i.e., biomass) & t & \\
 Each sample $j$ (\autoref{figFlow}, step \ref{sSamp}) can have one or more substrate types $i$.
 The number of egg layers in substrate $i$, sample $j$, and spawn $s$ is
 \begin{equation}\label{eqSurfLyrsIJS}
-E_{ijs} = E'_{ijs} \phi^b_{ijs}
+E_{ijs} = E'_{ijs} \phi_{ijs}
 \end{equation}
 where $E'_{ijs}$ is the number of egg layers on substrate $i$, and
-$\phi^b_{ijs}$ is the proportion of substrate $i$ covered with spawn.
+$\phi_{ijs}$ is the proportion of substrate $i$ covered with spawn.
 The total number of egg layers in sample $j$ and spawn $s$ is
 \begin{equation}\label{eqSurfLyrsJS}
 E_{js} = \sum_{i=1}^{I} E_{ijs}
