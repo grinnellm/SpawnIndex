@@ -1388,7 +1388,7 @@ Although quadrats have only one substrate type, they can have up to three algae 
 \citet{Schweigert2005} developed a model of algae egg density from
 egg layers,
 proportion of the quadrat covered by algae, and
-an algae coefficient using a generalized linear model.
+algae coefficients using a generalized linear model.
 Algae coefficients account for the effect of algae morphology on \fishName{} egg density (\autoref{tab:AlgaeCoefs}).
 Egg density on algae $v$ in quadrat $q$, transect $t$, and spawn $s$ \citep{Schweigert2005} is
 \begin{equation}\label{eqUnderDensAlgVQTS}
@@ -1404,7 +1404,7 @@ $\rho_{vqts}$ is in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ (\autoref{figUn
 
 <<AlgaeCoefs>>=
 # Caption
-tabCap <- "Algae (i.e., vegetation) types $v$ and coefficients $C$ for \\fishName{} understory spawn surveys \\citep{Schweigert2005}. Uncertainty in algae coefficients is not available."
+tabCap <- "Algae (i.e., vegetation) types $v$ and coefficients $C$ for \\fishName{} understory spawn surveys \\citep{Schweigert2005}. Uncertainty in algae coefficients is not available. Algae types are described in the \\href{http://www.pac.dfo-mpo.gc.ca/science/species-especes/pelagic-pelagique/herring-hareng/hertags/pdf/SurveyManual.pdf}{\\fishName{} spawn survey manual}."
 # Short caption
 tabSCap <- "Algae types and coefficients for \\fishName{} understory spawn surveys"
 # Format the table
