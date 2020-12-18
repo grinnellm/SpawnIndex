@@ -114,6 +114,10 @@ Bien que nous transformions les données du relevé de la densité des œufs en 
 (\theTotalStep)%
 }
 
+\newcommand{\surveyManual}{\href{http://www.pac.dfo-mpo.gc.ca/science/species-especes/pelagic-pelagique/herring-hareng/hertags/pdf/SurveyManual.pdf}{\fishName{} spawn survey manual}}
+
+\newcommand{\gitRepo}{\href{https://github.com/grinnellm/SpawnIndex}{\fishName{} spawn index repository}}
+
 %%%%% Start %%%%%
 
 % Start the document
@@ -765,7 +769,7 @@ These data are used to determine the total egg deposition on Macrocystis plants 
 
 \section{SAMPLING PROTOCOL}\label{secProt}
 
-The following is a brief summary of the spawn survey sampling protocol in the \href{http://www.pac.dfo-mpo.gc.ca/science/species-especes/pelagic-pelagique/herring-hareng/hertags/pdf/SurveyManual.pdf}{\fishName{} spawn survey manual}.
+The following is a brief summary of the spawn survey sampling protocol in the \surveyManual{}.
 \fishName{} in BC primarily spawn in sheltered bays and inlets, depositing their eggs on rocks and algae between depths of
 $1.5\,\text{m}$ above and $18\,\text{m}$ below the 0-tide level \citep{HumphreysHourston1978, HaegeleSchweigert1985}.
 We identify distinct spawns (both spatially and temporally) by a unique combination of year, Location, and `spawn number.'
@@ -843,7 +847,7 @@ egg layers on round algae are counted across the diameter of the algae (\autoref
 \end{subfigure}
 \caption[Number of \fishName{} egg layers]
 {Cross-sections showing the number of \fishName{} egg layers on substrate (\subref{figLayersSubstrate}), flat algae (\subref{figLayersAlgaeFlat}), and round algae (\subref{figLayersAlgaeRound}).
-Diagrams copied with permission from the \href{http://www.pac.dfo-mpo.gc.ca/science/species-especes/pelagic-pelagique/herring-hareng/hertags/pdf/SurveyManual.pdf}{\fishName{} spawn survey manual}.}
+Diagrams copied with permission from the \surveyManual{}.}
 \label{figLayers}
 \end{figure}
 
@@ -1404,7 +1408,7 @@ $\rho_{vqts}$ is in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ (\autoref{figUn
 
 <<AlgaeCoefs>>=
 # Caption
-tabCap <- "Algae (i.e., vegetation) types $v$ and coefficients $C$ for \\fishName{} understory spawn surveys \\citep{Schweigert2005}. Uncertainty in algae coefficients is not available. Algae types are described in the \\href{http://www.pac.dfo-mpo.gc.ca/science/species-especes/pelagic-pelagique/herring-hareng/hertags/pdf/SurveyManual.pdf}{\\fishName{} spawn survey manual}."
+tabCap <- "Algae (i.e., vegetation) types $v$ and coefficients $C$ for \\fishName{} understory spawn surveys \\citep{Schweigert2005}. Uncertainty in algae coefficients is not available. Algae types are described in the \\surveyManual{}."
 # Short caption
 tabSCap <- "Algae types and coefficients for \\fishName{} understory spawn surveys"
 # Format the table
@@ -1805,8 +1809,7 @@ and includes uncertainty and assumptions (\autoref{secUncertain}), and
 
 \section{DOWNLOAD}\label{secDown}
 
-The \textbf{R} package to calculate the \fishName{} spawn index \texttt{SpawnIndex}, is publicly accessible on the
-\href{https://github.com/grinnellm/SpawnIndex}{\fishName{} spawn index repository}.
+The \textbf{R} package to calculate the \fishName{} spawn index \texttt{SpawnIndex}, is publicly accessible on the \gitRepo{}.
 The package includes an example database of \fishName{} spawn survey observations,
 and a vignette with examples.
 The \texttt{SpawnIndex} package contains functions to import tables from the database and calculate the spawn index.
