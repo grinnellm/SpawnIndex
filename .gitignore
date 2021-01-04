@@ -22,7 +22,7 @@
 /tr/SpawnIndex.synctex.gz
 /tr/SpawnIndex.synctex(busy)
 
-/vignettes/*.html
+*.html
 /vignettes/*.R
 
 doc
