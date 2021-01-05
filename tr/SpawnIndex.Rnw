@@ -1822,7 +1822,8 @@ has examples to promote accessibility and transparency.
 
 The authors thank Ashleen Benson for translating the calculations in the \textbf{Microsoft Access} database to an \textbf{R} script,
 which they referenced when developing the \texttt{SpawnIndex} package.
-They also thank Paul Starr and Rob Kronlund for their thorough reviews that improved this document.
+They thank Paul Starr and Rob Kronlund for their thorough reviews that improved this document.
+% TODO: They also thank Andy Edwards for help with mathematical notation.
 Finally, they thank Chris Grandin for help creating the \textbf{R} package.
 
 %%%%% References %%%%%
