@@ -7,7 +7,6 @@ Note that the 'spawn index' is a relative index of spawning biomass.
 ## Status
 
 [![R-CMD-check](https://github.com/grinnellm/SpawnIndex/workflows/R-CMD-check/badge.svg)](https://github.com/grinnellm/SpawnIndex/actions)
-[![R-versions](https://github.com/grinnellm/SpawnIndex/workflows/R-versions/badge.svg)](https://github.com/grinnellm/SpawnIndex/actions)
 
 ## Download and install
 
