@@ -5,4 +5,3 @@
 ^tr$
 ^data-raw$
 ^\.github$
-^codecov\.yml$
