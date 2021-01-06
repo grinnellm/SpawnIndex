@@ -1,14 +1,15 @@
-# Calculate the Pacific Herring spawn index
+# Calculate the Pacific Herring spawn index <img src='sticker/SpawnIndexLogo.png' align="right" height="139" />
 
 The **SpawnIndex** package calculates the spawn index for Pacific Herring
 (*Clupea pallasii*) in British Columbia, Canada.
 Note that the 'spawn index' is a relative index of spawning biomass.
 
 ## Status
+
 [![cran release](https://www.r-pkg.org/badges/version/SpawnIndex?color=blue)](https://cran.r-project.org/package=SpawnIndex)
 [![R build status](https://github.com/grinnellm/SpawnIndex/workflows/R-CMD-check/badge.svg)](https://github.com/grinnellm/SpawnIndex/actions)
 [![Codecov test coverage](https://codecov.io/gh/grinnellm/SpawnIndex/branch/master/graph/badge.svg)](https://codecov.io/gh/grinnellm/SpawnIndex)
-[![Code size](https://img.shields.io/github/languages/code-size/grinnellm/SpawnIndex.svg)](https://github.com/grinnellm/SpawnIndex)"
+[![Code size](https://img.shields.io/github/languages/code-size/grinnellm/SpawnIndex.svg)](https://github.com/grinnellm/SpawnIndex)
 
 ## Download and install
 
