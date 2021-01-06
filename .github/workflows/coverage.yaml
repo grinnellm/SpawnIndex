@@ -30,5 +30,7 @@ jobs:
     steps:
 
       - name: Test coverage
-        run: covr::codecov()
+        run: |
+          install.packages("covr")
+          covr::codecov()
         shell: Rscript {0}
