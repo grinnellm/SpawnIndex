@@ -31,6 +31,6 @@ jobs:
 
       - name: Test coverage
         run: |
-          install.packages("covr")
+          install.packages("covr", repos = "https://cloud.r-project.org")
           covr::codecov()
         shell: Rscript {0}
