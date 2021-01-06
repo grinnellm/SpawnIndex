@@ -1,0 +1,18 @@
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+
+name: coverage
+
+jobs:
+  coverage:
+    steps:
+      - name: Test coverage
+        run: covr::codecov()
+        shell: Rscript {0}
