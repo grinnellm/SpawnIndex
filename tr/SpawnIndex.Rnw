@@ -968,7 +968,7 @@ Legend: kilograms (kg), tonnes (t).}
 \textbf{Name} & \textbf{Description} & \textbf{Value or unit} & \textbf{References} \\
 \midrule
 $\omega$ & Female fecundity & \Sexpr{format(pars$conversion$omega, big.mark=",", scientific=FALSE)}$~\text{eggs} \cdot \text{kg}^{-1}$ & \cite{Hay1985, HayBrett1988} \\
-$\female$ & Proportion female & \Sexpr{pars$conversion$phi} & \\
+$\female$ & Proportion female & \Sexpr{pars$conversion$female} & \\
 $\theta$ & Egg conversion factor & $\text{eggs} \cdot 10^8 \cdot \text{t}^{-1}$ & \\
 \bottomrule
 \end{tabulary}

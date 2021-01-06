@@ -28,7 +28,7 @@
 #' \item{conversion}{List with items:
 #'   \emph{omega} is the number of eggs per kilogram of female spawners
 #'   \insertCite{Hay1985,HayBrett1988}{SpawnIndex}, and
-#'   \emph{phi} is the proportion of spawners that are female.}
+#'   \emph{female} is the proportion of spawners that are female.}
 #' \item{SOK}{List with items:
 #'   \emph{nu} is the proportion of SOK product that is kelp
 #'   \insertCite{ShieldsEtal1985}{SpawnIndex},

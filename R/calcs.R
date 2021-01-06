@@ -5,7 +5,7 @@
 #'
 #' @param omega Numeric. The number of eggs per kilogram of female spawners;
 #'   from \code{\link{pars}}.
-#' @param phi Numeric. The proportion of spawners that are female; from
+#' @param female Numeric. The proportion of spawners that are female; from
 #'   \code{\link{pars}}.
 #' @importFrom Rdpack reprompt
 #' @return Numeric. The conversion factor for eggs to spawn index in tonnes
@@ -17,9 +17,9 @@
 #' data(pars)
 #' CalcEggConversion()
 CalcEggConversion <- function(omega = pars$conversion$omega,
-                              phi = pars$conversion$phi) {
+                              female = pars$conversion$female) {
   # Eggs per tonne: eggs/kilogram female * proportion female * kilograms/tonne
-  theta <- omega * phi * 1000
+  theta <- omega * female * 1000
   # Return the conversion factor
   return(theta)
 } # End CalcEggConversion function

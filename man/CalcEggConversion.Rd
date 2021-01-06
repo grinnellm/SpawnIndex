@@ -4,13 +4,16 @@
 \alias{CalcEggConversion}
 \title{Convert number of eggs to spawning biomass.}
 \usage{
-CalcEggConversion(omega = pars$conversion$omega, phi = pars$conversion$phi)
+CalcEggConversion(
+  omega = pars$conversion$omega,
+  female = pars$conversion$female
+)
 }
 \arguments{
 \item{omega}{Numeric. The number of eggs per kilogram of female spawners;
 from \code{\link{pars}}.}
 
-\item{phi}{Numeric. The proportion of spawners that are female; from
+\item{female}{Numeric. The proportion of spawners that are female; from
 \code{\link{pars}}.}
 }
 \value{

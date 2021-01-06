@@ -4,7 +4,7 @@ library(readr)
 
 # Parameter values
 pars <- list(
-  conversion = list(omega = 200000, phi = 0.5),
+  conversion = list(omega = 200000, female = 0.5),
   SOK = list(nu = 0.12, upsilon = (19.73 - 6.53) / 100, M = 2.38 * 10^-6),
   surface = list(alpha = 14.698, beta = 212.218),
   macrocystis = list(
