@@ -5,9 +5,9 @@ The **SpawnIndex** package calculates the spawn index for Pacific Herring
 Note that the 'spawn index' is a relative index of spawning biomass.
 
 ## Status
-
+[![cran release](https://www.r-pkg.org/badges/version/SpawnIndex?color=red)](https://cran.r-project.org/package=SpawnIndex)
 [![R build status](https://github.com/grinnellm/SpawnIndex/workflows/R-CMD-check/badge.svg)](https://github.com/grinnellm/SpawnIndex/actions)
-[![codecov](https://codecov.io/gh/grinnellm/SpawnIndex/branch/master/graph/badge.svg)](https://codecov.io/gh/grinnellm/SpawnIndex)
+[![Codecov test coverage](https://codecov.io/gh/grinnellm/SpawnIndex/branch/master/graph/badge.svg)](https://codecov.io/gh/grinnellm/SpawnIndex)
 
 ## Download and install
 
