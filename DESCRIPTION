@@ -35,6 +35,7 @@ Suggests:
     sf,
     rnaturalearth,
     rnaturalearthhires,
-    testthat
+    testthat,
+    covr
 VignetteBuilder: knitr
 Vignette: Introduction
