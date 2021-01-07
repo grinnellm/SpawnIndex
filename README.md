@@ -1,4 +1,4 @@
-# SpawnIndex <img src='sticker/sticker.png' align="right" height="150"/>
+# SpawnIndex <img src='sticker/sticker.png' align="right" height="200"/>
 
 > Calculate the Pacific Herring spawn index
 
