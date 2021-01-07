@@ -2,11 +2,9 @@
 
 > Calculate the Pacific Herring spawn index
 
-## Status
-
-[![cran release](https://www.r-pkg.org/badges/version/SpawnIndex?color=blue)](https://cran.r-project.org/package=SpawnIndex)
 [![R build status](https://github.com/grinnellm/SpawnIndex/workflows/R-CMD-check/badge.svg)](https://github.com/grinnellm/SpawnIndex/actions)
 [![Codecov test coverage](https://codecov.io/gh/grinnellm/SpawnIndex/branch/master/graph/badge.svg)](https://codecov.io/gh/grinnellm/SpawnIndex)
+[![cran release](https://www.r-pkg.org/badges/version/SpawnIndex?color=blue)](https://cran.r-project.org/package=SpawnIndex)
 [![Code size](https://img.shields.io/github/languages/code-size/grinnellm/SpawnIndex.svg)](https://github.com/grinnellm/SpawnIndex)
 
 ## Purpose
