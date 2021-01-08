@@ -14,7 +14,7 @@ This document describes how we calculate the spawn index from spawn survey obser
 There are three types of spawn survey observations:
 (1) observations of spawn taken from the surface usually at low tide;
 (2) underwater observations of spawn on giant kelp, Macrocystis (*Macrocystis* spp.); and
-(3) underwater observations of spawn on other types of algae and the substrate, which we refer to as `understory.'
+(3) underwater observations of spawn on other types of algae and the substrate, which we refer to as 'understory.'
 We calculate the spawn index in four steps.
 First, we develop a statistical framework and sampling protocol to estimate the number of eggs in a given area.
 Second, we develop a conversion factor to convert Pacific Herring eggs to biomass, which is critical to calculating the spawn index.
