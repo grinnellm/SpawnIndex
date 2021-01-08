@@ -6,9 +6,6 @@ require(tidyverse)
 # Get fonts
 load.emojifont('OpenSansEmoji.ttf')
 
-# URL
-siURL <- ""  # "https://github.com/grinnellm/SpawnIndex"
-
 # Padding
 pad <- 10
 
@@ -19,7 +16,7 @@ df <- tibble( x=c(-pad, 0, pad),
 
 # Plot
 hImage <- ggplot( data=df, aes(x = x, y = y, label = label)) +
-  geom_text(family = "OpenSansEmoji", size = 20) +
+  geom_text(family = "OpenSansEmoji", size = pad*2) +
   expand_limits(x = c(min(df$x) - pad, max(df$x) + pad),
                 y = c(min(df$y) - pad, max(df$y) + pad)) +
   annotate(geom = "segment", x = 0, xend = 0, y = 0, yend = pad) +
@@ -35,8 +32,4 @@ stickerSI <- sticker(subplot = hImage,
                      spotlight = TRUE, l_alpha = 0.35,
                      l_x = 1, l_y = 0.7, l_width = 5, l_height = 5,
                      h_fill = "blue", h_size = 2, h_color = "red",
-                     url = siURL, u_size = 5,
                      dpi = 150, filename = file.path("sticker", "sticker.png"))
-
-# Display the sticker
-print(stickerSI)

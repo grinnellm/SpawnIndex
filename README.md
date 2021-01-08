@@ -7,7 +7,7 @@
 [![cran release](https://www.r-pkg.org/badges/version/SpawnIndex?color=blue)](https://cran.r-project.org/package=SpawnIndex)
 [![Code size](https://img.shields.io/github/languages/code-size/grinnellm/SpawnIndex.svg)](https://github.com/grinnellm/SpawnIndex)
 
-## Purpose
+## Abstract
 
 The spawn index time series is one component of Pacific Herring (*Clupea pallasii*) stock assessments in British Columbia, Canada.
 This document describes how we calculate the spawn index from spawn survey observations (e.g., spawn extent, number of egg layers, substrate type).
