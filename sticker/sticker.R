@@ -6,11 +6,6 @@ require(tidyverse)
 # Get fonts: emojis
 load.emojifont("OpenSansEmoji.ttf")
 
-# Get TTF computer modern fonts and paste in C:/windows/fonts
-# link www.fontsquirrel.com/fonts/latin-modern-roman
-# Execute once to add fonts:
-# extrafont::font_import(pattern = "lmroman*")
-
 # Padding
 pad <- 10
 
