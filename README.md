@@ -38,6 +38,6 @@ A draft technical report is available here: `./tr/Draft.pdf`.
 **Please do not cite or circulate this draft.**
 The vignette has an example workflow; build the vignette like so:
 
-`build_vignettes(pkg = ".")`
+`build_vignettes(pkg = ".")`,
 
 and open the file `./doc/Introduction.html`.
