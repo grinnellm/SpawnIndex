@@ -1,6 +1,6 @@
 # SpawnIndex <img src='sticker/sticker.png' align="right" height="200"/>
 
-> Calculate the spawn index for Pacific Herring (*Clupea pallasii*) in British Columbia, Canada.
+Calculating the spawn index for Pacific Herring (*Clupea pallasii*) in British Columbia, Canada.
 
 [![R build status](https://github.com/grinnellm/SpawnIndex/workflows/R-CMD-check/badge.svg)](https://github.com/grinnellm/SpawnIndex/actions)
 [![Codecov test coverage](https://codecov.io/gh/grinnellm/SpawnIndex/branch/master/graph/badge.svg)](https://codecov.io/gh/grinnellm/SpawnIndex)
@@ -27,17 +27,17 @@ Although we transform the spawn survey data from egg density to biomass in tonne
 
 ## Download and install
 
-Download and install the package as follows:
+Download and install the package:
 
 `devtools::install_github(repo = "grinnellm/SpawnIndex")`.
 
 ## Additional information
 
 The technical report has background information on the spawn index and calculations.
-A draft technical report is available here: "./tr/Draft.pdf".
-Please do not cite or circulate this draft.
+A draft technical report is available here: `./tr/Draft.pdf`.
+**Please do not cite or circulate this draft.**
 The vignette has an example workflow; build the vignette like so:
 
 `build_vignettes(pkg = ".")`
 
-and open the file "./doc/Introduction.html".
+and open the file `./doc/Introduction.html`.
