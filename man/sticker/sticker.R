@@ -51,5 +51,5 @@ stickerSI <- sticker(
   # spotlight = TRUE, l_alpha = 0.35,
   # l_x = 1, l_y = 0.7, l_width = 5, l_height = 5,
   h_fill = "blue", h_size = 2, h_color = "red",
-  dpi = 150, filename = file.path("sticker", "sticker.png")
+  dpi = 150, filename = file.path("man", "sticker", "sticker.png")
 )
