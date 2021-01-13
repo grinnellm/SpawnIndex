@@ -1,6 +1,6 @@
 Package: SpawnIndex
 Type: Package
-Title: Calculate the Spawn Index for {Pacific} {Herring} ({Clupea} {pallasii})
+Title: Calculating the Spawn Index for {Pacific} {Herring} ({Clupea} {pallasii})
     in {British} {Columbia}, {Canada}
 Version: 0.1.0
 Date: 2020-09-15
@@ -14,7 +14,6 @@ Description: Calculate the spawn index for Pacific Herring (Clupea pallasii) in
     of eggs to the spawn index (i.e., biomass). In addition, we provide a method
     to estimate the biomass of fish from spawn-on-kelp (SOK) operations. Note
     that the 'spawn index' is a relative index of spawning biomass.
-Depends: R (>= 3.5.0)
 Note: 32-bit R is required to get data from the 32-bit MS Access database.
 License: GPL (>=2)
 URL: https://github.com/grinnellm/SpawnIndex
@@ -22,20 +21,12 @@ BugReports: https://github.com/grinnellm/SpawnIndex/issues
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
+Depends: R (>= 3.5.0)
 Imports: Rdpack, dplyr, gfiscamutils, readr, sp, stringr, tibble, tidyr,
     lubridate, DBI, odbc
+Suggests: knitr, rmarkdown, ggplot2, magrittr, kableExtra, sf, rnaturalearth,
+    rnaturalearthhires, testthat, covr
 Remotes: pbs-assess/gfiscamutils, ropensci/rnaturalearthhires
 RdMacros: Rdpack
-Suggests: 
-    knitr,
-    rmarkdown,
-    ggplot2,
-    magrittr,
-    kableExtra,
-    sf,
-    rnaturalearth,
-    rnaturalearthhires,
-    testthat,
-    covr
 VignetteBuilder: knitr
 Vignette: Introduction
