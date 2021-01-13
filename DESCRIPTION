@@ -6,7 +6,8 @@ Version: 0.1.0
 Date: 2020-09-15
 Authors@R: c(
     person(given = c("Matthew", "H."), family = "Grinnell",
-    role = c("aut", "cre"), email = "matthew.grinnell@dfo-mpo.gc.ca") )
+    role = c("aut", "cre"), email = "matthew.grinnell@dfo-mpo.gc.ca"),
+    person(given = c("Chris"), family = "Grandin", role = c("ctb")))
 Description: Calculate the spawn index for Pacific Herring (Clupea pallasii) in
     British Columbia, Canada. There are three types of spawn survey
     observations: surface spawn, Macrocystis spawn, and understory spawn. These
