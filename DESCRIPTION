@@ -23,7 +23,7 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
 Depends: R (>= 3.5.0)
-Imports: Rdpack, dplyr, gfiscamutils, readr, sp, stringr, tibble, tidyr,
+Imports: gfiscamutils, Rdpack, dplyr, readr, sp, stringr, tibble, tidyr,
     lubridate, DBI, odbc
 Suggests: knitr, rmarkdown, ggplot2, magrittr, kableExtra, sf, rnaturalearth,
     rnaturalearthhires, testthat, covr
