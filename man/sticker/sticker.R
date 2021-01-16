@@ -61,7 +61,8 @@ stickerSI <- sticker(
   dpi = 150, filename = file.path("man", "sticker", "sticker.png")
 )
 
-# Reorder the highlight ?(bottom)
+# Reorder the layers to put highlight on bottom
 stickerSI$layers <- stickerSI$layers[c(1, 4, 2, 3, 5, 6)]
-save_sticker(file.path("man", "sticker", "sticker.png"), stickerSI, dpi = 150)
 
+# Re-save the sticker
+save_sticker(file.path("man", "sticker", "sticker.png"), stickerSI, dpi = 150)
