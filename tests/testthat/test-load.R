@@ -1,31 +1,31 @@
 context("load.R")
 
-test_that("Load area data", {
-  expect_type(
-    {
-      dbLoc <- system.file("extdata", package = "SpawnIndex")
-      areaLoc <- list(
-        loc = dbLoc, db = "HerringSpawn.mdb",
-        fns = list(sections = "Sections", locations = "Location")
-      )
-      areas <- LoadAreaData(reg = "WCVI", where = areaLoc, quiet = TRUE)
-      areas
-    },
-    "list"
-  )
-  expect_equal(
-    {
-      dbLoc <- system.file("extdata", package = "SpawnIndex")
-      areaLoc <- list(
-        loc = dbLoc, db = "HerringSpawn.mdb",
-        fns = list(sections = "Sections", locations = "Location")
-      )
-      areas <- LoadAreaData(reg = "WCVI", where = areaLoc, quiet = TRUE)
-      ncol(areas)
-    },
-    13
-  )
-})
+# test_that("Load area data", {
+#   expect_type(
+#     {
+#       dbLoc <- system.file("extdata", package = "SpawnIndex")
+#       areaLoc <- list(
+#         loc = dbLoc, db = "HerringSpawn.mdb",
+#         fns = list(sections = "Sections", locations = "Location")
+#       )
+#       areas <- LoadAreaData(reg = "WCVI", where = areaLoc, quiet = TRUE)
+#       areas
+#     },
+#     "list"
+#   )
+#   expect_equal(
+#     {
+#       dbLoc <- system.file("extdata", package = "SpawnIndex")
+#       areaLoc <- list(
+#         loc = dbLoc, db = "HerringSpawn.mdb",
+#         fns = list(sections = "Sections", locations = "Location")
+#       )
+#       areas <- LoadAreaData(reg = "WCVI", where = areaLoc, quiet = TRUE)
+#       ncol(areas)
+#     },
+#     13
+#   )
+# })
 
 # test_that("Load allSpawn", {
 #   expect_is(
