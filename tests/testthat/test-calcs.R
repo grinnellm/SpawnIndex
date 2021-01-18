@@ -1,18 +1,11 @@
 context("calcs.R")
 
-# TODO: Need to test CalcSurfSpawn, CalcMacroSpawn, and CalcUnderSpawn
-# TODO: Need some tests that fail (error)
-
 test_that("Egg conversion factor", {
-  expect_equal(
-    is.numeric(CalcEggConversion()),
-    TRUE
-  )
+  expect_is(CalcEggConversion(), "numeric")
+  expect_equal(CalcEggConversion(), 1e+08)
 })
 
 test_that("SOK biomass", {
-  expect_equal(
-    is.numeric(CalcBiomassSOK(SOK = 100)),
-    TRUE
-  )
+  expect_is(CalcBiomassSOK(SOK = 100), "numeric")
+  expect_equal(CalcBiomassSOK(SOK = 100), 0.32, 0.01)
 })

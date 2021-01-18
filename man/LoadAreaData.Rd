@@ -55,7 +55,8 @@ areaLoc <- list(
   loc = dbLoc, db = "HerringSpawn.mdb",
   fns = list(sections = "Sections", locations = "Location")
 )
-LoadAreaData(reg = "WCVI", where = areaLoc)
+areas <- LoadAreaData(reg = "WCVI", where = areaLoc)
+areas
 }
 \seealso{
 \code{\link{HerringSpawn}}
