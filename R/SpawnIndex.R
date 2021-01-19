@@ -3,7 +3,7 @@
 #'
 #' The SpawnIndex package provides data, parameter values, and methods to
 #' calculate the spawn index for Pacific Herring (\emph{Clupea pallasii}) in
-#' British Columbia, Canada. Methods inluclude converting eggs to biomass,
+#' British Columbia, Canada. Methods include converting eggs to biomass,
 #' spawn-on-kelp calculations, as well as surface, Macrocystis, and understory
 #' spawn index calculations. Read the technical report for more details and
 #' background on spawn index calculations

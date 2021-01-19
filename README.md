@@ -1,29 +1,23 @@
 # SpawnIndex <img src='man/sticker/sticker.png' align="right" height="200"/>
 
-Calculating the spawn index for Pacific Herring (*Clupea pallasii*) in British Columbia, Canada.
+Calculate the spawn index for Pacific Herring (*Clupea pallasii*) in British Columbia, Canada.
 
+<!-- badges: start -->
 [![R build status](https://github.com/grinnellm/SpawnIndex/workflows/R-CMD-check/badge.svg)](https://github.com/grinnellm/SpawnIndex/actions)
 [![Codecov test coverage](https://codecov.io/gh/grinnellm/SpawnIndex/branch/master/graph/badge.svg)](https://codecov.io/gh/grinnellm/SpawnIndex)
-[![cran release](https://www.r-pkg.org/badges/version/SpawnIndex?color=blue)](https://cran.r-project.org/package=SpawnIndex)
+[![CRAN status](https://www.r-pkg.org/badges/version/SpawnIndex)](https://CRAN.R-project.org/package=SpawnIndex)
 [![Code size](https://img.shields.io/github/languages/code-size/grinnellm/SpawnIndex.svg)](https://github.com/grinnellm/SpawnIndex)
+<!-- badges: end -->
 
-## Abstract
+## Description
 
-The spawn index time series is one component of Pacific Herring (*Clupea pallasii*) stock assessments in British Columbia, Canada.
-This document describes how we calculate the spawn index from spawn survey observations (e.g., spawn extent, number of egg layers, substrate type).
+Calculate the spawn index for Pacific Herring (Clupea pallasii) in British Columbia, Canada.
 There are three types of spawn survey observations:
-(1) observations of spawn taken from the surface usually at low tide;
-(2) underwater observations of spawn on giant kelp, Macrocystis (*Macrocystis* spp.); and
-(3) underwater observations of spawn on other types of algae and the substrate, which we refer to as 'understory.'
-We calculate the spawn index in four steps.
-First, we develop a statistical framework and sampling protocol to estimate the number of eggs in a given area.
-Second, we develop a conversion factor to convert Pacific Herring eggs to biomass, which is critical to calculating the spawn index.
-Third, we calculate the spawn index for each of the three aforementioned spawn survey types: surface, Macrocystis, and understory.
-Finally, we combine the spawn indices from the three types of survey observations, and
-aggregate by stock assessment region and year to produce a relative index of combined sex spawning biomass.
-We identify uncertainties in spawn index calculations, and
-describe how users can install the **R** package to calculate the spawn index using an example database.
-Although we transform the spawn survey data from egg density to biomass in tonnes, the annual time series of egg density and biomass are relative indices of spawning biomass.
+surface spawn, Macrocystis spawn, and understory spawn.
+These calculations rely on an estimate of female fecundity to
+convert the number of eggs to the spawn index (i.e., biomass).
+In addition, we provide a method to estimate the biomass of fish from spawn-on-kelp (SOK) operations.
+Note that the 'spawn index' is a relative index of spawning biomass.
 
 ## Download and install
 
