@@ -16,7 +16,7 @@ Description: Calculate the spawn index for Pacific Herring (Clupea pallasii) in
     to estimate the biomass of fish from spawn-on-kelp (SOK) operations. Note
     that the 'spawn index' is a relative index of spawning biomass.
 Note: 32-bit R is required to get data from the 32-bit MS Access database.
-License: GPL (>=2)
+License: MIT + file LICENSE
 URL: https://github.com/grinnellm/SpawnIndex
 BugReports: https://github.com/grinnellm/SpawnIndex/issues
 Encoding: UTF-8
