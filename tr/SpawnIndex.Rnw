@@ -605,32 +605,32 @@ Legend: stock assessment region (SAR), spawn on kelp (SOK).} \\
 \endfoot
 \bottomrule
 \endlastfoot
-$i$ & Substrate type & 1, 2, 3, ..., $I$ \\
-$I$ & Number of substrate types in sample $j$, type $x$, spawn $s$, Location $n$, SAR $r$, and year $y$ & \\
+$y$ & Year & $y_1$, $y_2$, $y_3$, ..., $Y$ \\
+$Y$ & Last year of time series & \\
+$r$ & SAR & 1, 2, 3, ..., $R$ \\
+$R$ & Number of SARs & \\
+$n$ & Location & 1, 2, 3, ..., $N$ \\
+$N$ & Number of locations in SAR $r$ and year $y$ & \\
+$s$ & Spawn & 1, 2, 3, ..., $S$ \\
+$S$ & Number of spawns in Location $n$, SAR $r$, and year $y$ & \\
+$x$ & Spawn survey type & 1, 2, 3, ..., $X$ \\
+$X$ & Number of spawn survey types in spawn $s$, location $n$, SAR $r$, and year $y$ & \\
 $j$ & Sample & 1, 2, 3, ..., $J$ \\
 $J$ & Number of samples in type $x$, spawn $s$, Location $n$, SAR $r$, and year $y$ & \\
-$p$ & Plant & 1, 2, 3, ..., $P$ \\
-$P$ & Number of plants in transect $t$, type $x$, spawn $s$, Location $n$, SAR $r$, and year $y$ & \\
+$i$ & Substrate type & 1, 2, 3, ..., $I$ \\
+$I$ & Number of substrate types in sample $j$, type $x$, spawn $s$, Location $n$, SAR $r$, and year $y$ & \\
 $t$ & Transect & 1, 2, 3, ..., $T$ \\
 $T$ & Number of transects in type $x$, spawn $s$, Location $n$, SAR $r$, and year $y$ & \\
 $T'$ & Number of potential transects in type $x$, spawn $s$, Location $n$, SAR $r$, and year $y$ & \\
-$v$ & Algae (i.e., vegetation) type & 1, 2, 3, ..., $V$ \\
-$V$ & Number of algae types in quadrat $q$, transect $t$, type $x$, spawn $s$, Location $n$, SAR $r$, and year $y$ & \\
 $q$ & Quadrat & 1, 2, 3, ..., $Q$ \\
 $Q$ & Number of quadrats in transect $t$, type $x$, spawn $s$, Location $n$, SAR $r$, and year $y$ & \\
 $Q'$ & Number of potential quadrats in transect $t$, type $x$, spawn $s$, Location $n$, SAR $r$, and year $y$ & \\
-$x$ & Spawn survey type & 1, 2, 3, ..., $X$ \\
-$X$ & Number of spawn survey types in spawn $s$, location $n$, SAR $r$, and year $y$ & \\
-$s$ & Spawn & 1, 2, 3, ..., $S$ \\
-$S$ & Number of spawns in Location $n$, SAR $r$, and year $y$ & \\
-$n$ & Location & 1, 2, 3, ..., $N$ \\
-$N$ & Number of locations in SAR $r$ and year $y$ & \\
+$p$ & Plant & 1, 2, 3, ..., $P$ \\
+$P$ & Number of plants in transect $t$, type $x$, spawn $s$, Location $n$, SAR $r$, and year $y$ & \\
+$v$ & Algae (i.e., vegetation) type & 1, 2, 3, ..., $V$ \\
+$V$ & Number of algae types in quadrat $q$, transect $t$, type $x$, spawn $s$, Location $n$, SAR $r$, and year $y$ & \\
 $g$ & SOK fishery & 1, 2, 3, ..., $G$ \\
-$G$ & Number of SOK fisheries in SAR $r$ and year $y$ & \\
-$r$ & SAR & 1, 2, 3, ..., $R$ \\
-$R$ & Number of SARs & \\
-$y$ & Year & $y_1$, $y_2$, $y_3$, ..., $Y$ \\
-$Y$ & Last year of time series &
+$G$ & Number of SOK fisheries in SAR $r$ and year $y$ &
 \label{tabNotationIndices}
 \end{longtable}
 \FloatBarrier
