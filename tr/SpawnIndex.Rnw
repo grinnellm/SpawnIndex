@@ -652,9 +652,9 @@ First, mean egg density for transect $t$ in spawn $s$ is
 \begin{equation}\label{eqStatRhoTS}
 \mean{\rho_{ts}} = \frac{1}{Q}\sum_{q=1}^Q \rho_{qts},
 \end{equation}
-where $\rho_{qts}$ is egg density in thousands of eggs per square metre (m) for quadrat $q$ ($\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$),
+where $\rho_{qts}$ is egg density in thousands of eggs per square metre (m) for quadrat $q$ ($10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$),
 $Q$ is the number of quadrats in transect $t$ (\autoref{tabNotationStat}), and
-$\mean{\rho_{ts}}$ is in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$.
+$\mean{\rho_{ts}}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
 Before we calculate the mean egg density for spawn $s$, we determine the mean number of potential quadrats in spawn $s$
 \begin{equation}\label{eqStatQSPrime}
 \mean{Q_s'} = \frac{1}{T} \sum_{t=1}^{T} Q',
@@ -668,7 +668,7 @@ where $T$ is the number of transects in spawn $s$,
 $\mean{Q_s'}$ is the mean number of potential quadrats in spawn $s$ from \autoref{eqStatQSPrime},
 $Q'$ is the number of potential quadrats in transect $t$,
 $\mean{\rho_{ts}}$ is the mean transect egg density from \autoref{eqStatRhoTS}, and
-$\mean{\rho_s}$ is in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$.
+$\mean{\rho_s}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
 The egg density estimator from \autoref{eqStatRhoS} is unbiased, and the variance is
 \begin{equation}\label{eqStatSigmaS}
 \sigma_s^2 =
@@ -708,8 +708,8 @@ Legend: metres (m).}
 \toprule
 \textbf{Name} & \textbf{Description} & \textbf{Value or unit} \\
 \midrule
-$\rho$ & Egg density & $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ \\
-$\mean{\rho}$ & Mean egg density & $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ \\
+$\rho$ & Egg density & $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$ \\
+$\mean{\rho}$ & Mean egg density & $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$ \\
 $f_t$ & Transect sampling fraction & $0 < f_t \leq 1$ \\
 $f_q$ & Quadrat sampling fraction & $0 < f_q \leq 1$ \\
 $\sigma^2$ & Egg density variance & $\rho^2$ \\
@@ -999,10 +999,10 @@ Legend: metres (m), tonnes (t).}
 $E'$ & Number of egg layers & $E' > 0$ & \\
 $\phi$ & Proportion covered in eggs & $0 < \phi \leq 1$ & \\
 $E$ & Number of egg layers & $E > 0$ & \\
-$\alpha$ & Regression intercept & \Sexpr{pars$surface$alpha}$~\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \cite{SchweigertEtal1997} \\
-$\beta$ & Regression slope & \Sexpr{pars$surface$beta}$~\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \cite{SchweigertEtal1997} \\
-$\rho$ & Egg density & $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \\[0.5ex]
-$\mean{\rho}$ & Mean egg density & $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ &  \\
+$\alpha$ & Regression intercept & \Sexpr{pars$surface$alpha}$~10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$ & \cite{SchweigertEtal1997} \\
+$\beta$ & Regression slope & \Sexpr{pars$surface$beta}$~10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$ & \cite{SchweigertEtal1997} \\
+$\rho$ & Egg density & $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$ & \\[0.5ex]
+$\mean{\rho}$ & Mean egg density & $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$ &  \\
 $L$ & Spawn length & m & \\
 $W$ & Spawn width & m & \\
 $B'$ & Surface spawn index (i.e., biomass) & t & \\
@@ -1028,15 +1028,15 @@ where $E_{ijs}$ is the number of egg layers in substrate $i$ from \autoref{eqSur
 For the time period when surveyors recorded spawn `intensity' categories instead of direct egg layer estimates, we convert intensity to number of egg layers $E_{js}$ (\autoref{tab:Intensity}).
 \citet{SchweigertEtal1997} developed a model of surface egg density as a function of number of egg layers using a linear regression model%
 \footnote{There is an error in \cite{SchweigertEtal1997};
-surface egg density is in thousands per square metre ($\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$).
-Likewise, we report eggs in thousands (i.e., $\text{eggs} \cdot 10^3$) in this document and in the \textbf{R} package script.}
+surface egg density is in thousands per square metre ($10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$).
+Likewise, we report eggs in thousands (i.e., $10^3 \cdot \text{eggs}$) in this document and in the \textbf{R} package script.}
 \begin{equation}\label{eqSurfDensJS}
 \rho_{js} = \alpha + \beta E_{js},
 \end{equation}
 where $\alpha$ is the regression intercept,
 $\beta$ is the regression slope,
 $E_{js}$ is the total number of egg layers in sample $j$ from \autoref{eqSurfLyrsJS}, and
-$\rho_{js}$ is in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ (\autoref{figSurfDensJS}).
+$\rho_{js}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$ (\autoref{figSurfDensJS}).
 Note that we only calculate $\rho_{js}$ if $E_{js} > 0$.
 
 <<SurfDensJS, fig.width=3.5, fig.asp=0.67, fig.lp="fig", echo=FALSE, fig.cap=figCap, fig.scap="Egg density for \\fishName{} surface spawn surveys">>=
@@ -1081,7 +1081,7 @@ The mean egg density in spawn $s$ (\autoref{figFlow}, step \ref{sSpawn}) is
 \end{equation}
 where $\rho_{js}$ is egg density in sample $j$ from \autoref{eqSurfDensJS},
 $J$ is the number of samples, and
-$\mean{\rho_s}$ is in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$.
+$\mean{\rho_s}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
 Two other metrics are required at the spawn level:
 spawn length $L_s$, and
 spawn width $W_s$, both in metres.
@@ -1137,7 +1137,7 @@ $\gamma$ & Regression exponent on $\mean{E}$ & \Sexpr{pars$macrocystis$gamma} & 
 $\delta$ & Regression exponent on $\mean{H}$ & \Sexpr{pars$macrocystis$delta} & \cite{HaegeleSchweigert1990} \\
 $\epsilon$ & Regression exponent on $\mean{\kappa}$ & \Sexpr{pars$macrocystis$epsilon} & \cite{HaegeleSchweigert1990} \\
 $\mean{\psi}$ & Mean number of eggs per plant & $\text{eggs} \cdot 10^3 \cdot \text{plant}^{-1}$ & \\
-$\mean{\rho}$ & Mean egg density & $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \\
+$\mean{\rho}$ & Mean egg density & $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$ & \\
 $B'$ & Macrocystis spawn index (i.e., biomass) & t & \\
 \bottomrule
 \end{tabulary}
@@ -1245,7 +1245,7 @@ where
 $\mean{\psi_s}$ is the mean number of eggs per plant in spawn $s$ from \autoref{eqMacroEggsPerPlantS},
 $P_s$ is the number of plants in spawn $s$ from \autoref{eqMacroPlantsS},
 $A_s$ is the total area of transects in spawn $s$ from \autoref{eqMacroAreaS}, and
-$\mean{\rho_s}$ is in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$.
+$\mean{\rho_s}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
 
 The Macrocystis spawn index in spawn $s$ is
 \begin{equation}\label{eqMacroIndS}
@@ -1321,16 +1321,16 @@ Legend: metres (m), tonnes (t).}
 \toprule
 \textbf{Name} & \textbf{Description} & \textbf{Value or unit} & \textbf{References} \\
 \midrule
-$\varphi$ & Regression slope for substrate & \Sexpr{pars$understory$varphi}$~\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \cite{HaegeleEtal1979} \\
+$\varphi$ & Regression slope for substrate & \Sexpr{pars$understory$varphi}$~10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$ & \cite{HaegeleEtal1979} \\
 $E$ & Number of egg layers & $E > 0$ & \\
 $\phi$ & Proportion covered in eggs & $0 < \phi \leq 1$ & \\
-$\rho$ & Egg density & $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \\
-$\vartheta$ & Regression slope for algae & \Sexpr{pars$understory$vartheta}$~\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \cite{Schweigert2005} \\
+$\rho$ & Egg density & $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$ & \\
+$\vartheta$ & Regression slope for algae & \Sexpr{pars$understory$vartheta}$~10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$ & \cite{Schweigert2005} \\
 $\varrho$ & Regression exponent on $E$ & \Sexpr{pars$understory$varrho} & \cite{Schweigert2005} \\
 $\varsigma$ & Regression exponent on $\phi$ & \Sexpr{pars$understory$varsigma} & \cite{Schweigert2005} \\
 $C$ & Algae coefficient & see \autoref{tab:AlgaeCoefs} & \\
 $W$ & Spawn width & m & \\
-$\mean{\rho}$ & Mean egg density & $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \\
+$\mean{\rho}$ & Mean egg density & $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$ & \\
 $\mean{W}$ & Mean spawn width & m & \\
 $L''$ & Length of the algae bed & m & \\
 $L$ & Spawn length & m & \\
@@ -1350,7 +1350,7 @@ We calculate two separate estimates of egg density at the quadrat level (\autore
 where $\varphi$ is the slope,
 $E_{iqts}$ is the number of egg layers on substrate $i$ in quadrat $q$,
 $\phi_{iqts}$ is the proportion of substrate in quadrat $q$ covered by spawn, and
-$\rho_{iqts}$ is substrate egg density in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ (\autoref{figUnderDensSubQTS}).
+$\rho_{iqts}$ is substrate egg density in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$ (\autoref{figUnderDensSubQTS}).
 
 <<UnderDensSubQTS, fig.width=3.5, fig.asp=0.85, fig.lp="fig", echo=FALSE, fig.cap=figCap, fig.scap="Substrate egg density for \\fishName{} underwater spawn surveys">>=
 # Caption
@@ -1404,7 +1404,7 @@ $\varrho$ is the regression exponent on $E_{vqts}$,
 $\phi_{vqts}$ is the proportion of quadrat $q$ covered by algae $v$,
 $\varsigma$ is the regression exponent on $\phi_{vqts}$,
 $C_v$ is the coefficient for algae $v$, and
-$\rho_{vqts}$ is in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ (\autoref{figUnderDensAlgVQTS}).
+$\rho_{vqts}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$ (\autoref{figUnderDensAlgVQTS}).
 
 <<AlgaeCoefs>>=
 # Caption
@@ -1477,7 +1477,7 @@ The total understory egg density for quadrat $q$ in transect $t$ and spawn $s$ i
 \end{equation}
 where $\rho_{iqts}$ is substrate egg density from \autoref{eqUnderDensSubQTS},
 $\rho_{vqts}$ is egg density on algae $v$ from \autoref{eqUnderDensAlgVQTS}, and
-$\rho_{qts}$ is in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$.
+$\rho_{qts}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
 Thus, we assume that eggs on substrate and algae are independent, and can be added without bias.
 
 \subsection{TRANSECT OBSERVATIONS AND CALCULATIONS}\label{secUnderT}
@@ -1488,7 +1488,7 @@ At the transect level (\autoref{figFlow}, step \ref{uTrans}), the mean understor
 \end{equation}
 where $Q$ is the number of quadrats in transect $t$,
 $\rho_{qts}$ is total understory egg density in quadrat $q$ from \autoref{eqUnderDensQTS}, and
-$\mean{\rho_{ts}}$ is in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$.
+$\mean{\rho_{ts}}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
 Note that we update spawn width to correct for errors regarding the assumed accuracy of transect lines used to measure spawn width for
 understory surveys between \Sexpr{min(underWidthFac$Year)} and \Sexpr{max(underWidthFac$Year)} (\autoref{secWidthUnder}).
 
@@ -1517,7 +1517,7 @@ The mean egg density in spawn $s$ is
 \end{equation}
 where $\mean{\rho_{ts}}$ is the mean understory egg density in transect $t$ from \autoref{eqUnderDensTS},
 $W_{ts}$ is the spawn width for transect $t$ in metres, and
-$\mean{\rho_s}$ is in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$.
+$\mean{\rho_s}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
 
 The understory spawn index in spawn $s$ is
 \begin{equation}\label{eqUnderIndS}
