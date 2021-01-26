@@ -1,5 +1,3 @@
-context("calcs.R")
-
 test_that("Egg conversion factor", {
   expect_type(CalcEggConversion(), "double")
   expect_equal(CalcEggConversion(), 1e+08)

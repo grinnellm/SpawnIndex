@@ -1,5 +1,3 @@
-context("data.R")
-
 test_that("Understory width factors", {
   expect_type(underWidthFac, "list")
   expect_equal(dim(underWidthFac), c(12, 8))

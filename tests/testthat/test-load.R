@@ -1,5 +1,3 @@
-context("load.R")
-
 # test_that("Load area data", {
 #   expect_type(
 #     {
