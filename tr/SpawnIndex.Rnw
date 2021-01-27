@@ -573,10 +573,9 @@ Essentially, we have attempted to follow `good enough' practices in scientific c
 
 \section{STATISTICAL FRAMEWORK}\label{secStat}
 
-Each type of spawn survey observation has a specific statistical framework:
+Each spawn survey type has a different statistical framework and sampling protocol (\autoref{secProt}):
 surface observations, and
-two types of dive observations:
-Macrocystis, and understory.
+two types of dive observations (Macrocystis, and understory).
 
 \subsection{SURFACE SPAWN FRAMEWORK}
 
