@@ -575,7 +575,7 @@ Essentially, we have attempted to follow `good enough' practices in scientific c
 
 Each spawn survey type has a different statistical framework and sampling protocol (\autoref{secProt}):
 surface observations, and
-two types of dive observations (Macrocystis, and understory).
+two types of dive observations (Macrocystis and understory).
 
 \subsection{SURFACE SPAWN FRAMEWORK}
 
@@ -636,14 +636,13 @@ then we describe the Macrocystis spawn framework which is related to understory,
 \subsubsection{UNDERSTORY SPAWN FRAMEWORK}
 
 Two steps are required to calculate mean understory egg density in each surveyed spawn $s$ (\autoref{tabNotationIndices}).
-Note that we simplify index notation in this section by suppressing subscripts for spawn survey type $x$, Location $n$, SAR $r$, and year $y$.
-First, mean egg density for transect $t$ in spawn $s$ is
-\begin{equation}\label{eqStatRhoTS}
-\mean{\rho_{ts}} = \frac{1}{Q}\sum_{q=1}^Q \rho_{qts},
+First, mean egg density for transect $t$ is
+\begin{equation}\label{eqStatRhoT}
+\mean{\rho_{t_{xsnry}}} = \frac{1}{Q_{txsnry}} \sum_{q_{txsnry}=1}^{Q_{txsnry}} \rho_{q_{txsnry}},
 \end{equation}
-where $\rho_{qts}$ is egg density in thousands of eggs per square metre (m) for quadrat $q$ ($10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$),
-$Q$ is the number of quadrats in transect $t$ (\autoref{tabNotationStat}), and
-$\mean{\rho_{ts}}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
+where $\rho_{q_{txsnry}}$ is egg density in thousands of eggs per square metre (m) for quadrat $q$ ($10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$),
+$Q_{tsxnry}$ is the number of quadrats (\autoref{tabNotationStat}), and
+$\mean{\rho_{t_{xsnry}}}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
 Before we calculate the mean egg density for spawn $s$, we determine the mean number of potential quadrats in spawn $s$
 \begin{equation}\label{eqStatQSPrime}
 \mean{Q_s'} = \frac{1}{T} \sum_{t=1}^{T} Q',
@@ -656,7 +655,7 @@ Then, we calculate mean egg density in eggs per square metre for spawn $s$
 where $T$ is the number of transects in spawn $s$,
 $\mean{Q_s'}$ is the mean number of potential quadrats in spawn $s$ from \autoref{eqStatQSPrime},
 $Q'$ is the number of potential quadrats in transect $t$,
-$\mean{\rho_{ts}}$ is the mean transect egg density from \autoref{eqStatRhoTS}, and
+$\mean{\rho_{ts}}$ is the mean transect egg density from \autoref{eqStatRhoT}, and
 $\mean{\rho_s}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
 The egg density estimator from \autoref{eqStatRhoS} is unbiased, and the variance is
 \begin{equation}\label{eqStatSigmaS}
@@ -669,7 +668,7 @@ The egg density estimator from \autoref{eqStatRhoS} is unbiased, and the varianc
 \frac{\left(1-f_q\right)\sigma_{ts}^2}{Q},
 \end{equation}
 where $T'$ is the number of potential transects in spawn $s$ (i.e., a function of spawn length),
-$\mean{\rho_{ts}}$ is the mean transect egg density from \autoref{eqStatRhoTS},
+$\mean{\rho_{ts}}$ is the mean transect egg density from \autoref{eqStatRhoT},
 $\mean{\rho_s}$ is the mean spawn egg density from \autoref{eqStatRhoS},
 $f_t$ is the transect sampling fraction for spawn $s$
 \begin{equation}\label{eqFT}
@@ -686,7 +685,7 @@ $\sigma_{ts}^2$ is the within transect egg density variance
 \left(\rho_{qts} - \mean{\rho_{ts}}\right)^2,
 \end{equation}
 where $\rho_{qts}$ is egg density for quadrat $q$, and
-$\mean{\rho_{ts}}$ is the mean transect egg density from \autoref{eqStatRhoTS}.
+$\mean{\rho_{ts}}$ is the mean transect egg density from \autoref{eqStatRhoT}.
 
 \begin{table}
 \centering
