@@ -625,7 +625,7 @@ $G_{ry}$ & Number of SOK fisheries & \\
 \label{tabNotationIndices}
 \end{table}
 
-\subsection{DIVE FRAMEWORK}
+\subsection{DIVE SPAWN FRAMEWORK}
 
 In contrast to surface surveys, underwater dive surveys using SCUBA gear instituted in \Sexpr{newSurvYr} follow a two-stage systematic sampling design where
 transects are the first sampling stage, and
