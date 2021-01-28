@@ -237,6 +237,13 @@ LoadAreaData <- function(reg,
   # Manually determine groups: Area 27
   locations$Group[locations$Section %in% c(271:274)] <- "No Group"
   locations$Group[locations$Section %in% c(270)] <- "No Group"
+  # Manually determine groups: All for AllHG (HG rebuilding)
+  # locations$Group[locations$Section %in% c(6, 21, 23:25)] <- "Area 2 East"
+  # locations$Group[locations$Section %in% c(1:5)] <- "Area 2 West"
+  # locations$Group[locations$Section %in% c(11)] <- "Masset"
+  # locations$Group[locations$Section %in% c(12)] <- "Naden"
+  # locations$Group[locations$Section %in% c(22)] <- "Skidegate"
+  # locations$Group[locations$Section %in% c(0)] <- "None"
   # Set groups to NA if using all the data
   if (reg == "All") locations$Group <- NA
   # If any groups are NA, check if *some* are missing (i.e., incomplete)
