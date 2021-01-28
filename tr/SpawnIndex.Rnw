@@ -136,7 +136,7 @@ require(ggrepel)
 require(SpawnIndex)
 # Omit xcolor warning(s)
 knit_hooks$set(document = function(x) {
-  sub('\\usepackage[]{color}', '\\usepackage{xcolor}', x, fixed = TRUE)
+  sub("\\usepackage[]{color}", "\\usepackage{xcolor}", x, fixed = TRUE)
 })
 # Suppress summarise info
 options(dplyr.summarise.inform = FALSE)
@@ -880,7 +880,8 @@ p9 <- paste0(cat9Yr, "--", directEggYr - 1)
 kIntensity <- intensity %>%
   arrange(Layers) %>%
   rename(
-    !!p5 := Period5, !!p9 := Period9, `Number of egg layers` = Layers
+    !!p5 := Period5, !!p9 := Period9,
+    `Number of egg layers` = Layers
   ) %>%
   kable(
     caption = tabCap, caption.short = tabSCap, booktabs = TRUE, linesep = "",
@@ -1266,7 +1267,8 @@ dat <- as_tibble(df) %>%
       EggLyrs = Layers, Height = PlantHeight, StalksPerPlant = Stalks
     ),
     Stalks = paste("Number of stalks per plant: ",
-      formatC(Stalks, width = 2, flag = "0"), sep = ""
+      formatC(Stalks, width = 2, flag = "0"),
+      sep = ""
     )
   )
 # Figure
