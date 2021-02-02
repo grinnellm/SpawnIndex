@@ -519,8 +519,8 @@ CalcMacroSpawn <- function(where,
 #'   \code{\link{algaeCoefs}}.
 #' @param tau Tibble. Table of understory spawn width adjustment factors from
 #'   \code{\link{underWidthFac}}.
-#' @param varphi Numeric. Regression slope for substrate; from \code{\link{pars}}
-#'   \insertCite{HaegeleEtal1979}{SpawnIndex}.
+#' @param varphi Numeric. Regression slope for substrate; from
+#'   \code{\link{pars}} \insertCite{HaegeleEtal1979}{SpawnIndex}.
 #' @param vartheta Numeric. Regression slope for algae; from \code{\link{pars}}
 #'   \insertCite{Schweigert2005}{SpawnIndex}.
 #' @param varrho Numeric. Regression exponent on number of egg layers; from

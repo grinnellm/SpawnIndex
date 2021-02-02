@@ -76,7 +76,8 @@
 #' surface spawn surveys. From 1928 to 1978, surface spawn surveyors catetorized
 #' spawn by subjective `intensity' categories instead of directly estimating the
 #' number of egg layers
-#' \insertCite{HayKronlund1987,SchweigertStocker1988,GrinnellEtalYYYY}{SpawnIndex}.
+#' \insertCite{HayKronlund1987,SchweigertStocker1988,GrinnellEtalYYYY}
+#'   {SpawnIndex}.
 #'
 #' @format Tibble with 9 rows and 3 columns: intensity category, description,
 #'   and number of egg layers.
