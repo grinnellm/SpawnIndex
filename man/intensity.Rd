@@ -13,7 +13,7 @@ intensity
 }
 \description{
 Spawn intensity categories and number of egg layers for Pacific Herring
-surface spawn surveys. From 1928 to 1978, surface spawn surveyors catetorized
+surface spawn surveys. From 1928 to 1978, surface spawn surveyors categorized
 spawn by subjective `intensity' categories instead of directly estimating the
 number of egg layers
 \insertCite{HayKronlund1987,SchweigertStocker1988,GrinnellEtalYYYY}{SpawnIndex}.

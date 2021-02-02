@@ -34,8 +34,8 @@ staring in 1951.}
 \item{tau}{Tibble. Table of understory spawn width adjustment factors from
 \code{\link{underWidthFac}}.}
 
-\item{varphi}{Numeric. Regression slope for substrate; from \code{\link{pars}}
-\insertCite{HaegeleEtal1979}{SpawnIndex}.}
+\item{varphi}{Numeric. Regression slope for substrate; from
+\code{\link{pars}} \insertCite{HaegeleEtal1979}{SpawnIndex}.}
 
 \item{vartheta}{Numeric. Regression slope for algae; from \code{\link{pars}}
 \insertCite{Schweigert2005}{SpawnIndex}.}
