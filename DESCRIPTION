@@ -25,9 +25,10 @@ RoxygenNote: 7.1.1
 Depends: R (>= 3.5.0)
 Imports: gfiscamutils, Rdpack, dplyr, readr, sp, stringr, tibble, tidyr,
     lubridate, DBI, odbc
-Suggests: knitr, rmarkdown, ggplot2, magrittr, kableExtra, sf, rnaturalearth,
-    rnaturalearthhires, testthat, covr
+Suggests: spelling, knitr, rmarkdown, ggplot2, magrittr, kableExtra, sf,
+    rnaturalearth, rnaturalearthhires, testthat, covr
 Remotes: pbs-assess/gfiscamutils, ropensci/rnaturalearthhires
 RdMacros: Rdpack
 VignetteBuilder: knitr
 Vignette: Introduction
+Language: en-CA
