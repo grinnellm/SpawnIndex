@@ -194,16 +194,12 @@ LoadAreaData <- function(reg,
   # Intialize an additional column for groups: NA
   locations$Group <- NA
   # Manually determine groups: Haida Gwaii
-  # locations$Group[locations$Section %in% c(6)] <- "Louscoone"
-  locations$Group[locations$Section %in% c(6)] <- "006"
+  locations$Group[locations$Section %in% c(6)] <- "Louscoone"
   locations$Group[locations$Section %in% c(11)] <- "Massett"
   locations$Group[locations$Section %in% c(12)] <- "Naden"
-  # locations$Group[locations$Section %in% c(21, 25)] <- "Juan Perez/Skincuttle"
-  locations$Group[locations$Section %in% c(21, 25)] <- "021&025"
-  locations$Group[locations$Section %in% c(22)] <- "E Skidegate"
-  # locations$Group[locations$Section %in% c(23)] <- "Cumshewa"
-  # locations$Group[locations$Section %in% c(24)] <- "Selwyn"
-  locations$Group[locations$Section %in% c(23, 24)] <- "023&024"
+  locations$Group[locations$Section %in% c(21, 25)] <- "Juan Perez/Skincuttle"
+  locations$Group[locations$Section %in% c(22)] <- "Skidegate"
+  locations$Group[locations$Section %in% c(23, 24)] <- "Cumshewa/Selwyn"
   # Manually determine groups: Prince Rupert District
   locations$Group[locations$Section %in% c(31:33, 40:42)] <- "Big Bay"
   locations$Group[locations$Section %in% c(43, 50:53)] <- "Kitkatla"
@@ -219,31 +215,26 @@ LoadAreaData <- function(reg,
   # Manually determine groups: West Coast Vancouver Island
   locations$Group[locations$Section %in% c(231)] <- "Alberni Inlet"
   locations$Group[locations$Section %in% c(232, 233)] <- "Barkley"
-  #  locations$Group[locations$Section %in% c(230, 239)] <- "SA 23 Unkn"
+  locations$Group[locations$Section %in% c(230, 239)] <- "SA 23 Unkn"
   locations$Group[locations$Section %in% c(241)] <- "Tofino Inlet"
   locations$Group[locations$Section %in% c(242)] <- "Hesquiat"
   locations$Group[locations$Section %in% c(243)] <- "Hootla Kootla"
   locations$Group[locations$Section %in% c(244)] <- "Ahousaht"
   locations$Group[locations$Section %in% c(245)] <- "Vargas Island"
-  #  locations$Group[locations$Section %in% c(240, 249)] <- "SA 24 Unkn"
+  locations$Group[locations$Section %in% c(240, 249)] <- "SA 24 Unkn"
   locations$Group[locations$Section %in% c(251, 252)] <- "Nootka"
   locations$Group[locations$Section %in% c(253)] <- "Nuchatlitz/Ehattesaht"
-  #  locations$Group[locations$Section %in% c(250, 259)] <- "SA 25 Unkn"
+  locations$Group[locations$Section %in% c(250, 259)] <- "SA 25 Unkn"
   # Manually determine groups: Area 2 West
   locations$Group[locations$Section %in% c(0)] <- "No group"
-  locations$Group[locations$Section %in% c(2)] <- "Pt Louis/Chanal"
-  locations$Group[locations$Section %in% c(3, 4)] <- "Engelfield/Rennell"
-  locations$Group[locations$Section %in% c(1, 5)] <- "Southwest"
+  locations$Group[locations$Section %in% c(1)] <- "Tasu Sd/Gowgoia B"
+  locations$Group[locations$Section %in% c(2)] <- "Prt Louis/Prt Chanal"
+  locations$Group[locations$Section %in% c(3)] <- "Seal Int/Rennel Sd/Kano Int"
+  locations$Group[locations$Section %in% c(4)] <- "Skidegate Chan/Buck Chan"
+  locations$Group[locations$Section %in% c(5)] <- "Englefield"
   # Manually determine groups: Area 27
   locations$Group[locations$Section %in% c(271:274)] <- "No Group"
   locations$Group[locations$Section %in% c(270)] <- "No Group"
-  # Manually determine groups: All for AllHG (HG rebuilding)
-  # locations$Group[locations$Section %in% c(6, 21, 23:25)] <- "Area 2 East"
-  # locations$Group[locations$Section %in% c(1:5)] <- "Area 2 West"
-  # locations$Group[locations$Section %in% c(11)] <- "Masset"
-  # locations$Group[locations$Section %in% c(12)] <- "Naden"
-  # locations$Group[locations$Section %in% c(22)] <- "Skidegate"
-  # locations$Group[locations$Section %in% c(0)] <- "None"
   # Set groups to NA if using all the data
   if (reg == "All") locations$Group <- NA
   # If any groups are NA, check if *some* are missing (i.e., incomplete)
