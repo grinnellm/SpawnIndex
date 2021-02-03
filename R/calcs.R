@@ -253,12 +253,6 @@ CalcSurfSpawn <- function(where,
   #    2.98 using a historical average)
   # Get the number of records with no egg layer info
   noLayers <- eggs %>% filter(EggLyrs == 0) # %>%
-  # left_join( y=select(areas, LocationCode, LocationName),
-  #   by="LocationCode" ) %>%
-  # select( Year, Region, StatArea, Section, LocationCode, LocationName,
-  #   SpawnNumber ) %>%
-  # arrange( Year, Region, StatArea, Section, LocationCode, SpawnNumber ) %>%
-  # write_csv( path=file.path(regName, "NoEggs.csv") )
   # Error if there are missing values
   if (nrow(noLayers) > 0) {
     stop("Missing egg layers for ", nrow(noLayers), " record(s):",
