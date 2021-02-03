@@ -21,7 +21,7 @@ CalcMacroSpawn(
 (see examples).}
 
 \item{a}{Tibble. Table of geographic information indicating the subset of
-spawn survey observations to inlude in calculations; from
+spawn survey observations to include in calculations; from
 \code{\link{LoadAreaData}}.}
 
 \item{yrs}{Numeric vector. Years(s) to include in the calculations, usually
@@ -38,7 +38,7 @@ staring in 1951.}
 \item{delta}{Numeric. Regression exponent on plant height; from
 \code{\link{pars}} \insertCite{HaegeleSchweigert1990}{SpawnIndex}.}
 
-\item{epsilon}{Numeric. Regression exponent on numnber of stalks per plant;
+\item{epsilon}{Numeric. Regression exponent on number of stalks per plant;
 from \code{\link{pars}} \insertCite{HaegeleSchweigert1990}{SpawnIndex}.}
 
 \item{theta}{Numeric. Egg conversion factor (eggs to biomass); from

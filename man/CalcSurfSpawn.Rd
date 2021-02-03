@@ -22,7 +22,7 @@ CalcSurfSpawn(
 (see examples).}
 
 \item{a}{Tibble. Table of geographic information indicating the subset of
-spawn survey observations to inlude in calculations; from
+spawn survey observations to include in calculations; from
 \code{\link{LoadAreaData}}.}
 
 \item{widths}{List. List of three tables: median region, section, and pool
@@ -34,7 +34,7 @@ staring in 1951.}
 \item{intense}{Tibble. Table of spawn intensity categories and number of egg
 layers; from \code{\link{intensity}}.}
 
-\item{intYrs}{Numeric vector. Years where intensity categores are used to
+\item{intYrs}{Numeric vector. Years where intensity categories are used to
 determine egg layers.}
 
 \item{rsYrs}{Numeric vector. Years where intensity needs to be re-scaled from

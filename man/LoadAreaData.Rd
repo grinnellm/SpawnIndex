@@ -20,13 +20,13 @@ or A2W).}
 \item{secSub}{Numeric vector or NA. Subset of Sections to include in the
 analysis, or NA to include all the Sections in the region.}
 
-\item{where}{List. Location of the Pacfic Herring "locations" database (see
+\item{where}{List. Location of the Pacific Herring "locations" database (see
 examples).}
 
-\item{inCRS}{Chracter. Input coordinate reference system;
+\item{inCRS}{Character. Input coordinate reference system;
 \href{https://spatialreference.org/}{use EPSG codes if desired}.}
 
-\item{outCRS}{Chracter. Output coordinate reference system;
+\item{outCRS}{Character. Output coordinate reference system;
 \href{https://spatialreference.org/}{use EPSG codes if desired}.}
 
 \item{quiet}{Logical. Set to TRUE to prevent messages.}
@@ -34,7 +34,7 @@ examples).}
 \value{
 Tibble. Table of geographic information for Pacific Herring: SAR,
   Region, Region name, Statistical Area, Group, Section, Location code,
-  Location name, Pool, Eastings, Northings, Longitude, and Latitute.
+  Location name, Pool, Eastings, Northings, Longitude, and Latitude.
 }
 \description{
 Load Pacific Herring areas. Herring areas are kept in two files: the section

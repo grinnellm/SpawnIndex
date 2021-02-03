@@ -12,11 +12,11 @@
 #'   or A2W).
 #' @param secSub Numeric vector or NA. Subset of Sections to include in the
 #'   analysis, or NA to include all the Sections in the region.
-#' @param where List. Location of the Pacfic Herring "locations" database (see
+#' @param where List. Location of the Pacific Herring "locations" database (see
 #'   examples).
-#' @param inCRS Chracter. Input coordinate reference system;
+#' @param inCRS Character. Input coordinate reference system;
 #'   \href{https://spatialreference.org/}{use EPSG codes if desired}.
-#' @param outCRS Chracter. Output coordinate reference system;
+#' @param outCRS Character. Output coordinate reference system;
 #'   \href{https://spatialreference.org/}{use EPSG codes if desired}.
 #' @param quiet Logical. Set to TRUE to prevent messages.
 #' @importFrom readr read_csv cols
@@ -28,7 +28,7 @@
 #' @importFrom sp SpatialPoints spTransform CRS
 #' @return Tibble. Table of geographic information for Pacific Herring: SAR,
 #'   Region, Region name, Statistical Area, Group, Section, Location code,
-#'   Location name, Pool, Eastings, Northings, Longitude, and Latitute.
+#'   Location name, Pool, Eastings, Northings, Longitude, and Latitude.
 #' @seealso \code{\link{HerringSpawn}}
 #' @note This function requires 32-bit R to load data from the 32-bit MS Access
 #'   database.
@@ -306,7 +306,7 @@ LoadAreaData <- function(reg,
 #' @param where List. Location of the Pacific Herring understory spawn database
 #'   (see examples).
 #' @param a Tibble. Table of geographic information indicating the subset of
-#'   spawn survey observations to inlude in calculations; from
+#'   spawn survey observations to include in calculations; from
 #'   \code{\link{LoadAreaData}}.
 #' @param yrs Numeric vector. Years(s) to include in the calculations, usually
 #'   staring in 1951.
@@ -410,7 +410,7 @@ LoadAllSpawn <- function(where, a, yrs, ft2m = 0.3048) {
 #' @param where List. Location of the Pacific Herring surface spawn database
 #'   (see examples).
 #' @param a Tibble. Table of geographic information indicating the subset of
-#'   spawn survey observations to inlude in calculations; from
+#'   spawn survey observations to include in calculations; from
 #'   \code{\link{LoadAreaData}}.
 #' @importFrom odbc dbConnect odbc dbDisconnect
 #' @importFrom DBI dbReadTable

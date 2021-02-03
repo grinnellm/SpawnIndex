@@ -7,7 +7,7 @@
 #'
 #' @format Tibble with rows for years and columns for regions.
 #' @note Adjust spawn width for affected understory spawn surveys by multiplying
-#'   the observed width by the corresponding correction fator for the affected
+#'   the observed width by the corresponding correction factor for the affected
 #'   years.
 #' @docType data
 #' @references \insertAllCited{}

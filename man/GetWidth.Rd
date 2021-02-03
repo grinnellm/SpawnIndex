@@ -11,7 +11,7 @@ GetWidth(where, a = areas)
 (see examples).}
 
 \item{a}{Tibble. Table of geographic information indicating the subset of
-spawn survey observations to inlude in calculations; from
+spawn survey observations to include in calculations; from
 \code{\link{LoadAreaData}}.}
 }
 \value{

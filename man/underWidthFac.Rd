@@ -18,7 +18,7 @@ resulted in underestimated spawn width for understory dive surveys
 }
 \note{
 Adjust spawn width for affected understory spawn surveys by multiplying
-  the observed width by the corresponding correction fator for the affected
+  the observed width by the corresponding correction factor for the affected
   years.
 }
 \examples{

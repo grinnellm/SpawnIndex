@@ -50,7 +50,7 @@ CalcBiomassSOK <- function(SOK,
                            upsilon = pars$SOK$upsilon,
                            M = pars$SOK$M,
                            theta = CalcEggConversion()) {
-  # Spawnin biomass in tonnes: (kg SOK * proportion eggs * proportion eggs) /
+  # Spawning biomass in tonnes: (kg SOK * proportion eggs * proportion eggs) /
   # (kg per egg * eggs per tonne )
   SB <- (SOK * (1 - nu) * 1 / (1 + upsilon)) / (M * theta)
   # Return the spawning biomass
@@ -64,7 +64,7 @@ CalcBiomassSOK <- function(SOK,
 #' @param where List. Location of the Pacific Herring surface spawn database
 #'   (see examples).
 #' @param a Tibble. Table of geographic information indicating the subset of
-#'   spawn survey observations to inlude in calculations; from
+#'   spawn survey observations to include in calculations; from
 #'   \code{\link{LoadAreaData}}.
 #' @param widths List. List of three tables: median region, section, and pool
 #'   widths in metres (m); from \code{\link{GetWidth}}.
@@ -72,7 +72,7 @@ CalcBiomassSOK <- function(SOK,
 #'   staring in 1951.
 #' @param intense Tibble. Table of spawn intensity categories and number of egg
 #'   layers; from \code{\link{intensity}}.
-#' @param intYrs Numeric vector. Years where intensity categores are used to
+#' @param intYrs Numeric vector. Years where intensity categories are used to
 #'   determine egg layers.
 #' @param rsYrs Numeric vector. Years where intensity needs to be re-scaled from
 #'   5 to 9 categories.
@@ -326,7 +326,7 @@ CalcSurfSpawn <- function(where,
 #' @param where List. Location of the Pacific Herring Macrocystis spawn database
 #'   (see examples).
 #' @param a Tibble. Table of geographic information indicating the subset of
-#'   spawn survey observations to inlude in calculations; from
+#'   spawn survey observations to include in calculations; from
 #'   \code{\link{LoadAreaData}}.
 #' @param yrs Numeric vector. Years(s) to include in the calculations, usually
 #'   staring in 1951.
@@ -337,7 +337,7 @@ CalcSurfSpawn <- function(where,
 #'   \code{\link{pars}} \insertCite{HaegeleSchweigert1990}{SpawnIndex}.
 #' @param delta Numeric. Regression exponent on plant height; from
 #'   \code{\link{pars}} \insertCite{HaegeleSchweigert1990}{SpawnIndex}.
-#' @param epsilon Numeric. Regression exponent on numnber of stalks per plant;
+#' @param epsilon Numeric. Regression exponent on number of stalks per plant;
 #'   from \code{\link{pars}} \insertCite{HaegeleSchweigert1990}{SpawnIndex}.
 #' @param theta Numeric. Egg conversion factor (eggs to biomass); from
 #'   \code{\link{CalcEggConversion}}.
@@ -511,7 +511,7 @@ CalcMacroSpawn <- function(where,
 #' @param where List. Location of the Pacific Herring understory spawn database
 #'   (see examples).
 #' @param a Tibble. Table of geographic information indicating the subset of
-#'   spawn survey observations to inlude in calculations; from
+#'   spawn survey observations to include in calculations; from
 #'   \code{\link{LoadAreaData}}.
 #' @param yrs Numeric vector. Years(s) to include in the calculations, usually
 #'   staring in 1951.
