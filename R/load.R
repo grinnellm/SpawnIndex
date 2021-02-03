@@ -227,10 +227,10 @@ LoadAreaData <- function(reg,
   locations$Group[locations$Section %in% c(250, 259)] <- "SA 25 Unkn"
   # Manually determine groups: Area 2 West
   locations$Group[locations$Section %in% c(0)] <- "No group"
-  locations$Group[locations$Section %in% c(1)] <- "Tasu Sd/Gowgoia B"
-  locations$Group[locations$Section %in% c(2)] <- "Prt Louis/Prt Chanal"
-  locations$Group[locations$Section %in% c(3)] <- "Seal Int/Rennel Sd/Kano Int"
-  locations$Group[locations$Section %in% c(4)] <- "Skidegate Chan/Buck Chan"
+  locations$Group[locations$Section %in% c(1)] <- "Tasu/Gowgaia"
+  locations$Group[locations$Section %in% c(2)] <- "Prt Louis/Chanal"
+  locations$Group[locations$Section %in% c(3)] <- "Seal/Rennel/Kano"
+  locations$Group[locations$Section %in% c(4)] <- "Skidegate/Buck Chan"
   locations$Group[locations$Section %in% c(5)] <- "Englefield"
   # Manually determine groups: Area 27
   locations$Group[locations$Section %in% c(271:274)] <- "No Group"
