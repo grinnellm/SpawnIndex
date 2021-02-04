@@ -6,10 +6,11 @@
 \usage{
 LoadAreaData(
   reg,
-  secSub = NA,
+  secSub = NULL,
   where,
   inCRS = "+init=epsg:4326",
   outCRS = "+init=epsg:3005",
+  groups = NULL,
   quiet = FALSE
 )
 }
@@ -17,7 +18,7 @@ LoadAreaData(
 \item{reg}{Character. Region of interest (i.e., HG, PRD, CC, SoG, WCVI, A27,
 or A2W).}
 
-\item{secSub}{Numeric vector or NA. Subset of Sections to include in the
+\item{secSub}{Numeric vector or NULL Subset of Sections to include in the
 analysis, or NA to include all the Sections in the region.}
 
 \item{where}{List. Location of the Pacific Herring "locations" database (see
@@ -28,6 +29,11 @@ examples).}
 
 \item{outCRS}{Character. Output coordinate reference system;
 \href{https://spatialreference.org/}{use EPSG codes if desired}.}
+
+\item{groups}{Tibble or NULL. Optional table to add a "Group" column to the
+results, say to aggregate data by combinations of Sections. Must have a
+column named "Group", and one or more of "StatArea", "Section",
+"LocationCode". Set to NULL to ignore (and Group column will be NA).}
 
 \item{quiet}{Logical. Set to TRUE to prevent messages.}
 }
@@ -57,6 +63,16 @@ areaLoc <- list(
 )
 areas <- LoadAreaData(reg = "WCVI", where = areaLoc)
 areas
+secs <- c(231:233, 241, 245)
+grps <- tibble::tibble(
+  Section = c(231, 232, 233, 241),
+  Group = c("Alberni Int", "Barkley", "Barkley", "Tofino Int")
+)
+areas2 <- LoadAreaData(
+  reg = "WCVI", where = areaLoc, groups = grps,
+  secSub = secs
+)
+dplyr::distinct(dplyr::select(areas2, Region, StatArea, Group, Section))
 }
 \seealso{
 \code{\link{HerringSpawn}}

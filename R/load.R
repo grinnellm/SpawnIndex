@@ -10,7 +10,7 @@
 #'
 #' @param reg Character. Region of interest (i.e., HG, PRD, CC, SoG, WCVI, A27,
 #'   or A2W).
-#' @param secSub Numeric vector or NA. Subset of Sections to include in the
+#' @param secSub Numeric vector or NULL Subset of Sections to include in the
 #'   analysis, or NA to include all the Sections in the region.
 #' @param where List. Location of the Pacific Herring "locations" database (see
 #'   examples).
@@ -18,6 +18,10 @@
 #'   \href{https://spatialreference.org/}{use EPSG codes if desired}.
 #' @param outCRS Character. Output coordinate reference system;
 #'   \href{https://spatialreference.org/}{use EPSG codes if desired}.
+#' @param groups Tibble or NULL. Optional table to add a "Group" column to the
+#'   results, say to aggregate data by combinations of Sections. Must have a
+#'   column named "Group", and one or more of "StatArea", "Section",
+#'   "LocationCode". Set to NULL to ignore (and Group column will be NA).
 #' @param quiet Logical. Set to TRUE to prevent messages.
 #' @importFrom readr read_csv cols
 #' @importFrom dplyr filter select mutate full_join %>% transmute right_join
@@ -41,11 +45,22 @@
 #' )
 #' areas <- LoadAreaData(reg = "WCVI", where = areaLoc)
 #' areas
+#' secs <- c(231:233, 241, 245)
+#' grps <- tibble::tibble(
+#'   Section = c(231, 232, 233, 241),
+#'   Group = c("Alberni Int", "Barkley", "Barkley", "Tofino Int")
+#' )
+#' areas2 <- LoadAreaData(
+#'   reg = "WCVI", where = areaLoc, groups = grps,
+#'   secSub = secs
+#' )
+#' dplyr::distinct(dplyr::select(areas2, Region, StatArea, Group, Section))
 LoadAreaData <- function(reg,
-                         secSub = NA,
+                         secSub = NULL,
                          where,
                          inCRS = "+init=epsg:4326",
                          outCRS = "+init=epsg:3005",
+                         groups = NULL,
                          quiet = FALSE) {
   # Warning if R is not 32-bit
   if (.Machine$sizeof.pointer != 4) warning("32-bit R required")
@@ -191,52 +206,26 @@ LoadAreaData <- function(reg,
     filter(Section %in% sections$Section) %>%
     distinct() %>%
     as_tibble()
-  # Intialize an additional column for groups: NA
-  locations$Group <- NA
-  # Manually determine groups: Haida Gwaii
-  locations$Group[locations$Section %in% c(6)] <- "Louscoone"
-  locations$Group[locations$Section %in% c(11)] <- "Massett"
-  locations$Group[locations$Section %in% c(12)] <- "Naden"
-  locations$Group[locations$Section %in% c(21, 25)] <- "Juan Perez/Skincuttle"
-  locations$Group[locations$Section %in% c(22)] <- "Skidegate"
-  locations$Group[locations$Section %in% c(23, 24)] <- "Cumshewa/Selwyn"
-  # Manually determine groups: Prince Rupert District
-  locations$Group[locations$Section %in% c(31:33, 40:42)] <- "Big Bay"
-  locations$Group[locations$Section %in% c(43, 50:53)] <- "Kitkatla"
-  # Manually determine groups: Central Coast
-  locations$Group[locations$Section %in% c(67, 70:78)] <- "06&07"
-  locations$Group[locations$Section %in% c(85, 86)] <- "08"
-  # Manually determine groups: Strait of Georgia
-  locations$Group[locations$Section %in% c(132, 135, 141)] <- "Lazo"
-  locations$Group[locations$Section %in% c(140, 142, 143, 170:172)] <- "14&17"
-  locations$Group[locations$Section %in% c(150:152, 160:165, 280, 291, 292)] <-
-    "ESoG"
-  locations$Group[locations$Section %in% c(173, 180:182, 190:193)] <- "SDodd"
-  # Manually determine groups: West Coast Vancouver Island
-  locations$Group[locations$Section %in% c(231)] <- "Alberni Inlet"
-  locations$Group[locations$Section %in% c(232, 233)] <- "Barkley"
-  locations$Group[locations$Section %in% c(230, 239)] <- "SA 23 Unkn"
-  locations$Group[locations$Section %in% c(241)] <- "Tofino Inlet"
-  locations$Group[locations$Section %in% c(242)] <- "Hesquiat"
-  locations$Group[locations$Section %in% c(243)] <- "Hootla Kootla"
-  locations$Group[locations$Section %in% c(244)] <- "Ahousaht"
-  locations$Group[locations$Section %in% c(245)] <- "Vargas Island"
-  locations$Group[locations$Section %in% c(240, 249)] <- "SA 24 Unkn"
-  locations$Group[locations$Section %in% c(251, 252)] <- "Nootka"
-  locations$Group[locations$Section %in% c(253)] <- "Nuchatlitz/Ehattesaht"
-  locations$Group[locations$Section %in% c(250, 259)] <- "SA 25 Unkn"
-  # Manually determine groups: Area 2 West
-  locations$Group[locations$Section %in% c(0)] <- "No group"
-  locations$Group[locations$Section %in% c(1)] <- "Tasu/Gowgaia"
-  locations$Group[locations$Section %in% c(2)] <- "Prt Louis/Chanal"
-  locations$Group[locations$Section %in% c(3)] <- "Seal/Rennel/Kano"
-  locations$Group[locations$Section %in% c(4)] <- "Skidegate/Buck Chan"
-  locations$Group[locations$Section %in% c(5)] <- "Englefield"
-  # Manually determine groups: Area 27
-  locations$Group[locations$Section %in% c(271:274)] <- "No Group"
-  locations$Group[locations$Section %in% c(270)] <- "No Group"
-  # Set groups to NA if using all the data
-  if (reg == "All") locations$Group <- NA
+  # If groups is NULL
+  if (is.null(groups)) {
+    # Set groups to NA
+    locations$Group <- NA
+  } else { # End if NULL, otherwise
+    # Check for column names
+    if (!"Group" %in% names(groups)) {
+      stop("Groups table needs a column named 'Group'")
+    }
+    if (!any("StatArea" %in% names(groups) | "Section" %in% names(groups) |
+      "LocationCode" %in% names(groups))) {
+      stop("Groups table needs a column named 'StatArea', and/or 'Section',
+      and/or 'LocationCode'")
+    }
+    # Determine matching columns
+    grpCols <- which(names(groups) %in% names(locations))
+    # Set groups
+    locations <- locations %>%
+      left_join(y = groups, by = names(groups)[grpCols])
+  } # End if not NULL
   # If any groups are NA, check if *some* are missing (i.e., incomplete)
   if (any(is.na(locations$Group))) {
     # Get distinct rows
@@ -272,7 +261,7 @@ LoadAreaData <- function(reg,
     distinct() %>%
     droplevels()
   # If not all sections are included
-  if (!all(is.na(secSub))) {
+  if (!is.null(secSub)) {
     # Grab a subset of sections
     res <- res %>%
       filter(Section %in% secSub) %>%
@@ -281,7 +270,7 @@ LoadAreaData <- function(reg,
     if (!quiet) {
       cat("Sections: ", paste(secSub, collapse = ", "), "\n", sep = "")
     }
-  } # End if subsetting areas
+  } # End if subsetting sections
   # Close the connection
   dbDisconnect(conn = accessDB)
   # Error if there is no data
