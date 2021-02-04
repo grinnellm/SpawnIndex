@@ -241,7 +241,7 @@ LoadAreaData <- function(reg,
     # Message re some sections(s) missing group info
     if (!noneOrAll & !quiet) {
       cat("Incomplete `Group' info for Section(s): ",
-        paste(grpUNA$Section, collapse = ", "), "\n",
+        paste(unique(grpUNA$Section), collapse = ", "), "\n",
         sep = ""
       )
     }
