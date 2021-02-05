@@ -371,8 +371,7 @@ calc_surf_spawn <- function(where,
 #'   )
 #' )
 #' macro_spawn <- calc_macro_spawn(
-#'   where = macro_loc, a = areas,
-#'   yrs = 2010:2015
+#'   where = macro_loc, a = areas, yrs = 2010:2015
 #' )
 #' macro_spawn$SI
 calc_macro_spawn <- function(where,
@@ -565,8 +564,7 @@ calc_macro_spawn <- function(where,
 #' data(pars)
 #' data(algae_coefs)
 #' under_spawn <- calc_under_spawn(
-#'   where = under_loc, a = areas,
-#'   yrs = 2010:2015
+#'   where = under_loc, a = areas, yrs = 2010:2015
 #' )
 #' under_spawn$SI
 calc_under_spawn <- function(where,
