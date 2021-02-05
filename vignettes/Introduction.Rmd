@@ -275,8 +275,8 @@ and to specify algae coefficients.
 
 ```{r under}
 # Data
-data(underWidthFac) # Understory spawn width correction factors
-data(algaeCoefs) # Algae types and coefficients
+data(under_width_fac) # Understory spawn width correction factors
+data(algae_coefs) # Algae types and coefficients
 # List indicating the necessary tables
 underLoc <- list(
   loc = file.path(dbLoc), db = "HerringSpawn.mdb",

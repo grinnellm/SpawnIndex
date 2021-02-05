@@ -8,8 +8,8 @@ CalcUnderSpawn(
   where,
   a,
   yrs,
-  algCoefs = algaeCoefs,
-  tau = underWidthFac,
+  algCoefs = algae_coefs,
+  tau = under_width_fac,
   varphi = pars$understory$varphi,
   vartheta = pars$understory$vartheta,
   varrho = pars$under$varrho,
@@ -29,10 +29,10 @@ spawn survey observations to include in calculations; from
 staring in 1951.}
 
 \item{algCoefs}{Tibble. Table of algae coefficients; from
-\code{\link{algaeCoefs}}.}
+\code{\link{algae_coefs}}.}
 
 \item{tau}{Tibble. Table of understory spawn width adjustment factors from
-\code{\link{underWidthFac}}.}
+\code{\link{under_width_fac}}.}
 
 \item{varphi}{Numeric. Regression slope for substrate; from
 \code{\link{pars}} \insertCite{HaegeleEtal1979}{SpawnIndex}.}
@@ -76,9 +76,9 @@ underLoc <- list(
     stations = "tSSStations", algae = "tSSVegetation"
   )
 )
-data(underWidthFac)
+data(under_width_fac)
 data(pars)
-data(algaeCoefs)
+data(algae_coefs)
 underSpawn <- CalcUnderSpawn(where = underLoc, a = areas, yrs = 2010:2015)
 underSpawn$SI
 }
@@ -87,5 +87,5 @@ underSpawn$SI
 }
 \seealso{
 \code{\link{HerringSpawn}} \code{\link{LoadAreaData}}
-  \code{\link{CalcEggConversion}} \code{\link{pars}} \code{\link{algaeCoefs}}
+  \code{\link{CalcEggConversion}} \code{\link{pars}} \code{\link{algae_coefs}}
 }

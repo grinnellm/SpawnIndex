@@ -1,5 +1,5 @@
 utils::globalVariables(c(
-  "algaeCoefs", "AlgLyrs", "AlgProp", "AlgType", "Area", "areas", "Bed", "BED",
+  "algae_coefs", "AlgLyrs", "AlgProp", "AlgType", "Area", "areas", "Bed", "BED",
   "Brown_Algae_Percent", "BrownAlgae", "Coef", "Depth", "DepthM", "Eastings",
   "EggDens", "EggDensAlg", "EggDensL", "EggDensSub", "EggLyrs", "EggsPerPlant",
   "End", "Grass", "Grass_Percent", "Group", "Height", "intensity", "Intensity",
@@ -16,6 +16,6 @@ utils::globalVariables(c(
   "SECTION", "Spawn_Number", "SpawnNumber", "Stalks", "StalksPerPlant", "Start",
   "StatArea", "Station", "Stringy_Red_Percent", "StringyRed", "SubLyrs",
   "SubProp", "SurfSI", "Swath", "Transect", "Type_Vegetation", "UnderSI",
-  "underWidthFac", "WIDMED", "Width", "Width_Recorded", "WidthBar", "WidthFac",
+  "under_width_fac", "WIDMED", "Width", "Width_Recorded", "WidthBar", "WidthFac",
   "WidthObs", "WidthPool", "WidthReg", "WidthSec", "WidthTot", "X", "Y", "Year"
 ))

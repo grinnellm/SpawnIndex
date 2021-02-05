@@ -510,9 +510,9 @@ CalcMacroSpawn <- function(where,
 #' @param yrs Numeric vector. Years(s) to include in the calculations, usually
 #'   staring in 1951.
 #' @param algCoefs Tibble. Table of algae coefficients; from
-#'   \code{\link{algaeCoefs}}.
+#'   \code{\link{algae_coefs}}.
 #' @param tau Tibble. Table of understory spawn width adjustment factors from
-#'   \code{\link{underWidthFac}}.
+#'   \code{\link{under_width_fac}}.
 #' @param varphi Numeric. Regression slope for substrate; from
 #'   \code{\link{pars}} \insertCite{HaegeleEtal1979}{SpawnIndex}.
 #' @param vartheta Numeric. Regression slope for algae; from \code{\link{pars}}
@@ -540,7 +540,7 @@ CalcMacroSpawn <- function(where,
 #' @references \insertAllCited
 #' @note The `spawn index' is a relative index of spawning biomass.
 #' @seealso \code{\link{HerringSpawn}} \code{\link{LoadAreaData}}
-#'   \code{\link{CalcEggConversion}} \code{\link{pars}} \code{\link{algaeCoefs}}
+#'   \code{\link{CalcEggConversion}} \code{\link{pars}} \code{\link{algae_coefs}}
 #' @export
 #' @examples
 #' dbLoc <- system.file("extdata", package = "SpawnIndex")
@@ -556,16 +556,16 @@ CalcMacroSpawn <- function(where,
 #'     stations = "tSSStations", algae = "tSSVegetation"
 #'   )
 #' )
-#' data(underWidthFac)
+#' data(under_width_fac)
 #' data(pars)
-#' data(algaeCoefs)
+#' data(algae_coefs)
 #' underSpawn <- CalcUnderSpawn(where = underLoc, a = areas, yrs = 2010:2015)
 #' underSpawn$SI
 CalcUnderSpawn <- function(where,
                            a,
                            yrs,
-                           algCoefs = algaeCoefs,
-                           tau = underWidthFac,
+                           algCoefs = algae_coefs,
+                           tau = under_width_fac,
                            varphi = pars$understory$varphi,
                            vartheta = pars$understory$vartheta,
                            varrho = pars$under$varrho,

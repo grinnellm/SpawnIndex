@@ -290,15 +290,15 @@ intensity <- intensity %>%
 # Vector of egg layers
 lyrs <- intensity$Layers
 # Load algae coefficients
-data(algaeCoefs)
+data(algae_coefs)
 # Algae coefficients
-algaeCoefs <- algaeCoefs %>%
+algae_coefs <- algae_coefs %>%
   select(AlgaeName, Coef) %>%
   arrange(AlgaeName)
 # Load parameter values
 data(pars)
 # Load understory width correction factors
-data(underWidthFac)
+data(under_width_fac)
 @
 
 %%%% Front matter %%%%%
@@ -1403,7 +1403,7 @@ tabCap <- "Algae (i.e., vegetation) types $v$ and coefficients $C$ for \\fishNam
 # Short caption
 tabSCap <- "Algae types and coefficients for \\fishName{} understory spawn surveys"
 # Format the table
-kAlgaeCoefs <- algaeCoefs %>%
+kAlgaeCoefs <- algae_coefs %>%
   rename(`Algae type $v$` = AlgaeName, `Coefficient $C$` = Coef) %>%
   kable(
     caption = tabCap, caption.short = tabSCap, booktabs = TRUE, linesep = "",
@@ -1419,7 +1419,7 @@ kAlgaeCoefs
 figCap <- paste("Relationship between algae egg density in thousands of eggs per square metre (m; lines), and number of egg layers on algae, proportion of substrate covered in algae, and algae coefficient (\\autoref{tab:AlgaeCoefs}) for \\fishName{} underwater spawn surveys based on  \\autoref{eqUnderDensAlgVQTS} \\citep{Schweigert2005}. Note that number of egg layers can exceed those shown in this figure.")
 # Expand the values
 df <- expand.grid(
-  Layers = lyrs, Proportion = prop, Coefficient = unique(algaeCoefs$Coef)
+  Layers = lyrs, Proportion = prop, Coefficient = unique(algae_coefs$Coef)
 )
 # Equation for understory egg density on algae
 EggDensAlg <- function(AlgLyrs, AlgProp, Coef) {
@@ -1481,7 +1481,7 @@ where $Q$ is the number of quadrats in transect $t$,
 $\rho_{qts}$ is total understory egg density in quadrat $q$ from \autoref{eqUnderDensQTS}, and
 $\mean{\rho_{ts}}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
 Note that we update spawn width to correct for errors regarding the assumed accuracy of transect lines used to measure spawn width for
-understory surveys between \Sexpr{min(underWidthFac$Year)} and \Sexpr{max(underWidthFac$Year)} (\autoref{secWidthUnder}).
+understory surveys between \Sexpr{min(under_width_fac$Year)} and \Sexpr{max(under_width_fac$Year)} (\autoref{secWidthUnder}).
 
 \subsection{SPAWN OBSERVATIONS AND CALCULATIONS}\label{secUnderS}
 
@@ -1845,7 +1845,7 @@ Finally, they thank Chris Grandin for help creating the \textbf{R} package.
 Spawn width is a critical component in spawn index calculations.
 There are two cases where we adjust spawn width estimates to improve spawn index accuracy:
 surface surveys in all years from \Sexpr{min(yrRange)} to present, and
-understory dive surveys from \Sexpr{min(underWidthFac$Year)} to \Sexpr{max(underWidthFac$Year)}.
+understory dive surveys from \Sexpr{min(under_width_fac$Year)} to \Sexpr{max(under_width_fac$Year)}.
 
 \subsection{SURFACE SPAWN WIDTH}\label{secWidthSurface}
 
@@ -1901,15 +1901,15 @@ For example, inner segments are replaced more frequently than seaward segments, 
 segments in some SARs are replaced more frequently than in other SARs.
 DFO staff believe that a change in lead line manufacturing prevents new lead lines from shrinking.
 
-The earliest written instructions that describe the modified protocol of marking $1.15\,\text{m}$ increments is from \Sexpr{min(underWidthFac$Year)},
+The earliest written instructions that describe the modified protocol of marking $1.15\,\text{m}$ increments is from \Sexpr{min(under_width_fac$Year)},
 and this protocol was used until 2013.
-Note that some remote SARs continued to use old lead lines in \Sexpr{max(underWidthFac$Year)}.
+Note that some remote SARs continued to use old lead lines in \Sexpr{max(under_width_fac$Year)}.
 The practice of annually re-measuring lead line increments ceased around 2005;
 thus we are unable to determine when lead lines ceased shrinking.
 Given the observations summarized above,
-we adjust spawn width estimates based on written instructions for the marking protocol in \Sexpr{min(underWidthFac$Year)}.
+we adjust spawn width estimates based on written instructions for the marking protocol in \Sexpr{min(under_width_fac$Year)}.
 Accordingly, our best estimate of years impacted by marking lead lines at $1.15\,\text{m}$ increments (when shrinking no longer occurred) is
-from \Sexpr{min(underWidthFac$Year)} to \Sexpr{max(underWidthFac$Year)}.
+from \Sexpr{min(under_width_fac$Year)} to \Sexpr{max(under_width_fac$Year)}.
 However, not all SARs $r$ and years $y$ are impacted equally by this issue (\autoref{tab:WidthFac}):
 some SARs and years had all $1.0\,\text{m}$ increment lengths (no correction factor needed; $\tau_{ry} = 1.0$),
 others had all $1.15\,\text{m}$ increment lengths ($\tau_{ry} = 1.15$),
@@ -1933,7 +1933,7 @@ Legend: ", PasteNicely(c(majorRegions, minorRegions)), ".", sep = "")
 # Short caption
 tabSCap <- "Spawn width correction factors for \\fishName{} understory spawn surveys"
 # Format the table
-kWidthFac <- underWidthFac %>%
+kWidthFac <- under_width_fac %>%
   mutate_if(is.double, ~ format(., nsmall = 3)) %>%
   mutate(Year = as.integer(Year)) %>%
   arrange(Year) %>%

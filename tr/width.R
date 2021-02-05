@@ -70,7 +70,7 @@ areas <- LoadAreaData(
 barWidth <- GetWidth(where = widthLoc, a = areas)
 
 # Understory spawn width correction factors
-data(underWidthFac)
+data(under_width_fac)
 
 ##### Analysis #####
 
@@ -138,7 +138,7 @@ surfWidth <- GetSurfWidth(where = surfLoc, a = areas, widths = barWidth)
 GetDiveWidth <- function(where,
                          a,
                          yrs = yrRange,
-                         tau = underWidthFac) {
+                         tau = under_width_fac) {
   # Establish connection with access
   accessDB <- odbcDriverConnect(
     paste("Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=",

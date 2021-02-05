@@ -1,8 +1,8 @@
 test_that("Understory width factors", {
-  expect_type(underWidthFac, "list")
-  expect_equal(dim(underWidthFac), c(12, 8))
+  expect_type(under_width_fac, "list")
+  expect_equal(dim(under_width_fac), c(12, 8))
   expect_named(
-    underWidthFac,
+    under_width_fac,
     c("Year", "HG", "PRD", "CC", "SoG", "WCVI", "A27", "A2W")
   )
 })
@@ -32,7 +32,7 @@ test_that("Intensity", {
 })
 
 test_that("Algae coefficients", {
-  expect_type(algaeCoefs, "list")
-  expect_equal(dim(algaeCoefs), c(8, 3))
-  expect_named(algaeCoefs, c("AlgaeName", "AlgType", "Coef"))
+  expect_type(algae_coefs, "list")
+  expect_equal(dim(algae_coefs), c(8, 3))
+  expect_named(algae_coefs, c("AlgaeName", "AlgType", "Coef"))
 })

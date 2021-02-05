@@ -13,9 +13,9 @@
 #' @references \insertAllCited{}
 #' @seealso \code{\link{CalcUnderSpawn}}
 #' @examples
-#' data(underWidthFac)
-#' underWidthFac
-"underWidthFac"
+#' data(under_width_fac)
+#' under_width_fac
+"under_width_fac"
 
 #' Parameters for spawn index calculations.
 #'
@@ -103,6 +103,6 @@
 #' @references \insertAllCited{}
 #' @seealso \code{\link{CalcUnderSpawn}}
 #' @examples
-#' data(algaeCoefs)
-#' algaeCoefs
-"algaeCoefs"
+#' data(algae_coefs)
+#' algae_coefs
+"algae_coefs"
