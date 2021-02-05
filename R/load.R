@@ -53,7 +53,7 @@
 #' areas_sec_grp <- load_area_data(
 #'   reg = "WCVI", where = areaLoc, groups = grps, sec_sub = secs
 #' )
-#' dplyr::distinct(dplyr::select(data = areas_sec_grp, Region, StatArea, Group, Section))
+#' dplyr::distinct(dplyr::select(areas_sec_grp, Region, StatArea, Group, Section))
 load_area_data <- function(reg,
                            sec_sub = NULL,
                            where,
@@ -401,7 +401,7 @@ load_all_spawn <- function(where, a, yrs, ft2m = 0.3048) {
 #'   areas in \code{a}.
 #' @references \insertAllCited
 #' @seealso \code{\link{HerringSpawn}} \code{\link{load_area_data}}
-#'   \code{\link{CalcSurfSpawn}}
+#'   \code{\link{calc_surf_spawn}}
 #' @export
 #' @examples
 #' db_loc <- system.file("extdata", package = "SpawnIndex")
@@ -417,8 +417,8 @@ load_all_spawn <- function(where, a, yrs, ft2m = 0.3048) {
 #'     pool_std = "PoolStd"
 #'   )
 #' )
-#' barWidth <- get_width(where = width_loc, a = areas)
-#' barWidth
+#' width_bar <- get_width(where = width_loc, a = areas)
+#' width_bar
 get_width <- function(where, a = areas) {
   # Get area info
   a_sm <- a %>%

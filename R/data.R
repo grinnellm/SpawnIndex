@@ -11,7 +11,7 @@
 #'   years.
 #' @docType data
 #' @references \insertAllCited{}
-#' @seealso \code{\link{CalcUnderSpawn}}
+#' @seealso \code{\link{calc_under_spawn}}
 #' @examples
 #' data(under_width_fac)
 #' under_width_fac
@@ -62,9 +62,9 @@
 #' @docType data
 #' @importFrom Rdpack reprompt
 #' @references \insertAllCited{}
-#' @seealso \code{\link{CalcEggConversion}} \code{\link{CalcBiomassSOK}}
-#'   \code{\link{CalcSurfSpawn}} \code{\link{CalcMacroSpawn}}
-#'   \code{\link{CalcUnderSpawn}}
+#' @seealso \code{\link{calc_egg_conversion}} \code{\link{calc_biomass_sok}}
+#'   \code{\link{calc_surf_spawn}} \code{\link{calc_macro_spawn}}
+#'   \code{\link{calc_under_spawn}}
 #' @examples
 #' data(pars)
 #' pars
@@ -83,7 +83,7 @@
 #' @docType data
 #' @importFrom Rdpack reprompt
 #' @references \insertAllCited{}
-#' @seealso \code{\link{CalcSurfSpawn}}
+#' @seealso \code{\link{calc_surf_spawn}}
 #' @examples
 #' data(intensity)
 #' intensity
@@ -101,7 +101,7 @@
 #' @docType data
 #' @importFrom Rdpack reprompt
 #' @references \insertAllCited{}
-#' @seealso \code{\link{CalcUnderSpawn}}
+#' @seealso \code{\link{calc_under_spawn}}
 #' @examples
 #' data(algae_coefs)
 #' algae_coefs

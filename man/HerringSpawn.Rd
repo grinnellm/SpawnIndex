@@ -48,6 +48,6 @@ dbDisconnect(conn = access_db)
 }
 \seealso{
 \code{\link{load_area_data}} \code{\link{load_all_spawn}}
-  \code{\link{get_width}} \code{\link{CalcSurfSpawn}}
-  \code{\link{CalcMacroSpawn}} \code{\link{CalcUnderSpawn}}
+  \code{\link{get_width}} \code{\link{calc_surf_spawn}}
+  \code{\link{calc_macro_spawn}} \code{\link{calc_under_spawn}}
 }

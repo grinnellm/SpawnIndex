@@ -111,11 +111,11 @@ Calculate the conversion factor to convert the number of eggs to the spawn index
 
 ```{r theta}
 # Egg to biomass conversion factor
-theta <- CalcEggConversion()
+theta <- calc_egg_conversion()
 ```
 
 Thus, we divide the number of eggs by $`r theta`$ to estimate the biomass of fish that spawned.
-This is the default conversion factor for the spawn index calculations below (e.g., `CalcSurfSpawn()`).
+This is the default conversion factor for the spawn index calculations below (e.g., `calc_surf_spawn()`).
 Then we calculate the spawn index for the three spawn survey types:
 surface, Macrocystis, and understory.
 
@@ -131,15 +131,15 @@ width_loc <- list(
     region_std = "RegionStd", section_std = "SectionStd", pool_std = "PoolStd"
   )
 )
-barWidth <- get_width(where = width_loc, a = areas)
+width_bar <- get_width(where = width_loc, a = areas)
 ```
 
 ```{r widthTable, echo = FALSE, results = 'asis'}
 full_join(
-  x = barWidth$region,
-  y = barWidth$section, by = "Region"
+  x = width_bar$region,
+  y = width_bar$section, by = "Region"
 ) %>%
-  full_join(y = barWidth$pool, by = c("Region", "Section")) %>%
+  full_join(y = width_bar$pool, by = c("Region", "Section")) %>%
   rename(
     `Region width` = WidthReg, `Section width` = WidthSec,
     `Pool width` = WidthPool
@@ -159,21 +159,21 @@ Surface spawn index calculations also require a table to convert intensity categ
 # Data
 data(intensity) # Spawn intensity categories and number of egg layers
 # List indicating the necessary tables
-surfLoc <- list(
+surf_loc <- list(
   loc = db_loc, db = "HerringSpawn.mdb",
   fns = list(surface = "tSSSurface", all_spawn = "tSSAllspawn")
 )
 # Calculate the surface spawn index
-surfSpawn <- CalcSurfSpawn(
-  where = surfLoc, a = areas, widths = barWidth, yrs = yrRange
+surf_spawn <- calc_surf_spawn(
+  where = surf_loc, a = areas, widths = width_bar, yrs = yrRange
 )
 ```
 
 Show surface spawn on a map, aggregated by Location and year.
 
-```{r surfLocYr, fig.cap = "Surface spawn index in tonnes (t) by location and year."}
+```{r surf_locYr, fig.cap = "Surface spawn index in tonnes (t) by location and year."}
 # Make a spatial object for mapping
-surfLocYr <- surfSpawn$SI %>%
+surf_locYr <- surf_spawn$SI %>%
   group_by(Year, LocationCode) %>%
   summarise(Surface = round(sum(SurfSI, na.rm = TRUE))) %>%
   ungroup() %>%
@@ -183,7 +183,7 @@ surfLocYr <- surfSpawn$SI %>%
   ) %>%
   st_as_sf(coords = c("Longitude", "Latitude"), crs = 4326)
 # Map
-ggplot(data = surfLocYr) +
+ggplot(data = surf_locYr) +
   geom_sf(data = canada) +
   geom_sf(mapping = aes(colour = Surface), size = 3) +
   scale_colour_viridis_c() +
@@ -197,7 +197,7 @@ Calculate the total surface spawn by year.
 
 ```{r surfYr, results = 'asis'}
 # Aggregate the surface spawn index by year
-surfYr <- surfSpawn$SI %>%
+surfYr <- surf_spawn$SI %>%
   group_by(Year) %>%
   summarise(Surface = sum(SurfSI, na.rm = TRUE)) %>%
   ungroup() %>%
@@ -216,21 +216,21 @@ Calculate the Macrocystis spawn index.
 
 ```{r macro}
 # List indicating the necessary tables
-macroLoc <- list(
+macro_loc <- list(
   loc = file.path(db_loc), db = "HerringSpawn.mdb",
   fns = list(
     all_spawn = "tSSAllspawn", plants = "tSSMacPlant", transects = "tSSMacTrans"
   )
 )
 # Calculate the Macrocystis spawn index
-macroSpawn <- CalcMacroSpawn(where = macroLoc, a = areas, yrs = yrRange)
+macro_spawn <- calc_macro_spawn(where = macro_loc, a = areas, yrs = yrRange)
 ```
 
 Show Macrocystis spawn on a map, aggregated by Location and year.
 
-```{r macroLocYr, fig.cap = "Macrocystis spawn index in tonnes (t) by location and year."}
+```{r macro_locYr, fig.cap = "Macrocystis spawn index in tonnes (t) by location and year."}
 # Make a spatial object for mapping
-macroLocYr <- macroSpawn$SI %>%
+macro_locYr <- macro_spawn$SI %>%
   group_by(Year, LocationCode) %>%
   summarise(Macrocystis = round(sum(MacroSI, na.rm = TRUE))) %>%
   ungroup() %>%
@@ -240,7 +240,7 @@ macroLocYr <- macroSpawn$SI %>%
   ) %>%
   st_as_sf(coords = c("Longitude", "Latitude"), crs = 4326)
 # Map
-ggplot(data = macroLocYr) +
+ggplot(data = macro_locYr) +
   geom_sf(data = canada) +
   geom_sf(mapping = aes(colour = Macrocystis), size = 3) +
   scale_colour_viridis_c() +
@@ -254,7 +254,7 @@ Calculate the total Macrocystis spawn by year.
 
 ```{r macroYr, results = 'asis'}
 # Aggregate the Macrocystis spawn index by year
-macroYr <- macroSpawn$SI %>%
+macroYr <- macro_spawn$SI %>%
   group_by(Year) %>%
   summarise(Macrocystis = sum(MacroSI, na.rm = TRUE)) %>%
   ungroup() %>%
@@ -278,22 +278,22 @@ and to specify algae coefficients.
 data(under_width_fac) # Understory spawn width correction factors
 data(algae_coefs) # Algae types and coefficients
 # List indicating the necessary tables
-underLoc <- list(
+under_loc <- list(
   loc = file.path(db_loc), db = "HerringSpawn.mdb",
   fns = list(
-    all_spawn = "tSSAllspawn", algTrans = "tSSVegTrans",
+    all_spawn = "tSSAllspawn", alg_trans = "tSSVegTrans",
     stations = "tSSStations", algae = "tSSVegetation"
   )
 )
 # Calculate the understory spawn index
-underSpawn <- CalcUnderSpawn(where = underLoc, a = areas, yrs = yrRange)
+under_spawn <- calc_under_spawn(where = under_loc, a = areas, yrs = yrRange)
 ```
 
 Show understory spawn on a map, aggregated by Location and year.
 
-```{r underLocYr, fig.cap = "Understory spawn index in tonnes (t) by location and year."}
+```{r under_locYr, fig.cap = "Understory spawn index in tonnes (t) by location and year."}
 # Make a spatial object for mapping
-underLocYr <- underSpawn$SI %>%
+under_locYr <- under_spawn$SI %>%
   group_by(Year, LocationCode) %>%
   summarise(Understory = round(sum(UnderSI, na.rm = TRUE))) %>%
   ungroup() %>%
@@ -303,7 +303,7 @@ underLocYr <- underSpawn$SI %>%
   ) %>%
   st_as_sf(coords = c("Longitude", "Latitude"), crs = 4326)
 # Map
-ggplot(data = underLocYr) +
+ggplot(data = under_locYr) +
   geom_sf(data = canada) +
   geom_sf(mapping = aes(colour = Understory), size = 3) +
   scale_colour_viridis_c() +
@@ -317,7 +317,7 @@ Calculate the total understory spawn by year.
 
 ```{r underYr, results = 'asis'}
 # Aggregate the understory spawn index by year
-underYr <- underSpawn$SI %>%
+underYr <- under_spawn$SI %>%
   group_by(Year) %>%
   summarise(Understory = sum(UnderSI, na.rm = TRUE)) %>%
   ungroup() %>%
@@ -362,7 +362,7 @@ Note that these are fictional values.
 kgSOK <- tibble(
   Year = yrRange, Harvest = sample(x = 500:10000, size = length(yrRange))
 ) %>%
-  mutate(Biomass = CalcBiomassSOK(Harvest))
+  mutate(Biomass = calc_biomass_sok(Harvest))
 # Table
 kable(
   x = kgSOK, digits = 1, booktabs = TRUE,

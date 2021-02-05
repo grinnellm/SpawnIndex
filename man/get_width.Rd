@@ -40,13 +40,13 @@ width_loc <- list(
     pool_std = "PoolStd"
   )
 )
-barWidth <- get_width(where = width_loc, a = areas)
-barWidth
+width_bar <- get_width(where = width_loc, a = areas)
+width_bar
 }
 \references{
 \insertAllCited
 }
 \seealso{
 \code{\link{HerringSpawn}} \code{\link{load_area_data}}
-  \code{\link{CalcSurfSpawn}}
+  \code{\link{calc_surf_spawn}}
 }

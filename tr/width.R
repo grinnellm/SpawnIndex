@@ -54,10 +54,10 @@ width_loc <- list(
 )
 
 # Tables etc for surface data
-surfLoc <- list(loc = db_loc, db = dbName, fns = list(all_spawn = "tSSAllspawn"))
+surf_loc <- list(loc = db_loc, db = dbName, fns = list(all_spawn = "tSSAllspawn"))
 
 # Tables etc for dive data (Macrocystis and understory)
-diveLoc <- list(loc = db_loc, db = dbName, fns = list(algTrans = "tSSVegTrans"))
+diveLoc <- list(loc = db_loc, db = dbName, fns = list(alg_trans = "tSSVegTrans"))
 
 ##### Data #####
 
@@ -67,7 +67,7 @@ areas <- load_area_data(
 )
 
 # Median widths
-barWidth <- get_width(where = width_loc, a = areas)
+width_bar <- get_width(where = width_loc, a = areas)
 
 # Understory spawn width correction factors
 data(under_width_fac)
@@ -132,7 +132,7 @@ GetSurfWidth <- function(where,
 } # End GetSurfWidth function
 
 # Load surface widths
-surfWidth <- GetSurfWidth(where = surfLoc, a = areas, widths = barWidth)
+surfWidth <- GetSurfWidth(where = surf_loc, a = areas, widths = width_bar)
 
 # Get dive widths
 GetDiveWidth <- function(where,
@@ -152,7 +152,7 @@ GetDiveWidth <- function(where,
     distinct() %>%
     as_tibble()
   # Transect data
-  algTrans <- sqlFetch(channel = access_db, sqtable = where$fns$algTrans) %>%
+  alg_trans <- sqlFetch(channel = access_db, sqtable = where$fns$alg_trans) %>%
     rename(
       LocationCode = Loc_Code, SpawnNumber = Spawn_Number,
       QuadratSize = Quadrat_Size, WidthObs = Width_Recorded
@@ -164,11 +164,11 @@ GetDiveWidth <- function(where,
     left_join(y = areas_sm, by = "LocationCode") %>%
     as_tibble()
   # Correction factors for region(s) by year (to fix lead line shrinkage issue)
-  widthFacs <- tau %>%
+  width_facs <- tau %>%
     gather(key = Region, value = WidthFac, -Year)
   # Merge the width factors and correct transect widths
-  algTrans <- algTrans %>%
-    left_join(y = widthFacs, by = c("Year", "Region")) %>%
+  alg_trans <- alg_trans %>%
+    left_join(y = width_facs, by = c("Year", "Region")) %>%
     replace_na(replace = list(WidthFac = 1.0)) %>%
     mutate(
       Width = WidthObs * WidthFac, Survey = "Dive", Pool = as.character(Pool)
@@ -191,7 +191,7 @@ GetDiveWidth <- function(where,
       Year, Region, StatArea, Section, Pool, LocationCode, SpawnNumber, WidthObs
     )
   # Resuts
-  res <- algTrans
+  res <- alg_trans
   # Close the connection
   odbcClose(access_db)
   # Return results
@@ -202,7 +202,7 @@ GetDiveWidth <- function(where,
 diveWidth <- GetDiveWidth(where = diveLoc, a = areas)
 
 # Get median dive widths
-barWidth2 <- diveWidth %>%
+width_bar2 <- diveWidth %>%
   select(
     Region, StatArea, Section, LocationCode, WidthReg, WidthStat,
     WidthSec, WidthLoc
@@ -276,7 +276,7 @@ GetSurfWidth2 <- function(where,
 } # End GetSurfWidths2 function
 
 # Load surface widths
-surfWidth2 <- GetSurfWidth2(where = surfLoc, a = areas, widths = barWidth2)
+surfWidth2 <- GetSurfWidth2(where = surf_loc, a = areas, widths = width_bar2)
 
 ##### Figures #####
 

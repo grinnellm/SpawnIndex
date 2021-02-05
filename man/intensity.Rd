@@ -26,6 +26,6 @@ intensity
 \insertAllCited{}
 }
 \seealso{
-\code{\link{CalcSurfSpawn}}
+\code{\link{calc_surf_spawn}}
 }
 \keyword{datasets}

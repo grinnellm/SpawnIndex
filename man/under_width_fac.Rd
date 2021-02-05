@@ -29,6 +29,6 @@ under_width_fac
 \insertAllCited{}
 }
 \seealso{
-\code{\link{CalcUnderSpawn}}
+\code{\link{calc_under_spawn}}
 }
 \keyword{datasets}

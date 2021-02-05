@@ -58,8 +58,8 @@ pars
 \insertAllCited{}
 }
 \seealso{
-\code{\link{CalcEggConversion}} \code{\link{CalcBiomassSOK}}
-  \code{\link{CalcSurfSpawn}} \code{\link{CalcMacroSpawn}}
-  \code{\link{CalcUnderSpawn}}
+\code{\link{calc_egg_conversion}} \code{\link{calc_biomass_sok}}
+  \code{\link{calc_surf_spawn}} \code{\link{calc_macro_spawn}}
+  \code{\link{calc_under_spawn}}
 }
 \keyword{datasets}
