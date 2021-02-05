@@ -75,10 +75,10 @@ Note that this example database only includes WCVI from 2010 to 2015.
 
 ```{r areas}
 # Database location
-dbLoc <- system.file("extdata", package = "SpawnIndex")
+db_loc <- system.file("extdata", package = "SpawnIndex")
 # List indicating the necessary tables: sections and locations
 areaLoc <- list(
-  loc = dbLoc, db = "HerringSpawn.mdb",
+  loc = db_loc, db = "HerringSpawn.mdb",
   fns = list(sections = "Sections", locations = "Location")
 )
 # Load area data
@@ -125,13 +125,13 @@ Calculate the surface spawn index.
 Surface spawn index calculations require a table of median spawn width estimates because width estimates from surfaces surveys are inaccurate.
 
 ```{r width}
-widthLoc <- list(
-  loc = dbLoc, db = "HerringSpawn.mdb",
+width_loc <- list(
+  loc = db_loc, db = "HerringSpawn.mdb",
   fns = list(
-    regionStd = "RegionStd", sectionStd = "SectionStd", poolStd = "PoolStd"
+    region_std = "RegionStd", section_std = "SectionStd", pool_std = "PoolStd"
   )
 )
-barWidth <- GetWidth(where = widthLoc, a = areas)
+barWidth <- get_width(where = width_loc, a = areas)
 ```
 
 ```{r widthTable, echo = FALSE, results = 'asis'}
@@ -160,8 +160,8 @@ Surface spawn index calculations also require a table to convert intensity categ
 data(intensity) # Spawn intensity categories and number of egg layers
 # List indicating the necessary tables
 surfLoc <- list(
-  loc = dbLoc, db = "HerringSpawn.mdb",
-  fns = list(surface = "tSSSurface", allSpawn = "tSSAllspawn")
+  loc = db_loc, db = "HerringSpawn.mdb",
+  fns = list(surface = "tSSSurface", all_spawn = "tSSAllspawn")
 )
 # Calculate the surface spawn index
 surfSpawn <- CalcSurfSpawn(
@@ -217,9 +217,9 @@ Calculate the Macrocystis spawn index.
 ```{r macro}
 # List indicating the necessary tables
 macroLoc <- list(
-  loc = file.path(dbLoc), db = "HerringSpawn.mdb",
+  loc = file.path(db_loc), db = "HerringSpawn.mdb",
   fns = list(
-    allSpawn = "tSSAllspawn", plants = "tSSMacPlant", transects = "tSSMacTrans"
+    all_spawn = "tSSAllspawn", plants = "tSSMacPlant", transects = "tSSMacTrans"
   )
 )
 # Calculate the Macrocystis spawn index
@@ -279,9 +279,9 @@ data(under_width_fac) # Understory spawn width correction factors
 data(algae_coefs) # Algae types and coefficients
 # List indicating the necessary tables
 underLoc <- list(
-  loc = file.path(dbLoc), db = "HerringSpawn.mdb",
+  loc = file.path(db_loc), db = "HerringSpawn.mdb",
   fns = list(
-    allSpawn = "tSSAllspawn", algTrans = "tSSVegTrans",
+    all_spawn = "tSSAllspawn", algTrans = "tSSVegTrans",
     stations = "tSSStations", algae = "tSSVegetation"
   )
 )

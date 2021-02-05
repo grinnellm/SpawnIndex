@@ -32,8 +32,8 @@ sectionSub <- NA
 if (!dir.exists(figPath)) dir.create(path = figPath)
 
 # Database location
-# dbLoc <- system.file("extdata", package = "SpawnIndex")
-dbLoc <- file.path("..", "Data", "Local")
+# db_loc <- system.file("extdata", package = "SpawnIndex")
+db_loc <- file.path("..", "Data", "Local")
 
 # Database name
 # dbName <- "HerringSpawn.mdb"
@@ -41,23 +41,23 @@ dbName <- "HSA_Program_v6.2.mdb"
 
 # Tables etc for area info
 areaLoc <- list(
-  loc = dbLoc, db = dbName,
+  loc = db_loc, db = dbName,
   fns = list(sections = "Sections", locations = "Location")
 )
 
 # Tables etc for median widths
-widthLoc <- list(
-  loc = dbLoc, db = dbName,
+width_loc <- list(
+  loc = db_loc, db = dbName,
   fns = list(
-    regionStd = "RegionStd", sectionStd = "SectionStd", poolStd = "PoolStd"
+    region_std = "RegionStd", section_std = "SectionStd", pool_std = "PoolStd"
   )
 )
 
 # Tables etc for surface data
-surfLoc <- list(loc = dbLoc, db = dbName, fns = list(allSpawn = "tSSAllspawn"))
+surfLoc <- list(loc = db_loc, db = dbName, fns = list(all_spawn = "tSSAllspawn"))
 
 # Tables etc for dive data (Macrocystis and understory)
-diveLoc <- list(loc = dbLoc, db = dbName, fns = list(algTrans = "tSSVegTrans"))
+diveLoc <- list(loc = db_loc, db = dbName, fns = list(algTrans = "tSSVegTrans"))
 
 ##### Data #####
 
@@ -67,7 +67,7 @@ areas <- load_area_data(
 )
 
 # Median widths
-barWidth <- GetWidth(where = widthLoc, a = areas)
+barWidth <- get_width(where = width_loc, a = areas)
 
 # Understory spawn width correction factors
 data(under_width_fac)
@@ -87,12 +87,12 @@ GetSurfWidth <- function(where,
     )
   )
   # Get a small subset of area data
-  areasSm <- a %>%
+  areas_sm <- a %>%
     select(Region, StatArea, Section, LocationCode, Pool) %>%
     distinct() %>%
     as_tibble()
   # Load all spawn
-  spawn <- sqlFetch(channel = access_db, sqtable = where$fns$allSpawn) %>%
+  spawn <- sqlFetch(channel = access_db, sqtable = where$fns$all_spawn) %>%
     rename(
       LocationCode = Loc_Code, SpawnNumber = Spawn_Number, WidthObs = Width
     ) %>%
@@ -101,7 +101,7 @@ GetSurfWidth <- function(where,
     as_tibble()
   # Bind the tables
   res <- spawn %>%
-    left_join(y = areasSm, by = "LocationCode") %>%
+    left_join(y = areas_sm, by = "LocationCode") %>%
     # Merge widths incrementally: region
     left_join(
       y = widths %>% select(Region, WidthReg) %>% distinct(),
@@ -147,7 +147,7 @@ GetDiveWidth <- function(where,
     )
   )
   # Get a small subset of area data
-  areasSm <- a %>%
+  areas_sm <- a %>%
     select(Region, StatArea, Section, Pool, LocationCode) %>%
     distinct() %>%
     as_tibble()
@@ -161,7 +161,7 @@ GetDiveWidth <- function(where,
     select(
       Year, LocationCode, SpawnNumber, Transect, WidthObs
     ) %>%
-    left_join(y = areasSm, by = "LocationCode") %>%
+    left_join(y = areas_sm, by = "LocationCode") %>%
     as_tibble()
   # Correction factors for region(s) by year (to fix lead line shrinkage issue)
   widthFacs <- tau %>%
@@ -226,12 +226,12 @@ GetSurfWidth2 <- function(where,
     )
   )
   # Get a small subset of area data
-  areasSm <- a %>%
+  areas_sm <- a %>%
     select(Region, StatArea, Section, LocationCode) %>%
     distinct() %>%
     as_tibble()
   # Load all spawn
-  spawn <- sqlFetch(channel = access_db, sqtable = where$fns$allSpawn) %>%
+  spawn <- sqlFetch(channel = access_db, sqtable = where$fns$all_spawn) %>%
     rename(
       LocationCode = Loc_Code, SpawnNumber = Spawn_Number, WidthObs = Width
     ) %>%
@@ -240,7 +240,7 @@ GetSurfWidth2 <- function(where,
     as_tibble()
   # Bind the tables
   res <- spawn %>%
-    left_join(y = areasSm, by = "LocationCode") %>%
+    left_join(y = areas_sm, by = "LocationCode") %>%
     # Merge widths incrementally: region
     left_join(
       y = widths %>% select(Region, WidthReg) %>% distinct(),

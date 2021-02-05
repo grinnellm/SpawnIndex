@@ -68,11 +68,10 @@ grps <- tibble::tibble(
   Section = c(231, 232, 233, 241),
   Group = c("Alberni Int", "Barkley", "Barkley", "Tofino Int")
 )
-areas2 <- load_area_data(
-  reg = "WCVI", where = areaLoc, groups = grps,
-  sec_sub = secs
+areas_sec_grp <- load_area_data(
+  reg = "WCVI", where = areaLoc, groups = grps, sec_sub = secs
 )
-dplyr::distinct(dplyr::select(areas2, Region, StatArea, Group, Section))
+dplyr::distinct(dplyr::select(data = areas_sec_grp, Region, StatArea, Group, Section))
 }
 \seealso{
 \code{\link{HerringSpawn}}

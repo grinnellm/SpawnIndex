@@ -47,7 +47,7 @@ dbListTables(conn = access_db)
 dbDisconnect(conn = access_db)
 }
 \seealso{
-\code{\link{load_area_data}} \code{\link{LoadAllSpawn}}
-  \code{\link{GetWidth}} \code{\link{CalcSurfSpawn}}
+\code{\link{load_area_data}} \code{\link{load_all_spawn}}
+  \code{\link{get_width}} \code{\link{CalcSurfSpawn}}
   \code{\link{CalcMacroSpawn}} \code{\link{CalcUnderSpawn}}
 }

@@ -26,7 +26,7 @@ spawn survey observations to include in calculations; from
 \code{\link{load_area_data}}.}
 
 \item{widths}{List. List of three tables: median region, section, and pool
-widths in metres (m); from \code{\link{GetWidth}}.}
+widths in metres (m); from \code{\link{get_width}}.}
 
 \item{yrs}{Numeric vector. Years(s) to include in the calculations, usually
 staring in 1951.}
@@ -69,18 +69,18 @@ area_loc <- list(
   fns = list(sections = "Sections", locations = "Location")
 )
 areas <- load_area_data(reg = "WCVI", where = area_loc)
-widthLoc <- list(
+width_loc <- list(
   loc = db_loc, db = "HerringSpawn.mdb",
   fns = list(
-    regionStd = "RegionStd", sectionStd = "SectionStd", poolStd = "PoolStd"
+    region_std = "RegionStd", section_std = "SectionStd", pool_std = "PoolStd"
   )
 )
-barWidth <- GetWidth(where = widthLoc, a = areas)
+barWidth <- get_width(where = width_loc, a = areas)
 data(pars)
 data(intensity)
 surfLoc <- list(
   loc = db_loc, db = "HerringSpawn.mdb",
-  fns = list(surface = "tSSSurface", allSpawn = "tSSAllspawn")
+  fns = list(surface = "tSSSurface", all_spawn = "tSSAllspawn")
 )
 surfSpawn <- CalcSurfSpawn(
   where = surfLoc, a = areas, widths = barWidth, yrs = 2010:2015
@@ -92,6 +92,6 @@ surfSpawn$SI
 }
 \seealso{
 \code{\link{HerringSpawn}} \code{\link{load_area_data}}
-  \code{\link{GetWidth}} \code{\link{CalcEggConversion}} \code{\link{pars}}
+  \code{\link{get_width}} \code{\link{CalcEggConversion}} \code{\link{pars}}
   \code{\link{intensity}}
 }

@@ -50,18 +50,17 @@
 #'   Section = c(231, 232, 233, 241),
 #'   Group = c("Alberni Int", "Barkley", "Barkley", "Tofino Int")
 #' )
-#' areas2 <- load_area_data(
-#'   reg = "WCVI", where = areaLoc, groups = grps,
-#'   sec_sub = secs
+#' areas_sec_grp <- load_area_data(
+#'   reg = "WCVI", where = areaLoc, groups = grps, sec_sub = secs
 #' )
-#' dplyr::distinct(dplyr::select(areas2, Region, StatArea, Group, Section))
+#' dplyr::distinct(dplyr::select(data = areas_sec_grp, Region, StatArea, Group, Section))
 load_area_data <- function(reg,
-                         sec_sub = NULL,
-                         where,
-                         in_crs = "+init=epsg:4326",
-                         out_crs = "+init=epsg:3005",
-                         groups = NULL,
-                         quiet = FALSE) {
+                           sec_sub = NULL,
+                           where,
+                           in_crs = "+init=epsg:4326",
+                           out_crs = "+init=epsg:3005",
+                           groups = NULL,
+                           quiet = FALSE) {
   # Warning if R is not 32-bit
   if (.Machine$sizeof.pointer != 4) warning("32-bit R required")
   # Cross-walk table for SAR to region and region name
@@ -312,13 +311,13 @@ load_area_data <- function(reg,
 #'   fns = list(sections = "Sections", locations = "Location")
 #' )
 #' areas <- load_area_data(reg = "WCVI", where = areaLoc)
-#' allSpawnLoc <- list(
-#'   loc = dbLoc, db = "HerringSpawn.mdb",
-#'   fns = list(allSpawn = "tSSAllspawn", stations = "tSSStations")
+#' all_spawn_loc <- list(
+#'   loc = db_loc, db = "HerringSpawn.mdb",
+#'   fns = list(all_spawn = "tSSAllspawn", stations = "tSSStations")
 #' )
-#' allSpawn <- LoadAllSpawn(where = allSpawnLoc, a = areas, yrs = 2010:2015)
-#' allSpawn
-LoadAllSpawn <- function(where, a, yrs, ft2m = 0.3048) {
+#' all_spawn <- load_all_spawn(where = all_spawn_loc, a = areas, yrs = 2010:2015)
+#' all_spawn
+load_all_spawn <- function(where, a, yrs, ft2m = 0.3048) {
   # Establish connection with access
   access_db <- dbConnect(
     drv = odbc(),
@@ -329,7 +328,7 @@ LoadAllSpawn <- function(where, a, yrs, ft2m = 0.3048) {
     )
   )
   # Extract relevant spawn data
-  spawn <- dbReadTable(conn = access_db, name = where$fns$allSpawn) %>%
+  spawn <- dbReadTable(conn = access_db, name = where$fns$all_spawn) %>%
     rename(LocationCode = Loc_Code, SpawnNumber = Spawn_Number) %>%
     mutate(
       Start = as_date(Start), End = as_date(End),
@@ -350,12 +349,12 @@ LoadAllSpawn <- function(where, a, yrs, ft2m = 0.3048) {
     ungroup() %>%
     arrange(Year, LocationCode, SpawnNumber)
   # Combine spawn and station data
-  spawnStation <- full_join(
+  spawn_station <- full_join(
     x = spawn, y = stations,
     by = c("Year", "LocationCode", "SpawnNumber")
   )
   # Get a small subset of area data
-  areasSm <- a %>%
+  areas_sm <- a %>%
     select(
       Region, StatArea, Group, Section, LocationCode, LocationName, Eastings,
       Northings, Longitude, Latitude
@@ -363,8 +362,8 @@ LoadAllSpawn <- function(where, a, yrs, ft2m = 0.3048) {
     distinct() %>%
     as_tibble()
   # Combine spawn and station data with area data
-  res <- spawnStation %>%
-    left_join(y = areasSm, by = c("LocationCode")) %>%
+  res <- spawn_station %>%
+    left_join(y = areas_sm, by = c("LocationCode")) %>%
     select(
       Year, Region, StatArea, Group, Section, LocationCode, LocationName,
       SpawnNumber, Eastings, Northings, Longitude, Latitude, Start, End,
@@ -377,7 +376,7 @@ LoadAllSpawn <- function(where, a, yrs, ft2m = 0.3048) {
   dbDisconnect(conn = access_db)
   # Return the table
   return(res)
-} # End LoadAllSpawn function
+} # End load_all_spawn function
 
 #' Load median spawn width.
 #'
@@ -405,23 +404,24 @@ LoadAllSpawn <- function(where, a, yrs, ft2m = 0.3048) {
 #'   \code{\link{CalcSurfSpawn}}
 #' @export
 #' @examples
-#' dbLoc <- system.file("extdata", package = "SpawnIndex")
+#' db_loc <- system.file("extdata", package = "SpawnIndex")
 #' areaLoc <- list(
-#'   loc = dbLoc, db = "HerringSpawn.mdb",
+#'   loc = db_loc, db = "HerringSpawn.mdb",
 #'   fns = list(sections = "Sections", locations = "Location")
 #' )
 #' areas <- load_area_data(reg = "WCVI", where = areaLoc)
-#' widthLoc <- list(
-#'   loc = dbLoc, db = "HerringSpawn.mdb",
+#' width_loc <- list(
+#'   loc = db_loc, db = "HerringSpawn.mdb",
 #'   fns = list(
-#'     regionStd = "RegionStd", sectionStd = "SectionStd", poolStd = "PoolStd"
+#'     region_std = "RegionStd", section_std = "SectionStd",
+#'     pool_std = "PoolStd"
 #'   )
 #' )
-#' barWidth <- GetWidth(where = widthLoc, a = areas)
+#' barWidth <- get_width(where = width_loc, a = areas)
 #' barWidth
-GetWidth <- function(where, a = areas) {
+get_width <- function(where, a = areas) {
   # Get area info
-  aSm <- a %>%
+  a_sm <- a %>%
     select(SAR, Region, StatArea, Section, LocationCode, Pool) %>%
     distinct() %>%
     as_tibble()
@@ -435,35 +435,35 @@ GetWidth <- function(where, a = areas) {
     )
   )
   # Access the region worksheet and wrangle
-  regStd <- dbReadTable(conn = access_db, name = where$fns$regionStd) %>%
+  reg_std <- dbReadTable(conn = access_db, name = where$fns$region_std) %>%
     rename(SAR = REGION, WidthReg = WIDMED) %>%
-    left_join(y = aSm, by = "SAR") %>%
-    filter(SAR %in% aSm$SAR) %>%
+    left_join(y = a_sm, by = "SAR") %>%
+    filter(SAR %in% a_sm$SAR) %>%
     select(Region, WidthReg) %>%
     distinct() %>%
     as_tibble()
   # Access the section worksheet and wrangle
-  secStd <- dbReadTable(conn = access_db, name = where$fns$sectionStd) %>%
+  sec_std <- dbReadTable(conn = access_db, name = where$fns$section_std) %>%
     rename(Section = SECTION, WidthSec = WIDMED) %>%
     mutate(Section = as.integer(Section)) %>%
-    left_join(y = aSm, by = "Section") %>%
-    filter(Section %in% aSm$Section) %>%
+    left_join(y = a_sm, by = "Section") %>%
+    filter(Section %in% a_sm$Section) %>%
     select(Region, Section, WidthSec) %>%
     distinct() %>%
     as_tibble()
   # Access the pool worksheet and wrangle
-  poolStd <- dbReadTable(conn = access_db, name = where$fns$poolStd) %>%
+  pool_std <- dbReadTable(conn = access_db, name = where$fns$pool_std) %>%
     rename(Section = SECTION, Pool = BED, WidthPool = WIDMED) %>%
     mutate(Section = as.integer(Section), Pool = as.integer(Pool)) %>%
-    left_join(y = aSm, by = c("Section", "Pool")) %>%
-    filter(Section %in% aSm$Section) %>%
+    left_join(y = a_sm, by = c("Section", "Pool")) %>%
+    filter(Section %in% a_sm$Section) %>%
     select(Region, Section, Pool, WidthPool) %>%
     distinct() %>%
     as_tibble()
   # Merge the tables to a list
-  res <- list(region = regStd, section = secStd, pool = poolStd)
+  res <- list(region = reg_std, section = sec_std, pool = pool_std)
   # Close the connection
   dbDisconnect(conn = access_db)
   # Table to return
   return(res)
-} # End GetWidth function
+} # End get_width function

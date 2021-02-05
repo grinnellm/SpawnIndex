@@ -68,7 +68,7 @@ data(pars)
 macroLoc <- list(
   loc = db_loc, db = "HerringSpawn.mdb",
   fns = list(
-    allSpawn = "tSSAllspawn", plants = "tSSMacPlant",
+    all_spawn = "tSSAllspawn", plants = "tSSMacPlant",
     transects = "tSSMacTrans"
   )
 )

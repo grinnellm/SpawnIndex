@@ -72,7 +72,7 @@ areas <- load_area_data(reg = "WCVI", where = areaLoc)
 underLoc <- list(
   loc = db_loc, db = "HerringSpawn.mdb",
   fns = list(
-    allSpawn = "tSSAllspawn", algTrans = "tSSVegTrans",
+    all_spawn = "tSSAllspawn", algTrans = "tSSVegTrans",
     stations = "tSSStations", algae = "tSSVegetation"
   )
 )
