@@ -34,11 +34,11 @@ staring in 1951.}
 \item{intense}{Tibble. Table of spawn intensity categories and number of egg
 layers; from \code{\link{intensity}}.}
 
-\item{intense_yrs}{Numeric vector. Years where intensity categories are used to
-determine egg layers.}
+\item{intense_yrs}{Numeric vector. Years where intensity categories are used
+to determine egg layers.}
 
-\item{rescale_yrs}{Numeric vector. Years where intensity needs to be re-scaled from
-5 to 9 categories.}
+\item{rescale_yrs}{Numeric vector. Years where intensity needs to be
+re-scaled from 5 to 9 categories.}
 
 \item{alpha}{Numeric. Regression intercept; from \code{\link{pars}}
 \insertCite{SchweigertEtal1997}{SpawnIndex}.}
@@ -72,7 +72,8 @@ areas <- load_area_data(reg = "WCVI", where = area_loc)
 width_loc <- list(
   loc = db_loc, db = "HerringSpawn.mdb",
   fns = list(
-    region_std = "RegionStd", section_std = "SectionStd", pool_std = "PoolStd"
+    region_std = "RegionStd", section_std = "SectionStd",
+    pool_std = "PoolStd"
   )
 )
 width_bar <- get_width(where = width_loc, a = areas)
@@ -92,6 +93,6 @@ surf_spawn$SI
 }
 \seealso{
 \code{\link{HerringSpawn}} \code{\link{load_area_data}}
-  \code{\link{get_width}} \code{\link{calc_egg_conversion}} \code{\link{pars}}
-  \code{\link{intensity}}
+  \code{\link{get_width}} \code{\link{calc_egg_conversion}}
+  \code{\link{pars}} \code{\link{intensity}}
 }

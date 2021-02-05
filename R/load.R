@@ -53,7 +53,8 @@
 #' areas_sec_grp <- load_area_data(
 #'   reg = "WCVI", where = areaLoc, groups = grps, sec_sub = secs
 #' )
-#' dplyr::distinct(dplyr::select(areas_sec_grp, Region, StatArea, Group, Section))
+#' dplyr::distinct(dplyr::select(areas_sec_grp, Region, StatArea, Group,
+#'   Section))
 load_area_data <- function(reg,
                            sec_sub = NULL,
                            where,
@@ -315,7 +316,8 @@ load_area_data <- function(reg,
 #'   loc = db_loc, db = "HerringSpawn.mdb",
 #'   fns = list(all_spawn = "tSSAllspawn", stations = "tSSStations")
 #' )
-#' all_spawn <- load_all_spawn(where = all_spawn_loc, a = areas, yrs = 2010:2015)
+#' all_spawn <- load_all_spawn(where = all_spawn_loc, a = areas,
+#'   yrs = 2010:2015)
 #' all_spawn
 load_all_spawn <- function(where, a, yrs, ft2m = 0.3048) {
   # Establish connection with access

@@ -17,7 +17,7 @@
 #' data(pars)
 #' calc_egg_conversion()
 calc_egg_conversion <- function(omega = pars$conversion$omega,
-                              female = pars$conversion$female) {
+                                female = pars$conversion$female) {
   # Eggs per tonne: eggs/kilogram female * proportion female * kilograms/tonne
   theta <- omega * female * 1000
   # Return the conversion factor
@@ -46,10 +46,10 @@ calc_egg_conversion <- function(omega = pars$conversion$omega,
 #' data(pars)
 #' calc_biomass_sok(SOK = 100)
 calc_biomass_sok <- function(SOK,
-                           nu = pars$SOK$nu,
-                           upsilon = pars$SOK$upsilon,
-                           M = pars$SOK$M,
-                           theta = calc_egg_conversion()) {
+                             nu = pars$SOK$nu,
+                             upsilon = pars$SOK$upsilon,
+                             M = pars$SOK$M,
+                             theta = calc_egg_conversion()) {
   # Spawning biomass in tonnes: (kg SOK * proportion eggs * proportion eggs) /
   # (kg per egg * eggs per tonne )
   SB <- (SOK * (1 - nu) * 1 / (1 + upsilon)) / (M * theta)
@@ -72,10 +72,10 @@ calc_biomass_sok <- function(SOK,
 #'   staring in 1951.
 #' @param intense Tibble. Table of spawn intensity categories and number of egg
 #'   layers; from \code{\link{intensity}}.
-#' @param intense_yrs Numeric vector. Years where intensity categories are used to
-#'   determine egg layers.
-#' @param rescale_yrs Numeric vector. Years where intensity needs to be re-scaled from
-#'   5 to 9 categories.
+#' @param intense_yrs Numeric vector. Years where intensity categories are used
+#'   to determine egg layers.
+#' @param rescale_yrs Numeric vector. Years where intensity needs to be
+#'   re-scaled from 5 to 9 categories.
 #' @param alpha Numeric. Regression intercept; from \code{\link{pars}}
 #'   \insertCite{SchweigertEtal1997}{SpawnIndex}.
 #' @param beta Numeric. Regression slope; from \code{\link{pars}}
@@ -99,8 +99,8 @@ calc_biomass_sok <- function(SOK,
 #' @references \insertAllCited
 #' @note The `spawn index' is a relative index of spawning biomass.
 #' @seealso \code{\link{HerringSpawn}} \code{\link{load_area_data}}
-#'   \code{\link{get_width}} \code{\link{calc_egg_conversion}} \code{\link{pars}}
-#'   \code{\link{intensity}}
+#'   \code{\link{get_width}} \code{\link{calc_egg_conversion}}
+#'   \code{\link{pars}} \code{\link{intensity}}
 #' @export
 #' @examples
 #' db_loc <- system.file("extdata", package = "SpawnIndex")
@@ -112,7 +112,8 @@ calc_biomass_sok <- function(SOK,
 #' width_loc <- list(
 #'   loc = db_loc, db = "HerringSpawn.mdb",
 #'   fns = list(
-#'     region_std = "RegionStd", section_std = "SectionStd", pool_std = "PoolStd"
+#'     region_std = "RegionStd", section_std = "SectionStd",
+#'     pool_std = "PoolStd"
 #'   )
 #' )
 #' width_bar <- get_width(where = width_loc, a = areas)
@@ -127,15 +128,15 @@ calc_biomass_sok <- function(SOK,
 #' )
 #' surf_spawn$SI
 calc_surf_spawn <- function(where,
-                          a,
-                          widths,
-                          yrs,
-                          intense = intensity,
-                          intense_yrs = yrs[yrs < 1979],
-                          rescale_yrs = intense_yrs[intense_yrs < 1951],
-                          alpha = pars$surface$alpha,
-                          beta = pars$surface$beta,
-                          theta = calc_egg_conversion()) {
+                            a,
+                            widths,
+                            yrs,
+                            intense = intensity,
+                            intense_yrs = yrs[yrs < 1979],
+                            rescale_yrs = intense_yrs[intense_yrs < 1951],
+                            alpha = pars$surface$alpha,
+                            beta = pars$surface$beta,
+                            theta = calc_egg_conversion()) {
   # Establish connection with access
   access_db <- dbConnect(
     drv = odbc(),
@@ -369,17 +370,20 @@ calc_surf_spawn <- function(where,
 #'     transects = "tSSMacTrans"
 #'   )
 #' )
-#' macro_spawn <- calc_macro_spawn(where = macro_loc, a = areas, yrs = 2010:2015)
+#' macro_spawn <- calc_macro_spawn(
+#'   where = macro_loc, a = areas,
+#'   yrs = 2010:2015
+#' )
 #' macro_spawn$SI
 calc_macro_spawn <- function(where,
-                           a,
-                           yrs,
-                           t_swath = 2,
-                           xi = pars$macrocystis$xi,
-                           gamma = pars$macrocystis$gamma,
-                           delta = pars$macrocystis$delta,
-                           epsilon = pars$macrocystis$epsilon,
-                           theta = calc_egg_conversion()) {
+                             a,
+                             yrs,
+                             t_swath = 2,
+                             xi = pars$macrocystis$xi,
+                             gamma = pars$macrocystis$gamma,
+                             delta = pars$macrocystis$delta,
+                             epsilon = pars$macrocystis$epsilon,
+                             theta = calc_egg_conversion()) {
   # Establish connection with access
   access_db <- dbConnect(
     drv = odbc(),
@@ -540,7 +544,8 @@ calc_macro_spawn <- function(where,
 #' @references \insertAllCited
 #' @note The `spawn index' is a relative index of spawning biomass.
 #' @seealso \code{\link{HerringSpawn}} \code{\link{load_area_data}}
-#'   \code{\link{calc_egg_conversion}} \code{\link{pars}} \code{\link{algae_coefs}}
+#'   \code{\link{calc_egg_conversion}} \code{\link{pars}}
+#'   \code{\link{algae_coefs}}
 #' @export
 #' @examples
 #' db_loc <- system.file("extdata", package = "SpawnIndex")
@@ -559,18 +564,21 @@ calc_macro_spawn <- function(where,
 #' data(under_width_fac)
 #' data(pars)
 #' data(algae_coefs)
-#' under_spawn <- calc_under_spawn(where = under_loc, a = areas, yrs = 2010:2015)
+#' under_spawn <- calc_under_spawn(
+#'   where = under_loc, a = areas,
+#'   yrs = 2010:2015
+#' )
 #' under_spawn$SI
 calc_under_spawn <- function(where,
-                           a,
-                           yrs,
-                           alg_coefs = algae_coefs,
-                           tau = under_width_fac,
-                           varphi = pars$understory$varphi,
-                           vartheta = pars$understory$vartheta,
-                           varrho = pars$under$varrho,
-                           varsigma = pars$understory$varsigma,
-                           theta = calc_egg_conversion()) {
+                             a,
+                             yrs,
+                             alg_coefs = algae_coefs,
+                             tau = under_width_fac,
+                             varphi = pars$understory$varphi,
+                             vartheta = pars$understory$vartheta,
+                             varrho = pars$under$varrho,
+                             varsigma = pars$understory$varsigma,
+                             theta = calc_egg_conversion()) {
   # Establish connection with access
   access_db <- dbConnect(
     drv = odbc(),
@@ -672,10 +680,10 @@ calc_under_spawn <- function(where,
   # If there are missing algae types
   if (any(!algae$AlgType %in% alg_coefs$AlgType)) {
     # Get missing algae type(s)
-    missAlg <- unique(algae$AlgType[!algae$AlgType %in%
+    miss_alg <- unique(algae$AlgType[!algae$AlgType %in%
       alg_coefs$AlgType])
     # Error, and show missing type(s)
-    stop("Missing algae type(s): ", paste(missAlg, collapse = ", "),
+    stop("Missing algae type(s): ", paste(miss_alg, collapse = ", "),
       call. = FALSE
     )
   } # End if there are missing algae types
@@ -808,8 +816,8 @@ calc_under_spawn <- function(where,
   dbDisconnect(conn = access_db)
   # Return the data
   return(list(
-    stations = stations, algae = algae, eggs = eggs, eggs_station = eggs_station,
-    eggs_trans = eggs_trans, eggs_spawn = eggs_spawn, biomass_spawn = biomass_spawn,
-    SI = SI
+    stations = stations, algae = algae, eggs = eggs,
+    eggs_station = eggs_station, eggs_trans = eggs_trans,
+    eggs_spawn = eggs_spawn, biomass_spawn = biomass_spawn, SI = SI
   ))
 } # End calc_under_spawn function

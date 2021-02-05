@@ -79,7 +79,10 @@ under_loc <- list(
 data(under_width_fac)
 data(pars)
 data(algae_coefs)
-under_spawn <- calc_under_spawn(where = under_loc, a = areas, yrs = 2010:2015)
+under_spawn <- calc_under_spawn(
+  where = under_loc, a = areas,
+  yrs = 2010:2015
+)
 under_spawn$SI
 }
 \references{
@@ -87,5 +90,6 @@ under_spawn$SI
 }
 \seealso{
 \code{\link{HerringSpawn}} \code{\link{load_area_data}}
-  \code{\link{calc_egg_conversion}} \code{\link{pars}} \code{\link{algae_coefs}}
+  \code{\link{calc_egg_conversion}} \code{\link{pars}}
+  \code{\link{algae_coefs}}
 }

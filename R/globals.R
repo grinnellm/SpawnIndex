@@ -16,6 +16,7 @@ utils::globalVariables(c(
   "SECTION", "Spawn_Number", "SpawnNumber", "Stalks", "StalksPerPlant", "Start",
   "StatArea", "Station", "Stringy_Red_Percent", "StringyRed", "SubLyrs",
   "SubProp", "SurfSI", "Swath", "Transect", "Type_Vegetation", "UnderSI",
-  "under_width_fac", "WIDMED", "Width", "Width_Recorded", "WidthBar", "WidthFac",
-  "WidthObs", "WidthPool", "WidthReg", "WidthSec", "WidthTot", "X", "Y", "Year"
+  "under_width_fac", "WIDMED", "Width", "Width_Recorded", "WidthBar",
+  "WidthFac", "WidthObs", "WidthPool", "WidthReg", "WidthSec", "WidthTot", "X",
+  "Y", "Year"
 ))
