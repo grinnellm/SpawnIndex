@@ -65,7 +65,7 @@ CalcBiomassSOK <- function(SOK,
 #'   (see examples).
 #' @param a Tibble. Table of geographic information indicating the subset of
 #'   spawn survey observations to include in calculations; from
-#'   \code{\link{LoadAreaData}}.
+#'   \code{\link{load_area_data}}.
 #' @param widths List. List of three tables: median region, section, and pool
 #'   widths in metres (m); from \code{\link{GetWidth}}.
 #' @param yrs Numeric vector. Years(s) to include in the calculations, usually
@@ -98,19 +98,19 @@ CalcBiomassSOK <- function(SOK,
 #'   Section, and Location code.
 #' @references \insertAllCited
 #' @note The `spawn index' is a relative index of spawning biomass.
-#' @seealso \code{\link{HerringSpawn}} \code{\link{LoadAreaData}}
+#' @seealso \code{\link{HerringSpawn}} \code{\link{load_area_data}}
 #'   \code{\link{GetWidth}} \code{\link{CalcEggConversion}} \code{\link{pars}}
 #'   \code{\link{intensity}}
 #' @export
 #' @examples
-#' dbLoc <- system.file("extdata", package = "SpawnIndex")
-#' areaLoc <- list(
-#'   loc = dbLoc, db = "HerringSpawn.mdb",
+#' db_loc <- system.file("extdata", package = "SpawnIndex")
+#' area_loc <- list(
+#'   loc = db_loc, db = "HerringSpawn.mdb",
 #'   fns = list(sections = "Sections", locations = "Location")
 #' )
-#' areas <- LoadAreaData(reg = "WCVI", where = areaLoc)
+#' areas <- load_area_data(reg = "WCVI", where = area_loc)
 #' widthLoc <- list(
-#'   loc = dbLoc, db = "HerringSpawn.mdb",
+#'   loc = db_loc, db = "HerringSpawn.mdb",
 #'   fns = list(
 #'     regionStd = "RegionStd", sectionStd = "SectionStd", poolStd = "PoolStd"
 #'   )
@@ -119,7 +119,7 @@ CalcBiomassSOK <- function(SOK,
 #' data(pars)
 #' data(intensity)
 #' surfLoc <- list(
-#'   loc = dbLoc, db = "HerringSpawn.mdb",
+#'   loc = db_loc, db = "HerringSpawn.mdb",
 #'   fns = list(surface = "tSSSurface", allSpawn = "tSSAllspawn")
 #' )
 #' surfSpawn <- CalcSurfSpawn(
@@ -137,7 +137,7 @@ CalcSurfSpawn <- function(where,
                           beta = pars$surface$beta,
                           theta = CalcEggConversion()) {
   # Establish connection with access
-  accessDB <- dbConnect(
+  access_db <- dbConnect(
     drv = odbc(),
     .connection_string = paste(
       "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=",
@@ -151,7 +151,7 @@ CalcSurfSpawn <- function(where,
     distinct() %>%
     as_tibble()
   # Load all spawn
-  spawn <- dbReadTable(conn = accessDB, name = where$fns$allSpawn) %>%
+  spawn <- dbReadTable(conn = access_db, name = where$fns$allSpawn) %>%
     rename(
       LocationCode = Loc_Code, SpawnNumber = Spawn_Number, WidthObs = Width
     ) %>%
@@ -162,7 +162,7 @@ CalcSurfSpawn <- function(where,
     ) %>%
     as_tibble()
   # Extract relevant surface data
-  surface <- dbReadTable(conn = accessDB, name = where$fns$surface) %>%
+  surface <- dbReadTable(conn = access_db, name = where$fns$surface) %>%
     rename(LocationCode = Loc_Code, SpawnNumber = Spawn_Number) %>%
     filter(Year %in% yrs, LocationCode %in% a$LocationCode) %>%
     left_join(y = areasSm, by = "LocationCode") %>%
@@ -305,7 +305,7 @@ CalcSurfSpawn <- function(where,
   SI <- biomassSpawn %>%
     select(Year, Region, StatArea, Section, LocationCode, SpawnNumber, SurfSI)
   # Close the connection
-  dbDisconnect(conn = accessDB)
+  dbDisconnect(conn = access_db)
   # Return the data
   return(list(
     surface = surface, eggs = eggs, eggsSpawn = eggsSpawn,
@@ -321,7 +321,7 @@ CalcSurfSpawn <- function(where,
 #'   (see examples).
 #' @param a Tibble. Table of geographic information indicating the subset of
 #'   spawn survey observations to include in calculations; from
-#'   \code{\link{LoadAreaData}}.
+#'   \code{\link{load_area_data}}.
 #' @param yrs Numeric vector. Years(s) to include in the calculations, usually
 #'   staring in 1951.
 #' @param tSwath Numeric. Transect swath (i.e., width) in metres.
@@ -351,19 +351,19 @@ CalcSurfSpawn <- function(where,
 #'   Section, and Location code.
 #' @references \insertAllCited
 #' @note The `spawn index' is a relative index of spawning biomass.
-#' @seealso \code{\link{HerringSpawn}} \code{\link{LoadAreaData}}
+#' @seealso \code{\link{HerringSpawn}} \code{\link{load_area_data}}
 #'   \code{\link{CalcEggConversion}} \code{\link{pars}}
 #' @export
 #' @examples
-#' dbLoc <- system.file("extdata", package = "SpawnIndex")
-#' areaLoc <- list(
-#'   loc = dbLoc, db = "HerringSpawn.mdb",
+#' db_loc <- system.file("extdata", package = "SpawnIndex")
+#' area_loc <- list(
+#'   loc = db_loc, db = "HerringSpawn.mdb",
 #'   fns = list(sections = "Sections", locations = "Location")
 #' )
-#' areas <- LoadAreaData(reg = "WCVI", where = areaLoc)
+#' areas <- load_area_data(reg = "WCVI", where = area_loc)
 #' data(pars)
 #' macroLoc <- list(
-#'   loc = dbLoc, db = "HerringSpawn.mdb",
+#'   loc = db_loc, db = "HerringSpawn.mdb",
 #'   fns = list(
 #'     allSpawn = "tSSAllspawn", plants = "tSSMacPlant",
 #'     transects = "tSSMacTrans"
@@ -381,7 +381,7 @@ CalcMacroSpawn <- function(where,
                            epsilon = pars$macrocystis$epsilon,
                            theta = CalcEggConversion()) {
   # Establish connection with access
-  accessDB <- dbConnect(
+  access_db <- dbConnect(
     drv = odbc(),
     .connection_string = paste(
       "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=",
@@ -390,7 +390,7 @@ CalcMacroSpawn <- function(where,
     )
   )
   # Load all spawn
-  spawn <- dbReadTable(conn = accessDB, name = where$fns$allSpawn) %>%
+  spawn <- dbReadTable(conn = access_db, name = where$fns$allSpawn) %>%
     rename(
       LocationCode = Loc_Code, SpawnNumber = Spawn_Number,
       LengthMacro = Length_Macrocystis
@@ -402,7 +402,7 @@ CalcMacroSpawn <- function(where,
     ) %>%
     as_tibble()
   # Get plant-level data
-  plants <- dbReadTable(conn = accessDB, name = where$fns$plants) %>%
+  plants <- dbReadTable(conn = access_db, name = where$fns$plants) %>%
     rename(LocationCode = Loc_Code, SpawnNumber = Spawn_Number) %>%
     filter(
       Year %in% yrs, LocationCode %in% a$LocationCode,
@@ -416,7 +416,7 @@ CalcMacroSpawn <- function(where,
     distinct() %>%
     as_tibble()
   # Get transect-level data
-  transects <- dbReadTable(conn = accessDB, name = where$fns$transects) %>%
+  transects <- dbReadTable(conn = access_db, name = where$fns$transects) %>%
     rename(LocationCode = Loc_Code, SpawnNumber = Spawn_Number) %>%
     filter(Year %in% yrs, LocationCode %in% a$LocationCode) %>%
     left_join(y = areasSm, by = "LocationCode") %>%
@@ -491,7 +491,7 @@ CalcMacroSpawn <- function(where,
       Year, Region, StatArea, Section, LocationCode, SpawnNumber, MacroSI
     )
   # Close the connection
-  dbDisconnect(conn = accessDB)
+  dbDisconnect(conn = access_db)
   # Return the data
   return(list(
     dat = dat, datTrans = datTrans, biomassSpawn = biomassSpawn, SI = SI
@@ -506,7 +506,7 @@ CalcMacroSpawn <- function(where,
 #'   (see examples).
 #' @param a Tibble. Table of geographic information indicating the subset of
 #'   spawn survey observations to include in calculations; from
-#'   \code{\link{LoadAreaData}}.
+#'   \code{\link{load_area_data}}.
 #' @param yrs Numeric vector. Years(s) to include in the calculations, usually
 #'   staring in 1951.
 #' @param algCoefs Tibble. Table of algae coefficients; from
@@ -539,18 +539,18 @@ CalcMacroSpawn <- function(where,
 #'   Section, and Location code.
 #' @references \insertAllCited
 #' @note The `spawn index' is a relative index of spawning biomass.
-#' @seealso \code{\link{HerringSpawn}} \code{\link{LoadAreaData}}
+#' @seealso \code{\link{HerringSpawn}} \code{\link{load_area_data}}
 #'   \code{\link{CalcEggConversion}} \code{\link{pars}} \code{\link{algae_coefs}}
 #' @export
 #' @examples
-#' dbLoc <- system.file("extdata", package = "SpawnIndex")
+#' db_loc <- system.file("extdata", package = "SpawnIndex")
 #' areaLoc <- list(
-#'   loc = dbLoc, db = "HerringSpawn.mdb",
+#'   loc = db_loc, db = "HerringSpawn.mdb",
 #'   fns = list(sections = "Sections", locations = "Location")
 #' )
-#' areas <- LoadAreaData(reg = "WCVI", where = areaLoc)
+#' areas <- load_area_data(reg = "WCVI", where = areaLoc)
 #' underLoc <- list(
-#'   loc = dbLoc, db = "HerringSpawn.mdb",
+#'   loc = db_loc, db = "HerringSpawn.mdb",
 #'   fns = list(
 #'     allSpawn = "tSSAllspawn", algTrans = "tSSVegTrans",
 #'     stations = "tSSStations", algae = "tSSVegetation"
@@ -572,7 +572,7 @@ CalcUnderSpawn <- function(where,
                            varsigma = pars$understory$varsigma,
                            theta = CalcEggConversion()) {
   # Establish connection with access
-  accessDB <- dbConnect(
+  access_db <- dbConnect(
     drv = odbc(),
     .connection_string = paste(
       "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=",
@@ -586,7 +586,7 @@ CalcUnderSpawn <- function(where,
     distinct() %>%
     as_tibble()
   # Load all spawn
-  spawn <- dbReadTable(conn = accessDB, name = where$fns$allSpawn) %>%
+  spawn <- dbReadTable(conn = access_db, name = where$fns$allSpawn) %>%
     rename(
       LocationCode = Loc_Code, SpawnNumber = Spawn_Number,
       LengthAlgae = Length_Vegetation
@@ -598,7 +598,7 @@ CalcUnderSpawn <- function(where,
     ) %>%
     as_tibble()
   # Load algae transects
-  algTrans <- dbReadTable(conn = accessDB, name = where$fns$algTrans) %>%
+  algTrans <- dbReadTable(conn = access_db, name = where$fns$algTrans) %>%
     rename(
       LocationCode = Loc_Code, SpawnNumber = Spawn_Number,
       QuadratSize = Quadrat_Size, WidthObs = Width_Recorded
@@ -622,7 +622,7 @@ CalcUnderSpawn <- function(where,
     stop("All quadrats must be 0.5m^2", call. = FALSE)
   }
   # Load station data
-  stations <- dbReadTable(conn = accessDB, name = where$fns$stations) %>%
+  stations <- dbReadTable(conn = access_db, name = where$fns$stations) %>%
     rename(
       LocationCode = Loc_Code, SpawnNumber = Spawn_Number,
       SubLyrs = Layers_Bottom
@@ -640,7 +640,7 @@ CalcUnderSpawn <- function(where,
     ungroup() %>%
     mutate(Source = "Substrate")
   # Load algae
-  algae <- dbReadTable(conn = accessDB, name = where$fns$algae) %>%
+  algae <- dbReadTable(conn = access_db, name = where$fns$algae) %>%
     rename(
       LocationCode = Loc_Code, SpawnNumber = Spawn_Number,
       AlgType = Type_Vegetation, AlgLyrs = Layers_Vegetation
@@ -805,7 +805,7 @@ CalcUnderSpawn <- function(where,
       Year, Region, StatArea, Section, LocationCode, SpawnNumber, UnderSI
     )
   # Close the connection
-  dbDisconnect(conn = accessDB)
+  dbDisconnect(conn = access_db)
   # Return the data
   return(list(
     stations = stations, algae = algae, eggs = eggs, eggsStation = eggsStation,

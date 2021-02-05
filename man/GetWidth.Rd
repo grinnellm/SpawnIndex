@@ -12,7 +12,7 @@ GetWidth(where, a = areas)
 
 \item{a}{Tibble. Table of geographic information indicating the subset of
 spawn survey observations to include in calculations; from
-\code{\link{LoadAreaData}}.}
+\code{\link{load_area_data}}.}
 }
 \value{
 List with three tables: median region (\code{WidthReg}), section
@@ -32,7 +32,7 @@ areaLoc <- list(
   loc = dbLoc, db = "HerringSpawn.mdb",
   fns = list(sections = "Sections", locations = "Location")
 )
-areas <- LoadAreaData(reg = "WCVI", where = areaLoc)
+areas <- load_area_data(reg = "WCVI", where = areaLoc)
 widthLoc <- list(
   loc = dbLoc, db = "HerringSpawn.mdb",
   fns = list(
@@ -46,6 +46,6 @@ barWidth
 \insertAllCited
 }
 \seealso{
-\code{\link{HerringSpawn}} \code{\link{LoadAreaData}}
+\code{\link{HerringSpawn}} \code{\link{load_area_data}}
   \code{\link{CalcSurfSpawn}}
 }

@@ -21,24 +21,24 @@
 #' }
 #' @docType data
 #' @name HerringSpawn
-#' @seealso \code{\link{LoadAreaData}} \code{\link{LoadAllSpawn}}
+#' @seealso \code{\link{load_area_data}} \code{\link{LoadAllSpawn}}
 #'   \code{\link{GetWidth}} \code{\link{CalcSurfSpawn}}
 #'   \code{\link{CalcMacroSpawn}} \code{\link{CalcUnderSpawn}}
 #' @note This is a 32-bit MS Access database, and it requires 32-bit R to access
 #'   the data. This example database only includes WCVI from 2010 to 2015.
 #' @examples
-#' dbLoc <- system.file("extdata", "HerringSpawn.mdb", package = "SpawnIndex")
-#' dbLoc
+#' db_loc <- system.file("extdata", "HerringSpawn.mdb", package = "SpawnIndex")
+#' db_loc
 #' library(odbc)
 #' library(DBI)
-#' accessDB <- dbConnect(
+#' access_db <- dbConnect(
 #'   drv = odbc(),
 #'   .connection_string = paste(
 #'     "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=",
-#'     dbLoc,
+#'     db_loc,
 #'     sep = ""
 #'   )
 #' )
-#' dbListTables(conn = accessDB)
-#' dbDisconnect(conn = accessDB)
+#' dbListTables(conn = access_db)
+#' dbDisconnect(conn = access_db)
 NULL

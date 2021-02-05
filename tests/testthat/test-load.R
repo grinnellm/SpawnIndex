@@ -1,7 +1,7 @@
 # test_that("Load area data", {
 #   expect_type(
 #     {
-#       LoadAreaData(reg = "WCVI", where = list(
+#       load_area_data(reg = "WCVI", where = list(
 #         loc = system.file("extdata", package = "SpawnIndex"),
 #         db = "HerringSpawn.mdb",
 #         fns = list(sections = "Sections", locations = "Location")
@@ -11,7 +11,7 @@
 #   )
 #   expect_named(
 #     {
-#       LoadAreaData(reg = "WCVI", where = list(
+#       load_area_data(reg = "WCVI", where = list(
 #         loc = system.file("extdata", package = "SpawnIndex"),
 #         db = "HerringSpawn.mdb",
 #         fns = list(sections = "Sections", locations = "Location")

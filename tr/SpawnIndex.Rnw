@@ -190,15 +190,15 @@ regNameLong <- regions %>%
   select(RegionName) %>%
   pull()
 # All region names
-allRegions <- regions %>%
+all_regions <- regions %>%
   mutate(FullName = paste(RegionName, " (", Region, ")", sep = ""))
 # Major region names
-majorRegions <- allRegions %>%
+majorRegions <- all_regions %>%
   filter(Major) %>%
   select(FullName) %>%
   pull()
 # Minor region names
-minorRegions <- allRegions %>%
+minorRegions <- all_regions %>%
   filter(!Major) %>%
   select(FullName) %>%
   pull()

@@ -10,13 +10,13 @@
 #'
 #' @param reg Character. Region of interest (i.e., HG, PRD, CC, SoG, WCVI, A27,
 #'   or A2W).
-#' @param secSub Numeric vector or NULL Subset of Sections to include in the
+#' @param sec_sub Numeric vector or NULL Subset of Sections to include in the
 #'   analysis, or NA to include all the Sections in the region.
 #' @param where List. Location of the Pacific Herring "locations" database (see
 #'   examples).
-#' @param inCRS Character. Input coordinate reference system;
+#' @param in_crs Character. Input coordinate reference system;
 #'   \href{https://spatialreference.org/}{use EPSG codes if desired}.
-#' @param outCRS Character. Output coordinate reference system;
+#' @param out_crs Character. Output coordinate reference system;
 #'   \href{https://spatialreference.org/}{use EPSG codes if desired}.
 #' @param groups Tibble or NULL. Optional table to add a "Group" column to the
 #'   results, say to aggregate data by combinations of Sections. Must have a
@@ -38,28 +38,28 @@
 #'   database.
 #' @export
 #' @examples
-#' dbLoc <- system.file("extdata", package = "SpawnIndex")
+#' db_loc <- system.file("extdata", package = "SpawnIndex")
 #' areaLoc <- list(
-#'   loc = dbLoc, db = "HerringSpawn.mdb",
+#'   loc = db_loc, db = "HerringSpawn.mdb",
 #'   fns = list(sections = "Sections", locations = "Location")
 #' )
-#' areas <- LoadAreaData(reg = "WCVI", where = areaLoc)
+#' areas <- load_area_data(reg = "WCVI", where = areaLoc)
 #' areas
 #' secs <- c(231:233, 241, 245)
 #' grps <- tibble::tibble(
 #'   Section = c(231, 232, 233, 241),
 #'   Group = c("Alberni Int", "Barkley", "Barkley", "Tofino Int")
 #' )
-#' areas2 <- LoadAreaData(
+#' areas2 <- load_area_data(
 #'   reg = "WCVI", where = areaLoc, groups = grps,
-#'   secSub = secs
+#'   sec_sub = secs
 #' )
 #' dplyr::distinct(dplyr::select(areas2, Region, StatArea, Group, Section))
-LoadAreaData <- function(reg,
-                         secSub = NULL,
+load_area_data <- function(reg,
+                         sec_sub = NULL,
                          where,
-                         inCRS = "+init=epsg:4326",
-                         outCRS = "+init=epsg:3005",
+                         in_crs = "+init=epsg:4326",
+                         out_crs = "+init=epsg:3005",
                          groups = NULL,
                          quiet = FALSE) {
   # Warning if R is not 32-bit
@@ -83,28 +83,28 @@ LoadAreaData <- function(reg,
     regions <- filter(.data = regions, SAR != 8)
   }
   # Return region names
-  regionNames <- regions %>%
+  region_names <- regions %>%
     select(RegionName, Region, Major) %>%
     mutate(Region = paste("(", Region, ")", sep = "")) %>%
     unite(RegionName, Region, col = "Region", sep = " ")
   # Make a nice list
-  allRegionNames <- list(
-    major = regionNames$Region[regionNames$Major],
-    minor = regionNames$Region[!regionNames$Major]
+  all_region_names <- list(
+    major = region_names$Region[region_names$Major],
+    minor = region_names$Region[!region_names$Major]
   )
   # Possible regions by type (return to the main level)
-  allRegions <- list(
+  all_regions <- list(
     major = as.character(regions$Region[regions$Major]),
     minor = as.character(regions$Region[!regions$Major])
   )
   # Error if region is incorrect
-  if (!(reg %in% c(unlist(allRegions), "All"))) {
-    stop("Possible regions are: ", paste(unlist(allRegions), collapse = ", "),
+  if (!(reg %in% c(unlist(all_regions), "All"))) {
+    stop("Possible regions are: ", paste(unlist(all_regions), collapse = ", "),
       call. = FALSE
     )
   }
   # Establish connection with access
-  accessDB <- dbConnect(
+  access_db <- dbConnect(
     drv = odbc(),
     .connection_string = paste(
       "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=",
@@ -114,7 +114,7 @@ LoadAreaData <- function(reg,
   )
   # TODO: Sections 132 and 135 are also SoG sections -- how to resolve?
   # Manual fix: Johnstone Strait herring sections
-  jsSections <- c(111, 112, 121:127, 131:136)
+  js_sections <- c(111, 112, 121:127, 131:136)
   # If the region is Johnstone Strait
   if (reg == "JS") {
     # Message
@@ -122,14 +122,14 @@ LoadAreaData <- function(reg,
       cat("Note overlap between JS and SoG: Sections 132 and 135\n")
     }
     # Access the sections worksheet and wrangle
-    sections <- dbReadTable(conn = accessDB, name = where$fns$sections)
+    sections <- dbReadTable(conn = access_db, name = where$fns$sections)
     # Error if data was not fetched
     if (class(sections) != "data.frame") {
       stop("No data available in MS Access connection")
     }
     # Wrangle the sections worksheet
     sections <- sections %>%
-      filter(Section %in% jsSections) %>%
+      filter(Section %in% js_sections) %>%
       mutate(SAR = 8) %>%
       full_join(y = regions, by = "SAR") %>%
       filter(Region %in% reg) %>%
@@ -139,7 +139,7 @@ LoadAreaData <- function(reg,
       as_tibble()
   } else { # End if Johnstone Strait, otherwise
     # Wrangle the sections worksheet
-    sections <- dbReadTable(conn = accessDB, name = where$fns$sections)
+    sections <- dbReadTable(conn = access_db, name = where$fns$sections)
     # Error if data was not fetched
     if (class(sections) != "data.frame") {
       stop("No data available in MS Access connection")
@@ -159,13 +159,13 @@ LoadAreaData <- function(reg,
     } # End if we only want a specific region
   } # End if the region is not Johnstone Strait
   # Access the locations worksheet
-  loc <- dbReadTable(conn = accessDB, name = where$fns$locations)
+  loc <- dbReadTable(conn = access_db, name = where$fns$locations)
   # Error if data was not fetched
   if (class(loc) != "data.frame") {
     stop("No data available in MS Access connection")
   }
   # Wrangle the locations table
-  locDat <- as_tibble(loc) %>%
+  loc_dat <- as_tibble(loc) %>%
     select(
       Loc_Code, Location, StatArea, Section, Bed, Location_Latitude,
       Location_Longitude
@@ -183,17 +183,17 @@ LoadAreaData <- function(reg,
     arrange(LocationCode) %>%
     distinct()
   # Grab the spatial info (X and Y)
-  locSP <- locDat %>%
+  loc_sp <- loc_dat %>%
     transmute(X = Longitude, Y = Latitude)
   # Put X and Y into a spatial points object
-  locPts <- SpatialPoints(coords = locSP, proj4string = CRS(inCRS))
+  loc_pts <- SpatialPoints(coords = loc_sp, proj4string = CRS(in_crs))
   # Convert X and Y from WGS to Albers
-  locPtsAlb <- spTransform(x = locPts, CRSobj = CRS(outCRS))
+  loc_pts_alb <- spTransform(x = loc_pts, CRSobj = CRS(out_crs))
   # Extract spatial info
-  dfAlb <- as_tibble(locPtsAlb)
+  df_alb <- as_tibble(loc_pts_alb)
   # Extract relevant location data
-  locations <- locDat %>%
-    cbind(dfAlb) %>%
+  locations <- loc_dat %>%
+    cbind(df_alb) %>%
     mutate(
       Eastings = ifelse(is.na(Longitude), Longitude, X),
       Northings = ifelse(is.na(Latitude), Latitude, Y),
@@ -221,27 +221,27 @@ LoadAreaData <- function(reg,
       and/or 'LocationCode'")
     }
     # Determine matching columns
-    grpCols <- which(names(groups) %in% names(locations))
+    grp_cols <- which(names(groups) %in% names(locations))
     # Set groups
     locations <- locations %>%
-      left_join(y = groups, by = names(groups)[grpCols])
+      left_join(y = groups, by = names(groups)[grp_cols])
   } # End if not NULL
   # If any groups are NA, check if *some* are missing (i.e., incomplete)
   if (any(is.na(locations$Group))) {
     # Get distinct rows
-    grpU <- locations %>%
+    grp_u <- locations %>%
       select(StatArea, Section, Group) %>%
       distinct() %>%
       arrange(StatArea, Section)
     # Get distinct rows with no missing groups
-    grpUNA <- grpU %>%
+    grp_u_na <- grp_u %>%
       filter(is.na(Group))
     # Check if none or all have groups
-    noneOrAll <- nrow(grpU) == nrow(grpUNA)
+    none_or_all <- nrow(grp_u) == nrow(grp_u_na)
     # Message re some sections(s) missing group info
-    if (!noneOrAll & !quiet) {
+    if (!none_or_all & !quiet) {
       cat("Incomplete `Group' info for Section(s): ",
-        paste(unique(grpUNA$Section), collapse = ", "), "\n",
+        paste(unique(grp_u_na$Section), collapse = ", "), "\n",
         sep = ""
       )
     }
@@ -261,23 +261,23 @@ LoadAreaData <- function(reg,
     distinct() %>%
     droplevels()
   # If not all sections are included
-  if (!is.null(secSub)) {
+  if (!is.null(sec_sub)) {
     # Grab a subset of sections
     res <- res %>%
-      filter(Section %in% secSub) %>%
+      filter(Section %in% sec_sub) %>%
       droplevels()
     # Message
     if (!quiet) {
-      cat("Sections: ", paste(secSub, collapse = ", "), "\n", sep = "")
+      cat("Sections: ", paste(sec_sub, collapse = ", "), "\n", sep = "")
     }
   } # End if subsetting sections
   # Close the connection
-  dbDisconnect(conn = accessDB)
+  dbDisconnect(conn = access_db)
   # Error if there is no data
   if (nrow(res) == 0) stop("No locations; check inputs")
   # Return herring areas
   return(res)
-} # End LoadAreaData function
+} # End load_area_data function
 
 #' Get the all spawn table.
 #'
@@ -287,7 +287,7 @@ LoadAreaData <- function(reg,
 #'   (see examples).
 #' @param a Tibble. Table of geographic information indicating the subset of
 #'   spawn survey observations to include in calculations; from
-#'   \code{\link{LoadAreaData}}.
+#'   \code{\link{load_area_data}}.
 #' @param yrs Numeric vector. Years(s) to include in the calculations, usually
 #'   staring in 1951.
 #' @param ft2m Numeric. Conversion factor for feet to metres.
@@ -303,15 +303,15 @@ LoadAreaData <- function(reg,
 #'   dates, as well as spawn length, width, and depth. Other information in this
 #'   tibble comes from \code{a}: Region, Statistical Area, Section, and Location
 #'   code.
-#' @seealso \code{\link{HerringSpawn}} \code{\link{LoadAreaData}}
+#' @seealso \code{\link{HerringSpawn}} \code{\link{load_area_data}}
 #' @export
 #' @examples
-#' dbLoc <- system.file("extdata", package = "SpawnIndex")
+#' db_loc <- system.file("extdata", package = "SpawnIndex")
 #' areaLoc <- list(
-#'   loc = dbLoc, db = "HerringSpawn.mdb",
+#'   loc = db_loc, db = "HerringSpawn.mdb",
 #'   fns = list(sections = "Sections", locations = "Location")
 #' )
-#' areas <- LoadAreaData(reg = "WCVI", where = areaLoc)
+#' areas <- load_area_data(reg = "WCVI", where = areaLoc)
 #' allSpawnLoc <- list(
 #'   loc = dbLoc, db = "HerringSpawn.mdb",
 #'   fns = list(allSpawn = "tSSAllspawn", stations = "tSSStations")
@@ -320,7 +320,7 @@ LoadAreaData <- function(reg,
 #' allSpawn
 LoadAllSpawn <- function(where, a, yrs, ft2m = 0.3048) {
   # Establish connection with access
-  accessDB <- dbConnect(
+  access_db <- dbConnect(
     drv = odbc(),
     .connection_string = paste(
       "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=",
@@ -329,7 +329,7 @@ LoadAllSpawn <- function(where, a, yrs, ft2m = 0.3048) {
     )
   )
   # Extract relevant spawn data
-  spawn <- dbReadTable(conn = accessDB, name = where$fns$allSpawn) %>%
+  spawn <- dbReadTable(conn = access_db, name = where$fns$allSpawn) %>%
     rename(LocationCode = Loc_Code, SpawnNumber = Spawn_Number) %>%
     mutate(
       Start = as_date(Start), End = as_date(End),
@@ -341,7 +341,7 @@ LoadAllSpawn <- function(where, a, yrs, ft2m = 0.3048) {
     ) %>%
     as_tibble()
   # Extrac relevant stations data
-  stations <- dbReadTable(conn = accessDB, name = where$fns$stations) %>%
+  stations <- dbReadTable(conn = access_db, name = where$fns$stations) %>%
     rename(LocationCode = Loc_Code, SpawnNumber = Spawn_Number) %>%
     filter(LocationCode %in% areas$LocationCode) %>%
     mutate(DepthM = Depth * ft2m * -1) %>%
@@ -374,7 +374,7 @@ LoadAllSpawn <- function(where, a, yrs, ft2m = 0.3048) {
       Year, Region, StatArea, Section, LocationCode, SpawnNumber, Start
     )
   # Close the connection
-  dbDisconnect(conn = accessDB)
+  dbDisconnect(conn = access_db)
   # Return the table
   return(res)
 } # End LoadAllSpawn function
@@ -391,7 +391,7 @@ LoadAllSpawn <- function(where, a, yrs, ft2m = 0.3048) {
 #'   (see examples).
 #' @param a Tibble. Table of geographic information indicating the subset of
 #'   spawn survey observations to include in calculations; from
-#'   \code{\link{LoadAreaData}}.
+#'   \code{\link{load_area_data}}.
 #' @importFrom odbc dbConnect odbc dbDisconnect
 #' @importFrom DBI dbReadTable
 #' @importFrom dplyr select distinct rename left_join filter %>%
@@ -401,7 +401,7 @@ LoadAllSpawn <- function(where, a, yrs, ft2m = 0.3048) {
 #'   (\code{WidthSec}), and pool (\code{WidthPool}) widths in metres (m) for the
 #'   areas in \code{a}.
 #' @references \insertAllCited
-#' @seealso \code{\link{HerringSpawn}} \code{\link{LoadAreaData}}
+#' @seealso \code{\link{HerringSpawn}} \code{\link{load_area_data}}
 #'   \code{\link{CalcSurfSpawn}}
 #' @export
 #' @examples
@@ -410,7 +410,7 @@ LoadAllSpawn <- function(where, a, yrs, ft2m = 0.3048) {
 #'   loc = dbLoc, db = "HerringSpawn.mdb",
 #'   fns = list(sections = "Sections", locations = "Location")
 #' )
-#' areas <- LoadAreaData(reg = "WCVI", where = areaLoc)
+#' areas <- load_area_data(reg = "WCVI", where = areaLoc)
 #' widthLoc <- list(
 #'   loc = dbLoc, db = "HerringSpawn.mdb",
 #'   fns = list(
@@ -426,7 +426,7 @@ GetWidth <- function(where, a = areas) {
     distinct() %>%
     as_tibble()
   # Establish connection with access
-  accessDB <- dbConnect(
+  access_db <- dbConnect(
     drv = odbc(),
     .connection_string = paste(
       "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=",
@@ -435,7 +435,7 @@ GetWidth <- function(where, a = areas) {
     )
   )
   # Access the region worksheet and wrangle
-  regStd <- dbReadTable(conn = accessDB, name = where$fns$regionStd) %>%
+  regStd <- dbReadTable(conn = access_db, name = where$fns$regionStd) %>%
     rename(SAR = REGION, WidthReg = WIDMED) %>%
     left_join(y = aSm, by = "SAR") %>%
     filter(SAR %in% aSm$SAR) %>%
@@ -443,7 +443,7 @@ GetWidth <- function(where, a = areas) {
     distinct() %>%
     as_tibble()
   # Access the section worksheet and wrangle
-  secStd <- dbReadTable(conn = accessDB, name = where$fns$sectionStd) %>%
+  secStd <- dbReadTable(conn = access_db, name = where$fns$sectionStd) %>%
     rename(Section = SECTION, WidthSec = WIDMED) %>%
     mutate(Section = as.integer(Section)) %>%
     left_join(y = aSm, by = "Section") %>%
@@ -452,7 +452,7 @@ GetWidth <- function(where, a = areas) {
     distinct() %>%
     as_tibble()
   # Access the pool worksheet and wrangle
-  poolStd <- dbReadTable(conn = accessDB, name = where$fns$poolStd) %>%
+  poolStd <- dbReadTable(conn = access_db, name = where$fns$poolStd) %>%
     rename(Section = SECTION, Pool = BED, WidthPool = WIDMED) %>%
     mutate(Section = as.integer(Section), Pool = as.integer(Pool)) %>%
     left_join(y = aSm, by = c("Section", "Pool")) %>%
@@ -463,7 +463,7 @@ GetWidth <- function(where, a = areas) {
   # Merge the tables to a list
   res <- list(region = regStd, section = secStd, pool = poolStd)
   # Close the connection
-  dbDisconnect(conn = accessDB)
+  dbDisconnect(conn = access_db)
   # Table to return
   return(res)
 } # End GetWidth function

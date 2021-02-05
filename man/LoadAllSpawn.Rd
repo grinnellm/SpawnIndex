@@ -12,7 +12,7 @@ LoadAllSpawn(where, a, yrs, ft2m = 0.3048)
 
 \item{a}{Tibble. Table of geographic information indicating the subset of
 spawn survey observations to include in calculations; from
-\code{\link{LoadAreaData}}.}
+\code{\link{load_area_data}}.}
 
 \item{yrs}{Numeric vector. Years(s) to include in the calculations, usually
 staring in 1951.}
@@ -29,12 +29,12 @@ Tibble. Contains additional spawn survey data including start and end
 Get the all spawn table.
 }
 \examples{
-dbLoc <- system.file("extdata", package = "SpawnIndex")
+db_loc <- system.file("extdata", package = "SpawnIndex")
 areaLoc <- list(
-  loc = dbLoc, db = "HerringSpawn.mdb",
+  loc = db_loc, db = "HerringSpawn.mdb",
   fns = list(sections = "Sections", locations = "Location")
 )
-areas <- LoadAreaData(reg = "WCVI", where = areaLoc)
+areas <- load_area_data(reg = "WCVI", where = areaLoc)
 allSpawnLoc <- list(
   loc = dbLoc, db = "HerringSpawn.mdb",
   fns = list(allSpawn = "tSSAllspawn", stations = "tSSStations")
@@ -43,5 +43,5 @@ allSpawn <- LoadAllSpawn(where = allSpawnLoc, a = areas, yrs = 2010:2015)
 allSpawn
 }
 \seealso{
-\code{\link{HerringSpawn}} \code{\link{LoadAreaData}}
+\code{\link{HerringSpawn}} \code{\link{load_area_data}}
 }

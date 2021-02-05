@@ -22,7 +22,7 @@ CalcMacroSpawn(
 
 \item{a}{Tibble. Table of geographic information indicating the subset of
 spawn survey observations to include in calculations; from
-\code{\link{LoadAreaData}}.}
+\code{\link{load_area_data}}.}
 
 \item{yrs}{Numeric vector. Years(s) to include in the calculations, usually
 staring in 1951.}
@@ -58,15 +58,15 @@ Calculate the Pacific Herring Macrocystis spawn index in tonnes.
 The `spawn index' is a relative index of spawning biomass.
 }
 \examples{
-dbLoc <- system.file("extdata", package = "SpawnIndex")
-areaLoc <- list(
-  loc = dbLoc, db = "HerringSpawn.mdb",
+db_loc <- system.file("extdata", package = "SpawnIndex")
+area_loc <- list(
+  loc = db_loc, db = "HerringSpawn.mdb",
   fns = list(sections = "Sections", locations = "Location")
 )
-areas <- LoadAreaData(reg = "WCVI", where = areaLoc)
+areas <- load_area_data(reg = "WCVI", where = area_loc)
 data(pars)
 macroLoc <- list(
-  loc = dbLoc, db = "HerringSpawn.mdb",
+  loc = db_loc, db = "HerringSpawn.mdb",
   fns = list(
     allSpawn = "tSSAllspawn", plants = "tSSMacPlant",
     transects = "tSSMacTrans"
@@ -79,6 +79,6 @@ macroSpawn$SI
 \insertAllCited
 }
 \seealso{
-\code{\link{HerringSpawn}} \code{\link{LoadAreaData}}
+\code{\link{HerringSpawn}} \code{\link{load_area_data}}
   \code{\link{CalcEggConversion}} \code{\link{pars}}
 }

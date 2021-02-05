@@ -62,8 +62,8 @@ diveLoc <- list(loc = dbLoc, db = dbName, fns = list(algTrans = "tSSVegTrans"))
 ##### Data #####
 
 # Load area data
-areas <- LoadAreaData(
-  reg = region, secSub = sectionSub, where = areaLoc, quiet = TRUE
+areas <- load_area_data(
+  reg = region, sec_sub = sectionSub, where = areaLoc, quiet = TRUE
 )
 
 # Median widths
@@ -80,7 +80,7 @@ GetSurfWidth <- function(where,
                          yrs = yrRange,
                          widths) {
   # Establish connection with access
-  accessDB <- odbcDriverConnect(
+  access_db <- odbcDriverConnect(
     paste("Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=",
           file.path(where$loc, where$db),
           sep = ""
@@ -92,7 +92,7 @@ GetSurfWidth <- function(where,
     distinct() %>%
     as_tibble()
   # Load all spawn
-  spawn <- sqlFetch(channel = accessDB, sqtable = where$fns$allSpawn) %>%
+  spawn <- sqlFetch(channel = access_db, sqtable = where$fns$allSpawn) %>%
     rename(
       LocationCode = Loc_Code, SpawnNumber = Spawn_Number, WidthObs = Width
     ) %>%
@@ -126,7 +126,7 @@ GetSurfWidth <- function(where,
       Year, Region, StatArea, Section, Pool, LocationCode, SpawnNumber, WidthObs
     )
   # Close the connection
-  odbcClose(accessDB)
+  odbcClose(access_db)
   # Return the table
   return(res)
 } # End GetSurfWidth function
@@ -140,7 +140,7 @@ GetDiveWidth <- function(where,
                          yrs = yrRange,
                          tau = under_width_fac) {
   # Establish connection with access
-  accessDB <- odbcDriverConnect(
+  access_db <- odbcDriverConnect(
     paste("Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=",
           file.path(where$loc, where$db),
           sep = ""
@@ -152,7 +152,7 @@ GetDiveWidth <- function(where,
     distinct() %>%
     as_tibble()
   # Transect data
-  algTrans <- sqlFetch(channel = accessDB, sqtable = where$fns$algTrans) %>%
+  algTrans <- sqlFetch(channel = access_db, sqtable = where$fns$algTrans) %>%
     rename(
       LocationCode = Loc_Code, SpawnNumber = Spawn_Number,
       QuadratSize = Quadrat_Size, WidthObs = Width_Recorded
@@ -193,7 +193,7 @@ GetDiveWidth <- function(where,
   # Resuts
   res <- algTrans
   # Close the connection
-  odbcClose(accessDB)
+  odbcClose(access_db)
   # Return results
   return(res)
 } # End GetDiveWidth function
@@ -219,7 +219,7 @@ GetSurfWidth2 <- function(where,
                           yrs = yrRange,
                           widths) {
   # Establish connection with access
-  accessDB <- odbcDriverConnect(
+  access_db <- odbcDriverConnect(
     paste("Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=",
           file.path(where$loc, where$db),
           sep = ""
@@ -231,7 +231,7 @@ GetSurfWidth2 <- function(where,
     distinct() %>%
     as_tibble()
   # Load all spawn
-  spawn <- sqlFetch(channel = accessDB, sqtable = where$fns$allSpawn) %>%
+  spawn <- sqlFetch(channel = access_db, sqtable = where$fns$allSpawn) %>%
     rename(
       LocationCode = Loc_Code, SpawnNumber = Spawn_Number, WidthObs = Width
     ) %>%
@@ -270,7 +270,7 @@ GetSurfWidth2 <- function(where,
       Year, Region, StatArea, Section, LocationCode, SpawnNumber, WidthObs
     )
   # Close the connection
-  odbcClose(accessDB)
+  odbcClose(access_db)
   # Return the table
   return(res)
 } # End GetSurfWidths2 function

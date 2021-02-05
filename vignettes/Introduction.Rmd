@@ -82,7 +82,7 @@ areaLoc <- list(
   fns = list(sections = "Sections", locations = "Location")
 )
 # Load area data
-areas <- LoadAreaData(reg = region, where = areaLoc)
+areas <- load_area_data(reg = region, where = areaLoc)
 # Determine spatial extent (for maps)
 xLims <- range(areas$Longitude)
 yLims <- range(areas$Latitude)

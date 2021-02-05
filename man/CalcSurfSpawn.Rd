@@ -23,7 +23,7 @@ CalcSurfSpawn(
 
 \item{a}{Tibble. Table of geographic information indicating the subset of
 spawn survey observations to include in calculations; from
-\code{\link{LoadAreaData}}.}
+\code{\link{load_area_data}}.}
 
 \item{widths}{List. List of three tables: median region, section, and pool
 widths in metres (m); from \code{\link{GetWidth}}.}
@@ -63,14 +63,14 @@ Calculate the Pacific Herring surface spawn index in tonnes.
 The `spawn index' is a relative index of spawning biomass.
 }
 \examples{
-dbLoc <- system.file("extdata", package = "SpawnIndex")
-areaLoc <- list(
-  loc = dbLoc, db = "HerringSpawn.mdb",
+db_loc <- system.file("extdata", package = "SpawnIndex")
+area_loc <- list(
+  loc = db_loc, db = "HerringSpawn.mdb",
   fns = list(sections = "Sections", locations = "Location")
 )
-areas <- LoadAreaData(reg = "WCVI", where = areaLoc)
+areas <- load_area_data(reg = "WCVI", where = area_loc)
 widthLoc <- list(
-  loc = dbLoc, db = "HerringSpawn.mdb",
+  loc = db_loc, db = "HerringSpawn.mdb",
   fns = list(
     regionStd = "RegionStd", sectionStd = "SectionStd", poolStd = "PoolStd"
   )
@@ -79,7 +79,7 @@ barWidth <- GetWidth(where = widthLoc, a = areas)
 data(pars)
 data(intensity)
 surfLoc <- list(
-  loc = dbLoc, db = "HerringSpawn.mdb",
+  loc = db_loc, db = "HerringSpawn.mdb",
   fns = list(surface = "tSSSurface", allSpawn = "tSSAllspawn")
 )
 surfSpawn <- CalcSurfSpawn(
@@ -91,7 +91,7 @@ surfSpawn$SI
 \insertAllCited
 }
 \seealso{
-\code{\link{HerringSpawn}} \code{\link{LoadAreaData}}
+\code{\link{HerringSpawn}} \code{\link{load_area_data}}
   \code{\link{GetWidth}} \code{\link{CalcEggConversion}} \code{\link{pars}}
   \code{\link{intensity}}
 }
