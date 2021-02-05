@@ -73,8 +73,7 @@ macro_loc <- list(
   )
 )
 macro_spawn <- calc_macro_spawn(
-  where = macro_loc, a = areas,
-  yrs = 2010:2015
+  where = macro_loc, a = areas, yrs = 2010:2015
 )
 macro_spawn$SI
 }

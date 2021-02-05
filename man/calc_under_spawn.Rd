@@ -80,8 +80,7 @@ data(under_width_fac)
 data(pars)
 data(algae_coefs)
 under_spawn <- calc_under_spawn(
-  where = under_loc, a = areas,
-  yrs = 2010:2015
+  where = under_loc, a = areas, yrs = 2010:2015
 )
 under_spawn$SI
 }

@@ -38,8 +38,7 @@ library(DBI)
 access_db <- dbConnect(
   drv = odbc(),
   .connection_string = paste(
-    "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=",
-    db_loc,
+    "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=", db_loc,
     sep = ""
   )
 )
