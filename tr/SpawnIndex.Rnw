@@ -1052,7 +1052,7 @@ EggDensSubPlot <- ggplot(
   # geom_point( ) +
   labs(
     x = "Number of egg layers",
-    y = expression(paste("Egg density (eggs" %.% 10^3 %.% "m"^-2, ")",
+    y = expression(paste("Egg density (", 10^3 %.% "eggs" %.% "m"^-2, ")",
       sep = ""
     ))
   ) +
@@ -1281,8 +1281,8 @@ NumEggPlot <- ggplot(
   # geom_point( ) +
   labs(
     x = "Number of egg layers on plants",
-    y = expression(paste("Number of eggs per plant (eggs" %.% 10^3 %.%
-      "plant"^-1, ")", sep = "")), colour = "Plant height (m)"
+    y = expression(paste("Number of eggs per plant (", 10^3 %.% "eggs" %.% "plant"^-1, ")", sep = "")),
+    colour = "Plant height (m)"
   ) +
   scale_y_continuous(labels = comma) +
   scale_colour_viridis() +
@@ -1365,7 +1365,7 @@ EggDensSubPlot <- ggplot(
   geom_line(mapping = aes(colour = Proportion)) +
   labs(
     x = "Number of egg layers on substrate",
-    y = expression(paste("Substrate egg density (eggs" %.% 10^3 %.% "m"^-2, ")",
+    y = expression(paste("Substrate egg density (", 10^3 %.% "eggs" %.% "m"^-2, ")",
       sep = ""
     )),
     colour = "Proportion of substrate\ncovered in spawn"
@@ -1447,7 +1447,7 @@ EggDensAlgPlot <- ggplot(
   geom_line(mapping = aes(colour = Proportion)) +
   labs(
     x = "Number of egg layers on algae",
-    y = expression(paste("Algae egg density (eggs" %.% 10^3 %.% "m"^-2, ")",
+    y = expression(paste("Algae egg density (", 10^3 %.% "eggs" %.% "m"^-2, ")",
       sep = ""
     )),
     colour = "Proportion of substrate\ncovered in algae"
