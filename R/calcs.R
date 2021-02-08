@@ -198,7 +198,7 @@ calc_surf_spawn <- function(where,
     select(ends_with("Percent"))
   # Error if any percents are greater than 100
   if (any(p_cover > 100, na.rm = TRUE)) {
-    stop("Percent cover > 100 in surface spawn data", call. = FALSE)
+    stop("Percent cover > 100 in surface spawn data.", call. = FALSE)
   }
   # Continue with calculating egg layers
   surface <- surface %>%
@@ -257,7 +257,7 @@ calc_surf_spawn <- function(where,
   # Error if there are missing values
   if (nrow(no_layers) > 0) {
     stop("Missing egg layers for ", nrow(no_layers), " record(s):",
-      print(no_layers),
+      print(no_layers), ".",
       sep = ""
     )
   }
@@ -623,7 +623,7 @@ calc_under_spawn <- function(where,
     mutate(Width = WidthObs * WidthFac)
   # Error if any quadrats are not 0.5 m^2
   if (any(alg_trans$QuadratSize != 0.5)) {
-    stop("All quadrats must be 0.5m^2", call. = FALSE)
+    stop("All quadrats must be 0.5m^2.", call. = FALSE)
   }
   # Load station data
   stations <- dbReadTable(conn = access_db, name = where$fns$stations) %>%
@@ -679,9 +679,7 @@ calc_under_spawn <- function(where,
     miss_alg <- unique(algae$AlgType[!algae$AlgType %in%
       alg_coefs$AlgType])
     # Error, and show missing type(s)
-    stop("Missing algae type(s): ", paste(miss_alg, collapse = ", "),
-      call. = FALSE
-    )
+    stop("Missing algae type(s): ", paste(miss_alg, collapse = ", "), ".")
   } # End if there are missing algae types
   # Get a small subset of area data
   areas_sm_2 <- a %>%
@@ -690,7 +688,7 @@ calc_under_spawn <- function(where,
     as_tibble()
   # Error if proportion > 1
   if (any(stations$SubProp > 1, na.rm = TRUE)) {
-    stop("Substrate proportion > 1 in understory spawn data", call. = FALSE)
+    stop("Substrate proportion > 1 in understory spawn data.")
   }
   # Calculate substrate egg density
   eggs_sub <- stations %>%
@@ -708,7 +706,7 @@ calc_under_spawn <- function(where,
     )
   # Error if proportion > 1
   if (any(algae$AlgProp > 1, na.rm = TRUE)) {
-    stop("Algae proportion > 1 in understory spawn data", call. = FALSE)
+    stop("Algae proportion > 1 in understory spawn data.")
   }
   # Calculate substrate egg density by quadrat/station
   eggs_alg <- algae %>%

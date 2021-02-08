@@ -100,8 +100,9 @@ load_area_data <- function(reg,
   )
   # Error if region is incorrect
   if (!(reg %in% c(unlist(all_regions), "All"))) {
-    stop("Possible regions are: ", paste(unlist(all_regions), collapse = ", "),
-      call. = FALSE
+    stop(
+      "Possible regions are: ", paste(unlist(all_regions), collapse = ", "),
+      "."
     )
   }
   # Establish connection with access
@@ -126,7 +127,7 @@ load_area_data <- function(reg,
     sections <- dbReadTable(conn = access_db, name = where$fns$sections)
     # Error if data was not fetched
     if (class(sections) != "data.frame") {
-      stop("No data available in MS Access connection")
+      stop("No data available in MS Access connection.")
     }
     # Wrangle the sections worksheet
     sections <- sections %>%
@@ -143,7 +144,7 @@ load_area_data <- function(reg,
     sections <- dbReadTable(conn = access_db, name = where$fns$sections)
     # Error if data was not fetched
     if (class(sections) != "data.frame") {
-      stop("No data available in MS Access connection")
+      stop("No data available in MS Access connection.")
     }
     # Wrangle the sections table
     sections <- sections %>%
@@ -163,7 +164,7 @@ load_area_data <- function(reg,
   loc <- dbReadTable(conn = access_db, name = where$fns$locations)
   # Error if data was not fetched
   if (class(loc) != "data.frame") {
-    stop("No data available in MS Access connection")
+    stop("No data available in MS Access connection.")
   }
   # Wrangle the locations table
   loc_dat <- as_tibble(loc) %>%
@@ -214,12 +215,12 @@ load_area_data <- function(reg,
   } else { # End if NULL, otherwise
     # Check for column names
     if (!"Group" %in% names(groups)) {
-      stop("Groups table needs a column named 'Group'")
+      stop("Groups table needs a column named 'Group'.")
     }
     if (!any("StatArea" %in% names(groups) | "Section" %in% names(groups) |
       "LocationCode" %in% names(groups))) {
       stop("Groups table needs a column named 'StatArea', and/or 'Section',
-      and/or 'LocationCode'")
+      and/or 'LocationCode'.")
     }
     # Determine matching columns
     grp_cols <- which(names(groups) %in% names(locations))
@@ -275,7 +276,7 @@ load_area_data <- function(reg,
   # Close the connection
   dbDisconnect(conn = access_db)
   # Error if there is no data
-  if (nrow(res) == 0) stop("No locations; check inputs")
+  if (nrow(res) == 0) stop("No locations; check inputs.")
   # Return herring areas
   res
 } # End load_area_data function
