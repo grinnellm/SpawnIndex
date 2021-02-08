@@ -21,7 +21,7 @@ calc_egg_conversion <- function(omega = pars$conversion$omega,
   # Eggs per tonne: eggs/kilogram female * proportion female * kilograms/tonne
   theta <- omega * female * 1000
   # Return the conversion factor
-  return(theta)
+  theta
 } # End calc_egg_conversion function
 
 #' Calculate spawning biomass from spawn-on-kelp (SOK) harvest.
@@ -54,7 +54,7 @@ calc_biomass_sok <- function(SOK,
   # (kg per egg * eggs per tonne )
   SB <- (SOK * (1 - nu) * 1 / (1 + upsilon)) / (M * theta)
   # Return the spawning biomass
-  return(SB)
+  SB
 } # End calc_biomass_sok
 
 #' Calculate the surface spawn index.
@@ -308,10 +308,10 @@ calc_surf_spawn <- function(where,
   # Close the connection
   dbDisconnect(conn = access_db)
   # Return the data
-  return(list(
+  list(
     surface = surface, eggs = eggs, eggs_spawn = eggs_spawn,
     biomass_spawn = biomass_spawn, SI = SI
-  ))
+  )
 } # End calc_surf_spawn function
 
 #' Calculate the Macrocystis spawn index.
@@ -496,9 +496,7 @@ calc_macro_spawn <- function(where,
   # Close the connection
   dbDisconnect(conn = access_db)
   # Return the data
-  return(list(
-    dat = dat, dat_trans = dat_trans, biomass_spawn = biomass_spawn, SI = SI
-  ))
+  list(dat = dat, dat_trans = dat_trans, biomass_spawn = biomass_spawn, SI = SI)
 } # End calc_macro_spawn function
 
 #' Calculate the understory spawn index.
@@ -813,9 +811,9 @@ calc_under_spawn <- function(where,
   # Close the connection
   dbDisconnect(conn = access_db)
   # Return the data
-  return(list(
+  list(
     stations = stations, algae = algae, eggs = eggs,
     eggs_station = eggs_station, eggs_trans = eggs_trans,
     eggs_spawn = eggs_spawn, biomass_spawn = biomass_spawn, SI = SI
-  ))
+  )
 } # End calc_under_spawn function

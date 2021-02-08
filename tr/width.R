@@ -128,7 +128,7 @@ GetSurfWidth <- function(where,
   # Close the connection
   odbcClose(access_db)
   # Return the table
-  return(res)
+  res
 } # End GetSurfWidth function
 
 # Load surface widths
@@ -195,7 +195,7 @@ GetDiveWidth <- function(where,
   # Close the connection
   odbcClose(access_db)
   # Return results
-  return(res)
+  res
 } # End GetDiveWidth function
 
 # Get dive widths
@@ -272,7 +272,7 @@ GetSurfWidth2 <- function(where,
   # Close the connection
   odbcClose(access_db)
   # Return the table
-  return(res)
+  res
 } # End GetSurfWidths2 function
 
 # Load surface widths

@@ -93,7 +93,7 @@ load_area_data <- function(reg,
     major = region_names$Region[region_names$Major],
     minor = region_names$Region[!region_names$Major]
   )
-  # Possible regions by type (return to the main level)
+  # Possible regions by type
   all_regions <- list(
     major = as.character(regions$Region[regions$Major]),
     minor = as.character(regions$Region[!regions$Major])
@@ -277,7 +277,7 @@ load_area_data <- function(reg,
   # Error if there is no data
   if (nrow(res) == 0) stop("No locations; check inputs")
   # Return herring areas
-  return(res)
+  res
 } # End load_area_data function
 
 #' Get the all spawn table.
@@ -379,7 +379,7 @@ load_all_spawn <- function(where, a, yrs, ft2m = 0.3048) {
   # Close the connection
   dbDisconnect(conn = access_db)
   # Return the table
-  return(res)
+  res
 } # End load_all_spawn function
 
 #' Load median spawn width.
@@ -469,5 +469,5 @@ get_width <- function(where, a = areas) {
   # Close the connection
   dbDisconnect(conn = access_db)
   # Table to return
-  return(res)
+  res
 } # End get_width function

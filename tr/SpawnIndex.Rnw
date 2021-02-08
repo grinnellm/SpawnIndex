@@ -1039,7 +1039,7 @@ EggDensSurf <- function(EggLyrs) {
   # Calculate egg density
   Density <- pars$surface$alpha + pars$surface$beta * EggLyrs
   # Return density
-  return(Density)
+  Density
 } # End EggDensSurf function
 # Make a table of egg layers, proportion, and egg density
 dat <- as_tibble(df) %>%
@@ -1259,7 +1259,7 @@ NumEggs <- function(EggLyrs, Height, StalksPerPlant) {
     Height^pars$macrocystis$delta * StalksPerPlant^pars$macrocystis$epsilon *
     1000
   # Return number
-  return(Number)
+  Number
 } # End NumEggs function
 # Make a table of egg layers, proportion, coefficient, and egg density
 dat <- as_tibble(df) %>%
@@ -1353,7 +1353,7 @@ EggDensSub <- function(SubLyrs, SubProp) {
   # Calculate egg density
   Density <- pars$understory$varphi * SubLyrs * SubProp
   # Return density
-  return(Density)
+  Density
 } # End EggDensSub function
 # Make a table of egg layers, proportion, and egg density
 dat <- as_tibble(df) %>%
@@ -1427,7 +1427,7 @@ EggDensAlg <- function(AlgLyrs, AlgProp, Coef) {
   Density <- pars$understory$vartheta * AlgLyrs^pars$understory$varrho *
     AlgProp^pars$understory$varsigma * Coef
   # Return density
-  return(Density)
+  Density
 } # End EggDensAlg function
 # Make a table of egg layers, proportion, coefficient, and egg density
 dat <- as_tibble(df) %>%
