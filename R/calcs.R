@@ -198,7 +198,7 @@ calc_surf_spawn <- function(where,
     select(ends_with("Percent"))
   # Error if any percents are greater than 100
   if (any(p_cover > 100, na.rm = TRUE)) {
-    stop("Percent cover > 100 in surface spawn data.", call. = FALSE)
+    stop("Percent cover > 100 in surface spawn data.")
   }
   # Continue with calculating egg layers
   surface <- surface %>%
@@ -623,7 +623,7 @@ calc_under_spawn <- function(where,
     mutate(Width = WidthObs * WidthFac)
   # Error if any quadrats are not 0.5 m^2
   if (any(alg_trans$QuadratSize != 0.5)) {
-    stop("All quadrats must be 0.5m^2.", call. = FALSE)
+    stop("All quadrats must be 0.5m^2.")
   }
   # Load station data
   stations <- dbReadTable(conn = access_db, name = where$fns$stations) %>%
