@@ -6,7 +6,7 @@ Calculate the spawn index for Pacific Herring (*Clupea pallasii*) in British Col
 [![R build status](https://github.com/grinnellm/SpawnIndex/workflows/R-CMD-check/badge.svg)](https://github.com/grinnellm/SpawnIndex/actions)
 [![Codecov test coverage](https://codecov.io/gh/grinnellm/SpawnIndex/branch/master/graph/badge.svg)](https://codecov.io/gh/grinnellm/SpawnIndex)
 [![CodeFactor](https://github.com/grinnellm/SpawnIndex/workflows/lint/badge.svg)](https://github.com/grinnellm/SpawnIndex/actions)
-`r badge_devel("grinnellm/SpawnIndex", color = "blue")`
+[![Devel](https://img.shields.io/badge/devel%20version-0.2.0-blue.svg)](https://github.com/grinnellm/SpawnIndex)
 [![CRAN status](https://www.r-pkg.org/badges/version/SpawnIndex)](https://CRAN.R-project.org/package=SpawnIndex)
 <!-- badges: end -->
 
