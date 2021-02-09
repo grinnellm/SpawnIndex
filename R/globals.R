@@ -18,5 +18,5 @@ utils::globalVariables(c(
   "Transect", "Type_Vegetation", "UnderSI", "WIDMED", "Width", "WidthBar",
   "WidthFac", "WidthObs", "WidthPool", "WidthReg", "WidthSec", "Width_Recorded",
   "X", "Y", "Year", "algae_coefs", "areas", "intensity", "pars",
-  "under_width_fac"
+  "under_width_facs"
 ))

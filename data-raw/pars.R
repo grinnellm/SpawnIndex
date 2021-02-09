@@ -40,7 +40,7 @@ algae_coefs <- tibble(
 save(algae_coefs, file = file.path("data", "algae_coefs.RData"))
 
 # Understory spawn width correction factors
-under_width_fac <- read_csv(
+under_width_facs <- read_csv(
   "Year, HG, PRD, CC, SoG, WCVI, A27, A2W
    2003, 1, 1.075, 1.075, 1.075, 1.075, 1.075, 1
    2004, 1, 1.075, 1.075, 1.075, 1.075, 1.075, 1
@@ -55,4 +55,4 @@ under_width_fac <- read_csv(
    2013, 1.15, 1.15, 1.075, 1.075, 1.075, 1, 1.15
    2014, 1.15, 1.15, 1, 1, 1, 1, 1.15"
 )
-save(under_width_fac, file = file.path("data", "under_width_fac.RData"))
+save(under_width_facs, file = file.path("data", "under_width_facs.RData"))

@@ -513,7 +513,7 @@ calc_macro_spawn <- function(where,
 #' @param alg_coefs Tibble. Table of algae coefficients; from
 #'   \code{\link{algae_coefs}}.
 #' @param tau Tibble. Table of understory spawn width adjustment factors from
-#'   \code{\link{under_width_fac}}.
+#'   \code{\link{under_width_facs}}.
 #' @param varphi Numeric. Regression slope for substrate; from
 #'   \code{\link{pars}} \insertCite{HaegeleEtal1979}{SpawnIndex}.
 #' @param vartheta Numeric. Regression slope for algae; from \code{\link{pars}}
@@ -558,7 +558,7 @@ calc_macro_spawn <- function(where,
 #'     stations = "tSSStations", algae = "tSSVegetation"
 #'   )
 #' )
-#' data(under_width_fac)
+#' data(under_width_facs)
 #' data(pars)
 #' data(algae_coefs)
 #' under_spawn <- calc_under_spawn(
@@ -569,7 +569,7 @@ calc_under_spawn <- function(where,
                              a,
                              yrs,
                              alg_coefs = algae_coefs,
-                             tau = under_width_fac,
+                             tau = under_width_facs,
                              varphi = pars$understory$varphi,
                              vartheta = pars$understory$vartheta,
                              varrho = pars$under$varrho,

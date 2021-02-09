@@ -13,9 +13,9 @@
 #' @references \insertAllCited{}
 #' @seealso \code{\link{calc_under_spawn}}
 #' @examples
-#' data(under_width_fac)
-#' under_width_fac
-"under_width_fac"
+#' data(under_width_facs)
+#' under_width_facs
+"under_width_facs"
 
 #' Parameters for spawn index calculations.
 #'

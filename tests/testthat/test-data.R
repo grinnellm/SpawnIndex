@@ -1,8 +1,8 @@
 test_that("Understory width factors", {
-  expect_type(under_width_fac, "list")
-  expect_equal(dim(under_width_fac), c(12, 8))
+  expect_type(under_width_facs, "list")
+  expect_equal(dim(under_width_facs), c(12, 8))
   expect_named(
-    under_width_fac,
+    under_width_facs,
     c("Year", "HG", "PRD", "CC", "SoG", "WCVI", "A27", "A2W")
   )
 })

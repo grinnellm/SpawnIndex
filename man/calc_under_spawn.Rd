@@ -9,7 +9,7 @@ calc_under_spawn(
   a,
   yrs,
   alg_coefs = algae_coefs,
-  tau = under_width_fac,
+  tau = under_width_facs,
   varphi = pars$understory$varphi,
   vartheta = pars$understory$vartheta,
   varrho = pars$under$varrho,
@@ -32,7 +32,7 @@ staring in 1951.}
 \code{\link{algae_coefs}}.}
 
 \item{tau}{Tibble. Table of understory spawn width adjustment factors from
-\code{\link{under_width_fac}}.}
+\code{\link{under_width_facs}}.}
 
 \item{varphi}{Numeric. Regression slope for substrate; from
 \code{\link{pars}} \insertCite{HaegeleEtal1979}{SpawnIndex}.}
@@ -76,7 +76,7 @@ under_loc <- list(
     stations = "tSSStations", algae = "tSSVegetation"
   )
 )
-data(under_width_fac)
+data(under_width_facs)
 data(pars)
 data(algae_coefs)
 under_spawn <- calc_under_spawn(

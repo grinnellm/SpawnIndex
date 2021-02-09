@@ -275,7 +275,7 @@ and to specify algae coefficients.
 
 ```{r under}
 # Data
-data(under_width_fac) # Understory spawn width correction factors
+data(under_width_facs) # Understory spawn width correction factors
 data(algae_coefs) # Algae types and coefficients
 # List indicating the necessary tables
 under_loc <- list(
