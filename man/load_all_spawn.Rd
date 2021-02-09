@@ -30,11 +30,11 @@ Get the all spawn table.
 }
 \examples{
 db_loc <- system.file("extdata", package = "SpawnIndex")
-areaLoc <- list(
+area_loc <- list(
   loc = db_loc, db = "HerringSpawn.mdb",
   fns = list(sections = "Sections", locations = "Location")
 )
-areas <- load_area_data(reg = "WCVI", where = areaLoc)
+areas <- load_area_data(reg = "WCVI", where = area_loc)
 all_spawn_loc <- list(
   loc = db_loc, db = "HerringSpawn.mdb",
   fns = list(all_spawn = "tSSAllspawn", stations = "tSSStations")

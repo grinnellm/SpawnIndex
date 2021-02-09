@@ -57,11 +57,11 @@ This function requires 32-bit R to load data from the 32-bit MS Access
 }
 \examples{
 db_loc <- system.file("extdata", package = "SpawnIndex")
-areaLoc <- list(
+area_loc <- list(
   loc = db_loc, db = "HerringSpawn.mdb",
   fns = list(sections = "Sections", locations = "Location")
 )
-areas <- load_area_data(reg = "WCVI", where = areaLoc)
+areas <- load_area_data(reg = "WCVI", where = area_loc)
 areas
 secs <- c(231:233, 241, 245)
 grps <- tibble::tibble(
@@ -69,7 +69,7 @@ grps <- tibble::tibble(
   Group = c("Alberni Int", "Barkley", "Barkley", "Tofino Int")
 )
 areas_sec_grp <- load_area_data(
-  reg = "WCVI", where = areaLoc, groups = grps, sec_sub = secs
+  reg = "WCVI", where = area_loc, groups = grps, sec_sub = secs
 )
 dplyr::distinct(dplyr::select(
   areas_sec_grp, Region, StatArea, Group, Section

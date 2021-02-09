@@ -39,11 +39,11 @@
 #' @export
 #' @examples
 #' db_loc <- system.file("extdata", package = "SpawnIndex")
-#' areaLoc <- list(
+#' area_loc <- list(
 #'   loc = db_loc, db = "HerringSpawn.mdb",
 #'   fns = list(sections = "Sections", locations = "Location")
 #' )
-#' areas <- load_area_data(reg = "WCVI", where = areaLoc)
+#' areas <- load_area_data(reg = "WCVI", where = area_loc)
 #' areas
 #' secs <- c(231:233, 241, 245)
 #' grps <- tibble::tibble(
@@ -51,7 +51,7 @@
 #'   Group = c("Alberni Int", "Barkley", "Barkley", "Tofino Int")
 #' )
 #' areas_sec_grp <- load_area_data(
-#'   reg = "WCVI", where = areaLoc, groups = grps, sec_sub = secs
+#'   reg = "WCVI", where = area_loc, groups = grps, sec_sub = secs
 #' )
 #' dplyr::distinct(dplyr::select(
 #'   areas_sec_grp, Region, StatArea, Group, Section
@@ -309,11 +309,11 @@ load_area_data <- function(reg,
 #' @export
 #' @examples
 #' db_loc <- system.file("extdata", package = "SpawnIndex")
-#' areaLoc <- list(
+#' area_loc <- list(
 #'   loc = db_loc, db = "HerringSpawn.mdb",
 #'   fns = list(sections = "Sections", locations = "Location")
 #' )
-#' areas <- load_area_data(reg = "WCVI", where = areaLoc)
+#' areas <- load_area_data(reg = "WCVI", where = area_loc)
 #' all_spawn_loc <- list(
 #'   loc = db_loc, db = "HerringSpawn.mdb",
 #'   fns = list(all_spawn = "tSSAllspawn", stations = "tSSStations")
@@ -410,7 +410,7 @@ load_all_spawn <- function(where, a, yrs, ft2m = 0.3048) {
 #' @export
 #' @examples
 #' db_loc <- system.file("extdata", package = "SpawnIndex")
-#' areaLoc <- list(
+#' area_loc <- list(
 #'   loc = db_loc, db = "HerringSpawn.mdb",
 #'   fns = list(sections = "Sections", locations = "Location")
 #' )

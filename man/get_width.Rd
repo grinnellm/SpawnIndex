@@ -28,7 +28,7 @@ from underwater surveys \insertCite{GrinnellEtalYYYY}{SpawnIndex}.
 }
 \examples{
 db_loc <- system.file("extdata", package = "SpawnIndex")
-areaLoc <- list(
+area_loc <- list(
   loc = db_loc, db = "HerringSpawn.mdb",
   fns = list(sections = "Sections", locations = "Location")
 )
