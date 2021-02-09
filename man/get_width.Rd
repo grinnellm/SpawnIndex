@@ -32,7 +32,7 @@ area_loc <- list(
   loc = db_loc, db = "HerringSpawn.mdb",
   fns = list(sections = "Sections", locations = "Location")
 )
-areas <- load_area_data(reg = "WCVI", where = areaLoc)
+areas <- load_area_data(reg = "WCVI", where = area_loc)
 width_loc <- list(
   loc = db_loc, db = "HerringSpawn.mdb",
   fns = list(

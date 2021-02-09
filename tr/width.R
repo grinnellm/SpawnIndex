@@ -40,7 +40,7 @@ db_loc <- file.path("..", "Data", "Local")
 dbName <- "HSA_Program_v6.2.mdb"
 
 # Tables etc for area info
-areaLoc <- list(
+area_loc <- list(
   loc = db_loc, db = dbName,
   fns = list(sections = "Sections", locations = "Location")
 )
@@ -63,7 +63,7 @@ diveLoc <- list(loc = db_loc, db = dbName, fns = list(alg_trans = "tSSVegTrans")
 
 # Load area data
 areas <- load_area_data(
-  reg = region, sec_sub = sectionSub, where = areaLoc, quiet = TRUE
+  reg = region, sec_sub = sectionSub, where = area_loc, quiet = TRUE
 )
 
 # Median widths

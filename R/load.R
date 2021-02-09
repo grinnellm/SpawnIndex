@@ -414,7 +414,7 @@ load_all_spawn <- function(where, a, yrs, ft2m = 0.3048) {
 #'   loc = db_loc, db = "HerringSpawn.mdb",
 #'   fns = list(sections = "Sections", locations = "Location")
 #' )
-#' areas <- load_area_data(reg = "WCVI", where = areaLoc)
+#' areas <- load_area_data(reg = "WCVI", where = area_loc)
 #' width_loc <- list(
 #'   loc = db_loc, db = "HerringSpawn.mdb",
 #'   fns = list(

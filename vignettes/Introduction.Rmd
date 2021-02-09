@@ -77,12 +77,12 @@ Note that this example database only includes WCVI from 2010 to 2015.
 # Database location
 db_loc <- system.file("extdata", package = "SpawnIndex")
 # List indicating the necessary tables: sections and locations
-areaLoc <- list(
+area_loc <- list(
   loc = db_loc, db = "HerringSpawn.mdb",
   fns = list(sections = "Sections", locations = "Location")
 )
 # Load area data
-areas <- load_area_data(reg = region, where = areaLoc)
+areas <- load_area_data(reg = region, where = area_loc)
 # Determine spatial extent (for maps)
 xLims <- range(areas$Longitude)
 yLims <- range(areas$Latitude)
