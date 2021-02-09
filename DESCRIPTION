@@ -2,7 +2,7 @@ Package: SpawnIndex
 Type: Package
 Title: Calculate the Spawn Index for {Pacific} {Herring} ({Clupea} {pallasii})
     in {British} {Columbia}, {Canada}
-Version: 0.1.0
+Version: 0.2.0
 Date: 2020-09-15
 Authors@R: c(
     person(given = c("Matthew", "H."), family = "Grinnell",
