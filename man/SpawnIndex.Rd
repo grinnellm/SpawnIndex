@@ -27,7 +27,7 @@ The `spawn index' is a relative index of spawning biomass.
   (\code{\link{pars}}), spawn intensity categories (\code{\link{intensity}}),
   and algae coefficients (\code{\link{algae_coefs}}). In addition, there is
   an example database with spawn survey observations
-  (\code{\link{HerringSpawn}})
+  (\code{\link{HerringSpawn}}).
 }
 
 \section{Load functions}{
