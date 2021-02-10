@@ -34,7 +34,7 @@ Note that the 'spawn index' is a relative index of spawning biomass.
 
 Install the SpawnIndex package from [GitHub](https://github.com/) with:
 
-```{r install, message = FALSE, warning = FALSE}
+```{r install, eval = FALSE}
 # install.packages("devtools")
 devtools::install_github(repo = "grinnellm/SpawnIndex")
 ```
@@ -64,7 +64,7 @@ The technical report has background information on the spawn index and calculati
 A draft technical report is available here: `./tr/Draft.pdf`.
 **Please do not cite or circulate this draft.**
 In addition, there is a vignette with an example workflow;
-build the vignette like so
+build the vignette
 
 ```{r vignette, eval = FALSE}
 devtools::build_vignettes(pkg = ".")
