@@ -2,7 +2,7 @@
 output: github_document
 ---
 
-<!-- README.md is generated from README.Rmd; please edit README.Rmd -->
+<!-- README.md is generated from README.Rmd. Please edit that file. -->
 
 # SpawnIndex <img src='man/sticker/sticker.png' align="right" height="200"/>
 
@@ -16,7 +16,7 @@ version <- as.vector(read.dcf('DESCRIPTION')[, 'Version'])
 [![R build status](https://github.com/grinnellm/SpawnIndex/workflows/R-CMD-check/badge.svg)](https://github.com/grinnellm/SpawnIndex/actions)
 [![Codecov test coverage](https://codecov.io/gh/grinnellm/SpawnIndex/branch/master/graph/badge.svg)](https://codecov.io/gh/grinnellm/SpawnIndex)
 [![Code factor](https://github.com/grinnellm/SpawnIndex/workflows/lint/badge.svg)](https://github.com/grinnellm/SpawnIndex/actions)
-[![Development](https://img.shields.io/badge/Package%20version-`r version`-orange.svg?style=flat-square)](commits/master)
+[![Development version](https://img.shields.io/badge/Version-`r version`-orange.svg?style=flat-square)](commits/master)
 [![CRAN status](https://www.r-pkg.org/badges/version/SpawnIndex)](https://CRAN.R-project.org/package=SpawnIndex)
 <!-- badges: end -->
 
@@ -34,10 +34,13 @@ Note that the 'spawn index' is a relative index of spawning biomass.
 
 Install the SpawnIndex package from [GitHub](https://github.com/) with:
 
-```{r install}
+```{r install, message = FALSE, warning = FALSE}
 # install.packages("devtools")
-devtools::install_github("grinnellm/SpawnIndex")
+devtools::install_github(repo = "grinnellm/SpawnIndex")
 ```
+
+Note that the SpawnIndex package is not available on
+[CRAN](https://cloud.r-project.org/).
 
 ## Example
 
@@ -60,11 +63,11 @@ dividing the number of eggs by `r theta`.
 The technical report has background information on the spawn index and calculations.
 A draft technical report is available here: `./tr/Draft.pdf`.
 **Please do not cite or circulate this draft.**
-The vignette has an example workflow; build the vignette like so:
+In addition, there is a vignette with an example workflow;
+build the vignette like so
 
-```{r vignette}
-# install.packages("devtools")
-# devtools::build_vignettes(pkg = ".")
+```{r vignette, eval = FALSE}
+devtools::build_vignettes(pkg = ".")
 ```
 
 and open the file `./doc/Introduction.html`.

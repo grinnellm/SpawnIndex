@@ -1,5 +1,5 @@
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
+<!-- README.md is generated from README.Rmd. Please edit that file. -->
 
 # SpawnIndex <img src='man/sticker/sticker.png' align="right" height="200"/>
 
@@ -14,7 +14,8 @@ status](https://github.com/grinnellm/SpawnIndex/workflows/R-CMD-check/badge.svg)
 coverage](https://codecov.io/gh/grinnellm/SpawnIndex/branch/master/graph/badge.svg)](https://codecov.io/gh/grinnellm/SpawnIndex)
 [![Code
 factor](https://github.com/grinnellm/SpawnIndex/workflows/lint/badge.svg)](https://github.com/grinnellm/SpawnIndex/actions)
-[![Development](https://img.shields.io/badge/Package%20version-0.2.0-orange.svg?style=flat-square)](commits/master)
+[![Development
+version](https://img.shields.io/badge/Version-0.2.0-orange.svg?style=flat-square)](commits/master)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/SpawnIndex)](https://CRAN.R-project.org/package=SpawnIndex)
 <!-- badges: end -->
@@ -32,17 +33,15 @@ spawning biomass.
 
 ## Installation
 
-Install the package from [GitHub](https://github.com/) with:
+Install the SpawnIndex package from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("grinnellm/SpawnIndex")
+devtools::install_github(repo = "grinnellm/SpawnIndex")
 ```
 
-    ## Downloading GitHub repo grinnellm/SpawnIndex@HEAD
-
-    ## Error in utils::download.file(url, path, method = method, quiet = quiet,  : 
-    ##   download from 'https://api.github.com/repos/grinnellm/SpawnIndex/tarball/HEAD' failed
+Note that the SpawnIndex package is not available on
+[CRAN](https://cloud.r-project.org/).
 
 ## Example
 
@@ -60,18 +59,18 @@ theta
     ## [1] 1e+08
 
 Thus, we convert eggs to biomass in tonnes by dividing the number of
-eggs by \(10^{8}\).
+eggs by 10^{8}.
 
 ## Additional information
 
 The technical report has background information on the spawn index and
 calculations. A draft technical report is available here:
-`./tr/Draft.pdf`. **Please do not cite or circulate this draft.** The
-vignette has an example workflow; build the vignette like so:
+`./tr/Draft.pdf`. **Please do not cite or circulate this draft.** In
+addition, there is a vignette with an example workflow; build the
+vignette like so
 
 ``` r
-# install.packages("devtools")
-# devtools::build_vignettes(pkg = ".")
+devtools::build_vignettes(pkg = ".")
 ```
 
 and open the file `./doc/Introduction.html`.
