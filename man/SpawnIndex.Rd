@@ -14,9 +14,34 @@ spawn index calculations. Read the technical report for more details and
 background on spawn index calculations
 \insertCite{GrinnellEtalYYYY}{SpawnIndex}.
 }
+\details{
+The SpawnIndex package provides data, and two categories of functions: load,
+and calculations.
+}
 \note{
 The `spawn index' is a relative index of spawning biomass.
 }
+\section{Data}{
+ The data are understory spawn width correction factors
+  (\code{\link{under_width_facs}}), parameters for spawn index calculations
+  (\code{\link{pars}}), spawn intensity categories (\code{\link{intensity}}),
+  and algae coefficients (\code{\link{algae_coefs}}). In addition, there is
+  an example database with spawn survey observations
+  (\code{\link{HerringSpawn}})
+}
+
+\section{Load functions}{
+ The load functions are \code{\link{load_area_data}},
+  \code{\link{load_all_spawn}}, and \code{\link{get_width}}.
+}
+
+\section{Calculation functions}{
+ The calculation functions are
+  \code{\link{calc_egg_conversion}}, \code{\link{calc_biomass_sok}},
+  \code{\link{calc_surf_spawn}}, \code{\link{calc_macro_spawn}}, and
+  \code{\link{calc_under_spawn}}.
+}
+
 \references{
 \insertAllCited{}
 }
