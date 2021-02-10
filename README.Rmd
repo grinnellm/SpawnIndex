@@ -39,9 +39,6 @@ Install the SpawnIndex package from [GitHub](https://github.com/) with:
 devtools::install_github(repo = "grinnellm/SpawnIndex")
 ```
 
-Note that the SpawnIndex package is not available on
-[CRAN](https://cloud.r-project.org/).
-
 ## Example
 
 This example which shows how to calculate the conversion factor for
