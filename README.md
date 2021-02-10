@@ -12,8 +12,9 @@ British Columbia, Canada.
 status](https://github.com/grinnellm/SpawnIndex/workflows/R-CMD-check/badge.svg)](https://github.com/grinnellm/SpawnIndex/actions)
 [![Codecov test
 coverage](https://codecov.io/gh/grinnellm/SpawnIndex/branch/master/graph/badge.svg)](https://codecov.io/gh/grinnellm/SpawnIndex)
-[![CodeFactor](https://github.com/grinnellm/SpawnIndex/workflows/lint/badge.svg)](https://github.com/grinnellm/SpawnIndex/actions)
-[![packageversion](https://img.shields.io/badge/Package%20version-0.2.0-orange.svg?style=flat-square)](commits/master)
+[![Code
+factor](https://github.com/grinnellm/SpawnIndex/workflows/lint/badge.svg)](https://github.com/grinnellm/SpawnIndex/actions)
+[![Development](https://img.shields.io/badge/Package%20version-0.2.0-orange.svg?style=flat-square)](commits/master)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/SpawnIndex)](https://CRAN.R-project.org/package=SpawnIndex)
 <!-- badges: end -->
@@ -31,7 +32,7 @@ spawning biomass.
 
 ## Installation
 
-Install the development version from [GitHub](https://github.com/) with:
+Install the package from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
@@ -59,7 +60,7 @@ theta
     ## [1] 1e+08
 
 Thus, we convert eggs to biomass in tonnes by dividing the number of
-eggs by 10^{8}.
+eggs by \(10^{8}\).
 
 ## Additional information
 

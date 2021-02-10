@@ -2,7 +2,7 @@
 output: github_document
 ---
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
+<!-- README.md is generated from README.Rmd; please edit README.Rmd -->
 
 # SpawnIndex <img src='man/sticker/sticker.png' align="right" height="200"/>
 
@@ -15,8 +15,8 @@ version <- as.vector(read.dcf('DESCRIPTION')[, 'Version'])
 <!-- badges: start -->
 [![R build status](https://github.com/grinnellm/SpawnIndex/workflows/R-CMD-check/badge.svg)](https://github.com/grinnellm/SpawnIndex/actions)
 [![Codecov test coverage](https://codecov.io/gh/grinnellm/SpawnIndex/branch/master/graph/badge.svg)](https://codecov.io/gh/grinnellm/SpawnIndex)
-[![CodeFactor](https://github.com/grinnellm/SpawnIndex/workflows/lint/badge.svg)](https://github.com/grinnellm/SpawnIndex/actions)
-[![packageversion](https://img.shields.io/badge/Package%20version-`r version`-orange.svg?style=flat-square)](commits/master)
+[![Code factor](https://github.com/grinnellm/SpawnIndex/workflows/lint/badge.svg)](https://github.com/grinnellm/SpawnIndex/actions)
+[![Development](https://img.shields.io/badge/Package%20version-`r version`-orange.svg?style=flat-square)](commits/master)
 [![CRAN status](https://www.r-pkg.org/badges/version/SpawnIndex)](https://CRAN.R-project.org/package=SpawnIndex)
 <!-- badges: end -->
 
@@ -32,7 +32,7 @@ Note that the 'spawn index' is a relative index of spawning biomass.
 
 ## Installation
 
-Install the development version from [GitHub](https://github.com/) with:
+Install the SpawnIndex package from [GitHub](https://github.com/) with:
 
 ```{r install}
 # install.packages("devtools")
