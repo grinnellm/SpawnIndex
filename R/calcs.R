@@ -18,14 +18,17 @@
 #' calc_egg_conversion()
 calc_egg_conversion <- function(omega = pars$conversion$omega,
                                 female = pars$conversion$female) {
+  # Check input
+  if(any(!is.numeric(omega), !is.numeric(female)))
+    stop("Need numeric arguments (pars).")
   # Check omega
   if (omega <= 0) stop("omega must be > 0.")
   # Check female
   if (female < 0 | female > 1) stop("female must be in [0, 1].")
   # Eggs per tonne: eggs/kilogram female * proportion female * kilograms/tonne
   theta <- omega * female * 1000
-  # Check theta
-  if (theta <= 0) stop("theta must be > 0.")
+  # Check theta (vector)
+  if (any(theta <= 0)) stop("theta must be > 0.")
   # Return the conversion factor
   theta
 } # End calc_egg_conversion function
@@ -56,6 +59,11 @@ calc_biomass_sok <- function(SOK,
                              upsilon = pars$SOK$upsilon,
                              M = pars$SOK$M,
                              theta = calc_egg_conversion()) {
+  # Check input
+  if(any(!is.numeric(SOK))) stop("Need numeric arguments (SOK).")
+  # Check input
+  if(any(!is.numeric(nu), !is.numeric(upsilon),
+     !is.numeric(M), !is.numeric(theta))) stop("Need numeric arguments (pars).")
   # Check SOK (vector)
   if (any(SOK < 0)) stop("SOK must be >= 0.")
   # Check nu
