@@ -943,7 +943,7 @@ and we convert eggs to tonnes (t) of spawners using
 \end{equation}
 where $\omega$ is female fecundity,
 $\female$ is the proportion of spawners that are female, and
-$\theta$ is the egg conversion factor in $\text{eggs} \cdot 10^8 \cdot \text{t}^{-1}$ (\autoref{tabNotationEggs}).
+$\theta$ is the egg conversion factor in $10^8 \cdot \text{eggs} \cdot \text{t}^{-1}$ (\autoref{tabNotationEggs}).
 Thus, we convert eggs to biomass of both sexes combined in tonnes by dividing the number of eggs by $\theta$.
 Although \fishName{} egg production is affected by environmental variability and other factors \citep{TanasichukWare1987, HayBrett1988},
 we assume that bias to the spawn index from \autoref{eqECF} is insignificant in most areas and years \citep{Ware1985, Schweigert1993b}.
@@ -959,7 +959,7 @@ Legend: kilograms (kg), tonnes (t).}
 \midrule
 $\omega$ & Female fecundity & \Sexpr{format(pars$conversion$omega, big.mark=",", scientific=FALSE)}$~\text{eggs} \cdot \text{kg}^{-1}$ & \cite{Hay1985, HayBrett1988} \\
 $\female$ & Proportion female & \Sexpr{pars$conversion$female} & \\
-$\theta$ & Egg conversion factor & $\text{eggs} \cdot 10^8 \cdot \text{t}^{-1}$ & \\
+$\theta$ & Egg conversion factor & $10^8 \cdot \text{eggs} \cdot \text{t}^{-1}$ & \\
 \bottomrule
 \end{tabulary}
 \label{tabNotationEggs}
