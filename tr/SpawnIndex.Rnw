@@ -560,7 +560,7 @@ Legend: rounded rectangles indicate start, rectangles indicate observations and 
 \label{figFlow}
 \end{figure}
 
-We developed this document while converting spawn index calculations implemented in a \textbf{Microsoft Access} database to an \textbf{R} \citeyearpar[RCT][]{R-3.6.1-32} package, \texttt{SpawnIndex}.
+We developed this document while converting spawn index calculations implemented in a \textbf{Microsoft Access} database to an \textbf{R} \citeyearpar[RCT][]{R-3.6.1-32} package, SpawnIndex.
 We updated the calculations from a database to an \textbf{R} package for several reasons.
 First, the database has been used for various purposes over the last two decades and has incidental calculations that make it overly complex.
 Second, the database is difficult to troubleshoot because it is hard to differentiate between input (i.e., data) and derived values.
@@ -1800,19 +1800,19 @@ and includes uncertainty and assumptions (\autoref{secUncertain}), and
 
 \section{DOWNLOAD}\label{secDown}
 
-The \textbf{R} package to calculate the \fishName{} spawn index \texttt{SpawnIndex}, is publicly accessible on the \gitRepo{}.
+The SpawnIndex \textbf{R} package is publicly accessible on the \gitRepo{}.
 The package includes an example database of \fishName{} spawn survey observations,
 and a vignette with examples.
-The \texttt{SpawnIndex} package contains functions to import tables from the database and calculate the spawn index.
+The SpawnIndex package contains functions to import tables from the database and calculate the spawn index.
 This document is meant to accompany the \textbf{R} package,
 which implements the calculations described herein.
-The \texttt{SpawnIndex} package is documented, and
+The SpawnIndex package is documented, and
 has examples to promote accessibility and transparency.
 
 \section{ACKNOWLEDGEMENTS}
 
 The authors thank Ashleen Benson for translating the calculations in the \textbf{Microsoft Access} database to an \textbf{R} script,
-which they referenced when developing the \texttt{SpawnIndex} package.
+which they referenced when developing the SpawnIndex package.
 They thank Paul Starr and Rob Kronlund for their thorough reviews that improved this document.
 They also thank Andy Edwards for help with mathematical notation.
 Finally, they thank Chris Grandin for help creating the \textbf{R} package.
