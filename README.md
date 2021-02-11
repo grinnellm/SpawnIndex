@@ -42,9 +42,11 @@ devtools::install_github(repo = "grinnellm/SpawnIndex")
 
 ## Example
 
-This example which shows how to calculate the conversion factor for the
-number of Pacific Herring eggs to the spawn index (i.e., biomass) in
-tonnes.
+This example which shows how we estimate the biomass of Pacific Herring
+that spawned and produced eggs which were removed from the population by
+a given spawn on kelp (SOK) fishery. First, we calculate the conversion
+factor for the number of Pacific Herring eggs to the spawn index (i.e.,
+biomass) in tonnes, t.
 
 ``` r
 library(SpawnIndex)
@@ -56,7 +58,20 @@ theta
     ## [1] 1e+08
 
 Thus, we convert eggs to biomass in tonnes by dividing the number of
-eggs by 10^{8}.
+eggs by 10^{8}. We use this conversion factor to estimate the biomass of
+Pacific Herring that produced a given amount of SOK product in
+kilograms, kg.
+
+``` r
+sok <- 100  # SOK product in kg
+biomass <- calc_biomass_sok(SOK = sok, theta = theta)
+biomass  # Spawning biomass in t
+```
+
+    ## [1] 0.3266324
+
+In this example, 100 kg of SOK product was produced by 0.327 t of
+spawning Pacific Herring.
 
 ## Additional information
 
