@@ -58,9 +58,10 @@ theta
     ## [1] 1e+08
 
 Thus, we convert eggs to biomass in tonnes by dividing the number of
-eggs by 10^{8}. We use this conversion factor to estimate the biomass of
-Pacific Herring that produced a given amount of SOK product in
-kilograms, kg.
+eggs by 10^{8}, where `theta` is in units of
+10<sup>8</sup> eggs t<sup>-1</sup>. We use this conversion factor to
+estimate the biomass of Pacific Herring that produced a given amount of
+SOK product in kilograms, kg.
 
 ``` r
 sok <- 100  # SOK product in kg
