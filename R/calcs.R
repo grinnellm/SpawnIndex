@@ -18,8 +18,14 @@
 #' calc_egg_conversion()
 calc_egg_conversion <- function(omega = pars$conversion$omega,
                                 female = pars$conversion$female) {
+  # Check omega
+  if (omega <= 0) stop("omega must be > 0.")
+  # Check female
+  if (female < 0 | female > 1) stop("female must be in [0, 1].")
   # Eggs per tonne: eggs/kilogram female * proportion female * kilograms/tonne
   theta <- omega * female * 1000
+  # Check theta
+  if (theta <= 0) stop("theta must be > 0.")
   # Return the conversion factor
   theta
 } # End calc_egg_conversion function
@@ -50,9 +56,21 @@ calc_biomass_sok <- function(SOK,
                              upsilon = pars$SOK$upsilon,
                              M = pars$SOK$M,
                              theta = calc_egg_conversion()) {
+  # Check SOK (vector)
+  if (any(SOK < 0)) stop("SOK must be >= 0.")
+  # Check nu
+  if (nu < 0 | nu > 1) stop("nu must be in [0, 1].")
+  # Check upsilon
+  if (upsilon < 0 | upsilon > 1) stop("upsilon must be in [0, 1].")
+  # Check M
+  if (M <= 0) stop("M must be > 0.")
+  # Check theta
+  if (theta <= 0) stop("theta must be > 0.")
   # Spawning biomass in tonnes: (kg SOK * proportion eggs * proportion eggs) /
   # (kg per egg * eggs per tonne )
   SB <- (SOK * (1 - nu) * 1 / (1 + upsilon)) / (M * theta)
+  # Check SB (vector)
+  if (any(SB < 0)) stop("SB must be >= 0.")
   # Return the spawning biomass
   SB
 } # End calc_biomass_sok

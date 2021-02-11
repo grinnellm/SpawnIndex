@@ -1,9 +1,21 @@
 test_that("Egg conversion factor", {
   expect_type(calc_egg_conversion(), "double")
   expect_equal(calc_egg_conversion(), 1e+08)
+  expect_error(calc_egg_conversion(omega = -1000))
+  expect_error(calc_egg_conversion(female = 1.2))
+  expect_error(calc_egg_conversion(female = -0.1))
+  expect_error(calc_egg_conversion(female = 0))
 })
 
 test_that("SOK biomass", {
   expect_type(calc_biomass_sok(SOK = 100), "double")
   expect_equal(calc_biomass_sok(SOK = 100), 0.32, 0.01)
+  expect_error(calc_biomass_sok(SOK = -100))
+  expect_error(calc_biomass_sok(SOK = c(-1, 0, 1)))
+  expect_error(calc_biomass_sok(nu = -0.1))
+  expect_error(calc_biomass_sok(nu = 1.2))
+  expect_error(calc_biomass_sok(upsilon = -0.1))
+  expect_error(calc_biomass_sok(upsilon = 1.2))
+  expect_error(calc_biomass_sok(M = 0))
+  expect_error(calc_biomass_sok(theta = 0))
 })
