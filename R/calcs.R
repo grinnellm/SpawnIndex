@@ -191,7 +191,7 @@ calc_surf_spawn <- function(where,
     stop("Argument `where` needs names:", where_names, call. = FALSE)
   }
   # Check where: contents
-  if (typeof(unlist(surf_loc)) != "character") {
+  if (typeof(unlist(where)) != "character") {
     stop("Argument `where` must contain characters", call. = FALSE)
   }
   # Establish connection with access
