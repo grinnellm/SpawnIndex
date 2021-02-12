@@ -19,8 +19,9 @@
 calc_egg_conversion <- function(omega = pars$conversion$omega,
                                 female = pars$conversion$female) {
   # Check input
-  if(any(!is.numeric(omega), !is.numeric(female)))
+  if (any(!is.numeric(omega), !is.numeric(female))) {
     stop("Need numeric arguments (pars).")
+  }
   # Check omega
   if (omega <= 0) stop("omega must be > 0.")
   # Check female
@@ -60,10 +61,13 @@ calc_biomass_sok <- function(SOK,
                              M = pars$SOK$M,
                              theta = calc_egg_conversion()) {
   # Check input
-  if(any(!is.numeric(SOK))) stop("Need numeric arguments (SOK).")
+  if (any(!is.numeric(SOK))) stop("Need numeric arguments (SOK).")
   # Check input
-  if(any(!is.numeric(nu), !is.numeric(upsilon),
-     !is.numeric(M), !is.numeric(theta))) stop("Need numeric arguments (pars).")
+  if (any(
+    !is.numeric(nu), !is.numeric(upsilon), !is.numeric(M), !is.numeric(theta)
+  )) {
+    stop("Need numeric arguments (pars).")
+  }
   # Check SOK (vector)
   if (any(SOK < 0)) stop("SOK must be >= 0.")
   # Check nu
