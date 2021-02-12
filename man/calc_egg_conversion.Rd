@@ -6,20 +6,23 @@
 \usage{
 calc_egg_conversion(
   omega = pars$conversion$omega,
-  female = pars$conversion$female
+  female = pars$conversion$female,
+  quiet = FALSE
 )
 }
 \arguments{
 \item{omega}{Numeric. The number of eggs per kilogram of female spawners;
-from \code{\link{pars}}.}
+from \code{\link{pars}}. Message if < 0.}
 
 \item{female}{Numeric. The proportion of spawners that are female; from
-\code{\link{pars}}.}
+\code{\link{pars}}. Message if not in [0, 1].}
+
+\item{quiet}{Logical. Print messages; default is FALSE.}
 }
 \value{
 Numeric. The conversion factor for eggs to spawn index in tonnes
   (i.e., biomass). Divide the number of eggs by the conversion factor to get
-  biomass.
+  biomass. Message if < 0.
 }
 \description{
 Calculate the conversion factor for the number of Pacific Herring eggs to the

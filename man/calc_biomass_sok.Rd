@@ -9,26 +9,30 @@ calc_biomass_sok(
   nu = pars$SOK$nu,
   upsilon = pars$SOK$upsilon,
   M = pars$SOK$M,
-  theta = calc_egg_conversion()
+  theta = calc_egg_conversion(),
+  quiet = FALSE
 )
 }
 \arguments{
-\item{SOK}{Numeric. Weight of spawn-on-kelp (SOK) harvest in kilograms.}
+\item{SOK}{Numeric. Weight of spawn-on-kelp (SOK) harvest in kilograms.
+Message if < 0.}
 
 \item{nu}{Numeric. Proportion of SOK product that is kelp; from
-\code{\link{pars}}.}
+\code{\link{pars}}. Message if not in [0, 1].}
 
 \item{upsilon}{Numeric. SOK product weight increase due to brining as a
-proportion; from \code{\link{pars}}.}
+proportion; from \code{\link{pars}}. Message if not in [0, 1].}
 
 \item{M}{Numeric. Average weight in kilograms of a fertilized egg; from
-\code{\link{pars}}.}
+\code{\link{pars}}. Message if < 0.}
 
 \item{theta}{Numeric. Egg conversion factor (eggs to biomass); from
-\code{\link{calc_egg_conversion}}.}
+\code{\link{calc_egg_conversion}}. Message if < 0.}
+
+\item{quiet}{Logical. Print messages; default is FALSE.}
 }
 \value{
-Numeric. Spawning biomass in tonnes.
+Numeric. Spawning biomass in tonnes. Message if < 0.
 }
 \description{
 Calculate spawning biomass in tonnes from spawn-on-kelp (SOK) harvest in

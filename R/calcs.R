@@ -4,32 +4,38 @@
 #' spawn index (i.e., biomass) in tonnes.
 #'
 #' @param omega Numeric. The number of eggs per kilogram of female spawners;
-#'   from \code{\link{pars}}.
+#'   from \code{\link{pars}}. Message if < 0.
 #' @param female Numeric. The proportion of spawners that are female; from
-#'   \code{\link{pars}}.
+#'   \code{\link{pars}}. Message if not in [0, 1].
+#' @param quiet Logical. Print messages; default is FALSE.
 #' @importFrom Rdpack reprompt
 #' @return Numeric. The conversion factor for eggs to spawn index in tonnes
 #'   (i.e., biomass). Divide the number of eggs by the conversion factor to get
-#'   biomass.
+#'   biomass. Message if < 0.
 #' @seealso \code{\link{pars}}
 #' @export
 #' @examples
 #' data(pars)
 #' calc_egg_conversion()
 calc_egg_conversion <- function(omega = pars$conversion$omega,
-                                female = pars$conversion$female) {
-  # Check input
-  if (any(!is.numeric(omega), !is.numeric(female))) {
-    stop("Need numeric arguments (pars).")
+                                female = pars$conversion$female,
+                                quiet = FALSE) {
+  # Check omega: numeric
+  if (!is.numeric(omega)) stop("`omega` must be numeric.", call. = FALSE)
+  # Check omega: range
+  if (any(omega < 0) & !quiet) message("`omega` < 0.")
+  # Check female: numeric
+  if (!is.numeric(female)) stop("`female` must be numeric.", call. = FALSE)
+  # Check female: range
+  if ((any(female < 0) | any(female > 1)) & !quiet) {
+    message("`female` < 0 and/or > 1.")
   }
-  # Check omega
-  if (omega <= 0) stop("omega must be > 0.")
-  # Check female
-  if (female < 0 | female > 1) stop("female must be in [0, 1].")
   # Eggs per tonne: eggs/kilogram female * proportion female * kilograms/tonne
   theta <- omega * female * 1000
-  # Check theta (vector)
-  if (any(theta <= 0)) stop("theta must be > 0.")
+  # Check theta: numeric
+  if (any(!is.numeric(theta))) stop("`theta` is not numeric.", call. = FALSE)
+  # Check theta: range
+  if (any(theta < 0) & !quiet) message("`theta` < 0.")
   # Return the conversion factor
   theta
 } # End calc_egg_conversion function
@@ -40,16 +46,18 @@ calc_egg_conversion <- function(omega = pars$conversion$omega,
 #' kilograms.
 #'
 #' @param SOK Numeric. Weight of spawn-on-kelp (SOK) harvest in kilograms.
+#'   Message if < 0.
 #' @param nu Numeric. Proportion of SOK product that is kelp; from
-#'   \code{\link{pars}}.
+#'   \code{\link{pars}}. Message if not in [0, 1].
 #' @param upsilon Numeric. SOK product weight increase due to brining as a
-#'   proportion; from \code{\link{pars}}.
+#'   proportion; from \code{\link{pars}}. Message if not in [0, 1].
 #' @param M Numeric. Average weight in kilograms of a fertilized egg; from
-#'   \code{\link{pars}}.
+#'   \code{\link{pars}}. Message if < 0.
 #' @param theta Numeric. Egg conversion factor (eggs to biomass); from
-#'   \code{\link{calc_egg_conversion}}.
+#'   \code{\link{calc_egg_conversion}}. Message if < 0.
+#' @param quiet Logical. Print messages; default is FALSE.
 #' @importFrom Rdpack reprompt
-#' @return Numeric. Spawning biomass in tonnes.
+#' @return Numeric. Spawning biomass in tonnes. Message if < 0.
 #' @seealso \code{\link{calc_egg_conversion}} \code{\link{pars}}
 #' @export
 #' @examples
@@ -59,30 +67,37 @@ calc_biomass_sok <- function(SOK,
                              nu = pars$SOK$nu,
                              upsilon = pars$SOK$upsilon,
                              M = pars$SOK$M,
-                             theta = calc_egg_conversion()) {
-  # Check input
-  if (any(!is.numeric(SOK))) stop("Need numeric arguments (SOK).")
-  # Check input
-  if (any(
-    !is.numeric(nu), !is.numeric(upsilon), !is.numeric(M), !is.numeric(theta)
-  )) {
-    stop("Need numeric arguments (pars).")
+                             theta = calc_egg_conversion(),
+                             quiet = FALSE) {
+  # Check SOK: numeric
+  if (!is.numeric(SOK)) stop("`SOK` must be numeric.", call. = FALSE)
+  # Check SOK: range
+  if (any(SOK < 0) & !quiet) message("`SOK` < 0.")
+  # Check nu: numeric
+  if (!is.numeric(nu)) stop("`nu` must be numeric.", call. = FALSE)
+  # Check nu: range
+  if ((any(nu < 0) | any(nu > 1)) & !quiet) message("`nu` < 0 and/or > 1.")
+  # Check upsilon: numeric
+  if (!is.numeric(upsilon)) stop("`upsilon` must be numeric.", call. = FALSE)
+  # Check upsilon: range
+  if ((any(upsilon < 0) | any(upsilon > 1)) & !quiet) {
+    message("`upsilon` < 0 and/or > 1.")
   }
-  # Check SOK (vector)
-  if (any(SOK < 0)) stop("SOK must be >= 0.")
-  # Check nu
-  if (nu < 0 | nu > 1) stop("nu must be in [0, 1].")
-  # Check upsilon
-  if (upsilon < 0 | upsilon > 1) stop("upsilon must be in [0, 1].")
-  # Check M
-  if (M <= 0) stop("M must be > 0.")
-  # Check theta
-  if (theta <= 0) stop("theta must be > 0.")
+  # Check M: numeric
+  if (!is.numeric(M)) stop("`M` must be numeric.", call. = FALSE)
+  # Check M: range
+  if (any(M < 0) & !quiet) message("`M` < 0.")
+  # Check theta: numeric
+  if (!is.numeric(theta)) stop("`theta` must be numeric.", call. = FALSE)
+  # Check theta: range
+  if (any(theta < 0) & !quiet) message("`theta` < 0.")
   # Spawning biomass in tonnes: (kg SOK * proportion eggs * proportion eggs) /
   # (kg per egg * eggs per tonne )
   SB <- (SOK * (1 - nu) * 1 / (1 + upsilon)) / (M * theta)
-  # Check SB (vector)
-  if (any(SB < 0)) stop("SB must be >= 0.")
+  # Check SB: numeric
+  if (!is.numeric(SB)) stop("`SB` is not numeric.", call. = FALSE)
+  # Check SB: range
+  if (any(SB < 0) & !quiet) message("`SB` < 0.")
   # Return the spawning biomass
   SB
 } # End calc_biomass_sok
@@ -167,6 +182,18 @@ calc_surf_spawn <- function(where,
                             alpha = pars$surface$alpha,
                             beta = pars$surface$beta,
                             theta = calc_egg_conversion()) {
+  # Get where names
+  where_names <- c("loc", "db", "fns.surface", "fns.all_spawn")
+  # Check where: list
+  if (!is.list(where)) stop("Argument `where` must be a list.", call. = FALSE)
+  # Check where: names
+  if (any(names(unlist(where)) != where_names)) {
+    stop("Argument `where` needs names:", where_names, call. = FALSE)
+  }
+  # Check where: contents
+  if (typeof(unlist(surf_loc)) != "character") {
+    stop("Argument `where` must contain characters", call. = FALSE)
+  }
   # Establish connection with access
   access_db <- dbConnect(
     drv = odbc(),
@@ -228,7 +255,7 @@ calc_surf_spawn <- function(where,
     select(ends_with("Percent"))
   # Error if any percents are greater than 100
   if (any(p_cover > 100, na.rm = TRUE)) {
-    stop("Percent cover > 100 in surface spawn data.")
+    stop("Percent cover > 100 in surface spawn data.", call. = FALSE)
   }
   # Continue with calculating egg layers
   surface <- surface %>%
@@ -288,7 +315,7 @@ calc_surf_spawn <- function(where,
   if (nrow(no_layers) > 0) {
     stop("Missing egg layers for ", nrow(no_layers), " record(s):",
       print(no_layers), ".",
-      sep = ""
+      sep = "", call. = FALSE
     )
   }
   # Output egg layer info
@@ -653,7 +680,7 @@ calc_under_spawn <- function(where,
     mutate(Width = WidthObs * WidthFac)
   # Error if any quadrats are not 0.5 m^2
   if (any(alg_trans$QuadratSize != 0.5)) {
-    stop("All quadrats must be 0.5m^2.")
+    stop("All quadrats must be 0.5m^2.", call. = FALSE)
   }
   # Load station data
   stations <- dbReadTable(conn = access_db, name = where$fns$stations) %>%
@@ -709,7 +736,9 @@ calc_under_spawn <- function(where,
     miss_alg <- unique(algae$AlgType[!algae$AlgType %in%
       alg_coefs$AlgType])
     # Error, and show missing type(s)
-    stop("Missing algae type(s): ", paste(miss_alg, collapse = ", "), ".")
+    stop("Missing algae type(s): ", paste(miss_alg, collapse = ", "), ".",
+      call. = FALSE
+    )
   } # End if there are missing algae types
   # Get a small subset of area data
   areas_sm_2 <- a %>%
@@ -718,7 +747,7 @@ calc_under_spawn <- function(where,
     as_tibble()
   # Error if proportion > 1
   if (any(stations$SubProp > 1, na.rm = TRUE)) {
-    stop("Substrate proportion > 1 in understory spawn data.")
+    stop("Substrate proportion > 1 in understory spawn data.", call. = FALSE)
   }
   # Calculate substrate egg density
   eggs_sub <- stations %>%
@@ -736,7 +765,7 @@ calc_under_spawn <- function(where,
     )
   # Error if proportion > 1
   if (any(algae$AlgProp > 1, na.rm = TRUE)) {
-    stop("Algae proportion > 1 in understory spawn data.")
+    stop("Algae proportion > 1 in understory spawn data.", call. = FALSE)
   }
   # Calculate substrate egg density by quadrat/station
   eggs_alg <- algae %>%
