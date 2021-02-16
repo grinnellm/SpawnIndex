@@ -590,7 +590,7 @@ which likely generates a biased estimate of mean egg density.
 \centering
 \caption[Index notation for \fishName{} spawn index calculations]
 {Index notation for \fishName{} spawn index calculations.
-Legend: stock assessment region (SAR), spawn on kelp (SOK).}
+Legend: stock assessment region (SAR), spawn-on-kelp (SOK).}
 \begin{tabulary}{\linewidth}{lLL}
 \toprule
 \textbf{Name} & \textbf{Description} & \textbf{Range} \\
@@ -1580,7 +1580,7 @@ a second one for the dive survey period $q_2$ (\Sexpr{newSurvYr} to present).
 
 \section{SPAWN ON KELP CALCULATIONS}\label{secSOK}
 
-Spawn on kelp (SOK) fisheries collect \fishName{} roe that adheres to algae such as Macrocystis after spawning.
+Spawn-on-kelp (SOK) fisheries collect \fishName{} roe that adheres to algae such as Macrocystis after spawning.
 Other similar fisheries include spawn on bough, in which operators collect roe that adhere to tree boughs;
 we refer to these fisheries collectively as SOK in this document.
 There are two types of SOK fisheries in BC:
@@ -1628,8 +1628,8 @@ $B_{ry}$ is the estimated \fishName{} biomass that produced eggs which were remo
 
 \begin{table}
 \centering
-\caption[Notation for \fishName{} spawn on kelp calculations]
-{Notation for \fishName{} spawn on kelp (SOK) calculations.
+\caption[Notation for \fishName{} spawn-on-kelp calculations]
+{Notation for \fishName{} spawn-on-kelp (SOK) calculations.
 Legend: kilograms (kg), tonnes (t).}
 \begin{tabulary}{\linewidth}{lLLL}
 \toprule

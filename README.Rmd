@@ -50,7 +50,7 @@ devtools::install_github(repo = "grinnellm/SpawnIndex")
 
 This example shows how we estimate
 the biomass of Pacific Herring that spawned and produced eggs
-which were removed from the population by a given spawn on kelp (SOK) fishery.
+which were removed from the population by a given spawn-on-kelp (SOK) fishery.
 First, we calculate the conversion factor for the number of Pacific Herring eggs
 to the spawn index (i.e., biomass) in tonnes, t.
 

@@ -352,9 +352,9 @@ kable(
   add_header_above(header = c("", "Survey" = 3, ""))
 ```
 
-# Spawn on kelp calculations
+# Spawn-on-kelp calculations
 
-Calculate the biomass of spawning Pacific Herring from spawn on kelp (SOK) operations.
+Calculate the biomass of spawning Pacific Herring from spawn-on-kelp (SOK) operations.
 Note that these are fictional values.
 
 ```{r sokYr, results='asis'}
