@@ -1,41 +1,46 @@
 test_that("Egg conversion factor", {
   expect_type(calc_egg_conversion(), "double")
   expect_error(calc_egg_conversion(omega = "omega"))
-  expect_error(calc_egg_conversion(omega = NA))
+  expect_message(calc_egg_conversion(omega = as.numeric(NA)))
   expect_message(calc_egg_conversion(omega = -100))
-  expect_silent(calc_egg_conversion(omega = -100, quiet = TRUE))
   expect_error(calc_egg_conversion(female = "female"))
-  expect_error(calc_egg_conversion(female = NA))
+  expect_message(calc_egg_conversion(female = as.numeric(NA)))
   expect_message(calc_egg_conversion(female = 1.1))
-  expect_silent(calc_egg_conversion(female = 1, 1, quiet = TRUE))
   expect_message(calc_egg_conversion(female = -0.1))
-  expect_silent(calc_egg_conversion(female = -1.1, quiet = TRUE))
+  expect_silent(calc_egg_conversion(omega = -100, female = -0.1, quiet = TRUE))
+  expect_silent(calc_egg_conversion(omega = -100, female = 1.1, quiet = TRUE))
+  expect_silent(calc_egg_conversion(
+    omega = as.numeric(NA), female = as.numeric(NA), quiet = TRUE
+  ))
 })
 
 test_that("SOK biomass", {
   expect_type(calc_biomass_sok(SOK = 100), "double")
   expect_error(calc_biomass_sok(SOK = "SOK"))
-  expect_error(calc_biomass_sok(SOK = NA))
+  expect_message(calc_biomass_sok(SOK = as.numeric(NA)))
   expect_message(calc_biomass_sok(SOK = -100))
-  expect_silent(calc_biomass_sok(SOK = -100, quiet = TRUE))
   expect_error(calc_biomass_sok(SOK = 100, nu = "nu"))
-  expect_error(calc_biomass_sok(SOK = 100, nu = NA))
+  expect_message(calc_biomass_sok(SOK = 100, nu = as.numeric(NA)))
   expect_message(calc_biomass_sok(SOK = 100, nu = 1.1))
-  expect_silent(calc_biomass_sok(SOK = 100, nu = 1.1, quiet = TRUE))
-  expect_message(calc_biomass_sok(SOK = 100, nu = -1.1))
-  expect_silent(calc_biomass_sok(SOK = 100, nu = -1.1, quiet = TRUE))
+  expect_message(calc_biomass_sok(SOK = 100, nu = -0.1))
   expect_error(calc_biomass_sok(SOK = 100, upsilon = "upsilon"))
-  expect_error(calc_biomass_sok(SOK = 100, upsilon = NA))
+  expect_message(calc_biomass_sok(SOK = 100, upsilon = as.numeric(NA)))
   expect_message(calc_biomass_sok(SOK = 100, upsilon = 1.1))
-  expect_silent(calc_biomass_sok(SOK = 100, upsilon = 1.1, quiet = TRUE))
-  expect_message(calc_biomass_sok(SOK = 100, upsilon = -1.1))
-  expect_silent(calc_biomass_sok(SOK = 100, upsilon = -1.1, quiet = TRUE))
+  expect_message(calc_biomass_sok(SOK = 100, upsilon = -0.1))
   expect_error(calc_biomass_sok(SOK = 100, M = "M"))
-  expect_error(calc_biomass_sok(SOK = 100, M = NA))
-  expect_message(calc_biomass_sok(SOK = 100, M = -1))
-  expect_silent(calc_biomass_sok(SOK = 100, M = -1, quiet = TRUE))
+  expect_message(calc_biomass_sok(SOK = 100, M = as.numeric(NA)))
+  expect_message(calc_biomass_sok(SOK = 100, M = -0.1))
   expect_error(calc_biomass_sok(SOK = 100, theta = "theta"))
-  expect_error(calc_biomass_sok(SOK = 100, theta = NA))
+  expect_message(calc_biomass_sok(SOK = 100, theta = as.numeric(NA)))
   expect_message(calc_biomass_sok(SOK = 100, theta = -100))
-  expect_silent(calc_biomass_sok(SOK = 100, theta = -100, quiet = TRUE))
+  expect_silent(calc_biomass_sok(
+    SOK = -100, nu = 1.1, upsilon = 1.1, M = -0.1, theta = -100, quiet = TRUE
+  ))
+  expect_silent(calc_biomass_sok(
+    SOK = -100, nu = -0.1, upsilon = -0.1, M = -0.1, theta = -100, quiet = TRUE
+  ))
+  expect_silent(calc_biomass_sok(
+    SOK = as.numeric(NA), nu = as.numeric(NA), upsilon = as.numeric(NA),
+    M = as.numeric(NA), theta = as.numeric(NA), quiet = TRUE
+  ))
 })
