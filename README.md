@@ -25,14 +25,16 @@ Note that `R-CMD-check` works locally but fails on GitHub Actions; see
 
 ## Description
 
-Calculate the spawn index for Pacific Herring (Clupea pallasii) in
-British Columbia, Canada. There are three types of spawn survey
-observations: surface spawn, Macrocystis spawn, and understory spawn.
-These calculations rely on an estimate of female fecundity to convert
-the number of eggs to the spawn index (i.e., biomass). In addition, we
-provide a method to estimate the biomass of fish from spawn-on-kelp
-(SOK) operations. Note that the ‘spawn index’ is a relative index of
-spawning biomass.
+The SpawnIndex package provides data, parameter values, and methods to
+calculate the spawn index for Pacific Herring (*Clupea pallasii*) in
+British Columbia (BC), Canada. Essentially, spawn index calculations
+convert spawn survey observations (e.g., spawn extent, number of egg
+layers, substrate type) to the Pacific Herring spawn index in BC. There
+are three types of spawn survey observations: surface spawn
+observations, Macrocystis spawn observations, and understory spawn
+observations. In addition, we include methods to convert eggs to
+biomass, and estimate spawning biomass in spawn-on-kelp operations. Note
+that the ‘spawn index’ is a relative index of spawning biomass.
 
 ## Installation
 
@@ -45,9 +47,9 @@ devtools::install_github(repo = "grinnellm/SpawnIndex")
 
 ## Example
 
-This example which shows how we estimate the biomass of Pacific Herring
-that spawned and produced eggs which were removed from the population by
-a given spawn on kelp (SOK) fishery. First, we calculate the conversion
+This example shows how we estimate the biomass of Pacific Herring that
+spawned and produced eggs which were removed from the population by a
+given spawn on kelp (SOK) fishery. First, we calculate the conversion
 factor for the number of Pacific Herring eggs to the spawn index (i.e.,
 biomass) in tonnes, t.
 

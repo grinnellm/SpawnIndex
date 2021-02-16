@@ -3,23 +3,28 @@
 \docType{package}
 \name{SpawnIndex}
 \alias{SpawnIndex}
-\title{SpawnIndex: A package to calculate the spawn index for Pacific Herring
-(\emph{Clupea pallasii}) in British Columbia, Canada.}
+\title{SpawnIndex: Calculate the spawn index for Pacific Herring (\emph{Clupea
+pallasii}) in British Columbia, Canada.}
 \description{
 The SpawnIndex package provides data, parameter values, and methods to
 calculate the spawn index for Pacific Herring (\emph{Clupea pallasii}) in
-British Columbia, Canada. Methods include converting eggs to biomass,
-spawn-on-kelp calculations, as well as surface, Macrocystis, and understory
-spawn index calculations. Read the technical report for more details and
-background on spawn index calculations
-\insertCite{GrinnellEtalYYYY}{SpawnIndex}.
+British Columbia (BC), Canada. Essentially, spawn index calculations convert
+spawn survey observations (e.g., spawn extent, number of egg layers,
+substrate type) to the Pacific Herring spawn index in BC. There are three
+types of spawn survey observations: surface spawn observations, Macrocystis
+spawn observations, and understory spawn observations. In addition, we
+include methods to convert eggs to biomass, and estimate spawning biomass in
+spawn-on-kelp operations. Note that the 'spawn index' is a relative index of
+spawning biomass.
 }
 \details{
 The SpawnIndex package provides data, and two categories of functions: load,
 and calculations.
 }
 \note{
-The `spawn index' is a relative index of spawning biomass.
+The `spawn index' is a relative index of spawning biomass. Read the
+  technical report for more details and background on spawn index
+  calculations \insertCite{GrinnellEtalYYYY}{SpawnIndex}.
 }
 \section{Data}{
  The data are understory spawn width correction factors
