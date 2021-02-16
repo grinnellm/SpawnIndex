@@ -9,6 +9,7 @@
 #'   \code{\link{pars}}. Message if not in [0, 1].
 #' @param quiet Logical. Print messages; default is FALSE.
 #' @importFrom Rdpack reprompt
+#' @importFrom stats na.omit
 #' @return Numeric. The conversion factor for eggs to spawn index in tonnes
 #'   (i.e., biomass). Divide the number of eggs by the conversion factor to get
 #'   biomass. Message if < 0.
@@ -63,6 +64,7 @@ calc_egg_conversion <- function(omega = pars$conversion$omega,
 #'   \code{\link{calc_egg_conversion}}. Message if < 0.
 #' @param quiet Logical. Print messages; default is FALSE.
 #' @importFrom Rdpack reprompt
+#' @importFrom stats na.omit
 #' @return Numeric. Spawning biomass in tonnes. Message if < 0.
 #' @seealso \code{\link{calc_egg_conversion}} \code{\link{pars}}
 #' @export
