@@ -20,22 +20,28 @@
 calc_egg_conversion <- function(omega = pars$conversion$omega,
                                 female = pars$conversion$female,
                                 quiet = FALSE) {
+  # Check omega: NA
+  if (any(is.na(omega)) & !quiet) message("NA(s) in `omega`")
   # Check omega: numeric
   if (!is.numeric(omega)) stop("`omega` must be numeric.", call. = FALSE)
   # Check omega: range
-  if (any(omega < 0) & !quiet) message("`omega` < 0.")
+  if (any(na.omit(omega) < 0) & !quiet) message("`omega` < 0.")
+  # Check female: NA
+  if (any(is.na(female)) & !quiet) message("NA(s) in `female`")
   # Check female: numeric
   if (!is.numeric(female)) stop("`female` must be numeric.", call. = FALSE)
   # Check female: range
-  if ((any(female < 0) | any(female > 1)) & !quiet) {
+  if ((any(na.omit(female) < 0) | any(na.omit(female) > 1)) & !quiet) {
     message("`female` < 0 and/or > 1.")
   }
   # Eggs per tonne: eggs/kilogram female * proportion female * kilograms/tonne
   theta <- omega * female * 1000
+  # Check theta: NA
+  if (any(is.na(theta)) & !quiet) message("NA(s) in `theta`")
   # Check theta: numeric
   if (any(!is.numeric(theta))) stop("`theta` is not numeric.", call. = FALSE)
   # Check theta: range
-  if (any(theta < 0) & !quiet) message("`theta` < 0.")
+  if (any(na.omit(theta) < 0) & !quiet) message("`theta` < 0.")
   # Return the conversion factor
   theta
 } # End calc_egg_conversion function
@@ -69,35 +75,49 @@ calc_biomass_sok <- function(SOK,
                              M = pars$SOK$M,
                              theta = calc_egg_conversion(),
                              quiet = FALSE) {
+  # Check SOK: NA
+  if (any(is.na(SOK)) & !quiet) message("NA(s) in `SOK`")
   # Check SOK: numeric
   if (!is.numeric(SOK)) stop("`SOK` must be numeric.", call. = FALSE)
   # Check SOK: range
-  if (any(SOK < 0) & !quiet) message("`SOK` < 0.")
+  if (any(na.omit(SOK) < 0) & !quiet) message("`SOK` < 0.")
+  # Check nu: NA
+  if (any(is.na(nu)) & !quiet) message("NA(s) in `nu`")
   # Check nu: numeric
   if (!is.numeric(nu)) stop("`nu` must be numeric.", call. = FALSE)
   # Check nu: range
-  if ((any(nu < 0) | any(nu > 1)) & !quiet) message("`nu` < 0 and/or > 1.")
+  if ((any(na.omit(nu) < 0) | any(na.omit(nu) > 1)) & !quiet) {
+    message("`nu` < 0 and/or > 1.")
+  }
+  # Check upsilon: NA
+  if (any(is.na(upsilon)) & !quiet) message("NA(s) in `upsilon`")
   # Check upsilon: numeric
   if (!is.numeric(upsilon)) stop("`upsilon` must be numeric.", call. = FALSE)
   # Check upsilon: range
-  if ((any(upsilon < 0) | any(upsilon > 1)) & !quiet) {
+  if ((any(na.omit(upsilon) < 0) | any(na.omit(upsilon) > 1)) & !quiet) {
     message("`upsilon` < 0 and/or > 1.")
   }
+  # Check M: NA
+  if (any(is.na(M)) & !quiet) message("NA(s) in `M`")
   # Check M: numeric
   if (!is.numeric(M)) stop("`M` must be numeric.", call. = FALSE)
   # Check M: range
-  if (any(M < 0) & !quiet) message("`M` < 0.")
+  if (any(na.omit(M) < 0) & !quiet) message("`M` < 0.")
+  # Check theta: NA
+  if (any(is.na(theta)) & !quiet) message("NA(s) in `theta`")
   # Check theta: numeric
   if (!is.numeric(theta)) stop("`theta` must be numeric.", call. = FALSE)
   # Check theta: range
-  if (any(theta < 0) & !quiet) message("`theta` < 0.")
+  if (any(na.omit(theta) < 0) & !quiet) message("`theta` < 0.")
   # Spawning biomass in tonnes: (kg SOK * proportion eggs * proportion eggs) /
   # (kg per egg * eggs per tonne )
   SB <- (SOK * (1 - nu) * 1 / (1 + upsilon)) / (M * theta)
   # Check SB: numeric
   if (!is.numeric(SB)) stop("`SB` is not numeric.", call. = FALSE)
+  # Check SB: NA
+  if (any(is.na(SB)) & !quiet) message("NA(s) in spawning biomass `SB`")
   # Check SB: range
-  if (any(SB < 0) & !quiet) message("`SB` < 0.")
+  if (any(na.omit(SB) < 0) & !quiet) message("`SB` < 0.")
   # Return the spawning biomass
   SB
 } # End calc_biomass_sok
