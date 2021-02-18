@@ -4,7 +4,7 @@
 \alias{load_all_spawn}
 \title{Get the all spawn table.}
 \usage{
-load_all_spawn(where, a, yrs, ft2m = 0.3048)
+load_all_spawn(where, a, yrs, ft2m = 0.3048, quiet = FALSE)
 }
 \arguments{
 \item{where}{List. Location of the Pacific Herring understory spawn database
@@ -14,10 +14,13 @@ load_all_spawn(where, a, yrs, ft2m = 0.3048)
 spawn survey observations to include in calculations; from
 \code{\link{load_area_data}}.}
 
-\item{yrs}{Numeric vector. Years(s) to include in the calculations, usually
-staring in 1951.}
+\item{yrs}{Numeric vector. Years(s) to include in the calculations. Message
+if < 1951.}
 
-\item{ft2m}{Numeric. Conversion factor for feet to metres.}
+\item{ft2m}{Numeric. Conversion factor for feet to metres; default is 0.3048.
+Message if not 0.3048.}
+
+\item{quiet}{Logical. Set to TRUE to prevent messages; default is FALSE.}
 }
 \value{
 Tibble. Contains additional spawn survey data including start and end

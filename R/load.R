@@ -333,13 +333,15 @@ load_area_data <- function(reg,
 #' @param a Tibble. Table of geographic information indicating the subset of
 #'   spawn survey observations to include in calculations; from
 #'   \code{\link{load_area_data}}.
-#' @param yrs Numeric vector. Years(s) to include in the calculations, usually
-#'   staring in 1951.
-#' @param ft2m Numeric. Conversion factor for feet to metres.
+#' @param yrs Numeric vector. Years(s) to include in the calculations. Message
+#'   if < 1951.
+#' @param ft2m Numeric. Conversion factor for feet to metres; default is 0.3048.
+#'   Message if not 0.3048.
+#' @param quiet Logical. Set to TRUE to prevent messages; default is FALSE.
 #' @importFrom odbc dbConnect odbc dbDisconnect
 #' @importFrom DBI dbReadTable
 #' @importFrom dplyr select rename full_join filter mutate %>% arrange ungroup
-#' @importFrom tibble as_tibble
+#' @importFrom tibble as_tibble is_tibble
 #' @importFrom stringr str_to_title
 #' @importFrom lubridate as_date
 #' @importFrom gfiscamutils MaxNA
@@ -365,7 +367,39 @@ load_area_data <- function(reg,
 #'   where = all_spawn_loc, a = areas, yrs = 2010:2015
 #' )
 #' all_spawn
-load_all_spawn <- function(where, a, yrs, ft2m = 0.3048) {
+load_all_spawn <- function(where, a, yrs, ft2m = 0.3048, quiet = FALSE) {
+  # Get where names
+  where_names <- c("loc", "db", "fns.all_spawn", "fns.stations")
+  # Check where: list
+  if (!is.list(where)) stop("Argument `where` must be a list.", call. = FALSE)
+  # Check where: names
+  if (any(names(unlist(where)) != where_names)) {
+    stop("Argument `where` needs names:", where_names, call. = FALSE)
+  }
+  # Check where: contents
+  if (typeof(unlist(where)) != "character") {
+    stop("Argument `where` must contain characters", call. = FALSE)
+  }
+  # Check a: tibble
+  if (!is_tibble(a)) {
+    stop("`a` must be a tibble.", call. = FALSE)
+  }
+  # Check a: names
+  if (!all(c("Region", "StatArea", "Group", "Section", "LocationCode",
+             "LocationName", "Eastings",
+             "Northings", "Longitude", "Latitude") %in% names(a))) {
+    stop("`a` is missing columns", call. = FALSE)
+  }
+  # Check yrs: numeric
+  if (!is.numeric(yrs)) stop("`yrs` must be numeric", call. = FALSE)
+  # Check yrs: range
+  if(any(yrs < 1951) & !quiet) message("`yrs` < 1951.")
+  # Check ft2m: numeric
+  if (!is.numeric(ft2m)) stop("`ft2m` must be numeric", call. = FALSE)
+  # Check ft2m: range
+  if ( !all.equal(ft2m, 0.3048, 0.00001) & !quiet) {
+    message("`ft2m` is not 0.3048.")
+  }
   # Establish connection with access
   access_db <- dbConnect(
     drv = odbc(),
