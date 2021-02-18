@@ -20,8 +20,8 @@ version](https://img.shields.io/badge/Version-0.2.0-orange.svg?style=flat-square
 status](https://www.r-pkg.org/badges/version/SpawnIndex)](https://CRAN.R-project.org/package=SpawnIndex)
 <!-- badges: end -->
 
-Note that `R-CMD-check` works locally but fails on GitHub Actions; see
-[\#30](https://github.com/grinnellm/SpawnIndex/issues/30).
+Note that `R-CMD-check` works on my Windows machine but fails on GitHub
+Actions; see [\#30](https://github.com/grinnellm/SpawnIndex/issues/30).
 
 ## Description
 
@@ -76,8 +76,8 @@ biomass  # Spawning biomass in t
 
     ## [1] 0.3266324
 
-In this example, 100 kg of SOK product was produced by 0.327 t of
-spawning Pacific Herring.
+In this example, 100 kg of SOK was produced by 0.327 t of spawning
+Pacific Herring.
 
 ## Additional information
 

@@ -385,19 +385,20 @@ load_all_spawn <- function(where, a, yrs, ft2m = 0.3048, quiet = FALSE) {
     stop("`a` must be a tibble.", call. = FALSE)
   }
   # Check a: names
-  if (!all(c("Region", "StatArea", "Group", "Section", "LocationCode",
-             "LocationName", "Eastings",
-             "Northings", "Longitude", "Latitude") %in% names(a))) {
+  if (!all(c(
+    "Region", "StatArea", "Group", "Section", "LocationCode", "LocationName",
+    "Eastings", "Northings", "Longitude", "Latitude"
+  ) %in% names(a))) {
     stop("`a` is missing columns", call. = FALSE)
   }
   # Check yrs: numeric
   if (!is.numeric(yrs)) stop("`yrs` must be numeric", call. = FALSE)
   # Check yrs: range
-  if(any(yrs < 1951) & !quiet) message("`yrs` < 1951.")
+  if (any(yrs < 1951) & !quiet) message("`yrs` < 1951.")
   # Check ft2m: numeric
   if (!is.numeric(ft2m)) stop("`ft2m` must be numeric", call. = FALSE)
   # Check ft2m: range
-  if ( !all.equal(ft2m, 0.3048, 0.00001) & !quiet) {
+  if (!all.equal(ft2m, 0.3048, 0.00001) & !quiet) {
     message("`ft2m` is not 0.3048.")
   }
   # Establish connection with access
@@ -502,6 +503,29 @@ load_all_spawn <- function(where, a, yrs, ft2m = 0.3048, quiet = FALSE) {
 #' width_bar <- get_width(where = width_loc, a = areas)
 #' width_bar
 get_width <- function(where, a = areas) {
+  # Get where names
+  where_names <- c(
+    "loc", "db", "fns.region_std", "fns.section_std", "fns.pool_std"
+  )
+  # Check where: list
+  if (!is.list(where)) stop("Argument `where` must be a list.", call. = FALSE)
+  # Check where: names
+  if (any(names(unlist(where)) != where_names)) {
+    stop("Argument `where` needs names:", where_names, call. = FALSE)
+  }
+  # Check where: contents
+  if (typeof(unlist(where)) != "character") {
+    stop("Argument `where` must contain characters", call. = FALSE)
+  }
+  # Check a: tibble
+  if (!is_tibble(a)) {
+    stop("`a` must be a tibble.", call. = FALSE)
+  }
+  # Check a: names
+  if (!all(c("SAR", "Region", "StatArea", "Section", "LocationCode", "Pool")
+  %in% names(a))) {
+    stop("`a` is missing columns", call. = FALSE)
+  }
   # Get area info
   a_sm <- a %>%
     select(SAR, Region, StatArea, Section, LocationCode, Pool) %>%
