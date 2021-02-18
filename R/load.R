@@ -11,7 +11,7 @@
 #' @param reg Character. Region of interest (i.e., HG, PRD, CC, SoG, WCVI, A27,
 #'   or A2W).
 #' @param sec_sub Numeric vector or NULL Subset of Sections to include in the
-#'   analysis, or NA to include all the Sections in the region.
+#'   analysis, or NULL to include all the Sections in the region.
 #' @param where List. Location of the Pacific Herring "locations" database (see
 #'   examples).
 #' @param in_crs Character. Input coordinate reference system;
@@ -22,13 +22,13 @@
 #'   results, say to aggregate data by combinations of Sections. Must have a
 #'   column named "Group", and one or more of "StatArea", "Section",
 #'   "LocationCode". Set to NULL to ignore (and Group column will be NA).
-#' @param quiet Logical. Set to TRUE to prevent messages.
+#' @param quiet Logical. Set to TRUE to prevent messages; default is FALSE.
 #' @importFrom readr read_csv cols
 #' @importFrom dplyr filter select mutate full_join %>% transmute right_join
 #' @importFrom tidyr unite
 #' @importFrom odbc dbConnect odbc dbDisconnect
 #' @importFrom DBI dbReadTable
-#' @importFrom tibble as_tibble
+#' @importFrom tibble as_tibble is_tibble
 #' @importFrom sp SpatialPoints spTransform CRS
 #' @return Tibble. Table of geographic information for Pacific Herring: SAR,
 #'   Region, Region name, Statistical Area, Group, Section, Location code,
@@ -65,6 +65,42 @@ load_area_data <- function(reg,
                            quiet = FALSE) {
   # Warning if R is not 32-bit
   if (.Machine$sizeof.pointer != 4) warning("32-bit R required", call. = FALSE)
+  # Check where: character
+  if (!is.character(reg)) stop("`reg` must be character.", call. = FALSE)
+  # Check sec_sub: numeric or null
+  if (!is.numeric(sec_sub) & !is.null(sec_sub)) {
+    stop("`sec_sub` must be numeric or NULL.", call. = FALSE)
+  }
+  # Get where names
+  where_names <- c("loc", "db", "fns.sections", "fns.locations")
+  # Check where: list
+  if (!is.list(where)) stop("Argument `where` must be a list.", call. = FALSE)
+  # Check where: names
+  if (any(names(unlist(where)) != where_names)) {
+    stop("Argument `where` needs names:", where_names, call. = FALSE)
+  }
+  # Check where: contents
+  if (typeof(unlist(where)) != "character") {
+    stop("Argument `where` must contain characters", call. = FALSE)
+  }
+  # Check in_crs and out_crs: character
+  if (!is.character(in_crs) & !is.character(out_crs)) {
+    stop("`in_crs` and `out_crs` must be characters.")
+  }
+  # Check groups: tibble or NULL
+  if (is_tibble(groups)) {
+    # Check group names
+    if (!"Group" %in% names(groups)) {
+      stop("`groups` needs column named 'Group`", call. = FALSE)
+    }
+    if (!any(c("StatArea", "Section", "LocationCode") %in% names(groups))) {
+      stop("`groups` needs column named `StatArea`, `Section`, and/or
+           LocationCode", call. = FALSE)
+    }
+  } else {
+    # If not tibble, must be NULL
+    if (!is.null(groups)) stop("`groups` must be tibble or NULL.")
+  }
   # Cross-walk table for SAR to region and region name
   regions <- read_csv(
     file =
@@ -130,6 +166,10 @@ load_area_data <- function(reg,
     if (class(sections) != "data.frame") {
       stop("No data available in MS Access connection.", call. = FALSE)
     }
+    # Check sections: names
+    if (!all(c("SAR", "Section") %in% names(sections))) {
+      stop("Sections table is missing columns", call. = FALSE)
+    }
     # Wrangle the sections worksheet
     sections <- sections %>%
       filter(Section %in% js_sections) %>%
@@ -146,6 +186,10 @@ load_area_data <- function(reg,
     # Error if data was not fetched
     if (class(sections) != "data.frame") {
       stop("No data available in MS Access connection.", call. = FALSE)
+    }
+    # Check sections: names
+    if (!all(c("SAR", "Section") %in% names(sections))) {
+      stop("Sections table is missing columns", call. = FALSE)
     }
     # Wrangle the sections table
     sections <- sections %>%
@@ -166,6 +210,13 @@ load_area_data <- function(reg,
   # Error if data was not fetched
   if (class(loc) != "data.frame") {
     stop("No data available in MS Access connection.", call. = FALSE)
+  }
+  # Check loc: names
+  if (!all(c(
+    "Loc_Code", "Location", "StatArea", "Section", "Bed", "Location_Latitude",
+    "Location_Longitude"
+  ) %in% names(loc))) {
+    stop("Locations table is missing columns", call. = FALSE)
   }
   # Wrangle the locations table
   loc_dat <- as_tibble(loc) %>%
@@ -214,15 +265,6 @@ load_area_data <- function(reg,
     # Set groups to NA
     locations$Group <- NA
   } else { # End if NULL, otherwise
-    # Check for column names
-    if (!"Group" %in% names(groups)) {
-      stop("Groups table needs a column named 'Group'.", call. = FALSE)
-    }
-    if (!any("StatArea" %in% names(groups) | "Section" %in% names(groups) |
-      "LocationCode" %in% names(groups))) {
-      stop("Groups table needs a column named 'StatArea', and/or 'Section',
-      and/or 'LocationCode'.", call. = FALSE)
-    }
     # Determine matching columns
     grp_cols <- which(names(groups) %in% names(locations))
     # Set groups

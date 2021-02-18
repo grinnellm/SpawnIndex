@@ -19,7 +19,7 @@ load_area_data(
 or A2W).}
 
 \item{sec_sub}{Numeric vector or NULL Subset of Sections to include in the
-analysis, or NA to include all the Sections in the region.}
+analysis, or NULL to include all the Sections in the region.}
 
 \item{where}{List. Location of the Pacific Herring "locations" database (see
 examples).}
@@ -35,7 +35,7 @@ results, say to aggregate data by combinations of Sections. Must have a
 column named "Group", and one or more of "StatArea", "Section",
 "LocationCode". Set to NULL to ignore (and Group column will be NA).}
 
-\item{quiet}{Logical. Set to TRUE to prevent messages.}
+\item{quiet}{Logical. Set to TRUE to prevent messages; default is FALSE.}
 }
 \value{
 Tibble. Table of geographic information for Pacific Herring: SAR,
