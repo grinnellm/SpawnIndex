@@ -94,7 +94,7 @@ In this example database, `r region` has
 `r n_distinct(areas$LocationName)` Locations.
 Here we show the first 10 Locations.
 
-```{r areasTable, echo = FALSE, results = 'asis'}
+```{r areas_table, echo = FALSE, results = 'asis'}
 areas %>%
   select(Region, StatArea, Section, LocationName, Longitude, Latitude) %>%
   arrange(StatArea, Section, LocationName) %>%
@@ -134,7 +134,7 @@ width_loc <- list(
 width_bar <- get_width(where = width_loc, a = areas)
 ```
 
-```{r widthTable, echo = FALSE, results = 'asis'}
+```{r width_table, echo = FALSE, results = 'asis'}
 full_join(
   x = width_bar$region,
   y = width_bar$section, by = "Region"
@@ -171,9 +171,9 @@ surf_spawn <- calc_surf_spawn(
 
 Show surface spawn on a map, aggregated by Location and year.
 
-```{r surf_locYr, fig.cap = "Surface spawn index in tonnes (t) by location and year."}
+```{r surf_loc_yr, fig.cap = "Surface spawn index in tonnes (t) by location and year."}
 # Make a spatial object for mapping
-surf_locYr <- surf_spawn$SI %>%
+surf_loc_yr <- surf_spawn$SI %>%
   group_by(Year, LocationCode) %>%
   summarise(Surface = round(sum(SurfSI, na.rm = TRUE))) %>%
   ungroup() %>%
@@ -183,7 +183,7 @@ surf_locYr <- surf_spawn$SI %>%
   ) %>%
   st_as_sf(coords = c("Longitude", "Latitude"), crs = 4326)
 # Map
-ggplot(data = surf_locYr) +
+ggplot(data = surf_loc_yr) +
   geom_sf(data = canada) +
   geom_sf(mapping = aes(colour = Surface), size = 3) +
   scale_colour_viridis_c() +
@@ -195,9 +195,9 @@ ggplot(data = surf_locYr) +
 
 Calculate the total surface spawn by year.
 
-```{r surfYr, results = 'asis'}
+```{r surf_yr, results = 'asis'}
 # Aggregate the surface spawn index by year
-surfYr <- surf_spawn$SI %>%
+surf_yr <- surf_spawn$SI %>%
   group_by(Year) %>%
   summarise(Surface = sum(SurfSI, na.rm = TRUE)) %>%
   ungroup() %>%
@@ -205,7 +205,7 @@ surfYr <- surf_spawn$SI %>%
   arrange(Year)
 # Table
 kable(
-  x = surfYr, digits = 1, booktabs = TRUE,
+  x = surf_yr, digits = 1, booktabs = TRUE,
   caption = "Surface spawn index in tonnes (t) by year."
 )
 ```
@@ -228,9 +228,9 @@ macro_spawn <- calc_macro_spawn(where = macro_loc, a = areas, yrs = yrRange)
 
 Show Macrocystis spawn on a map, aggregated by Location and year.
 
-```{r macro_locYr, fig.cap = "Macrocystis spawn index in tonnes (t) by location and year."}
+```{r macro_loc_yr, fig.cap = "Macrocystis spawn index in tonnes (t) by location and year."}
 # Make a spatial object for mapping
-macro_locYr <- macro_spawn$SI %>%
+macro_loc_yr <- macro_spawn$SI %>%
   group_by(Year, LocationCode) %>%
   summarise(Macrocystis = round(sum(MacroSI, na.rm = TRUE))) %>%
   ungroup() %>%
@@ -240,7 +240,7 @@ macro_locYr <- macro_spawn$SI %>%
   ) %>%
   st_as_sf(coords = c("Longitude", "Latitude"), crs = 4326)
 # Map
-ggplot(data = macro_locYr) +
+ggplot(data = macro_loc_yr) +
   geom_sf(data = canada) +
   geom_sf(mapping = aes(colour = Macrocystis), size = 3) +
   scale_colour_viridis_c() +
@@ -252,9 +252,9 @@ ggplot(data = macro_locYr) +
 
 Calculate the total Macrocystis spawn by year.
 
-```{r macroYr, results = 'asis'}
+```{r macro_yr, results = 'asis'}
 # Aggregate the Macrocystis spawn index by year
-macroYr <- macro_spawn$SI %>%
+macro_yr <- macro_spawn$SI %>%
   group_by(Year) %>%
   summarise(Macrocystis = sum(MacroSI, na.rm = TRUE)) %>%
   ungroup() %>%
@@ -262,7 +262,7 @@ macroYr <- macro_spawn$SI %>%
   arrange(Year)
 # Table
 kable(
-  x = macroYr, digits = 1, booktabs = TRUE,
+  x = macro_yr, digits = 1, booktabs = TRUE,
   caption = "Macrocystis spawn index in tonnes (t) by year."
 )
 ```
@@ -291,9 +291,9 @@ under_spawn <- calc_under_spawn(where = under_loc, a = areas, yrs = yrRange)
 
 Show understory spawn on a map, aggregated by Location and year.
 
-```{r under_locYr, fig.cap = "Understory spawn index in tonnes (t) by location and year."}
+```{r under_loc_yr, fig.cap = "Understory spawn index in tonnes (t) by location and year."}
 # Make a spatial object for mapping
-under_locYr <- under_spawn$SI %>%
+under_loc_yr <- under_spawn$SI %>%
   group_by(Year, LocationCode) %>%
   summarise(Understory = round(sum(UnderSI, na.rm = TRUE))) %>%
   ungroup() %>%
@@ -303,7 +303,7 @@ under_locYr <- under_spawn$SI %>%
   ) %>%
   st_as_sf(coords = c("Longitude", "Latitude"), crs = 4326)
 # Map
-ggplot(data = under_locYr) +
+ggplot(data = under_loc_yr) +
   geom_sf(data = canada) +
   geom_sf(mapping = aes(colour = Understory), size = 3) +
   scale_colour_viridis_c() +
@@ -315,9 +315,9 @@ ggplot(data = under_locYr) +
 
 Calculate the total understory spawn by year.
 
-```{r underYr, results = 'asis'}
+```{r under_yr, results = 'asis'}
 # Aggregate the understory spawn index by year
-underYr <- under_spawn$SI %>%
+under_yr <- under_spawn$SI %>%
   group_by(Year) %>%
   summarise(Understory = sum(UnderSI, na.rm = TRUE)) %>%
   ungroup() %>%
@@ -325,7 +325,7 @@ underYr <- under_spawn$SI %>%
   arrange(Year)
 # Table
 kable(
-  x = underYr, digits = 1, booktabs = TRUE,
+  x = under_yr, digits = 1, booktabs = TRUE,
   caption = "Understory spawn index in tonnes (t) by year."
 )
 ```
@@ -335,10 +335,10 @@ kable(
 Calculate the total spawn index by year as the sum of the spawn index in the three survey types:
 surface, Macrocystis, and understory.
 
-```{r totalYr, results = 'asis'}
+```{r total_yr, results = 'asis'}
 # Total spawn index
-totalYr <- full_join(x = surfYr, y = macroYr, by = "Year") %>%
-  full_join(y = underYr, by = "Year") %>%
+total_yr <- full_join(x = surf_yr, y = macro_yr, by = "Year") %>%
+  full_join(y = under_yr, by = "Year") %>%
   group_by(Year) %>%
   mutate(Total = sum(c(Surface, Macrocystis, Understory), na.rm = TRUE)) %>%
   ungroup() %>%
@@ -346,7 +346,7 @@ totalYr <- full_join(x = surfYr, y = macroYr, by = "Year") %>%
   arrange(Year)
 # Table
 kable(
-  x = totalYr, digits = 1, booktabs = TRUE,
+  x = total_yr, digits = 1, booktabs = TRUE,
   caption = "Total spawn index in tonnes (t) by year."
 ) %>%
   add_header_above(header = c("", "Survey" = 3, ""))
@@ -357,7 +357,7 @@ kable(
 Calculate the biomass of spawning Pacific Herring from spawn-on-kelp (SOK) operations.
 Note that these are fictional values.
 
-```{r sokYr, results='asis'}
+```{r sok_yr, results='asis'}
 # SOK harvest (kg) by year -- make up some values
 kgSOK <- tibble(
   Year = yrRange, Harvest = sample(x = 500:10000, size = length(yrRange))

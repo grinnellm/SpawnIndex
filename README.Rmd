@@ -73,7 +73,7 @@ biomass <- calc_biomass_sok(SOK = sok, theta = theta)
 biomass  # Spawning biomass in t
 ```
 
-In this example, `r sok`\ kg of SOK product was produced by
+In this example, `r sok`\ kg of SOK was produced by
 `r format(biomass, digits = 3)`\ t of spawning Pacific Herring.
 
 ## Additional information
