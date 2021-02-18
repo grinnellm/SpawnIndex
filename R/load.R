@@ -318,8 +318,18 @@ load_area_data <- function(reg,
   } # End if subsetting sections
   # Close the connection
   dbDisconnect(conn = access_db)
-  # Error if there is no data
-  if (nrow(res) == 0) stop("No locations; check inputs.", call. = FALSE)
+  # Check output: rows
+  if (nrow(res) == 0) stop("`res` has no data.", call. = FALSE)
+  # Check output: tibble
+  if (!is_tibble(res)) stop("`res` is not a tibble.", call. = FALSE)
+  # Check output: names
+  if (!all(c(
+    "SAR", "Region", "RegionName", "StatArea", "Group", "Section",
+    "LocationCode", "LocationName", "Pool", "Eastings", "Northings",
+    "Longitude", "Latitude"
+  ) %in% names(res))) {
+    stop("`res` is missing columns", call. = FALSE)
+  }
   # Return herring areas
   res
 } # End load_area_data function
@@ -457,6 +467,18 @@ load_all_spawn <- function(where, a, yrs, ft2m = 0.3048, quiet = FALSE) {
     )
   # Close the connection
   dbDisconnect(conn = access_db)
+  # Check output: rows
+  if (nrow(res) == 0) stop("`res` has no data.", call. = FALSE)
+  # Check output: tibble
+  if (!is_tibble(res)) stop("`res` is not a tibble.", call. = FALSE)
+  # Check output: names
+  if (!all(c(
+    "Year", "Region", "StatArea", "Group", "Section", "LocationCode",
+    "LocationName", "SpawnNumber", "Eastings", "Northings", "Longitude",
+    "Latitude", "Start", "End", "Length", "Width", "Depth", "Method"
+  ) %in% names(res))) {
+    stop("`res` is missing columns", call. = FALSE)
+  }
   # Return the table
   res
 } # End load_all_spawn function
@@ -474,6 +496,7 @@ load_all_spawn <- function(where, a, yrs, ft2m = 0.3048, quiet = FALSE) {
 #' @param a Tibble. Table of geographic information indicating the subset of
 #'   spawn survey observations to include in calculations; from
 #'   \code{\link{load_area_data}}.
+#' @param quiet Logical. Set to TRUE to prevent messages; default is FALSE.
 #' @importFrom odbc dbConnect odbc dbDisconnect
 #' @importFrom DBI dbReadTable
 #' @importFrom dplyr select distinct rename left_join filter %>%
@@ -502,7 +525,7 @@ load_all_spawn <- function(where, a, yrs, ft2m = 0.3048, quiet = FALSE) {
 #' )
 #' width_bar <- get_width(where = width_loc, a = areas)
 #' width_bar
-get_width <- function(where, a = areas) {
+get_width <- function(where, a = areas, quiet = FALSE) {
   # Get where names
   where_names <- c(
     "loc", "db", "fns.region_std", "fns.section_std", "fns.pool_std"
@@ -570,6 +593,32 @@ get_width <- function(where, a = areas) {
   res <- list(region = reg_std, section = sec_std, pool = pool_std)
   # Close the connection
   dbDisconnect(conn = access_db)
+  # Check output: list
+  if (!is.list(res)) stop("`res` is not a list.", call. = FALSE)
+  # Check output: region rows
+  if (nrow(res$region) == 0 & !quiet) {
+    message("`res$region` has no data.", call. = FALSE)
+  }
+  # Check output: section rows
+  if (nrow(res$section) == 0 & !quiet) {
+    message("`res$section` has no data.", call. = FALSE)
+  }
+  # Check output: pool rows
+  if (nrow(res$pool) == 0 & !quiet) {
+    message("`res$pool` has no data.", call. = FALSE)
+  }
+  # Check output: region names
+  if (!all(c("Region", "WidthReg") %in% names(res$region))) {
+    stop("`res$region` is missing columns", call. = FALSE)
+  }
+  # Check output: section names
+  if (!all(c("Region", "Section", "WidthSec") %in% names(res$section))) {
+    stop("`res$section` is missing columns", call. = FALSE)
+  }
+  # Check output: pool names
+  if (!all(c("Region", "Section", "Pool", "WidthPool") %in% names(res$pool))) {
+    stop("`res$pool` is missing columns", call. = FALSE)
+  }
   # Table to return
   res
 } # End get_width function

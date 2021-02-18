@@ -4,7 +4,7 @@
 \alias{get_width}
 \title{Load median spawn width.}
 \usage{
-get_width(where, a = areas)
+get_width(where, a = areas, quiet = FALSE)
 }
 \arguments{
 \item{where}{List. Location of the Pacific Herring surface spawn database
@@ -13,6 +13,8 @@ get_width(where, a = areas)
 \item{a}{Tibble. Table of geographic information indicating the subset of
 spawn survey observations to include in calculations; from
 \code{\link{load_area_data}}.}
+
+\item{quiet}{Logical. Set to TRUE to prevent messages; default is FALSE.}
 }
 \value{
 List with three tables: median region (\code{WidthReg}), section
