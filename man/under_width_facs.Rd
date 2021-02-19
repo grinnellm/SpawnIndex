@@ -30,5 +30,11 @@ under_width_facs
 }
 \seealso{
 \code{\link{calc_under_spawn}}
+
+Other parameters: 
+\code{\link{algae_coefs}},
+\code{\link{intensity}},
+\code{\link{pars}}
 }
+\concept{parameters}
 \keyword{datasets}

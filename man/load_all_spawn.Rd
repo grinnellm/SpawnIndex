@@ -47,6 +47,14 @@ all_spawn <- load_all_spawn(
 )
 all_spawn
 }
+\references{
+\insertAllCited
+}
 \seealso{
 \code{\link{HerringSpawn}} \code{\link{load_area_data}}
+
+Other load functions: 
+\code{\link{get_width}()},
+\code{\link{load_area_data}()}
 }
+\concept{load functions}

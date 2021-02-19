@@ -91,4 +91,11 @@ under_spawn$SI
 \code{\link{HerringSpawn}} \code{\link{load_area_data}}
   \code{\link{calc_egg_conversion}} \code{\link{pars}}
   \code{\link{algae_coefs}}
+
+Other calculation functions: 
+\code{\link{calc_biomass_sok}()},
+\code{\link{calc_egg_conversion}()},
+\code{\link{calc_macro_spawn}()},
+\code{\link{calc_surf_spawn}()}
 }
+\concept{calculation functions}

@@ -50,3 +50,4 @@ dbDisconnect(conn = access_db)
   \code{\link{get_width}} \code{\link{calc_surf_spawn}}
   \code{\link{calc_macro_spawn}} \code{\link{calc_under_spawn}}
 }
+\concept{raw data}

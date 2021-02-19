@@ -33,7 +33,9 @@
 #' @return Tibble. Table of geographic information for Pacific Herring: SAR,
 #'   Region, Region name, Statistical Area, Group, Section, Location code,
 #'   Location name, Pool, Eastings, Northings, Longitude, and Latitude.
+#' @references \insertAllCited
 #' @seealso \code{\link{HerringSpawn}}
+#' @family load functions
 #' @note This function requires 32-bit R to load data from the 32-bit MS Access
 #'   database.
 #' @export
@@ -360,7 +362,9 @@ load_area_data <- function(reg,
 #'   dates, as well as spawn length, width, and depth. Other information in this
 #'   tibble comes from \code{a}: Region, Statistical Area, Section, and Location
 #'   code.
+#' @references \insertAllCited
 #' @seealso \code{\link{HerringSpawn}} \code{\link{load_area_data}}
+#' @family load functions
 #' @export
 #' @examples
 #' db_loc <- system.file("extdata", package = "SpawnIndex")
@@ -508,6 +512,7 @@ load_all_spawn <- function(where, a, yrs, ft2m = 0.3048, quiet = FALSE) {
 #' @references \insertAllCited
 #' @seealso \code{\link{HerringSpawn}} \code{\link{load_area_data}}
 #'   \code{\link{calc_surf_spawn}}
+#' @family load functions
 #' @export
 #' @examples
 #' db_loc <- system.file("extdata", package = "SpawnIndex")
@@ -595,25 +600,37 @@ get_width <- function(where, a = areas, quiet = FALSE) {
   dbDisconnect(conn = access_db)
   # Check output: list
   if (!is.list(res)) stop("`res` is not a list.", call. = FALSE)
+  # Check output: region tibble
+  if (!is_tibble(res$region)) {
+    stop("`res$region` is not a tibble.", call. = FALSE)
+  }
   # Check output: region rows
   if (nrow(res$region) == 0 & !quiet) {
     message("`res$region` has no data.", call. = FALSE)
-  }
-  # Check output: section rows
-  if (nrow(res$section) == 0 & !quiet) {
-    message("`res$section` has no data.", call. = FALSE)
-  }
-  # Check output: pool rows
-  if (nrow(res$pool) == 0 & !quiet) {
-    message("`res$pool` has no data.", call. = FALSE)
   }
   # Check output: region names
   if (!all(c("Region", "WidthReg") %in% names(res$region))) {
     stop("`res$region` is missing columns", call. = FALSE)
   }
+  # Check output: section tibble
+  if (!is_tibble(res$section)) {
+    stop("`res$section` is not a tibble.", call. = FALSE)
+  }
+  # Check output: section rows
+  if (nrow(res$section) == 0 & !quiet) {
+    message("`res$section` has no data.", call. = FALSE)
+  }
   # Check output: section names
   if (!all(c("Region", "Section", "WidthSec") %in% names(res$section))) {
     stop("`res$section` is missing columns", call. = FALSE)
+  }
+  # Check output: pool tibble
+  if (!is_tibble(res$pool)) {
+    stop("`res$pool` is not a tibble.", call. = FALSE)
+  }
+  # Check output: pool rows
+  if (nrow(res$pool) == 0 & !quiet) {
+    message("`res$pool` has no data.", call. = FALSE)
   }
   # Check output: pool names
   if (!all(c("Region", "Section", "Pool", "WidthPool") %in% names(res$pool))) {

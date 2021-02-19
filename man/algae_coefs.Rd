@@ -26,5 +26,11 @@ algae_coefs
 }
 \seealso{
 \code{\link{calc_under_spawn}}
+
+Other parameters: 
+\code{\link{intensity}},
+\code{\link{pars}},
+\code{\link{under_width_facs}}
 }
+\concept{parameters}
 \keyword{datasets}

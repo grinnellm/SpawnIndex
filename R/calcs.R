@@ -13,7 +13,9 @@
 #' @return Numeric. The conversion factor for eggs to spawn index in tonnes
 #'   (i.e., biomass). Divide the number of eggs by the conversion factor to get
 #'   biomass. Message if < 0.
+#' @references \insertAllCited
 #' @seealso \code{\link{pars}}
+#' @family calculation functions
 #' @export
 #' @examples
 #' data(pars)
@@ -66,7 +68,9 @@ calc_egg_conversion <- function(omega = pars$conversion$omega,
 #' @importFrom Rdpack reprompt
 #' @importFrom stats na.omit
 #' @return Numeric. Spawning biomass in tonnes. Message if < 0.
+#' @references \insertAllCited
 #' @seealso \code{\link{calc_egg_conversion}} \code{\link{pars}}
+#' @family calculation functions
 #' @export
 #' @examples
 #' data(pars)
@@ -135,20 +139,21 @@ calc_biomass_sok <- function(SOK,
 #'   \code{\link{load_area_data}}.
 #' @param widths List. List of three tables: median region, section, and pool
 #'   widths in metres (m); from \code{\link{get_width}}.
-#' @param yrs Numeric vector. Years(s) to include in the calculations, usually
-#'   staring in 1951.
+#' @param yrs Numeric vector. Years(s) to include in the calculations. Message
+#'   if < 1951.
 #' @param intense Tibble. Table of spawn intensity categories and number of egg
 #'   layers; from \code{\link{intensity}}.
 #' @param intense_yrs Numeric vector. Years where intensity categories are used
-#'   to determine egg layers.
+#'   to determine egg layers. Message if >= 1979.
 #' @param rescale_yrs Numeric vector. Years where intensity needs to be
-#'   re-scaled from 5 to 9 categories.
+#'   re-scaled from 5 to 9 categories. Message if >= 1951.
 #' @param alpha Numeric. Regression intercept; from \code{\link{pars}}
 #'   \insertCite{SchweigertEtal1997}{SpawnIndex}.
 #' @param beta Numeric. Regression slope; from \code{\link{pars}}
 #'   \insertCite{SchweigertEtal1997}{SpawnIndex}.
 #' @param theta Numeric. Egg conversion factor (eggs to biomass); from
 #'   \code{\link{calc_egg_conversion}}.
+#' @param quiet Logical. Set to TRUE to prevent messages; default is FALSE.
 #' @importFrom odbc dbConnect odbc dbDisconnect
 #' @importFrom DBI dbReadTable
 #' @importFrom dplyr select distinct rename left_join filter %>% ends_with
@@ -163,11 +168,12 @@ calc_biomass_sok <- function(SOK,
 #'   finest spatial scale at which we calculate the spawn index. Other
 #'   information in this tibble comes from \code{a}: Region, Statistical Area,
 #'   Section, and Location code.
-#' @references \insertAllCited
 #' @note The `spawn index' is a relative index of spawning biomass.
+#' @references \insertAllCited
 #' @seealso \code{\link{HerringSpawn}} \code{\link{load_area_data}}
 #'   \code{\link{get_width}} \code{\link{calc_egg_conversion}}
 #'   \code{\link{pars}} \code{\link{intensity}}
+#' @family calculation functions
 #' @export
 #' @examples
 #' db_loc <- system.file("extdata", package = "SpawnIndex")
@@ -203,7 +209,8 @@ calc_surf_spawn <- function(where,
                             rescale_yrs = intense_yrs[intense_yrs < 1951],
                             alpha = pars$surface$alpha,
                             beta = pars$surface$beta,
-                            theta = calc_egg_conversion()) {
+                            theta = calc_egg_conversion(),
+                            quiet = FALSE) {
   # Get where names
   where_names <- c("loc", "db", "fns.surface", "fns.all_spawn")
   # Check where: list
@@ -216,6 +223,77 @@ calc_surf_spawn <- function(where,
   if (typeof(unlist(where)) != "character") {
     stop("Argument `where` must contain characters", call. = FALSE)
   }
+  # Check a: tibble
+  if (!is_tibble(a)) {
+    stop("`a` must be a tibble.", call. = FALSE)
+  }
+  # Check a: names
+  if (!all(c(
+    "SAR", "Region", "StatArea", "Section", "LocationCode", "Pool"
+  ) %in% names(a))) {
+    stop("`a` is missing columns", call. = FALSE)
+  }
+  # Check widths: list
+  if (!is.list(widths)) stop("`widths` is not a list.", call. = FALSE)
+  # Check widths: region tibble
+  if (!is_tibble(widths$region)) {
+    stop("`widths$region` is not a tibble.", call. = FALSE)
+  }
+  # Check widths: region rows
+  if (nrow(widths$region) == 0 & !quiet) {
+    message("`widths$region` has no data.", call. = FALSE)
+  }
+  # Check widths: region names
+  if (!all(c("Region", "WidthReg") %in% names(widths$region))) {
+    stop("`widths$region` is missing columns", call. = FALSE)
+  }
+  # Check widths: section tibble
+  if (!is_tibble(widths$section)) {
+    stop("`widths$section` is not a tibble.", call. = FALSE)
+  }
+  # Check widths: section rows
+  if (nrow(widths$section) == 0 & !quiet) {
+    message("`widths$section` has no data.", call. = FALSE)
+  }
+  # Check widths: section names
+  if (!all(c("Region", "Section", "WidthSec") %in% names(widths$section))) {
+    stop("`widths$section` is missing columns", call. = FALSE)
+  }
+  # Check widths: pool tibble
+  if (!is_tibble(widths$pool)) {
+    stop("`widths$pool` is not a tibble.", call. = FALSE)
+  }
+  # Check widths: pool rows
+  if (nrow(widths$pool) == 0 & !quiet) {
+    message("`widths$pool` has no data.", call. = FALSE)
+  }
+  # Check widths: pool names
+  if (!all(c("Region", "Section", "Pool", "WidthPool") %in%
+    names(widths$pool))) {
+    stop("`widths$pool` is missing columns", call. = FALSE)
+  }
+  # Check yrs: numeric
+  if (!is.numeric(yrs)) stop("`yrs` must be numeric", call. = FALSE)
+  # Check yrs: range
+  if (any(yrs < 1951) & !quiet) message("`yrs` < 1951.")
+  # Check intense: tibble
+  if (!is_tibble(intense)) stop("`intense` must be a tibble.", call. = FALSE)
+  # Check intense: names
+  if (!all(c("Intensity", "Description", "Layers") %in% names(intense))) {
+    stop("`intense` is missing columns", call. = FALSE)
+  }
+  # Check intense_yrs: numeric
+  if (!is.numeric(intense_yrs)) {
+    stop("`intense_yrs` must be numeric", call. = FALSE)
+  }
+  # Check intense_yrs: range
+  if (any(intense_yrs >= 1979) & !quiet) message("`intense_yrs` >= 1979.")
+  # Check rescale_yrs: numeric
+  if (!is.numeric(rescale_yrs)) {
+    stop("`rescale_yrs` must be numeric", call. = FALSE)
+  }
+  # Check rescale_yrs: range
+  if (any(rescale_yrs >= 1951) & !quiet) message("`rescale_yrs` >= 1951.")
   # Establish connection with access
   access_db <- dbConnect(
     drv = odbc(),
@@ -429,10 +507,11 @@ calc_surf_spawn <- function(where,
 #'   the finest spatial scale at which we calculate the spawn index. Other
 #'   information in this tibble comes from \code{a}: Region, Statistical Area,
 #'   Section, and Location code.
-#' @references \insertAllCited
 #' @note The `spawn index' is a relative index of spawning biomass.
+#' @references \insertAllCited
 #' @seealso \code{\link{HerringSpawn}} \code{\link{load_area_data}}
 #'   \code{\link{calc_egg_conversion}} \code{\link{pars}}
+#' @family calculation functions
 #' @export
 #' @examples
 #' db_loc <- system.file("extdata", package = "SpawnIndex")
@@ -617,11 +696,12 @@ calc_macro_spawn <- function(where,
 #'   the finest spatial scale at which we calculate the spawn index. Other
 #'   information in this tibble comes from \code{a}: Region, Statistical Area,
 #'   Section, and Location code.
-#' @references \insertAllCited
 #' @note The `spawn index' is a relative index of spawning biomass.
+#' @references \insertAllCited
 #' @seealso \code{\link{HerringSpawn}} \code{\link{load_area_data}}
 #'   \code{\link{calc_egg_conversion}} \code{\link{pars}}
 #'   \code{\link{algae_coefs}}
+#' @family calculation functions
 #' @export
 #' @examples
 #' db_loc <- system.file("extdata", package = "SpawnIndex")

@@ -32,6 +32,16 @@ spawn index (i.e., biomass) in tonnes.
 data(pars)
 calc_egg_conversion()
 }
+\references{
+\insertAllCited
+}
 \seealso{
 \code{\link{pars}}
+
+Other calculation functions: 
+\code{\link{calc_biomass_sok}()},
+\code{\link{calc_macro_spawn}()},
+\code{\link{calc_surf_spawn}()},
+\code{\link{calc_under_spawn}()}
 }
+\concept{calculation functions}

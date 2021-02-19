@@ -27,5 +27,11 @@ intensity
 }
 \seealso{
 \code{\link{calc_surf_spawn}}
+
+Other parameters: 
+\code{\link{algae_coefs}},
+\code{\link{pars}},
+\code{\link{under_width_facs}}
 }
+\concept{parameters}
 \keyword{datasets}

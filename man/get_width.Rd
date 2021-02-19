@@ -51,4 +51,9 @@ width_bar
 \seealso{
 \code{\link{HerringSpawn}} \code{\link{load_area_data}}
   \code{\link{calc_surf_spawn}}
+
+Other load functions: 
+\code{\link{load_all_spawn}()},
+\code{\link{load_area_data}()}
 }
+\concept{load functions}

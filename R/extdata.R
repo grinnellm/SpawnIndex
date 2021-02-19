@@ -24,6 +24,7 @@
 #' @seealso \code{\link{load_area_data}} \code{\link{load_all_spawn}}
 #'   \code{\link{get_width}} \code{\link{calc_surf_spawn}}
 #'   \code{\link{calc_macro_spawn}} \code{\link{calc_under_spawn}}
+#' @family raw data
 #' @note This is a 32-bit MS Access database, and it requires 32-bit R to access
 #'   the data. This example database only includes WCVI from 2010 to 2015.
 #' @examples

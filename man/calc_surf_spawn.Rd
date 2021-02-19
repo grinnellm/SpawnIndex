@@ -14,7 +14,8 @@ calc_surf_spawn(
   rescale_yrs = intense_yrs[intense_yrs < 1951],
   alpha = pars$surface$alpha,
   beta = pars$surface$beta,
-  theta = calc_egg_conversion()
+  theta = calc_egg_conversion(),
+  quiet = FALSE
 )
 }
 \arguments{
@@ -28,17 +29,17 @@ spawn survey observations to include in calculations; from
 \item{widths}{List. List of three tables: median region, section, and pool
 widths in metres (m); from \code{\link{get_width}}.}
 
-\item{yrs}{Numeric vector. Years(s) to include in the calculations, usually
-staring in 1951.}
+\item{yrs}{Numeric vector. Years(s) to include in the calculations. Message
+if < 1951.}
 
 \item{intense}{Tibble. Table of spawn intensity categories and number of egg
 layers; from \code{\link{intensity}}.}
 
 \item{intense_yrs}{Numeric vector. Years where intensity categories are used
-to determine egg layers.}
+to determine egg layers. Message if >= 1979.}
 
 \item{rescale_yrs}{Numeric vector. Years where intensity needs to be
-re-scaled from 5 to 9 categories.}
+re-scaled from 5 to 9 categories. Message if >= 1951.}
 
 \item{alpha}{Numeric. Regression intercept; from \code{\link{pars}}
 \insertCite{SchweigertEtal1997}{SpawnIndex}.}
@@ -48,6 +49,8 @@ re-scaled from 5 to 9 categories.}
 
 \item{theta}{Numeric. Egg conversion factor (eggs to biomass); from
 \code{\link{calc_egg_conversion}}.}
+
+\item{quiet}{Logical. Set to TRUE to prevent messages; default is FALSE.}
 }
 \value{
 List. The element \code{SI} is a tibble with surface spawn index
@@ -95,4 +98,11 @@ surf_spawn$SI
 \code{\link{HerringSpawn}} \code{\link{load_area_data}}
   \code{\link{get_width}} \code{\link{calc_egg_conversion}}
   \code{\link{pars}} \code{\link{intensity}}
+
+Other calculation functions: 
+\code{\link{calc_biomass_sok}()},
+\code{\link{calc_egg_conversion}()},
+\code{\link{calc_macro_spawn}()},
+\code{\link{calc_under_spawn}()}
 }
+\concept{calculation functions}

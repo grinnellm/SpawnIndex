@@ -42,6 +42,16 @@ kilograms.
 data(pars)
 calc_biomass_sok(SOK = 100)
 }
+\references{
+\insertAllCited
+}
 \seealso{
 \code{\link{calc_egg_conversion}} \code{\link{pars}}
+
+Other calculation functions: 
+\code{\link{calc_egg_conversion}()},
+\code{\link{calc_macro_spawn}()},
+\code{\link{calc_surf_spawn}()},
+\code{\link{calc_under_spawn}()}
 }
+\concept{calculation functions}

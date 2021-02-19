@@ -75,6 +75,14 @@ dplyr::distinct(dplyr::select(
   areas_sec_grp, Region, StatArea, Group, Section
 ))
 }
+\references{
+\insertAllCited
+}
 \seealso{
 \code{\link{HerringSpawn}}
+
+Other load functions: 
+\code{\link{get_width}()},
+\code{\link{load_all_spawn}()}
 }
+\concept{load functions}
