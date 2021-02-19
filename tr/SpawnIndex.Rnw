@@ -267,12 +267,6 @@ BaseMap <- ggplot(data = shapes$landCropDF, aes(x = Eastings, y = Northings)) +
 @
 
 <<pars, echo=FALSE>>=
-# First year with surveys
-firstYr <- 1928
-# First year with direct egg estimates
-directEggYr <- 1979
-# First year with 9 intensity categories
-cat9Yr <- 1969
 # Vector of proportions
 prop <- seq(from = 0, to = 1, by = 0.2)
 # Vector of plant heights
@@ -340,19 +334,19 @@ There are three types of spawn survey observations:
 \item Underwater observations of spawn on other types of algae and the substrate, which we refer to as `understory.'
 \end{enumerate}
 Surface spawn surveys are believed to be the least accurate of the three survey types, but they have the greatest temporal and spatial extent \citep{Schweigert1993b}.
-For example, surface spawn surveys were the only survey type prior to \Sexpr{newSurvYr}, and
+For example, surface spawn surveys were the only survey type prior to \Sexpr{pars$years$dive}, and
 they are still used extensively for minor spawns,
 remote spawns (i.e., outside stock assessment region boundaries; see below),
 unusually early or late spawns, and
 during exceptional circumstances such as the COVID-19 pandemic.
-Macrocystis and understory spawn surveys are conducted under water using SCUBA gear and have been used for all major spawns since \Sexpr{newSurvYr}.
+Macrocystis and understory spawn surveys are conducted under water using SCUBA gear and have been used for all major spawns since \Sexpr{pars$years$dive}.
 Thus, we describe the spawn index as having two survey periods based on the predominant survey type:
-the surface survey period from \Sexpr{min(yrRange)} to \Sexpr{newSurvYr-1}, and
-the dive survey period from \Sexpr{newSurvYr} to present.
+the surface survey period from \Sexpr{pars$years$assessment} to \Sexpr{pars$years$dive-1}, and
+the dive survey period from \Sexpr{pars$years$dive} to present.
 
-The introduction of dive surveys in \Sexpr{newSurvYr} makes it challenging to compare the spawn index between these two periods.
+The introduction of dive surveys in \Sexpr{pars$years$dive} makes it challenging to compare the spawn index between these two periods.
 For example, surface surveys are less accurate than dive surveys (\autoref{secWidthSurface}), and
-spawn surveyors used subjective intensity categories instead of direct egg layer estimates until \Sexpr{directEggYr-1} (\autoref{secIntensity}).
+spawn surveyors used subjective intensity categories instead of direct egg layer estimates until \Sexpr{pars$years$layers-1} (\autoref{secIntensity}).
 In addition, \fishName{} spawn survey effort has been inconsistent over time due to variation in available resources and departmental priorities.
 For example, in the past, surveyors often dedicated several months each year to spawn surveys;
 they used small vessels to search for spawn, and surface surveys to estimate egg deposition.
@@ -360,7 +354,7 @@ Currently, surveyors use aircraft to search for spawn, and underwater SCUBA surv
 It typically takes less time to search for spawn using aircraft, and
 more effort to measure egg deposition using SCUBA surveys,
 Thus, widespread effort (both spatially and temporally) in the past has been replaced with intense effort in the present.
-\fishName{} spawn surveys began in \Sexpr{firstYr}, but are considered incomplete for indexing purposes prior to 1937 because many potential areas were not surveyed \citep{HayKronlund1987}.
+\fishName{} spawn surveys began in \Sexpr{pars$years$survey}, but are considered incomplete for indexing purposes prior to 1937 because many potential areas were not surveyed \citep{HayKronlund1987}.
 
 \fishName{} spawn survey observations have a nested hierarchical structure: samples, Macrocystis plants, and quadrats are nested within transects, transects are nested within spawns, and spawns are nested within Locations.
 To develop spawn indices,
@@ -628,7 +622,7 @@ $G_{ry}$ & Number of SOK fisheries & \\
 
 \subsection{DIVE SPAWN FRAMEWORK}
 
-In contrast to surface surveys, underwater dive surveys using SCUBA gear instituted in \Sexpr{newSurvYr} follow a two-stage systematic sampling design where
+In contrast to surface surveys, underwater dive surveys using SCUBA gear instituted in \Sexpr{pars$years$dive} follow a two-stage systematic sampling design where
 transects are the first sampling stage, and
 individual quadrats within transects are the second sampling stage \citep{Jessen1978}.
 First we describe the understory spawn framework,
@@ -728,7 +722,7 @@ The sampling design was tested during a 1983 survey in the Strait of Georgia tha
 applied a systematic rather than a random sampling protocol to simplify the logistics;
 variance estimates were similar to those from the 1981 study.
 This sampling protocol was further re-evaluated after additional surveys occurred in all areas of the coast during 1984 and 1985;
-the protocol was found to be robust and has been in routine use since \Sexpr{newSurvYr} \citep{SchweigertEtal1990}.
+the protocol was found to be robust and has been in routine use since \Sexpr{pars$years$dive} \citep{SchweigertEtal1990}.
 Although samples are collected systematically within each spawn,
 we assume that transects and quadrats are located randomly with respect to the underlying spawn distribution,
 and so these estimators are applicable \citep{SchaefferEtal2012}.
@@ -850,33 +844,33 @@ Surveyors may deploy a viewing box in shallow water, and at low tide a portion o
 We refer to these surface spawn observations as `samples.'
 
 Recall that there are two cases of surface spawn surveys:
-all surveys prior to \Sexpr{newSurvYr}, and
-surveys since \Sexpr{newSurvYr} when dive surveys are not possible.
+all surveys prior to \Sexpr{pars$years$dive}, and
+surveys since \Sexpr{pars$years$dive} when dive surveys are not possible.
 Data from surface surveys are combined with data from dive surveys (i.e., Macrocystis, understory) to produce the total spawn index (\autoref{secTotal}).
 
 \subsubsection{SPAWN INTENSITY CATEGORIES}\label{secIntensity}
 
-From \Sexpr{firstYr} to \Sexpr{directEggYr-1}, surface spawn surveyors categorized spawn by subjective `intensity' categories
+From \Sexpr{pars$years$survey} to \Sexpr{pars$years$layers-1}, surface spawn surveyors categorized spawn by subjective `intensity' categories
 instead of direct egg layer estimates (\autoref{tab:Intensity}).
-From \Sexpr{firstYr} to \Sexpr{cat9Yr-1} there were five intensity categories described as very light, light, medium, heavy, and very heavy (numbered 1 to 5, respectively).
-Starting in \Sexpr{cat9Yr} there were nine intensity categories;
+From \Sexpr{pars$years$survey} to \Sexpr{pars$years$nine_categories-1} there were five intensity categories described as very light, light, medium, heavy, and very heavy (numbered 1 to 5, respectively).
+Starting in \Sexpr{pars$years$nine_categories} there were nine intensity categories;
 the change from five to nine intensity categories was probably to accommodate the practice of reporting intermediate categories such as 3.5 \citep{HayKronlund1987}.
-Starting in \Sexpr{directEggYr}, spawn surveyors estimated the number of egg layers directly, and
+Starting in \Sexpr{pars$years$layers}, spawn surveyors estimated the number of egg layers directly, and
 continued to record intensity categories until 1981 to provide overlap between the two methods.
 In addition to recording the number of egg layers, surveyors sometimes recorded intensity after it was officially discontinued in 1981.
 We have converted spawn intensity observations in the \fishName{} spawn survey database from five to nine categories
-for spawns that used the five category scale between \Sexpr{min(yrRange)} and \Sexpr{cat9Yr-1}.
+for spawns that used the five category scale between \Sexpr{pars$years$assessment} and \Sexpr{pars$years$nine_categories-1}.
 Thus, spawn data used for stock assessments is represented either by a nine category intensity scale, or a direct estimate of the number of egg layers.
 
 <<Intensity>>=
 # Caption
-tabCap <- paste("Spawn intensity categories, description, and number of egg layers for \\fishName{} surface spawn surveys for the periods ", firstYr, " to ", cat9Yr - 1, ", and ", cat9Yr, " to ", directEggYr - 1, " \\citep{HayKronlund1987, SchweigertStocker1988}. Uncertainty in the number of egg layers is not available.", sep = "")
+tabCap <- paste("Spawn intensity categories, description, and number of egg layers for \\fishName{} surface spawn surveys for the periods ", pars$years$survey, " to ", pars$years$nine_categories - 1, ", and ", pars$years$nine_categories, " to ", pars$years$layers - 1, " \\citep{HayKronlund1987, SchweigertStocker1988}. Uncertainty in the number of egg layers is not available.", sep = "")
 # Short caption
 tabSCap <- "Spawn intensity categories and number of egg layers for \\fishName{} surface spawn surveys"
 # Column name (5 categories)
-p5 <- paste0(firstYr, "--", cat9Yr - 1)
+p5 <- paste0(pars$years$survey, "--", pars$years$nine_categories - 1)
 # Column name (9 categories)
-p9 <- paste0(cat9Yr, "--", directEggYr - 1)
+p9 <- paste0(pars$years$nine_categories, "--", pars$years$layers - 1)
 # Format the table
 kIntensity <- intensity %>%
   arrange(Layers) %>%
@@ -1575,8 +1569,8 @@ accounting for egg loss (e.g., due to predation) and unobserved spawns \citeyear
 Although $q$ is highly uncertain and a number of assumptions are made within the assessment model,
 there are undeniable differences between the proportion of spawn observed in the two spawn survey periods \citeyearpar[DFO][]{DFO2020}.
 Therefore, we estimate one spawn index scaling parameter for
-the surface survey period $q_1$ (\Sexpr{min(yrRange)} to \Sexpr{newSurvYr-1}), and
-a second one for the dive survey period $q_2$ (\Sexpr{newSurvYr} to present).
+the surface survey period $q_1$ (\Sexpr{pars$years$assessment} to \Sexpr{pars$years$dive-1}), and
+a second one for the dive survey period $q_2$ (\Sexpr{pars$years$dive} to present).
 
 \section{SPAWN ON KELP CALCULATIONS}\label{secSOK}
 
@@ -1781,17 +1775,17 @@ These caveats include:
 thus the spawn index is a minimum spawning biomass,
 \item There are two different spawn survey periods with substantial differences in survey effort and method (\autoref{secSurfProt}):
 \begin{enumerate}
-\item Surface period from \Sexpr{min(yrRange)} to \Sexpr{newSurvYr-1}, and
-\item Dive period from \Sexpr{newSurvYr} to present,
+\item Surface period from \Sexpr{pars$years$assessment} to \Sexpr{pars$years$dive-1}, and
+\item Dive period from \Sexpr{pars$years$dive} to present,
 \end{enumerate}
 \item Surface spawn surveys use two different methods to estimate the number of egg layers (\autoref{secIntensity}):
 \begin{enumerate}
 \item Spawn intensity categories:
 \begin{enumerate}
-\item Five categories from \Sexpr{min(yrRange)} to \Sexpr{cat9Yr-1}, and
-\item Nine categories from \Sexpr{cat9Yr} to \Sexpr{directEggYr-1}, and
+\item Five categories from \Sexpr{pars$years$assessment} to \Sexpr{pars$years$nine_categories-1}, and
+\item Nine categories from \Sexpr{pars$years$nine_categories} to \Sexpr{pars$years$layers-1}, and
 \end{enumerate}
-\item Direct estimates from \Sexpr{directEggYr} to present,
+\item Direct estimates from \Sexpr{pars$years$layers} to present,
 \end{enumerate}
 \item The spawn index is derived from surface and dive observations of egg deposition,
 and includes uncertainty and assumptions (\autoref{secUncertain}), and
@@ -1844,18 +1838,18 @@ Finally, they thank Chris Grandin for help creating the \textbf{R} package.
 
 Spawn width is a critical component in spawn index calculations.
 There are two cases where we adjust spawn width estimates to improve spawn index accuracy:
-surface surveys in all years from \Sexpr{min(yrRange)} to present, and
+surface surveys in all years from \Sexpr{pars$years$assessment} to present, and
 understory dive surveys from \Sexpr{min(under_width_facs$Year)} to \Sexpr{max(under_width_facs$Year)}.
 
 \subsection{SURFACE SPAWN WIDTH}\label{secWidthSurface}
 
-Surface surveys were the only survey type prior to \Sexpr{newSurvYr}, while the majority of spawns since \Sexpr{newSurvYr} have been surveyed using SCUBA gear.
+Surface surveys were the only survey type prior to \Sexpr{pars$years$dive}, while the majority of spawns since \Sexpr{pars$years$dive} have been surveyed using SCUBA gear.
 Recall that we describe the spawn index as having two periods based on the predominant survey type:
-surface survey period from \Sexpr{min(yrRange)} to \Sexpr{newSurvYr-1}, and
-dive survey period from \Sexpr{newSurvYr} to present.
+surface survey period from \Sexpr{pars$years$assessment} to \Sexpr{pars$years$dive-1}, and
+dive survey period from \Sexpr{pars$years$dive} to present.
 
 One issue with comparing these two partly overlapping protocols is that surface surveyors tend to underestimate spawn width \citep{HayKronlund1987}.
-To improve the consistency of spawn index estimates throughout the time period from \Sexpr{min(yrRange)} to present,
+To improve the consistency of spawn index estimates throughout the time period from \Sexpr{pars$years$assessment} to present,
 we adjust surface spawn width estimates using underwater estimates from dive surveys when dive data are available \citep{SchweigertEtal1993}.
 Our preferred width is the median width from all dive surveys within a `pool.'
 A pool is a group of Locations within a Section that are
@@ -1971,14 +1965,14 @@ $W$ & Corrected spawn width & m \\
 \setcounter{table}{0}
 \setcounter{equation}{0}
 
-One record in the surface spawn database since \Sexpr{min(yrRange)} requires an update to fill-in missing egg layer information.
+One record in the surface spawn database since \Sexpr{pars$years$assessment} requires an update to fill-in missing egg layer information.
 As with understory spawn width updates, we make this update in the \textbf{R} package script:
 \begin{enumerate}
 \item Update `intensity' from 0 to 1 for the records (there is 1 record) in the year 1962, Statistical Area 14, Section 142, Location code 820, and with $\text{intensity} = 0$.
 We update intensity from 0 to 1 because spawn was surveyed but not reported.
 \end{enumerate}
-Spawn survey records prior to \Sexpr{min(yrRange)} have additional missing or inaccurate egg layer information, and are unreliable for indexing purposes.
-Therefore, we do not include spawn data prior to \Sexpr{min(yrRange)} in stock assessments.
+Spawn survey records prior to \Sexpr{pars$years$assessment} have additional missing or inaccurate egg layer information, and are unreliable for indexing purposes.
+Therefore, we do not include spawn data prior to \Sexpr{pars$years$assessment} in stock assessments.
 
 While reviewing the spawn index calculations and translating them from the \textbf{Microsoft Access} database to \textbf{R}, we found several cases where index data were being over-written with no documented reason.
 These updates have been omitted, and affected the following records:
