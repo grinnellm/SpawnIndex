@@ -16,7 +16,7 @@ test_that("Parameters", {
   expect_type(pars, "list")
   expect_named(
     pars,
-    c("conversion", "SOK", "surface", "macrocystis", "understory")
+    c("conversion", "SOK", "surface", "macrocystis", "understory", "years")
   )
   expect_type(pars$conversion, "list")
   expect_named(pars$conversion, c("omega", "female"))
@@ -33,6 +33,12 @@ test_that("Parameters", {
   expect_type(pars$understory, "list")
   expect_named(pars$understory, c("varphi", "vartheta", "varrho", "varsigma"))
   expect_setequal(pars$understory, c(340, 600.567, 0.6355, 1.413))
+  expect_type(pars$years, "list")
+  expect_named(
+    pars$years,
+    c("survey", "assessment", "nine_categories", "layers", "dive")
+  )
+  expect_setequal(pars$years, c(1928, 1951, 1969, 1979, 1988))
 })
 
 test_that("Intensity", {

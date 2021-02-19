@@ -21,7 +21,8 @@
 #'
 #' Parameters for Pacific Herring spawn index calculations: converting eggs to
 #' biomass, spawn-on-kelp calculations, as well as surface, Macrocystis, and
-#' understory spawn index calculations.
+#' understory spawn index calculations. In addition, years in which there were
+#' noteworthy changes to the survey protocol and data.
 #'
 #' @format List with items:
 #' \describe{
@@ -58,7 +59,16 @@
 #'   \emph{varrho} is the regression exponent on number of egg layers
 #'   \insertCite{Schweigert2005}{SpawnIndex}, and
 #'   \emph{varsigma} is the regression exponent on proportion of algae
-#'   \insertCite{Schweigert2005}{SpawnIndex}.} }
+#'   \insertCite{Schweigert2005}{SpawnIndex}.}
+#' \item{years}{List with items:
+#'   \emph{survey} is the first year with spawn survey data,
+#'   \emph{assessment} is the first year with spawn survey data that is reliable
+#'   for indexing purposes,
+#'   \emph{nine_categories} is the first year that spawn surveyors used nine
+#'   spawn intensity categories,
+#'   \emph{layers} is the first year that spawn surveyors used direct egg layer
+#'   estimates, and
+#'   \emph{dive} is the first year of the dive survey period.}}
 #' @docType data
 #' @importFrom Rdpack reprompt
 #' @references \insertAllCited{}
