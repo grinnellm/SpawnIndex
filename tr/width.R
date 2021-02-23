@@ -15,7 +15,7 @@ require(scales)
 region <- "SoG"
 
 # Years to consider
-yrRange <- 1951:2019
+yrRange <- pars$years$assess:2019
 
 # Figure path
 figPath <- file.path("tr", "cache")

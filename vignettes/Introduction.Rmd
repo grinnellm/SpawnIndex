@@ -58,8 +58,8 @@ load some land polygons for maps.
 
 ```{r pars}
 # Parameters
-region <- "WCVI" # Region: HG, PRD, CC, SoG, WCVI, A27, or A2W
-yrRange <- 2010:2015 # Years (>= 1951)
+region <- "WCVI"
+yrRange <- 2010:2015
 data(pars) # Parameters for spawn index calculations
 # Canada: coarse polygons for mapping
 canada <- ne_countries(scale = "large", returnclass = "sf", country = "canada")
