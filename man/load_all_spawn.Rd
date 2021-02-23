@@ -15,7 +15,7 @@ spawn survey observations to include in calculations; from
 \code{\link{load_area_data}}.}
 
 \item{yrs}{Numeric vector. Years(s) to include in the calculations. Message
-if < 1951.}
+if 1951s`.}
 
 \item{ft2m}{Numeric. Conversion factor for feet to metres; default is 0.3048.
 Message if not 0.3048.}
@@ -24,9 +24,9 @@ Message if not 0.3048.}
 }
 \value{
 Tibble. Contains additional spawn survey data including start and end
-  dates, as well as spawn length, width, and depth. Other information in this
-  tibble comes from \code{a}: Region, Statistical Area, Section, and Location
-  code.
+dates, as well as spawn length, width, and depth. Other information in this
+tibble comes from \code{a}: Region, Statistical Area, Section, and Location
+code.
 }
 \description{
 Get the all spawn table.

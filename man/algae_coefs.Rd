@@ -6,7 +6,7 @@
 \title{Algae types and coefficients.}
 \format{
 Tibble with 8 rows and 3 columns: algae type, algae code, and
-  coefficient.
+coefficient.
 }
 \usage{
 algae_coefs

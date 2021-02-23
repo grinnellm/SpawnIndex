@@ -26,7 +26,7 @@ spawn survey observations to include in calculations; from
 \code{\link{load_area_data}}.}
 
 \item{yrs}{Numeric vector. Years(s) to include in the calculations, usually
-staring in 1951.}
+staring i1951s`.}
 
 \item{alg_coefs}{Tibble. Table of algae coefficients; from
 \code{\link{algae_coefs}}.}
@@ -51,10 +51,10 @@ staring in 1951.}
 }
 \value{
 List. The element \code{SI} is a tibble with understory spawn index
-  (\code{UnderSI}) in tonnes by spawn number and year. The spawn number is
-  the finest spatial scale at which we calculate the spawn index. Other
-  information in this tibble comes from \code{a}: Region, Statistical Area,
-  Section, and Location code.
+(\code{UnderSI}) in tonnes by spawn number and year. The spawn number is
+the finest spatial scale at which we calculate the spawn index. Other
+information in this tibble comes from \code{a}: Region, Statistical Area,
+Section, and Location code.
 }
 \description{
 Calculate the Pacific Herring understory spawn index in tonnes.
@@ -89,8 +89,8 @@ under_spawn$SI
 }
 \seealso{
 \code{\link{HerringSpawn}} \code{\link{load_area_data}}
-  \code{\link{calc_egg_conversion}} \code{\link{pars}}
-  \code{\link{algae_coefs}}
+\code{\link{calc_egg_conversion}} \code{\link{pars}}
+\code{\link{algae_coefs}}
 
 Other calculation functions: 
 \code{\link{calc_biomass_sok}()},

@@ -6,17 +6,21 @@
 \title{Spawn intensity categories and number of egg layers.}
 \format{
 Tibble with 9 rows and 3 columns: intensity category, description,
-  and number of egg layers.
+and number of egg layers.
 }
 \usage{
 intensity
 }
 \description{
 Spawn intensity categories and number of egg layers for Pacific Herring
-surface spawn surveys. From 1928 to 1978, surface spawn surveyors categorized
-spawn by subjective `intensity' categories instead of directly estimating the
-number of egg layers
+surface spawn surveys. From 1928 to
+1978, surface spawn surveyors categorized spawn by
+subjective 'intensity' categories instead of directly estimating the number
+of egg layers
 \insertCite{HayKronlund1987,SchweigertStocker1988,GrinnellEtalYYYY}{SpawnIndex}.
+Surveyors used five categories from 1928 to
+1968, and then nine categories from
+1969 to 1978.
 }
 \examples{
 data(intensity)

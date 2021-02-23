@@ -18,10 +18,10 @@ calc_biomass_sok(
 Message if < 0.}
 
 \item{nu}{Numeric. Proportion of SOK product that is kelp; from
-\code{\link{pars}}. Message if not in [0, 1].}
+\code{\link{pars}}. Message if < 0 and/or > 1.}
 
 \item{upsilon}{Numeric. SOK product weight increase due to brining as a
-proportion; from \code{\link{pars}}. Message if not in [0, 1].}
+proportion; from \code{\link{pars}}. Message if < 0 and/or > 1.}
 
 \item{M}{Numeric. Average weight in kilograms of a fertilized egg; from
 \code{\link{pars}}. Message if < 0.}

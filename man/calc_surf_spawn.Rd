@@ -30,16 +30,16 @@ spawn survey observations to include in calculations; from
 widths in metres (m); from \code{\link{get_width}}.}
 
 \item{yrs}{Numeric vector. Years(s) to include in the calculations. Message
-if < 1951.}
+if 1951s`.}
 
 \item{intense}{Tibble. Table of spawn intensity categories and number of egg
 layers; from \code{\link{intensity}}.}
 
 \item{intense_yrs}{Numeric vector. Years where intensity categories are used
-to determine egg layers. Message if >= 1979.}
+to determine egg layers. Message if >1979s`.}
 
 \item{rescale_yrs}{Numeric vector. Years where intensity needs to be
-re-scaled from 5 to 9 categories. Message if >= 1951.}
+re-scaled from 5 to 9 categories. Message if >1951s`.}
 
 \item{alpha}{Numeric. Regression intercept; from \code{\link{pars}}
 \insertCite{SchweigertEtal1997}{SpawnIndex}.}
@@ -54,10 +54,10 @@ re-scaled from 5 to 9 categories. Message if >= 1951.}
 }
 \value{
 List. The element \code{SI} is a tibble with surface spawn index
-  (\code{SurfSI}) in tonnes by spawn number and year. The spawn number is the
-  finest spatial scale at which we calculate the spawn index. Other
-  information in this tibble comes from \code{a}: Region, Statistical Area,
-  Section, and Location code.
+(\code{SurfSI}) in tonnes by spawn number and year. The spawn number is the
+finest spatial scale at which we calculate the spawn index. Other
+information in this tibble comes from \code{a}: Region, Statistical Area,
+Section, and Location code.
 }
 \description{
 Calculate the Pacific Herring surface spawn index in tonnes.
@@ -96,8 +96,8 @@ surf_spawn$SI
 }
 \seealso{
 \code{\link{HerringSpawn}} \code{\link{load_area_data}}
-  \code{\link{get_width}} \code{\link{calc_egg_conversion}}
-  \code{\link{pars}} \code{\link{intensity}}
+\code{\link{get_width}} \code{\link{calc_egg_conversion}}
+\code{\link{pars}} \code{\link{intensity}}
 
 Other calculation functions: 
 \code{\link{calc_biomass_sok}()},

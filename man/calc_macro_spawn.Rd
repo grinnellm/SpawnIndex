@@ -25,7 +25,7 @@ spawn survey observations to include in calculations; from
 \code{\link{load_area_data}}.}
 
 \item{yrs}{Numeric vector. Years(s) to include in the calculations, usually
-staring in 1951.}
+staring i1951s`.}
 
 \item{t_swath}{Numeric. Transect swath (i.e., width) in metres.}
 
@@ -46,10 +46,10 @@ from \code{\link{pars}} \insertCite{HaegeleSchweigert1990}{SpawnIndex}.}
 }
 \value{
 List. The element \code{SI} is a tibble with Macrocystis spawn index
-  (\code{MacroSI}) in tonnes by spawn number and year. The spawn number is
-  the finest spatial scale at which we calculate the spawn index. Other
-  information in this tibble comes from \code{a}: Region, Statistical Area,
-  Section, and Location code.
+(\code{MacroSI}) in tonnes by spawn number and year. The spawn number is
+the finest spatial scale at which we calculate the spawn index. Other
+information in this tibble comes from \code{a}: Region, Statistical Area,
+Section, and Location code.
 }
 \description{
 Calculate the Pacific Herring Macrocystis spawn index in tonnes.
@@ -82,7 +82,7 @@ macro_spawn$SI
 }
 \seealso{
 \code{\link{HerringSpawn}} \code{\link{load_area_data}}
-  \code{\link{calc_egg_conversion}} \code{\link{pars}}
+\code{\link{calc_egg_conversion}} \code{\link{pars}}
 
 Other calculation functions: 
 \code{\link{calc_biomass_sok}()},

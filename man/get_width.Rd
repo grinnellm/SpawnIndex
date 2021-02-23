@@ -18,8 +18,8 @@ spawn survey observations to include in calculations; from
 }
 \value{
 List with three tables: median region (\code{WidthReg}), section
-  (\code{WidthSec}), and pool (\code{WidthPool}) widths in metres (m) for the
-  areas in \code{a}.
+(\code{WidthSec}), and pool (\code{WidthPool}) widths in metres (m) for the
+areas in \code{a}.
 }
 \description{
 Load median spawn width in metres (m) for Pacific Herring surface spawn index
@@ -50,7 +50,7 @@ width_bar
 }
 \seealso{
 \code{\link{HerringSpawn}} \code{\link{load_area_data}}
-  \code{\link{calc_surf_spawn}}
+\code{\link{calc_surf_spawn}}
 
 Other load functions: 
 \code{\link{load_all_spawn}()},

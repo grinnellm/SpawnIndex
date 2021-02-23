@@ -39,8 +39,8 @@ column named "Group", and one or more of "StatArea", "Section",
 }
 \value{
 Tibble. Table of geographic information for Pacific Herring: SAR,
-  Region, Region name, Statistical Area, Group, Section, Location code,
-  Location name, Pool, Eastings, Northings, Longitude, and Latitude.
+Region, Region name, Statistical Area, Group, Section, Location code,
+Location name, Pool, Eastings, Northings, Longitude, and Latitude.
 }
 \description{
 Load Pacific Herring areas. Herring areas are kept in two files: the section
@@ -53,7 +53,7 @@ desired.
 }
 \note{
 This function requires 32-bit R to load data from the 32-bit MS Access
-  database.
+database.
 }
 \examples{
 db_loc <- system.file("extdata", package = "SpawnIndex")
