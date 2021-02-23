@@ -346,7 +346,7 @@ load_area_data <- function(reg,
 #'   spawn survey observations to include in calculations; from
 #'   \code{\link{load_area_data}}.
 #' @param yrs Numeric vector. Years(s) to include in the calculations. Message
-#'   if < 1951.
+#'   if < `r pars$years$assess`.
 #' @param ft2m Numeric. Conversion factor for feet to metres; default is 0.3048.
 #'   Message if not 0.3048.
 #' @param quiet Logical. Set to TRUE to prevent messages; default is FALSE.
@@ -408,7 +408,7 @@ load_all_spawn <- function(where, a, yrs, ft2m = 0.3048, quiet = FALSE) {
   # Check yrs: numeric
   if (!is.numeric(yrs)) stop("`yrs` must be numeric", call. = FALSE)
   # Check yrs: range
-  if (any(yrs < 1951) & !quiet) message("`yrs` < 1951.")
+  if (any(yrs < pars$years$assess) & !quiet) message("`yrs` < ", pars$years$assess, ".")
   # Check ft2m: numeric
   if (!is.numeric(ft2m)) stop("`ft2m` must be numeric", call. = FALSE)
   # Check ft2m: range

@@ -63,9 +63,9 @@
 #'     \insertCite{Schweigert2005}{SpawnIndex}.}
 #' \item{years}{List with items \insertCite{GrinnellEtalYYYY}{SpawnIndex}:
 #'   \emph{survey} is the first year of spawn survey data,
-#'   \emph{assessment} is the first year of spawn survey data that is reliable
-#'     for indexing purposes,
-#'   \emph{nine_categories} is the first year that spawn surveyors used nine
+#'   \emph{assess} is the first year of spawn survey data that is reliable for
+#'     indexing purposes,
+#'   \emph{nine_cats} is the first year that spawn surveyors used nine
 #'     (instead of five) spawn intensity categories,
 #'   \emph{layers} is the first year that spawn surveyors estimated the number
 #'     of egg layers directly (instead of intensity categories), and
@@ -85,10 +85,14 @@
 #' Spawn intensity categories and number of egg layers.
 #'
 #' Spawn intensity categories and number of egg layers for Pacific Herring
-#' surface spawn surveys. From 1928 to 1978, surface spawn surveyors categorized
-#' spawn by subjective `intensity' categories instead of directly estimating the
-#' number of egg layers
+#' surface spawn surveys. From `r pars$years$survey` to
+#' `r pars$years$layers - 1`, surface spawn surveyors categorized spawn by
+#' subjective 'intensity' categories instead of directly estimating the number
+#' of egg layers
 #' \insertCite{HayKronlund1987,SchweigertStocker1988,GrinnellEtalYYYY}{SpawnIndex}.
+#' Surveyors used five categories from `r pars$years$survey` to
+#' `r pars$years$nine_cats - 1`, and then nine categories from
+#' `r pars$years$nine_cats` to `r pars$years$layers - 1`.
 #'
 #' @format Tibble with 9 rows and 3 columns: intensity category, description,
 #'   and number of egg layers.

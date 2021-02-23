@@ -6,7 +6,7 @@
 #' @param omega Numeric. The number of eggs per kilogram of female spawners;
 #'   from \code{\link{pars}}. Message if < 0.
 #' @param female Numeric. The proportion of spawners that are female; from
-#'   \code{\link{pars}}. Message if not in [0, 1].
+#'   \code{\link{pars}}. Message if < 0 and/or > 1.
 #' @param quiet Logical. Print messages; default is FALSE.
 #' @importFrom Rdpack reprompt
 #' @importFrom stats na.omit
@@ -57,9 +57,9 @@ calc_egg_conversion <- function(omega = pars$conversion$omega,
 #' @param SOK Numeric. Weight of spawn-on-kelp (SOK) harvest in kilograms.
 #'   Message if < 0.
 #' @param nu Numeric. Proportion of SOK product that is kelp; from
-#'   \code{\link{pars}}. Message if not in [0, 1].
+#'   \code{\link{pars}}. Message if < 0 and/or > 1.
 #' @param upsilon Numeric. SOK product weight increase due to brining as a
-#'   proportion; from \code{\link{pars}}. Message if not in [0, 1].
+#'   proportion; from \code{\link{pars}}. Message if < 0 and/or > 1.
 #' @param M Numeric. Average weight in kilograms of a fertilized egg; from
 #'   \code{\link{pars}}. Message if < 0.
 #' @param theta Numeric. Egg conversion factor (eggs to biomass); from
@@ -140,13 +140,13 @@ calc_biomass_sok <- function(SOK,
 #' @param widths List. List of three tables: median region, section, and pool
 #'   widths in metres (m); from \code{\link{get_width}}.
 #' @param yrs Numeric vector. Years(s) to include in the calculations. Message
-#'   if < 1951.
+#'   if < `r pars$years$assess`.
 #' @param intense Tibble. Table of spawn intensity categories and number of egg
 #'   layers; from \code{\link{intensity}}.
 #' @param intense_yrs Numeric vector. Years where intensity categories are used
-#'   to determine egg layers. Message if >= 1979.
+#'   to determine egg layers. Message if >= `r pars$years$layers`.
 #' @param rescale_yrs Numeric vector. Years where intensity needs to be
-#'   re-scaled from 5 to 9 categories. Message if >= 1951.
+#'   re-scaled from 5 to 9 categories. Message if >= `r pars$years$assess`.
 #' @param alpha Numeric. Regression intercept; from \code{\link{pars}}
 #'   \insertCite{SchweigertEtal1997}{SpawnIndex}.
 #' @param beta Numeric. Regression slope; from \code{\link{pars}}
@@ -275,7 +275,9 @@ calc_surf_spawn <- function(where,
   # Check yrs: numeric
   if (!is.numeric(yrs)) stop("`yrs` must be numeric", call. = FALSE)
   # Check yrs: range
-  if (any(yrs < 1951) & !quiet) message("`yrs` < 1951.")
+  if (any(yrs < pars$years$assess) & !quiet) {
+    message("`yrs` < ", pars$years$assess, ".")
+  }
   # Check intense: tibble
   if (!is_tibble(intense)) stop("`intense` must be a tibble.", call. = FALSE)
   # Check intense: names
@@ -287,13 +289,17 @@ calc_surf_spawn <- function(where,
     stop("`intense_yrs` must be numeric", call. = FALSE)
   }
   # Check intense_yrs: range
-  if (any(intense_yrs >= 1979) & !quiet) message("`intense_yrs` >= 1979.")
+  if (any(intense_yrs >= pars$years$layers) & !quiet) {
+    message("`intense_yrs` >= ", pars$years$layers, ".")
+  }
   # Check rescale_yrs: numeric
   if (!is.numeric(rescale_yrs)) {
     stop("`rescale_yrs` must be numeric", call. = FALSE)
   }
   # Check rescale_yrs: range
-  if (any(rescale_yrs >= 1951) & !quiet) message("`rescale_yrs` >= 1951.")
+  if (any(rescale_yrs >= pars$years$assess) & !quiet) {
+    message("`rescale_yrs` >= ", pars$years$assess, ".")
+  }
   # Establish connection with access
   access_db <- dbConnect(
     drv = odbc(),
@@ -481,7 +487,7 @@ calc_surf_spawn <- function(where,
 #'   spawn survey observations to include in calculations; from
 #'   \code{\link{load_area_data}}.
 #' @param yrs Numeric vector. Years(s) to include in the calculations, usually
-#'   staring in 1951.
+#'   staring in `r pars$years$assess`.
 #' @param t_swath Numeric. Transect swath (i.e., width) in metres.
 #' @param xi Numeric. Regression slope; from \code{\link{pars}}
 #'   \insertCite{HaegeleSchweigert1990}{SpawnIndex}.
@@ -667,7 +673,7 @@ calc_macro_spawn <- function(where,
 #'   spawn survey observations to include in calculations; from
 #'   \code{\link{load_area_data}}.
 #' @param yrs Numeric vector. Years(s) to include in the calculations, usually
-#'   staring in 1951.
+#'   staring in `r pars$years$assess`.
 #' @param alg_coefs Tibble. Table of algae coefficients; from
 #'   \code{\link{algae_coefs}}.
 #' @param tau Tibble. Table of understory spawn width adjustment factors from
