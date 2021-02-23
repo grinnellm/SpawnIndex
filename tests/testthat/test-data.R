@@ -35,8 +35,7 @@ test_that("Parameters", {
   expect_setequal(pars$understory, c(340, 600.567, 0.6355, 1.413))
   expect_type(pars$years, "list")
   expect_named(
-    pars$years,
-    c("survey", "assessment", "nine_categories", "layers", "dive")
+    pars$years, c("survey", "assess", "nine_cats", "layers", "dive")
   )
   expect_setequal(pars$years, c(1928, 1951, 1969, 1979, 1988))
 })
