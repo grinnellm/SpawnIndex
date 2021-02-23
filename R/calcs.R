@@ -140,13 +140,13 @@ calc_biomass_sok <- function(SOK,
 #' @param widths List. List of three tables: median region, section, and pool
 #'   widths in metres (m); from \code{\link{get_width}}.
 #' @param yrs Numeric vector. Years(s) to include in the calculations. Message
-#'   if < `r pars$years$assess`.
+#'   if < `pars$years$assess`.
 #' @param intense Tibble. Table of spawn intensity categories and number of egg
 #'   layers; from \code{\link{intensity}}.
 #' @param intense_yrs Numeric vector. Years where intensity categories are used
-#'   to determine egg layers. Message if >= `r pars$years$layers`.
+#'   to determine egg layers. Message if >= `pars$years$layers`.
 #' @param rescale_yrs Numeric vector. Years where intensity needs to be
-#'   re-scaled from 5 to 9 categories. Message if >= `r pars$years$assess`.
+#'   re-scaled from 5 to 9 categories. Message if >= `pars$years$assess`.
 #' @param alpha Numeric. Regression intercept; from \code{\link{pars}}
 #'   \insertCite{SchweigertEtal1997}{SpawnIndex}.
 #' @param beta Numeric. Regression slope; from \code{\link{pars}}

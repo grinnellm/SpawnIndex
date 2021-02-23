@@ -346,7 +346,7 @@ load_area_data <- function(reg,
 #'   spawn survey observations to include in calculations; from
 #'   \code{\link{load_area_data}}.
 #' @param yrs Numeric vector. Years(s) to include in the calculations. Message
-#'   if < `r pars$years$assess`.
+#'   if < `pars$years$assess`.
 #' @param ft2m Numeric. Conversion factor for feet to metres; default is 0.3048.
 #'   Message if not 0.3048.
 #' @param quiet Logical. Set to TRUE to prevent messages; default is FALSE.

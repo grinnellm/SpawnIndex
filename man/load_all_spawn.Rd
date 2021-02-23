@@ -15,7 +15,7 @@ spawn survey observations to include in calculations; from
 \code{\link{load_area_data}}.}
 
 \item{yrs}{Numeric vector. Years(s) to include in the calculations. Message
-if 1951s`.}
+if < \code{pars$years$assess}.}
 
 \item{ft2m}{Numeric. Conversion factor for feet to metres; default is 0.3048.
 Message if not 0.3048.}

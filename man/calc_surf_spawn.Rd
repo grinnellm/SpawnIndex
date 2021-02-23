@@ -30,16 +30,16 @@ spawn survey observations to include in calculations; from
 widths in metres (m); from \code{\link{get_width}}.}
 
 \item{yrs}{Numeric vector. Years(s) to include in the calculations. Message
-if 1951s`.}
+if < \code{pars$years$assess}.}
 
 \item{intense}{Tibble. Table of spawn intensity categories and number of egg
 layers; from \code{\link{intensity}}.}
 
 \item{intense_yrs}{Numeric vector. Years where intensity categories are used
-to determine egg layers. Message if >1979s`.}
+to determine egg layers. Message if >= \code{pars$years$layers}.}
 
 \item{rescale_yrs}{Numeric vector. Years where intensity needs to be
-re-scaled from 5 to 9 categories. Message if >1951s`.}
+re-scaled from 5 to 9 categories. Message if >= \code{pars$years$assess}.}
 
 \item{alpha}{Numeric. Regression intercept; from \code{\link{pars}}
 \insertCite{SchweigertEtal1997}{SpawnIndex}.}
