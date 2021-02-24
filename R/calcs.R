@@ -524,6 +524,7 @@ calc_surf_spawn <- function(where,
 #'   from \code{\link{pars}} \insertCite{HaegeleSchweigert1990}{SpawnIndex}.
 #' @param theta Numeric. Egg conversion factor (eggs to biomass); from
 #'   \code{\link{calc_egg_conversion}}.
+#' @param quiet Logical. Set to TRUE to prevent messages; default is FALSE.
 #' @importFrom odbc dbConnect odbc dbDisconnect
 #' @importFrom DBI dbReadTable
 #' @importFrom dplyr select distinct rename left_join filter %>% group_by
@@ -571,7 +572,85 @@ calc_macro_spawn <- function(where,
                              gamma = pars$macrocystis$gamma,
                              delta = pars$macrocystis$delta,
                              epsilon = pars$macrocystis$epsilon,
-                             theta = calc_egg_conversion()) {
+                             theta = calc_egg_conversion(),
+                             quiet = FALSE) {
+
+  # Get where names
+  where_names <- c("loc", "db", "fns.all_spawn", "fns.plants", "fns.transects")
+  # Check where: list
+  if (!is.list(where)) stop("Argument `where` must be a list.", call. = FALSE)
+  # Check where: names
+  if (any(names(unlist(where)) != where_names)) {
+    stop("Argument `where` needs names:", where_names, call. = FALSE)
+  }
+  # Check where: contents
+  if (typeof(unlist(where)) != "character") {
+    stop("Argument `where` must contain characters", call. = FALSE)
+  }
+  # Check a: tibble
+  if (!is_tibble(a)) {
+    stop("`a` must be a tibble.", call. = FALSE)
+  }
+  # Check a: names
+  if (!all(c(
+    "SAR", "Region", "StatArea", "Section", "LocationCode", "Pool"
+  ) %in% names(a))) {
+    stop("`a` is missing columns", call. = FALSE)
+  }
+  # Check yrs: numeric
+  if (!is.numeric(yrs)) stop("`yrs` must be numeric", call. = FALSE)
+  # Check yrs: range
+  if (any(yrs < pars$years$assess) & !quiet) {
+    message("`yrs` < ", pars$years$assess, ".")
+  }
+  # Check intense: tibble
+  if (!is_tibble(intense)) stop("`intense` must be a tibble.", call. = FALSE)
+  # Check intense: names
+  if (!all(c("Intensity", "Description", "Layers") %in% names(intense))) {
+    stop("`intense` is missing columns", call. = FALSE)
+  }
+  # Check intense_yrs: numeric
+  if (!is.numeric(intense_yrs)) {
+    stop("`intense_yrs` must be numeric", call. = FALSE)
+  }
+  # Check intense_yrs: range
+  if (any(intense_yrs >= pars$years$layers) & !quiet) {
+    message("`intense_yrs` >= ", pars$years$layers, ".")
+  }
+  # Check rescale_yrs: numeric
+  if (!is.numeric(rescale_yrs)) {
+    stop("`rescale_yrs` must be numeric", call. = FALSE)
+  }
+  # Check rescale_yrs: range
+  if (any(rescale_yrs >= pars$years$assess) & !quiet) {
+    message("`rescale_yrs` >= ", pars$years$assess, ".")
+  }
+  # Check t_swath: NA
+  if (any(is.na(t_swath)) & !quiet) message("NA(s) in `t_swath`")
+  # Check t_swath: numeric
+  if (!is.numeric(t_swath)) stop("`t_swath` must be numeric.", call. = FALSE)
+  # Check t_swath: value
+  if (t_swath != 2 & !quiet) message("`t_swath` != 2")
+  # Check xi: NA
+  if (any(is.na(xi)) & !quiet) message("NA(s) in `xi`")
+  # Check xi: numeric
+  if (!is.numeric(xi)) stop("`xi` must be numeric.", call. = FALSE)
+  # Check gamma: NA
+  if (any(is.na(gamma)) & !quiet) message("NA(s) in `gamma`")
+  # Check gamma: numeric
+  if (!is.numeric(gamma)) stop("`gamma` must be numeric.", call. = FALSE)
+  # Check delta: NA
+  if (any(is.na(delta)) & !quiet) message("NA(s) in `delta`")
+  # Check delta: numeric
+  if (!is.numeric(delta)) stop("`delta` must be numeric.", call. = FALSE)
+  # Check epsilon: NA
+  if (any(is.na(epsilon)) & !quiet) message("NA(s) in `epsilon`")
+  # Check epsilon: numeric
+  if (!is.numeric(epsilon)) stop("`epsilon` must be numeric.", call. = FALSE)
+  # Check theta: NA
+  if (any(is.na(theta)) & !quiet) message("NA(s) in `theta`")
+  # Check theta: numeric
+  if (!is.numeric(theta)) stop("`theta` must be numeric.", call. = FALSE)
   # Establish connection with access
   access_db <- dbConnect(
     drv = odbc(),
@@ -684,8 +763,23 @@ calc_macro_spawn <- function(where,
     )
   # Close the connection
   dbDisconnect(conn = access_db)
-  # Return the data
-  list(dat = dat, dat_trans = dat_trans, biomass_spawn = biomass_spawn, SI = SI)
+  # Assemble into a list
+  res <- list(
+    dat = dat, dat_trans = dat_trans, biomass_spawn = biomass_spawn, SI = SI
+  )
+  # Check output: rows
+  if (nrow(res$SI) == 0) stop("`res$SI` has no data.", call. = FALSE)
+  # Check output: tibble
+  if (!is_tibble(res$SI)) stop("`res$SI` is not a tibble.", call. = FALSE)
+  # Check output: names
+  if (!all(c(
+    "Year", "Region", "StatArea", "Section", "LocationCode", "SpawnNumber",
+    "MacroSI"
+  ) %in% names(res$SI))) {
+    stop("`res$SI` is missing columns", call. = FALSE)
+  }
+  # Return the list
+  res
 } # End calc_macro_spawn function
 
 #' Calculate the understory spawn index.
