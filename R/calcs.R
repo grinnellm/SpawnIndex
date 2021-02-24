@@ -7,7 +7,7 @@
 #'   from \code{\link{pars}}. Message if < 0.
 #' @param female Numeric. The proportion of spawners that are female; from
 #'   \code{\link{pars}}. Message if < 0 and/or > 1.
-#' @param quiet Logical. Print messages; default is FALSE.
+#' @param quiet Logical. Suppress messages; default is FALSE.
 #' @importFrom Rdpack reprompt
 #' @importFrom stats na.omit
 #' @return Numeric. The conversion factor for eggs to spawn index in tonnes
@@ -64,7 +64,7 @@ calc_egg_conversion <- function(omega = pars$conversion$omega,
 #'   \code{\link{pars}}. Message if < 0.
 #' @param theta Numeric. Egg conversion factor (eggs to biomass); from
 #'   \code{\link{calc_egg_conversion}}. Message if < 0.
-#' @param quiet Logical. Print messages; default is FALSE.
+#' @param quiet Logical. Suppress messages; default is FALSE.
 #' @importFrom Rdpack reprompt
 #' @importFrom stats na.omit
 #' @return Numeric. Spawning biomass in tonnes. Message if < 0.
@@ -153,7 +153,7 @@ calc_biomass_sok <- function(SOK,
 #'   \insertCite{SchweigertEtal1997}{SpawnIndex}.
 #' @param theta Numeric. Egg conversion factor (eggs to biomass); from
 #'   \code{\link{calc_egg_conversion}}.
-#' @param quiet Logical. Set to TRUE to prevent messages; default is FALSE.
+#' @param quiet Logical. Suppress messages; default is FALSE.
 #' @importFrom odbc dbConnect odbc dbDisconnect
 #' @importFrom DBI dbReadTable
 #' @importFrom dplyr select distinct rename left_join filter %>% ends_with
@@ -524,7 +524,7 @@ calc_surf_spawn <- function(where,
 #'   from \code{\link{pars}} \insertCite{HaegeleSchweigert1990}{SpawnIndex}.
 #' @param theta Numeric. Egg conversion factor (eggs to biomass); from
 #'   \code{\link{calc_egg_conversion}}.
-#' @param quiet Logical. Set to TRUE to prevent messages; default is FALSE.
+#' @param quiet Logical. Suppress messages; default is FALSE.
 #' @importFrom odbc dbConnect odbc dbDisconnect
 #' @importFrom DBI dbReadTable
 #' @importFrom dplyr select distinct rename left_join filter %>% group_by
@@ -785,7 +785,7 @@ calc_macro_spawn <- function(where,
 #'   \code{\link{pars}} \insertCite{Schweigert2005}{SpawnIndex}.
 #' @param theta Numeric. Egg conversion factor (eggs to biomass); from
 #'   \code{\link{calc_egg_conversion}}.
-#' @param quiet Logical. Set to TRUE to prevent messages; default is FALSE.
+#' @param quiet Logical. Suppress messages; default is FALSE.
 #' @importFrom odbc dbConnect odbc dbDisconnect
 #' @importFrom DBI dbReadTable
 #' @importFrom dplyr select distinct rename left_join filter %>% ungroup

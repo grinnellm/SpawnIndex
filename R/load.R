@@ -22,7 +22,7 @@
 #'   results, say to aggregate data by combinations of Sections. Must have a
 #'   column named "Group", and one or more of "StatArea", "Section",
 #'   "LocationCode". Set to NULL to ignore (and Group column will be NA).
-#' @param quiet Logical. Set to TRUE to prevent messages; default is FALSE.
+#' @param quiet Logical. Suppress messages; default is FALSE.
 #' @importFrom readr read_csv cols
 #' @importFrom dplyr filter select mutate full_join %>% transmute right_join
 #' @importFrom tidyr unite
@@ -349,7 +349,7 @@ load_area_data <- function(reg,
 #'   if < `pars$years$assess`.
 #' @param ft2m Numeric. Conversion factor for feet to metres; default is 0.3048.
 #'   Message if not 0.3048.
-#' @param quiet Logical. Set to TRUE to prevent messages; default is FALSE.
+#' @param quiet Logical. Suppress messages; default is FALSE.
 #' @importFrom odbc dbConnect odbc dbDisconnect
 #' @importFrom DBI dbReadTable
 #' @importFrom dplyr select rename full_join filter mutate %>% arrange ungroup
@@ -502,7 +502,7 @@ load_all_spawn <- function(where, a, yrs, ft2m = 0.3048, quiet = FALSE) {
 #' @param a Tibble. Table of geographic information indicating the subset of
 #'   spawn survey observations to include in calculations; from
 #'   \code{\link{load_area_data}}.
-#' @param quiet Logical. Set to TRUE to prevent messages; default is FALSE.
+#' @param quiet Logical. Suppress messages; default is FALSE.
 #' @importFrom odbc dbConnect odbc dbDisconnect
 #' @importFrom DBI dbReadTable
 #' @importFrom dplyr select distinct rename left_join filter %>%

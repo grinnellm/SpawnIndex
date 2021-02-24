@@ -29,7 +29,7 @@ proportion; from \code{\link{pars}}. Message if < 0 and/or > 1.}
 \item{theta}{Numeric. Egg conversion factor (eggs to biomass); from
 \code{\link{calc_egg_conversion}}. Message if < 0.}
 
-\item{quiet}{Logical. Print messages; default is FALSE.}
+\item{quiet}{Logical. Suppress messages; default is FALSE.}
 }
 \value{
 Numeric. Spawning biomass in tonnes. Message if < 0.

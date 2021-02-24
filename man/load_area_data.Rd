@@ -35,7 +35,7 @@ results, say to aggregate data by combinations of Sections. Must have a
 column named "Group", and one or more of "StatArea", "Section",
 "LocationCode". Set to NULL to ignore (and Group column will be NA).}
 
-\item{quiet}{Logical. Set to TRUE to prevent messages; default is FALSE.}
+\item{quiet}{Logical. Suppress messages; default is FALSE.}
 }
 \value{
 Tibble. Table of geographic information for Pacific Herring: SAR,

@@ -45,7 +45,7 @@ from \code{\link{pars}} \insertCite{HaegeleSchweigert1990}{SpawnIndex}.}
 \item{theta}{Numeric. Egg conversion factor (eggs to biomass); from
 \code{\link{calc_egg_conversion}}.}
 
-\item{quiet}{Logical. Set to TRUE to prevent messages; default is FALSE.}
+\item{quiet}{Logical. Suppress messages; default is FALSE.}
 }
 \value{
 List. The element \code{SI} is a tibble with Macrocystis spawn index

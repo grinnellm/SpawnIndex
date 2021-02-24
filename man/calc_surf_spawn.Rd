@@ -50,7 +50,7 @@ re-scaled from 5 to 9 categories. Message if >= \code{pars$years$assess}.}
 \item{theta}{Numeric. Egg conversion factor (eggs to biomass); from
 \code{\link{calc_egg_conversion}}.}
 
-\item{quiet}{Logical. Set to TRUE to prevent messages; default is FALSE.}
+\item{quiet}{Logical. Suppress messages; default is FALSE.}
 }
 \value{
 List. The element \code{SI} is a tibble with surface spawn index

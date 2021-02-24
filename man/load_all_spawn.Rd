@@ -20,7 +20,7 @@ if < \code{pars$years$assess}.}
 \item{ft2m}{Numeric. Conversion factor for feet to metres; default is 0.3048.
 Message if not 0.3048.}
 
-\item{quiet}{Logical. Set to TRUE to prevent messages; default is FALSE.}
+\item{quiet}{Logical. Suppress messages; default is FALSE.}
 }
 \value{
 Tibble. Contains additional spawn survey data including start and end

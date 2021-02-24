@@ -17,7 +17,7 @@ from \code{\link{pars}}. Message if < 0.}
 \item{female}{Numeric. The proportion of spawners that are female; from
 \code{\link{pars}}. Message if < 0 and/or > 1.}
 
-\item{quiet}{Logical. Print messages; default is FALSE.}
+\item{quiet}{Logical. Suppress messages; default is FALSE.}
 }
 \value{
 Numeric. The conversion factor for eggs to spawn index in tonnes

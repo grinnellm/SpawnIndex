@@ -14,7 +14,7 @@ get_width(where, a = areas, quiet = FALSE)
 spawn survey observations to include in calculations; from
 \code{\link{load_area_data}}.}
 
-\item{quiet}{Logical. Set to TRUE to prevent messages; default is FALSE.}
+\item{quiet}{Logical. Suppress messages; default is FALSE.}
 }
 \value{
 List with three tables: median region (\code{WidthReg}), section
