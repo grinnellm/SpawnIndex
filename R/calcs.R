@@ -300,6 +300,18 @@ calc_surf_spawn <- function(where,
   if (any(rescale_yrs >= pars$years$assess) & !quiet) {
     message("`rescale_yrs` >= ", pars$years$assess, ".")
   }
+  # Check alpha: NA
+  if (any(is.na(alpha)) & !quiet) message("NA(s) in `alpha`")
+  # Check alpha: numeric
+  if (!is.numeric(alpha)) stop("`alpha` must be numeric.", call. = FALSE)
+  # Check beta: NA
+  if (any(is.na(beta)) & !quiet) message("NA(s) in `beta`")
+  # Check beta: numeric
+  if (!is.numeric(beta)) stop("`beta` must be numeric.", call. = FALSE)
+  # Check theta: NA
+  if (any(is.na(theta)) & !quiet) message("NA(s) in `theta`")
+  # Check theta: numeric
+  if (!is.numeric(theta)) stop("`theta` must be numeric.", call. = FALSE)
   # Establish connection with access
   access_db <- dbConnect(
     drv = odbc(),
@@ -470,11 +482,24 @@ calc_surf_spawn <- function(where,
     select(Year, Region, StatArea, Section, LocationCode, SpawnNumber, SurfSI)
   # Close the connection
   dbDisconnect(conn = access_db)
-  # Return the data
-  list(
+  # Assemble into a list
+  res <- list(
     surface = surface, eggs = eggs, eggs_spawn = eggs_spawn,
     biomass_spawn = biomass_spawn, SI = SI
   )
+  # Check output: rows
+  if (nrow(res$SI) == 0) stop("`res$SI` has no data.", call. = FALSE)
+  # Check output: tibble
+  if (!is_tibble(res$SI)) stop("`res$SI` is not a tibble.", call. = FALSE)
+  # Check output: names
+  if (!all(c(
+    "Year", "Region", "StatArea", "Section", "LocationCode", "SpawnNumber",
+    "SurfSI"
+  ) %in% names(res$SI))) {
+    stop("`res$SI` is missing columns", call. = FALSE)
+  }
+  # Return the list
+  res
 } # End calc_surf_spawn function
 
 #' Calculate the Macrocystis spawn index.
