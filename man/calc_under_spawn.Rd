@@ -26,7 +26,7 @@ spawn survey observations to include in calculations; from
 \code{\link{load_area_data}}.}
 
 \item{yrs}{Numeric vector. Years(s) to include in the calculations, usually
-staring i1951s`.}
+staring in \code{pars$years$assess}.}
 
 \item{alg_coefs}{Tibble. Table of algae coefficients; from
 \code{\link{algae_coefs}}.}

@@ -487,7 +487,7 @@ calc_surf_spawn <- function(where,
 #'   spawn survey observations to include in calculations; from
 #'   \code{\link{load_area_data}}.
 #' @param yrs Numeric vector. Years(s) to include in the calculations, usually
-#'   staring in `r pars$years$assess`.
+#'   staring in `pars$years$assess`.
 #' @param t_swath Numeric. Transect swath (i.e., width) in metres.
 #' @param xi Numeric. Regression slope; from \code{\link{pars}}
 #'   \insertCite{HaegeleSchweigert1990}{SpawnIndex}.
@@ -673,7 +673,7 @@ calc_macro_spawn <- function(where,
 #'   spawn survey observations to include in calculations; from
 #'   \code{\link{load_area_data}}.
 #' @param yrs Numeric vector. Years(s) to include in the calculations, usually
-#'   staring in `r pars$years$assess`.
+#'   staring in `pars$years$assess`.
 #' @param alg_coefs Tibble. Table of algae coefficients; from
 #'   \code{\link{algae_coefs}}.
 #' @param tau Tibble. Table of understory spawn width adjustment factors from

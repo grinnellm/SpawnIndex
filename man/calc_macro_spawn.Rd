@@ -25,7 +25,7 @@ spawn survey observations to include in calculations; from
 \code{\link{load_area_data}}.}
 
 \item{yrs}{Numeric vector. Years(s) to include in the calculations, usually
-staring i1951s`.}
+staring in \code{pars$years$assess}.}
 
 \item{t_swath}{Numeric. Transect swath (i.e., width) in metres.}
 

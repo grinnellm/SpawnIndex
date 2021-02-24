@@ -408,7 +408,9 @@ load_all_spawn <- function(where, a, yrs, ft2m = 0.3048, quiet = FALSE) {
   # Check yrs: numeric
   if (!is.numeric(yrs)) stop("`yrs` must be numeric", call. = FALSE)
   # Check yrs: range
-  if (any(yrs < pars$years$assess) & !quiet) message("`yrs` < ", pars$years$assess, ".")
+  if (any(yrs < pars$years$assess) & !quiet) {
+    message("`yrs` < ", pars$years$assess, ".")
+  }
   # Check ft2m: numeric
   if (!is.numeric(ft2m)) stop("`ft2m` must be numeric", call. = FALSE)
   # Check ft2m: range
