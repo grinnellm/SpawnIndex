@@ -16,14 +16,14 @@ test_that("Parameters", {
   expect_type(pars, "list")
   expect_named(
     pars,
-    c("conversion", "SOK", "surface", "macrocystis", "understory", "years")
+    c("conversion", "sok", "surface", "macrocystis", "understory", "years")
   )
   expect_type(pars$conversion, "list")
   expect_named(pars$conversion, c("omega", "female"))
   expect_setequal(pars$conversion, c(2e+05, 0.5))
-  expect_type(pars$SOK, "list")
-  expect_named(pars$SOK, c("nu", "upsilon", "M"))
-  expect_setequal(pars$SOK, c(0.12, 0.132, 2.38e-06))
+  expect_type(pars$sok, "list")
+  expect_named(pars$sok, c("nu", "upsilon", "M"))
+  expect_setequal(pars$sok, c(0.12, 0.132, 2.38e-06))
   expect_type(pars$surface, "list")
   expect_named(pars$surface, c("alpha", "beta"))
   expect_setequal(pars$surface, c(14.698, 212.218))

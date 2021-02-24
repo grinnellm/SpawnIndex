@@ -54,7 +54,7 @@ calc_egg_conversion <- function(omega = pars$conversion$omega,
 #' Calculate spawning biomass in tonnes from spawn-on-kelp (SOK) harvest in
 #' kilograms.
 #'
-#' @param SOK Numeric. Weight of spawn-on-kelp (SOK) harvest in kilograms.
+#' @param sok Numeric. Weight of spawn-on-kelp (SOK) harvest in kilograms.
 #'   Message if < 0.
 #' @param nu Numeric. Proportion of SOK product that is kelp; from
 #'   \code{\link{pars}}. Message if < 0 and/or > 1.
@@ -74,19 +74,19 @@ calc_egg_conversion <- function(omega = pars$conversion$omega,
 #' @export
 #' @examples
 #' data(pars)
-#' calc_biomass_sok(SOK = 100)
-calc_biomass_sok <- function(SOK,
-                             nu = pars$SOK$nu,
-                             upsilon = pars$SOK$upsilon,
-                             M = pars$SOK$M,
+#' calc_biomass_sok(sok = 100)
+calc_biomass_sok <- function(sok,
+                             nu = pars$sok$nu,
+                             upsilon = pars$sok$upsilon,
+                             M = pars$sok$M,
                              theta = calc_egg_conversion(),
                              quiet = FALSE) {
-  # Check SOK: NA
-  if (any(is.na(SOK)) & !quiet) message("NA(s) in `SOK`")
-  # Check SOK: numeric
-  if (!is.numeric(SOK)) stop("`SOK` must be numeric.", call. = FALSE)
-  # Check SOK: range
-  if (any(na.omit(SOK) < 0) & !quiet) message("`SOK` < 0.")
+  # Check sok: NA
+  if (any(is.na(sok)) & !quiet) message("NA(s) in `sok`")
+  # Check sok: numeric
+  if (!is.numeric(sok)) stop("`sok` must be numeric.", call. = FALSE)
+  # Check sok: range
+  if (any(na.omit(sok) < 0) & !quiet) message("`sok` < 0.")
   # Check nu: NA
   if (any(is.na(nu)) & !quiet) message("NA(s) in `nu`")
   # Check nu: numeric
@@ -117,7 +117,7 @@ calc_biomass_sok <- function(SOK,
   if (any(na.omit(theta) < 0) & !quiet) message("`theta` < 0.")
   # Spawning biomass in tonnes: (kg SOK * proportion eggs * proportion eggs) /
   # (kg per egg * eggs per tonne )
-  SB <- (SOK * (1 - nu) * 1 / (1 + upsilon)) / (M * theta)
+  SB <- (sok * (1 - nu) * 1 / (1 + upsilon)) / (M * theta)
   # Check SB: numeric
   if (!is.numeric(SB)) stop("`SB` is not numeric.", call. = FALSE)
   # Check SB: NA

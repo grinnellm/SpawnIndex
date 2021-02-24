@@ -69,7 +69,7 @@ Pacific Herring that produced a given amount of SOK product in kilograms, kg.
 
 ```{r sok}
 sok <- 100  # SOK product in kg
-biomass <- calc_biomass_sok(SOK = sok, theta = theta)
+biomass <- calc_biomass_sok(sok = sok, theta = theta)
 biomass  # Spawning biomass in t
 ```
 

@@ -1630,9 +1630,9 @@ Legend: kilograms (kg), tonnes (t).}
 \textbf{Name} & \textbf{Description} & \textbf{Value or unit} & \textbf{References} \\
 \midrule
 $H$ & Weight of SOK harvest & kg & \\
-$\nu$ & Proportion of SOK product that is kelp & \Sexpr{pars$SOK$nu} & \cite{ShieldsEtal1985} \\
-$\upsilon$ & SOK product weight increase due to brining (proportion) & \Sexpr{pars$SOK$upsilon} & \cite{WhyteEnglar1977} \\
-$M$ & Average mass of a fertilized egg & \Sexpr{pars$SOK$M}$\,\text{kg}$ & \cite{HayMiller1982} \\
+$\nu$ & Proportion of SOK product that is kelp & \Sexpr{pars$sok$nu} & \cite{ShieldsEtal1985} \\
+$\upsilon$ & SOK product weight increase due to brining (proportion) & \Sexpr{pars$sok$upsilon} & \cite{WhyteEnglar1977} \\
+$M$ & Average mass of a fertilized egg & \Sexpr{pars$sok$M}$\,\text{kg}$ & \cite{HayMiller1982} \\
 $B$ & Spawning biomass & t & \\
 \bottomrule
 \end{tabulary}

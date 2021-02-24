@@ -70,7 +70,7 @@ SOK product in kilograms, kg.
 
 ``` r
 sok <- 100  # SOK product in kg
-biomass <- calc_biomass_sok(SOK = sok, theta = theta)
+biomass <- calc_biomass_sok(sok = sok, theta = theta)
 biomass  # Spawning biomass in t
 ```
 

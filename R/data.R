@@ -21,9 +21,9 @@
 #' Parameters for spawn index calculations.
 #'
 #' Parameters for Pacific Herring spawn index calculations: converting eggs to
-#' biomass, spawn-on-kelp calculations, as well as surface, Macrocystis, and
-#' understory spawn index calculations. In addition, years in which there were
-#' changes to the survey protocol and data.
+#' biomass, spawn-on-kelp (SOK) calculations, as well as surface, Macrocystis,
+#' and understory spawn index calculations. In addition, years in which there
+#' were changes to the survey protocol and data.
 #'
 #' @format List with items:
 #' \describe{
@@ -31,7 +31,7 @@
 #'   \emph{omega} is the number of eggs per kilogram of female spawners
 #'     \insertCite{Hay1985,HayBrett1988}{SpawnIndex}, and
 #'   \emph{female} is the proportion of spawners that are female.}
-#' \item{SOK}{List with items:
+#' \item{sok}{List with items:
 #'   \emph{nu} is the proportion of SOK product that is kelp
 #'     \insertCite{ShieldsEtal1985}{SpawnIndex},
 #'   \emph{upsilon} is the SOK product weight increase during a 24-hour brining

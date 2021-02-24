@@ -5,16 +5,16 @@
 \title{Calculate spawning biomass from spawn-on-kelp (SOK) harvest.}
 \usage{
 calc_biomass_sok(
-  SOK,
-  nu = pars$SOK$nu,
-  upsilon = pars$SOK$upsilon,
-  M = pars$SOK$M,
+  sok,
+  nu = pars$sok$nu,
+  upsilon = pars$sok$upsilon,
+  M = pars$sok$M,
   theta = calc_egg_conversion(),
   quiet = FALSE
 )
 }
 \arguments{
-\item{SOK}{Numeric. Weight of spawn-on-kelp (SOK) harvest in kilograms.
+\item{sok}{Numeric. Weight of spawn-on-kelp (SOK) harvest in kilograms.
 Message if < 0.}
 
 \item{nu}{Numeric. Proportion of SOK product that is kelp; from
@@ -40,7 +40,7 @@ kilograms.
 }
 \examples{
 data(pars)
-calc_biomass_sok(SOK = 100)
+calc_biomass_sok(sok = 100)
 }
 \references{
 \insertAllCited
