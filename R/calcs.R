@@ -837,7 +837,8 @@ calc_under_spawn <- function(where,
                              vartheta = pars$understory$vartheta,
                              varrho = pars$under$varrho,
                              varsigma = pars$understory$varsigma,
-                             theta = calc_egg_conversion()) {
+                             theta = calc_egg_conversion(),
+                             quiet = FALSE) {
 
   # Get where names
   where_names <- c(

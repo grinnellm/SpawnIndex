@@ -14,7 +14,8 @@ calc_under_spawn(
   vartheta = pars$understory$vartheta,
   varrho = pars$under$varrho,
   varsigma = pars$understory$varsigma,
-  theta = calc_egg_conversion()
+  theta = calc_egg_conversion(),
+  quiet = FALSE
 )
 }
 \arguments{
