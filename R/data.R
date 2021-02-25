@@ -36,7 +36,7 @@
 #'     \insertCite{ShieldsEtal1985}{SpawnIndex},
 #'   \emph{upsilon} is the SOK product weight increase during a 24-hour brining
 #'     period as a proportion \insertCite{WhyteEnglar1977}{SpawnIndex}, and
-#'   \emph{M} is the average weight in kilograms of a fertilized egg
+#'   \emph{w} is the average weight in kilograms of a fertilized egg
 #'     \insertCite{HayMiller1982}{SpawnIndex}.}
 #' \item{surface}{List with items:
 #'   \emph{alpha} is the regression intercept

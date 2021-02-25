@@ -8,7 +8,7 @@ calc_biomass_sok(
   sok,
   nu = pars$sok$nu,
   upsilon = pars$sok$upsilon,
-  M = pars$sok$M,
+  w = pars$sok$w,
   theta = calc_egg_conversion(),
   quiet = FALSE
 )
@@ -23,7 +23,7 @@ Message if < 0.}
 \item{upsilon}{Numeric. SOK product weight increase due to brining as a
 proportion; from \code{\link{pars}}. Message if < 0 and/or > 1.}
 
-\item{M}{Numeric. Average weight in kilograms of a fertilized egg; from
+\item{w}{Numeric. Average weight in kilograms of a fertilized egg; from
 \code{\link{pars}}. Message if < 0.}
 
 \item{theta}{Numeric. Egg conversion factor (eggs to biomass); from

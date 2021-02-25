@@ -1605,12 +1605,12 @@ $2.38 \cdot 10^{-6}\,\text{kg}$ \citep{HayMiller1982}.
 
 We estimate the biomass of \fishName{} that spawned and produced eggs which were removed from the population by SOK fishery $g$ in SAR $r$ and year $y$ as
 \begin{equation}\label{eqSOKBioGRY}
-B_{gry} = \frac{H_{gry} \left(1 - \nu\right) \frac{1}{1+\upsilon}} {M \theta},
+B_{gry} = \frac{H_{gry} \left(1 - \nu\right) \frac{1}{1+\upsilon}} {w \theta},
 \end{equation}
 where $H_{gry}$ is the weight in kilograms of \fishName{} SOK harvest in fishery $g$, SAR $r$, and year $y$,
 $\nu$ is the proportion of SOK product weight that is kelp,
 $\upsilon$ is the SOK product weight increase due to brining as a proportion,
-$M$ is the average mass in kilograms of a fertilized egg,
+$w$ is the average weight in kilograms of a fertilized egg,
 $\theta$ is the egg conversion factor from \autoref{eqECF}, and
 $B_{gry}$ is spawning biomass in tonnes for SOK fishery $g$ (\autoref{tabNotationSOK}).
 Then we aggregate spawning biomass by SAR $r$ and year $y$
@@ -1632,7 +1632,7 @@ Legend: kilograms (kg), tonnes (t).}
 $H$ & Weight of SOK harvest & kg & \\
 $\nu$ & Proportion of SOK product that is kelp & \Sexpr{pars$sok$nu} & \cite{ShieldsEtal1985} \\
 $\upsilon$ & SOK product weight increase due to brining (proportion) & \Sexpr{pars$sok$upsilon} & \cite{WhyteEnglar1977} \\
-$M$ & Average mass of a fertilized egg & \Sexpr{pars$sok$M}$\,\text{kg}$ & \cite{HayMiller1982} \\
+$w$ & Average weight of a fertilized egg & \Sexpr{pars$sok$w}$\,\text{kg}$ & \cite{HayMiller1982} \\
 $B$ & Spawning biomass & t & \\
 \bottomrule
 \end{tabulary}
@@ -1733,7 +1733,7 @@ $\varphi$ & Parameter for substrate egg density model (Eq \ref{eqUnderDensSubQTS
 $\vartheta$, $\varrho$, $\varsigma$, $C_v$ & Parameters for algae egg density model (Eq \ref{eqUnderDensAlgVQTS}, \autoref{tab:AlgaeCoefs}). & Coastwide from 1976 to 1987 ($n=$ 5,111 samples). & Model accounts for 40\% of variation in egg density. & \cite{Schweigert2005} \\
 $\nu$ & Proportion of SOK product that is kelp (Eq \ref{eqSOKBioGRY}). & HG in 1982 and 1983; PRD in 1982. & $\text{SD}=4.2$. & \cite{ShieldsEtal1985} \\
 $\upsilon$ & SOK product weight increase due to brining (proportion; Eq \ref{eqSOKBioGRY}). & SoG ca. 1977. & NA & \cite{WhyteEnglar1977} \\
-$M$ & Average mass of a fertilized egg (Eq \ref{eqSOKBioGRY}). & SoG in 1980 ($n=7$ samples). & $\text{SE}=3.4 \times 10^{-7}$. & \cite{HayMiller1982}
+$w$ & Average weight of a fertilized egg (Eq \ref{eqSOKBioGRY}). & SoG in 1980 ($n=7$ samples). & $\text{SE}=3.4 \times 10^{-7}$. & \cite{HayMiller1982}
 \label{tabUncertainty}
 \end{longtable}
 \end{landscape}

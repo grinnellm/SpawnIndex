@@ -22,7 +22,7 @@ test_that("Parameters", {
   expect_named(pars$conversion, c("omega", "female"))
   expect_setequal(pars$conversion, c(2e+05, 0.5))
   expect_type(pars$sok, "list")
-  expect_named(pars$sok, c("nu", "upsilon", "M"))
+  expect_named(pars$sok, c("nu", "upsilon", "w"))
   expect_setequal(pars$sok, c(0.12, 0.132, 2.38e-06))
   expect_type(pars$surface, "list")
   expect_named(pars$surface, c("alpha", "beta"))
