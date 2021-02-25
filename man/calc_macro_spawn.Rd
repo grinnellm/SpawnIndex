@@ -48,7 +48,7 @@ from \code{\link{pars}} \insertCite{HaegeleSchweigert1990}{SpawnIndex}.}
 \item{quiet}{Logical. Suppress messages; default is FALSE.}
 }
 \value{
-List. The element \code{SI} is a tibble with Macrocystis spawn index
+List. The element \code{si} is a tibble with Macrocystis spawn index
 (\code{MacroSI}) in tonnes by spawn number and year. The spawn number is
 the finest spatial scale at which we calculate the spawn index. Other
 information in this tibble comes from \code{a}: Region, Statistical Area,
@@ -78,7 +78,7 @@ macro_loc <- list(
 macro_spawn <- calc_macro_spawn(
   where = macro_loc, a = areas, yrs = 2010:2015
 )
-macro_spawn$SI
+macro_spawn$si
 }
 \references{
 \insertAllCited

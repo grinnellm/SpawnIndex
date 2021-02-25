@@ -173,7 +173,7 @@ Show surface spawn on a map, aggregated by Location and year.
 
 ```{r surf_loc_yr, fig.cap = "Surface spawn index in tonnes (t) by location and year."}
 # Make a spatial object for mapping
-surf_loc_yr <- surf_spawn$SI %>%
+surf_loc_yr <- surf_spawn$si %>%
   group_by(Year, LocationCode) %>%
   summarise(Surface = round(sum(SurfSI, na.rm = TRUE))) %>%
   ungroup() %>%
@@ -197,7 +197,7 @@ Calculate the total surface spawn by year.
 
 ```{r surf_yr, results = 'asis'}
 # Aggregate the surface spawn index by year
-surf_yr <- surf_spawn$SI %>%
+surf_yr <- surf_spawn$si %>%
   group_by(Year) %>%
   summarise(Surface = sum(SurfSI, na.rm = TRUE)) %>%
   ungroup() %>%
@@ -230,7 +230,7 @@ Show Macrocystis spawn on a map, aggregated by Location and year.
 
 ```{r macro_loc_yr, fig.cap = "Macrocystis spawn index in tonnes (t) by location and year."}
 # Make a spatial object for mapping
-macro_loc_yr <- macro_spawn$SI %>%
+macro_loc_yr <- macro_spawn$si %>%
   group_by(Year, LocationCode) %>%
   summarise(Macrocystis = round(sum(MacroSI, na.rm = TRUE))) %>%
   ungroup() %>%
@@ -254,7 +254,7 @@ Calculate the total Macrocystis spawn by year.
 
 ```{r macro_yr, results = 'asis'}
 # Aggregate the Macrocystis spawn index by year
-macro_yr <- macro_spawn$SI %>%
+macro_yr <- macro_spawn$si %>%
   group_by(Year) %>%
   summarise(Macrocystis = sum(MacroSI, na.rm = TRUE)) %>%
   ungroup() %>%
@@ -293,7 +293,7 @@ Show understory spawn on a map, aggregated by Location and year.
 
 ```{r under_loc_yr, fig.cap = "Understory spawn index in tonnes (t) by location and year."}
 # Make a spatial object for mapping
-under_loc_yr <- under_spawn$SI %>%
+under_loc_yr <- under_spawn$si %>%
   group_by(Year, LocationCode) %>%
   summarise(Understory = round(sum(UnderSI, na.rm = TRUE))) %>%
   ungroup() %>%
@@ -317,7 +317,7 @@ Calculate the total understory spawn by year.
 
 ```{r under_yr, results = 'asis'}
 # Aggregate the understory spawn index by year
-under_yr <- under_spawn$SI %>%
+under_yr <- under_spawn$si %>%
   group_by(Year) %>%
   summarise(Understory = sum(UnderSI, na.rm = TRUE)) %>%
   ungroup() %>%

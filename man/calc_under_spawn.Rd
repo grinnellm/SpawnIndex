@@ -53,7 +53,7 @@ staring in \code{pars$years$assess}.}
 \item{quiet}{Logical. Suppress messages; default is FALSE.}
 }
 \value{
-List. The element \code{SI} is a tibble with understory spawn index
+List. The element \code{si} is a tibble with understory spawn index
 (\code{UnderSI}) in tonnes by spawn number and year. The spawn number is
 the finest spatial scale at which we calculate the spawn index. Other
 information in this tibble comes from \code{a}: Region, Statistical Area,
@@ -85,7 +85,7 @@ data(algae_coefs)
 under_spawn <- calc_under_spawn(
   where = under_loc, a = areas, yrs = 2010:2015
 )
-under_spawn$SI
+under_spawn$si
 }
 \references{
 \insertAllCited

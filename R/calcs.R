@@ -117,15 +117,15 @@ calc_biomass_sok <- function(sok,
   if (any(na.omit(theta) < 0) & !quiet) message("`theta` < 0.")
   # Spawning biomass in tonnes: (kg SOK * proportion eggs * proportion eggs) /
   # (kg per egg * eggs per tonne )
-  SB <- (sok * (1 - nu) * 1 / (1 + upsilon)) / (w * theta)
-  # Check SB: numeric
-  if (!is.numeric(SB)) stop("`SB` is not numeric.", call. = FALSE)
-  # Check SB: NA
-  if (any(is.na(SB)) & !quiet) message("NA(s) in spawning biomass `SB`")
-  # Check SB: range
-  if (any(na.omit(SB) < 0) & !quiet) message("`SB` < 0.")
+  sb <- (sok * (1 - nu) * 1 / (1 + upsilon)) / (w * theta)
+  # Check sb: numeric
+  if (!is.numeric(sb)) stop("`sb` is not numeric.", call. = FALSE)
+  # Check sb: NA
+  if (any(is.na(sb)) & !quiet) message("NA(s) in spawning biomass `sb`")
+  # Check sb: range
+  if (any(na.omit(sb) < 0) & !quiet) message("`sb` < 0.")
   # Return the spawning biomass
-  SB
+  sb
 } # End calc_biomass_sok
 
 #' Calculate the surface spawn index.
@@ -163,7 +163,7 @@ calc_biomass_sok <- function(sok,
 #' @importFrom gfiscamutils MeanNA SumNA
 #' @importFrom tidyr replace_na
 #' @importFrom Rdpack reprompt
-#' @return List. The element \code{SI} is a tibble with surface spawn index
+#' @return List. The element \code{si} is a tibble with surface spawn index
 #'   (\code{SurfSI}) in tonnes by spawn number and year. The spawn number is the
 #'   finest spatial scale at which we calculate the spawn index. Other
 #'   information in this tibble comes from \code{a}: Region, Statistical Area,
@@ -199,7 +199,7 @@ calc_biomass_sok <- function(sok,
 #' surf_spawn <- calc_surf_spawn(
 #'   where = surf_loc, a = areas, widths = width_bar, yrs = 2010:2015
 #' )
-#' surf_spawn$SI
+#' surf_spawn$si
 calc_surf_spawn <- function(where,
                             a,
                             widths,
@@ -477,26 +477,26 @@ calc_surf_spawn <- function(where,
         "Year", "Region", "StatArea", "Section", "LocationCode", "SpawnNumber"
       )
     )
-  # Calculate annual SI by spawn number
-  SI <- biomass_spawn %>%
+  # Calculate annual si by spawn number
+  si <- biomass_spawn %>%
     select(Year, Region, StatArea, Section, LocationCode, SpawnNumber, SurfSI)
   # Close the connection
   dbDisconnect(conn = access_db)
   # Assemble into a list
   res <- list(
     surface = surface, eggs = eggs, eggs_spawn = eggs_spawn,
-    biomass_spawn = biomass_spawn, SI = SI
+    biomass_spawn = biomass_spawn, si = si
   )
   # Check output: rows
-  if (nrow(res$SI) == 0) stop("`res$SI` has no data.", call. = FALSE)
+  if (nrow(res$si) == 0) stop("`res$si` has no data.", call. = FALSE)
   # Check output: tibble
-  if (!is_tibble(res$SI)) stop("`res$SI` is not a tibble.", call. = FALSE)
+  if (!is_tibble(res$si)) stop("`res$si` is not a tibble.", call. = FALSE)
   # Check output: names
   if (!all(c(
     "Year", "Region", "StatArea", "Section", "LocationCode", "SpawnNumber",
     "SurfSI"
-  ) %in% names(res$SI))) {
-    stop("`res$SI` is missing columns", call. = FALSE)
+  ) %in% names(res$si))) {
+    stop("`res$si` is missing columns", call. = FALSE)
   }
   # Return the list
   res
@@ -534,7 +534,7 @@ calc_surf_spawn <- function(where,
 #' @importFrom gfiscamutils MeanNA SumNA UniqueNA
 #' @importFrom tidyr replace_na
 #' @importFrom Rdpack reprompt
-#' @return List. The element \code{SI} is a tibble with Macrocystis spawn index
+#' @return List. The element \code{si} is a tibble with Macrocystis spawn index
 #'   (\code{MacroSI}) in tonnes by spawn number and year. The spawn number is
 #'   the finest spatial scale at which we calculate the spawn index. Other
 #'   information in this tibble comes from \code{a}: Region, Statistical Area,
@@ -563,7 +563,7 @@ calc_surf_spawn <- function(where,
 #' macro_spawn <- calc_macro_spawn(
 #'   where = macro_loc, a = areas, yrs = 2010:2015
 #' )
-#' macro_spawn$SI
+#' macro_spawn$si
 calc_macro_spawn <- function(where,
                              a,
                              yrs,
@@ -735,7 +735,7 @@ calc_macro_spawn <- function(where,
     rename(MacroLyrs = EggLyrs) %>%
     ungroup()
   # Return the macrocystis spawn
-  SI <- biomass_spawn %>%
+  si <- biomass_spawn %>%
     select(
       Year, Region, StatArea, Section, LocationCode, SpawnNumber, MacroSI
     )
@@ -743,18 +743,18 @@ calc_macro_spawn <- function(where,
   dbDisconnect(conn = access_db)
   # Assemble into a list
   res <- list(
-    dat = dat, dat_trans = dat_trans, biomass_spawn = biomass_spawn, SI = SI
+    dat = dat, dat_trans = dat_trans, biomass_spawn = biomass_spawn, si = si
   )
   # Check output: rows
-  if (nrow(res$SI) == 0) stop("`res$SI` has no data.", call. = FALSE)
+  if (nrow(res$si) == 0) stop("`res$si` has no data.", call. = FALSE)
   # Check output: tibble
-  if (!is_tibble(res$SI)) stop("`res$SI` is not a tibble.", call. = FALSE)
+  if (!is_tibble(res$si)) stop("`res$si` is not a tibble.", call. = FALSE)
   # Check output: names
   if (!all(c(
     "Year", "Region", "StatArea", "Section", "LocationCode", "SpawnNumber",
     "MacroSI"
-  ) %in% names(res$SI))) {
-    stop("`res$SI` is missing columns", call. = FALSE)
+  ) %in% names(res$si))) {
+    stop("`res$si` is missing columns", call. = FALSE)
   }
   # Return the list
   res
@@ -795,7 +795,7 @@ calc_macro_spawn <- function(where,
 #' @importFrom gfiscamutils MeanNA SumNA UniqueNA WtMeanNA
 #' @importFrom tidyr replace_na gather
 #' @importFrom Rdpack reprompt
-#' @return List. The element \code{SI} is a tibble with understory spawn index
+#' @return List. The element \code{si} is a tibble with understory spawn index
 #'   (\code{UnderSI}) in tonnes by spawn number and year. The spawn number is
 #'   the finest spatial scale at which we calculate the spawn index. Other
 #'   information in this tibble comes from \code{a}: Region, Statistical Area,
@@ -827,7 +827,7 @@ calc_macro_spawn <- function(where,
 #' under_spawn <- calc_under_spawn(
 #'   where = under_loc, a = areas, yrs = 2010:2015
 #' )
-#' under_spawn$SI
+#' under_spawn$si
 calc_under_spawn <- function(where,
                              a,
                              yrs,
@@ -1133,8 +1133,8 @@ calc_under_spawn <- function(where,
       UnderSI = EggDens * LengthAlgae * WidthBar * 1000 / theta
     ) %>%
     left_join(y = egg_lyrs, by = c("Year", "LocationCode", "SpawnNumber"))
-  # Calculate understory SI by spawn number
-  SI <- biomass_spawn %>%
+  # Calculate understory si by spawn number
+  si <- biomass_spawn %>%
     select(
       Year, Region, StatArea, Section, LocationCode, SpawnNumber, UnderSI
     )
@@ -1144,18 +1144,18 @@ calc_under_spawn <- function(where,
   res <- list(
     stations = stations, algae = algae, eggs = eggs,
     eggs_station = eggs_station, eggs_trans = eggs_trans,
-    eggs_spawn = eggs_spawn, biomass_spawn = biomass_spawn, SI = SI
+    eggs_spawn = eggs_spawn, biomass_spawn = biomass_spawn, si = si
   )
   # Check output: rows
-  if (nrow(res$SI) == 0) stop("`res$SI` has no data.", call. = FALSE)
+  if (nrow(res$si) == 0) stop("`res$si` has no data.", call. = FALSE)
   # Check output: tibble
-  if (!is_tibble(res$SI)) stop("`res$SI` is not a tibble.", call. = FALSE)
+  if (!is_tibble(res$si)) stop("`res$si` is not a tibble.", call. = FALSE)
   # Check output: names
   if (!all(c(
     "Year", "Region", "StatArea", "Section", "LocationCode", "SpawnNumber",
     "UnderSI"
-  ) %in% names(res$SI))) {
-    stop("`res$SI` is missing columns", call. = FALSE)
+  ) %in% names(res$si))) {
+    stop("`res$si` is missing columns", call. = FALSE)
   }
   # Return the list
   res

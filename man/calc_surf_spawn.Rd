@@ -53,7 +53,7 @@ re-scaled from 5 to 9 categories. Message if >= \code{pars$years$assess}.}
 \item{quiet}{Logical. Suppress messages; default is FALSE.}
 }
 \value{
-List. The element \code{SI} is a tibble with surface spawn index
+List. The element \code{si} is a tibble with surface spawn index
 (\code{SurfSI}) in tonnes by spawn number and year. The spawn number is the
 finest spatial scale at which we calculate the spawn index. Other
 information in this tibble comes from \code{a}: Region, Statistical Area,
@@ -89,7 +89,7 @@ surf_loc <- list(
 surf_spawn <- calc_surf_spawn(
   where = surf_loc, a = areas, widths = width_bar, yrs = 2010:2015
 )
-surf_spawn$SI
+surf_spawn$si
 }
 \references{
 \insertAllCited
