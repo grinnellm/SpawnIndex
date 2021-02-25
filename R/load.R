@@ -265,7 +265,8 @@ load_area_data <- function(reg,
   # If groups is NULL
   if (is.null(groups)) {
     # Set groups to NA
-    locations$Group <- NA
+    locations <- locations %>%
+      mutate(Group = NA)
   } else { # End if NULL, otherwise
     # Determine matching columns
     grp_cols <- which(names(groups) %in% names(locations))
