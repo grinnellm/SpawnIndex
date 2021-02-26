@@ -7,7 +7,7 @@
 #' @param quiet Logical. Suppress messages; default is FALSE.
 #' @importFrom Rdpack reprompt
 #' @return NULL.
-#' @family checker functions
+#' @family check functions
 #' @export
 #' @examples
 #' check_numeric(dat = list(x = c(1:3, NA), y = 1))
@@ -15,21 +15,25 @@ check_numeric <- function(dat, quiet = FALSE) {
   # Ensure input is a list
   if (!is.list(dat)) stop("`dat` must be a list", call. = FALSE)
   # Check for NA
-  if (any(is.na(unlist(dat))) & !quiet) {
+  any_na <- sapply(X = dat, FUN = function(x) any(is.na(x)))
+  # If NAs
+  if (any(any_na) & !quiet) {
     # Where are the NAs
-    na_names <- names(dat)[sapply(dat, function(x) any(is.na(x)))]
+    na_names <- names(dat)[any_na]
     # Message
     message("NA(s) in: ", paste(na_names, collapse = ", "), ".")
-  } # End NA check
+  } # End if NAs
   # Check for numeric
-  if (!is.numeric(unlist(dat))) {
+  not_numeric <- sapply(X = dat, FUN = function(x) !is.numeric(x))
+  # If not numeric
+  if (any(not_numeric)) {
     # Names of not numeric
-    numeric_names <- names(dat)[sapply(dat, function(x) !is.numeric(x))]
+    numeric_names <- names(dat)[not_numeric]
     # Error
     stop("Not numeric: ", paste(numeric_names, collapse = ", "), ".",
       call. = FALSE
     )
-  } # End numeric check
+  } # End if not numeric
   # Nothing to return
   NULL
 }
@@ -45,26 +49,26 @@ check_numeric <- function(dat, quiet = FALSE) {
 #' @importFrom tibble is_tibble
 #' @importFrom Rdpack reprompt
 #' @return NULL.
-#' @family checker functions
+#' @family check functions
 #' @export
 #' @examples
-#' check_tibble(dat = list(x = tibble::tibble(), y = tibble::tibble(x = 1)))
+#' check_tibble(dat = list(x = tibble(), y = tibble(x = 1)))
 check_tibble <- function(dat, min_rows = 1, quiet = FALSE) {
   # Ensure input is a list
   if (!is.list(dat)) stop("`dat` must be a list", call. = FALSE)
   # Check input: numeric
   check_numeric(dat = list(min_rows = min_rows), quiet = quiet)
-  # Check for rows
-  no_rows <- sapply(dat, function(x) nrow(x) < min_rows)
-  # If no rows
-  if (any(no_rows) & !quiet) {
-    # Where are the zero rows
-    no_row_names <- names(dat)[no_rows]
+  # Check for enough rows
+  few_rows <- sapply(X = dat, FUN = function(x) nrow(x) < min_rows)
+  # If not enough rows
+  if (any(few_rows) & !quiet) {
+    # Where are there not enough rows
+    few_row_names <- names(dat)[few_rows]
     # Error
-    message("No rows in: ", paste(no_row_names, collapse = ", "), ".")
-  } # End row check
-  # Check for tibble
-  not_tibble <- sapply(dat, function(x) !is_tibble(x))
+    message("Not enough rows in: ", paste(few_row_names, collapse = ", "), ".")
+  } # End if not enough rows
+  # Check for tibbles
+  not_tibble <- sapply(X = dat, FUN = function(x) !is_tibble(x))
   # If not tibbles
   if (any(not_tibble)) {
     # Names of not tibbles
@@ -73,7 +77,7 @@ check_tibble <- function(dat, min_rows = 1, quiet = FALSE) {
     stop("Not tibble(s): ", paste(not_tibble_names, collapse = ", "), ".",
       call. = FALSE
     )
-  } # End tibble check
+  } # End if not tibbles
   # Nothing to return
   NULL
 }

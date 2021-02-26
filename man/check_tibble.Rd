@@ -21,10 +21,10 @@ Check that an object is a tibble and has a minimum number of rows. Message if
 fewer rows, and error if not a tibble.
 }
 \examples{
-check_tibble(dat = list(x = tibble::tibble(), y = tibble::tibble(x = 1)))
+check_tibble(dat = list(x = tibble(), y = tibble(x = 1)))
 }
 \seealso{
-Other checker functions: 
+Other check functions: 
 \code{\link{check_numeric}()}
 }
-\concept{checker functions}
+\concept{check functions}
