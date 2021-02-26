@@ -445,7 +445,7 @@ calc_surf_spawn <- function(where,
 #'   \code{\link{load_area_data}}.
 #' @param yrs Numeric vector. Years(s) to include in the calculations, usually
 #'   staring in `pars$years$assess`.
-#' @param t_swath Numeric. Transect swath (i.e., width) in metres.
+#' @param chi Numeric. Transect swath (i.e., width) in metres.
 #' @param xi Numeric. Regression slope; from \code{\link{pars}}
 #'   \insertCite{HaegeleSchweigert1990}{SpawnIndex}.
 #' @param gamma Numeric. Regression exponent on egg layers; from
@@ -499,7 +499,7 @@ calc_surf_spawn <- function(where,
 calc_macro_spawn <- function(where,
                              a,
                              yrs,
-                             t_swath = 2,
+                             chi = 2,
                              xi = pars$macrocystis$xi,
                              gamma = pars$macrocystis$gamma,
                              delta = pars$macrocystis$delta,
@@ -509,7 +509,7 @@ calc_macro_spawn <- function(where,
   # Check input: NA and numeric
   check_numeric(
     dat = list(
-      yrs = yrs, t_swath = t_swath, xi = xi, gamma = gamma,
+      yrs = yrs, chi = chi, xi = xi, gamma = gamma,
       delta = delta, epsilon = epsilon, theta = theta
     ),
     quiet = quiet
@@ -538,8 +538,8 @@ calc_macro_spawn <- function(where,
   if (any(yrs < pars$years$assess) & !quiet) {
     message("`yrs` < ", pars$years$assess, ".")
   }
-  # Check t_swath: value
-  if (t_swath != 2 & !quiet) message("`t_swath` != 2")
+  # Check chi: value
+  if (chi != 2 & !quiet) message("`chi` != 2")
   # Establish connection with access
   access_db <- dbConnect(
     drv = odbc(),
@@ -591,7 +591,7 @@ calc_macro_spawn <- function(where,
       "Year", "LocationCode", "SpawnNumber", "Transect"
     )) %>%
     replace_na(replace = list(Mature = 0)) %>%
-    mutate(Swath = t_swath)
+    mutate(Swath = chi)
   # Calculate transect-level data
   dat_trans <- dat %>%
     group_by(

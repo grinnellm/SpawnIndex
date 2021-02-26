@@ -8,7 +8,7 @@ calc_macro_spawn(
   where,
   a,
   yrs,
-  t_swath = 2,
+  chi = 2,
   xi = pars$macrocystis$xi,
   gamma = pars$macrocystis$gamma,
   delta = pars$macrocystis$delta,
@@ -28,7 +28,7 @@ spawn survey observations to include in calculations; from
 \item{yrs}{Numeric vector. Years(s) to include in the calculations, usually
 staring in \code{pars$years$assess}.}
 
-\item{t_swath}{Numeric. Transect swath (i.e., width) in metres.}
+\item{chi}{Numeric. Transect swath (i.e., width) in metres.}
 
 \item{xi}{Numeric. Regression slope; from \code{\link{pars}}
 \insertCite{HaegeleSchweigert1990}{SpawnIndex}.}
