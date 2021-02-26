@@ -66,8 +66,6 @@ load_area_data <- function(reg,
                            out_crs = "+init=epsg:3005",
                            groups = NULL,
                            quiet = FALSE) {
-  # Warning if R is not 32-bit
-  if (.Machine$sizeof.pointer != 4) warning("32-bit R required", call. = FALSE)
   # Check where: character
   if (!is.character(reg)) stop("`reg` must be character.", call. = FALSE)
   # Check sec_sub: numeric or null
