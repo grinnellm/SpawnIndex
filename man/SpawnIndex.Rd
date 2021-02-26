@@ -18,8 +18,8 @@ spawn-on-kelp operations. Note that the 'spawn index' is a relative index of
 spawning biomass.
 }
 \details{
-The SpawnIndex package provides data, and two categories of functions: load,
-and calculations.
+The SpawnIndex package provides data, and three categories of functions:
+load, calculations, and checks.
 }
 \note{
 The `spawn index' is a relative index of spawning biomass. Read the
@@ -45,6 +45,11 @@ an example database with spawn survey observations
 \code{\link{calc_egg_conversion}}, \code{\link{calc_biomass_sok}},
 \code{\link{calc_surf_spawn}}, \code{\link{calc_macro_spawn}}, and
 \code{\link{calc_under_spawn}}.
+}
+
+\section{Check functions}{
+ The check functions are
+\code{\link{check_numeric}}, and \code{\link{check_tibble}}.
 }
 
 \references{
