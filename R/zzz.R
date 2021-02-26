@@ -3,9 +3,6 @@
   packageStartupMessage(
     "This is SpawnIndex version ", utils::packageVersion("SpawnIndex"), "."
   )
-}
-
-.onLoad <- function(libname, pkgname) {
   # Check for 32-bit R
   if (.Machine$sizeof.pointer != 4) {
     packageStartupMessage("SpawnIndex requires 32-bit R.")
