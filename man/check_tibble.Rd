@@ -21,9 +21,7 @@ Check that an object is a tibble and has a minimum number of rows. Message if
 fewer rows, and error if not a tibble.
 }
 \examples{
-x <- data.frame(a = 1, b = 2)
-y <- tibble()
-check_tibble(dat = list(x = x, y = y))
+check_tibble(dat = list(x = tibble::tibble(), y = tibble::tibble(x = 1)))
 }
 \seealso{
 Other checker functions: 

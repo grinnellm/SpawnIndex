@@ -19,9 +19,7 @@ Check that an object is numeric and if there are NAs. Message if NAs, and
 error if not numeric.
 }
 \examples{
-x <- c(1:3, NA)
-y <- "a"
-check_numeric(dat = list(x = x, y = y))
+check_numeric(dat = list(x = c(1:3, NA), y = 1))
 }
 \seealso{
 Other checker functions: 

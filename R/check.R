@@ -10,9 +10,7 @@
 #' @family checker functions
 #' @export
 #' @examples
-#' x <- c(1:3, NA)
-#' y <- "a"
-#' check_numeric(dat = list(x = x, y = y))
+#' check_numeric(dat = list(x = c(1:3, NA), y = 1))
 check_numeric <- function(dat, quiet = FALSE) {
   # Ensure input is a list
   if (!is.list(dat)) stop("`dat` must be a list", call. = FALSE)
@@ -25,10 +23,10 @@ check_numeric <- function(dat, quiet = FALSE) {
   } # End NA check
   # Check for numeric
   if (!is.numeric(unlist(dat))) {
-    # Where are the non-numeric
+    # Names of not numeric
     numeric_names <- names(dat)[sapply(dat, function(x) !is.numeric(x))]
     # Error
-    stop("Non-numeric values: ", paste(numeric_names, collapse = ", "), ".",
+    stop("Not numeric: ", paste(numeric_names, collapse = ", "), ".",
       call. = FALSE
     )
   } # End numeric check
@@ -50,25 +48,27 @@ check_numeric <- function(dat, quiet = FALSE) {
 #' @family checker functions
 #' @export
 #' @examples
-#' x <- data.frame(a = 1, b = 2)
-#' y <- tibble()
-#' check_tibble(dat = list(x = x, y = y))
+#' check_tibble(dat = list(x = tibble::tibble(), y = tibble::tibble(x = 1)))
 check_tibble <- function(dat, min_rows = 1, quiet = FALSE) {
   # Ensure input is a list
   if (!is.list(dat)) stop("`dat` must be a list", call. = FALSE)
   # Check input: numeric
   check_numeric(dat = list(min_rows = min_rows), quiet = quiet)
   # Check for rows
-  if (any(nrow(unlist(dat))) < min_rows) {
+  no_rows <- sapply(dat, function(x) nrow(x) < min_rows)
+  # If no rows
+  if (any(no_rows) & !quiet) {
     # Where are the zero rows
-    no_row_names <- names(dat)[sapply(dat, function(x) nrow(x) == 0)]
+    no_row_names <- names(dat)[no_rows]
     # Error
-    message("No data in: ", paste(no_row_names, collapse = ", "), ".")
+    message("No rows in: ", paste(no_row_names, collapse = ", "), ".")
   } # End row check
   # Check for tibble
-  if (any(!is_tibble(unlist(dat))) & !quiet) {
-    # Where are the non-tibbles
-    not_tibble_names <- names(dat)[sapply(dat, function(x) !is_tibble(x))]
+  not_tibble <- sapply(dat, function(x) !is_tibble(x))
+  # If not tibbles
+  if (any(not_tibble)) {
+    # Names of not tibbles
+    not_tibble_names <- names(dat)[not_tibble]
     # Message
     stop("Not tibble(s): ", paste(not_tibble_names, collapse = ", "), ".",
       call. = FALSE
