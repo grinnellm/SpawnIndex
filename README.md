@@ -20,7 +20,7 @@ version](https://img.shields.io/badge/Version-0.2.0-orange.svg?style=flat-square
 status](https://www.r-pkg.org/badges/version/SpawnIndex)](https://CRAN.R-project.org/package=SpawnIndex)
 <!-- badges: end -->
 
-Note that `R-CMD-check` works on my Windows machine but fails on GitHub
+Note: `R-CMD-check` works on my Windows machine but fails on GitHub
 Actions (see [\#30](https://github.com/grinnellm/SpawnIndex/issues/30)).
 
 ## Description
@@ -55,6 +55,11 @@ biomass) in tonnes, t.
 
 ``` r
 library(SpawnIndex)
+```
+
+    ## This is SpawnIndex version 0.2.0.
+
+``` r
 data(pars)
 theta <- calc_egg_conversion()
 theta
