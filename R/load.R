@@ -138,8 +138,7 @@ load_area_data <- function(reg,
   # Error if region is incorrect
   if (!(reg %in% c(unlist(all_regions), "All"))) {
     stop(
-      "Possible regions are: ", paste(unlist(all_regions), collapse = ", "),
-      ".",
+      "Possible regions are: ", paste_nicely(unlist(all_regions)), ".",
       call. = FALSE
     )
   }
@@ -288,7 +287,7 @@ load_area_data <- function(reg,
     # Message re some sections(s) missing group info
     if (!none_or_all & !quiet) {
       cat("Incomplete `Group' info for Section(s): ",
-        paste(unique(grp_u_na$Section), collapse = ", "), "\n",
+        paste_nicely(unique(grp_u_na$Section)), "\n",
         sep = ""
       )
     }
@@ -315,7 +314,7 @@ load_area_data <- function(reg,
       droplevels()
     # Message
     if (!quiet) {
-      cat("Sections: ", paste(sec_sub, collapse = ", "), "\n", sep = "")
+      cat("Sections: ", paste_nicely(sec_sub), "\n", sep = "")
     }
   } # End if subsetting sections
   # Close the connection

@@ -904,9 +904,7 @@ calc_under_spawn <- function(where,
     miss_alg <- unique(algae$AlgType[!algae$AlgType %in%
       alg_coefs$AlgType])
     # Error, and show missing type(s)
-    stop("Missing algae type(s): ", paste(miss_alg, collapse = ", "), ".",
-      call. = FALSE
-    )
+    stop("Missing algae type(s): ", paste_nicely(miss_alg), ".", call. = FALSE)
   } # End if there are missing algae types
   # Get a small subset of area data
   areas_sm_2 <- a %>%

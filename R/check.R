@@ -21,7 +21,7 @@ check_numeric <- function(dat, quiet = FALSE) {
     # Where are the NAs
     na_names <- names(dat)[any_na]
     # Message
-    message("NA(s) in: ", paste(na_names, collapse = ", "), ".")
+    message("NA(s) in: ", paste_nicely(na_names, do_quotes = TRUE), ".")
   } # End if NAs
   # Check for numeric
   not_numeric <- sapply(X = dat, FUN = function(x) !is.numeric(x))
@@ -30,7 +30,7 @@ check_numeric <- function(dat, quiet = FALSE) {
     # Names of not numeric
     numeric_names <- names(dat)[not_numeric]
     # Error
-    stop("Not numeric: ", paste(numeric_names, collapse = ", "), ".",
+    stop("Not numeric: ", paste_nicely(numeric_names, do_quotes = TRUE), ".",
       call. = FALSE
     )
   } # End if not numeric
@@ -65,7 +65,8 @@ check_tibble <- function(dat, min_rows = 1, quiet = FALSE) {
     # Where are there not enough rows
     few_row_names <- names(dat)[few_rows]
     # Error
-    message("Not enough rows in: ", paste(few_row_names, collapse = ", "), ".")
+    message("Not enough rows in: ", paste_nicely(few_row_names, do_quotes = TRUE
+    ), ".")
   } # End if not enough rows
   # Check for tibbles
   not_tibble <- sapply(X = dat, FUN = function(x) !is_tibble(x))
@@ -74,7 +75,8 @@ check_tibble <- function(dat, min_rows = 1, quiet = FALSE) {
     # Names of not tibbles
     not_tibble_names <- names(dat)[not_tibble]
     # Message
-    stop("Not tibble(s): ", paste(not_tibble_names, collapse = ", "), ".",
+    stop("Not tibble(s): ", paste_nicely(not_tibble_names, do_quotes = TRUE),
+      ".",
       call. = FALSE
     )
   } # End if not tibbles
