@@ -1,11 +1,13 @@
 .onAttach <- function(libname, pkgname) {
-  # Version
-  version <- as.vector(read.dcf("DESCRIPTION")[, "Version"])
-  # Welcome
-  packageStartupMessage("Welcome to SpawnIndex v", version)
+  # Welcome message
+  packageStartupMessage(
+    "This is SpawnIndex version ", utils::packageVersion("SpawnIndex"), "."
+  )
 }
 
 .onLoad <- function(libname, pkgname) {
-  # Warning if R is not 32-bit
-  if (.Machine$sizeof.pointer != 4) warning("32-bit R required", call. = FALSE)
+  # Check for 32-bit R
+  if (.Machine$sizeof.pointer != 4) {
+    packageStartupMessage("SpawnIndex requires 32-bit R.")
+  }
 }
