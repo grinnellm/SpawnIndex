@@ -52,7 +52,7 @@ check_numeric <- function(dat, quiet = FALSE) {
 #' @family check functions
 #' @export
 #' @examples
-#' check_tibble(dat = list(x = tibble(), y = tibble(x = 1)))
+#' check_tibble(dat = list(x = tibble::tibble(), y = tibble::tibble(x = 1)))
 check_tibble <- function(dat, min_rows = 1, quiet = FALSE) {
   # Ensure input is a list
   if (!is.list(dat)) stop("`dat` must be a list", call. = FALSE)
