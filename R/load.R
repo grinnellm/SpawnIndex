@@ -30,6 +30,7 @@
 #' @importFrom DBI dbReadTable
 #' @importFrom tibble as_tibble is_tibble
 #' @importFrom sp SpatialPoints spTransform CRS
+#' @importFrom Rdpack reprompt
 #' @return Tibble. Table of geographic information for Pacific Herring: SAR,
 #'   Region, Region name, Statistical Area, Group, Section, Location code,
 #'   Location name, Pool, Eastings, Northings, Longitude, and Latitude.
@@ -352,7 +353,7 @@ load_area_data <- function(reg,
 #' @importFrom odbc dbConnect odbc dbDisconnect
 #' @importFrom DBI dbReadTable
 #' @importFrom dplyr select rename full_join filter mutate %>% arrange ungroup
-#' @importFrom tibble as_tibble is_tibble
+#' @importFrom tibble as_tibble
 #' @importFrom stringr str_to_title
 #' @importFrom lubridate as_date
 #' @importFrom gfiscamutils MaxNA
