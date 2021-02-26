@@ -23,26 +23,18 @@
 calc_egg_conversion <- function(omega = pars$conversion$omega,
                                 female = pars$conversion$female,
                                 quiet = FALSE) {
-  # Check omega: NA
-  if (any(is.na(omega)) & !quiet) message("NA(s) in `omega`")
-  # Check omega: numeric
-  if (!is.numeric(omega)) stop("`omega` must be numeric.", call. = FALSE)
+  # Check input: NA and numeric
+  check_numeric(dat = list(omega = omega, female = female), quiet = quiet)
   # Check omega: range
   if (any(na.omit(omega) < 0) & !quiet) message("`omega` < 0.")
-  # Check female: NA
-  if (any(is.na(female)) & !quiet) message("NA(s) in `female`")
-  # Check female: numeric
-  if (!is.numeric(female)) stop("`female` must be numeric.", call. = FALSE)
   # Check female: range
   if ((any(na.omit(female) < 0) | any(na.omit(female) > 1)) & !quiet) {
     message("`female` < 0 and/or > 1.")
   }
   # Eggs per tonne: eggs/kilogram female * proportion female * kilograms/tonne
   theta <- omega * female * 1000
-  # Check theta: NA
-  if (any(is.na(theta)) & !quiet) message("NA(s) in `theta`")
-  # Check theta: numeric
-  if (any(!is.numeric(theta))) stop("`theta` is not numeric.", call. = FALSE)
+  # Check output: NA and numeric
+  check_numeric(dat = list(theta = theta), quiet = quiet)
   # Check theta: range
   if (any(na.omit(theta) < 0) & !quiet) message("`theta` < 0.")
   # Return the conversion factor
@@ -81,47 +73,30 @@ calc_biomass_sok <- function(sok,
                              w = pars$sok$w,
                              theta = calc_egg_conversion(),
                              quiet = FALSE) {
-  # Check sok: NA
-  if (any(is.na(sok)) & !quiet) message("NA(s) in `sok`")
-  # Check sok: numeric
-  if (!is.numeric(sok)) stop("`sok` must be numeric.", call. = FALSE)
+  # Check input: NA and numeric
+  check_numeric(
+    dat = list(sok = sok, nu = nu, upsilon = upsilon, w = w, theta = theta),
+    quiet = quiet
+  )
   # Check sok: range
   if (any(na.omit(sok) < 0) & !quiet) message("`sok` < 0.")
-  # Check nu: NA
-  if (any(is.na(nu)) & !quiet) message("NA(s) in `nu`")
-  # Check nu: numeric
-  if (!is.numeric(nu)) stop("`nu` must be numeric.", call. = FALSE)
   # Check nu: range
   if ((any(na.omit(nu) < 0) | any(na.omit(nu) > 1)) & !quiet) {
     message("`nu` < 0 and/or > 1.")
   }
-  # Check upsilon: NA
-  if (any(is.na(upsilon)) & !quiet) message("NA(s) in `upsilon`")
-  # Check upsilon: numeric
-  if (!is.numeric(upsilon)) stop("`upsilon` must be numeric.", call. = FALSE)
   # Check upsilon: range
   if ((any(na.omit(upsilon) < 0) | any(na.omit(upsilon) > 1)) & !quiet) {
     message("`upsilon` < 0 and/or > 1.")
   }
-  # Check w: NA
-  if (any(is.na(w)) & !quiet) message("NA(s) in `w`")
-  # Check w: numeric
-  if (!is.numeric(w)) stop("`w` must be numeric.", call. = FALSE)
   # Check w: range
   if (any(na.omit(w) < 0) & !quiet) message("`w` < 0.")
-  # Check theta: NA
-  if (any(is.na(theta)) & !quiet) message("NA(s) in `theta`")
-  # Check theta: numeric
-  if (!is.numeric(theta)) stop("`theta` must be numeric.", call. = FALSE)
   # Check theta: range
   if (any(na.omit(theta) < 0) & !quiet) message("`theta` < 0.")
   # Spawning biomass in tonnes: (kg SOK * proportion eggs * proportion eggs) /
   # (kg per egg * eggs per tonne )
   sb <- (sok * (1 - nu) * 1 / (1 + upsilon)) / (w * theta)
-  # Check sb: numeric
-  if (!is.numeric(sb)) stop("`sb` is not numeric.", call. = FALSE)
-  # Check sb: NA
-  if (any(is.na(sb)) & !quiet) message("NA(s) in spawning biomass `sb`")
+  # Check output: NA and numeric
+  check_numeric(dat = list(sb = sb), quiet = quiet)
   # Check sb: range
   if (any(na.omit(sb) < 0) & !quiet) message("`sb` < 0.")
   # Return the spawning biomass
@@ -211,6 +186,14 @@ calc_surf_spawn <- function(where,
                             beta = pars$surface$beta,
                             theta = calc_egg_conversion(),
                             quiet = FALSE) {
+  # Check input: NA and numeric
+  check_numeric(
+    dat = list(
+      yrs = yrs, intense_yrs = intense_yrs, rescale_yrs = rescale_yrs,
+      alpha = alpha, beta = beta, theta = theta
+    ),
+    quiet = quiet
+  )
   # Get where names
   where_names <- c("loc", "db", "fns.surface", "fns.all_spawn")
   # Check where: list
@@ -223,95 +206,46 @@ calc_surf_spawn <- function(where,
   if (typeof(unlist(where)) != "character") {
     stop("Argument `where` must contain characters", call. = FALSE)
   }
-  # Check a: tibble
-  if (!is_tibble(a)) {
-    stop("`a` must be a tibble.", call. = FALSE)
-  }
+  # Check input: tibble rows
+  check_tibble(dat = list(
+    a = a, region = widths$region, section = widths$section, pool = widths$pool,
+    intense = intense
+  ), quiet = quiet)
   # Check a: names
   if (!all(c(
     "SAR", "Region", "StatArea", "Section", "LocationCode", "Pool"
   ) %in% names(a))) {
     stop("`a` is missing columns", call. = FALSE)
   }
-  # Check widths: list
-  if (!is.list(widths)) stop("`widths` is not a list.", call. = FALSE)
-  # Check widths: region tibble
-  if (!is_tibble(widths$region)) {
-    stop("`widths$region` is not a tibble.", call. = FALSE)
-  }
-  # Check widths: region rows
-  if (nrow(widths$region) == 0 & !quiet) {
-    message("`widths$region` has no data.", call. = FALSE)
-  }
   # Check widths: region names
   if (!all(c("Region", "WidthReg") %in% names(widths$region))) {
     stop("`widths$region` is missing columns", call. = FALSE)
   }
-  # Check widths: section tibble
-  if (!is_tibble(widths$section)) {
-    stop("`widths$section` is not a tibble.", call. = FALSE)
-  }
-  # Check widths: section rows
-  if (nrow(widths$section) == 0 & !quiet) {
-    message("`widths$section` has no data.", call. = FALSE)
-  }
   # Check widths: section names
   if (!all(c("Region", "Section", "WidthSec") %in% names(widths$section))) {
     stop("`widths$section` is missing columns", call. = FALSE)
-  }
-  # Check widths: pool tibble
-  if (!is_tibble(widths$pool)) {
-    stop("`widths$pool` is not a tibble.", call. = FALSE)
-  }
-  # Check widths: pool rows
-  if (nrow(widths$pool) == 0 & !quiet) {
-    message("`widths$pool` has no data.", call. = FALSE)
   }
   # Check widths: pool names
   if (!all(c("Region", "Section", "Pool", "WidthPool") %in%
     names(widths$pool))) {
     stop("`widths$pool` is missing columns", call. = FALSE)
   }
-  # Check yrs: numeric
-  if (!is.numeric(yrs)) stop("`yrs` must be numeric", call. = FALSE)
   # Check yrs: range
   if (any(yrs < pars$years$assess) & !quiet) {
     message("`yrs` < ", pars$years$assess, ".")
   }
-  # Check intense: tibble
-  if (!is_tibble(intense)) stop("`intense` must be a tibble.", call. = FALSE)
   # Check intense: names
   if (!all(c("Intensity", "Description", "Layers") %in% names(intense))) {
     stop("`intense` is missing columns", call. = FALSE)
-  }
-  # Check intense_yrs: numeric
-  if (!is.numeric(intense_yrs)) {
-    stop("`intense_yrs` must be numeric", call. = FALSE)
   }
   # Check intense_yrs: range
   if (any(intense_yrs >= pars$years$layers) & !quiet) {
     message("`intense_yrs` >= ", pars$years$layers, ".")
   }
-  # Check rescale_yrs: numeric
-  if (!is.numeric(rescale_yrs)) {
-    stop("`rescale_yrs` must be numeric", call. = FALSE)
-  }
   # Check rescale_yrs: range
   if (any(rescale_yrs >= pars$years$assess) & !quiet) {
     message("`rescale_yrs` >= ", pars$years$assess, ".")
   }
-  # Check alpha: NA
-  if (any(is.na(alpha)) & !quiet) message("NA(s) in `alpha`")
-  # Check alpha: numeric
-  if (!is.numeric(alpha)) stop("`alpha` must be numeric.", call. = FALSE)
-  # Check beta: NA
-  if (any(is.na(beta)) & !quiet) message("NA(s) in `beta`")
-  # Check beta: numeric
-  if (!is.numeric(beta)) stop("`beta` must be numeric.", call. = FALSE)
-  # Check theta: NA
-  if (any(is.na(theta)) & !quiet) message("NA(s) in `theta`")
-  # Check theta: numeric
-  if (!is.numeric(theta)) stop("`theta` must be numeric.", call. = FALSE)
   # Establish connection with access
   access_db <- dbConnect(
     drv = odbc(),
@@ -487,10 +421,8 @@ calc_surf_spawn <- function(where,
     surface = surface, eggs = eggs, eggs_spawn = eggs_spawn,
     biomass_spawn = biomass_spawn, si = si
   )
-  # Check output: rows
-  if (nrow(res$si) == 0) stop("`res$si` has no data.", call. = FALSE)
-  # Check output: tibble
-  if (!is_tibble(res$si)) stop("`res$si` is not a tibble.", call. = FALSE)
+  # Check output: tibble rows
+  check_tibble(dat = list(si = res$si), quiet = quiet)
   # Check output: names
   if (!all(c(
     "Year", "Region", "StatArea", "Section", "LocationCode", "SpawnNumber",
@@ -574,7 +506,14 @@ calc_macro_spawn <- function(where,
                              epsilon = pars$macrocystis$epsilon,
                              theta = calc_egg_conversion(),
                              quiet = FALSE) {
-
+  # Check input: NA and numeric
+  check_numeric(
+    dat = list(
+      yrs = yrs, t_swath = t_swath, xi = xi, gamma = gamma,
+      delta = delta, epsilon = epsilon, theta = theta
+    ),
+    quiet = quiet
+  )
   # Get where names
   where_names <- c("loc", "db", "fns.all_spawn", "fns.plants", "fns.transects")
   # Check where: list
@@ -587,48 +526,20 @@ calc_macro_spawn <- function(where,
   if (typeof(unlist(where)) != "character") {
     stop("Argument `where` must contain characters", call. = FALSE)
   }
-  # Check a: tibble
-  if (!is_tibble(a)) {
-    stop("`a` must be a tibble.", call. = FALSE)
-  }
+  # Check input: tibble rows
+  check_tibble(dat = list(a = a), quiet = quiet)
   # Check a: names
   if (!all(c(
     "SAR", "Region", "StatArea", "Section", "LocationCode", "Pool"
   ) %in% names(a))) {
     stop("`a` is missing columns", call. = FALSE)
   }
-  # Check yrs: numeric
-  if (!is.numeric(yrs)) stop("`yrs` must be numeric", call. = FALSE)
   # Check yrs: range
   if (any(yrs < pars$years$assess) & !quiet) {
     message("`yrs` < ", pars$years$assess, ".")
   }
-  # Check t_swath: NA
-  if (any(is.na(t_swath)) & !quiet) message("NA(s) in `t_swath`")
-  # Check t_swath: numeric
-  if (!is.numeric(t_swath)) stop("`t_swath` must be numeric.", call. = FALSE)
   # Check t_swath: value
   if (t_swath != 2 & !quiet) message("`t_swath` != 2")
-  # Check xi: NA
-  if (any(is.na(xi)) & !quiet) message("NA(s) in `xi`")
-  # Check xi: numeric
-  if (!is.numeric(xi)) stop("`xi` must be numeric.", call. = FALSE)
-  # Check gamma: NA
-  if (any(is.na(gamma)) & !quiet) message("NA(s) in `gamma`")
-  # Check gamma: numeric
-  if (!is.numeric(gamma)) stop("`gamma` must be numeric.", call. = FALSE)
-  # Check delta: NA
-  if (any(is.na(delta)) & !quiet) message("NA(s) in `delta`")
-  # Check delta: numeric
-  if (!is.numeric(delta)) stop("`delta` must be numeric.", call. = FALSE)
-  # Check epsilon: NA
-  if (any(is.na(epsilon)) & !quiet) message("NA(s) in `epsilon`")
-  # Check epsilon: numeric
-  if (!is.numeric(epsilon)) stop("`epsilon` must be numeric.", call. = FALSE)
-  # Check theta: NA
-  if (any(is.na(theta)) & !quiet) message("NA(s) in `theta`")
-  # Check theta: numeric
-  if (!is.numeric(theta)) stop("`theta` must be numeric.", call. = FALSE)
   # Establish connection with access
   access_db <- dbConnect(
     drv = odbc(),
@@ -745,10 +656,8 @@ calc_macro_spawn <- function(where,
   res <- list(
     dat = dat, dat_trans = dat_trans, biomass_spawn = biomass_spawn, si = si
   )
-  # Check output: rows
-  if (nrow(res$si) == 0) stop("`res$si` has no data.", call. = FALSE)
-  # Check output: tibble
-  if (!is_tibble(res$si)) stop("`res$si` is not a tibble.", call. = FALSE)
+  # Check output: tibble rows
+  check_tibble(dat = list(si = res$si), quiet = quiet)
   # Check output: names
   if (!all(c(
     "Year", "Region", "StatArea", "Section", "LocationCode", "SpawnNumber",
@@ -839,7 +748,14 @@ calc_under_spawn <- function(where,
                              varsigma = pars$understory$varsigma,
                              theta = calc_egg_conversion(),
                              quiet = FALSE) {
-
+  # Check input: NA and numeric
+  check_numeric(
+    dat = list(
+      yrs = yrs, varphi = varphi, vartheta = vartheta, varrho = varrho,
+      varsigma = varsigma, theta = theta
+    ),
+    quiet = quiet
+  )
   # Get where names
   where_names <- c(
     "loc", "db", "fns.all_spawn", "fns.alg_trans", "fns.stations", "fns.algae"
@@ -854,18 +770,17 @@ calc_under_spawn <- function(where,
   if (typeof(unlist(where)) != "character") {
     stop("Argument `where` must contain characters", call. = FALSE)
   }
-  # Check a: tibble
-  if (!is_tibble(a)) {
-    stop("`a` must be a tibble.", call. = FALSE)
-  }
+  # Check input: tibble rows
+  check_tibble(
+    dat = list(a = a, alg_coefs = alg_coefs, tau = tau),
+    quiet = quiet
+  )
   # Check a: names
   if (!all(c(
     "SAR", "Region", "StatArea", "Section", "LocationCode", "Pool"
   ) %in% names(a))) {
     stop("`a` is missing columns", call. = FALSE)
   }
-  # Check yrs: numeric
-  if (!is.numeric(yrs)) stop("`yrs` must be numeric", call. = FALSE)
   # Check yrs: range
   if (any(yrs < pars$years$assess) & !quiet) {
     message("`yrs` < ", pars$years$assess, ".")
@@ -885,26 +800,6 @@ calc_under_spawn <- function(where,
   %in% names(tau))) {
     stop("`tau` is missing columns", call. = FALSE)
   }
-  # Check varphi: NA
-  if (any(is.na(varphi)) & !quiet) message("NA(s) in `varphi`")
-  # Check varphi: numeric
-  if (!is.numeric(varphi)) stop("`varphi` must be numeric.", call. = FALSE)
-  # Check vartheta: NA
-  if (any(is.na(vartheta)) & !quiet) message("NA(s) in `vartheta`")
-  # Check vartheta: numeric
-  if (!is.numeric(vartheta)) stop("`vartheta` must be numeric.", call. = FALSE)
-  # Check varrho: NA
-  if (any(is.na(varrho)) & !quiet) message("NA(s) in `varrho`")
-  # Check varrho: numeric
-  if (!is.numeric(varrho)) stop("`varrho` must be numeric.", call. = FALSE)
-  # Check varsigma: NA
-  if (any(is.na(varsigma)) & !quiet) message("NA(s) in `varsigma`")
-  # Check varsigma: numeric
-  if (!is.numeric(varsigma)) stop("`varsigma` must be numeric.", call. = FALSE)
-  # Check theta: NA
-  if (any(is.na(theta)) & !quiet) message("NA(s) in `theta`")
-  # Check theta: numeric
-  if (!is.numeric(theta)) stop("`theta` must be numeric.", call. = FALSE)
   # Establish connection with access
   access_db <- dbConnect(
     drv = odbc(),
@@ -1146,10 +1041,8 @@ calc_under_spawn <- function(where,
     eggs_station = eggs_station, eggs_trans = eggs_trans,
     eggs_spawn = eggs_spawn, biomass_spawn = biomass_spawn, si = si
   )
-  # Check output: rows
-  if (nrow(res$si) == 0) stop("`res$si` has no data.", call. = FALSE)
-  # Check output: tibble
-  if (!is_tibble(res$si)) stop("`res$si` is not a tibble.", call. = FALSE)
+  # Check output: tibble rows
+  check_tibble(dat = list(si = res$si), quiet = quiet)
   # Check output: names
   if (!all(c(
     "Year", "Region", "StatArea", "Section", "LocationCode", "SpawnNumber",

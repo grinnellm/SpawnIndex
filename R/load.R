@@ -321,10 +321,8 @@ load_area_data <- function(reg,
   } # End if subsetting sections
   # Close the connection
   dbDisconnect(conn = access_db)
-  # Check output: rows
-  if (nrow(res) == 0) stop("`res` has no data.", call. = FALSE)
-  # Check output: tibble
-  if (!is_tibble(res)) stop("`res` is not a tibble.", call. = FALSE)
+  # Check output: tibble rows
+  check_tibble(dat = list(res = res), quiet = quiet)
   # Check output: names
   if (!all(c(
     "SAR", "Region", "RegionName", "StatArea", "Group", "Section",
@@ -395,10 +393,8 @@ load_all_spawn <- function(where, a, yrs, ft2m = 0.3048, quiet = FALSE) {
   if (typeof(unlist(where)) != "character") {
     stop("Argument `where` must contain characters", call. = FALSE)
   }
-  # Check a: tibble
-  if (!is_tibble(a)) {
-    stop("`a` must be a tibble.", call. = FALSE)
-  }
+  # Check input: tibble rows
+  check_tibble(dat = list(a = a), quiet = quiet)
   # Check a: names
   if (!all(c(
     "Region", "StatArea", "Group", "Section", "LocationCode", "LocationName",
@@ -406,14 +402,15 @@ load_all_spawn <- function(where, a, yrs, ft2m = 0.3048, quiet = FALSE) {
   ) %in% names(a))) {
     stop("`a` is missing columns", call. = FALSE)
   }
-  # Check yrs: numeric
-  if (!is.numeric(yrs)) stop("`yrs` must be numeric", call. = FALSE)
+  # Check input: NA and numeric
+  check_numeric(
+    dat = list(yrs = yrs, ft2m = ft2m),
+    quiet = quiet
+  )
   # Check yrs: range
   if (any(yrs < pars$years$assess) & !quiet) {
     message("`yrs` < ", pars$years$assess, ".")
   }
-  # Check ft2m: numeric
-  if (!is.numeric(ft2m)) stop("`ft2m` must be numeric", call. = FALSE)
   # Check ft2m: range
   if (!all.equal(ft2m, 0.3048, 0.00001) & !quiet) {
     message("`ft2m` is not 0.3048.")
@@ -474,10 +471,8 @@ load_all_spawn <- function(where, a, yrs, ft2m = 0.3048, quiet = FALSE) {
     )
   # Close the connection
   dbDisconnect(conn = access_db)
-  # Check output: rows
-  if (nrow(res) == 0) stop("`res` has no data.", call. = FALSE)
-  # Check output: tibble
-  if (!is_tibble(res)) stop("`res` is not a tibble.", call. = FALSE)
+  # Check output: tibble rows
+  check_tibble(dat = list(res = res), quiet = quiet)
   # Check output: names
   if (!all(c(
     "Year", "Region", "StatArea", "Group", "Section", "LocationCode",
@@ -548,10 +543,8 @@ get_width <- function(where, a = areas, quiet = FALSE) {
   if (typeof(unlist(where)) != "character") {
     stop("Argument `where` must contain characters", call. = FALSE)
   }
-  # Check a: tibble
-  if (!is_tibble(a)) {
-    stop("`a` must be a tibble.", call. = FALSE)
-  }
+  # Check input: tibble rows
+  check_tibble(dat = list(a = a), quiet = quiet)
   # Check a: names
   if (!all(c("SAR", "Region", "StatArea", "Section", "LocationCode", "Pool")
   %in% names(a))) {
@@ -601,39 +594,20 @@ get_width <- function(where, a = areas, quiet = FALSE) {
   res <- list(region = reg_std, section = sec_std, pool = pool_std)
   # Close the connection
   dbDisconnect(conn = access_db)
-  # Check output: list
-  if (!is.list(res)) stop("`res` is not a list.", call. = FALSE)
-  # Check output: region tibble
-  if (!is_tibble(res$region)) {
-    stop("`res$region` is not a tibble.", call. = FALSE)
-  }
-  # Check output: region rows
-  if (nrow(res$region) == 0 & !quiet) {
-    message("`res$region` has no data.", call. = FALSE)
-  }
+  # Check output: tibble rows
+  check_tibble(
+    dat = list(
+      region = res$region, section = res$section, pool = res$pool
+    ),
+    quiet = quiet
+  )
   # Check output: region names
   if (!all(c("Region", "WidthReg") %in% names(res$region))) {
     stop("`res$region` is missing columns", call. = FALSE)
   }
-  # Check output: section tibble
-  if (!is_tibble(res$section)) {
-    stop("`res$section` is not a tibble.", call. = FALSE)
-  }
-  # Check output: section rows
-  if (nrow(res$section) == 0 & !quiet) {
-    message("`res$section` has no data.", call. = FALSE)
-  }
   # Check output: section names
   if (!all(c("Region", "Section", "WidthSec") %in% names(res$section))) {
     stop("`res$section` is missing columns", call. = FALSE)
-  }
-  # Check output: pool tibble
-  if (!is_tibble(res$pool)) {
-    stop("`res$pool` is not a tibble.", call. = FALSE)
-  }
-  # Check output: pool rows
-  if (nrow(res$pool) == 0 & !quiet) {
-    message("`res$pool` has no data.", call. = FALSE)
   }
   # Check output: pool names
   if (!all(c("Region", "Section", "Pool", "WidthPool") %in% names(res$pool))) {
