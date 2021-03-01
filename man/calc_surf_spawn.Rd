@@ -6,7 +6,7 @@
 \usage{
 calc_surf_spawn(
   where,
-  a,
+  areas,
   widths,
   yrs,
   intense = intensity,
@@ -22,7 +22,7 @@ calc_surf_spawn(
 \item{where}{List. Location of the Pacific Herring surface spawn database
 (see examples).}
 
-\item{a}{Tibble. Table of geographic information indicating the subset of
+\item{areas}{Tibble. Table of geographic information indicating the subset of
 spawn survey observations to include in calculations; from
 \code{\link{load_area_data}}.}
 
@@ -87,7 +87,7 @@ surf_loc <- list(
   fns = list(surface = "tSSSurface", all_spawn = "tSSAllspawn")
 )
 surf_spawn <- calc_surf_spawn(
-  where = surf_loc, a = areas, widths = width_bar, yrs = 2010:2015
+  where = surf_loc, areas = areas, widths = width_bar, yrs = 2010:2015
 )
 surf_spawn$si
 }

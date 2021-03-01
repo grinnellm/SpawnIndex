@@ -4,13 +4,13 @@
 \alias{load_all_spawn}
 \title{Get the all spawn table.}
 \usage{
-load_all_spawn(where, a, yrs, ft2m = 0.3048, quiet = FALSE)
+load_all_spawn(where, areas, yrs, ft2m = 0.3048, quiet = FALSE)
 }
 \arguments{
 \item{where}{List. Location of the Pacific Herring understory spawn database
 (see examples).}
 
-\item{a}{Tibble. Table of geographic information indicating the subset of
+\item{areas}{Tibble. Table of geographic information indicating the subset of
 spawn survey observations to include in calculations; from
 \code{\link{load_area_data}}.}
 
@@ -43,7 +43,7 @@ all_spawn_loc <- list(
   fns = list(all_spawn = "tSSAllspawn", stations = "tSSStations")
 )
 all_spawn <- load_all_spawn(
-  where = all_spawn_loc, a = areas, yrs = 2010:2015
+  where = all_spawn_loc, areas = areas, yrs = 2010:2015
 )
 all_spawn
 }

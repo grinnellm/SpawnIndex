@@ -6,7 +6,7 @@
 \usage{
 calc_under_spawn(
   where,
-  a,
+  areas,
   yrs,
   alg_coefs = algae_coefs,
   tau = under_width_facs,
@@ -22,7 +22,7 @@ calc_under_spawn(
 \item{where}{List. Location of the Pacific Herring understory spawn database
 (see examples).}
 
-\item{a}{Tibble. Table of geographic information indicating the subset of
+\item{areas}{Tibble. Table of geographic information indicating the subset of
 spawn survey observations to include in calculations; from
 \code{\link{load_area_data}}.}
 
@@ -83,7 +83,7 @@ data(under_width_facs)
 data(pars)
 data(algae_coefs)
 under_spawn <- calc_under_spawn(
-  where = under_loc, a = areas, yrs = 2010:2015
+  where = under_loc, areas = areas, yrs = 2010:2015
 )
 under_spawn$si
 }

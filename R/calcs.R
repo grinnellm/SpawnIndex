@@ -109,7 +109,7 @@ calc_biomass_sok <- function(sok,
 #'
 #' @param where List. Location of the Pacific Herring surface spawn database
 #'   (see examples).
-#' @param a Tibble. Table of geographic information indicating the subset of
+#' @param areas Tibble. Table of geographic information indicating the subset of
 #'   spawn survey observations to include in calculations; from
 #'   \code{\link{load_area_data}}.
 #' @param widths List. List of three tables: median region, section, and pool
@@ -172,11 +172,11 @@ calc_biomass_sok <- function(sok,
 #'   fns = list(surface = "tSSSurface", all_spawn = "tSSAllspawn")
 #' )
 #' surf_spawn <- calc_surf_spawn(
-#'   where = surf_loc, a = areas, widths = width_bar, yrs = 2010:2015
+#'   where = surf_loc, areas = areas, widths = width_bar, yrs = 2010:2015
 #' )
 #' surf_spawn$si
 calc_surf_spawn <- function(where,
-                            a,
+                            areas,
                             widths,
                             yrs,
                             intense = intensity,
@@ -208,14 +208,14 @@ calc_surf_spawn <- function(where,
   }
   # Check input: tibble rows
   check_tibble(dat = list(
-    a = a, region = widths$region, section = widths$section, pool = widths$pool,
-    intense = intense
+    areas = areas, region = widths$region, section = widths$section,
+    pool = widths$pool, intense = intense
   ), quiet = quiet)
-  # Check a: names
+  # Check areas: names
   if (!all(c(
     "SAR", "Region", "StatArea", "Section", "LocationCode", "Pool"
-  ) %in% names(a))) {
-    stop("`a` is missing columns", call. = FALSE)
+  ) %in% names(areas))) {
+    stop("`areas` is missing columns", call. = FALSE)
   }
   # Check widths: region names
   if (!all(c("Region", "WidthReg") %in% names(widths$region))) {
@@ -256,7 +256,7 @@ calc_surf_spawn <- function(where,
     )
   )
   # Get a small subset of area data
-  areas_sm <- a %>%
+  areas_sm <- areas %>%
     select(SAR, Region, StatArea, Section, LocationCode, Pool) %>%
     distinct() %>%
     as_tibble()
@@ -440,7 +440,7 @@ calc_surf_spawn <- function(where,
 #'
 #' @param where List. Location of the Pacific Herring Macrocystis spawn database
 #'   (see examples).
-#' @param a Tibble. Table of geographic information indicating the subset of
+#' @param areas Tibble. Table of geographic information indicating the subset of
 #'   spawn survey observations to include in calculations; from
 #'   \code{\link{load_area_data}}.
 #' @param yrs Numeric vector. Years(s) to include in the calculations, usually
@@ -493,11 +493,11 @@ calc_surf_spawn <- function(where,
 #'   )
 #' )
 #' macro_spawn <- calc_macro_spawn(
-#'   where = macro_loc, a = areas, yrs = 2010:2015
+#'   where = macro_loc, areas = areas, yrs = 2010:2015
 #' )
 #' macro_spawn$si
 calc_macro_spawn <- function(where,
-                             a,
+                             areas,
                              yrs,
                              chi = 2,
                              xi = pars$macrocystis$xi,
@@ -527,12 +527,12 @@ calc_macro_spawn <- function(where,
     stop("Argument `where` must contain characters", call. = FALSE)
   }
   # Check input: tibble rows
-  check_tibble(dat = list(a = a), quiet = quiet)
-  # Check a: names
+  check_tibble(dat = list(areas = areas), quiet = quiet)
+  # Check areas: names
   if (!all(c(
     "SAR", "Region", "StatArea", "Section", "LocationCode", "Pool"
-  ) %in% names(a))) {
-    stop("`a` is missing columns", call. = FALSE)
+  ) %in% names(areas))) {
+    stop("`areas` is missing columns", call. = FALSE)
   }
   # Check yrs: range
   if (any(yrs < pars$years$assess) & !quiet) {
@@ -571,7 +571,7 @@ calc_macro_spawn <- function(where,
     select(Year, LocationCode, SpawnNumber, Transect, Mature) %>%
     as_tibble()
   # Get a small subset of area data
-  areas_sm <- a %>%
+  areas_sm <- areas %>%
     select(Region, StatArea, Section, LocationCode, Pool) %>%
     distinct() %>%
     as_tibble()
@@ -675,7 +675,7 @@ calc_macro_spawn <- function(where,
 #'
 #' @param where List. Location of the Pacific Herring understory spawn database
 #'   (see examples).
-#' @param a Tibble. Table of geographic information indicating the subset of
+#' @param areas Tibble. Table of geographic information indicating the subset of
 #'   spawn survey observations to include in calculations; from
 #'   \code{\link{load_area_data}}.
 #' @param yrs Numeric vector. Years(s) to include in the calculations, usually
@@ -734,11 +734,11 @@ calc_macro_spawn <- function(where,
 #' data(pars)
 #' data(algae_coefs)
 #' under_spawn <- calc_under_spawn(
-#'   where = under_loc, a = areas, yrs = 2010:2015
+#'   where = under_loc, areas = areas, yrs = 2010:2015
 #' )
 #' under_spawn$si
 calc_under_spawn <- function(where,
-                             a,
+                             areas,
                              yrs,
                              alg_coefs = algae_coefs,
                              tau = under_width_facs,
@@ -772,14 +772,14 @@ calc_under_spawn <- function(where,
   }
   # Check input: tibble rows
   check_tibble(
-    dat = list(a = a, alg_coefs = alg_coefs, tau = tau),
+    dat = list(areas = areas, alg_coefs = alg_coefs, tau = tau),
     quiet = quiet
   )
-  # Check a: names
+  # Check areas: names
   if (!all(c(
     "SAR", "Region", "StatArea", "Section", "LocationCode", "Pool"
-  ) %in% names(a))) {
-    stop("`a` is missing columns", call. = FALSE)
+  ) %in% names(areas))) {
+    stop("`areas` is missing columns", call. = FALSE)
   }
   # Check yrs: range
   if (any(yrs < pars$years$assess) & !quiet) {
@@ -810,7 +810,7 @@ calc_under_spawn <- function(where,
     )
   )
   # Get a small subset of area data
-  areas_sm1 <- a %>%
+  areas_sm1 <- areas %>%
     select(Region, LocationCode) %>%
     distinct() %>%
     as_tibble()
@@ -907,7 +907,7 @@ calc_under_spawn <- function(where,
     stop("Missing algae type(s): ", paste_nicely(miss_alg), ".", call. = FALSE)
   } # End if there are missing algae types
   # Get a small subset of area data
-  areas_sm_2 <- a %>%
+  areas_sm_2 <- areas %>%
     select(Region, StatArea, Section, LocationCode) %>%
     distinct() %>%
     as_tibble()

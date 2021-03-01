@@ -67,7 +67,7 @@ areas <- load_area_data(
 )
 
 # Median widths
-width_bar <- get_width(where = width_loc, a = areas)
+width_bar <- get_width(where = width_loc, areas = areas)
 
 # Understory spawn width correction factors
 data(under_width_facs)
@@ -76,7 +76,7 @@ data(under_width_facs)
 
 # Get surface widths
 GetSurfWidth <- function(where,
-                         a,
+                         areas,
                          yrs = yrRange,
                          widths) {
   # Establish connection with access
@@ -87,7 +87,7 @@ GetSurfWidth <- function(where,
     )
   )
   # Get a small subset of area data
-  areas_sm <- a %>%
+  areas_sm <- areas %>%
     select(Region, StatArea, Section, LocationCode, Pool) %>%
     distinct() %>%
     as_tibble()
@@ -136,7 +136,7 @@ surfWidth <- GetSurfWidth(where = surf_loc, a = areas, widths = width_bar)
 
 # Get dive widths
 GetDiveWidth <- function(where,
-                         a,
+                         areas,
                          yrs = yrRange,
                          tau = under_width_facs) {
   # Establish connection with access
@@ -147,7 +147,7 @@ GetDiveWidth <- function(where,
     )
   )
   # Get a small subset of area data
-  areas_sm <- a %>%
+  areas_sm <- areas %>%
     select(Region, StatArea, Section, Pool, LocationCode) %>%
     distinct() %>%
     as_tibble()
@@ -199,7 +199,7 @@ GetDiveWidth <- function(where,
 } # End GetDiveWidth function
 
 # Get dive widths
-diveWidth <- GetDiveWidth(where = diveLoc, a = areas)
+diveWidth <- GetDiveWidth(where = diveLoc, areas = areas)
 
 # Get median dive widths
 width_bar2 <- diveWidth %>%
@@ -215,7 +215,7 @@ allWidth <- bind_rows(surfWidth, diveWidth)
 
 # Get surface widths (second option)
 GetSurfWidth2 <- function(where,
-                          a,
+                          areas,
                           yrs = yrRange,
                           widths) {
   # Establish connection with access
@@ -226,7 +226,7 @@ GetSurfWidth2 <- function(where,
     )
   )
   # Get a small subset of area data
-  areas_sm <- a %>%
+  areas_sm <- areas %>%
     select(Region, StatArea, Section, LocationCode) %>%
     distinct() %>%
     as_tibble()
@@ -276,7 +276,9 @@ GetSurfWidth2 <- function(where,
 } # End GetSurfWidths2 function
 
 # Load surface widths
-surfWidth2 <- GetSurfWidth2(where = surf_loc, a = areas, widths = width_bar2)
+surfWidth2 <- GetSurfWidth2(
+  where = surf_loc, areas = areas, widths = width_bar2
+)
 
 ##### Figures #####
 

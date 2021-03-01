@@ -6,7 +6,7 @@
 \usage{
 calc_macro_spawn(
   where,
-  a,
+  areas,
   yrs,
   chi = 2,
   xi = pars$macrocystis$xi,
@@ -21,7 +21,7 @@ calc_macro_spawn(
 \item{where}{List. Location of the Pacific Herring Macrocystis spawn database
 (see examples).}
 
-\item{a}{Tibble. Table of geographic information indicating the subset of
+\item{areas}{Tibble. Table of geographic information indicating the subset of
 spawn survey observations to include in calculations; from
 \code{\link{load_area_data}}.}
 
@@ -76,7 +76,7 @@ macro_loc <- list(
   )
 )
 macro_spawn <- calc_macro_spawn(
-  where = macro_loc, a = areas, yrs = 2010:2015
+  where = macro_loc, areas = areas, yrs = 2010:2015
 )
 macro_spawn$si
 }

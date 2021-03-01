@@ -131,7 +131,7 @@ width_loc <- list(
     region_std = "RegionStd", section_std = "SectionStd", pool_std = "PoolStd"
   )
 )
-width_bar <- get_width(where = width_loc, a = areas)
+width_bar <- get_width(where = width_loc, areas = areas)
 ```
 
 ```{r width_table, echo = FALSE, results = 'asis'}
@@ -165,7 +165,7 @@ surf_loc <- list(
 )
 # Calculate the surface spawn index
 surf_spawn <- calc_surf_spawn(
-  where = surf_loc, a = areas, widths = width_bar, yrs = yrRange
+  where = surf_loc, areas = areas, widths = width_bar, yrs = yrRange
 )
 ```
 
@@ -223,7 +223,7 @@ macro_loc <- list(
   )
 )
 # Calculate the Macrocystis spawn index
-macro_spawn <- calc_macro_spawn(where = macro_loc, a = areas, yrs = yrRange)
+macro_spawn <- calc_macro_spawn(where = macro_loc, areas = areas, yrs = yrRange)
 ```
 
 Show Macrocystis spawn on a map, aggregated by Location and year.
@@ -286,7 +286,7 @@ under_loc <- list(
   )
 )
 # Calculate the understory spawn index
-under_spawn <- calc_under_spawn(where = under_loc, a = areas, yrs = yrRange)
+under_spawn <- calc_under_spawn(where = under_loc, areas = areas, yrs = yrRange)
 ```
 
 Show understory spawn on a map, aggregated by Location and year.

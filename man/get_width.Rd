@@ -4,13 +4,13 @@
 \alias{get_width}
 \title{Load median spawn width.}
 \usage{
-get_width(where, a = areas, quiet = FALSE)
+get_width(where, areas, quiet = FALSE)
 }
 \arguments{
 \item{where}{List. Location of the Pacific Herring surface spawn database
 (see examples).}
 
-\item{a}{Tibble. Table of geographic information indicating the subset of
+\item{areas}{Tibble. Table of geographic information indicating the subset of
 spawn survey observations to include in calculations; from
 \code{\link{load_area_data}}.}
 
@@ -42,7 +42,7 @@ width_loc <- list(
     pool_std = "PoolStd"
   )
 )
-width_bar <- get_width(where = width_loc, a = areas)
+width_bar <- get_width(where = width_loc, areas = areas)
 width_bar
 }
 \references{

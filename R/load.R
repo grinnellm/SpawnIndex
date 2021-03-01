@@ -339,7 +339,7 @@ load_area_data <- function(reg,
 #'
 #' @param where List. Location of the Pacific Herring understory spawn database
 #'   (see examples).
-#' @param a Tibble. Table of geographic information indicating the subset of
+#' @param areas Tibble. Table of geographic information indicating the subset of
 #'   spawn survey observations to include in calculations; from
 #'   \code{\link{load_area_data}}.
 #' @param yrs Numeric vector. Years(s) to include in the calculations. Message
@@ -375,10 +375,10 @@ load_area_data <- function(reg,
 #'   fns = list(all_spawn = "tSSAllspawn", stations = "tSSStations")
 #' )
 #' all_spawn <- load_all_spawn(
-#'   where = all_spawn_loc, a = areas, yrs = 2010:2015
+#'   where = all_spawn_loc, areas = areas, yrs = 2010:2015
 #' )
 #' all_spawn
-load_all_spawn <- function(where, a, yrs, ft2m = 0.3048, quiet = FALSE) {
+load_all_spawn <- function(where, areas, yrs, ft2m = 0.3048, quiet = FALSE) {
   # Get where names
   where_names <- c("loc", "db", "fns.all_spawn", "fns.stations")
   # Check where: list
@@ -392,13 +392,13 @@ load_all_spawn <- function(where, a, yrs, ft2m = 0.3048, quiet = FALSE) {
     stop("Argument `where` must contain characters", call. = FALSE)
   }
   # Check input: tibble rows
-  check_tibble(dat = list(a = a), quiet = quiet)
+  check_tibble(dat = list(areas = areas), quiet = quiet)
   # Check a: names
   if (!all(c(
     "Region", "StatArea", "Group", "Section", "LocationCode", "LocationName",
     "Eastings", "Northings", "Longitude", "Latitude"
-  ) %in% names(a))) {
-    stop("`a` is missing columns", call. = FALSE)
+  ) %in% names(areas))) {
+    stop("`areas` is missing columns", call. = FALSE)
   }
   # Check input: NA and numeric
   check_numeric(
@@ -449,7 +449,7 @@ load_all_spawn <- function(where, a, yrs, ft2m = 0.3048, quiet = FALSE) {
     by = c("Year", "LocationCode", "SpawnNumber")
   )
   # Get a small subset of area data
-  areas_sm <- a %>%
+  areas_sm <- areas %>%
     select(
       Region, StatArea, Group, Section, LocationCode, LocationName, Eastings,
       Northings, Longitude, Latitude
@@ -493,7 +493,7 @@ load_all_spawn <- function(where, a, yrs, ft2m = 0.3048, quiet = FALSE) {
 #'
 #' @param where List. Location of the Pacific Herring surface spawn database
 #'   (see examples).
-#' @param a Tibble. Table of geographic information indicating the subset of
+#' @param areas Tibble. Table of geographic information indicating the subset of
 #'   spawn survey observations to include in calculations; from
 #'   \code{\link{load_area_data}}.
 #' @param quiet Logical. Suppress messages; default is FALSE.
@@ -524,9 +524,9 @@ load_all_spawn <- function(where, a, yrs, ft2m = 0.3048, quiet = FALSE) {
 #'     pool_std = "PoolStd"
 #'   )
 #' )
-#' width_bar <- get_width(where = width_loc, a = areas)
+#' width_bar <- get_width(where = width_loc, areas = areas)
 #' width_bar
-get_width <- function(where, a = areas, quiet = FALSE) {
+get_width <- function(where, areas, quiet = FALSE) {
   # Get where names
   where_names <- c(
     "loc", "db", "fns.region_std", "fns.section_std", "fns.pool_std"
@@ -543,13 +543,13 @@ get_width <- function(where, a = areas, quiet = FALSE) {
   }
   # Check input: tibble rows
   check_tibble(dat = list(a = a), quiet = quiet)
-  # Check a: names
+  # Check areas: names
   if (!all(c("SAR", "Region", "StatArea", "Section", "LocationCode", "Pool")
-  %in% names(a))) {
-    stop("`a` is missing columns", call. = FALSE)
+  %in% names(areas))) {
+    stop("`areas` is missing columns", call. = FALSE)
   }
   # Get area info
-  a_sm <- a %>%
+  areas_sm <- areas %>%
     select(SAR, Region, StatArea, Section, LocationCode, Pool) %>%
     distinct() %>%
     as_tibble()
@@ -565,8 +565,8 @@ get_width <- function(where, a = areas, quiet = FALSE) {
   # Access the region worksheet and wrangle
   reg_std <- dbReadTable(conn = access_db, name = where$fns$region_std) %>%
     rename(SAR = REGION, WidthReg = WIDMED) %>%
-    left_join(y = a_sm, by = "SAR") %>%
-    filter(SAR %in% a_sm$SAR) %>%
+    left_join(y = areas_sm, by = "SAR") %>%
+    filter(SAR %in% areas_sm$SAR) %>%
     select(Region, WidthReg) %>%
     distinct() %>%
     as_tibble()
@@ -574,8 +574,8 @@ get_width <- function(where, a = areas, quiet = FALSE) {
   sec_std <- dbReadTable(conn = access_db, name = where$fns$section_std) %>%
     rename(Section = SECTION, WidthSec = WIDMED) %>%
     mutate(Section = as.integer(Section)) %>%
-    left_join(y = a_sm, by = "Section") %>%
-    filter(Section %in% a_sm$Section) %>%
+    left_join(y = areas_sm, by = "Section") %>%
+    filter(Section %in% areas_sm$Section) %>%
     select(Region, Section, WidthSec) %>%
     distinct() %>%
     as_tibble()
@@ -583,8 +583,8 @@ get_width <- function(where, a = areas, quiet = FALSE) {
   pool_std <- dbReadTable(conn = access_db, name = where$fns$pool_std) %>%
     rename(Section = SECTION, Pool = BED, WidthPool = WIDMED) %>%
     mutate(Section = as.integer(Section), Pool = as.integer(Pool)) %>%
-    left_join(y = a_sm, by = c("Section", "Pool")) %>%
-    filter(Section %in% a_sm$Section) %>%
+    left_join(y = areas_sm, by = c("Section", "Pool")) %>%
+    filter(Section %in% areas_sm$Section) %>%
     select(Region, Section, Pool, WidthPool) %>%
     distinct() %>%
     as_tibble()
