@@ -7,4 +7,7 @@ test_that("Paste nicely", {
   expect_equal(
     paste_nicely(x = letters[1:3], do_quotes = TRUE), "`a`, `b`, and `c`"
   )
+  expect_equal(
+    paste_nicely(x = letters[1:2], do_quotes = TRUE), "`a` and `b`"
+  )
 })
