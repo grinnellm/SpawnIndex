@@ -266,7 +266,7 @@ calc_surf_spawn <- function(where,
       LocationCode = Loc_Code, SpawnNumber = Spawn_Number, WidthObs = Width
     ) %>%
     mutate(Method = str_to_title(Method)) %>%
-    filter(Year %in% yrs, LocationCode %in% a$LocationCode) %>%
+    filter(Year %in% yrs, LocationCode %in% areas$LocationCode) %>%
     select(
       Year, LocationCode, SpawnNumber, Length, WidthObs, Method
     ) %>%
@@ -274,7 +274,7 @@ calc_surf_spawn <- function(where,
   # Extract relevant surface data
   surface <- dbReadTable(conn = access_db, name = where$fns$surface) %>%
     rename(LocationCode = Loc_Code, SpawnNumber = Spawn_Number) %>%
-    filter(Year %in% yrs, LocationCode %in% a$LocationCode) %>%
+    filter(Year %in% yrs, LocationCode %in% areas_sm$LocationCode) %>%
     left_join(y = areas_sm, by = "LocationCode") %>%
     left_join(
       y = spawn,
@@ -549,6 +549,11 @@ calc_macro_spawn <- function(where,
       sep = ""
     )
   )
+  # Get a small subset of area data
+  areas_sm <- areas %>%
+    select(Region, StatArea, Section, LocationCode, Pool) %>%
+    distinct() %>%
+    as_tibble()
   # Load all spawn
   spawn <- dbReadTable(conn = access_db, name = where$fns$all_spawn) %>%
     rename(
@@ -556,7 +561,7 @@ calc_macro_spawn <- function(where,
       LengthMacro = Length_Macrocystis
     ) %>%
     mutate(Method = str_to_title(Method)) %>%
-    filter(Year %in% yrs, LocationCode %in% a$LocationCode) %>%
+    filter(Year %in% yrs, LocationCode %in% areas_sm$LocationCode) %>%
     select(
       Year, LocationCode, SpawnNumber, LengthMacro, Length, Method
     ) %>%
@@ -565,20 +570,15 @@ calc_macro_spawn <- function(where,
   plants <- dbReadTable(conn = access_db, name = where$fns$plants) %>%
     rename(LocationCode = Loc_Code, SpawnNumber = Spawn_Number) %>%
     filter(
-      Year %in% yrs, LocationCode %in% a$LocationCode,
+      Year %in% yrs, LocationCode %in% areas_sm$LocationCode,
       !is.na(Mature)
     ) %>%
     select(Year, LocationCode, SpawnNumber, Transect, Mature) %>%
     as_tibble()
-  # Get a small subset of area data
-  areas_sm <- areas %>%
-    select(Region, StatArea, Section, LocationCode, Pool) %>%
-    distinct() %>%
-    as_tibble()
   # Get transect-level data
   transects <- dbReadTable(conn = access_db, name = where$fns$transects) %>%
     rename(LocationCode = Loc_Code, SpawnNumber = Spawn_Number) %>%
-    filter(Year %in% yrs, LocationCode %in% a$LocationCode) %>%
+    filter(Year %in% yrs, LocationCode %in% areas_sm$LocationCode) %>%
     left_join(y = areas_sm, by = "LocationCode") %>%
     select(
       Year, Region, StatArea, Section, LocationCode, SpawnNumber, Transect,
@@ -821,7 +821,7 @@ calc_under_spawn <- function(where,
       LengthAlgae = Length_Vegetation
     ) %>%
     mutate(Method = str_to_title(Method)) %>%
-    filter(Year %in% yrs, LocationCode %in% a$LocationCode) %>%
+    filter(Year %in% yrs, LocationCode %in% areas_sm1$LocationCode) %>%
     select(
       Year, LocationCode, SpawnNumber, LengthAlgae, Length, Method
     ) %>%
@@ -832,7 +832,7 @@ calc_under_spawn <- function(where,
       LocationCode = Loc_Code, SpawnNumber = Spawn_Number,
       QuadratSize = Quadrat_Size, WidthObs = Width_Recorded
     ) %>%
-    filter(Year %in% yrs, LocationCode %in% a$LocationCode) %>%
+    filter(Year %in% yrs, LocationCode %in% areas_sm1$LocationCode) %>%
     select(
       Year, LocationCode, SpawnNumber, Transect, WidthObs, QuadratSize
     ) %>%
@@ -856,7 +856,7 @@ calc_under_spawn <- function(where,
       LocationCode = Loc_Code, SpawnNumber = Spawn_Number,
       SubLyrs = Layers_Bottom
     ) %>%
-    filter(Year %in% yrs, LocationCode %in% a$LocationCode) %>%
+    filter(Year %in% yrs, LocationCode %in% areas_sm1$LocationCode) %>%
     mutate(SubProp = Percent_Bottom / 100) %>%
     select(
       Year, LocationCode, SpawnNumber, Transect, Station, SubLyrs, SubProp
@@ -874,7 +874,7 @@ calc_under_spawn <- function(where,
       LocationCode = Loc_Code, SpawnNumber = Spawn_Number,
       AlgType = Type_Vegetation, AlgLyrs = Layers_Vegetation
     ) %>%
-    filter(Year %in% yrs, LocationCode %in% a$LocationCode) %>%
+    filter(Year %in% yrs, LocationCode %in% areas_sm1$LocationCode) %>%
     mutate(
       AlgType = str_to_upper(AlgType),
       AlgProp = Percent_Vegetation / 100,

@@ -96,7 +96,7 @@ GetSurfWidth <- function(where,
     rename(
       LocationCode = Loc_Code, SpawnNumber = Spawn_Number, WidthObs = Width
     ) %>%
-    filter(Year %in% yrs, LocationCode %in% a$LocationCode) %>%
+    filter(Year %in% yrs, LocationCode %in% areas_sm$LocationCode) %>%
     select(Year, LocationCode, SpawnNumber, WidthObs) %>%
     as_tibble()
   # Bind the tables
@@ -157,7 +157,7 @@ GetDiveWidth <- function(where,
       LocationCode = Loc_Code, SpawnNumber = Spawn_Number,
       QuadratSize = Quadrat_Size, WidthObs = Width_Recorded
     ) %>%
-    filter(Year %in% yrs, LocationCode %in% a$LocationCode) %>%
+    filter(Year %in% yrs, LocationCode %in% areas_sm$LocationCode) %>%
     select(
       Year, LocationCode, SpawnNumber, Transect, WidthObs
     ) %>%
@@ -235,7 +235,7 @@ GetSurfWidth2 <- function(where,
     rename(
       LocationCode = Loc_Code, SpawnNumber = Spawn_Number, WidthObs = Width
     ) %>%
-    filter(Year %in% yrs, LocationCode %in% a$LocationCode) %>%
+    filter(Year %in% yrs, LocationCode %in% areas_sm$LocationCode) %>%
     select(Year, LocationCode, SpawnNumber, WidthObs) %>%
     as_tibble()
   # Bind the tables

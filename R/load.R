@@ -413,6 +413,14 @@ load_all_spawn <- function(where, areas, yrs, ft2m = 0.3048, quiet = FALSE) {
   if (!all.equal(ft2m, 0.3048, 0.00001) & !quiet) {
     message("`ft2m` is not 0.3048.")
   }
+  # Get a small subset of area data
+  areas_sm <- areas %>%
+    select(
+      Region, StatArea, Group, Section, LocationCode, LocationName, Eastings,
+      Northings, Longitude, Latitude
+    ) %>%
+    distinct() %>%
+    as_tibble()
   # Establish connection with access
   access_db <- dbConnect(
     drv = odbc(),
@@ -429,7 +437,7 @@ load_all_spawn <- function(where, areas, yrs, ft2m = 0.3048, quiet = FALSE) {
       Start = as_date(Start), End = as_date(End),
       Method = str_to_title(Method)
     ) %>%
-    filter(Year %in% yrs, LocationCode %in% a$LocationCode) %>%
+    filter(Year %in% yrs, LocationCode %in% areas_sm$LocationCode) %>%
     select(
       Year, LocationCode, SpawnNumber, Start, End, Length, Width, Method
     ) %>%
@@ -437,7 +445,7 @@ load_all_spawn <- function(where, areas, yrs, ft2m = 0.3048, quiet = FALSE) {
   # Extrac relevant stations data
   stations <- dbReadTable(conn = access_db, name = where$fns$stations) %>%
     rename(LocationCode = Loc_Code, SpawnNumber = Spawn_Number) %>%
-    filter(LocationCode %in% areas$LocationCode) %>%
+    filter(LocationCode %in% areas_sm$LocationCode) %>%
     mutate(DepthM = Depth * ft2m * -1) %>%
     group_by(Year, LocationCode, SpawnNumber) %>%
     summarise(Depth = MaxNA(DepthM)) %>%
@@ -448,14 +456,6 @@ load_all_spawn <- function(where, areas, yrs, ft2m = 0.3048, quiet = FALSE) {
     x = spawn, y = stations,
     by = c("Year", "LocationCode", "SpawnNumber")
   )
-  # Get a small subset of area data
-  areas_sm <- areas %>%
-    select(
-      Region, StatArea, Group, Section, LocationCode, LocationName, Eastings,
-      Northings, Longitude, Latitude
-    ) %>%
-    distinct() %>%
-    as_tibble()
   # Combine spawn and station data with area data
   res <- spawn_station %>%
     left_join(y = areas_sm, by = c("LocationCode")) %>%
@@ -542,7 +542,7 @@ get_width <- function(where, areas, quiet = FALSE) {
     stop("Argument `where` must contain characters", call. = FALSE)
   }
   # Check input: tibble rows
-  check_tibble(dat = list(a = a), quiet = quiet)
+  check_tibble(dat = list(areas = areas), quiet = quiet)
   # Check areas: names
   if (!all(c("SAR", "Region", "StatArea", "Section", "LocationCode", "Pool")
   %in% names(areas))) {
