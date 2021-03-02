@@ -54,7 +54,7 @@ which were removed from the population by a given spawn-on-kelp (SOK) fishery.
 First, we calculate the conversion factor for the number of Pacific Herring eggs
 to the spawn index (i.e., biomass) in tonnes, t.
 
-```{r theta, message = FALSE}
+```{r theta}
 library(SpawnIndex)
 data(pars)
 theta <- calc_egg_conversion()
