@@ -353,7 +353,7 @@ load_area_data <- function(reg,
 #' @importFrom tibble as_tibble
 #' @importFrom stringr str_to_title
 #' @importFrom lubridate as_date
-#' @importFrom gfiscamutils MaxNA
+#' @importFrom gfiscamutils max_na
 #' @importFrom Rdpack reprompt
 #' @return Tibble. Contains additional spawn survey data including start and end
 #'   dates, as well as spawn length, width, and depth. Other information in this
@@ -448,7 +448,7 @@ load_all_spawn <- function(where, areas, yrs, ft2m = 0.3048, quiet = FALSE) {
     filter(LocationCode %in% areas_sm$LocationCode) %>%
     mutate(DepthM = Depth * ft2m * -1) %>%
     group_by(Year, LocationCode, SpawnNumber) %>%
-    summarise(Depth = MaxNA(DepthM)) %>%
+    summarise(Depth = max_na(DepthM)) %>%
     ungroup() %>%
     arrange(Year, LocationCode, SpawnNumber)
   # Combine spawn and station data

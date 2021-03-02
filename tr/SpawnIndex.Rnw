@@ -217,7 +217,7 @@ spawnByLocXY <- spawnRaw %>%
   filter(Year == yrIndex, StatArea == zoomSA, Section == zoomSec) %>%
   group_by(LocationCode, LocationName) %>%
   summarise(
-    TotalSI = SumNA(c(MacroSI, SurfSI, UnderSI)),
+    TotalSI = sum_na(c(MacroSI, SurfSI, UnderSI)),
     Eastings = unique(Eastings), Northings = unique(Northings)
   ) %>%
   ungroup() %>%

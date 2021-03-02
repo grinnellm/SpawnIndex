@@ -135,7 +135,7 @@ calc_biomass_sok <- function(sok,
 #'   ungroup mutate_at vars starts_with ends_with
 #' @importFrom tibble as_tibble
 #' @importFrom stringr str_to_title
-#' @importFrom gfiscamutils MeanNA SumNA
+#' @importFrom gfiscamutils mean_na sum_na
 #' @importFrom tidyr replace_na
 #' @importFrom Rdpack reprompt
 #' @return List. The element \code{si} is a tibble with surface spawn index
@@ -377,7 +377,7 @@ calc_surf_spawn <- function(where,
     group_by(
       Year, Region, StatArea, Section, LocationCode, SpawnNumber
     ) %>%
-    summarise(SurfLyrs = MeanNA(EggLyrs)) %>%
+    summarise(SurfLyrs = mean_na(EggLyrs)) %>%
     ungroup()
   # Calculate egg density per spawn number/pool
   eggs_spawn <- eggs %>%
@@ -385,7 +385,7 @@ calc_surf_spawn <- function(where,
       Year, Region, StatArea, Section, LocationCode, SpawnNumber, Pool
     ) %>%
     # Spawn s
-    summarise(EggDens = MeanNA(EggDens)) %>%
+    summarise(EggDens = mean_na(EggDens)) %>%
     ungroup()
   # Calculate annual fish biomass by spawn number/pool
   biomass_spawn <- eggs_spawn %>%
@@ -405,7 +405,7 @@ calc_surf_spawn <- function(where,
     # Group to account for 'pool' level (want 'spawn' level)
     group_by(Year, Region, StatArea, Section, LocationCode, SpawnNumber) %>%
     # Spawn s
-    summarise(SurfSI = SumNA(SurfSI)) %>%
+    summarise(SurfSI = sum_na(SurfSI)) %>%
     ungroup() %>%
     full_join(
       y = egg_lyrs,
@@ -465,7 +465,7 @@ calc_surf_spawn <- function(where,
 #'   summarise ungroup
 #' @importFrom tibble as_tibble
 #' @importFrom stringr str_to_title
-#' @importFrom gfiscamutils MeanNA SumNA UniqueNA
+#' @importFrom gfiscamutils mean_na sum_na unique_na
 #' @importFrom tidyr replace_na
 #' @importFrom Rdpack reprompt
 #' @return List. The element \code{si} is a tibble with Macrocystis spawn index
@@ -606,9 +606,9 @@ calc_macro_spawn <- function(where,
       Swath = unique(Swath),
       Area = Width * Swath,
       # Plant metrics for mature plants only
-      Height = UniqueNA(Height[Mature > 0]),
-      EggLyrs = UniqueNA(Layers[Mature > 0]),
-      Stalks = SumNA(Mature[Mature > 0]),
+      Height = unique_na(Height[Mature > 0]),
+      EggLyrs = unique_na(Layers[Mature > 0]),
+      Stalks = sum_na(Mature[Mature > 0]),
       Plants = length(Mature[Mature > 0])
     ) %>%
     ungroup()
@@ -628,12 +628,12 @@ calc_macro_spawn <- function(where,
     # Spawn s
     summarise(
       LengthMacro = unique(LengthMacro),
-      Width = MeanNA(Width),
-      Area = SumNA(Area),
-      Plants = SumNA(Plants),
-      Stalks = SumNA(Stalks),
-      Height = MeanNA(Height),
-      EggLyrs = MeanNA(EggLyrs),
+      Width = mean_na(Width),
+      Area = sum_na(Area),
+      Plants = sum_na(Plants),
+      Stalks = sum_na(Stalks),
+      Height = mean_na(Height),
+      EggLyrs = mean_na(EggLyrs),
       StalksPerPlant = Stalks / Plants,
       # Eggs per plant in thousands (eggs * 10^3 / plant; Haegele and
       # Schweigert 1990); spawn s
@@ -703,7 +703,7 @@ calc_macro_spawn <- function(where,
 #'   bind_rows
 #' @importFrom tibble as_tibble
 #' @importFrom stringr str_to_title str_to_upper
-#' @importFrom gfiscamutils MeanNA SumNA UniqueNA WtMeanNA
+#' @importFrom gfiscamutils mean_na sum_na unique_na wt_mean_na
 #' @importFrom tidyr replace_na gather
 #' @importFrom Rdpack reprompt
 #' @return List. The element \code{si} is a tibble with understory spawn index
@@ -867,7 +867,7 @@ calc_under_spawn <- function(where,
   # Get egg layer info: substrate
   egg_lyrs_sub <- stations %>%
     group_by(Year, LocationCode, SpawnNumber, Transect) %>%
-    summarise(Layers = MeanNA(SubLyrs)) %>%
+    summarise(Layers = mean_na(SubLyrs)) %>%
     ungroup() %>%
     mutate(Source = "Substrate")
   # Load algae
@@ -890,15 +890,15 @@ calc_under_spawn <- function(where,
   # Get egg layer info: algae
   egg_lyrs_alg <- algae %>%
     group_by(Year, LocationCode, SpawnNumber, Transect) %>%
-    summarise(Layers = MeanNA(AlgLyrs)) %>%
+    summarise(Layers = mean_na(AlgLyrs)) %>%
     ungroup() %>%
     mutate(Source = "Algae")
   # Combine egg layer info
   egg_lyrs <- bind_rows(egg_lyrs_sub, egg_lyrs_alg) %>%
     group_by(Year, LocationCode, SpawnNumber, Transect) %>%
-    summarise(Layers = MeanNA(Layers)) %>%
+    summarise(Layers = mean_na(Layers)) %>%
     group_by(Year, LocationCode, SpawnNumber) %>%
-    summarise(UnderLyrs = MeanNA(Layers)) %>%
+    summarise(UnderLyrs = mean_na(Layers)) %>%
     ungroup()
   # If there are missing algae types
   if (any(!algae$AlgType %in% alg_coefs$AlgType)) {
@@ -953,7 +953,7 @@ calc_under_spawn <- function(where,
       Station
     ) %>%
     # Quadrat q
-    summarise(EggDensAlg = SumNA(EggDensAlg)) %>%
+    summarise(EggDensAlg = sum_na(EggDensAlg)) %>%
     replace_na(replace = list(EggDensAlg = 0)) %>%
     ungroup()
   # Combine eggs
@@ -982,7 +982,7 @@ calc_under_spawn <- function(where,
     ) %>%
     # Spawn s
     summarise(
-      WidthBar = MeanNA(Width)
+      WidthBar = mean_na(Width)
     ) %>%
     ungroup()
   # Calculate transect-level metrics
@@ -993,7 +993,7 @@ calc_under_spawn <- function(where,
     ) %>%
     # Transect t
     summarise(
-      EggDens = MeanNA(EggDens),
+      EggDens = mean_na(EggDens),
       Width = unique(Width)
     ) %>%
     ungroup()
@@ -1017,7 +1017,7 @@ calc_under_spawn <- function(where,
     summarise(
       WidthBar = unique(WidthBar),
       LengthAlgae = unique(LengthAlgae),
-      EggDens = WtMeanNA(EggDens, w = Width)
+      EggDens = wt_mean_na(EggDens, w = Width)
     ) %>%
     ungroup()
   # Calculate understory biomass by spawn number
