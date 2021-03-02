@@ -55,11 +55,6 @@ biomass) in tonnes, t.
 
 ``` r
 library(SpawnIndex)
-```
-
-    ## This is SpawnIndex version 0.2.0.
-
-``` r
 data(pars)
 theta <- calc_egg_conversion()
 theta
