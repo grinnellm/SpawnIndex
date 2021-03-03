@@ -1572,7 +1572,7 @@ Therefore, we estimate one spawn index scaling parameter for
 the surface survey period $q_1$ (\Sexpr{pars$years$assess} to \Sexpr{pars$years$dive-1}), and
 a second one for the dive survey period $q_2$ (\Sexpr{pars$years$dive} to present).
 
-\section{SPAWN ON KELP CALCULATIONS}\label{secSOK}
+\section{SPAWN-ON-KELP CALCULATIONS}\label{secSOK}
 
 Spawn-on-kelp (SOK) fisheries collect \fishName{} roe that adheres to algae such as Macrocystis after spawning.
 Other similar fisheries include spawn on bough, in which operators collect roe that adhere to tree boughs;
