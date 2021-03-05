@@ -47,12 +47,12 @@ devtools::install_github(repo = "grinnellm/SpawnIndex")
 
 ## Examples
 
-We show two example calculations: surface spawn egg density, and
-spawn-on-kelp biomass.
+We show two example calculations: surface spawn index, and spawn-on-kelp
+biomass.
 
-### Surface spawn egg density
+### Surface spawn index
 
-This example shows how to calculate egg density for a surface spawn
+This example shows how to calculate the spawn index for a surface spawn
 survey. First, load the SpawnIndex package in the usual way.
 
 ``` r
@@ -61,11 +61,25 @@ library(SpawnIndex)
 
     ## This is SpawnIndex version 0.2.0.
 
-Load the default parameter values for spawn index calculations, and
-calculate egg density for a given number of egg layers.
+Next, load the default parameter values for spawn index calculations,
+and calculate the conversion factor for the number of Pacific Herring
+eggs to the spawn index (i.e., biomass) in tonnes, t. Call the function
+with the default parameters.
 
 ``` r
 data(pars)
+theta <- calc_egg_conversion()
+theta
+```
+
+    ## [1] 1e+08
+
+Thus, convert eggs to biomass in tonnes by dividing the number of eggs
+by 10<sup>8</sup>, where `theta` is in units of
+10<sup>8</sup> eggs t<sup>-1</sup>. Then, calculate egg density for a
+given number of egg layers.
+
+``` r
 layers <- 4
 egg_density <- egg_dens_surf(egg_layers = layers)
 egg_density
@@ -75,28 +89,38 @@ egg_density
 
 In this example, spawn surveyors observed 4 layers of Pacific Herring
 eggs, which has an estimated egg density of 863.57, where egg density is
-in units of 10<sup>3</sup> eggs m<sup>-2</sup>.
+in units of 10<sup>3</sup> eggs m<sup>-2</sup>. Next, determine the
+total number of eggs in a given area.
+
+``` r
+length <- 50
+width <- 10
+eggs <- egg_density * length * width
+eggs
+```
+
+    ## [1] 431785
+
+Given an area measuring 50 m in length and 10 m in width, covered with 4
+layers of eggs, there is estimate the number of eggs as 431,785, in
+units of 10<sup>3</sup> eggs. Finally, calculate the spawn index (i.e.,
+biomass) in tonnes, t for the spawn.
+
+``` r
+index <- eggs * 1000 / theta
+index
+```
+
+    ## [1] 4.31785
+
+And so, the estimated spawn index for this surface spawn survey is
+4.32 t.
 
 ### Spawn-on-kelp biomass
 
 This example shows how to calculate the biomass of Pacific Herring that
 spawned and produced eggs which were removed from the population by a
-spawn-on-kelp (SOK) fishery.
-
-First, calculate the conversion factor for the number of Pacific Herring
-eggs to the spawn index (i.e., biomass) in tonnes, t. Call the function
-with the default parameters.
-
-``` r
-theta <- calc_egg_conversion()
-theta
-```
-
-    ## [1] 1e+08
-
-Thus, convert eggs to biomass in tonnes by dividing the number of eggs
-by 10<sup>8</sup>, where `theta` is in units of
-10<sup>8</sup> eggs t<sup>-1</sup>. Finally, use `theta` to estimate the
+spawn-on-kelp (SOK) fishery. Use `theta` from above to estimate the
 biomass of Pacific Herring that produced a given amount of SOK product
 in kilograms, kg.
 
