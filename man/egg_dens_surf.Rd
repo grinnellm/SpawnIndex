@@ -4,7 +4,7 @@
 \alias{egg_dens_surf}
 \title{Calculate surface spawn egg density}
 \usage{
-egg_dens_surf(alpha, beta, egg_lyrs)
+egg_dens_surf(alpha = pars$surface$alpha, beta = pars$surface$beta, egg_lyrs)
 }
 \description{
 Calculate surface spawn egg density
