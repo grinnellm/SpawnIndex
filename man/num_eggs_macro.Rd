@@ -9,7 +9,7 @@ num_eggs_macro(
   gamma = pars$macrocystis$gamma,
   delta = pars$macrocystis$delta,
   epsilon = pars$macrocystis$epsilon,
-  egg_lyrs,
+  egg_layers,
   height,
   stalks_per_plant
 )

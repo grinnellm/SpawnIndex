@@ -8,9 +8,9 @@ egg_dens_under_alg(
   vartheta = pars$understory$vartheta,
   varrho = pars$understory$varrho,
   varsigma = pars$understory$varsigma,
-  alg_lyrs,
+  alg_layers,
   alg_prop,
-  coef
+  coeff
 )
 }
 \description{

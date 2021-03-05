@@ -4,7 +4,7 @@
 \alias{egg_dens_under_sub}
 \title{Calculate understory spawn egg density on substrate}
 \usage{
-egg_dens_under_sub(varphi = pars$understory$varphi, sub_lyrs, sub_prop)
+egg_dens_under_sub(varphi = pars$understory$varphi, sub_layers, sub_prop)
 }
 \description{
 Calculate understory spawn egg density on substrate
