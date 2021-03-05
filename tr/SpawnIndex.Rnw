@@ -134,6 +134,7 @@ require(kableExtra)
 require(mapproj)
 require(ggrepel)
 require(SpawnIndex)
+require(gfiscamutils)
 require(knitr)
 # Omit xcolor warning(s)
 knit_hooks$set(document = function(x) {
@@ -282,7 +283,7 @@ intensity <- intensity %>%
   select(Period5, Period9, Description, Layers) %>%
   arrange(Layers)
 # Vector of egg layers
-lyrs <- intensity$Layers
+layers <- intensity$Layers
 # Load algae coefficients
 data(algae_coefs)
 # Algae coefficients
@@ -361,11 +362,11 @@ To develop spawn indices,
 Locations are nested within Sections (\autoref{figRegionSec}),
 Sections are nested within Statistical Areas (\autoref{figRegionSA}), and
 Statistical Areas are nested within stock assessment regions (SARs; \autoref{figRegionReg}).
-There are \Sexpr{Num2Word(nrow(regions))} SARs in BC,
+There are \Sexpr{num_to_word(nrow(regions))} SARs in BC,
 which we categorize as either `major' or `minor' (\autoref{figBC}; \citealt{HaistRosenfeld1988}).
 The terms `major' and `minor' describe relative differences in geographic and biomass scales.
 The major SARs are Haida Gwaii (formerly known as Queen Charlotte Islands), Prince Rupert District (formerly known as North Coast), Central Coast, Strait of Georgia, and West Coast of Vancouver Island.
-The minor SARs are \Sexpr{PasteNicely(regions$RegionName[!regions$Major])}.
+The minor SARs are \Sexpr{paste_nicely(regions$RegionName[!regions$Major])}.
 
 <<Region>>=
 # Number of plots
@@ -476,15 +477,16 @@ map_reg <- base_map +
 # Caption
 fig_cap <- paste("Spatial boundaries for \\fishName{} stock assessment
                  regions (SARs) in British Columbia. There are ",
-                 Num2Word(length(major_regions)), " major SARs: ",
-                 PasteNicely(major_regions), ". There are ",
-                 Num2Word(length(minor_regions)), " minor SARs: ",
-                 PasteNicely(minor_regions), ". Units: kilometres (km).",
-                 sep = "")
+                 num_to_word(length(major_regions)), " major SARs: ",
+                 paste_nicely(major_regions), ". There are ",
+                 num_to_word(length(minor_regions)), " minor SARs: ",
+                 paste_nicely(minor_regions), ". Units: kilometres (km).",
+                 sep = ""
+)
 # Plot BC coast and regions
 map_bc <- ggplot(
   data = shapes$landAllCropDF, aes(x = Eastings, y = Northings)
-  ) +
+) +
   geom_polygon(
     data = shapes$landAllCropDF, aes(group = group), fill = "darkgrey"
   ) +
@@ -877,9 +879,10 @@ Thus, spawn data used for stock assessments is represented either by a nine cate
 tab_cap <- paste("Spawn intensity categories, description, and number of egg
                  layers for \\fishName{} surface spawn surveys for the
                  periods ", pars$years$survey, " to ", pars$years$nine_cats - 1,
-                 ", and ", pars$years$nine_cats, " to ", pars$years$layers - 1,
+                  ", and ", pars$years$nine_cats, " to ", pars$years$layers - 1,
                  " \\citep{HayKronlund1987, SchweigertStocker1988}. Uncertainty
-                 in the number of egg layers is not available.", sep = "")
+                 in the number of egg layers is not available.", sep = ""
+)
 # Short caption
 tab_s_cap <- "Spawn intensity categories and number of egg layers for
               \\fishName{} surface spawn surveys"
@@ -1015,16 +1018,16 @@ $B'$ & Surface spawn index (i.e., biomass) & t & \\
 
 Each sample $j$ (\autoref{figFlow}, step \ref{sSamp}) can have one or more substrate types $i$.
 The number of egg layers in substrate $i$, sample $j$, and spawn $s$ is
-\begin{equation}\label{eqSurfLyrsIJS}
+\begin{equation}\label{eqSurfLayersIJS}
 E_{ijs} = E'_{ijs} \phi_{ijs},
 \end{equation}
 where $E'_{ijs}$ is the number of egg layers on substrate $i$, and
 $\phi_{ijs}$ is the proportion of substrate $i$ covered with spawn.
 The total number of egg layers in sample $j$ and spawn $s$ is
-\begin{equation}\label{eqSurfLyrsJS}
+\begin{equation}\label{eqSurfLayersJS}
 E_{js} = \sum_{i=1}^{I} E_{ijs},
 \end{equation}
-where $E_{ijs}$ is the number of egg layers in substrate $i$ from \autoref{eqSurfLyrsIJS}.
+where $E_{ijs}$ is the number of egg layers in substrate $i$ from \autoref{eqSurfLayersIJS}.
 For the time period when surveyors recorded spawn `intensity' categories instead of direct egg layer estimates, we convert intensity to number of egg layers $E_{js}$ (\autoref{tab:Intensity}).
 \citet{SchweigertEtal1997} developed a model of surface egg density as a function of number of egg layers using a linear regression model%
 \footnote{There is an error in \cite{SchweigertEtal1997};
@@ -1035,7 +1038,7 @@ Likewise, we report eggs in thousands (i.e., $10^3 \cdot \text{eggs}$) in this d
 \end{equation}
 where $\alpha$ is the regression intercept,
 $\beta$ is the regression slope,
-$E_{js}$ is the total number of egg layers in sample $j$ from \autoref{eqSurfLyrsJS}, and
+$E_{js}$ is the total number of egg layers in sample $j$ from \autoref{eqSurfLayersJS}, and
 $\rho_{js}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$ (\autoref{figSurfDensJS}).
 Note that we only calculate $\rho_{js}$ if $E_{js} > 0$.
 
@@ -1047,10 +1050,10 @@ fig_cap <- paste("Relationship between egg density in thousands of eggs per
                  \\autoref{eqSurfDensJS} \\citep{SchweigertEtal1997}. Note that
                  number of egg layers can exceed those shown in this figure.")
 # Expand the values
-df <- expand.grid(Layers = lyrs)
+df <- expand.grid(Layers = layers)
 # Make a table of egg layers, proportion, and egg density
 dat <- as_tibble(df) %>%
-  mutate(EggDens = egg_dens_surf(egg_lyrs = Layers))
+  mutate(EggDens = egg_dens_surf(egg_layers = Layers))
 # Figure
 egg_dens_sub_plot <- ggplot(
   data = dat, mapping = aes(x = Layers, y = EggDens)
@@ -1188,7 +1191,7 @@ number of egg layers,
 plant height, and
 number of stalks per plant.
 First, the mean number of egg layers in spawn $s$ is
-\begin{equation}\label{eqMacroLyrsS}
+\begin{equation}\label{eqMacroLayersS}
 \mean{E_s} = \frac{1}{T} \sum_{t=1}^T \mean{E_{ts}},
 \end{equation}
 where $\mean{E_{ts}}$ is the mean number of egg layers in transect $t$, and
@@ -1227,7 +1230,7 @@ using a nonlinear multiple regression model
 \mean{\psi_s} = \xi \mean{E_s}^{\gamma} \mean{H_s}^{\delta} \mean{\kappa_s}^{\epsilon} 10^3,
 \end{equation}
 where $\xi$ is the regression slope,
-$\mean{E_s}$ is the mean number of egg layers in spawn $s$ from \autoref{eqMacroLyrsS},
+$\mean{E_s}$ is the mean number of egg layers in spawn $s$ from \autoref{eqMacroLayersS},
 $\gamma$ is the regression exponent on $\mean{E_s}$,
 $\mean{H_s}$ is the mean plant height in spawn $s$ from \autoref{eqMacroHeightS},
 $\delta$ is the regression exponent on $\mean{H_s}$,
@@ -1264,12 +1267,12 @@ fig_cap <- paste("Relationship between number of eggs in thousands per
                  Note that number of egg layers, plant height, and number of
                  stalks per plant can exceed those shown in this figure.")
 # Expand the values
-df <- expand.grid(Layers = lyrs, PlantHeight = ht, Stalks = stlks)
+df <- expand.grid(Layers = layers, PlantHeight = ht, Stalks = stlks)
 # Make a table of egg layers, proportion, coefficient, and egg density
 dat <- as_tibble(df) %>%
   mutate(
     Number = num_eggs_macro(
-      egg_lyrs = Layers, Height = PlantHeight, StalksPerPlant = Stalks
+      egg_layers = Layers, height = PlantHeight, stalks_per_plant = Stalks
     ),
     Stalks = paste("Number of stalks per plant: ",
       formatC(Stalks, width = 2, flag = "0"),
@@ -1286,7 +1289,9 @@ num_egg_plot <- ggplot(
   labs(
     x = "Number of egg layers on plants",
     y = expression(paste("Number of eggs per plant (",
-                         10^3 %.% "eggs" %.% "plant"^-1, ")", sep = "")),
+      10^3 %.% "eggs" %.% "plant"^-1, ")",
+      sep = ""
+    )),
     colour = "Plant height (m)"
   ) +
   scale_y_continuous(labels = comma) +
@@ -1358,10 +1363,12 @@ fig_cap <- paste("Relationship between substrate egg density in thousands of
                  that number of egg layers can exceed those shown in this
                  figure.")
 # Expand the values
-df <- expand.grid(Layers = lyrs, Proportion = prop)
+df <- expand.grid(Layers = layers, Proportion = prop)
 # Make a table of egg layers, proportion, and egg density
 dat <- as_tibble(df) %>%
-  mutate(EggDens = egg_dens_under_sub(sub_lyrs = Layers, sub_prop = Proportion))
+  mutate(EggDens = egg_dens_under_sub(
+    sub_layers = Layers, sub_prop = Proportion
+  ))
 # Figure
 egg_dens_sub_plot <- ggplot(
   data = dat, mapping = aes(x = Layers, y = EggDens, group = Proportion)
@@ -1370,7 +1377,7 @@ egg_dens_sub_plot <- ggplot(
   labs(
     x = "Number of egg layers on substrate",
     y = expression(paste("Substrate egg density (",
-                         10^3 %.% "eggs" %.% "m"^-2, ")",
+      10^3 %.% "eggs" %.% "m"^-2, ")",
       sep = ""
     )),
     colour = "Proportion of substrate\ncovered in spawn"
@@ -1434,14 +1441,14 @@ fig_cap <- paste("Relationship between algae egg density in thousands of eggs
                  exceed those shown in this figure.")
 # Expand the values
 df <- expand.grid(
-  Layers = lyrs, Proportion = prop, Coefficient = unique(algae_coefs$Coef)
+  Layers = layers, Proportion = prop, Coefficient = unique(algae_coefs$Coef)
 )
 # Make a table of egg layers, proportion, coefficient, and egg density
 dat <- as_tibble(df) %>%
   arrange(Coefficient) %>%
   mutate(
     EggDens = egg_dens_under_alg(
-      alg_lyrs = Layers, alg_prop = Proportion, coef = Coefficient
+      alg_layers = Layers, alg_prop = Proportion, coef = Coefficient
     ),
     Coefficient = paste("Algae coefficient: ", format(Coefficient, digits = 4),
       sep = ""
@@ -1721,7 +1728,7 @@ versus low survey effort or no information in other areas.
 \caption[Details for parameters and prediction models used in \fishName{} spawn index calculations]
 {Details for studies to quantify parameters and prediction models used in \fishName{} spawn index calculations.
 Study details include where, when, and how many samples, when available.
-The major stock assessment regions are \Sexpr{PasteNicely(major_regions)} (\autoref{figBC}).
+The major stock assessment regions are \Sexpr{paste_nicely(major_regions)} (\autoref{figBC}).
 Legend: equation (Eq), sample size ($n$), standard error (SE), standard deviation (SD), spawn-on-kelp (SOK), and not available (NA).} \\
 \toprule
 \textbf{Parameters} & \textbf{Description} & \textbf{Study details} & \textbf{Uncertainty} & \textbf{References} \\
@@ -1936,8 +1943,9 @@ to ensure that this issue does not reoccur due to another change in lead line ma
 <<WidthFac>>=
 # Caption
 tab_cap <- paste("Spawn width correction factors $\\tau_{ry}$ for \\fishName{}
-understory spawn surveys by stock assessment region (SAR, $r$) and year $y$.
-Legend: ", PasteNicely(c(major_regions, minor_regions)), ".", sep = "")
+                 understory spawn surveys by stock assessment region (SAR, $r$)
+                 and year $y$. Legend: ",
+                 paste_nicely(c(major_regions, minor_regions)), ".", sep = "")
 # Short caption
 tab_s_cap <- "Spawn width correction factors for \\fishName{} understory spawn
               surveys"
