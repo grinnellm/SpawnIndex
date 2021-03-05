@@ -103,6 +103,17 @@ calc_biomass_sok <- function(sok,
   sb
 } # End calc_biomass_sok
 
+#' Calculate surface spawn egg density
+#' @export
+egg_dens_surf <- function(alpha,
+                          beta,
+                          egg_lyrs) {
+  # Calculate egg density
+  density <- alpha + beta * egg_lyrs
+  # Return density
+  density
+} # End egg_dens_surf function
+
 #' Calculate the surface spawn index.
 #'
 #' Calculate the Pacific Herring surface spawn index in tonnes.
@@ -436,6 +447,22 @@ calc_surf_spawn <- function(where,
   res
 } # End calc_surf_spawn function
 
+#' Calculate Macrocystis spawn number of eggs per plant
+#' @export
+num_eggs_macro <- function(xi = pars$macrocystis$xi,
+                           gamma = pars$macrocystis$gamma,
+                           delta = pars$macrocystis$delta,
+                           epsilon = pars$macrocystis$epsilon,
+                           egg_lyrs,
+                           height,
+                           stalks_per_plant) {
+  # Calculate the number of eggs
+  number <- xi * egg_lyrs^gamma * height^delta * stalks_per_plant^epsilon *
+    1000
+  # Return number
+  number
+} # End num_eggs_macro function
+
 #' Calculate the Macrocystis spawn index.
 #'
 #' Calculate the Pacific Herring Macrocystis spawn index in tonnes.
@@ -670,6 +697,31 @@ calc_macro_spawn <- function(where,
   # Return the list
   res
 } # End calc_macro_spawn function
+
+#' Calculate understory spawn egg density on substrate
+#' @export
+egg_dens_under_sub <- function(varphi = pars$understory$varphi,
+                         sub_lyrs,
+                         sub_prop) {
+  # Calculate egg density
+  density <- varphi * sub_lyrs * sub_prop
+  # Return density
+  density
+} # End egg_dens_under_sub function
+
+#' Calculate for understory spawn egg density on algae
+#' @export
+egg_dens_under_alg <- function(vartheta = pars$understory$vartheta,
+                         varrho = pars$understory$varrho,
+                         varsigma = pars$understory$varsigma,
+                         alg_lyrs,
+                         alg_prop,
+                         coef) {
+  # Calculate egg density
+  density <- vartheta * alg_lyrs^varrho * alg_prop^varsigma * coef
+  # Return density
+  density
+} # End egg_dens_under_alg function
 
 #' Calculate the understory spawn index.
 #'
