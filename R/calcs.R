@@ -105,8 +105,8 @@ calc_biomass_sok <- function(sok,
 
 #' Calculate surface spawn egg density
 #' @export
-egg_dens_surf <- function(alpha,
-                          beta,
+egg_dens_surf <- function(alpha = pars$surface$alpha,
+                          beta = pars$surface$beta,
                           egg_lyrs) {
   # Calculate egg density
   density <- alpha + beta * egg_lyrs
@@ -349,7 +349,7 @@ calc_surf_spawn <- function(where,
     left_join(y = intense, by = "Intensity") %>%
     mutate(
       EggLyrs = ifelse(Year %in% intense_yrs, Layers, EggLyrs),
-      # Egg density in thousands (eggs * 10^3 / m^2; Schweigert et al.
+      # Egg density in thousands (10^3 * eggs / m^2; Schweigert et al.
       # 1997). Yes, thousands: the report is wrong (J. Schweigert,
       # personal communication, 21 February 2017); sample j
       EggDens = alpha + beta * EggLyrs
@@ -662,11 +662,11 @@ calc_macro_spawn <- function(where,
       Height = mean_na(Height),
       EggLyrs = mean_na(EggLyrs),
       StalksPerPlant = Stalks / Plants,
-      # Eggs per plant in thousands (eggs * 10^3 / plant; Haegele and
+      # Eggs per plant in thousands (10^3 * eggs / plant; Haegele and
       # Schweigert 1990); spawn s
       EggsPerPlant = xi * EggLyrs^gamma * Height^delta *
         StalksPerPlant^epsilon * 1000,
-      # Eggs density in thousands (eggs * 10^3 / m^2; spawn s
+      # Eggs density in thousands (10^3 * eggs / m^2; spawn s
       EggDens = EggsPerPlant * Plants / Area,
       # Biomass in tonnes, based on Hay (1985), and Hay and Brett (1988); spawn
       # s
@@ -701,8 +701,8 @@ calc_macro_spawn <- function(where,
 #' Calculate understory spawn egg density on substrate
 #' @export
 egg_dens_under_sub <- function(varphi = pars$understory$varphi,
-                         sub_lyrs,
-                         sub_prop) {
+                               sub_lyrs,
+                               sub_prop) {
   # Calculate egg density
   density <- varphi * sub_lyrs * sub_prop
   # Return density
@@ -712,11 +712,11 @@ egg_dens_under_sub <- function(varphi = pars$understory$varphi,
 #' Calculate for understory spawn egg density on algae
 #' @export
 egg_dens_under_alg <- function(vartheta = pars$understory$vartheta,
-                         varrho = pars$understory$varrho,
-                         varsigma = pars$understory$varsigma,
-                         alg_lyrs,
-                         alg_prop,
-                         coef) {
+                               varrho = pars$understory$varrho,
+                               varsigma = pars$understory$varsigma,
+                               alg_lyrs,
+                               alg_prop,
+                               coef) {
   # Calculate egg density
   density <- vartheta * alg_lyrs^varrho * alg_prop^varsigma * coef
   # Return density
@@ -995,7 +995,7 @@ calc_under_spawn <- function(where,
       y = select(.data = alg_trans, -Width),
       by = c("Year", "Region", "LocationCode", "SpawnNumber", "Transect")
     ) %>%
-    # Egg density in thousands (eggs * 10^3 / m^2; Schweigert 2005); quadrat
+    # Egg density in thousands (10^3 * eggs / m^2; Schweigert 2005); quadrat
     # size coefficients not required because all quadrats are 0.5m^2 (1.0512)
     # Algae a
     mutate(EggDensAlg = vartheta * AlgLyrs^varrho * AlgProp^varsigma * Coef *
@@ -1020,7 +1020,7 @@ calc_under_spawn <- function(where,
     mutate(EggDensSub = ifelse(Width > 0, EggDensSub, 0))
   # Calculate total egg density by station/quadrat
   eggs_station <- eggs %>%
-    # Total egg density in thousands (eggs * 10^3 / m^2); quadrat q
+    # Total egg density in thousands (10^3 * eggs / m^2); quadrat q
     mutate(EggDens = EggDensSub + EggDensAlg) %>%
     filter(!is.na(Station))
   # Widths
