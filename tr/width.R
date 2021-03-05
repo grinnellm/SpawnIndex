@@ -15,55 +15,61 @@ require(scales)
 region <- "SoG"
 
 # Years to consider
-yrRange <- pars$years$assess:2019
+yr_range <- pars$years$assess:2019
 
 # Figure path
-figPath <- file.path("tr", "cache")
+fig_path <- file.path("tr", "cache")
 
 # Figure width
-figWidth <- 6.5
+fig_width <- 6.5
 
 # Section subset
-sectionSub <- NA
+section_sub <- NA
 
 ##### Paths #####
 
 # Make the directory if required
-if (!dir.exists(figPath)) dir.create(path = figPath)
+if (!dir.exists(fig_path)) dir.create(path = fig_path)
 
 # Database location
 # db_loc <- system.file("extdata", package = "SpawnIndex")
 db_loc <- file.path("..", "Data", "Local")
 
 # Database name
-# dbName <- "HerringSpawn.mdb"
-dbName <- "HSA_Program_v6.2.mdb"
+# db_name <- "HerringSpawn.mdb"
+db_name <- "HSA_Program_v6.2.mdb"
 
 # Tables etc for area info
 area_loc <- list(
-  loc = db_loc, db = dbName,
+  loc = db_loc, db = db_name,
   fns = list(sections = "Sections", locations = "Location")
 )
 
 # Tables etc for median widths
 width_loc <- list(
-  loc = db_loc, db = dbName,
+  loc = db_loc, db = db_name,
   fns = list(
     region_std = "RegionStd", section_std = "SectionStd", pool_std = "PoolStd"
   )
 )
 
 # Tables etc for surface data
-surf_loc <- list(loc = db_loc, db = dbName, fns = list(all_spawn = "tSSAllspawn"))
+surf_loc <- list(
+  loc = db_loc, db = db_name,
+  fns = list(all_spawn = "tSSAllspawn")
+)
 
 # Tables etc for dive data (Macrocystis and understory)
-diveLoc <- list(loc = db_loc, db = dbName, fns = list(alg_trans = "tSSVegTrans"))
+dive_loc <- list(
+  loc = db_loc, db = db_name,
+  fns = list(alg_trans = "tSSVegTrans")
+)
 
 ##### Data #####
 
 # Load area data
 areas <- load_area_data(
-  reg = region, sec_sub = sectionSub, where = area_loc, quiet = TRUE
+  reg = region, sec_sub = section_sub, where = area_loc, quiet = TRUE
 )
 
 # Median widths
@@ -76,14 +82,14 @@ data(under_width_facs)
 
 # Get surface widths
 get_surf_width <- function(where,
-                         areas,
-                         yrs = yrRange,
-                         widths) {
+                           areas,
+                           yrs = yr_range,
+                           widths) {
   # Establish connection with access
   access_db <- odbcDriverConnect(
     paste("Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=",
-          file.path(where$loc, where$db),
-          sep = ""
+      file.path(where$loc, where$db),
+      sep = ""
     )
   )
   # Get a small subset of area data
@@ -132,18 +138,18 @@ get_surf_width <- function(where,
 } # End get_surf_width function
 
 # Load surface widths
-surfWidth <- get_surf_width(where = surf_loc, a = areas, widths = width_bar)
+surf_width <- get_surf_width(where = surf_loc, a = areas, widths = width_bar)
 
 # Get dive widths
 get_dive_width <- function(where,
-                         areas,
-                         yrs = yrRange,
-                         tau = under_width_facs) {
+                           areas,
+                           yrs = yr_range,
+                           tau = under_width_facs) {
   # Establish connection with access
   access_db <- odbcDriverConnect(
     paste("Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=",
-          file.path(where$loc, where$db),
-          sep = ""
+      file.path(where$loc, where$db),
+      sep = ""
     )
   )
   # Get a small subset of area data
@@ -199,10 +205,10 @@ get_dive_width <- function(where,
 } # End get_dive_width function
 
 # Get dive widths
-diveWidth <- get_dive_width(where = diveLoc, areas = areas)
+dive_width <- get_dive_width(where = dive_loc, areas = areas)
 
 # Get median dive widths
-width_bar2 <- diveWidth %>%
+width_bar2 <- dive_width %>%
   select(
     Region, StatArea, Section, LocationCode, WidthReg, WidthStat,
     WidthSec, WidthLoc
@@ -211,18 +217,18 @@ width_bar2 <- diveWidth %>%
   arrange(Region, StatArea, Section, LocationCode)
 
 # Combine surface and dive widths
-allWidth <- bind_rows(surfWidth, diveWidth)
+all_width <- bind_rows(surf_width, dive_width)
 
 # Get surface widths (second option)
 get_surf_width_2 <- function(where,
-                          areas,
-                          yrs = yrRange,
-                          widths) {
+                             areas,
+                             yrs = yr_range,
+                             widths) {
   # Establish connection with access
   access_db <- odbcDriverConnect(
     paste("Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=",
-          file.path(where$loc, where$db),
-          sep = ""
+      file.path(where$loc, where$db),
+      sep = ""
     )
   )
   # Get a small subset of area data
@@ -276,14 +282,14 @@ get_surf_width_2 <- function(where,
 } # End get_surf_widths2 function
 
 # Load surface widths
-surfWidth2 <- get_surf_width_2(
+surf_width2 <- get_surf_width_2(
   where = surf_loc, areas = areas, widths = width_bar2
 )
 
 ##### Figures #####
 
 # Plot observed width with lines for median pool, section, and region width
-poolPlot <- ggplot(data = allWidth, mapping = aes(y = Pool)) +
+pool_plot <- ggplot(data = all_width, mapping = aes(y = Pool)) +
   geom_vline(
     mapping = aes(xintercept = WidthReg, linetype = Survey),
     colour = "seagreen", na.rm = TRUE, size = 1
@@ -312,25 +318,25 @@ poolPlot <- ggplot(data = allWidth, mapping = aes(y = Pool)) +
   theme_bw() +
   theme(strip.text.y = element_text(angle = 0), legend.position = "top") +
   ggsave(
-    filename = file.path(figPath, "PoolWidth.png"), width = figWidth,
-    height = figWidth * 1.33
+    filename = file.path(fig_path, "PoolWidth.png"), width = fig_width,
+    height = fig_width * 1.33
   )
-# print(poolPlot)
+# print(pool_plot)
 
 ##### Tables #####
 
 # Determine where widths come from
-propWidth <- surfWidth %>%
+prop_width <- surf_width %>%
   mutate(
     Width = ifelse(is.na(WidthPool),
-                   ifelse(is.na(WidthSec), "Region", "Section"),
-                   "Pool"
+      ifelse(is.na(WidthSec), "Region", "Section"),
+      "Pool"
     ),
     Width = factor(Width, levels = c("Pool", "Section", "Region"))
   )
 
 # Proportions by method
-pt <- as.data.frame(table(propWidth$Width) / nrow(propWidth) * 100)
+pt <- as.data.frame(table(prop_width$Width) / nrow(prop_width) * 100)
 
 # Make a nice table
 df <- matrix(data = pt$Freq, dimnames = list(NULL, pt$Var1), nrow = 1) %>%
@@ -339,22 +345,22 @@ df <- matrix(data = pt$Freq, dimnames = list(NULL, pt$Var1), nrow = 1) %>%
   select(SAR, pt$Var1)
 
 # Determine where widths come from (2)
-propWidth2 <- surfWidth2 %>%
+prop_width2 <- surf_width2 %>%
   mutate(
     Width = ifelse(is.na(WidthLoc),
-                   ifelse(is.na(WidthSec),
-                          ifelse(is.na(WidthStat), "Region", "StatArea"),
-                          "Section"
-                   ),
-                   "Location"
+      ifelse(is.na(WidthSec),
+        ifelse(is.na(WidthStat), "Region", "StatArea"),
+        "Section"
+      ),
+      "Location"
     ),
     Width = factor(Width,
-                   levels = c("Location", "Section", "StatArea", "Region")
+      levels = c("Location", "Section", "StatArea", "Region")
     )
   )
 
 # Proportions by method
-pt2 <- as.data.frame(table(propWidth2$Width) / nrow(propWidth) * 100)
+pt2 <- as.data.frame(table(prop_width2$Width) / nrow(prop_width) * 100)
 
 # Make a nice table
 df2 <- matrix(data = pt2$Freq, dimnames = list(NULL, pt2$Var1), nrow = 1) %>%
@@ -363,10 +369,10 @@ df2 <- matrix(data = pt2$Freq, dimnames = list(NULL, pt2$Var1), nrow = 1) %>%
   select(SAR, pt2$Var1)
 
 # Write to file
-if( file.exists("Old.csv") ) {
-  write_csv(x=df, path="Old.csv", append=TRUE)
-  write_csv(x=df2, path="New.csv", append=TRUE)
+if (file.exists("Old.csv")) {
+  write_csv(x = df, path = "Old.csv", append = TRUE)
+  write_csv(x = df2, path = "New.csv", append = TRUE)
 } else {
-  write_csv(x=df, path="Old.csv", append=FALSE)
-  write_csv(x=df2, path="New.csv", append=FALSE)
+  write_csv(x = df, path = "Old.csv", append = FALSE)
+  write_csv(x = df2, path = "New.csv", append = FALSE)
 }
