@@ -75,7 +75,7 @@ data(under_width_facs)
 ##### Analysis #####
 
 # Get surface widths
-GetSurfWidth <- function(where,
+get_surf_width <- function(where,
                          areas,
                          yrs = yrRange,
                          widths) {
@@ -129,13 +129,13 @@ GetSurfWidth <- function(where,
   odbcClose(access_db)
   # Return the table
   res
-} # End GetSurfWidth function
+} # End get_surf_width function
 
 # Load surface widths
-surfWidth <- GetSurfWidth(where = surf_loc, a = areas, widths = width_bar)
+surfWidth <- get_surf_width(where = surf_loc, a = areas, widths = width_bar)
 
 # Get dive widths
-GetDiveWidth <- function(where,
+get_dive_width <- function(where,
                          areas,
                          yrs = yrRange,
                          tau = under_width_facs) {
@@ -196,10 +196,10 @@ GetDiveWidth <- function(where,
   odbcClose(access_db)
   # Return results
   res
-} # End GetDiveWidth function
+} # End get_dive_width function
 
 # Get dive widths
-diveWidth <- GetDiveWidth(where = diveLoc, areas = areas)
+diveWidth <- get_dive_width(where = diveLoc, areas = areas)
 
 # Get median dive widths
 width_bar2 <- diveWidth %>%
@@ -214,7 +214,7 @@ width_bar2 <- diveWidth %>%
 allWidth <- bind_rows(surfWidth, diveWidth)
 
 # Get surface widths (second option)
-GetSurfWidth2 <- function(where,
+get_surf_width_2 <- function(where,
                           areas,
                           yrs = yrRange,
                           widths) {
@@ -273,10 +273,10 @@ GetSurfWidth2 <- function(where,
   odbcClose(access_db)
   # Return the table
   res
-} # End GetSurfWidths2 function
+} # End get_surf_widths2 function
 
 # Load surface widths
-surfWidth2 <- GetSurfWidth2(
+surfWidth2 <- get_surf_width_2(
   where = surf_loc, areas = areas, widths = width_bar2
 )
 
