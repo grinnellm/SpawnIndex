@@ -378,7 +378,11 @@ load_area_data <- function(reg,
 #'   where = all_spawn_loc, areas = areas, yrs = 2010:2015
 #' )
 #' all_spawn
-load_all_spawn <- function(where, areas, yrs, ft2m = 0.3048, quiet = FALSE) {
+load_all_spawn <- function(where,
+                           areas,
+                           yrs,
+                           ft2m = 0.3048,
+                           quiet = FALSE) {
   # Get where names
   where_names <- c("loc", "db", "fns.all_spawn", "fns.stations")
   # Check where: list
@@ -526,7 +530,9 @@ load_all_spawn <- function(where, areas, yrs, ft2m = 0.3048, quiet = FALSE) {
 #' )
 #' width_bar <- get_width(where = width_loc, areas = areas)
 #' width_bar
-get_width <- function(where, areas, quiet = FALSE) {
+get_width <- function(where,
+                      areas,
+                      quiet = FALSE) {
   # Get where names
   where_names <- c(
     "loc", "db", "fns.region_std", "fns.section_std", "fns.pool_std"

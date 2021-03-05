@@ -14,7 +14,10 @@
 #' @export
 #' @examples
 #' paste_nicely(x = letters[1:5])
-paste_nicely <- function(x, int_char = ", ", n_char = "and ", do_quotes = FALSE,
+paste_nicely <- function(x,
+                         int_char = ", ",
+                         n_char = "and ",
+                         do_quotes = FALSE,
                          quotes = c("`", "`")) {
   # Check input: characters
   if (!is.character(int_char) | !is.character(n_char) | !is.character(quotes)) {

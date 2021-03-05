@@ -11,7 +11,8 @@
 #' @export
 #' @examples
 #' check_numeric(dat = list(x = c(1:3, NA), y = 1))
-check_numeric <- function(dat, quiet = FALSE) {
+check_numeric <- function(dat,
+                          quiet = FALSE) {
   # Ensure input is a list
   if (!is.list(dat)) stop("`dat` must be a list", call. = FALSE)
   # Check for NA
@@ -53,7 +54,9 @@ check_numeric <- function(dat, quiet = FALSE) {
 #' @export
 #' @examples
 #' check_tibble(dat = list(x = tibble::tibble(), y = tibble::tibble(x = 1)))
-check_tibble <- function(dat, min_rows = 1, quiet = FALSE) {
+check_tibble <- function(dat,
+                         min_rows = 1,
+                         quiet = FALSE) {
   # Ensure input is a list
   if (!is.list(dat)) stop("`dat` must be a list", call. = FALSE)
   # Check input: numeric
