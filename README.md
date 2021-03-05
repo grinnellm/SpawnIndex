@@ -47,8 +47,8 @@ devtools::install_github(repo = "grinnellm/SpawnIndex")
 
 ## Examples
 
-We show two example calculations: surface spawn egg density, and spawn
-on kelp.
+We show two example calculations: surface spawn egg density, and
+spawn-on-kelp biomass.
 
 ### Surface spawn egg density
 
@@ -79,7 +79,7 @@ In this example, spawn surveyors observed 4 layers of Pacific Herring
 eggs, which has an estimated egg density of 863.57, where egg density is
 in units of 10<sup>3</sup> eggs m<sup>-2</sup>.
 
-### Spawn on kelp biomass
+### Spawn-on-kelp biomass
 
 This example shows how to calculate the biomass of Pacific Herring that
 spawned and produced eggs which were removed from the population by a
