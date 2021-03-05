@@ -108,7 +108,9 @@ calc_biomass_sok <- function(sok,
 egg_dens_surf <- function(alpha = pars$surface$alpha,
                           beta = pars$surface$beta,
                           egg_lyrs) {
-  # Calculate egg density
+  # Egg density in thousands (10^3 * eggs / m^2; Schweigert et al. 1997). Yes,
+  # thousands: the report is wrong (J. Schweigert, personal communication, 21
+  # February 2017
   density <- alpha + beta * egg_lyrs
   # Return density
   density
@@ -158,7 +160,7 @@ egg_dens_surf <- function(alpha = pars$surface$alpha,
 #' @references \insertAllCited
 #' @seealso \code{\link{HerringSpawn}} \code{\link{load_area_data}}
 #'   \code{\link{get_width}} \code{\link{calc_egg_conversion}}
-#'   \code{\link{pars}} \code{\link{intensity}}
+#'   \code{\link{pars}} \code{\link{intensity}} \code{\link{egg_dens_surf}}
 #' @family calculation functions
 #' @export
 #' @examples
@@ -349,10 +351,8 @@ calc_surf_spawn <- function(where,
     left_join(y = intense, by = "Intensity") %>%
     mutate(
       EggLyrs = ifelse(Year %in% intense_yrs, Layers, EggLyrs),
-      # Egg density in thousands (10^3 * eggs / m^2; Schweigert et al.
-      # 1997). Yes, thousands: the report is wrong (J. Schweigert,
-      # personal communication, 21 February 2017); sample j
-      EggDens = alpha + beta * EggLyrs
+      # Egg density in thousands (10^3 * eggs / m^2); sample j
+      EggDens = egg_dens_surf(alpha = alpha, beta = beta, egg_layers = EggLyrs)
     )
   # These are the 'original' manual updates that were in the Microsoft Access
   # database: some overwrite good data with no documented reason and have been
@@ -456,7 +456,8 @@ num_eggs_macro <- function(xi = pars$macrocystis$xi,
                            egg_lyrs,
                            height,
                            stalks_per_plant) {
-  # Calculate the number of eggs
+  # Eggs per plant in thousands (10^3 * eggs / plant; Haegele and Schweigert
+  # 1990)
   number <- xi * egg_lyrs^gamma * height^delta * stalks_per_plant^epsilon *
     1000
   # Return number
@@ -504,6 +505,7 @@ num_eggs_macro <- function(xi = pars$macrocystis$xi,
 #' @references \insertAllCited
 #' @seealso \code{\link{HerringSpawn}} \code{\link{load_area_data}}
 #'   \code{\link{calc_egg_conversion}} \code{\link{pars}}
+#'   \code{\link{num_eggs_macro}}
 #' @family calculation functions
 #' @export
 #' @examples
@@ -662,10 +664,11 @@ calc_macro_spawn <- function(where,
       Height = mean_na(Height),
       EggLyrs = mean_na(EggLyrs),
       StalksPerPlant = Stalks / Plants,
-      # Eggs per plant in thousands (10^3 * eggs / plant; Haegele and
-      # Schweigert 1990); spawn s
-      EggsPerPlant = xi * EggLyrs^gamma * Height^delta *
-        StalksPerPlant^epsilon * 1000,
+      # Eggs per plant in thousands (10^3 * eggs / plant); spawn s
+      EggsPerPlant = num_eggs_macro(
+        xi = xi, gamma = gamma, delta = delta, epsilon = epsilon,
+        egg_lyrs = EggLayers, height = Height, stalks_per_plant = StalksPerPlant
+      ),
       # Eggs density in thousands (10^3 * eggs / m^2; spawn s
       EggDens = EggsPerPlant * Plants / Area,
       # Biomass in tonnes, based on Hay (1985), and Hay and Brett (1988); spawn
@@ -703,7 +706,7 @@ calc_macro_spawn <- function(where,
 egg_dens_under_sub <- function(varphi = pars$understory$varphi,
                                sub_lyrs,
                                sub_prop) {
-  # Calculate egg density
+  # Egg density in thousands (eggs x 10^3 / m^2; Haegele et al. 1979)
   density <- varphi * sub_lyrs * sub_prop
   # Return density
   density
@@ -717,8 +720,9 @@ egg_dens_under_alg <- function(vartheta = pars$understory$vartheta,
                                alg_lyrs,
                                alg_prop,
                                coef) {
-  # Calculate egg density
-  density <- vartheta * alg_lyrs^varrho * alg_prop^varsigma * coef
+  # Egg density in thousands (10^3 * eggs / m^2; Schweigert 2005); quadrat
+  # size coefficients not required because all quadrats are 0.5m^2 (1.0512)
+  density <- vartheta * alg_lyrs^varrho * alg_prop^varsigma * coef * 1.0512
   # Return density
   density
 } # End egg_dens_under_alg function
@@ -767,7 +771,8 @@ egg_dens_under_alg <- function(vartheta = pars$understory$vartheta,
 #' @references \insertAllCited
 #' @seealso \code{\link{HerringSpawn}} \code{\link{load_area_data}}
 #'   \code{\link{calc_egg_conversion}} \code{\link{pars}}
-#'   \code{\link{algae_coefs}}
+#'   \code{\link{algae_coefs}} \code{\link{egg_dens_under_sub}}
+#'   \code{\link{egg_dens_under_alg}}
 #' @family calculation functions
 #' @export
 #' @examples
@@ -975,9 +980,10 @@ calc_under_spawn <- function(where,
       "Year", "LocationCode", "SpawnNumber", "Transect"
     )) %>%
     left_join(y = areas_sm_2, by = c("Region", "LocationCode")) %>%
-    # Egg density in thousands (eggs x 10^3 / m^2; Haegele et al. 1979);
-    # quadrat q
-    mutate(EggDensSub = varphi * SubLyrs * SubProp) %>%
+    # Egg density in thousands (eggs x 10^3 / m^2); quadrat q
+    mutate(EggDensSub = egg_dens_under_sub(
+      varphi = varphi, sub_lyrs = SubLyrs, sub_prop = SubProp
+    )) %>%
     replace_na(replace = list(EggDensSub = 0)) %>%
     select(
       Year, Region, StatArea, Section, LocationCode, SpawnNumber, Transect,
@@ -995,11 +1001,11 @@ calc_under_spawn <- function(where,
       y = select(.data = alg_trans, -Width),
       by = c("Year", "Region", "LocationCode", "SpawnNumber", "Transect")
     ) %>%
-    # Egg density in thousands (10^3 * eggs / m^2; Schweigert 2005); quadrat
-    # size coefficients not required because all quadrats are 0.5m^2 (1.0512)
-    # Algae a
-    mutate(EggDensAlg = vartheta * AlgLyrs^varrho * AlgProp^varsigma * Coef *
-      1.0512) %>%
+    # Egg density in thousands (10^3 * eggs / m^2); algae a
+    mutate(EggDensAlg = egg_dens_under_alg(
+      vartheta = vartheta, varrho = varrho, varsigma = varsigma,
+      alg_lyrs = AlgLyrs, alg_prop = AlgProp, coef = Coef
+    )) %>%
     group_by(
       Year, Region, StatArea, Section, LocationCode, SpawnNumber, Transect,
       Station
