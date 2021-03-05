@@ -86,6 +86,7 @@ macro_spawn$si
 \seealso{
 \code{\link{HerringSpawn}} \code{\link{load_area_data}}
 \code{\link{calc_egg_conversion}} \code{\link{pars}}
+\code{\link{num_eggs_macro}}
 
 Other calculation functions: 
 \code{\link{calc_biomass_sok}()},

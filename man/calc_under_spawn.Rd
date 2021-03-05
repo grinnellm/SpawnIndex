@@ -93,7 +93,8 @@ under_spawn$si
 \seealso{
 \code{\link{HerringSpawn}} \code{\link{load_area_data}}
 \code{\link{calc_egg_conversion}} \code{\link{pars}}
-\code{\link{algae_coefs}}
+\code{\link{algae_coefs}} \code{\link{egg_dens_under_sub}}
+\code{\link{egg_dens_under_alg}}
 
 Other calculation functions: 
 \code{\link{calc_biomass_sok}()},

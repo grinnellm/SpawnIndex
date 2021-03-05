@@ -97,7 +97,7 @@ surf_spawn$si
 \seealso{
 \code{\link{HerringSpawn}} \code{\link{load_area_data}}
 \code{\link{get_width}} \code{\link{calc_egg_conversion}}
-\code{\link{pars}} \code{\link{intensity}}
+\code{\link{pars}} \code{\link{intensity}} \code{\link{egg_dens_surf}}
 
 Other calculation functions: 
 \code{\link{calc_biomass_sok}()},

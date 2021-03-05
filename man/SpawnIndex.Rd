@@ -43,7 +43,9 @@ an example database with spawn survey observations
 \section{Calculation functions}{
  The calculation functions are
 \code{\link{calc_egg_conversion}}, \code{\link{calc_biomass_sok}},
-\code{\link{calc_surf_spawn}}, \code{\link{calc_macro_spawn}}, and
+\code{\link{egg_dens_surf}}, \code{\link{calc_surf_spawn}},
+\code{\link{num_eggs_macro}}, \code{\link{calc_macro_spawn}},
+\code{\link{egg_dens_under_sub}}, \code{\link{egg_dens_under_alg}}, and
 \code{\link{calc_under_spawn}}.
 }
 
