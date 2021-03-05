@@ -67,9 +67,7 @@ calculate egg density for a given number of egg layers.
 ``` r
 data(pars)
 layers <- 4
-egg_density <- egg_dens_surf(alpha = pars$surface$alpha,
-                             beta = pars$surface$beta,
-                             egg_lyrs = layers)
+egg_density <- egg_dens_surf(egg_lyrs = layers)
 egg_density
 ```
 
