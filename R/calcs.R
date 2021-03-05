@@ -107,11 +107,11 @@ calc_biomass_sok <- function(sok,
 #' @export
 egg_dens_surf <- function(alpha = pars$surface$alpha,
                           beta = pars$surface$beta,
-                          egg_lyrs) {
+                          egg_layers) {
   # Egg density in thousands (10^3 * eggs / m^2; Schweigert et al. 1997). Yes,
   # thousands: the report is wrong (J. Schweigert, personal communication, 21
   # February 2017
-  density <- alpha + beta * egg_lyrs
+  density <- alpha + beta * egg_layers
   # Return density
   density
 } # End egg_dens_surf function
@@ -328,7 +328,7 @@ calc_surf_spawn <- function(where,
   surface <- surface %>%
     # Sample j
     mutate(
-      EggLyrs = Grass + Rockweed + Kelp + BrownAlgae + LeafyRed +
+      EggLayers = Grass + Rockweed + Kelp + BrownAlgae + LeafyRed +
         StringyRed + Rock + Other,
       Intensity = ifelse(Year %in% rescale_yrs & Intensity > 0,
         Intensity * 2 - 1, Intensity
@@ -337,7 +337,7 @@ calc_surf_spawn <- function(where,
     filter(Method %in% c("Surface", "Dive")) %>%
     select(
       Year, Region, StatArea, Section, LocationCode, Pool, SpawnNumber, Length,
-      WidthObs, Intensity, EggLyrs
+      WidthObs, Intensity, EggLayers
     )
   # Fill-in missing egg layers manually
   surface <- surface %>%
@@ -350,9 +350,11 @@ calc_surf_spawn <- function(where,
   eggs <- surface %>%
     left_join(y = intense, by = "Intensity") %>%
     mutate(
-      EggLyrs = ifelse(Year %in% intense_yrs, Layers, EggLyrs),
+      EggLayers = ifelse(Year %in% intense_yrs, Layers, EggLayers),
       # Egg density in thousands (10^3 * eggs / m^2); sample j
-      EggDens = egg_dens_surf(alpha = alpha, beta = beta, egg_layers = EggLyrs)
+      EggDens = egg_dens_surf(
+        alpha = alpha, beta = beta, egg_layers = EggLayers
+      )
     )
   # These are the 'original' manual updates that were in the Microsoft Access
   # database: some overwrite good data with no documented reason and have been
@@ -362,20 +364,20 @@ calc_surf_spawn <- function(where,
   # They should get removed from the Microsoft Access database (especially
   # updates 1, 4, and 5 which cause errros). Update 2 is still relevant;
   # updates 3 and 6 no longer have an effect.
-  # 1. HG (15 records): Year 1979, SA 2, Intensity 4 (update EggLyrs to
+  # 1. HG (15 records): Year 1979, SA 2, Intensity 4 (update EggLayers to
   #    2.1496 using intensity table; 14 records overwrite good data)
-  # 2. SoG (1 record): Year 1962, SA 14, Intensity 0 (update EggLyrs to
+  # 2. SoG (1 record): Year 1962, SA 14, Intensity 0 (update EggLayers to
   #    0.5529 using intensity 1: spawn was surveyed but not reported)
-  # 3. WCVI (4 records): Year 1981, SA 24, EggLyrs 0 (update EggLyrs to
+  # 3. WCVI (4 records): Year 1981, SA 24, EggLayers 0 (update EggLayers to
   #    0.5529 using intensity table)
-  # 4. WCVI (7 records): Year 1982, SA 23, Intensity 3 (update EggLyrs to
+  # 4. WCVI (7 records): Year 1982, SA 23, Intensity 3 (update EggLayers to
   #    1.3360 using intensity table; 7 records overwrite good data)
-  # 5. WCVI (41 records): Year 1984, SA 24, Intensity 0 (update EggLyrs to
+  # 5. WCVI (41 records): Year 1984, SA 24, Intensity 0 (update EggLayers to
   #    2.33 -- not sure why/how; 41 records overwrite good data)
-  # 6. A27 (14 records): Year 1982, SA 27, EggLyrs 0 (update EggLyrs to
+  # 6. A27 (14 records): Year 1982, SA 27, EggLayers 0 (update EggLayers to
   #    2.98 using a historical average)
   # Get the number of records with no egg layer info
-  no_layers <- eggs %>% filter(EggLyrs == 0) # %>%
+  no_layers <- eggs %>% filter(EggLayers == 0) # %>%
   # Error if there are missing values
   if (nrow(no_layers) > 0) {
     stop("Missing egg layers for ", nrow(no_layers), " record(s):",
@@ -384,11 +386,11 @@ calc_surf_spawn <- function(where,
     )
   }
   # Output egg layer info
-  egg_lyrs <- eggs %>%
+  egg_layers <- eggs %>%
     group_by(
       Year, Region, StatArea, Section, LocationCode, SpawnNumber
     ) %>%
-    summarise(SurfLyrs = mean_na(EggLyrs)) %>%
+    summarise(SurfLayers = mean_na(EggLayers)) %>%
     ungroup()
   # Calculate egg density per spawn number/pool
   eggs_spawn <- eggs %>%
@@ -419,7 +421,7 @@ calc_surf_spawn <- function(where,
     summarise(SurfSI = sum_na(SurfSI)) %>%
     ungroup() %>%
     full_join(
-      y = egg_lyrs,
+      y = egg_layers,
       by = c(
         "Year", "Region", "StatArea", "Section", "LocationCode", "SpawnNumber"
       )
@@ -453,12 +455,12 @@ num_eggs_macro <- function(xi = pars$macrocystis$xi,
                            gamma = pars$macrocystis$gamma,
                            delta = pars$macrocystis$delta,
                            epsilon = pars$macrocystis$epsilon,
-                           egg_lyrs,
+                           egg_layers,
                            height,
                            stalks_per_plant) {
   # Eggs per plant in thousands (10^3 * eggs / plant; Haegele and Schweigert
   # 1990)
-  number <- xi * egg_lyrs^gamma * height^delta * stalks_per_plant^epsilon *
+  number <- xi * egg_layers^gamma * height^delta * stalks_per_plant^epsilon *
     1000
   # Return number
   number
@@ -636,7 +638,7 @@ calc_macro_spawn <- function(where,
       Area = Width * Swath,
       # Plant metrics for mature plants only
       Height = unique_na(Height[Mature > 0]),
-      EggLyrs = unique_na(Layers[Mature > 0]),
+      EggLayers = unique_na(Layers[Mature > 0]),
       Stalks = sum_na(Mature[Mature > 0]),
       Plants = length(Mature[Mature > 0])
     ) %>%
@@ -662,12 +664,13 @@ calc_macro_spawn <- function(where,
       Plants = sum_na(Plants),
       Stalks = sum_na(Stalks),
       Height = mean_na(Height),
-      EggLyrs = mean_na(EggLyrs),
+      EggLayers = mean_na(EggLayers),
       StalksPerPlant = Stalks / Plants,
       # Eggs per plant in thousands (10^3 * eggs / plant); spawn s
       EggsPerPlant = num_eggs_macro(
         xi = xi, gamma = gamma, delta = delta, epsilon = epsilon,
-        egg_lyrs = EggLayers, height = Height, stalks_per_plant = StalksPerPlant
+        egg_layers = EggLayers, height = Height,
+        stalks_per_plant = StalksPerPlant
       ),
       # Eggs density in thousands (10^3 * eggs / m^2; spawn s
       EggDens = EggsPerPlant * Plants / Area,
@@ -675,7 +678,7 @@ calc_macro_spawn <- function(where,
       # s
       MacroSI = EggDens * LengthMacro * Width * 1000 / theta
     ) %>%
-    rename(MacroLyrs = EggLyrs) %>%
+    rename(MacroLayers = EggLayers) %>%
     ungroup()
   # Return the macrocystis spawn
   si <- biomass_spawn %>%
@@ -704,10 +707,10 @@ calc_macro_spawn <- function(where,
 #' Calculate understory spawn egg density on substrate
 #' @export
 egg_dens_under_sub <- function(varphi = pars$understory$varphi,
-                               sub_lyrs,
+                               sub_layers,
                                sub_prop) {
   # Egg density in thousands (eggs x 10^3 / m^2; Haegele et al. 1979)
-  density <- varphi * sub_lyrs * sub_prop
+  density <- varphi * sub_layers * sub_prop
   # Return density
   density
 } # End egg_dens_under_sub function
@@ -717,12 +720,12 @@ egg_dens_under_sub <- function(varphi = pars$understory$varphi,
 egg_dens_under_alg <- function(vartheta = pars$understory$vartheta,
                                varrho = pars$understory$varrho,
                                varsigma = pars$understory$varsigma,
-                               alg_lyrs,
+                               alg_layers,
                                alg_prop,
-                               coef) {
+                               coeff) {
   # Egg density in thousands (10^3 * eggs / m^2; Schweigert 2005); quadrat
   # size coefficients not required because all quadrats are 0.5m^2 (1.0512)
-  density <- vartheta * alg_lyrs^varrho * alg_prop^varsigma * coef * 1.0512
+  density <- vartheta * alg_layers^varrho * alg_prop^varsigma * coeff * 1.0512
   # Return density
   density
 } # End egg_dens_under_alg function
@@ -913,25 +916,25 @@ calc_under_spawn <- function(where,
   stations <- dbReadTable(conn = access_db, name = where$fns$stations) %>%
     rename(
       LocationCode = Loc_Code, SpawnNumber = Spawn_Number,
-      SubLyrs = Layers_Bottom
+      SubLayers = Layers_Bottom
     ) %>%
     filter(Year %in% yrs, LocationCode %in% areas_sm1$LocationCode) %>%
     mutate(SubProp = Percent_Bottom / 100) %>%
     select(
-      Year, LocationCode, SpawnNumber, Transect, Station, SubLyrs, SubProp
+      Year, LocationCode, SpawnNumber, Transect, Station, SubLayers, SubProp
     ) %>%
     as_tibble()
   # Get egg layer info: substrate
-  egg_lyrs_sub <- stations %>%
+  egg_layers_sub <- stations %>%
     group_by(Year, LocationCode, SpawnNumber, Transect) %>%
-    summarise(Layers = mean_na(SubLyrs)) %>%
+    summarise(Layers = mean_na(SubLayers)) %>%
     ungroup() %>%
     mutate(Source = "Substrate")
   # Load algae
   algae <- dbReadTable(conn = access_db, name = where$fns$algae) %>%
     rename(
       LocationCode = Loc_Code, SpawnNumber = Spawn_Number,
-      AlgType = Type_Vegetation, AlgLyrs = Layers_Vegetation
+      AlgType = Type_Vegetation, AlgLayers = Layers_Vegetation
     ) %>%
     filter(Year %in% yrs, LocationCode %in% areas_sm1$LocationCode) %>%
     mutate(
@@ -940,22 +943,22 @@ calc_under_spawn <- function(where,
       AlgProp = ifelse(AlgProp > 1, 1, AlgProp)
     ) %>%
     select(
-      Year, LocationCode, SpawnNumber, Transect, Station, AlgType, AlgLyrs,
+      Year, LocationCode, SpawnNumber, Transect, Station, AlgType, AlgLayers,
       AlgProp
     ) %>%
     as_tibble()
   # Get egg layer info: algae
-  egg_lyrs_alg <- algae %>%
+  egg_layers_alg <- algae %>%
     group_by(Year, LocationCode, SpawnNumber, Transect) %>%
-    summarise(Layers = mean_na(AlgLyrs)) %>%
+    summarise(Layers = mean_na(AlgLayers)) %>%
     ungroup() %>%
     mutate(Source = "Algae")
   # Combine egg layer info
-  egg_lyrs <- bind_rows(egg_lyrs_sub, egg_lyrs_alg) %>%
+  egg_layers <- bind_rows(egg_layers_sub, egg_layers_alg) %>%
     group_by(Year, LocationCode, SpawnNumber, Transect) %>%
     summarise(Layers = mean_na(Layers)) %>%
     group_by(Year, LocationCode, SpawnNumber) %>%
-    summarise(UnderLyrs = mean_na(Layers)) %>%
+    summarise(UnderLayers = mean_na(Layers)) %>%
     ungroup()
   # If there are missing algae types
   if (any(!algae$AlgType %in% alg_coefs$AlgType)) {
@@ -982,7 +985,7 @@ calc_under_spawn <- function(where,
     left_join(y = areas_sm_2, by = c("Region", "LocationCode")) %>%
     # Egg density in thousands (eggs x 10^3 / m^2); quadrat q
     mutate(EggDensSub = egg_dens_under_sub(
-      varphi = varphi, sub_lyrs = SubLyrs, sub_prop = SubProp
+      varphi = varphi, sub_layers = SubLayers, sub_prop = SubProp
     )) %>%
     replace_na(replace = list(EggDensSub = 0)) %>%
     select(
@@ -1004,7 +1007,7 @@ calc_under_spawn <- function(where,
     # Egg density in thousands (10^3 * eggs / m^2); algae a
     mutate(EggDensAlg = egg_dens_under_alg(
       vartheta = vartheta, varrho = varrho, varsigma = varsigma,
-      alg_lyrs = AlgLyrs, alg_prop = AlgProp, coef = Coef
+      alg_layers = AlgLayers, alg_prop = AlgProp, coef = Coef
     )) %>%
     group_by(
       Year, Region, StatArea, Section, LocationCode, SpawnNumber, Transect,
@@ -1085,7 +1088,7 @@ calc_under_spawn <- function(where,
       # s
       UnderSI = EggDens * LengthAlgae * WidthBar * 1000 / theta
     ) %>%
-    left_join(y = egg_lyrs, by = c("Year", "LocationCode", "SpawnNumber"))
+    left_join(y = egg_layers, by = c("Year", "LocationCode", "SpawnNumber"))
   # Calculate understory si by spawn number
   si <- biomass_spawn %>%
     select(
