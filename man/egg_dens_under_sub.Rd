@@ -2,10 +2,54 @@
 % Please edit documentation in R/calcs.R
 \name{egg_dens_under_sub}
 \alias{egg_dens_under_sub}
-\title{Calculate understory spawn egg density on substrate}
+\title{Calculate understory spawn egg density on substrate.}
 \usage{
-egg_dens_under_sub(varphi = pars$understory$varphi, sub_layers, sub_prop)
+egg_dens_under_sub(
+  varphi = pars$understory$varphi,
+  sub_layers,
+  sub_prop,
+  quiet = FALSE
+)
+}
+\arguments{
+\item{varphi}{Numeric. Regression slope for substrate; from
+\code{\link{pars}} \insertCite{HaegeleEtal1979}{SpawnIndex}.}
+
+\item{sub_layers}{Numeric. Number of egg layers on substrate. Message if <=
+0.}
+
+\item{sub_prop}{Numeric. Proportion of substrate covered in eggs. Message if
+<= 0 or > 1.}
+
+\item{quiet}{Logical. Suppress messages; default is FALSE.}
+}
+\value{
+Numeric. Egg density in thousands of eggs per square metre. Message
+if <= 0.
 }
 \description{
-Calculate understory spawn egg density on substrate
+Calculate Pacific Herring understory spawn egg density on substrate in
+thousands of eggs per square metre (10^3 * eggs / m^2)
+\insertCite{HaegeleEtal1979}{SpawnIndex}.
 }
+\examples{
+data(pars)
+egg_dens_under_sub(sub_layers = 4, sub_prop = 0.5)
+}
+\references{
+\insertAllCited
+}
+\seealso{
+\code{\link{pars}} \code{\link{calc_under_spawn}}
+
+Other calculation functions: 
+\code{\link{calc_biomass_sok}()},
+\code{\link{calc_egg_conversion}()},
+\code{\link{calc_macro_spawn}()},
+\code{\link{calc_surf_spawn}()},
+\code{\link{calc_under_spawn}()},
+\code{\link{egg_dens_surf}()},
+\code{\link{egg_dens_under_alg}()},
+\code{\link{num_eggs_macro}()}
+}
+\concept{calculation functions}

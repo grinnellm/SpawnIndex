@@ -2,7 +2,7 @@
 % Please edit documentation in R/calcs.R
 \name{egg_dens_under_alg}
 \alias{egg_dens_under_alg}
-\title{Calculate for understory spawn egg density on algae}
+\title{Calculate for understory spawn egg density on algae.}
 \usage{
 egg_dens_under_alg(
   vartheta = pars$understory$vartheta,
@@ -10,9 +10,54 @@ egg_dens_under_alg(
   varsigma = pars$understory$varsigma,
   alg_layers,
   alg_prop,
-  coeff
+  coeff,
+  quiet = FALSE
 )
 }
-\description{
-Calculate for understory spawn egg density on algae
+\arguments{
+\item{vartheta}{Numeric. Regression slope for algae; from \code{\link{pars}}
+\insertCite{Schweigert2005}{SpawnIndex}.}
+
+\item{varrho}{Numeric. Regression exponent on number of egg layers; from
+\code{\link{pars}} \insertCite{Schweigert2005}{SpawnIndex}.}
+
+\item{varsigma}{Numeric. Regression exponent on proportion of algae; from
+\code{\link{pars}} \insertCite{Schweigert2005}{SpawnIndex}.}
+
+\item{alg_layers}{Numeric. Number of egg layers on algae Message if <= 0.}
+
+\item{alg_prop}{Numeric. Proportion of algae covered in eggs. Message if
+<= 0 or > 1.}
+
+\item{quiet}{Logical. Suppress messages; default is FALSE.}
 }
+\value{
+Numeric. Egg density in thousands of eggs per square metre. Message
+if <= 0.
+}
+\description{
+Calculate Pacific Herring understory spawn egg density on algae in thousands
+of eggs per square metre (10^3 * eggs / m^2)
+\insertCite{HaegeleEtal1979}{SpawnIndex}.
+}
+\examples{
+data(pars)
+egg_dens_under_alg(alg_layers = 4, alg_prop = 0.5, coeff = 1.1)
+}
+\references{
+\insertAllCited
+}
+\seealso{
+\code{\link{pars}} \code{\link{calc_under_spawn}}
+
+Other calculation functions: 
+\code{\link{calc_biomass_sok}()},
+\code{\link{calc_egg_conversion}()},
+\code{\link{calc_macro_spawn}()},
+\code{\link{calc_surf_spawn}()},
+\code{\link{calc_under_spawn}()},
+\code{\link{egg_dens_surf}()},
+\code{\link{egg_dens_under_sub}()},
+\code{\link{num_eggs_macro}()}
+}
+\concept{calculation functions}

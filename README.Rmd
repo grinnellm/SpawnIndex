@@ -64,7 +64,7 @@ library(SpawnIndex)
 
 Next, load the default parameter values for spawn index calculations, 
 and calculate the conversion factor for the number of Pacific Herring eggs
-to the spawn index (i.e., biomass) in tonnes, t.
+to the spawn index (i.e., biomass in tonnes, t).
 Call the function with the default parameters.
 
 ```{r theta}
@@ -91,7 +91,7 @@ where egg density is in units of 10^3^\ eggs\ m^-2^.
 Next, determine the total number of eggs in a given area.
 
 ```{r surface_eggs}
-length <- 50
+length <- 100
 width <- 10
 eggs <- egg_density * length * width
 eggs
@@ -102,7 +102,7 @@ covered with `r layers` layers of eggs,
 there is estimate the number of eggs as 
 `r format(eggs, big.mark=",", scientific = FALSE)`, 
 in units of 10^3^\ eggs.
-Finally, calculate the spawn index (i.e., biomass) in tonnes, t for the spawn.
+Finally, calculate the spawn index for the spawn.
 
 ```{r surface_index}
 index <- eggs * 1000 / theta

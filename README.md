@@ -63,7 +63,7 @@ library(SpawnIndex)
 
 Next, load the default parameter values for spawn index calculations,
 and calculate the conversion factor for the number of Pacific Herring
-eggs to the spawn index (i.e., biomass) in tonnes, t. Call the function
+eggs to the spawn index (i.e., biomass in tonnes, t). Call the function
 with the default parameters.
 
 ``` r
@@ -93,28 +93,28 @@ in units of 10<sup>3</sup> eggs m<sup>-2</sup>. Next, determine the
 total number of eggs in a given area.
 
 ``` r
-length <- 50
+length <- 100
 width <- 10
 eggs <- egg_density * length * width
 eggs
 ```
 
-    ## [1] 431785
+    ## [1] 863570
 
-Given an area measuring 50 m in length and 10 m in width, covered with 4
-layers of eggs, there is estimate the number of eggs as 431,785, in
+Given an area measuring 100 m in length and 10 m in width, covered with
+4 layers of eggs, there is estimate the number of eggs as 863,570, in
 units of 10<sup>3</sup> eggs. Finally, calculate the spawn index (i.e.,
-biomass) in tonnes, t for the spawn.
+biomass) for the spawn.
 
 ``` r
 index <- eggs * 1000 / theta
 index
 ```
 
-    ## [1] 4.31785
+    ## [1] 8.6357
 
 And so, the estimated spawn index for this surface spawn survey is
-4.32 t.
+8.64 t.
 
 ### Spawn-on-kelp biomass
 

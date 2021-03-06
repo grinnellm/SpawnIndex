@@ -52,6 +52,10 @@ Other calculation functions:
 \code{\link{calc_egg_conversion}()},
 \code{\link{calc_macro_spawn}()},
 \code{\link{calc_surf_spawn}()},
-\code{\link{calc_under_spawn}()}
+\code{\link{calc_under_spawn}()},
+\code{\link{egg_dens_surf}()},
+\code{\link{egg_dens_under_alg}()},
+\code{\link{egg_dens_under_sub}()},
+\code{\link{num_eggs_macro}()}
 }
 \concept{calculation functions}

@@ -55,7 +55,8 @@ information in this tibble comes from \code{a}: Region, Statistical Area,
 Section, and Location code.
 }
 \description{
-Calculate the Pacific Herring Macrocystis spawn index in tonnes.
+Calculate the Pacific Herring Macrocystis spawn index in tonnes using
+\code{\link{num_eggs_macro}} \insertCite{HaegeleSchweigert1990}{SpawnIndex}.
 }
 \note{
 The `spawn index' is a relative index of spawning biomass.
@@ -92,6 +93,10 @@ Other calculation functions:
 \code{\link{calc_biomass_sok}()},
 \code{\link{calc_egg_conversion}()},
 \code{\link{calc_surf_spawn}()},
-\code{\link{calc_under_spawn}()}
+\code{\link{calc_under_spawn}()},
+\code{\link{egg_dens_surf}()},
+\code{\link{egg_dens_under_alg}()},
+\code{\link{egg_dens_under_sub}()},
+\code{\link{num_eggs_macro}()}
 }
 \concept{calculation functions}

@@ -103,22 +103,56 @@ calc_biomass_sok <- function(sok,
   sb
 } # End calc_biomass_sok
 
-#' Calculate surface spawn egg density
+#' Calculate surface spawn egg density.
+#'
+#' Calculate Pacific Herring surface spawn egg density in thousands of eggs per
+#' square metre (10^3 * eggs / m^2) \insertCite{SchweigertEtal1997}{SpawnIndex}.
+#'
+#' @param alpha Numeric. Regression intercept; from \code{\link{pars}}
+#'   \insertCite{SchweigertEtal1997}{SpawnIndex}.
+#' @param beta Numeric. Regression slope; from \code{\link{pars}}
+#'   \insertCite{SchweigertEtal1997}{SpawnIndex}.
+#' @param egg_layers Numeric. Number of egg layers. Message if <= 0.
+#' @param quiet Logical. Suppress messages; default is FALSE.
+#' @importFrom Rdpack reprompt
+#' @importFrom stats na.omit
+#' @return Numeric. Egg density in thousands of eggs per square metre. Message
+#'   if <= 0.
+#' @note There is an error in the original report
+#'   \insertCite{SchweigertEtal1997}{SpawnIndex}; surface egg density is in
+#'   thousands of eggs per square metre.
+#' @references \insertAllCited
+#' @seealso \code{\link{pars}} \code{\link{calc_surf_spawn}}
+#' @family calculation functions
 #' @export
+#' @examples
+#' data(pars)
+#' egg_dens_surf(egg_layers = 4)
 egg_dens_surf <- function(alpha = pars$surface$alpha,
                           beta = pars$surface$beta,
-                          egg_layers) {
-  # Egg density in thousands (10^3 * eggs / m^2; Schweigert et al. 1997). Yes,
-  # thousands: the report is wrong (J. Schweigert, personal communication, 21
-  # February 2017
+                          egg_layers,
+                          quiet = FALSE) {
+  # Check input: NA and numeric
+  check_numeric(
+    dat = list(alpha = alpha, beta = beta, egg_layers = egg_layers),
+    quiet = quiet
+  )
+  # Check egg_layers: range
+  if (any(na.omit(egg_layers) <= 0) & !quiet) message("`egg_layers` <= 0.")
+  # Egg density in thousands (10^3 * eggs / m^2; Schweigert et al. 1997)
   density <- alpha + beta * egg_layers
+  # Check output: NA and numeric
+  check_numeric(dat = list(density = density), quiet = quiet)
+  # Check density: range
+  if (any(na.omit(density) <= 0) & !quiet) message("`density` <= 0.")
   # Return density
   density
 } # End egg_dens_surf function
 
 #' Calculate the surface spawn index.
 #'
-#' Calculate the Pacific Herring surface spawn index in tonnes.
+#' Calculate the Pacific Herring surface spawn index in tonnes using
+#' \code{\link{egg_dens_surf}} \insertCite{SchweigertEtal1997}{SpawnIndex}.
 #'
 #' @param where List. Location of the Pacific Herring surface spawn database
 #'   (see examples).
@@ -205,7 +239,7 @@ calc_surf_spawn <- function(where,
   check_numeric(
     dat = list(
       yrs = yrs, intense_yrs = intense_yrs, rescale_yrs = rescale_yrs,
-      alpha = alpha, beta = beta, theta = theta
+      theta = theta
     ),
     quiet = quiet
   )
@@ -353,7 +387,7 @@ calc_surf_spawn <- function(where,
       EggLayers = ifelse(Year %in% intense_yrs, Layers, EggLayers),
       # Egg density in thousands (10^3 * eggs / m^2); sample j
       EggDens = egg_dens_surf(
-        alpha = alpha, beta = beta, egg_layers = EggLayers
+        alpha = alpha, beta = beta, egg_layers = EggLayers, quiet = quiet
       )
     )
   # These are the 'original' manual updates that were in the Microsoft Access
@@ -449,26 +483,73 @@ calc_surf_spawn <- function(where,
   res
 } # End calc_surf_spawn function
 
-#' Calculate Macrocystis spawn number of eggs per plant
+#' Calculate Macrocystis spawn number of eggs per plant.
+#'
+#' Calculate Pacific Herring Macrocystis spawn number of eggs per plant in
+#' thousands of eggs per plant (10^3 * eggs / plant)
+#' \insertCite{HaegeleSchweigert1990}{SpawnIndex}.
+#'
+#' @param xi Numeric. Regression slope; from \code{\link{pars}}
+#'   \insertCite{HaegeleSchweigert1990}{SpawnIndex}.
+#' @param gamma Numeric. Regression exponent on egg layers; from
+#'   \code{\link{pars}} \insertCite{HaegeleSchweigert1990}{SpawnIndex}.
+#' @param delta Numeric. Regression exponent on plant height; from
+#'   \code{\link{pars}} \insertCite{HaegeleSchweigert1990}{SpawnIndex}.
+#' @param epsilon Numeric. Regression exponent on number of stalks per plant;
+#'   from \code{\link{pars}} \insertCite{HaegeleSchweigert1990}{SpawnIndex}.
+#' @param egg_layers Numeric. Number of egg layers. Message if <= 0.
+#' @param height Numeric. Plant height in metres. Message if <= 0.
+#' @param stalks_per_plant Numeric. Number of stalks per plant. Message if <= 0.
+#' @param quiet Logical. Suppress messages; default is FALSE.
+#' @importFrom Rdpack reprompt
+#' @importFrom stats na.omit
+#' @return Numeric. Number of eggs per plant in thousands. Message if <= 0.
+#' @references \insertAllCited
+#' @seealso \code{\link{pars}} \code{\link{calc_macro_spawn}}
+#' @family calculation functions
 #' @export
+#' @examples
+#' data(pars)
+#' num_eggs_macro(egg_layers = 4, height = 3, stalks_per_plant = 2)
 num_eggs_macro <- function(xi = pars$macrocystis$xi,
                            gamma = pars$macrocystis$gamma,
                            delta = pars$macrocystis$delta,
                            epsilon = pars$macrocystis$epsilon,
                            egg_layers,
                            height,
-                           stalks_per_plant) {
+                           stalks_per_plant,
+                           quiet = FALSE) {
+  # Check input: NA and numeric
+  check_numeric(
+    dat = list(xi = xi, gamma = gamma, delta = delta, epsilon = epsilon,
+               egg_layers = egg_layers, height = height,
+               stalks_per_plant = stalks_per_plant),
+    quiet = quiet
+  )
+  # Check egg_layers: range
+  if (any(na.omit(egg_layers) <= 0) & !quiet) message("`egg_layers` <= 0.")
+  # Check height: range
+  if (any(na.omit(height) <= 0) & !quiet) message("`height` <= 0.")
+  # Check stalks_per_plant: range
+  if (any(na.omit(stalks_per_plant) <= 0) & !quiet) {
+    message("`stalks_per_plant` <= 0.")
+  }
   # Eggs per plant in thousands (10^3 * eggs / plant; Haegele and Schweigert
   # 1990)
   number <- xi * egg_layers^gamma * height^delta * stalks_per_plant^epsilon *
     1000
+  # Check output: NA and numeric
+  check_numeric(dat = list(number = number), quiet = quiet)
+  # Check output: range
+  if (any(na.omit(number) <= 0) & !quiet) message("`number` <= 0.")
   # Return number
   number
 } # End num_eggs_macro function
 
 #' Calculate the Macrocystis spawn index.
 #'
-#' Calculate the Pacific Herring Macrocystis spawn index in tonnes.
+#' Calculate the Pacific Herring Macrocystis spawn index in tonnes using
+#' \code{\link{num_eggs_macro}} \insertCite{HaegeleSchweigert1990}{SpawnIndex}.
 #'
 #' @param where List. Location of the Pacific Herring Macrocystis spawn database
 #'   (see examples).
@@ -670,7 +751,7 @@ calc_macro_spawn <- function(where,
       EggsPerPlant = num_eggs_macro(
         xi = xi, gamma = gamma, delta = delta, epsilon = epsilon,
         egg_layers = EggLayers, height = Height,
-        stalks_per_plant = StalksPerPlant
+        stalks_per_plant = StalksPerPlant, quiet = quiet
       ),
       # Eggs density in thousands (10^3 * eggs / m^2; spawn s
       EggDens = EggsPerPlant * Plants / Area,
@@ -704,35 +785,119 @@ calc_macro_spawn <- function(where,
   res
 } # End calc_macro_spawn function
 
-#' Calculate understory spawn egg density on substrate
+#' Calculate understory spawn egg density on substrate.
+#'
+#' Calculate Pacific Herring understory spawn egg density on substrate in
+#' thousands of eggs per square metre (10^3 * eggs / m^2)
+#' \insertCite{HaegeleEtal1979}{SpawnIndex}.
+#'
+#' @param varphi Numeric. Regression slope for substrate; from
+#'   \code{\link{pars}} \insertCite{HaegeleEtal1979}{SpawnIndex}.
+#' @param sub_layers Numeric. Number of egg layers on substrate. Message if <=
+#'   0.
+#' @param sub_prop Numeric. Proportion of substrate covered in eggs. Message if
+#'   <= 0 or > 1.
+#' @param quiet Logical. Suppress messages; default is FALSE.
+#' @importFrom Rdpack reprompt
+#' @importFrom stats na.omit
+#' @return Numeric. Egg density in thousands of eggs per square metre. Message
+#'   if <= 0.
+#' @references \insertAllCited
+#' @seealso \code{\link{pars}} \code{\link{calc_under_spawn}}
+#' @family calculation functions
 #' @export
+#' @examples
+#' data(pars)
+#' egg_dens_under_sub(sub_layers = 4, sub_prop = 0.5)
 egg_dens_under_sub <- function(varphi = pars$understory$varphi,
                                sub_layers,
-                               sub_prop) {
+                               sub_prop,
+                               quiet = FALSE) {
+  # Check input: NA and numeric
+  check_numeric(
+    dat = list(varphi = varphi, sub_layers = sub_layers, sub_prop = sub_prop),
+    quiet = quiet
+  )
+  # Check sub_layers: range
+  if (any(na.omit(sub_layers) <= 0) & !quiet) message("`sub_layers` <= 0.")
+  # Check sub_prop: range
+  if ((any(na.omit(sub_prop) <= 0) | any(na.omit(sub_prop) > 1)) & !quiet) {
+    message("`sub_prop` <= 0 and/or > 1.")
+  }
   # Egg density in thousands (eggs x 10^3 / m^2; Haegele et al. 1979)
   density <- varphi * sub_layers * sub_prop
+  # Check output: NA and numeric
+  check_numeric(dat = list(density = density), quiet = quiet)
+  # Check density: range
+  if (any(na.omit(density) <= 0) & !quiet) message("`density` <= 0.")
   # Return density
   density
 } # End egg_dens_under_sub function
 
-#' Calculate for understory spawn egg density on algae
+#' Calculate for understory spawn egg density on algae.
+#'
+#' Calculate Pacific Herring understory spawn egg density on algae in thousands
+#' of eggs per square metre (10^3 * eggs / m^2)
+#' \insertCite{HaegeleEtal1979}{SpawnIndex}.
+#'
+#' @param vartheta Numeric. Regression slope for algae; from \code{\link{pars}}
+#'   \insertCite{Schweigert2005}{SpawnIndex}.
+#' @param varrho Numeric. Regression exponent on number of egg layers; from
+#'   \code{\link{pars}} \insertCite{Schweigert2005}{SpawnIndex}.
+#' @param varsigma Numeric. Regression exponent on proportion of algae; from
+#'   \code{\link{pars}} \insertCite{Schweigert2005}{SpawnIndex}.
+#' @param alg_layers Numeric. Number of egg layers on algae Message if <= 0.
+#' @param alg_prop Numeric. Proportion of algae covered in eggs. Message if <= 0
+#'   or > 1.
+#' @param coeff Numeric. Algae coefficients; from \code{\link{algae_coefs}}
+#'   \insertCite{Schweigert2005}{SpawnIndex}.
+#' @param quiet Logical. Suppress messages; default is FALSE.
+#' @importFrom Rdpack reprompt
+#' @importFrom stats na.omit
+#' @return Numeric. Egg density in thousands of eggs per square metre. Message
+#'   if <= 0.
+#' @references \insertAllCited
+#' @seealso \code{\link{pars}} \code{\link{calc_under_spawn}}
+#' @family calculation functions
 #' @export
+#' @examples
+#' data(pars)
+#' egg_dens_under_alg(alg_layers = 4, alg_prop = 0.5, coeff = 1.1)
 egg_dens_under_alg <- function(vartheta = pars$understory$vartheta,
                                varrho = pars$understory$varrho,
                                varsigma = pars$understory$varsigma,
                                alg_layers,
                                alg_prop,
-                               coeff) {
+                               coeff,
+                               quiet = FALSE) {
+  # Check input: NA and numeric
+  check_numeric(
+    dat = list(vartheta = vartheta, varrho = varrho, varsigma = varsigma,
+               alg_layers = alg_layers, alg_prop = alg_prop, coeff = coeff),
+    quiet = quiet
+  )
+  # Check alg_layers: range
+  if (any(na.omit(alg_layers) <= 0) & !quiet) message("`alg_layers` <= 0.")
+  # Check alg_prop: range
+  if ((any(na.omit(alg_prop) <= 0) | any(na.omit(alg_prop) > 1)) & !quiet) {
+    message("`alg_prop` <= 0 and/or > 1.")
+  }
   # Egg density in thousands (10^3 * eggs / m^2; Schweigert 2005); quadrat
   # size coefficients not required because all quadrats are 0.5m^2 (1.0512)
   density <- vartheta * alg_layers^varrho * alg_prop^varsigma * coeff * 1.0512
+  # Check output: NA and numeric
+  check_numeric(dat = list(density = density), quiet = quiet)
+  # Check density: range
+  if (any(na.omit(density) <= 0) & !quiet) message("`density` <= 0.")
   # Return density
   density
 } # End egg_dens_under_alg function
 
 #' Calculate the understory spawn index.
 #'
-#' Calculate the Pacific Herring understory spawn index in tonnes.
+#' Calculate the Pacific Herring understory spawn index in tonnes using
+#' \code{\link{egg_dens_under_sub}} \insertCite{HaegeleEtal1979}{SpawnIndex} and
+#' \code{\link{egg_dens_under_alg}} \insertCite{Schweigert2005}{SpawnIndex}.
 #'
 #' @param where List. Location of the Pacific Herring understory spawn database
 #'   (see examples).
@@ -985,7 +1150,7 @@ calc_under_spawn <- function(where,
     left_join(y = areas_sm_2, by = c("Region", "LocationCode")) %>%
     # Egg density in thousands (eggs x 10^3 / m^2); quadrat q
     mutate(EggDensSub = egg_dens_under_sub(
-      varphi = varphi, sub_layers = SubLayers, sub_prop = SubProp
+      varphi = varphi, sub_layers = SubLayers, sub_prop = SubProp, quiet = quiet
     )) %>%
     replace_na(replace = list(EggDensSub = 0)) %>%
     select(
@@ -1007,7 +1172,7 @@ calc_under_spawn <- function(where,
     # Egg density in thousands (10^3 * eggs / m^2); algae a
     mutate(EggDensAlg = egg_dens_under_alg(
       vartheta = vartheta, varrho = varrho, varsigma = varsigma,
-      alg_layers = AlgLayers, alg_prop = AlgProp, coef = Coef
+      alg_layers = AlgLayers, alg_prop = AlgProp, coeff = Coef, quiet = quiet
     )) %>%
     group_by(
       Year, Region, StatArea, Section, LocationCode, SpawnNumber, Transect,

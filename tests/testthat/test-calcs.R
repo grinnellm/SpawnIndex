@@ -44,3 +44,8 @@ test_that("SOK biomass", {
     w = as.numeric(NA), theta = as.numeric(NA), quiet = TRUE
   ))
 })
+
+"Surface egg density"
+"Macrocystis number of eggs"
+"Understory egg density on substrate"
+"Understory egg density on algae"
