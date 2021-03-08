@@ -59,8 +59,6 @@ survey. First, load the SpawnIndex package in the usual way.
 library(SpawnIndex)
 ```
 
-    ## This is SpawnIndex version 0.2.0.
-
 Next, load the default parameter values for spawn index calculations,
 and calculate the conversion factor for the number of Pacific Herring
 eggs to the spawn index (i.e., biomass in tonnes, t). Call the function
@@ -103,8 +101,8 @@ eggs
 
 Given an area measuring 100 m in length and 10 m in width, covered with
 4 layers of eggs, there is estimate the number of eggs as 863,570, in
-units of 10<sup>3</sup> eggs. Finally, calculate the spawn index (i.e.,
-biomass) for the spawn.
+units of 10<sup>3</sup> eggs. Finally, calculate the spawn index for the
+spawn.
 
 ``` r
 index <- eggs * 1000 / theta
