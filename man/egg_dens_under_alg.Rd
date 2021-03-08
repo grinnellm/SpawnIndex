@@ -26,8 +26,11 @@ egg_dens_under_alg(
 
 \item{alg_layers}{Numeric. Number of egg layers on algae Message if <= 0.}
 
-\item{alg_prop}{Numeric. Proportion of algae covered in eggs. Message if
-<= 0 or > 1.}
+\item{alg_prop}{Numeric. Proportion of algae covered in eggs. Message if <= 0
+or > 1.}
+
+\item{coeff}{Numeric. Algae coefficients; from \code{\link{algae_coefs}}
+\insertCite{Schweigert2005}{SpawnIndex}. Message if <= 0.}
 
 \item{quiet}{Logical. Suppress messages; default is FALSE.}
 }

@@ -521,9 +521,11 @@ num_eggs_macro <- function(xi = pars$macrocystis$xi,
                            quiet = FALSE) {
   # Check input: NA and numeric
   check_numeric(
-    dat = list(xi = xi, gamma = gamma, delta = delta, epsilon = epsilon,
-               egg_layers = egg_layers, height = height,
-               stalks_per_plant = stalks_per_plant),
+    dat = list(
+      xi = xi, gamma = gamma, delta = delta, epsilon = epsilon,
+      egg_layers = egg_layers, height = height,
+      stalks_per_plant = stalks_per_plant
+    ),
     quiet = quiet
   )
   # Check egg_layers: range
@@ -850,7 +852,7 @@ egg_dens_under_sub <- function(varphi = pars$understory$varphi,
 #' @param alg_prop Numeric. Proportion of algae covered in eggs. Message if <= 0
 #'   or > 1.
 #' @param coeff Numeric. Algae coefficients; from \code{\link{algae_coefs}}
-#'   \insertCite{Schweigert2005}{SpawnIndex}.
+#'   \insertCite{Schweigert2005}{SpawnIndex}. Message if <= 0.
 #' @param quiet Logical. Suppress messages; default is FALSE.
 #' @importFrom Rdpack reprompt
 #' @importFrom stats na.omit
@@ -872,8 +874,10 @@ egg_dens_under_alg <- function(vartheta = pars$understory$vartheta,
                                quiet = FALSE) {
   # Check input: NA and numeric
   check_numeric(
-    dat = list(vartheta = vartheta, varrho = varrho, varsigma = varsigma,
-               alg_layers = alg_layers, alg_prop = alg_prop, coeff = coeff),
+    dat = list(
+      vartheta = vartheta, varrho = varrho, varsigma = varsigma,
+      alg_layers = alg_layers, alg_prop = alg_prop, coeff = coeff
+    ),
     quiet = quiet
   )
   # Check alg_layers: range
@@ -882,6 +886,8 @@ egg_dens_under_alg <- function(vartheta = pars$understory$vartheta,
   if ((any(na.omit(alg_prop) <= 0) | any(na.omit(alg_prop) > 1)) & !quiet) {
     message("`alg_prop` <= 0 and/or > 1.")
   }
+  # Check coeff: range
+  if (any(na.omit(coeff) <= 0) & !quiet) message("`coeff` <= 0.")
   # Egg density in thousands (10^3 * eggs / m^2; Schweigert 2005); quadrat
   # size coefficients not required because all quadrats are 0.5m^2 (1.0512)
   density <- vartheta * alg_layers^varrho * alg_prop^varsigma * coeff * 1.0512
