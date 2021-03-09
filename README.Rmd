@@ -97,11 +97,10 @@ eggs <- egg_density * length * width
 eggs
 ```
 
-Given an area measuring `r length`\ m in length and `r width`\ m in width, 
+An area measuring `r length`\ m in length and `r width`\ m in width, 
 covered with `r layers` layers of eggs,
-there is estimate the number of eggs as 
-`r format(eggs, big.mark=",", scientific = FALSE)`, 
-in units of 10^3^\ eggs.
+has an estimated `r format(eggs, big.mark=",", scientific = FALSE)` 10^3^\ eggs.
+Like egg density above, number of eggs is in 10^3^\ eggs.
 Finally, calculate the spawn index for the spawn.
 
 ```{r surface_index}
