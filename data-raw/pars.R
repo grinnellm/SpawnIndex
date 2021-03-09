@@ -4,14 +4,17 @@ library(readr)
 
 # Parameter values
 pars <- list(
-  conversion = list(omega = 200000, phi = 0.5),
-  SOK = list(nu = 0.12, upsilon = (19.73 - 6.53) / 100, M = 2.38 * 10^-6),
+  conversion = list(omega = 200000, female = 0.5),
+  sok = list(nu = 0.12, upsilon = (19.73 - 6.53) / 100, w = 2.38 * 10^-6),
   surface = list(alpha = 14.698, beta = 212.218),
   macrocystis = list(
     xi = 0.073, gamma = 0.673, delta = 0.932, epsilon = 0.703
   ),
   understory = list(
     varphi = 340, vartheta = 600.567, varrho = 0.6355, varsigma = 1.413
+  ),
+  years = list(
+    survey = 1928, assess = 1951, nine_cats = 1969, layers = 1979, dive = 1988
   )
 )
 save(pars, file = file.path("data", "pars.RData"))
@@ -29,7 +32,7 @@ intensity <- tibble(
 save(intensity, file = file.path("data", "intensity.RData"))
 
 # Algae coefficients
-algaeCoefs <- tibble(
+algae_coefs <- tibble(
   AlgaeName = c(
     "Grasses", "Grunge", "Kelp (flat)", "Kelp (standing)", "Leafy algae",
     "Rockweed", "Sargassum", "Stringy algae"
@@ -37,10 +40,10 @@ algaeCoefs <- tibble(
   AlgType = c("GR", "GG", "KF", "KS", "LA", "RW", "SM", "SA"),
   Coef = c(0.9715, 1.0000, 0.9119, 1.1766, 0.6553, 0.7793, 1.1766, 1.0000)
 )
-save(algaeCoefs, file = file.path("data", "algaeCoefs.RData"))
+save(algae_coefs, file = file.path("data", "algae_coefs.RData"))
 
 # Understory spawn width correction factors
-underWidthFac <- read_csv(
+under_width_facs <- read_csv(
   "Year, HG, PRD, CC, SoG, WCVI, A27, A2W
    2003, 1, 1.075, 1.075, 1.075, 1.075, 1.075, 1
    2004, 1, 1.075, 1.075, 1.075, 1.075, 1.075, 1
@@ -55,4 +58,4 @@ underWidthFac <- read_csv(
    2013, 1.15, 1.15, 1.075, 1.075, 1.075, 1, 1.15
    2014, 1.15, 1.15, 1, 1, 1, 1, 1.15"
 )
-save(underWidthFac, file = file.path("data", "underWidthFac.RData"))
+save(under_width_facs, file = file.path("data", "under_width_facs.RData"))

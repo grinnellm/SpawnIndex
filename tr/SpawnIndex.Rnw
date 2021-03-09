@@ -18,7 +18,7 @@
 \newcommand{\scienceName}{\emph{Clupea pallasii}}
 
 % Title
-\newcommand{\trTitle}{Calculating the spawn index for \fishName{} (\scienceName{}) in British Columbia, Canada}
+\newcommand{\trTitle}{Calculate the spawn index for \fishName{} (\scienceName{}) in British Columbia, Canada}
 
 % Publication year
 \newcommand{\trYear}{2021}
@@ -134,16 +134,18 @@ require(kableExtra)
 require(mapproj)
 require(ggrepel)
 require(SpawnIndex)
+require(gfiscamutils)
+require(knitr)
 # Omit xcolor warning(s)
 knit_hooks$set(document = function(x) {
-  sub('\\usepackage[]{color}', '\\usepackage{xcolor}', x, fixed = TRUE)
+  sub("\\usepackage[]{color}", "\\usepackage{xcolor}", x, fixed = TRUE)
 })
 # Suppress summarise info
 options(dplyr.summarise.inform = FALSE)
 # Change default ggplot theme to 'black and white'
 theme_set(theme_bw())
 # Modify default theme
-myTheme <- theme(
+herring_theme <- theme(
   legend.box.background = element_rect(fill = alpha("white", 0.7)),
   legend.box.margin = margin(1, 1, 1, 1, "mm"),
   legend.key = element_blank(),
@@ -178,80 +180,80 @@ if (!"knitr-figs" %in% list.files()) dir.create("knitr-figs")
 
 <<maps, echo=FALSE>>=
 # Region to consider
-rName <- "SoG"
+r_name <- "SoG"
 # Location of the saved R image (SoG data summary)
-locImage <- file.path("..", "..", "DataSummaries", rName)
+loc_image <- file.path("..", "..", "DataSummaries", r_name)
 # Load a saved workspace
-load(file = file.path(locImage, paste("Image.", rName, ".RData", sep = "")))
+load(file = file.path(loc_image, paste("Image.", r_name, ".RData", sep = "")))
 # Region name
-regNameLong <- regions %>%
+reg_name_long <- regions %>%
   filter(Region == regName) %>%
   select(RegionName) %>%
   pull()
 # All region names
-allRegions <- regions %>%
+all_regions <- regions %>%
   mutate(FullName = paste(RegionName, " (", Region, ")", sep = ""))
 # Major region names
-majorRegions <- allRegions %>%
+major_regions <- all_regions %>%
   filter(Major) %>%
   select(FullName) %>%
   pull()
 # Minor region names
-minorRegions <- allRegions %>%
+minor_regions <- all_regions %>%
   filter(!Major) %>%
   select(FullName) %>%
   pull()
 # Stat Area to examine (character with 2 digits)
-zoomSA <- "14"
+zoom_sa <- "14"
 # Section to examine (character with 3 digits)
-zoomSec <- "142"
+zoom_sec <- "142"
 # Buffer for Stat Area map
-bufSA <- 3000
+buff_sa <- 3000
 # Buffer for Section map
-bufSec <- 1000
+buff_sec <- 1000
 # Year (for spawn index)
-yrIndex <- 2020
+yr_index <- 2020
 # Calculate spawn summary in current year by location code
-spawnByLocXY <- spawnRaw %>%
-  filter(Year == yrIndex, StatArea == zoomSA, Section == zoomSec) %>%
+spawn_by_loc_xy <- spawnRaw %>%
+  filter(Year == yr_index, StatArea == zoom_sa, Section == zoom_sec) %>%
   group_by(LocationCode, LocationName) %>%
   summarise(
-    TotalSI = SumNA(c(MacroSI, SurfSI, UnderSI)),
+    TotalSI = sum_na(c(MacroSI, SurfSI, UnderSI)),
     Eastings = unique(Eastings), Northings = unique(Northings)
   ) %>%
   ungroup() %>%
   arrange(TotalSI)
 # Coordinates for Statistical Area map
-extSA <- shapes$saDF %>%
-  filter(id == zoomSA) %>%
+ext_sa <- shapes$saDF %>%
+  filter(id == zoom_sa) %>%
   group_by(id) %>%
   summarise(
-    xmin = min(Eastings) - bufSA, xmax = max(Eastings) + bufSA,
-    ymin = min(Northings) - bufSA, ymax = max(Northings) + bufSA
+    xmin = min(Eastings) - buff_sa, xmax = max(Eastings) + buff_sa,
+    ymin = min(Northings) - buff_sa, ymax = max(Northings) + buff_sa
   ) %>%
   ungroup()
 # Ratio for Statistical Area figure
-xyRatioSA <- (extSA$ymax - extSA$ymin) / (extSA$xmax - extSA$xmin)
+xy_ratio_sa <- (ext_sa$ymax - ext_sa$ymin) / (ext_sa$xmax - ext_sa$xmin)
 # Determine Sections in the Stat Area
-sectionsSA <- areas %>%
-  filter(StatArea == as.integer(zoomSA)) %>%
+sections_sa <- areas %>%
+  filter(StatArea == as.integer(zoom_sa)) %>%
   select(Section) %>%
   distinct() %>%
   mutate(Section = formatC(Section, flag = "0", width = 3)) %>%
   pull(Section)
 # Coordinates for Section 142
-extSec <- shapes$secDF %>%
-  filter(id == zoomSec) %>%
+ext_sec <- shapes$secDF %>%
+  filter(id == zoom_sec) %>%
   group_by(id) %>%
   summarise(
-    xmin = min(Eastings) - bufSec, xmax = max(Eastings) + bufSec,
-    ymin = min(Northings) - bufSec, ymax = max(Northings) + bufSec
+    xmin = min(Eastings) - buff_sec, xmax = max(Eastings) + buff_sec,
+    ymin = min(Northings) - buff_sec, ymax = max(Northings) + buff_sec
   ) %>%
   ungroup()
 # Ratio for Section figure
-xyRatioSec <- (extSec$ymax - extSec$ymin) / (extSec$xmax - extSec$xmin)
+xy_ratio_sec <- (ext_sec$ymax - ext_sec$ymin) / (ext_sec$xmax - ext_sec$xmin)
 # Create a base map for the region
-BaseMap <- ggplot(data = shapes$landCropDF, aes(x = Eastings, y = Northings)) +
+base_map <- ggplot(data = shapes$landCropDF, aes(x = Eastings, y = Northings)) +
   geom_polygon(
     data = shapes$landCropDF, aes(group = group), fill = "darkgrey"
   ) +
@@ -260,18 +262,12 @@ BaseMap <- ggplot(data = shapes$landCropDF, aes(x = Eastings, y = Northings)) +
   labs(x = NULL, y = NULL) +
   scale_x_continuous(labels = function(x) comma(x / 1000), expand = c(0, 0)) +
   scale_y_continuous(labels = function(x) comma(x / 1000), expand = c(0, 0)) +
-  myTheme +
+  herring_theme +
   theme_void() +
   theme(panel.border = element_rect(colour = "black", fill = NA, size = 0.5))
 @
 
 <<pars, echo=FALSE>>=
-# First year with surveys
-firstYr <- 1928
-# First year with direct egg estimates
-directEggYr <- 1979
-# First year with 9 intensity categories
-cat9Yr <- 1969
 # Vector of proportions
 prop <- seq(from = 0, to = 1, by = 0.2)
 # Vector of plant heights
@@ -287,17 +283,17 @@ intensity <- intensity %>%
   select(Period5, Period9, Description, Layers) %>%
   arrange(Layers)
 # Vector of egg layers
-lyrs <- intensity$Layers
+layers <- intensity$Layers
 # Load algae coefficients
-data(algaeCoefs)
+data(algae_coefs)
 # Algae coefficients
-algaeCoefs <- algaeCoefs %>%
+algae_coefs <- algae_coefs %>%
   select(AlgaeName, Coef) %>%
   arrange(AlgaeName)
 # Load parameter values
 data(pars)
 # Load understory width correction factors
-data(underWidthFac)
+data(under_width_facs)
 @
 
 %%%% Front matter %%%%%
@@ -339,19 +335,19 @@ There are three types of spawn survey observations:
 \item Underwater observations of spawn on other types of algae and the substrate, which we refer to as `understory.'
 \end{enumerate}
 Surface spawn surveys are believed to be the least accurate of the three survey types, but they have the greatest temporal and spatial extent \citep{Schweigert1993b}.
-For example, surface spawn surveys were the only survey type prior to \Sexpr{newSurvYr}, and
+For example, surface spawn surveys were the only survey type prior to \Sexpr{pars$years$dive}, and
 they are still used extensively for minor spawns,
 remote spawns (i.e., outside stock assessment region boundaries; see below),
 unusually early or late spawns, and
 during exceptional circumstances such as the COVID-19 pandemic.
-Macrocystis and understory spawn surveys are conducted under water using SCUBA gear and have been used for all major spawns since \Sexpr{newSurvYr}.
+Macrocystis and understory spawn surveys are conducted under water using SCUBA gear and have been used for all major spawns since \Sexpr{pars$years$dive}.
 Thus, we describe the spawn index as having two survey periods based on the predominant survey type:
-the surface survey period from \Sexpr{min(yrRange)} to \Sexpr{newSurvYr-1}, and
-the dive survey period from \Sexpr{newSurvYr} to present.
+the surface survey period from \Sexpr{pars$years$assess} to \Sexpr{pars$years$dive-1}, and
+the dive survey period from \Sexpr{pars$years$dive} to present.
 
-The introduction of dive surveys in \Sexpr{newSurvYr} makes it challenging to compare the spawn index between these two periods.
+The introduction of dive surveys in \Sexpr{pars$years$dive} makes it challenging to compare the spawn index between these two periods.
 For example, surface surveys are less accurate than dive surveys (\autoref{secWidthSurface}), and
-spawn surveyors used subjective intensity categories instead of direct egg layer estimates until \Sexpr{directEggYr-1} (\autoref{secIntensity}).
+spawn surveyors used subjective intensity categories instead of direct egg layer estimates until \Sexpr{pars$years$layers-1} (\autoref{secIntensity}).
 In addition, \fishName{} spawn survey effort has been inconsistent over time due to variation in available resources and departmental priorities.
 For example, in the past, surveyors often dedicated several months each year to spawn surveys;
 they used small vessels to search for spawn, and surface surveys to estimate egg deposition.
@@ -359,34 +355,34 @@ Currently, surveyors use aircraft to search for spawn, and underwater SCUBA surv
 It typically takes less time to search for spawn using aircraft, and
 more effort to measure egg deposition using SCUBA surveys,
 Thus, widespread effort (both spatially and temporally) in the past has been replaced with intense effort in the present.
-\fishName{} spawn surveys began in \Sexpr{firstYr}, but are considered incomplete for indexing purposes prior to 1937 because many potential areas were not surveyed \citep{HayKronlund1987}.
+\fishName{} spawn surveys began in \Sexpr{pars$years$survey}, but are considered incomplete for indexing purposes prior to 1937 because many potential areas were not surveyed \citep{HayKronlund1987}.
 
 \fishName{} spawn survey observations have a nested hierarchical structure: samples, Macrocystis plants, and quadrats are nested within transects, transects are nested within spawns, and spawns are nested within Locations.
 To develop spawn indices,
 Locations are nested within Sections (\autoref{figRegionSec}),
 Sections are nested within Statistical Areas (\autoref{figRegionSA}), and
 Statistical Areas are nested within stock assessment regions (SARs; \autoref{figRegionReg}).
-There are \Sexpr{Num2Word(nrow(regions))} SARs in BC,
+There are \Sexpr{num_to_word(nrow(regions))} SARs in BC,
 which we categorize as either `major' or `minor' (\autoref{figBC}; \citealt{HaistRosenfeld1988}).
 The terms `major' and `minor' describe relative differences in geographic and biomass scales.
 The major SARs are Haida Gwaii (formerly known as Queen Charlotte Islands), Prince Rupert District (formerly known as North Coast), Central Coast, Strait of Georgia, and West Coast of Vancouver Island.
-The minor SARs are \Sexpr{PasteNicely(regions$RegionName[!regions$Major])}.
+The minor SARs are \Sexpr{paste_nicely(regions$RegionName[!regions$Major])}.
 
 <<Region>>=
 # Number of plots
-nMaps <- 3
+n_maps <- 3
 # Plot Section
-mapSec <- BaseMap +
+map_sec <- base_map +
   geom_path(
-    data = filter(shapes$secDF, id %in% zoomSec), aes(group = Section),
+    data = filter(shapes$secDF, id %in% zoom_sec), aes(group = Section),
     size = 0.25, colour = "black"
   ) +
   coord_cartesian(
-    xlim = c(extSec$xmin, extSec$xmax),
-    ylim = c(extSec$ymin, extSec$ymax), default = TRUE
+    xlim = c(ext_sec$xmin, ext_sec$xmax),
+    ylim = c(ext_sec$ymin, ext_sec$ymax), default = TRUE
   ) +
   geom_point(
-    data = spawnByLocXY, aes(colour = TotalSI), size = 3, alpha = 0.5
+    data = spawn_by_loc_xy, aes(colour = TotalSI), size = 3, alpha = 0.5
   ) +
   scale_colour_viridis(labels = comma) +
   labs(colour = "Spawn\nindex (t)") +
@@ -398,45 +394,47 @@ mapSec <- BaseMap +
     panel.border = element_rect(colour = "black", fill = NA, size = 0.5),
     legend.text = element_text(size = 8), legend.title = element_text(size = 8),
     legend.margin = margin(c(4, 4, 4, 4)), legend.key.height = unit(0.3, "cm"),
-    legend.text.align = 1, aspect.ratio = xyRatioSec
+    legend.text.align = 1, aspect.ratio = xy_ratio_sec
   ) +
   ggsave(
     filename = file.path("knitr-figs", "MapSection.png"),
-    width = figWidth / nMaps, height = figWidth / nMaps * xyRatioSec, dpi = 600
+    width = figWidth / n_maps, height = figWidth / n_maps * xy_ratio_sec,
+    dpi = 600
   )
 # Plot Statistical Area
-mapSA <- BaseMap +
+map_sa <- base_map +
   geom_path(
-    data = filter(shapes$secDF, id %in% sectionsSA), aes(group = Section),
+    data = filter(shapes$secDF, id %in% sections_sa), aes(group = Section),
     size = 0.25, colour = "black"
   ) +
   geom_path(
-    data = filter(shapes$secDF, id == zoomSec), aes(group = Section),
+    data = filter(shapes$secDF, id == zoom_sec), aes(group = Section),
     size = 0.75, colour = "black"
   ) +
   geom_label(
-    data = filter(shapes$secCentDF, Section %in% sectionsSA),
+    data = filter(shapes$secCentDF, Section %in% sections_sa),
     alpha = 0.75, aes(label = paste("Sec", Section, sep = " ")), size = 3
   ) +
   coord_cartesian(
-    xlim = c(extSA$xmin, extSA$xmax),
-    ylim = c(extSA$ymin, extSA$ymax), default = TRUE
+    xlim = c(ext_sa$xmin, ext_sa$xmax),
+    ylim = c(ext_sa$ymin, ext_sa$ymax), default = TRUE
   ) +
   theme(
     panel.border = element_rect(colour = "black", fill = NA, size = 0.5),
-    aspect.ratio = xyRatioSA
+    aspect.ratio = xy_ratio_sa
   ) +
   ggsave(
     filename = file.path("knitr-figs", "MapStatArea.png"),
-    width = figWidth / nMaps, height = figWidth / nMaps * xyRatioSA, dpi = 600
+    width = figWidth / n_maps, height = figWidth / n_maps * xy_ratio_sa,
+    dpi = 600
   )
 # Plot SAR
-mapReg <- BaseMap +
+map_reg <- base_map +
   geom_path(
     data = shapes$saDF, aes(group = StatArea), size = 0.25, colour = "black"
   ) +
   geom_path(
-    data = filter(shapes$saDF, id == zoomSA), aes(group = StatArea),
+    data = filter(shapes$saDF, id == zoom_sa), aes(group = StatArea),
     size = 0.75, colour = "black"
   ) +
   geom_label_repel(
@@ -446,7 +444,7 @@ mapReg <- BaseMap +
   theme(panel.border = element_rect(colour = "black", fill = NA, size = 0.5)) +
   ggsave(
     filename = file.path("knitr-figs", "MapRegion.png"),
-    width = figWidth / nMaps, height = figWidth / nMaps / shapes$xyRatio,
+    width = figWidth / n_maps, height = figWidth / n_maps / shapes$xyRatio,
     dpi = 600
   )
 @
@@ -455,13 +453,13 @@ mapReg <- BaseMap +
 \centering
 \begin{subfigure}[t]{0.32\linewidth}
 \includegraphics[width=\linewidth]{knitr-figs/MapSection.png}
-\caption{Spawn index in tonnes (t) by Location in Section \Sexpr{zoomSec}, \Sexpr{regName} SAR.}
+\caption{Spawn index in tonnes (t) by Location in Section \Sexpr{zoom_sec}, \Sexpr{regName} SAR.}
 \label{figRegionSec}
 \end{subfigure}
 \hfill
 \begin{subfigure}[t]{0.32\linewidth}
 \includegraphics[width=\linewidth]{knitr-figs/MapStatArea.png}
-\caption{Sections (Sec) in Statistical Area \Sexpr{zoomSA}, \Sexpr{regName} SAR.}
+\caption{Sections (Sec) in Statistical Area \Sexpr{zoom_sa}, \Sexpr{regName} SAR.}
 \label{figRegionSA}
 \end{subfigure}
 \hfill
@@ -470,16 +468,25 @@ mapReg <- BaseMap +
 \caption{Statistical Areas (SA) in the \Sexpr{regName} SAR.}
 \label{figRegionReg}
 \end{subfigure}
-\caption[\fishName{} spawn index by Location, as well as Sections and Statistical Areas in the \Sexpr{regNameLong}]
-{\fishName{} spawn index by Location in \Sexpr{yrIndex} (\subref{figRegionSec}), Sections (\subref{figRegionSA}), and Statistical Areas (\subref{figRegionReg}) in the \Sexpr{regNameLong} (\Sexpr{regName}) stock assessment region (SAR; \autoref{figBC}).}
+\caption[\fishName{} spawn index by Location, as well as Sections and Statistical Areas in the \Sexpr{reg_name_long}]
+{\fishName{} spawn index by Location in \Sexpr{yr_index} (\subref{figRegionSec}), Sections (\subref{figRegionSA}), and Statistical Areas (\subref{figRegionReg}) in the \Sexpr{reg_name_long} (\Sexpr{regName}) stock assessment region (SAR; \autoref{figBC}).}
 \label{figRegion}
 \end{figure}
 
-<<BC, fig.width=figWidth*0.67, fig.height=figWidth/shapes$xyRatio*0.67, fig.lp="fig", echo=FALSE, fig.cap=figCap, fig.scap="Spatial boundaries for \\fishName{} stock assessment regions in British Columbia">>=
+<<BC, fig.width=figWidth*0.67, fig.height=figWidth/shapes$xyRatio*0.67, fig.lp="fig", echo=FALSE, fig.cap=fig_cap, fig.scap="Spatial boundaries for \\fishName{} stock assessment regions in British Columbia">>=
 # Caption
-figCap <- paste("Spatial boundaries for \\fishName{} stock assessment regions (SARs) in British Columbia. There are ", Num2Word(length(majorRegions)), " major SARs: ", PasteNicely(majorRegions), ". There are ", Num2Word(length(minorRegions)), " minor SARs: ", PasteNicely(minorRegions), ". Units: kilometres (km).", sep = "")
+fig_cap <- paste("Spatial boundaries for \\fishName{} stock assessment
+                 regions (SARs) in British Columbia. There are ",
+                 num_to_word(length(major_regions)), " major SARs: ",
+                 paste_nicely(major_regions), ". There are ",
+                 num_to_word(length(minor_regions)), " minor SARs: ",
+                 paste_nicely(minor_regions), ". Units: kilometres (km).",
+                 sep = ""
+)
 # Plot BC coast and regions
-mapBC <- ggplot(data = shapes$landAllCropDF, aes(x = Eastings, y = Northings)) +
+map_bc <- ggplot(
+  data = shapes$landAllCropDF, aes(x = Eastings, y = Northings)
+) +
   geom_polygon(
     data = shapes$landAllCropDF, aes(group = group), fill = "darkgrey"
   ) +
@@ -502,10 +509,10 @@ mapBC <- ggplot(data = shapes$landAllCropDF, aes(x = Eastings, y = Northings)) +
   labs(x = "Eastings (km)", y = "Northings (km)", caption = geoProj) +
   scale_x_continuous(labels = function(x) comma(x / 1000), expand = c(0, 0)) +
   scale_y_continuous(labels = function(x) comma(x / 1000), expand = c(0, 0)) +
-  myTheme +
+  herring_theme +
   theme(panel.border = element_rect(colour = "black", fill = NA, size = 0.5))
 # Show the figure
-print(mapBC)
+print(map_bc)
 @
 
 We calculate the spawn index in four main steps.
@@ -559,7 +566,7 @@ Legend: rounded rectangles indicate start, rectangles indicate observations and 
 \label{figFlow}
 \end{figure}
 
-We developed this document while converting spawn index calculations implemented in a \textbf{Microsoft Access} database to an \textbf{R} \citeyearpar[RCT][]{R-3.6.1-32} package, \texttt{SpawnIndex}.
+We developed this document while converting spawn index calculations implemented in a \textbf{Microsoft Access} database to an \textbf{R} \citeyearpar[RCT][]{R-3.6.1-32} package, SpawnIndex.
 We updated the calculations from a database to an \textbf{R} package for several reasons.
 First, the database has been used for various purposes over the last two decades and has incidental calculations that make it overly complex.
 Second, the database is difficult to troubleshoot because it is hard to differentiate between input (i.e., data) and derived values.
@@ -573,10 +580,9 @@ Essentially, we have attempted to follow `good enough' practices in scientific c
 
 \section{STATISTICAL FRAMEWORK}\label{secStat}
 
-Each type of spawn survey observation has a specific statistical framework:
+Each spawn survey type has a different statistical framework and sampling protocol (\autoref{secProt}):
 surface observations, and
-two types of dive observations:
-Macrocystis, and understory.
+two types of dive observations (Macrocystis and understory).
 
 \subsection{SURFACE SPAWN FRAMEWORK}
 
@@ -586,59 +592,49 @@ as well as available sampling tools such as boats, rakes, and viewers.
 The data are analysed assuming simple random sampling,
 which likely generates a biased estimate of mean egg density.
 
-\afterpage{
-\FloatBarrier
-\begin{longtable}{P{1.25cm}P{8cm}P{3cm}}
+\begin{table}
+\centering
 \caption[Index notation for \fishName{} spawn index calculations]
 {Index notation for \fishName{} spawn index calculations.
-Legend: stock assessment region (SAR), spawn on kelp (SOK).} \\
+Legend: stock assessment region (SAR), spawn-on-kelp (SOK).}
+\begin{tabulary}{\linewidth}{lLL}
 \toprule
 \textbf{Name} & \textbf{Description} & \textbf{Range} \\
 \midrule
-\endfirsthead
-\toprule
-\multicolumn{3}{c}{\textsl{\tablename~\thetable~continued}} \\
-\textbf{Name} & \textbf{Description} & \textbf{Range} \\
-\midrule
-\endhead
-\bottomrule
-\endfoot
-\bottomrule
-\endlastfoot
-$i$ & Substrate type & 1, 2, 3, ..., $I$ \\
-$I$ & Number of substrate types in sample $j$, type $x$, spawn $s$, Location $n$, SAR $r$, and year $y$ & \\
-$j$ & Sample & 1, 2, 3, ..., $J$ \\
-$J$ & Number of samples in type $x$, spawn $s$, Location $n$, SAR $r$, and year $y$ & \\
-$p$ & Plant & 1, 2, 3, ..., $P$ \\
-$P$ & Number of plants in transect $t$, type $x$, spawn $s$, Location $n$, SAR $r$, and year $y$ & \\
-$t$ & Transect & 1, 2, 3, ..., $T$ \\
-$T$ & Number of transects in type $x$, spawn $s$, Location $n$, SAR $r$, and year $y$ & \\
-$T'$ & Number of potential transects in type $x$, spawn $s$, Location $n$, SAR $r$, and year $y$ & \\
-$v$ & Algae (i.e., vegetation) type & 1, 2, 3, ..., $V$ \\
-$V$ & Number of algae types in quadrat $q$, transect $t$, type $x$, spawn $s$, Location $n$, SAR $r$, and year $y$ & \\
-$q$ & Quadrat & 1, 2, 3, ..., $Q$ \\
-$Q$ & Number of quadrats in transect $t$, type $x$, spawn $s$, Location $n$, SAR $r$, and year $y$ & \\
-$Q'$ & Number of potential quadrats in transect $t$, type $x$, spawn $s$, Location $n$, SAR $r$, and year $y$ & \\
-$x$ & Spawn survey type & 1, 2, 3, ..., $X$ \\
-$X$ & Number of spawn survey types in spawn $s$, location $n$, SAR $r$, and year $y$ & \\
-$s$ & Spawn & 1, 2, 3, ..., $S$ \\
-$S$ & Number of spawns in Location $n$, SAR $r$, and year $y$ & \\
-$n$ & Location & 1, 2, 3, ..., $N$ \\
-$N$ & Number of locations in SAR $r$ and year $y$ & \\
-$g$ & SOK fishery & 1, 2, 3, ..., $G$ \\
-$G$ & Number of SOK fisheries in SAR $r$ and year $y$ & \\
+$y$ & Year & $y_1$, $y_2$, $y_3$, ..., $Y$ \\
+$Y$ & Last year of time series & \\
 $r$ & SAR & 1, 2, 3, ..., $R$ \\
 $R$ & Number of SARs & \\
-$y$ & Year & $y_1$, $y_2$, $y_3$, ..., $Y$ \\
-$Y$ & Last year of time series &
+$n_{ry}$ & Location & 1, 2, 3, ..., $N_{ry}$ \\
+$N_{ry}$ & Number of locations & \\
+$s_{nry}$ & Spawn & 1, 2, 3, ..., $S_{nry}$ \\
+$S_{nry}$ & Number of spawns & \\
+$x_{snry}$ & Spawn survey type & 1, 2, 3, ..., $X_{snry}$ \\
+$X_{snry}$ & Number of spawn survey types & \\
+$j_{xsnry}$ & Sample & 1, 2, 3, ..., $J_{xsnry}$ \\
+$J_{xsnry}$ & Number of samples & \\
+$i_{jxsnry}$ & Substrate type & 1, 2, 3, ..., $I_{jxsnry}$ \\
+$I_{jxsnry}$ & Number of substrate types & \\
+$t_{xsnry}$ & Transect & 1, 2, 3, ..., $T_{xsnry}$ \\
+$T_{xsnry}$ & Number of transects & \\
+$T_{xsnry}'$ & Number of potential transects & \\
+$p_{txsnry}$ & Plant & 1, 2, 3, ..., $P_{txsnry}$ \\
+$P_{txsnry}$ & Number of plants & \\
+$q_{txsnry}$ & Quadrat & 1, 2, 3, ..., $Q_{txsnry}$ \\
+$Q_{txsnry}$ & Number of quadrats & \\
+$Q_{txsnry}'$ & Number of potential quadrats & \\
+$v_{qtxsnry}$ & Algae (i.e., vegetation) type & 1, 2, 3, ..., $V_{qtxsnry}$ \\
+$V_{qtxsnry}$ & Number of algae types & \\
+$g_{ry}$ & SOK fishery & 1, 2, 3, ..., $G_{ry}$ \\
+$G_{ry}$ & Number of SOK fisheries & \\
+\bottomrule
+\end{tabulary}
 \label{tabNotationIndices}
-\end{longtable}
-\FloatBarrier
-}
+\end{table}
 
-\subsection{DIVE FRAMEWORK}
+\subsection{DIVE SPAWN FRAMEWORK}
 
-In contrast to surface surveys, underwater dive surveys using SCUBA gear instituted in \Sexpr{newSurvYr} follow a two-stage systematic sampling design where
+In contrast to surface surveys, underwater dive surveys using SCUBA gear instituted in \Sexpr{pars$years$dive} follow a two-stage systematic sampling design where
 transects are the first sampling stage, and
 individual quadrats within transects are the second sampling stage \citep{Jessen1978}.
 First we describe the understory spawn framework,
@@ -648,13 +644,13 @@ then we describe the Macrocystis spawn framework which is related to understory,
 
 Two steps are required to calculate mean understory egg density in each surveyed spawn $s$ (\autoref{tabNotationIndices}).
 Note that we simplify index notation in this section by suppressing subscripts for spawn survey type $x$, Location $n$, SAR $r$, and year $y$.
-First, mean egg density for transect $t$ in spawn $s$ is
-\begin{equation}\label{eqStatRhoTS}
-\mean{\rho_{ts}} = \frac{1}{Q_{ts}}\sum_{q=1}^Q \rho_{qts},
+First, mean egg density for transect $t$ is
+\begin{equation}\label{eqStatRhoT}
+\mean{\rho_{t_{xsnry}}} = \frac{1}{Q_{txsnry}} \sum_{q_{txsnry}=1}^{Q_{txsnry}} \rho_{q_{txsnry}},
 \end{equation}
-where $\rho_{qts}$ is egg density in thousands of eggs per square metre (m) for quadrat $q$ ($\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$),
-$Q_{ts}$ is the number of quadrats in transect $t$ (\autoref{tabNotationStat}), and
-$\mean{\rho_{ts}}$ is in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$.
+where $\rho_{q_{txsnry}}$ is egg density in thousands of eggs per square metre (m) for quadrat $q$ ($10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$),
+$Q_{tsxnry}$ is the number of quadrats (\autoref{tabNotationStat}), and
+$\mean{\rho_{t_{xsnry}}}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
 Before we calculate the mean egg density for spawn $s$, we determine the mean number of potential quadrats in spawn $s$
 \begin{equation}\label{eqStatQSPrime}
 \mean{Q_s'} = \frac{1}{T} \sum_{t=1}^{T} Q'_{ts},
@@ -667,8 +663,8 @@ Then, we calculate mean egg density in eggs per square metre for spawn $s$
 where $T$ is the number of transects in spawn $s$,
 $\mean{Q_s'}$ is the mean number of potential quadrats in spawn $s$ from \autoref{eqStatQSPrime},
 $Q'_{ts}$ is the number of potential quadrats in transect $t$,
-$\mean{\rho_{ts}}$ is the mean transect egg density from \autoref{eqStatRhoTS}, and
-$\mean{\rho_s}$ is in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$.
+$\mean{\rho_{ts}}$ is the mean transect egg density from \autoref{eqStatRhoT}, and
+$\mean{\rho_s}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
 The egg density estimator from \autoref{eqStatRhoS} is unbiased, and the variance is
 \begin{equation}\label{eqStatSigmaS}
 \sigma_s^2 =
@@ -680,7 +676,7 @@ The egg density estimator from \autoref{eqStatRhoS} is unbiased, and the varianc
 \frac{\left(1-f_q\right)\sigma_{ts}^2}{Q},
 \end{equation}
 where $T'$ is the number of potential transects in spawn $s$ (i.e., a function of spawn length),
-$\mean{\rho_{ts}}$ is the mean transect egg density from \autoref{eqStatRhoTS},
+$\mean{\rho_{ts}}$ is the mean transect egg density from \autoref{eqStatRhoT},
 $\mean{\rho_s}$ is the mean spawn egg density from \autoref{eqStatRhoS},
 $f_t$ is the transect sampling fraction for spawn $s$
 \begin{equation}\label{eqFT}
@@ -697,7 +693,7 @@ $\sigma_{ts}^2$ is the within transect egg density variance
 \left(\rho_{qts} - \mean{\rho_{ts}}\right)^2,
 \end{equation}
 where $\rho_{qts}$ is egg density for quadrat $q$, and
-$\mean{\rho_{ts}}$ is the mean transect egg density from \autoref{eqStatRhoTS}.
+$\mean{\rho_{ts}}$ is the mean transect egg density from \autoref{eqStatRhoT}.
 
 \begin{table}
 \centering
@@ -708,8 +704,8 @@ Legend: metres (m).}
 \toprule
 \textbf{Name} & \textbf{Description} & \textbf{Value or unit} \\
 \midrule
-$\rho$ & Egg density & $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ \\
-$\mean{\rho}$ & Mean egg density & $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ \\
+$\rho$ & Egg density & $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$ \\
+$\mean{\rho}$ & Mean egg density & $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$ \\
 $f_t$ & Transect sampling fraction & $0 < f_t \leq 1$ \\
 $f_q$ & Quadrat sampling fraction & $0 < f_q \leq 1$ \\
 $\sigma^2$ & Egg density variance & $\rho^2$ \\
@@ -739,7 +735,7 @@ The sampling design was tested during a 1983 survey in the Strait of Georgia tha
 applied a systematic rather than a random sampling protocol to simplify the logistics;
 variance estimates were similar to those from the 1981 study.
 This sampling protocol was further re-evaluated after additional surveys occurred in all areas of the coast during 1984 and 1985;
-the protocol was found to be robust and has been in routine use since \Sexpr{newSurvYr} \citep{SchweigertEtal1990}.
+the protocol was found to be robust and has been in routine use since \Sexpr{pars$years$dive} \citep{SchweigertEtal1990}.
 Although samples are collected systematically within each spawn,
 we assume that transects and quadrats are located randomly with respect to the underlying spawn distribution,
 and so these estimators are applicable \citep{SchaefferEtal2012}.
@@ -861,47 +857,55 @@ Surveyors may deploy a viewing box in shallow water, and at low tide a portion o
 We refer to these surface spawn observations as `samples.'
 
 Recall that there are two cases of surface spawn surveys:
-all surveys prior to \Sexpr{newSurvYr}, and
-surveys since \Sexpr{newSurvYr} when dive surveys are not possible.
+all surveys prior to \Sexpr{pars$years$dive}, and
+surveys since \Sexpr{pars$years$dive} when dive surveys are not possible.
 Data from surface surveys are combined with data from dive surveys (i.e., Macrocystis, understory) to produce the total spawn index (\autoref{secTotal}).
 
 \subsubsection{SPAWN INTENSITY CATEGORIES}\label{secIntensity}
 
-From \Sexpr{firstYr} to \Sexpr{directEggYr-1}, surface spawn surveyors categorized spawn by subjective `intensity' categories
+From \Sexpr{pars$years$survey} to \Sexpr{pars$years$layers-1}, surface spawn surveyors categorized spawn by subjective `intensity' categories
 instead of direct egg layer estimates (\autoref{tab:Intensity}).
-From \Sexpr{firstYr} to \Sexpr{cat9Yr-1} there were five intensity categories described as very light, light, medium, heavy, and very heavy (numbered 1 to 5, respectively).
-Starting in \Sexpr{cat9Yr} there were nine intensity categories;
+From \Sexpr{pars$years$survey} to \Sexpr{pars$years$nine_cats-1} there were five intensity categories described as very light, light, medium, heavy, and very heavy (numbered 1 to 5, respectively).
+Starting in \Sexpr{pars$years$nine_cats} there were nine intensity categories;
 the change from five to nine intensity categories was probably to accommodate the practice of reporting intermediate categories such as 3.5 \citep{HayKronlund1987}.
-Starting in \Sexpr{directEggYr}, spawn surveyors estimated the number of egg layers directly, and
+Starting in \Sexpr{pars$years$layers}, spawn surveyors estimated the number of egg layers directly, and
 continued to record intensity categories until 1981 to provide overlap between the two methods.
 In addition to recording the number of egg layers, surveyors sometimes recorded intensity after it was officially discontinued in 1981.
 We have converted spawn intensity observations in the \fishName{} spawn survey database from five to nine categories
-for spawns that used the five category scale between \Sexpr{min(yrRange)} and \Sexpr{cat9Yr-1}.
+for spawns that used the five category scale between \Sexpr{pars$years$assess} and \Sexpr{pars$years$nine_cats-1}.
 Thus, spawn data used for stock assessments is represented either by a nine category intensity scale, or a direct estimate of the number of egg layers.
 
 <<Intensity>>=
 # Caption
-tabCap <- paste("Spawn intensity categories, description, and number of egg layers for \\fishName{} surface spawn surveys for the periods ", firstYr, " to ", cat9Yr - 1, ", and ", cat9Yr, " to ", directEggYr - 1, " \\citep{HayKronlund1987, SchweigertStocker1988}. Uncertainty in the number of egg layers is not available.", sep = "")
+tab_cap <- paste("Spawn intensity categories, description, and number of egg
+                 layers for \\fishName{} surface spawn surveys for the
+                 periods ", pars$years$survey, " to ", pars$years$nine_cats - 1,
+                  ", and ", pars$years$nine_cats, " to ", pars$years$layers - 1,
+                 " \\citep{HayKronlund1987, SchweigertStocker1988}. Uncertainty
+                 in the number of egg layers is not available.", sep = ""
+)
 # Short caption
-tabSCap <- "Spawn intensity categories and number of egg layers for \\fishName{} surface spawn surveys"
+tab_s_cap <- "Spawn intensity categories and number of egg layers for
+              \\fishName{} surface spawn surveys"
 # Column name (5 categories)
-p5 <- paste0(firstYr, "--", cat9Yr - 1)
+p5 <- paste0(pars$years$survey, "--", pars$years$nine_cats - 1)
 # Column name (9 categories)
-p9 <- paste0(cat9Yr, "--", directEggYr - 1)
+p9 <- paste0(pars$years$nine_cats, "--", pars$years$layers - 1)
 # Format the table
-kIntensity <- intensity %>%
+k_intensity <- intensity %>%
   arrange(Layers) %>%
   rename(
-    !!p5 := Period5, !!p9 := Period9, `Number of egg layers` = Layers
+    !!p5 := Period5, !!p9 := Period9,
+    `Number of egg layers` = Layers
   ) %>%
   kable(
-    caption = tabCap, caption.short = tabSCap, booktabs = TRUE, linesep = "",
+    caption = tab_cap, caption.short = tab_s_cap, booktabs = TRUE, linesep = "",
     escape = FALSE
   ) %>%
   row_spec(0, bold = TRUE) %>%
   add_header_above(header = c("Intensity category" = 2, "", ""), bold = TRUE)
 # Print the table
-kIntensity
+k_intensity
 @
 
 \subsection{MACROCYSTIS SPAWN PROTOCOL}\label{secMacroProt}
@@ -953,7 +957,7 @@ and we convert eggs to tonnes (t) of spawners using
 \end{equation}
 where $\omega$ is female fecundity,
 $\female$ is the proportion of spawners that are female, and
-$\theta$ is the egg conversion factor in $\text{eggs} \cdot 10^8 \cdot \text{t}^{-1}$ (\autoref{tabNotationEggs}).
+$\theta$ is the egg conversion factor in $10^8 \cdot \text{eggs} \cdot \text{t}^{-1}$ (\autoref{tabNotationEggs}).
 Thus, we convert eggs to biomass of both sexes combined in tonnes by dividing the number of eggs by $\theta$.
 Although \fishName{} egg production is affected by environmental variability and other factors \citep{TanasichukWare1987, HayBrett1988},
 we assume that bias to the spawn index from \autoref{eqECF} is insignificant in most areas and years \citep{Ware1985, Schweigert1993b}.
@@ -968,8 +972,8 @@ Legend: kilograms (kg), tonnes (t).}
 \textbf{Name} & \textbf{Description} & \textbf{Value or unit} & \textbf{References} \\
 \midrule
 $\omega$ & Female fecundity & \Sexpr{format(pars$conversion$omega, big.mark=",", scientific=FALSE)}$~\text{eggs} \cdot \text{kg}^{-1}$ & \cite{Hay1985, HayBrett1988} \\
-$\female$ & Proportion female & \Sexpr{pars$conversion$phi} & \\
-$\theta$ & Egg conversion factor & $\text{eggs} \cdot 10^8 \cdot \text{t}^{-1}$ & \\
+$\female$ & Proportion female & \Sexpr{pars$conversion$female} & \\
+$\theta$ & Egg conversion factor & $10^8 \cdot \text{eggs} \cdot \text{t}^{-1}$ & \\
 \bottomrule
 \end{tabulary}
 \label{tabNotationEggs}
@@ -999,10 +1003,10 @@ Legend: metres (m), tonnes (t).}
 $E'$ & Number of egg layers & $E' > 0$ & \\
 $\phi$ & Proportion covered in eggs & $0 < \phi \leq 1$ & \\
 $E$ & Number of egg layers & $E > 0$ & \\
-$\alpha$ & Regression intercept & \Sexpr{pars$surface$alpha}$~\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \cite{SchweigertEtal1997} \\
-$\beta$ & Regression slope & \Sexpr{pars$surface$beta}$~\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \cite{SchweigertEtal1997} \\
-$\rho$ & Egg density & $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \\[0.5ex]
-$\mean{\rho}$ & Mean egg density & $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ &  \\
+$\alpha$ & Regression intercept & \Sexpr{pars$surface$alpha}$~10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$ & \cite{SchweigertEtal1997} \\
+$\beta$ & Regression slope & \Sexpr{pars$surface$beta}$~10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$ & \cite{SchweigertEtal1997} \\
+$\rho$ & Egg density & $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$ & \\[0.5ex]
+$\mean{\rho}$ & Mean egg density & $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$ &  \\
 $L$ & Spawn length & m & \\
 $W$ & Spawn width & m & \\
 $B'$ & Surface spawn index (i.e., biomass) & t & \\
@@ -1015,62 +1019,59 @@ $B'$ & Surface spawn index (i.e., biomass) & t & \\
 
 Each sample $j$ (\autoref{figFlow}, step \ref{sSamp}) can have one or more substrate types $i$.
 The number of egg layers in substrate $i$, sample $j$, and spawn $s$ is
-\begin{equation}\label{eqSurfLyrsIJS}
+\begin{equation}\label{eqSurfLayersIJS}
 E_{ijs} = E'_{ijs} \phi_{ijs},
 \end{equation}
 where $E'_{ijs}$ is the number of egg layers on substrate $i$, and
 $\phi_{ijs}$ is the proportion of substrate $i$ covered with spawn.
 The total number of egg layers in sample $j$ and spawn $s$ is
-\begin{equation}\label{eqSurfLyrsJS}
+\begin{equation}\label{eqSurfLayersJS}
 E_{js} = \sum_{i=1}^{I} E_{ijs},
 \end{equation}
-where $E_{ijs}$ is the number of egg layers in substrate $i$ from \autoref{eqSurfLyrsIJS}.
+where $E_{ijs}$ is the number of egg layers in substrate $i$ from \autoref{eqSurfLayersIJS}.
 For the time period when surveyors recorded spawn `intensity' categories instead of direct egg layer estimates, we convert intensity to number of egg layers $E_{js}$ (\autoref{tab:Intensity}).
 \citet{SchweigertEtal1997} developed a model of surface egg density as a function of number of egg layers using a linear regression model%
 \footnote{There is an error in \cite{SchweigertEtal1997};
-surface egg density is in thousands per square metre ($\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$).
-Likewise, we report eggs in thousands (i.e., $\text{eggs} \cdot 10^3$) in this document and in the \textbf{R} package script.}
+surface egg density is in thousands per square metre ($10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$).
+Likewise, we report eggs in thousands (i.e., $10^3 \cdot \text{eggs}$) in this document and in the \textbf{R} package script.}
 \begin{equation}\label{eqSurfDensJS}
 \rho_{js} = \alpha + \beta E_{js},
 \end{equation}
 where $\alpha$ is the regression intercept,
 $\beta$ is the regression slope,
-$E_{js}$ is the total number of egg layers in sample $j$ from \autoref{eqSurfLyrsJS}, and
-$\rho_{js}$ is in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ (\autoref{figSurfDensJS}).
+$E_{js}$ is the total number of egg layers in sample $j$ from \autoref{eqSurfLayersJS}, and
+$\rho_{js}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$ (\autoref{figSurfDensJS}).
 Note that we only calculate $\rho_{js}$ if $E_{js} > 0$.
 
-<<SurfDensJS, fig.width=3.5, fig.asp=0.67, fig.lp="fig", echo=FALSE, fig.cap=figCap, fig.scap="Egg density for \\fishName{} surface spawn surveys">>=
+<<SurfDensJS, fig.width=3.5, fig.asp=0.67, fig.lp="fig", echo=FALSE, fig.cap=fig_cap, fig.scap="Egg density for \\fishName{} surface spawn surveys">>=
 # Caption
-figCap <- paste("Relationship between egg density in thousands of eggs per square metre (m; line), and number of egg layers for \\fishName{} surface spawn surveys based on \\autoref{eqSurfDensJS} \\citep{SchweigertEtal1997}. Note that number of egg layers can exceed those shown in this figure.")
+fig_cap <- paste("Relationship between egg density in thousands of eggs per
+                 square metre (m; line), and number of egg layers for
+                 \\fishName{} surface spawn surveys based on
+                 \\autoref{eqSurfDensJS} \\citep{SchweigertEtal1997}. Note that
+                 number of egg layers can exceed those shown in this figure.")
 # Expand the values
-df <- expand.grid(Layers = lyrs)
-# Equation for surface egg density
-EggDensSurf <- function(EggLyrs) {
-  # Calculate egg density
-  Density <- pars$surface$alpha + pars$surface$beta * EggLyrs
-  # Return density
-  return(Density)
-} # End EggDensSurf function
+df <- expand.grid(Layers = layers)
 # Make a table of egg layers, proportion, and egg density
 dat <- as_tibble(df) %>%
-  mutate(EggDens = EggDensSurf(EggLyrs = Layers))
+  mutate(EggDens = egg_dens_surf(egg_layers = Layers))
 # Figure
-EggDensSubPlot <- ggplot(
+egg_dens_sub_plot <- ggplot(
   data = dat, mapping = aes(x = Layers, y = EggDens)
 ) +
   geom_line() +
   # geom_point( ) +
   labs(
     x = "Number of egg layers",
-    y = expression(paste("Egg density (eggs" %.% 10^3 %.% "m"^-2, ")",
+    y = expression(paste("Egg density (", 10^3 %.% "eggs" %.% "m"^-2, ")",
       sep = ""
     ))
   ) +
   scale_y_continuous(labels = comma) +
   expand_limits(x = 0, y = 0) +
-  myTheme
+  herring_theme
 # Show the figure
-print(EggDensSubPlot)
+print(egg_dens_sub_plot)
 @
 
 \subsection{SPAWN OBSERVATIONS AND CALCULATIONS}\label{secSurfS}
@@ -1081,7 +1082,7 @@ The mean egg density in spawn $s$ (\autoref{figFlow}, step \ref{sSpawn}) is
 \end{equation}
 where $\rho_{js}$ is egg density in sample $j$ from \autoref{eqSurfDensJS},
 $J$ is the number of samples, and
-$\mean{\rho_s}$ is in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$.
+$\mean{\rho_s}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
 Two other metrics are required at the spawn level:
 spawn length $L_s$, and
 spawn width $W_s$, both in metres.
@@ -1137,7 +1138,7 @@ $\gamma$ & Regression exponent on $\mean{E}$ & \Sexpr{pars$macrocystis$gamma} & 
 $\delta$ & Regression exponent on $\mean{H}$ & \Sexpr{pars$macrocystis$delta} & \cite{HaegeleSchweigert1990} \\
 $\epsilon$ & Regression exponent on $\mean{\kappa}$ & \Sexpr{pars$macrocystis$epsilon} & \cite{HaegeleSchweigert1990} \\
 $\mean{\psi}$ & Mean number of eggs per plant & $\text{eggs} \cdot 10^3 \cdot \text{plant}^{-1}$ & \\
-$\mean{\rho}$ & Mean egg density & $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \\
+$\mean{\rho}$ & Mean egg density & $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$ & \\
 $B'$ & Macrocystis spawn index (i.e., biomass) & t & \\
 \bottomrule
 \end{tabulary}
@@ -1191,7 +1192,7 @@ number of egg layers,
 plant height, and
 number of stalks per plant.
 First, the mean number of egg layers in spawn $s$ is
-\begin{equation}\label{eqMacroLyrsS}
+\begin{equation}\label{eqMacroLayersS}
 \mean{E_s} = \frac{1}{T} \sum_{t=1}^T \mean{E_{ts}},
 \end{equation}
 where $\mean{E_{ts}}$ is the mean number of egg layers in transect $t$, and
@@ -1230,7 +1231,7 @@ using a nonlinear multiple regression model
 \mean{\psi_s} = \xi \mean{E_s}^{\gamma} \mean{H_s}^{\delta} \mean{\kappa_s}^{\epsilon} 10^3,
 \end{equation}
 where $\xi$ is the regression slope,
-$\mean{E_s}$ is the mean number of egg layers in spawn $s$ from \autoref{eqMacroLyrsS},
+$\mean{E_s}$ is the mean number of egg layers in spawn $s$ from \autoref{eqMacroLayersS},
 $\gamma$ is the regression exponent on $\mean{E_s}$,
 $\mean{H_s}$ is the mean plant height in spawn $s$ from \autoref{eqMacroHeightS},
 $\delta$ is the regression exponent on $\mean{H_s}$,
@@ -1245,7 +1246,7 @@ where
 $\mean{\psi_s}$ is the mean number of eggs per plant in spawn $s$ from \autoref{eqMacroEggsPerPlantS},
 $P_s$ is the number of plants in spawn $s$ from \autoref{eqMacroPlantsS},
 $A_s$ is the total area of transects in spawn $s$ from \autoref{eqMacroAreaS}, and
-$\mean{\rho_s}$ is in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$.
+$\mean{\rho_s}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
 
 The Macrocystis spawn index in spawn $s$ is
 \begin{equation}\label{eqMacroIndS}
@@ -1257,32 +1258,30 @@ $\mean{W_s}$ is the mean width of spawn $s$ from \autoref{eqMacroWidthS},
 $\theta$ is the egg conversion factor from \autoref{eqECF}, and
 $B'_s$ is in tonnes (\autoref{figFlow}, step \ref{mInd}).
 
-<<MacroEggsPerPlantS, fig.width=6, fig.asp=0.9, fig.lp="fig", echo=FALSE, fig.cap=figCap, fig.scap="Number of eggs per plant for \\fishName{} Macrocystis spawn surveys">>=
+<<MacroEggsPerPlantS, fig.width=6, fig.asp=0.9, fig.lp="fig", echo=FALSE, fig.cap=fig_cap, fig.scap="Number of eggs per plant for \\fishName{} Macrocystis spawn surveys">>=
 # Caption
-figCap <- paste("Relationship between number of eggs in thousands per Macrocystis plant (lines), and number of egg layers on plants, plant height in metres (m), and number of stalks per plant for \\fishName{} Macrocystis spawn surveys based on \\autoref{eqMacroEggsPerPlantS} \\citep{HaegeleSchweigert1990}. Note that number of egg layers, plant height, and number of stalks per plant can exceed those shown in this figure.")
+fig_cap <- paste("Relationship between number of eggs in thousands per
+                 Macrocystis plant (lines), and number of egg layers on plants,
+                 plant height in metres (m), and number of stalks per plant for
+                 \\fishName{} Macrocystis spawn surveys based on
+                 \\autoref{eqMacroEggsPerPlantS} \\citep{HaegeleSchweigert1990}.
+                 Note that number of egg layers, plant height, and number of
+                 stalks per plant can exceed those shown in this figure.")
 # Expand the values
-df <- expand.grid(Layers = lyrs, PlantHeight = ht, Stalks = stlks)
-# Equation for Macrocystis number of eggs per plant
-NumEggs <- function(EggLyrs, Height, StalksPerPlant) {
-  # Calculate the number of eggs
-  Number <- pars$macrocystis$xi * EggLyrs^pars$macrocystis$gamma *
-    Height^pars$macrocystis$delta * StalksPerPlant^pars$macrocystis$epsilon *
-    1000
-  # Return number
-  return(Number)
-} # End NumEggs function
+df <- expand.grid(Layers = layers, PlantHeight = ht, Stalks = stlks)
 # Make a table of egg layers, proportion, coefficient, and egg density
 dat <- as_tibble(df) %>%
   mutate(
-    Number = NumEggs(
-      EggLyrs = Layers, Height = PlantHeight, StalksPerPlant = Stalks
+    Number = num_eggs_macro(
+      egg_layers = Layers, height = PlantHeight, stalks_per_plant = Stalks
     ),
     Stalks = paste("Number of stalks per plant: ",
-      formatC(Stalks, width = 2, flag = "0"), sep = ""
+      formatC(Stalks, width = 2, flag = "0"),
+      sep = ""
     )
   )
 # Figure
-NumEggPlot <- ggplot(
+num_egg_plot <- ggplot(
   data = dat,
   mapping = aes(x = Layers, y = Number, group = PlantHeight)
 ) +
@@ -1290,17 +1289,20 @@ NumEggPlot <- ggplot(
   # geom_point( ) +
   labs(
     x = "Number of egg layers on plants",
-    y = expression(paste("Number of eggs per plant (eggs" %.% 10^3 %.%
-      "plant"^-1, ")", sep = "")), colour = "Plant height (m)"
+    y = expression(paste("Number of eggs per plant (",
+      10^3 %.% "eggs" %.% "plant"^-1, ")",
+      sep = ""
+    )),
+    colour = "Plant height (m)"
   ) +
   scale_y_continuous(labels = comma) +
   scale_colour_viridis() +
   facet_wrap(Stalks ~ ., ncol = 2) +
   expand_limits(x = 0, y = 0) +
-  myTheme +
+  herring_theme +
   theme(legend.position = "top")
 # Show the figure
-print(NumEggPlot)
+print(num_egg_plot)
 @
 
 \section{UNDERSTORY SPAWN CALCULATIONS}\label{secUnder}
@@ -1321,16 +1323,16 @@ Legend: metres (m), tonnes (t).}
 \toprule
 \textbf{Name} & \textbf{Description} & \textbf{Value or unit} & \textbf{References} \\
 \midrule
-$\varphi$ & Regression slope for substrate & \Sexpr{pars$understory$varphi}$~\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \cite{HaegeleEtal1979} \\
+$\varphi$ & Regression slope for substrate & \Sexpr{pars$understory$varphi}$~10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$ & \cite{HaegeleEtal1979} \\
 $E$ & Number of egg layers & $E > 0$ & \\
 $\phi$ & Proportion covered in eggs & $0 < \phi \leq 1$ & \\
-$\rho$ & Egg density & $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \\
-$\vartheta$ & Regression slope for algae & \Sexpr{pars$understory$vartheta}$~\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \cite{Schweigert2005} \\
+$\rho$ & Egg density & $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$ & \\
+$\vartheta$ & Regression slope for algae & \Sexpr{pars$understory$vartheta}$~10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$ & \cite{Schweigert2005} \\
 $\varrho$ & Regression exponent on $E$ & \Sexpr{pars$understory$varrho} & \cite{Schweigert2005} \\
 $\varsigma$ & Regression exponent on $\phi$ & \Sexpr{pars$understory$varsigma} & \cite{Schweigert2005} \\
 $C$ & Algae coefficient & see \autoref{tab:AlgaeCoefs} & \\
 $W$ & Spawn width & m & \\
-$\mean{\rho}$ & Mean egg density & $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ & \\
+$\mean{\rho}$ & Mean egg density & $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$ & \\
 $\mean{W}$ & Mean spawn width & m & \\
 $L''$ & Length of the algae bed & m & \\
 $L$ & Spawn length & m & \\
@@ -1350,31 +1352,33 @@ We calculate two separate estimates of egg density at the quadrat level (\autore
 where $\varphi$ is the slope,
 $E_{iqts}$ is the number of egg layers on substrate $i$ in quadrat $q$,
 $\phi_{iqts}$ is the proportion of substrate in quadrat $q$ covered by spawn, and
-$\rho_{iqts}$ is substrate egg density in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ (\autoref{figUnderDensSubQTS}).
+$\rho_{iqts}$ is substrate egg density in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$ (\autoref{figUnderDensSubQTS}).
 
-<<UnderDensSubQTS, fig.width=3.5, fig.asp=0.85, fig.lp="fig", echo=FALSE, fig.cap=figCap, fig.scap="Substrate egg density for \\fishName{} underwater spawn surveys">>=
+<<UnderDensSubQTS, fig.width=3.5, fig.asp=0.85, fig.lp="fig", echo=FALSE, fig.cap=fig_cap, fig.scap="Substrate egg density for \\fishName{} underwater spawn surveys">>=
 # Caption
-figCap <- paste("Relationship between substrate egg density in thousands of eggs per square metre (m; lines), and number of egg layers on substrate and proportion of substrate covered in spawn for \\fishName{} underwater spawn surveys based on \\autoref{eqUnderDensSubQTS} \\citep{HaegeleEtal1979}. Note that number of egg layers can exceed those shown in this figure.")
+fig_cap <- paste("Relationship between substrate egg density in thousands of
+                 eggs per square metre (m; lines), and number of egg layers on
+                 substrate and proportion of substrate covered in spawn for
+                 \\fishName{} underwater spawn surveys based on
+                 \\autoref{eqUnderDensSubQTS} \\citep{HaegeleEtal1979}. Note
+                 that number of egg layers can exceed those shown in this
+                 figure.")
 # Expand the values
-df <- expand.grid(Layers = lyrs, Proportion = prop)
-# Equation for understory egg density on substrate
-EggDensSub <- function(SubLyrs, SubProp) {
-  # Calculate egg density
-  Density <- pars$understory$varphi * SubLyrs * SubProp
-  # Return density
-  return(Density)
-} # End EggDensSub function
+df <- expand.grid(Layers = layers, Proportion = prop)
 # Make a table of egg layers, proportion, and egg density
 dat <- as_tibble(df) %>%
-  mutate(EggDens = EggDensSub(SubLyrs = Layers, SubProp = Proportion))
+  mutate(EggDens = egg_dens_under_sub(
+    sub_layers = Layers, sub_prop = Proportion
+  ))
 # Figure
-EggDensSubPlot <- ggplot(
+egg_dens_sub_plot <- ggplot(
   data = dat, mapping = aes(x = Layers, y = EggDens, group = Proportion)
 ) +
   geom_line(mapping = aes(colour = Proportion)) +
   labs(
     x = "Number of egg layers on substrate",
-    y = expression(paste("Substrate egg density (eggs" %.% 10^3 %.% "m"^-2, ")",
+    y = expression(paste("Substrate egg density (",
+      10^3 %.% "eggs" %.% "m"^-2, ")",
       sep = ""
     )),
     colour = "Proportion of substrate\ncovered in spawn"
@@ -1382,10 +1386,10 @@ EggDensSubPlot <- ggplot(
   scale_y_continuous(labels = comma) +
   scale_colour_viridis() +
   expand_limits(x = 0, y = 0) +
-  myTheme +
+  herring_theme +
   theme(legend.position = "top")
 # Show the figure
-print(EggDensSubPlot)
+print(egg_dens_sub_plot)
 @
 
 Although quadrats have only one substrate type, they can have up to three algae types $v$ (\autoref{secUnderProt}).
@@ -1404,59 +1408,61 @@ $\varrho$ is the regression exponent on $E_{vqts}$,
 $\phi_{vqts}$ is the proportion of quadrat $q$ covered by algae $v$,
 $\varsigma$ is the regression exponent on $\phi_{vqts}$,
 $C_v$ is the coefficient for algae $v$, and
-$\rho_{vqts}$ is in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$ (\autoref{figUnderDensAlgVQTS}).
+$\rho_{vqts}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$ (\autoref{figUnderDensAlgVQTS}).
 
 <<AlgaeCoefs>>=
 # Caption
-tabCap <- "Algae (i.e., vegetation) types $v$ and coefficients $C$ for \\fishName{} understory spawn surveys \\citep{Schweigert2005}. Uncertainty in algae coefficients is not available. Algae types are described in the \\surveyManual{}."
+tab_cap <- "Algae (i.e., vegetation) types $v$ and coefficients $C$ for
+            \\fishName{} understory spawn surveys \\citep{Schweigert2005}.
+            Uncertainty in algae coefficients is not available. Algae types are
+            described in the \\surveyManual{}."
 # Short caption
-tabSCap <- "Algae types and coefficients for \\fishName{} understory spawn surveys"
+tab_s_cap <- "Algae types and coefficients for \\fishName{} understory spawn
+              surveys"
 # Format the table
-kAlgaeCoefs <- algaeCoefs %>%
+k_algae_coefs <- algae_coefs %>%
   rename(`Algae type $v$` = AlgaeName, `Coefficient $C$` = Coef) %>%
   kable(
-    caption = tabCap, caption.short = tabSCap, booktabs = TRUE, linesep = "",
+    caption = tab_cap, caption.short = tab_s_cap, booktabs = TRUE, linesep = "",
     escape = FALSE
   ) %>%
   row_spec(0, bold = TRUE)
 # Print the table
-kAlgaeCoefs
+k_algae_coefs
 @
 
-<<UnderDensAlgVQTS, fig.width=6, fig.asp=1.1, fig.lp="fig", echo=FALSE, fig.cap=figCap, fig.scap="Algae egg density for \\fishName{} underwater spawn surveys">>=
+<<UnderDensAlgVQTS, fig.width=6, fig.asp=1.1, fig.lp="fig", echo=FALSE, fig.cap=fig_cap, fig.scap="Algae egg density for \\fishName{} underwater spawn surveys">>=
 # Caption
-figCap <- paste("Relationship between algae egg density in thousands of eggs per square metre (m; lines), and number of egg layers on algae, proportion of substrate covered in algae, and algae coefficient (\\autoref{tab:AlgaeCoefs}) for \\fishName{} underwater spawn surveys based on  \\autoref{eqUnderDensAlgVQTS} \\citep{Schweigert2005}. Note that number of egg layers can exceed those shown in this figure.")
+fig_cap <- paste("Relationship between algae egg density in thousands of eggs
+                 per square metre (m; lines), and number of egg layers on algae,
+                 proportion of substrate covered in algae, and algae coefficient
+                 (\\autoref{tab:AlgaeCoefs}) for \\fishName{} underwater spawn
+                 surveys based on  \\autoref{eqUnderDensAlgVQTS}
+                 \\citep{Schweigert2005}. Note that number of egg layers can
+                 exceed those shown in this figure.")
 # Expand the values
 df <- expand.grid(
-  Layers = lyrs, Proportion = prop, Coefficient = unique(algaeCoefs$Coef)
+  Layers = layers, Proportion = prop, Coefficient = unique(algae_coefs$Coef)
 )
-# Equation for understory egg density on algae
-EggDensAlg <- function(AlgLyrs, AlgProp, Coef) {
-  # Calculate egg density
-  Density <- pars$understory$vartheta * AlgLyrs^pars$understory$varrho *
-    AlgProp^pars$understory$varsigma * Coef
-  # Return density
-  return(Density)
-} # End EggDensAlg function
 # Make a table of egg layers, proportion, coefficient, and egg density
 dat <- as_tibble(df) %>%
   arrange(Coefficient) %>%
   mutate(
-    EggDens = EggDensAlg(
-      AlgLyrs = Layers, AlgProp = Proportion, Coef = Coefficient
+    EggDens = egg_dens_under_alg(
+      alg_layers = Layers, alg_prop = Proportion, coef = Coefficient
     ),
     Coefficient = paste("Algae coefficient: ", format(Coefficient, digits = 4),
       sep = ""
     )
   )
 # Figure
-EggDensAlgPlot <- ggplot(
+egg_dens_alg_plot <- ggplot(
   data = dat, mapping = aes(x = Layers, y = EggDens, group = Proportion)
 ) +
   geom_line(mapping = aes(colour = Proportion)) +
   labs(
     x = "Number of egg layers on algae",
-    y = expression(paste("Algae egg density (eggs" %.% 10^3 %.% "m"^-2, ")",
+    y = expression(paste("Algae egg density (", 10^3 %.% "eggs" %.% "m"^-2, ")",
       sep = ""
     )),
     colour = "Proportion of substrate\ncovered in algae"
@@ -1465,10 +1471,10 @@ EggDensAlgPlot <- ggplot(
   scale_colour_viridis() +
   facet_wrap(Coefficient ~ ., ncol = 2) +
   expand_limits(x = 0, y = 0) +
-  myTheme +
+  herring_theme +
   theme(legend.position = "top")
 # Show the figure
-print(EggDensAlgPlot)
+print(egg_dens_alg_plot)
 @
 
 The total understory egg density for quadrat $q$ in transect $t$ and spawn $s$ is
@@ -1477,7 +1483,7 @@ The total understory egg density for quadrat $q$ in transect $t$ and spawn $s$ i
 \end{equation}
 where $\rho_{iqts}$ is substrate egg density from \autoref{eqUnderDensSubQTS},
 $\rho_{vqts}$ is egg density on algae $v$ from \autoref{eqUnderDensAlgVQTS}, and
-$\rho_{qts}$ is in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$.
+$\rho_{qts}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
 Thus, we assume that eggs on substrate and algae are independent, and can be added without bias.
 
 \subsection{TRANSECT OBSERVATIONS AND CALCULATIONS}\label{secUnderT}
@@ -1488,9 +1494,9 @@ At the transect level (\autoref{figFlow}, step \ref{uTrans}), the mean understor
 \end{equation}
 where $Q$ is the number of quadrats in transect $t$,
 $\rho_{qts}$ is total understory egg density in quadrat $q$ from \autoref{eqUnderDensQTS}, and
-$\mean{\rho_{ts}}$ is in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$.
+$\mean{\rho_{ts}}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
 Note that we update spawn width to correct for errors regarding the assumed accuracy of transect lines used to measure spawn width for
-understory surveys between \Sexpr{min(underWidthFac$Year)} and \Sexpr{max(underWidthFac$Year)} (\autoref{secWidthUnder}).
+understory surveys between \Sexpr{min(under_width_facs$Year)} and \Sexpr{max(under_width_facs$Year)} (\autoref{secWidthUnder}).
 
 \subsection{SPAWN OBSERVATIONS AND CALCULATIONS}\label{secUnderS}
 
@@ -1517,7 +1523,7 @@ The mean egg density in spawn $s$ is
 \end{equation}
 where $\mean{\rho_{ts}}$ is the mean understory egg density in transect $t$ from \autoref{eqUnderDensTS},
 $W_{ts}$ is the spawn width for transect $t$ in metres, and
-$\mean{\rho_s}$ is in $\text{eggs} \cdot 10^3 \cdot \text{m}^{-2}$.
+$\mean{\rho_s}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
 
 The understory spawn index in spawn $s$ is
 \begin{equation}\label{eqUnderIndS}
@@ -1584,12 +1590,12 @@ accounting for egg loss (e.g., due to predation) and unobserved spawns \citeyear
 Although $q$ is highly uncertain and a number of assumptions are made within the assessment model,
 there are undeniable differences between the proportion of spawn observed in the two spawn survey periods \citeyearpar[DFO][]{DFO2020}.
 Therefore, we estimate one spawn index scaling parameter for
-the surface survey period $q_1$ (\Sexpr{min(yrRange)} to \Sexpr{newSurvYr-1}), and
-a second one for the dive survey period $q_2$ (\Sexpr{newSurvYr} to present).
+the surface survey period $q_1$ (\Sexpr{pars$years$assess} to \Sexpr{pars$years$dive-1}), and
+a second one for the dive survey period $q_2$ (\Sexpr{pars$years$dive} to present).
 
-\section{SPAWN ON KELP CALCULATIONS}\label{secSOK}
+\section{SPAWN-ON-KELP CALCULATIONS}\label{secSOK}
 
-Spawn on kelp (SOK) fisheries collect \fishName{} roe that adheres to algae such as Macrocystis after spawning.
+Spawn-on-kelp (SOK) fisheries collect \fishName{} roe that adheres to algae such as Macrocystis after spawning.
 Other similar fisheries include spawn on bough, in which operators collect roe that adhere to tree boughs;
 we refer to these fisheries collectively as SOK in this document.
 There are two types of SOK fisheries in BC:
@@ -1620,12 +1626,12 @@ $2.38 \cdot 10^{-6}\,\text{kg}$ \citep{HayMiller1982}.
 
 We estimate the biomass of \fishName{} that spawned and produced eggs which were removed from the population by SOK fishery $g$ in SAR $r$ and year $y$ as
 \begin{equation}\label{eqSOKBioGRY}
-B_{gry} = \frac{H_{gry} \left(1 - \nu\right) \frac{1}{1+\upsilon}} {M \theta},
+B_{gry} = \frac{H_{gry} \left(1 - \nu\right) \frac{1}{1+\upsilon}} {w \theta},
 \end{equation}
 where $H_{gry}$ is the weight in kilograms of \fishName{} SOK harvest in fishery $g$, SAR $r$, and year $y$,
 $\nu$ is the proportion of SOK product weight that is kelp,
 $\upsilon$ is the SOK product weight increase due to brining as a proportion,
-$M$ is the average mass in kilograms of a fertilized egg,
+$w$ is the average weight in kilograms of a fertilized egg,
 $\theta$ is the egg conversion factor from \autoref{eqECF}, and
 $B_{gry}$ is spawning biomass in tonnes for SOK fishery $g$ (\autoref{tabNotationSOK}).
 Then we aggregate spawning biomass by SAR $r$ and year $y$
@@ -1637,17 +1643,17 @@ $B_{ry}$ is the estimated \fishName{} biomass that produced eggs which were remo
 
 \begin{table}
 \centering
-\caption[Notation for \fishName{} spawn on kelp calculations]
-{Notation for \fishName{} spawn on kelp (SOK) calculations.
+\caption[Notation for \fishName{} spawn-on-kelp calculations]
+{Notation for \fishName{} spawn-on-kelp (SOK) calculations.
 Legend: kilograms (kg), tonnes (t).}
 \begin{tabulary}{\linewidth}{lLLL}
 \toprule
 \textbf{Name} & \textbf{Description} & \textbf{Value or unit} & \textbf{References} \\
 \midrule
 $H$ & Weight of SOK harvest & kg & \\
-$\nu$ & Proportion of SOK product that is kelp & \Sexpr{pars$SOK$nu} & \cite{ShieldsEtal1985} \\
-$\upsilon$ & SOK product weight increase due to brining (proportion) & \Sexpr{pars$SOK$upsilon} & \cite{WhyteEnglar1977} \\
-$M$ & Average mass of a fertilized egg & \Sexpr{pars$SOK$M}$\,\text{kg}$ & \cite{HayMiller1982} \\
+$\nu$ & Proportion of SOK product that is kelp & \Sexpr{pars$sok$nu} & \cite{ShieldsEtal1985} \\
+$\upsilon$ & SOK product weight increase due to brining (proportion) & \Sexpr{pars$sok$upsilon} & \cite{WhyteEnglar1977} \\
+$w$ & Average weight of a fertilized egg & \Sexpr{pars$sok$w}$\,\text{kg}$ & \cite{HayMiller1982} \\
 $B$ & Spawning biomass & t & \\
 \bottomrule
 \end{tabulary}
@@ -1723,7 +1729,7 @@ versus low survey effort or no information in other areas.
 \caption[Details for parameters and prediction models used in \fishName{} spawn index calculations]
 {Details for studies to quantify parameters and prediction models used in \fishName{} spawn index calculations.
 Study details include where, when, and how many samples, when available.
-The major stock assessment regions are \Sexpr{PasteNicely(majorRegions)} (\autoref{figBC}).
+The major stock assessment regions are \Sexpr{paste_nicely(major_regions)} (\autoref{figBC}).
 Legend: equation (Eq), sample size ($n$), standard error (SE), standard deviation (SD), spawn-on-kelp (SOK), and not available (NA).} \\
 \toprule
 \textbf{Parameters} & \textbf{Description} & \textbf{Study details} & \textbf{Uncertainty} & \textbf{References} \\
@@ -1748,7 +1754,7 @@ $\varphi$ & Parameter for substrate egg density model (Eq \ref{eqUnderDensSubQTS
 $\vartheta$, $\varrho$, $\varsigma$, $C_v$ & Parameters for algae egg density model (Eq \ref{eqUnderDensAlgVQTS}, \autoref{tab:AlgaeCoefs}). & Coastwide from 1976 to 1987 ($n=$ 5,111 samples). & Model accounts for 40\% of variation in egg density. & \cite{Schweigert2005} \\
 $\nu$ & Proportion of SOK product that is kelp (Eq \ref{eqSOKBioGRY}). & HG in 1982 and 1983; PRD in 1982. & $\text{SD}=4.2$. & \cite{ShieldsEtal1985} \\
 $\upsilon$ & SOK product weight increase due to brining (proportion; Eq \ref{eqSOKBioGRY}). & SoG ca. 1977. & NA & \cite{WhyteEnglar1977} \\
-$M$ & Average mass of a fertilized egg (Eq \ref{eqSOKBioGRY}). & SoG in 1980 ($n=7$ samples). & $\text{SE}=3.4 \times 10^{-7}$. & \cite{HayMiller1982}
+$w$ & Average weight of a fertilized egg (Eq \ref{eqSOKBioGRY}). & SoG in 1980 ($n=7$ samples). & $\text{SE}=3.4 \times 10^{-7}$. & \cite{HayMiller1982}
 \label{tabUncertainty}
 \end{longtable}
 \end{landscape}
@@ -1790,17 +1796,17 @@ These caveats include:
 thus the spawn index is a minimum spawning biomass,
 \item There are two different spawn survey periods with substantial differences in survey effort and method (\autoref{secSurfProt}):
 \begin{enumerate}
-\item Surface period from \Sexpr{min(yrRange)} to \Sexpr{newSurvYr-1}, and
-\item Dive period from \Sexpr{newSurvYr} to present,
+\item Surface period from \Sexpr{pars$years$assess} to \Sexpr{pars$years$dive-1}, and
+\item Dive period from \Sexpr{pars$years$dive} to present,
 \end{enumerate}
 \item Surface spawn surveys use two different methods to estimate the number of egg layers (\autoref{secIntensity}):
 \begin{enumerate}
 \item Spawn intensity categories:
 \begin{enumerate}
-\item Five categories from \Sexpr{min(yrRange)} to \Sexpr{cat9Yr-1}, and
-\item Nine categories from \Sexpr{cat9Yr} to \Sexpr{directEggYr-1}, and
+\item Five categories from \Sexpr{pars$years$assess} to \Sexpr{pars$years$nine_cats-1}, and
+\item Nine categories from \Sexpr{pars$years$nine_cats} to \Sexpr{pars$years$layers-1}, and
 \end{enumerate}
-\item Direct estimates from \Sexpr{directEggYr} to present,
+\item Direct estimates from \Sexpr{pars$years$layers} to present,
 \end{enumerate}
 \item The spawn index is derived from surface and dive observations of egg deposition,
 and includes uncertainty and assumptions (\autoref{secUncertain}), and
@@ -1809,20 +1815,21 @@ and includes uncertainty and assumptions (\autoref{secUncertain}), and
 
 \section{DOWNLOAD}\label{secDown}
 
-The \textbf{R} package to calculate the \fishName{} spawn index \texttt{SpawnIndex}, is publicly accessible on the \gitRepo{}.
+The SpawnIndex \textbf{R} package is publicly accessible on the \gitRepo{}.
 The package includes an example database of \fishName{} spawn survey observations,
 and a vignette with examples.
-The \texttt{SpawnIndex} package contains functions to import tables from the database and calculate the spawn index.
+The SpawnIndex package contains functions to import tables from the database and calculate the spawn index.
 This document is meant to accompany the \textbf{R} package,
 which implements the calculations described herein.
-The \texttt{SpawnIndex} package is documented, and
+The SpawnIndex package is documented, and
 has examples to promote accessibility and transparency.
 
 \section{ACKNOWLEDGEMENTS}
 
 The authors thank Ashleen Benson for translating the calculations in the \textbf{Microsoft Access} database to an \textbf{R} script,
-which they referenced when developing the \texttt{SpawnIndex} package.
-They also thank Paul Starr and Rob Kronlund for their thorough reviews that improved this document.
+which they referenced when developing the SpawnIndex package.
+They thank Paul Starr and Rob Kronlund for their thorough reviews that improved this document.
+They also thank Andy Edwards for help with mathematical notation.
 Finally, they thank Chris Grandin for help creating the \textbf{R} package.
 
 %%%%% References %%%%%
@@ -1852,18 +1859,18 @@ Finally, they thank Chris Grandin for help creating the \textbf{R} package.
 
 Spawn width is a critical component in spawn index calculations.
 There are two cases where we adjust spawn width estimates to improve spawn index accuracy:
-surface surveys in all years from \Sexpr{min(yrRange)} to present, and
-understory dive surveys from \Sexpr{min(underWidthFac$Year)} to \Sexpr{max(underWidthFac$Year)}.
+surface surveys in all years from \Sexpr{pars$years$assess} to present, and
+understory dive surveys from \Sexpr{min(under_width_facs$Year)} to \Sexpr{max(under_width_facs$Year)}.
 
 \subsection{SURFACE SPAWN WIDTH}\label{secWidthSurface}
 
-Surface surveys were the only survey type prior to \Sexpr{newSurvYr}, while the majority of spawns since \Sexpr{newSurvYr} have been surveyed using SCUBA gear.
+Surface surveys were the only survey type prior to \Sexpr{pars$years$dive}, while the majority of spawns since \Sexpr{pars$years$dive} have been surveyed using SCUBA gear.
 Recall that we describe the spawn index as having two periods based on the predominant survey type:
-surface survey period from \Sexpr{min(yrRange)} to \Sexpr{newSurvYr-1}, and
-dive survey period from \Sexpr{newSurvYr} to present.
+surface survey period from \Sexpr{pars$years$assess} to \Sexpr{pars$years$dive-1}, and
+dive survey period from \Sexpr{pars$years$dive} to present.
 
 One issue with comparing these two partly overlapping protocols is that surface surveyors tend to underestimate spawn width \citep{HayKronlund1987}.
-To improve the consistency of spawn index estimates throughout the time period from \Sexpr{min(yrRange)} to present,
+To improve the consistency of spawn index estimates throughout the time period from \Sexpr{pars$years$assess} to present,
 we adjust surface spawn width estimates using underwater estimates from dive surveys when dive data are available \citep{SchweigertEtal1993}.
 Our preferred width is the median width from all dive surveys within a `pool.'
 A pool is a group of Locations within a Section that are
@@ -1909,15 +1916,15 @@ For example, inner segments are replaced more frequently than seaward segments, 
 segments in some SARs are replaced more frequently than in other SARs.
 DFO staff believe that a change in lead line manufacturing prevents new lead lines from shrinking.
 
-The earliest written instructions that describe the modified protocol of marking $1.15\,\text{m}$ increments is from \Sexpr{min(underWidthFac$Year)},
+The earliest written instructions that describe the modified protocol of marking $1.15\,\text{m}$ increments is from \Sexpr{min(under_width_facs$Year)},
 and this protocol was used until 2013.
-Note that some remote SARs continued to use old lead lines in \Sexpr{max(underWidthFac$Year)}.
+Note that some remote SARs continued to use old lead lines in \Sexpr{max(under_width_facs$Year)}.
 The practice of annually re-measuring lead line increments ceased around 2005;
 thus we are unable to determine when lead lines ceased shrinking.
 Given the observations summarized above,
-we adjust spawn width estimates based on written instructions for the marking protocol in \Sexpr{min(underWidthFac$Year)}.
+we adjust spawn width estimates based on written instructions for the marking protocol in \Sexpr{min(under_width_facs$Year)}.
 Accordingly, our best estimate of years impacted by marking lead lines at $1.15\,\text{m}$ increments (when shrinking no longer occurred) is
-from \Sexpr{min(underWidthFac$Year)} to \Sexpr{max(underWidthFac$Year)}.
+from \Sexpr{min(under_width_facs$Year)} to \Sexpr{max(under_width_facs$Year)}.
 However, not all SARs $r$ and years $y$ are impacted equally by this issue (\autoref{tab:WidthFac}):
 some SARs and years had all $1.0\,\text{m}$ increment lengths (no correction factor needed; $\tau_{ry} = 1.0$),
 others had all $1.15\,\text{m}$ increment lengths ($\tau_{ry} = 1.15$),
@@ -1936,23 +1943,26 @@ to ensure that this issue does not reoccur due to another change in lead line ma
 
 <<WidthFac>>=
 # Caption
-tabCap <- paste("Spawn width correction factors $\\tau_{ry}$ for \\fishName{} understory spawn surveys by stock assessment region (SAR, $r$) and year $y$.
-Legend: ", PasteNicely(c(majorRegions, minorRegions)), ".", sep = "")
+tab_cap <- paste("Spawn width correction factors $\\tau_{ry}$ for \\fishName{}
+                 understory spawn surveys by stock assessment region (SAR, $r$)
+                 and year $y$. Legend: ",
+                 paste_nicely(c(major_regions, minor_regions)), ".", sep = "")
 # Short caption
-tabSCap <- "Spawn width correction factors for \\fishName{} understory spawn surveys"
+tab_s_cap <- "Spawn width correction factors for \\fishName{} understory spawn
+              surveys"
 # Format the table
-kWidthFac <- underWidthFac %>%
+k_width_fac <- under_width_facs %>%
   mutate_if(is.double, ~ format(., nsmall = 3)) %>%
   mutate(Year = as.integer(Year)) %>%
   arrange(Year) %>%
   kable(
-    caption = tabCap, caption.short = tabSCap, booktabs = TRUE, linesep = "",
+    caption = tab_cap, caption.short = tab_s_cap, booktabs = TRUE, linesep = "",
     escape = FALSE, digits = c(0, 3, 3, 3, 3, 3, 3, 3)
   ) %>%
   row_spec(0, bold = TRUE) %>%
   add_header_above(header = c("", "SAR" = 7), bold = TRUE)
 # Print the table
-kWidthFac
+k_width_fac
 @
 
 \begin{table}
@@ -1979,14 +1989,14 @@ $W$ & Corrected spawn width & m \\
 \setcounter{table}{0}
 \setcounter{equation}{0}
 
-One record in the surface spawn database since \Sexpr{min(yrRange)} requires an update to fill-in missing egg layer information.
+One record in the surface spawn database since \Sexpr{pars$years$assess} requires an update to fill-in missing egg layer information.
 As with understory spawn width updates, we make this update in the \textbf{R} package script:
 \begin{enumerate}
 \item Update `intensity' from 0 to 1 for the records (there is 1 record) in the year 1962, Statistical Area 14, Section 142, Location code 820, and with $\text{intensity} = 0$.
 We update intensity from 0 to 1 because spawn was surveyed but not reported.
 \end{enumerate}
-Spawn survey records prior to \Sexpr{min(yrRange)} have additional missing or inaccurate egg layer information, and are unreliable for indexing purposes.
-Therefore, we do not include spawn data prior to \Sexpr{min(yrRange)} in stock assessments.
+Spawn survey records prior to \Sexpr{pars$years$assess} have additional missing or inaccurate egg layer information, and are unreliable for indexing purposes.
+Therefore, we do not include spawn data prior to \Sexpr{pars$years$assess} in stock assessments.
 
 While reviewing the spawn index calculations and translating them from the \textbf{Microsoft Access} database to \textbf{R}, we found several cases where index data were being over-written with no documented reason.
 These updates have been omitted, and affected the following records:
