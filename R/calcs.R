@@ -424,7 +424,7 @@ calc_surf_spawn <- function(where,
     group_by(
       Year, Region, StatArea, Section, LocationCode, SpawnNumber
     ) %>%
-    summarise(SurfLayers = mean_na(EggLayers)) %>%
+    summarise(SurfLyrs = mean_na(EggLayers)) %>%
     ungroup()
   # Calculate egg density per spawn number/pool
   eggs_spawn <- eggs %>%
@@ -761,7 +761,7 @@ calc_macro_spawn <- function(where,
       # s
       MacroSI = EggDens * LengthMacro * Width * 1000 / theta
     ) %>%
-    rename(MacroLayers = EggLayers) %>%
+    rename(MacroLyrs = EggLayers) %>%
     ungroup()
   # Return the macrocystis spawn
   si <- biomass_spawn %>%
@@ -1129,7 +1129,7 @@ calc_under_spawn <- function(where,
     group_by(Year, LocationCode, SpawnNumber, Transect) %>%
     summarise(Layers = mean_na(Layers)) %>%
     group_by(Year, LocationCode, SpawnNumber) %>%
-    summarise(UnderLayers = mean_na(Layers)) %>%
+    summarise(MacroLyrs = mean_na(Layers)) %>%
     ungroup()
   # If there are missing algae types
   if (any(!algae$AlgType %in% alg_coefs$AlgType)) {

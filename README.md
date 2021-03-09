@@ -74,8 +74,8 @@ theta
 
     ## [1] 1e+08
 
-Thus, convert eggs to biomass in tonnes by dividing the number of eggs
-by 10<sup>8</sup>, where `theta` is in units of
+Thus, convert eggs to the spawn index by dividing the number of eggs by
+10<sup>8</sup>, where `theta` is in units of
 10<sup>8</sup> eggs t<sup>-1</sup>. Then, calculate egg density for a
 given number of egg layers.
 
@@ -113,8 +113,7 @@ index
 
     ## [1] 8.6357
 
-And so, the estimated spawn index for this surface spawn survey is
-8.64 t.
+The estimated spawn index for this surface spawn survey is 8.64 t.
 
 ### Spawn-on-kelp biomass
 

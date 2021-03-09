@@ -73,7 +73,7 @@ theta <- calc_egg_conversion()
 theta
 ```
 
-Thus, convert eggs to biomass in tonnes by
+Thus, convert eggs to the spawn index by
 dividing the number of eggs by `r ifelse(theta == 1e+08, "10^8^", theta)`,
 where `theta` is in units of 10^8^\ eggs\ t^-1^.
 Then, calculate egg density for a given number of egg layers.
@@ -108,7 +108,7 @@ index <- eggs * 1000 / theta
 index
 ```
 
-And so, the estimated spawn index for this surface spawn survey is
+The estimated spawn index for this surface spawn survey is
 `r format(index, digits=3)`\ t.
 
 ### Spawn-on-kelp biomass
