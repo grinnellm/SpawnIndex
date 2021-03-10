@@ -1141,7 +1141,7 @@ calc_under_index <- function(where,
     group_by(Year, LocationCode, SpawnNumber, Transect) %>%
     summarise(Layers = mean_na(Layers)) %>%
     group_by(Year, LocationCode, SpawnNumber) %>%
-    summarise(MacroLyrs = mean_na(Layers)) %>%
+    summarise(UnderLyrs = mean_na(Layers)) %>%
     ungroup()
   # If there are missing algae types
   if (any(!algae$AlgType %in% alg_coefs$AlgType)) {
