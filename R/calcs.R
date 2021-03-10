@@ -320,19 +320,14 @@ calc_surf_index <- function(where,
     ) %>%
     mutate(Method = str_to_title(Method)) %>%
     filter(Year %in% yrs, LocationCode %in% areas$LocationCode) %>%
-    select(
-      Year, LocationCode, SpawnNumber, Length, WidthObs, Method
-    ) %>%
+    select(Year, LocationCode, SpawnNumber, Length, WidthObs, Method) %>%
     as_tibble()
   # Extract relevant surface data
   surface <- dbReadTable(conn = access_db, name = where$fns$surface) %>%
     rename(LocationCode = Loc_Code, SpawnNumber = Spawn_Number) %>%
     filter(Year %in% yrs, LocationCode %in% areas_sm$LocationCode) %>%
     left_join(y = areas_sm, by = "LocationCode") %>%
-    left_join(
-      y = spawn,
-      by = c("Year", "LocationCode", "SpawnNumber")
-    ) %>%
+    left_join(y = spawn, by = c("Year", "LocationCode", "SpawnNumber")) %>%
     replace_na(replace = list(
       Lay_Grass = 0, Grass_Percent = 0, Lay_Rockweed = 0, Rockweed_Percent = 0,
       Lay_Kelp = 0, Kelp_Percent = 0, Lay_Brown_Algae = 0,
@@ -366,8 +361,8 @@ calc_surf_index <- function(where,
   surface <- surface %>%
     # Sample j
     mutate(
-      EggLayers = Grass + Rockweed + Kelp + BrownAlgae + LeafyRed +
-        StringyRed + Rock + Other,
+      EggLayers = Grass + Rockweed + Kelp + BrownAlgae + LeafyRed + StringyRed +
+        Rock + Other,
       Intensity = ifelse(Year %in% rescale_yrs & Intensity > 0,
         Intensity * 2 - 1, Intensity
       )
@@ -425,9 +420,7 @@ calc_surf_index <- function(where,
   }
   # Output egg layer info
   egg_layers <- eggs %>%
-    group_by(
-      Year, Region, StatArea, Section, LocationCode, SpawnNumber
-    ) %>%
+    group_by(Year, Region, StatArea, Section, LocationCode, SpawnNumber) %>%
     summarise(SurfLyrs = mean_na(EggLayers)) %>%
     ungroup()
   # Calculate egg density per spawn number/pool
@@ -633,8 +626,8 @@ calc_macro_index <- function(where,
   # Check input: NA and numeric
   check_numeric(
     dat = list(
-      yrs = yrs, chi = chi, xi = xi, gamma = gamma,
-      delta = delta, epsilon = epsilon, theta = theta
+      yrs = yrs, chi = chi, xi = xi, gamma = gamma, delta = delta,
+      epsilon = epsilon, theta = theta
     ),
     quiet = quiet
   )
@@ -686,16 +679,13 @@ calc_macro_index <- function(where,
     ) %>%
     mutate(Method = str_to_title(Method)) %>%
     filter(Year %in% yrs, LocationCode %in% areas_sm$LocationCode) %>%
-    select(
-      Year, LocationCode, SpawnNumber, LengthMacro, Length, Method
-    ) %>%
+    select(Year, LocationCode, SpawnNumber, LengthMacro, Length, Method) %>%
     as_tibble()
   # Get plant-level data
   plants <- dbReadTable(conn = access_db, name = where$fns$plants) %>%
     rename(LocationCode = Loc_Code, SpawnNumber = Spawn_Number) %>%
     filter(
-      Year %in% yrs, LocationCode %in% areas_sm$LocationCode,
-      !is.na(Mature)
+      Year %in% yrs, LocationCode %in% areas_sm$LocationCode, !is.na(Mature)
     ) %>%
     select(Year, LocationCode, SpawnNumber, Transect, Mature) %>%
     as_tibble()
@@ -733,20 +723,16 @@ calc_macro_index <- function(where,
       Stalks = sum_na(Mature[Mature > 0]),
       Plants = length(Mature[Mature > 0])
     ) %>%
-    ungroup()
+    ungroup() %>%
+    mutate(
+      Height = as.numeric(Height), Stalks = as.numeric(Stalks),
+      Plants = as.numeric(Plants))
   # Calculate spawn-level data
   biomass_spawn <- dat_trans %>%
-    left_join(
-      y = spawn,
-      by = c("Year", "LocationCode", "SpawnNumber")
-    ) %>%
-    mutate(
-      LengthMacro = ifelse(is.na(LengthMacro), Length, LengthMacro)
-    ) %>%
+    left_join(y = spawn, by = c("Year", "LocationCode", "SpawnNumber")) %>%
+    mutate(LengthMacro = ifelse(is.na(LengthMacro), Length, LengthMacro)) %>%
     filter(Method %in% c("Surface", "Dive")) %>%
-    group_by(
-      Year, Region, StatArea, Section, LocationCode, SpawnNumber
-    ) %>%
+    group_by(Year, Region, StatArea, Section, LocationCode, SpawnNumber) %>%
     # Spawn s
     summarise(
       LengthMacro = unique(LengthMacro),
@@ -754,8 +740,8 @@ calc_macro_index <- function(where,
       Area = sum_na(Area),
       Plants = sum_na(Plants),
       Stalks = sum_na(Stalks),
-      Height = mean_na(Height),
-      EggLayers = mean_na(EggLayers),
+      Height = as.numeric(mean_na(Height)),
+      EggLayers = as.numeric(mean_na(EggLayers)),
       StalksPerPlant = Stalks / Plants,
       # Eggs per plant in thousands (10^3 * eggs / plant); spawn s
       EggsPerPlant = eggs_macro(
@@ -773,9 +759,7 @@ calc_macro_index <- function(where,
     ungroup()
   # Return the macrocystis spawn
   si <- biomass_spawn %>%
-    select(
-      Year, Region, StatArea, Section, LocationCode, SpawnNumber, MacroSI
-    )
+    select(Year, Region, StatArea, Section, LocationCode, SpawnNumber, MacroSI)
   # Close the connection
   dbDisconnect(conn = access_db)
   # Assemble into a list
@@ -1017,8 +1001,7 @@ calc_under_index <- function(where,
   }
   # Check input: tibble rows
   check_tibble(
-    dat = list(areas = areas, alg_coefs = alg_coefs, tau = tau),
-    quiet = quiet
+    dat = list(areas = areas, alg_coefs = alg_coefs, tau = tau), quiet = quiet
   )
   # Check areas: names
   if (!all(c(
@@ -1067,9 +1050,7 @@ calc_under_index <- function(where,
     ) %>%
     mutate(Method = str_to_title(Method)) %>%
     filter(Year %in% yrs, LocationCode %in% areas_sm1$LocationCode) %>%
-    select(
-      Year, LocationCode, SpawnNumber, LengthAlgae, Length, Method
-    ) %>%
+    select(Year, LocationCode, SpawnNumber, LengthAlgae, Length, Method) %>%
     as_tibble()
   # Load algae transects
   alg_trans <- dbReadTable(conn = access_db, name = where$fns$alg_trans) %>%
@@ -1078,9 +1059,7 @@ calc_under_index <- function(where,
       QuadratSize = Quadrat_Size, WidthObs = Width_Recorded
     ) %>%
     filter(Year %in% yrs, LocationCode %in% areas_sm1$LocationCode) %>%
-    select(
-      Year, LocationCode, SpawnNumber, Transect, WidthObs, QuadratSize
-    ) %>%
+    select(Year, LocationCode, SpawnNumber, Transect, WidthObs, QuadratSize) %>%
     left_join(y = areas_sm1, by = "LocationCode") %>%
     as_tibble()
   # Correction factors for region(s) by year (to fix lead line shrinkage issue)
@@ -1206,9 +1185,7 @@ calc_under_index <- function(where,
       "Year", "Region", "StatArea", "Section", "LocationCode", "SpawnNumber",
       "Transect", "Station"
     )) %>%
-    replace_na(replace = list(
-      Width = 0, EggDensSub = 0, EggDensAlg = 0
-    )) %>%
+    replace_na(replace = list(Width = 0, EggDensSub = 0, EggDensAlg = 0)) %>%
     mutate(EggDensSub = ifelse(Width > 0, EggDensSub, 0))
   # Calculate total egg density by station/quadrat
   eggs_station <- eggs %>%
@@ -1221,13 +1198,9 @@ calc_under_index <- function(where,
       Year, Region, StatArea, Section, LocationCode, SpawnNumber, Transect
     ) %>%
     summarise(Width = unique(Width)) %>%
-    group_by(
-      Year, Region, StatArea, Section, LocationCode, SpawnNumber
-    ) %>%
+    group_by(Year, Region, StatArea, Section, LocationCode, SpawnNumber) %>%
     # Spawn s
-    summarise(
-      WidthBar = mean_na(Width)
-    ) %>%
+    summarise(WidthBar = mean_na(Width)) %>%
     ungroup()
   # Calculate transect-level metrics
   eggs_trans <- eggs_station %>%
@@ -1243,20 +1216,13 @@ calc_under_index <- function(where,
     ungroup()
   # Calculate spawn number-level metrics
   eggs_spawn <- eggs_trans %>%
-    left_join(
-      y = spawn,
-      by = c("Year", "LocationCode", "SpawnNumber")
-    ) %>%
-    mutate(LengthAlgae = ifelse(is.na(LengthAlgae), Length,
-      LengthAlgae
-    )) %>%
+    left_join(y = spawn, by = c("Year", "LocationCode", "SpawnNumber")) %>%
+    mutate(LengthAlgae = ifelse(is.na(LengthAlgae), Length, LengthAlgae)) %>%
     filter(Method %in% c("Surface", "Dive")) %>%
     left_join(y = widths, by = c(
       "Year", "Region", "StatArea", "Section", "LocationCode", "SpawnNumber"
     )) %>%
-    group_by(
-      Year, Region, StatArea, Section, LocationCode, SpawnNumber
-    ) %>%
+    group_by(Year, Region, StatArea, Section, LocationCode, SpawnNumber) %>%
     # Spawn s
     summarise(
       WidthBar = unique(WidthBar),
@@ -1274,9 +1240,7 @@ calc_under_index <- function(where,
     left_join(y = egg_layers, by = c("Year", "LocationCode", "SpawnNumber"))
   # Calculate understory si by spawn number
   si <- biomass_spawn %>%
-    select(
-      Year, Region, StatArea, Section, LocationCode, SpawnNumber, UnderSI
-    )
+    select(Year, Region, StatArea, Section, LocationCode, SpawnNumber, UnderSI)
   # Close the connection
   dbDisconnect(conn = access_db)
   # Assemble into a list
