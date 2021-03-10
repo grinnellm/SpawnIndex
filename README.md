@@ -15,7 +15,7 @@ coverage](https://codecov.io/gh/grinnellm/SpawnIndex/branch/master/graph/badge.s
 [![Code
 factor](https://github.com/grinnellm/SpawnIndex/workflows/lint/badge.svg)](https://github.com/grinnellm/SpawnIndex/actions)
 [![Development
-version](https://img.shields.io/badge/Version-0.2.0-orange.svg?style=flat-square)](commits/master)
+version](https://img.shields.io/badge/Version-0.3.0-orange.svg?style=flat-square)](commits/master)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/SpawnIndex)](https://CRAN.R-project.org/package=SpawnIndex)
 <!-- badges: end -->
@@ -58,6 +58,8 @@ survey. First, load the SpawnIndex package in the usual way.
 ``` r
 library(SpawnIndex)
 ```
+
+    ## This is SpawnIndex version 0.3.0.
 
 Next, load the default parameter values for spawn index calculations,
 and calculate the conversion factor for the number of Pacific Herring
@@ -123,8 +125,7 @@ in kilograms, kg.
 
 ``` r
 sok <- 100
-biomass <- calc_sok_sb(sok = sok,
-                            theta = theta)
+biomass <- calc_sok_sb(sok = sok, theta = theta)
 biomass
 ```
 
