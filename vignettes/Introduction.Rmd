@@ -84,7 +84,8 @@ Note that this example database only includes WCVI from 2010 to 2015.
 db_loc <- system.file("extdata", package = "SpawnIndex")
 # List indicating the necessary tables: sections and locations
 area_loc <- list(
-  loc = db_loc, db = "HerringSpawn.mdb",
+  loc = db_loc,
+  db = "HerringSpawn.mdb",
   fns = list(sections = "Sections", locations = "Location")
 )
 # Load area data
@@ -119,13 +120,13 @@ the spawn index (i.e., biomass in tonnes).
 
 ```{r theta}
 # Egg to biomass conversion factor
-theta <- calc_egg_conversion()
+theta <- eggs_to_sb()
 ```
 
 Thus, we divide the number of eggs by $`r theta`$ to estimate
 the biomass of fish that spawned.
 This is the default conversion factor for the spawn index calculations below
-(e.g., `calc_surf_spawn()`).
+(e.g., `calc_surf_index()`).
 Then we calculate the spawn index for the three spawn survey types:
 surface, Macrocystis, and understory.
 
@@ -148,10 +149,7 @@ width_bar <- get_width(where = width_loc, areas = areas)
 
 ```{r width_table, echo = FALSE, results = 'asis'}
 # Median spawn width: table
-full_join(
-  x = width_bar$region,
-  y = width_bar$section, by = "Region"
-) %>%
+full_join(x = width_bar$region, y = width_bar$section, by = "Region") %>%
   full_join(y = width_bar$pool, by = c("Region", "Section")) %>%
   rename(
     `Region width` = WidthReg, `Section width` = WidthSec,
@@ -178,7 +176,7 @@ surf_loc <- list(
   fns = list(surface = "tSSSurface", all_spawn = "tSSAllspawn")
 )
 # Calculate the surface spawn index
-surf_spawn <- calc_surf_spawn(
+surf_spawn <- calc_surf_index(
   where = surf_loc, areas = areas, widths = width_bar, yrs = yr_range
 )
 ```
@@ -237,7 +235,9 @@ macro_loc <- list(
   )
 )
 # Calculate the Macrocystis spawn index
-macro_spawn <- calc_macro_spawn(where = macro_loc, areas = areas, yrs = yr_range)
+macro_spawn <- calc_macro_index(
+  where = macro_loc, areas = areas, yrs = yr_range
+)
 ```
 
 Show Macrocystis spawn on a map, aggregated by Location and year.
@@ -300,7 +300,7 @@ under_loc <- list(
   )
 )
 # Calculate the understory spawn index
-under_spawn <- calc_under_spawn(
+under_spawn <- calc_under_index(
   where = under_loc, areas = areas, yrs = yr_range
 )
 ```
@@ -377,17 +377,15 @@ Note that these are fictional values.
 
 ```{r sok_yr, results='asis'}
 # SOK harvest (kg) by year -- make up some values
-kgSOK <- tibble(
+kg_sok <- tibble(
   Year = yr_range, Harvest = sample(x = 500:10000, size = length(yr_range))
 ) %>%
-  mutate(Biomass = calc_biomass_sok(Harvest))
+  mutate(Biomass = calc_sok_sb(Harvest))
 # Table
 kable(
-  x = kgSOK, digits = 1, booktabs = TRUE,
-  caption = paste(
-    "SOK harvest in kilograms (kg) by year and",
-    "associated biomass in tonnes (t)."
-  )
+  x = kg_sok, digits = 1, booktabs = TRUE,
+  caption = "SOK harvest in kilograms (kg) by year and associated biomass
+            in tonnes (t)."
 )
 ```
 

@@ -218,8 +218,8 @@ spawn_by_loc_xy <- spawnRaw %>%
   filter(Year == yr_index, StatArea == zoom_sa, Section == zoom_sec) %>%
   group_by(LocationCode, LocationName) %>%
   summarise(
-    TotalSI = sum_na(c(MacroSI, SurfSI, UnderSI)),
-    Eastings = unique(Eastings), Northings = unique(Northings)
+    TotalSI = sum_na(c(MacroSI, SurfSI, UnderSI)), Eastings = unique(Eastings),
+    Northings = unique(Northings)
   ) %>%
   ungroup() %>%
   arrange(TotalSI)
@@ -397,9 +397,8 @@ map_sec <- base_map +
     legend.text.align = 1, aspect.ratio = xy_ratio_sec
   ) +
   ggsave(
-    filename = file.path("knitr-figs", "MapSection.png"),
-    width = figWidth / n_maps, height = figWidth / n_maps * xy_ratio_sec,
-    dpi = 600
+    filename = file.path("knitr-figs", "MapSection.png"), dpi = 600,
+    width = figWidth / n_maps, height = figWidth / n_maps * xy_ratio_sec
   )
 # Plot Statistical Area
 map_sa <- base_map +
@@ -424,9 +423,8 @@ map_sa <- base_map +
     aspect.ratio = xy_ratio_sa
   ) +
   ggsave(
-    filename = file.path("knitr-figs", "MapStatArea.png"),
-    width = figWidth / n_maps, height = figWidth / n_maps * xy_ratio_sa,
-    dpi = 600
+    filename = file.path("knitr-figs", "MapStatArea.png"), dpi = 600,
+    width = figWidth / n_maps, height = figWidth / n_maps * xy_ratio_sa
   )
 # Plot SAR
 map_reg <- base_map +
@@ -443,9 +441,8 @@ map_reg <- base_map +
   ) +
   theme(panel.border = element_rect(colour = "black", fill = NA, size = 0.5)) +
   ggsave(
-    filename = file.path("knitr-figs", "MapRegion.png"),
-    width = figWidth / n_maps, height = figWidth / n_maps / shapes$xyRatio,
-    dpi = 600
+    filename = file.path("knitr-figs", "MapRegion.png"), dpi = 600,
+    width = figWidth / n_maps, height = figWidth / n_maps / shapes$xyRatio
   )
 @
 
@@ -477,11 +474,11 @@ map_reg <- base_map +
 # Caption
 fig_cap <- paste("Spatial boundaries for \\fishName{} stock assessment
                  regions (SARs) in British Columbia. There are ",
-                 num_to_word(length(major_regions)), " major SARs: ",
-                 paste_nicely(major_regions), ". There are ",
-                 num_to_word(length(minor_regions)), " minor SARs: ",
-                 paste_nicely(minor_regions), ". Units: kilometres (km).",
-                 sep = ""
+  num_to_word(length(major_regions)), " major SARs: ",
+  paste_nicely(major_regions), ". There are ",
+  num_to_word(length(minor_regions)), " minor SARs: ",
+  paste_nicely(minor_regions), ". Units: kilometres (km).",
+  sep = ""
 )
 # Plot BC coast and regions
 map_bc <- ggplot(
@@ -880,9 +877,10 @@ Thus, spawn data used for stock assessments is represented either by a nine cate
 tab_cap <- paste("Spawn intensity categories, description, and number of egg
                  layers for \\fishName{} surface spawn surveys for the
                  periods ", pars$years$survey, " to ", pars$years$nine_cats - 1,
-                  ", and ", pars$years$nine_cats, " to ", pars$years$layers - 1,
+                 ", and ", pars$years$nine_cats, " to ", pars$years$layers - 1,
                  " \\citep{HayKronlund1987, SchweigertStocker1988}. Uncertainty
-                 in the number of egg layers is not available.", sep = ""
+                 in the number of egg layers is not available.",
+                 sep = ""
 )
 # Short caption
 tab_s_cap <- "Spawn intensity categories and number of egg layers for
@@ -894,10 +892,7 @@ p9 <- paste0(pars$years$nine_cats, "--", pars$years$layers - 1)
 # Format the table
 k_intensity <- intensity %>%
   arrange(Layers) %>%
-  rename(
-    !!p5 := Period5, !!p9 := Period9,
-    `Number of egg layers` = Layers
-  ) %>%
+  rename(!!p5 := Period5, !!p9 := Period9, `Number of egg layers` = Layers) %>%
   kable(
     caption = tab_cap, caption.short = tab_s_cap, booktabs = TRUE, linesep = "",
     escape = FALSE
@@ -1054,13 +1049,12 @@ fig_cap <- paste("Relationship between egg density in thousands of eggs per
 df <- expand.grid(Layers = layers)
 # Make a table of egg layers, proportion, and egg density
 dat <- as_tibble(df) %>%
-  mutate(EggDens = egg_dens_surf(egg_layers = Layers))
+  mutate(EggDens = dens_surf(egg_layers = Layers))
 # Figure
 egg_dens_sub_plot <- ggplot(
   data = dat, mapping = aes(x = Layers, y = EggDens)
 ) +
   geom_line() +
-  # geom_point( ) +
   labs(
     x = "Number of egg layers",
     y = expression(paste("Egg density (", 10^3 %.% "eggs" %.% "m"^-2, ")",
@@ -1272,7 +1266,7 @@ df <- expand.grid(Layers = layers, PlantHeight = ht, Stalks = stlks)
 # Make a table of egg layers, proportion, coefficient, and egg density
 dat <- as_tibble(df) %>%
   mutate(
-    Number = num_eggs_macro(
+    Number = eggs_macro(
       egg_layers = Layers, height = PlantHeight, stalks_per_plant = Stalks
     ),
     Stalks = paste("Number of stalks per plant: ",
@@ -1282,11 +1276,9 @@ dat <- as_tibble(df) %>%
   )
 # Figure
 num_egg_plot <- ggplot(
-  data = dat,
-  mapping = aes(x = Layers, y = Number, group = PlantHeight)
+  data = dat, mapping = aes(x = Layers, y = Number, group = PlantHeight)
 ) +
   geom_line(mapping = aes(colour = PlantHeight)) +
-  # geom_point( ) +
   labs(
     x = "Number of egg layers on plants",
     y = expression(paste("Number of eggs per plant (",
@@ -1367,7 +1359,7 @@ fig_cap <- paste("Relationship between substrate egg density in thousands of
 df <- expand.grid(Layers = layers, Proportion = prop)
 # Make a table of egg layers, proportion, and egg density
 dat <- as_tibble(df) %>%
-  mutate(EggDens = egg_dens_under_sub(
+  mutate(EggDens = dens_under_sub(
     sub_layers = Layers, sub_prop = Proportion
   ))
 # Figure
@@ -1448,7 +1440,7 @@ df <- expand.grid(
 dat <- as_tibble(df) %>%
   arrange(Coefficient) %>%
   mutate(
-    EggDens = egg_dens_under_alg(
+    EggDens = dens_under_alg(
       alg_layers = Layers, alg_prop = Proportion, coef = Coefficient
     ),
     Coefficient = paste("Algae coefficient: ", format(Coefficient, digits = 4),
@@ -1946,7 +1938,9 @@ to ensure that this issue does not reoccur due to another change in lead line ma
 tab_cap <- paste("Spawn width correction factors $\\tau_{ry}$ for \\fishName{}
                  understory spawn surveys by stock assessment region (SAR, $r$)
                  and year $y$. Legend: ",
-                 paste_nicely(c(major_regions, minor_regions)), ".", sep = "")
+                 paste_nicely(c(major_regions, minor_regions)), ".",
+                 sep = ""
+)
 # Short caption
 tab_s_cap <- "Spawn width correction factors for \\fishName{} understory spawn
               surveys"

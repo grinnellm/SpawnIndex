@@ -47,7 +47,7 @@ dbDisconnect(conn = access_db)
 }
 \seealso{
 \code{\link{load_area_data}} \code{\link{load_all_spawn}}
-\code{\link{get_width}} \code{\link{calc_surf_spawn}}
-\code{\link{calc_macro_spawn}} \code{\link{calc_under_spawn}}
+\code{\link{get_width}} \code{\link{calc_surf_index}}
+\code{\link{calc_macro_index}} \code{\link{calc_under_index}}
 }
 \concept{raw data}

@@ -511,7 +511,7 @@ load_all_spawn <- function(where,
 #'   areas in \code{a}.
 #' @references \insertAllCited
 #' @seealso \code{\link{HerringSpawn}} \code{\link{load_area_data}}
-#'   \code{\link{calc_surf_spawn}}
+#'   \code{\link{calc_surf_index}}
 #' @family load functions
 #' @export
 #' @examples

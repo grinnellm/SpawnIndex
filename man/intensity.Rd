@@ -30,7 +30,7 @@ intensity
 \insertAllCited{}
 }
 \seealso{
-\code{\link{calc_surf_spawn}}
+\code{\link{calc_surf_index}}
 
 Other parameters: 
 \code{\link{algae_coefs}},

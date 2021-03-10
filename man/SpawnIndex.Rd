@@ -18,8 +18,8 @@ spawn-on-kelp operations. Note that the 'spawn index' is a relative index of
 spawning biomass.
 }
 \details{
-The SpawnIndex package provides data, and three categories of functions:
-load, calculations, and checks.
+The SpawnIndex package provides data, and four families of functions: load,
+calculation, check, and utility.
 }
 \note{
 The `spawn index' is a relative index of spawning biomass. Read the
@@ -35,23 +35,26 @@ an example database with spawn survey observations
 (\code{\link{HerringSpawn}}).
 }
 
-\section{Load functions}{
+\section{Load}{
  The load functions are \code{\link{load_area_data}},
 \code{\link{load_all_spawn}}, and \code{\link{get_width}}.
 }
 
-\section{Calculation functions}{
- The calculation functions are
-\code{\link{calc_egg_conversion}}, \code{\link{calc_biomass_sok}},
-\code{\link{egg_dens_surf}}, \code{\link{calc_surf_spawn}},
-\code{\link{num_eggs_macro}}, \code{\link{calc_macro_spawn}},
-\code{\link{egg_dens_under_sub}}, \code{\link{egg_dens_under_alg}}, and
-\code{\link{calc_under_spawn}}.
+\section{Calculation}{
+ The calculation functions are \code{\link{eggs_to_sb}},
+\code{\link{calc_sok_sb}}, \code{\link{dens_surf}},
+\code{\link{calc_surf_index}}, \code{\link{eggs_macro}},
+\code{\link{calc_macro_index}}, \code{\link{dens_under_sub}},
+\code{\link{dens_under_alg}}, and \code{\link{calc_under_index}}.
 }
 
-\section{Check functions}{
- The check functions are
-\code{\link{check_numeric}}, and \code{\link{check_tibble}}.
+\section{Check}{
+ The check functions are \code{\link{check_numeric}}, and
+\code{\link{check_tibble}}.
+}
+
+\section{Utility}{
+ The utility function is \code{\link{paste_nicely}}.
 }
 
 \references{

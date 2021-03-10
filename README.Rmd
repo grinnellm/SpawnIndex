@@ -69,7 +69,7 @@ Call the function with the default parameters.
 
 ```{r theta}
 data(pars)
-theta <- calc_egg_conversion()
+theta <- eggs_to_sb()
 theta
 ```
 
@@ -80,7 +80,7 @@ Then, calculate egg density for a given number of egg layers.
 
 ```{r surface_density}
 layers <- 4
-egg_density <- egg_dens_surf(egg_layers = layers)
+egg_density <- dens_surf(egg_layers = layers)
 egg_density
 ```
 
@@ -121,7 +121,7 @@ Pacific Herring that produced a given amount of SOK product in kilograms, kg.
 
 ```{r sok}
 sok <- 100
-biomass <- calc_biomass_sok(sok = sok,
+biomass <- calc_sok_sb(sok = sok,
                             theta = theta)
 biomass
 ```

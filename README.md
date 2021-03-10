@@ -59,8 +59,6 @@ survey. First, load the SpawnIndex package in the usual way.
 library(SpawnIndex)
 ```
 
-    ## This is SpawnIndex version 0.2.0.
-
 Next, load the default parameter values for spawn index calculations,
 and calculate the conversion factor for the number of Pacific Herring
 eggs to the spawn index (i.e., biomass in tonnes, t). Call the function
@@ -68,7 +66,7 @@ with the default parameters.
 
 ``` r
 data(pars)
-theta <- calc_egg_conversion()
+theta <- eggs_to_sb()
 theta
 ```
 
@@ -81,7 +79,7 @@ given number of egg layers.
 
 ``` r
 layers <- 4
-egg_density <- egg_dens_surf(egg_layers = layers)
+egg_density <- dens_surf(egg_layers = layers)
 egg_density
 ```
 
@@ -125,7 +123,7 @@ in kilograms, kg.
 
 ``` r
 sok <- 100
-biomass <- calc_biomass_sok(sok = sok,
+biomass <- calc_sok_sb(sok = sok,
                             theta = theta)
 biomass
 ```

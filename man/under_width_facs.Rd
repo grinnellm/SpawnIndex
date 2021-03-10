@@ -29,7 +29,7 @@ under_width_facs
 \insertAllCited{}
 }
 \seealso{
-\code{\link{calc_under_spawn}}
+\code{\link{calc_under_index}}
 
 Other parameters: 
 \code{\link{algae_coefs}},

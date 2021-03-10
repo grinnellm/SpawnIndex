@@ -11,7 +11,7 @@
 #'   years.
 #' @docType data
 #' @references \insertAllCited{}
-#' @seealso \code{\link{calc_under_spawn}}
+#' @seealso \code{\link{calc_under_index}}
 #' @family parameters
 #' @examples
 #' data(under_width_facs)
@@ -73,9 +73,9 @@
 #' @docType data
 #' @importFrom Rdpack reprompt
 #' @references \insertAllCited{}
-#' @seealso \code{\link{load_all_spawn}} \code{\link{calc_egg_conversion}}
-#'   \code{\link{calc_biomass_sok}} \code{\link{calc_surf_spawn}}
-#'   \code{\link{calc_macro_spawn}} \code{\link{calc_under_spawn}}
+#' @seealso \code{\link{load_all_spawn}} \code{\link{eggs_to_sb}}
+#'   \code{\link{calc_sok_sb}} \code{\link{calc_surf_index}}
+#'   \code{\link{calc_macro_index}} \code{\link{calc_under_index}}
 #' @family parameters
 #' @examples
 #' data(pars)
@@ -99,7 +99,7 @@
 #' @docType data
 #' @importFrom Rdpack reprompt
 #' @references \insertAllCited{}
-#' @seealso \code{\link{calc_surf_spawn}}
+#' @seealso \code{\link{calc_surf_index}}
 #' @family parameters
 #' @examples
 #' data(intensity)
@@ -118,7 +118,7 @@
 #' @docType data
 #' @importFrom Rdpack reprompt
 #' @references \insertAllCited{}
-#' @seealso \code{\link{calc_under_spawn}}
+#' @seealso \code{\link{calc_under_index}}
 #' @family parameters
 #' @examples
 #' data(algae_coefs)

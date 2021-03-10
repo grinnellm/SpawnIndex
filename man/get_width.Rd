@@ -50,7 +50,7 @@ width_bar
 }
 \seealso{
 \code{\link{HerringSpawn}} \code{\link{load_area_data}}
-\code{\link{calc_surf_spawn}}
+\code{\link{calc_surf_index}}
 
 Other load functions: 
 \code{\link{load_all_spawn}()},
