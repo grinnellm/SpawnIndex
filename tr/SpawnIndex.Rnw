@@ -643,6 +643,7 @@ then we describe the Macrocystis spawn framework which is related to understory,
 \subsubsection{UNDERSTORY SPAWN FRAMEWORK}
 
 Two steps are required to calculate mean understory egg density in each surveyed spawn $s$ (\autoref{tabNotationIndices}).
+Note that we simplify index notation in this section by suppressing subscripts for spawn survey type $x$, Location $n$, SAR $r$, and year $y$.
 First, mean egg density for transect $t$ is
 \begin{equation}\label{eqStatRhoT}
 \mean{\rho_{t_{xsnry}}} = \frac{1}{Q_{txsnry}} \sum_{q_{txsnry}=1}^{Q_{txsnry}} \rho_{q_{txsnry}},
@@ -652,16 +653,16 @@ $Q_{tsxnry}$ is the number of quadrats (\autoref{tabNotationStat}), and
 $\mean{\rho_{t_{xsnry}}}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
 Before we calculate the mean egg density for spawn $s$, we determine the mean number of potential quadrats in spawn $s$
 \begin{equation}\label{eqStatQSPrime}
-\mean{Q_s'} = \frac{1}{T} \sum_{t=1}^{T} Q',
+\mean{Q_s'} = \frac{1}{T} \sum_{t=1}^{T} Q'_{ts},
 \end{equation}
-where $Q'$ is the number of potential quadrats in transect $t$ (i.e., a function of spawn width).
+where $Q'_{ts}$ is the number of potential quadrats in transect $t$ (i.e., a function of spawn width).
 Then, we calculate mean egg density in eggs per square metre for spawn $s$
 \begin{equation}\label{eqStatRhoS}
-\mean{\rho_s} = \frac{1}{T\mean{Q_s'}}\sum_{t=1}^T Q' \mean{\rho_{ts}},
+\mean{\rho_s} = \frac{1}{T\mean{Q_s'}}\sum_{t=1}^T Q'_{ts} \mean{\rho_{ts}},
 \end{equation}
 where $T$ is the number of transects in spawn $s$,
 $\mean{Q_s'}$ is the mean number of potential quadrats in spawn $s$ from \autoref{eqStatQSPrime},
-$Q'$ is the number of potential quadrats in transect $t$,
+$Q'_{ts}$ is the number of potential quadrats in transect $t$,
 $\mean{\rho_{ts}}$ is the mean transect egg density from \autoref{eqStatRhoT}, and
 $\mean{\rho_s}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
 The egg density estimator from \autoref{eqStatRhoS} is unbiased, and the variance is
