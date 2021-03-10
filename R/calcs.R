@@ -106,7 +106,9 @@ calc_biomass_sok <- function(sok,
 #' Calculate surface spawn egg density.
 #'
 #' Calculate Pacific Herring surface spawn egg density in thousands of eggs per
-#' square metre (10^3 * eggs / m^2) \insertCite{SchweigertEtal1997}{SpawnIndex}.
+#' square metre (10^3 * eggs / m^2). This function implements a linear
+#' regression model to estimate egg density in \code{\link{calc_surf_spawn}}
+#' \insertCite{SchweigertEtal1997}{SpawnIndex}.
 #'
 #' @param alpha Numeric. Regression intercept; from \code{\link{pars}}
 #'   \insertCite{SchweigertEtal1997}{SpawnIndex}.
@@ -151,8 +153,10 @@ egg_dens_surf <- function(alpha = pars$surface$alpha,
 
 #' Calculate the surface spawn index.
 #'
-#' Calculate the Pacific Herring surface spawn index in tonnes using
-#' \code{\link{egg_dens_surf}} \insertCite{SchweigertEtal1997}{SpawnIndex}.
+#' Calculate the Pacific Herring surface spawn index in tonnes
+#' \insertCite{SchweigertEtal1997}{SpawnIndex}. This function primarily wrangles
+#' and prepares the data; the actual calculation is done by
+#' \code{\link{egg_dens_surf}}.
 #'
 #' @param where List. Location of the Pacific Herring surface spawn database
 #'   (see examples).
@@ -486,7 +490,9 @@ calc_surf_spawn <- function(where,
 #' Calculate Macrocystis spawn number of eggs per plant.
 #'
 #' Calculate Pacific Herring Macrocystis spawn number of eggs per plant in
-#' thousands of eggs per plant (10^3 * eggs / plant)
+#' thousands of eggs per plant (10^3 * eggs / plant). This function implements a
+#' nonlinear multiple regression model to estimate the number of eggs in
+#' \code{\link{calc_macro_spawn}}
 #' \insertCite{HaegeleSchweigert1990}{SpawnIndex}.
 #'
 #' @param xi Numeric. Regression slope; from \code{\link{pars}}
@@ -550,8 +556,10 @@ num_eggs_macro <- function(xi = pars$macrocystis$xi,
 
 #' Calculate the Macrocystis spawn index.
 #'
-#' Calculate the Pacific Herring Macrocystis spawn index in tonnes using
-#' \code{\link{num_eggs_macro}} \insertCite{HaegeleSchweigert1990}{SpawnIndex}.
+#' Calculate the Pacific Herring Macrocystis spawn index in tonnes
+#' \insertCite{HaegeleSchweigert1990}{SpawnIndex}. This function primarily
+#' wrangles and prepares the data; the actual calculation is done by
+#' \code{\link{num_eggs_macro}}.
 #'
 #' @param where List. Location of the Pacific Herring Macrocystis spawn database
 #'   (see examples).
@@ -790,8 +798,9 @@ calc_macro_spawn <- function(where,
 #' Calculate understory spawn egg density on substrate.
 #'
 #' Calculate Pacific Herring understory spawn egg density on substrate in
-#' thousands of eggs per square metre (10^3 * eggs / m^2)
-#' \insertCite{HaegeleEtal1979}{SpawnIndex}.
+#' thousands of eggs per square metre (10^3 * eggs / m^2). This function
+#' implements a linear model to estimate egg density on substrate in
+#' \code{\link{calc_under_spawn}} \insertCite{HaegeleEtal1979}{SpawnIndex}.
 #'
 #' @param varphi Numeric. Regression slope for substrate; from
 #'   \code{\link{pars}} \insertCite{HaegeleEtal1979}{SpawnIndex}.
@@ -839,8 +848,9 @@ egg_dens_under_sub <- function(varphi = pars$understory$varphi,
 #' Calculate for understory spawn egg density on algae.
 #'
 #' Calculate Pacific Herring understory spawn egg density on algae in thousands
-#' of eggs per square metre (10^3 * eggs / m^2)
-#' \insertCite{HaegeleEtal1979}{SpawnIndex}.
+#' of eggs per square metre (10^3 * eggs / m^2). This function implements a
+#' generalized linear model to estimate egg density on algae in
+#' \code{\link{calc_under_spawn}} \insertCite{Schweigert2005}{SpawnIndex}.
 #'
 #' @param vartheta Numeric. Regression slope for algae; from \code{\link{pars}}
 #'   \insertCite{Schweigert2005}{SpawnIndex}.
@@ -901,9 +911,10 @@ egg_dens_under_alg <- function(vartheta = pars$understory$vartheta,
 
 #' Calculate the understory spawn index.
 #'
-#' Calculate the Pacific Herring understory spawn index in tonnes using
-#' \code{\link{egg_dens_under_sub}} \insertCite{HaegeleEtal1979}{SpawnIndex} and
-#' \code{\link{egg_dens_under_alg}} \insertCite{Schweigert2005}{SpawnIndex}.
+#' Calculate the Pacific Herring understory spawn index in tonnes
+#' \insertCite{HaegeleEtal1979,Schweigert2005}{SpawnIndex}. This function
+#' primarily wrangles and prepares the data; the actual calculations are done by
+#' \code{\link{egg_dens_under_sub}} and \code{\link{egg_dens_under_alg}}.
 #'
 #' @param where List. Location of the Pacific Herring understory spawn database
 #'   (see examples).

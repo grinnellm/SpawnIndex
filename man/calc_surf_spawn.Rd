@@ -60,8 +60,10 @@ information in this tibble comes from \code{a}: Region, Statistical Area,
 Section, and Location code.
 }
 \description{
-Calculate the Pacific Herring surface spawn index in tonnes using
-\code{\link{egg_dens_surf}} \insertCite{SchweigertEtal1997}{SpawnIndex}.
+Calculate the Pacific Herring surface spawn index in tonnes
+\insertCite{SchweigertEtal1997}{SpawnIndex}. This function primarily wrangles
+and prepares the data; the actual calculation is done by
+\code{\link{egg_dens_surf}}.
 }
 \note{
 The `spawn index' is a relative index of spawning biomass.

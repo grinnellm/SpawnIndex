@@ -60,9 +60,10 @@ information in this tibble comes from \code{a}: Region, Statistical Area,
 Section, and Location code.
 }
 \description{
-Calculate the Pacific Herring understory spawn index in tonnes using
-\code{\link{egg_dens_under_sub}} \insertCite{HaegeleEtal1979}{SpawnIndex} and
-\code{\link{egg_dens_under_alg}} \insertCite{Schweigert2005}{SpawnIndex}.
+Calculate the Pacific Herring understory spawn index in tonnes
+\insertCite{HaegeleEtal1979,Schweigert2005}{SpawnIndex}. This function
+primarily wrangles and prepares the data; the actual calculations are done by
+\code{\link{egg_dens_under_sub}} and \code{\link{egg_dens_under_alg}}.
 }
 \note{
 The `spawn index' is a relative index of spawning biomass.

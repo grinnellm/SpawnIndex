@@ -41,7 +41,9 @@ Numeric. Number of eggs per plant in thousands. Message if <= 0.
 }
 \description{
 Calculate Pacific Herring Macrocystis spawn number of eggs per plant in
-thousands of eggs per plant (10^3 * eggs / plant)
+thousands of eggs per plant (10^3 * eggs / plant). This function implements a
+nonlinear multiple regression model to estimate the number of eggs in
+\code{\link{calc_macro_spawn}}
 \insertCite{HaegeleSchweigert1990}{SpawnIndex}.
 }
 \examples{

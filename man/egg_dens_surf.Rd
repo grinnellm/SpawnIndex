@@ -28,7 +28,9 @@ if <= 0.
 }
 \description{
 Calculate Pacific Herring surface spawn egg density in thousands of eggs per
-square metre (10^3 * eggs / m^2) \insertCite{SchweigertEtal1997}{SpawnIndex}.
+square metre (10^3 * eggs / m^2). This function implements a linear
+regression model to estimate egg density in \code{\link{calc_surf_spawn}}
+\insertCite{SchweigertEtal1997}{SpawnIndex}.
 }
 \note{
 There is an error in the original report

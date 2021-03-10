@@ -55,8 +55,10 @@ information in this tibble comes from \code{a}: Region, Statistical Area,
 Section, and Location code.
 }
 \description{
-Calculate the Pacific Herring Macrocystis spawn index in tonnes using
-\code{\link{num_eggs_macro}} \insertCite{HaegeleSchweigert1990}{SpawnIndex}.
+Calculate the Pacific Herring Macrocystis spawn index in tonnes
+\insertCite{HaegeleSchweigert1990}{SpawnIndex}. This function primarily
+wrangles and prepares the data; the actual calculation is done by
+\code{\link{num_eggs_macro}}.
 }
 \note{
 The `spawn index' is a relative index of spawning biomass.

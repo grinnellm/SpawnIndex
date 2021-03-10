@@ -29,8 +29,9 @@ if <= 0.
 }
 \description{
 Calculate Pacific Herring understory spawn egg density on substrate in
-thousands of eggs per square metre (10^3 * eggs / m^2)
-\insertCite{HaegeleEtal1979}{SpawnIndex}.
+thousands of eggs per square metre (10^3 * eggs / m^2). This function
+implements a linear model to estimate egg density on substrate in
+\code{\link{calc_under_spawn}} \insertCite{HaegeleEtal1979}{SpawnIndex}.
 }
 \examples{
 data(pars)
