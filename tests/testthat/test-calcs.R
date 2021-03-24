@@ -54,6 +54,7 @@ test_that("SOK biomass", {
 
 test_that("Surface egg density", {
   expect_type(dens_surf(egg_layers = 4), "double")
+  expect_equal(dens_surf(egg_layers = 0), 0)
   expect_message(dens_surf(egg_layers = as.numeric(NA)))
   expect_message(dens_surf(egg_layers = -0.1))
   expect_error(dens_surf(egg_layers = 4, alpha = "alpha"))
@@ -73,6 +74,9 @@ test_that("Macrocystis number of eggs", {
   expect_type(
     eggs_macro(egg_layers = 4, height = 3, stalks_per_plant = 2), "double"
   )
+  expect_equal(eggs_macro(egg_layers = 0, height = 3, stalks_per_plant = 2), 0)
+  expect_equal(eggs_macro(egg_layers = 4, height = 0, stalks_per_plant = 2), 0)
+  expect_equal(eggs_macro(egg_layers = 4, height = 3, stalks_per_plant = 0), 0)
   expect_message(
     eggs_macro(
       xi = as.numeric(NA), egg_layers = 4, height = 3, stalks_per_plant = 2
@@ -145,6 +149,8 @@ test_that("Macrocystis number of eggs", {
 
 test_that("Understory egg density on substrate", {
   expect_type(dens_under_sub(sub_layers = 4, sub_prop = 0.5), "double")
+  expect_equal(dens_under_sub(sub_layers = 0, sub_prop = 0.5), 0)
+  expect_equal(dens_under_sub(sub_layers = 4, sub_prop = 0), 0)
   expect_message(dens_under_sub(sub_layers = as.numeric(NA), sub_prop = 0.5))
   expect_message(dens_under_sub(sub_layers = -0.1, sub_prop = 0.5))
   expect_message(dens_under_sub(sub_layers = 4, sub_prop = as.numeric(NA)))
@@ -171,6 +177,9 @@ test_that("Understory egg density on algae", {
   expect_type(
     dens_under_alg(alg_layers = 4, alg_prop = 0.5, coeff = 1.1), "double"
   )
+  expect_equal(dens_under_alg(alg_layers = 0, alg_prop = 0.5, coeff = 1.1), 0)
+  expect_equal(dens_under_alg(alg_layers = 4, alg_prop = 0, coeff = 1.1), 0)
+  expect_equal(dens_under_alg(alg_layers = 4, alg_prop = 0.5, coeff = 0), 0)
   expect_message(
     dens_under_alg(alg_layers = as.numeric(NA), alg_prop = 0.5, coeff = 1.1)
   )
