@@ -120,7 +120,8 @@ calc_sok_sb <- function(sok,
 #' @importFrom stats na.omit
 #' @return Numeric. Egg density in thousands of eggs per square metre. Message
 #'   if <= 0.
-#' @note There is an error in
+#' @note Density is set to 0 when egg layers is 0 (otherwise it would be
+#'   \code{alpha}). Also, there is an error in
 #'   \insertCite{SchweigertEtal1997;textual}{SpawnIndex}; surface egg density is
 #'   in thousands of eggs per square metre.
 #' @references \insertAllCited
@@ -143,6 +144,8 @@ dens_surf <- function(alpha = pars$surface$alpha,
   if (any(na.omit(egg_layers) < 0) & !quiet) message("`egg_layers` < 0.")
   # Egg density in thousands (10^3 * eggs / m^2; Schweigert et al. 1997)
   density <- alpha + beta * egg_layers
+  # Ensure density is zero (not `alpha`) when egg_layers is zero
+  density[egg_layers == 0] <- 0
   # Check output: NA and numeric
   check_numeric(dat = list(density = density), quiet = quiet)
   # Check density: range
@@ -726,7 +729,8 @@ calc_macro_index <- function(where,
     ungroup() %>%
     mutate(
       Height = as.numeric(Height), Stalks = as.numeric(Stalks),
-      Plants = as.numeric(Plants))
+      Plants = as.numeric(Plants)
+    )
   # Calculate spawn-level data
   biomass_spawn <- dat_trans %>%
     left_join(y = spawn, by = c("Year", "LocationCode", "SpawnNumber")) %>%

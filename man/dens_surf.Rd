@@ -33,7 +33,8 @@ regression model to estimate egg density in \code{\link{calc_surf_index}}
 \insertCite{SchweigertEtal1997}{SpawnIndex}.
 }
 \note{
-There is an error in
+Density is set to 0 when egg layers is 0 (otherwise it would be
+\code{alpha}). Also, there is an error in
 \insertCite{SchweigertEtal1997;textual}{SpawnIndex}; surface egg density is
 in thousands of eggs per square metre.
 }
