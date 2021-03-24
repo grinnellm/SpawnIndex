@@ -1028,7 +1028,7 @@ For the time period when surveyors recorded spawn `intensity' categories instead
 \citet{SchweigertEtal1997} developed a model of surface egg density as a function of number of egg layers using a linear regression model%
 \footnote{There is an error in \cite{SchweigertEtal1997};
 surface egg density is in thousands per square metre ($10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$).
-Likewise, we report eggs in thousands (i.e., $10^3 \cdot \text{eggs}$) in this document and in the \textbf{R} package script.}
+Likewise, we report eggs in thousands (i.e., $10^3 \cdot \text{eggs}$) in this document and in the \textbf{R} package.}
 \begin{equation}\label{eqSurfDensJS}
 \rho_{js} = \alpha + \beta E_{js},
 \end{equation}
@@ -1929,7 +1929,7 @@ W_{txsnry} = W'_{txsnry} \tau_{ry},
 where $W'_{txsnry}$ is the observed spawn width for transect $t$ in spawn survey type $x$ (i.e., understory), spawn $s$, Location $n$, SAR $r$, and year $y$,
 $\tau_{ry}$ is the spawn width correction factor for SAR $r$ and year $y$ (\autoref{tab:WidthFac}), and
 $W_{txsnry}$ is the corrected understory spawn width in metres (\autoref{tabNotationWidth}).
-Instead of updating the database permanently, we adjust spawn width in the \textbf{R} package script to be transparent, and to prevent mismatches between the original data sheets and databases.
+Instead of updating the database permanently, we adjust spawn width in the \textbf{R} package to be transparent, and to prevent mismatches between the original data sheets and databases.
 It is now standard practice to re-measure transect segments annually
 to ensure that this issue does not reoccur due to another change in lead line manufacturing.
 
@@ -1984,7 +1984,7 @@ $W$ & Corrected spawn width & m \\
 \setcounter{equation}{0}
 
 One record in the surface spawn database since \Sexpr{pars$years$assess} requires an update to fill-in missing egg layer information.
-As with understory spawn width updates, we make this update in the \textbf{R} package script:
+As with understory spawn width updates, we make this update in the \textbf{R} package:
 \begin{enumerate}
 \item Update `intensity' from 0 to 1 for the records (there is 1 record) in the year 1962, Statistical Area 14, Section 142, Location code 820, and with $\text{intensity} = 0$.
 We update intensity from 0 to 1 because spawn was surveyed but not reported.
