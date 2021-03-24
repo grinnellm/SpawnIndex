@@ -282,8 +282,8 @@ intensity <- intensity %>%
   mutate(Period5 = c(1, NA, 2, NA, 3, NA, 4, NA, 5)) %>%
   select(Period5, Period9, Description, Layers) %>%
   arrange(Layers)
-# Vector of egg layers
-layers <- intensity$Layers
+# Vector of egg layers (add some at the lower end)
+layers <- c(0, 0.05, 0.1, 0.2, 0.35, intensity$Layers)
 # Load algae coefficients
 data(algae_coefs)
 # Algae coefficients
