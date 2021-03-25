@@ -690,8 +690,8 @@ $\sigma_{t}^2$ is the within transect egg density variance
 \sigma_{t_{xsnry}}^2 = \frac{1}{{Q_{txsnry}-1}} \sum_{q_{txsnry}=1}^{Q_{txsnry}}
 \left(\rho_{q_{txsnry}} - \mean{\rho_{t_{xsnry}}}\right)^2,
 \end{equation}
-where $\rho_{qts}$ is egg density for quadrat $q$, and
-$\mean{\rho_{ts}}$ is the mean transect egg density from \autoref{eqStatRhoT}.
+where $\rho_{q}$ is egg density for quadrat $q$, and
+$\mean{\rho_{t}}$ is the mean transect egg density from \autoref{eqStatRhoT}.
 
 \begin{table}
 \centering
