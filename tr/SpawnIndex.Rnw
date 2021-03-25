@@ -685,10 +685,10 @@ $f_q$ is the quadrat sampling fraction for transect $t$
 f_{q_{txsnry}} = \frac{Q_{txsnry}}{Q_{txsnry}'},
 \end{equation}
 and
-$\sigma_{ts}^2$ is the within transect egg density variance
-\begin{equation}\label{eqStatSigmaTS}
-\sigma_{ts}^2 = \frac{1}{{Q-1}} \sum_{q=1}^{Q}
-\left(\rho_{qts} - \mean{\rho_{ts}}\right)^2,
+$\sigma_{t}^2$ is the within transect egg density variance
+\begin{equation}\label{eqStatSigmaT}
+\sigma_{t_{xsnry}}^2 = \frac{1}{{Q_{txsnry}-1}} \sum_{q_{txsnry}=1}^{Q_{txsnry}}
+\left(\rho_{q_{txsnry}} - \mean{\rho_{t_{xsnry}}}\right)^2,
 \end{equation}
 where $\rho_{qts}$ is egg density for quadrat $q$, and
 $\mean{\rho_{ts}}$ is the mean transect egg density from \autoref{eqStatRhoT}.
