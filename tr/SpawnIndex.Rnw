@@ -678,11 +678,11 @@ $\mean{\rho_{ts}}$ is the mean transect egg density from \autoref{eqStatRhoT},
 $\mean{\rho_s}$ is the mean spawn egg density from \autoref{eqStatRhoS},
 $f_t$ is the transect sampling fraction for spawn $s$
 \begin{equation}\label{eqFT}
-f_t = \frac{T}{T'},
+f_{t_{xsnry}} = \frac{T_{xsnry}}{T_{xsnry}'},
 \end{equation}
 $f_q$ is the quadrat sampling fraction for transect $t$
 \begin{equation}\label{eqFQ}
-f_q = \frac{Q}{Q'},
+f_{q_{txsnry}} = \frac{Q_{txsnry}}{Q_{txsnry}'},
 \end{equation}
 and
 $\sigma_{ts}^2$ is the within transect egg density variance
