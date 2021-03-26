@@ -766,12 +766,10 @@ These data are used to determine the total egg deposition on Macrocystis plants 
 The following is a brief summary of the spawn survey sampling protocol in the \surveyManual{}.
 \fishName{} in BC primarily spawn in sheltered bays and inlets, depositing their eggs on rocks and algae between depths of
 $1.5\,\text{m}$ above and $18\,\text{m}$ below the 0-tide level \citep{HumphreysHourston1978, HaegeleSchweigert1985}.
-We identify distinct spawns (both spatially and temporally) by a unique combination of year, Location, and `spawn number.'
-Spawns are numbered $s=1,\,2,\,3,\,...,\,S_{xnry}$ where
-$S_{xnry}$ is the number of spawns in spawn survey observation type $x$
-(i.e., $x = \{\text{surface, Macrocystis, understory}\}$),
-Location $n$, SAR $r$, and year $y$.
-A distinct spawn is a continuous stretch of shoreline with no detectable break in egg deposition;
+We identify distinct spawns (both spatially and temporally) by a unique combination of year, Location, and `spawn number'
+$s_{xnry}=1,\,2,\,3,\,...,\,S_{xnry}$.
+Spawn numbers identify distinct spawns,
+which we define as a continuous stretch of shoreline with no detectable break in egg deposition;
 this is the finest scale at which we calculate the spawn index.
 A break in egg deposition is determined by the absence of \fishName{} spawn on two consecutive transects, or by a temporal gap in spawning.
 Most spawns are also characterized by longitude and latitude, as well as start and end dates of spawning.
