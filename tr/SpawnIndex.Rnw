@@ -617,6 +617,8 @@ $T_{xsnry}$ & Number of transects & \\
 $T_{xsnry}'$ & Number of potential transects & \\
 $p_{txsnry}$ & Plant & 1, 2, 3, ..., $P_{txsnry}$ \\
 $P_{txsnry}$ & Number of plants & \\
+$k_{ptxsnry}$ & Stalk & 1, 2, 3, ..., $K_{ptxsnry}$ \\
+$K_{ptxsnry}$ & Number of stalks & \\
 $q_{txsnry}$ & Quadrat & 1, 2, 3, ..., $Q_{txsnry}$ \\
 $Q_{txsnry}$ & Number of quadrats & \\
 $Q_{txsnry}'$ & Number of potential quadrats & \\
@@ -1115,7 +1117,6 @@ Legend: metres (m), tonnes (t).}
 \toprule
 \textbf{Name} & \textbf{Description} & \textbf{Value or unit} & \textbf{References} \\
 \midrule
-$K$ & Number of stalks & $K > 0$ & \\
 $W$ & Spawn width & m & \\
 $\chi$ & Transect swath & m & \\
 $A$ & Area & $\text{m}^2$ & \\
@@ -1124,7 +1125,6 @@ $\mean{H}$ & Mean plant height & m & \\
 $\mean{E}$ & Mean number of egg layers & $\mean{E} > 0$ & \\
 $L'$ & Length of the Macrocystis bed & m & \\
 $L$ & Spawn length & m & \\
-$P$ & Number of plants & $P > 0$ & \\
 $\mean{\kappa}$ & Mean number of stalks per plant & $\mean{\kappa} > 0$ & \\
 $\xi$ & Regression slope & \Sexpr{pars$macrocystis$xi}$~\text{eggs} \cdot 10^3 \cdot \text{plant}^{-1}$ & \cite{HaegeleSchweigert1990} \\
 $\gamma$ & Regression exponent on $\mean{E}$ & \Sexpr{pars$macrocystis$gamma} & \cite{HaegeleSchweigert1990} \\
@@ -1140,7 +1140,8 @@ $B'$ & Macrocystis spawn index (i.e., biomass) & t & \\
 
 \subsection{PLANT OBSERVATIONS}\label{secMacroP}
 
-For each mature plant $p$ in transect $t$ and spawn $s$ (\autoref{figFlow}, step \ref{mPlant}), surveyors count the number of stalks $K_{pts}$.
+For each mature plant $p$ (\autoref{figFlow}, step \ref{mPlant}),
+surveyors count the number of stalks $K$.
 
 \subsection{TRANSECT OBSERVATIONS AND CALCULATIONS}\label{secMacroT}
 
