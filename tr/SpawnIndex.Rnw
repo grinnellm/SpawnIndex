@@ -1614,22 +1614,21 @@ unfortunately we are unable to account for osmosis at this time.
 The last factor to consider is the mean fertilized egg weight,
 $2.38 \cdot 10^{-6}\,\text{kg}$ \citep{HayMiller1982}.
 
-We estimate the biomass of \fishName{} that spawned and produced eggs which were removed from the population by SOK fishery $g$ in SAR $r$ and year $y$
-(\autoref{tabNotationIndices}) as
+We estimate the biomass of \fishName{} that spawned and produced eggs which were removed from the population by SOK fishery $g$ (\autoref{tabNotationIndices}) as
 \begin{equation}\label{eqSOKBioGRY}
-B_{gry} = \frac{H_{gry} \left(1 - \nu\right) \frac{1}{1+\upsilon}} {w \theta},
+B_{g_{ry}} = \frac{H_{g_{ry}} \left(1 - \nu\right) \frac{1}{1+\upsilon}} {w \theta},
 \end{equation}
-where $H_{gry}$ is the weight in kilograms of \fishName{} SOK harvest in fishery $g$, SAR $r$, and year $y$,
+where $H_g$ is the weight in kilograms of \fishName{} SOK harvest in fishery $g$,
 $\nu$ is the proportion of SOK product weight that is kelp,
 $\upsilon$ is the SOK product weight increase due to brining as a proportion,
 $w$ is the average weight in kilograms of a fertilized egg,
 $\theta$ is the egg conversion factor from \autoref{eqECF}, and
-$B_{gry}$ is spawning biomass in tonnes for SOK fishery $g$ (\autoref{tabNotationSOK}).
+$B_g$ is spawning biomass in tonnes for SOK fishery $g$ (\autoref{tabNotationSOK}).
 Then we aggregate spawning biomass by SAR $r$ and year $y$
 \begin{equation}\label{eqSOKBioRY}
-B_{ry} = \sum_{g=1}^G B_{gry},
+B_{ry} = \sum_{g_{ry}=1}^{G_{ry}} B_{g_{ry}},
 \end{equation}
-where $B_{gry}$ is spawning biomass for fishery $g$ from \autoref{eqSOKBioGRY}, and
+where $B_g$ is spawning biomass for fishery $g$ from \autoref{eqSOKBioGRY}, and
 $B_{ry}$ is the estimated \fishName{} biomass that produced eggs which were removed by SOK fisheries in SAR $r$ and year $y$ in tonnes.
 
 \begin{table}
