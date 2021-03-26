@@ -642,7 +642,6 @@ then we describe the Macrocystis spawn framework which is related to understory,
 \subsubsection{UNDERSTORY SPAWN FRAMEWORK}
 
 Two steps are required to calculate mean understory egg density in each surveyed spawn $s$ (\autoref{tabNotationIndices}).
-Note that we simplify index notation in this section by suppressing subscripts for spawn survey type $x$, Location $n$, SAR $r$, and year $y$.
 First, mean egg density for transect $t$ is
 \begin{equation}\label{eqStatRhoT}
 \mean{\rho_{t_{xsnry}}} = \frac{1}{Q_{txsnry}} \sum_{q_{txsnry}=1}^{Q_{txsnry}} \rho_{q_{txsnry}},
@@ -1230,7 +1229,7 @@ as a function of the three aforementioned metrics
 (number of egg layers, plant height, and number of stalks per plant)
 using a nonlinear multiple regression model
 \begin{equation}\label{eqMacroEggsPerPlantS}
-\mean{\psi_{s_{nry}}} = \xi \mean{E_{s_{nry}}}^{\gamma} \mean{H_{s_{nry}}}^{\delta} \mean{\kappa_{s_{nry}}}^{\epsilon} 10^3,
+\mean{\psi_{s_{nry}}} = \xi \mean{E_{s_{nry}}}^\gamma \mean{H_{s_{nry}}}^\delta \mean{\kappa_{s_{nry}}}^\epsilon 10^3,
 \end{equation}
 where $\xi$ is the regression slope,
 $\mean{E_s}$ is the mean number of egg layers in spawn $s$ from \autoref{eqMacroLayersS},
@@ -1350,7 +1349,7 @@ We calculate two separate estimates of egg density at the quadrat level (\autore
 \end{equation}
 where $\varphi$ is the slope,
 $E_i$ is the number of egg layers on substrate $i$ in quadrat $q$,
-$\phi_i$ is the proportion of substrate in quadrat $q$ covered by spawn, and
+$\phi_i$ is the proportion of substrate $i$ covered by spawn, and
 $\rho_i$ is substrate egg density in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$ (\autoref{figUnderDensSubQTS}).
 
 <<UnderDensSubQTS, fig.width=3.5, fig.asp=0.85, fig.lp="fig", echo=FALSE, fig.cap=fig_cap, fig.scap="Substrate egg density for \\fishName{} underwater spawn surveys">>=
@@ -1399,15 +1398,15 @@ algae coefficients using a generalized linear model.
 Algae coefficients account for the effect of algae morphology on \fishName{} egg density (\autoref{tab:AlgaeCoefs}).
 Egg density on algae $v$ in quadrat $q$, transect $t$, and spawn $s$ \citep{Schweigert2005} is
 \begin{equation}\label{eqUnderDensAlgVQTS}
-\rho_{vqts} = \vartheta E^\varrho_{vqts} \phi^\varsigma_{vqts} C_v,
+\rho_{v_{qtxsnry}} = \vartheta E_{v_{qtxsnry}}^\varrho \phi_{v_{qtxsnry}}^\varsigma C_v,
 \end{equation}
 where $\vartheta$ is the regression slope,
-$E_{vqts}$ is the number of egg layers on algae $v$,
-$\varrho$ is the regression exponent on $E_{vqts}$,
-$\phi_{vqts}$ is the proportion of quadrat $q$ covered by algae $v$,
-$\varsigma$ is the regression exponent on $\phi_{vqts}$,
+$E_v$ is the number of egg layers on algae $v$,
+$\varrho$ is the regression exponent on $E_v$,
+$\phi_v$ is the proportion of quadrat $q$ covered by algae $v$,
+$\varsigma$ is the regression exponent on $\phi_v$,
 $C_v$ is the coefficient for algae $v$, and
-$\rho_{vqts}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$ (\autoref{figUnderDensAlgVQTS}).
+$\rho_v$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$ (\autoref{figUnderDensAlgVQTS}).
 
 <<AlgaeCoefs>>=
 # Caption
@@ -1478,22 +1477,22 @@ print(egg_dens_alg_plot)
 
 The total understory egg density for quadrat $q$ in transect $t$ and spawn $s$ is
 \begin{equation}\label{eqUnderDensQTS}
-\rho_{qts} = \rho_{iqts} + \sum_{v=1}^{V} \rho_{vqts},
+\rho_{q_{txsnry}} = \rho_{i_{qtxsnry}} + \sum_{v_{qtxsnry}=1}^{V_{qtxsnry}} \rho_{v_{qtxsnry}},
 \end{equation}
-where $\rho_{iqts}$ is substrate egg density from \autoref{eqUnderDensSubQTS},
-$\rho_{vqts}$ is egg density on algae $v$ from \autoref{eqUnderDensAlgVQTS}, and
-$\rho_{qts}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
+where $\rho_i$ is substrate egg density from \autoref{eqUnderDensSubQTS},
+$\rho_v$ is egg density on algae $v$ from \autoref{eqUnderDensAlgVQTS}, and
+$\rho_q$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
 Thus, we assume that eggs on substrate and algae are independent, and can be added without bias.
 
 \subsection{TRANSECT OBSERVATIONS AND CALCULATIONS}\label{secUnderT}
 
-At the transect level (\autoref{figFlow}, step \ref{uTrans}), the mean understory egg density in transect $t$ and spawn $s$ is
+At the transect level (\autoref{figFlow}, step \ref{uTrans}), the mean understory egg density in transect $t$ is
 \begin{equation}\label{eqUnderDensTS}
-\mean{\rho_{ts}} = \frac{1}{Q} \sum_{q=1}^Q \rho_{qts},
+\mean{\rho_{t_{xsnry}}} = \frac{1}{Q_{txsnry}} \sum_{q_{txsnry}=1}^{Q_{txsnry}} \rho_{q_{txsnry}},
 \end{equation}
 where $Q$ is the number of quadrats in transect $t$,
-$\rho_{qts}$ is total understory egg density in quadrat $q$ from \autoref{eqUnderDensQTS}, and
-$\mean{\rho_{ts}}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
+$\rho_q$ is total understory egg density in quadrat $q$ from \autoref{eqUnderDensQTS}, and
+$\mean{\rho_t}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
 Note that we update spawn width to correct for errors regarding the assumed accuracy of transect lines used to measure spawn width for
 understory surveys between \Sexpr{min(under_width_facs$Year)} and \Sexpr{max(under_width_facs$Year)} (\autoref{secWidthUnder}).
 
@@ -1508,7 +1507,8 @@ $T$ is the number of transects in spawn $s$, and
 $\mean{W_s}$ is in metres.
 The algae bed length is $L_s''$, also in metres.
 As with Macrocystis spawn calculations,
-if $L_s''$ is inadvertently not recorded, we set $L_s''$ to the spawn length $L_s$.
+if $L_s''$ is inadvertently not recorded,
+we set $L_s''$ to the spawn length $L_s$.
 Thus, we assume that eggs on substrate and eggs on algae are represented by the same length measurement.
 
 Next, we calculate the weighted mean egg density in spawn $s$,
