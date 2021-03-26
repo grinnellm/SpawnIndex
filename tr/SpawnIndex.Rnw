@@ -531,17 +531,17 @@ aggregate by SAR and year to produce a relative index of combined sex spawning b
 \node [process, below=of mExt] (mPlant) {\labelMacro{mPlant} Plant $p$ observations for mature plants (e.g., number of stalks; \S{}~\ref{secMacroP}).};
 \node [process, below=of mPlant] (mTrans) {\labelMacro{mTrans} Transect $t$ observations and calculations (e.g., spawn width, mean number of egg layers, mean plant height; \S{}~\ref{secMacroT}).};
 \node [process, below=of mTrans] (mSpawn) {\labelMacro{mSpawn} Spawn $s$ observations and calculations (e.g., Macrocystis bed length, mean spawn width, mean egg density; \S{}~\ref{secMacroS}).};
-\node [inout, below=of mSpawn] (mInd) {\labelMacro{mInd} Macrocystis spawn index $B'_{xs}$ (Eq~\ref{eqMacroIndS}).};
+\node [inout, below=of mSpawn] (mInd) {\labelMacro{mInd} Macrocystis spawn index $B_{xs}'$ (Eq~\ref{eqMacroIndS}).};
 \node [terminal, label={[text width=10em] \textbf{Surface (S)}}, left=of mExt] (sExt) {\labelSurf{sExt} Determine spatial extent and sample locations (along transects if possible; \S{}~\ref{secSurfProt}).};
 \node [process, left=of mPlant] (sSamp) {\labelSurf{sSamp} Sample $j$ observations and calculations (e.g., number of egg layers, substrate type $i$; \S{}~\ref{secSurfJ}).};
 \node [process, below=of sSamp, left=of mSpawn] (sSpawn) {\labelSurf{sSpawn} Spawn $s$ observations and calculations (e.g., spawn length, spawn width, mean egg density; \S{}~\ref{secSurfS}).};
-\node [inout, below=of sSpawn, left=of mInd] (sInd) {\labelSurf{sInd} Surface spawn index $B'_{xs}$ (Eq~\ref{eqSurfIndS}).};
+\node [inout, below=of sSpawn, left=of mInd] (sInd) {\labelSurf{sInd} Surface spawn index $B_{xs}'$ (Eq~\ref{eqSurfIndS}).};
 \node [terminal, label={[text width=10em] \textbf{Understory (U)}}, right=of mExt] (uExt) {\labelUnder{uExt} Determine spatial extent, transect locations, and quadrat spacing (\S{}~\ref{secUnderProt}).};
 \node [process, below=of uExt, right=of mPlant] (uQuad) {\labelUnder{uQuad} Quadrat $q$ observations and calculations (e.g., number of egg layers, algae type $v$; \S{}~\ref{secUnderQ}).};
 \node [process, below=of uQuad, right=of mTrans] (uTrans) {\labelUnder{uTrans} Transect $t$ observations and calculations weighted by spawn width (e.g., spawn width, mean egg density; \S{}~\ref{secUnderT}).};
 \node [process, below=of uTrans, right=of mSpawn] (uSpawn) {\labelUnder{uSpawn} Spawn $s$ observations and calculations (e.g., algae bed length, mean spawn width, egg density; \S{}~\ref{secUnderS}).};
-\node [inout, below=of uSpawn, right=of mInd] (uInd) {\labelUnder{uInd} Understory spawn index $B'_{xs}$ (Eq~\ref{eqUnderIndS}).};
-\node [inout, below=of mInd] (tIndex) {\labelTotal{tIndex} Total spawn index $B'_s=\sum_{x=1}^X B'_{xs}$ (Eq~\ref{eqTotIndSLRY}).};
+\node [inout, below=of uSpawn, right=of mInd] (uInd) {\labelUnder{uInd} Understory spawn index $B_{xs}'$ (Eq~\ref{eqUnderIndS}).};
+\node [inout, below=of mInd] (tIndex) {\labelTotal{tIndex} Total spawn index $B_s'=\sum_{x=1}^X B_{xs}'$ (Eq~\ref{eqTotIndSLRY}).};
 \draw [line] (mExt) -- (mPlant);
 \draw [line] (mPlant) -- (mTrans);
 \draw [line] (mTrans) -- (mSpawn);
@@ -662,7 +662,7 @@ Then, we calculate mean egg density in eggs per square metre for spawn $s$
 \end{equation}
 where $T$ is the number of transects in spawn $s$,
 $\mean{Q_{xsnry}'}$ is the mean number of potential quadrats in spawn $s$ from \autoref{eqStatQSPrime},
-$Q'_{ts}$ is the number of potential quadrats in transect $t$,
+$Q_{ts}'$ is the number of potential quadrats in transect $t$,
 $\mean{\rho_{t_{xsnry}}}$ is the mean transect egg density from \autoref{eqStatRhoT}, and
 $\mean{\rho_{s_{nry}}}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
 The egg density estimator from \autoref{eqStatRhoS} is unbiased, and the variance is
@@ -776,7 +776,7 @@ this is the finest scale at which we calculate the spawn index.
 A break in egg deposition is determined by the absence of \fishName{} spawn on two consecutive transects, or by a temporal gap in spawning.
 Most spawns are also characterized by longitude and latitude, as well as start and end dates of spawning.
 Surveyors usually collect longitude and latitude at the start and end of each transect;
-for surface spawn surveys that don't use transects (\autoref{secSurfProt}),
+for surface spawn surveys that are not along transects (\autoref{secSurfProt}),
 surveyors collect longitude and latitude at the start and end of the spawn
 (i.e., overall length and width).
 
@@ -1015,9 +1015,9 @@ $B'$ & Surface spawn index (i.e., biomass) & t & \\
 Each sample $j$ (\autoref{figFlow}, step \ref{sSamp}) can have one or more substrate types $i$.
 The number of egg layers in substrate $i$ is
 \begin{equation}\label{eqSurfLayersIJS}
-E_{i_{jxsnry}} = E'_{i_{jxsnry}} \phi_{i_{jxsnry}},
+E_{i_{jxsnry}} = E_{i_{jxsnry}}' \phi_{i_{jxsnry}},
 \end{equation}
-where $E'_i$ is the number of egg layers on substrate $i$,
+where $E_i'$ is the number of egg layers on substrate $i$,
 $\phi_i$ is the proportion of substrate $i$ covered with spawn, and
 $E_i$ is in number of egg layers.
 The total number of egg layers in sample $j$ is
@@ -1092,13 +1092,13 @@ can be treated as a group with likely similar widths.
 
 The surface spawn index in spawn $s$ is
 \begin{equation}\label{eqSurfIndS}
-B'_{s_{nry}} = \frac{\mean{\rho_{s_{nry}}} L_{s_{nry}} W_{s_{nry}} 10^3} {\theta},
+B_{s_{nry}}' = \frac{\mean{\rho_{s_{nry}}} L_{s_{nry}} W_{s_{nry}} 10^3} {\theta},
 \end{equation}
 where $\mean{\rho_s}$ is mean egg density in spawn $s$ from \autoref{eqSurfDensS},
 $L_s$ is length of spawn $s$,
 $W_s$ is width of spawn $s$,
 $\theta$ is the egg conversion factor from \autoref{eqECF}, and
-$B'_s$ is in tonnes (\autoref{figFlow}, step \ref{sInd}).
+$B_s'$ is in tonnes (\autoref{figFlow}, step \ref{sInd}).
 
 \section{MACROCYSTIS SPAWN CALCULATIONS}\label{secMacro}
 
@@ -1252,13 +1252,13 @@ $\mean{\rho_s}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
 
 The Macrocystis spawn index in spawn $s$ is
 \begin{equation}\label{eqMacroIndS}
-B'_{s_{nry}} = \frac{\mean{\rho_{s_{nry}}} L_{s_{nry}}' \mean{W_{s_{nry}}} 10^3} {\theta},
+B_{s_{nry}}' = \frac{\mean{\rho_{s_{nry}}} L_{s_{nry}}' \mean{W_{s_{nry}}} 10^3} {\theta},
 \end{equation}
 where $\mean{\rho_s}$ is the mean egg density in spawn $s$ from \autoref{eqMacroDensS},
 $L_s'$ is the length of the Macrocystis bed in spawn $s$,
 $\mean{W_s}$ is the mean width of spawn $s$ from \autoref{eqMacroWidthS},
 $\theta$ is the egg conversion factor from \autoref{eqECF}, and
-$B'_s$ is in tonnes (\autoref{figFlow}, step \ref{mInd}).
+$B_s'$ is in tonnes (\autoref{figFlow}, step \ref{mInd}).
 
 <<MacroEggsPerPlantS, fig.width=6, fig.asp=0.9, fig.lp="fig", echo=FALSE, fig.cap=fig_cap, fig.scap="Number of eggs per plant for \\fishName{} Macrocystis spawn surveys">>=
 # Caption
@@ -1526,13 +1526,13 @@ $\mean{\rho_s}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
 
 The understory spawn index in spawn $s$ is
 \begin{equation}\label{eqUnderIndS}
-B'_s = \frac{\mean{\rho_s} L''_s \mean{W_s} 10^3} {\theta},
+B_s' = \frac{\mean{\rho_s} L_s'' \mean{W_s} 10^3} {\theta},
 \end{equation}
 where $\mean{\rho_s}$ is the mean understory egg density from \autoref{eqUnderDensMuS},
-$L''_s$ is the length of the algae bed,
+$L_s''$ is the length of the algae bed,
 $\mean{W_s}$ is the mean spawn width from \autoref{eqUnderWidthMuS},
 $\theta$ is the egg conversion factor from \autoref{eqECF}, and
-$B'_s$ is in tonnes (\autoref{figFlow}, step \ref{uInd}).
+$B_s'$ is in tonnes (\autoref{figFlow}, step \ref{uInd}).
 
 \section{TOTAL SPAWN CALCULATIONS}\label{secTotal}
 
@@ -1540,10 +1540,10 @@ This section describes step \ref{tIndex} (\autoref{figFlow}).
 The total spawn index in spawn $s$, Location $n$, region $r$, and year $y$
 (\autoref{tabNotationIndices}) is
 \begin{equation}\label{eqTotIndSLRY}
-B'_{snry} = \sum_{x=1}^X B'_{xsnry},
+B_{snry}'' = \sum_{x=1}^X B_{xsnry}',
 \end{equation}
-where $B'_{xsnry}$ is the spawn index for surface, Macrocystis, and understory spawn surveys from \autoref{eqSurfIndS}, \autoref{eqMacroIndS}, and \autoref{eqUnderIndS}, respectively, and
-$B'_{snry}$ is in tonnes (\autoref{figFlow}, step \ref{tIndex}).
+where $B_{xsnry}'$ is the spawn index for surface, Macrocystis, and understory spawn surveys from \autoref{eqSurfIndS}, \autoref{eqMacroIndS}, and \autoref{eqUnderIndS}, respectively, and
+$B_{snry}'$ is in tonnes (\autoref{figFlow}, step \ref{tIndex}).
 
 \begin{table}
 \centering
@@ -1566,19 +1566,19 @@ $B$ & Scaled abundance (i.e., biomass) & t & \\
 
 Finally, we aggregate the total spawn index by SAR $r$ and year $y$
 \begin{equation}\label{eqTotIndRY}
-B'_{ry} = \sum_{n=1}^N \sum_{s=1}^S B'_{snry},
+B_{ry}' = \sum_{n=1}^N \sum_{s=1}^S B_{snry}',
 \end{equation}
-where $B'_{snry}$ is the total spawn index from \autoref{eqTotIndSLRY},
-and $B'_{ry}$ is a relative index of combined sex spawning biomass for SAR $r$ and year $y$ in tonnes.
+where $B_{snry}'$ is the total spawn index from \autoref{eqTotIndSLRY},
+and $B_{ry}'$ is a relative index of combined sex spawning biomass for SAR $r$ and year $y$ in tonnes.
 
 \subsection{SCALED ABUNDANCE}\label{secScaled}
 
-We use $B'_{ry}$ as an indicator of relative population abundance (i.e., biomass) in \fishName{} stock assessment models \citeyearpar[DFO][]{DFO2020}.
-We scale $B'_{ry}$ to abundance
+We use $B_{ry}'$ as an indicator of relative population abundance (i.e., biomass) in \fishName{} stock assessment models \citeyearpar[DFO][]{DFO2020}.
+We scale $B_{ry}'$ to abundance
 \begin{equation}\label{eqAbundRY}
-B_{ry} = \frac{B'_{ry}} {q},
+B_{ry} = \frac{B_{ry}'} {q},
 \end{equation}
-where $B'_{ry}$ is the total spawn index in tonnes from \autoref{eqTotIndRY},
+where $B_{ry}'$ is the total spawn index in tonnes from \autoref{eqTotIndRY},
 $q$ is the spawn index scaling parameter \citeyearpar[DFO][]{DFO2016}, and
 $B_{ry}$ is scaled abundance (i.e., biomass) for SAR $r$ and year $y$ in tonnes.
 To be consistent with stock assessments, in this section $q$ represents the spawn index scaling parameter,
@@ -1933,9 +1933,9 @@ and others had a combination of $1.0\,\text{m}$ and $1.15\,\text{m}$ increment l
 which we assume to be in equal proportion ($\tau_{ry} = 1.075$).
 We correct understory spawn widths by multiplying the observed width by the correction factor
 \begin{equation}\label{eqWidthCorT}
-W_{txsnry} = W'_{txsnry} \tau_{ry},
+W_{txsnry} = W_{txsnry}' \tau_{ry},
 \end{equation}
-where $W'_{txsnry}$ is the observed spawn width for transect $t$ in spawn survey type $x$ (i.e., understory), spawn $s$, Location $n$, SAR $r$, and year $y$,
+where $W_{txsnry}'$ is the observed spawn width for transect $t$ in spawn survey type $x$ (i.e., understory), spawn $s$, Location $n$, SAR $r$, and year $y$,
 $\tau_{ry}$ is the spawn width correction factor for SAR $r$ and year $y$ (\autoref{tab:WidthFac}), and
 $W_{txsnry}$ is the corrected understory spawn width in metres (\autoref{tabNotationWidth}).
 Instead of updating the database permanently, we adjust spawn width in the \textbf{R} package to be transparent, and to prevent mismatches between the original data sheets and databases.
