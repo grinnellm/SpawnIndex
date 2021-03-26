@@ -1230,7 +1230,7 @@ as a function of the three aforementioned metrics
 (number of egg layers, plant height, and number of stalks per plant)
 using a nonlinear multiple regression model
 \begin{equation}\label{eqMacroEggsPerPlantS}
-\mean{\psi_s} = \xi \mean{E_s}^{\gamma} \mean{H_s}^{\delta} \mean{\kappa_s}^{\epsilon} 10^3,
+\mean{\psi_{s_{nry}}} = \xi \mean{E_{s_{nry}}}^{\gamma} \mean{H_{s_{nry}}}^{\delta} \mean{\kappa_{s_{nry}}}^{\epsilon} 10^3,
 \end{equation}
 where $\xi$ is the regression slope,
 $\mean{E_s}$ is the mean number of egg layers in spawn $s$ from \autoref{eqMacroLayersS},
@@ -1242,7 +1242,7 @@ $\epsilon$ is the regression exponent on $\mean{\kappa_s}$, and
 $\mean{\psi_s}$ is in $\text{eggs} \cdot 10^3 \cdot \text{plant}^{-1}$ (\autoref{figMacroEggsPerPlantS}).
 Mean Macrocystis egg density in spawn $s$ is
 \begin{equation}\label{eqMacroDensS}
-\mean{\rho_s} = \frac{\mean{\psi_s} P_s}{A_s},
+\mean{\rho_{s_{nry}}} = \frac{\mean{\psi_{s_{nry}}} P_{s_{nry}}}{A_{s_{nry}}},
 \end{equation}
 where
 $\mean{\psi_s}$ is the mean number of eggs per plant in spawn $s$ from \autoref{eqMacroEggsPerPlantS},
@@ -1252,10 +1252,10 @@ $\mean{\rho_s}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
 
 The Macrocystis spawn index in spawn $s$ is
 \begin{equation}\label{eqMacroIndS}
-B'_s = \frac{\mean{\rho_s} L'_s \mean{W_s} 10^3} {\theta},
+B'_{s_{nry}} = \frac{\mean{\rho_{s_{nry}}} L_{s_{nry}}' \mean{W_{s_{nry}}} 10^3} {\theta},
 \end{equation}
 where $\mean{\rho_s}$ is the mean egg density in spawn $s$ from \autoref{eqMacroDensS},
-$L'_s$ is the length of the Macrocystis bed in spawn $s$,
+$L_s'$ is the length of the Macrocystis bed in spawn $s$,
 $\mean{W_s}$ is the mean width of spawn $s$ from \autoref{eqMacroWidthS},
 $\theta$ is the egg conversion factor from \autoref{eqECF}, and
 $B'_s$ is in tonnes (\autoref{figFlow}, step \ref{mInd}).
