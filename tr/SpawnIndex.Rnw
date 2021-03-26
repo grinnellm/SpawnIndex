@@ -1346,12 +1346,12 @@ $B'$ & Understory spawn index (i.e., biomass) & t & \\
 We calculate two separate estimates of egg density at the quadrat level (\autoref{figFlow}, step \ref{uQuad}): spawn on substrate $i$, and spawn on algae $v$.
 \citet{HaegeleEtal1979} developed a model of substrate egg density in quadrat $q$, transect $t$, and spawn $s$ from egg layers using a linear model
 \begin{equation}\label{eqUnderDensSubQTS}
-\rho_{iqts} = \varphi E_{iqts} \phi_{iqts},
+\rho_{i_{qtxsnry}} = \varphi E_{i_{qtxsnry}} \phi_{i_{qtxsnry}},
 \end{equation}
 where $\varphi$ is the slope,
-$E_{iqts}$ is the number of egg layers on substrate $i$ in quadrat $q$,
-$\phi_{iqts}$ is the proportion of substrate in quadrat $q$ covered by spawn, and
-$\rho_{iqts}$ is substrate egg density in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$ (\autoref{figUnderDensSubQTS}).
+$E_i$ is the number of egg layers on substrate $i$ in quadrat $q$,
+$\phi_i$ is the proportion of substrate in quadrat $q$ covered by spawn, and
+$\rho_i$ is substrate egg density in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$ (\autoref{figUnderDensSubQTS}).
 
 <<UnderDensSubQTS, fig.width=3.5, fig.asp=0.85, fig.lp="fig", echo=FALSE, fig.cap=fig_cap, fig.scap="Substrate egg density for \\fishName{} underwater spawn surveys">>=
 # Caption
@@ -1655,7 +1655,7 @@ $H$ & Weight of SOK harvest & kg & \\
 $\nu$ & Proportion of SOK product that is kelp & \Sexpr{pars$sok$nu} & \cite{ShieldsEtal1985} \\
 $\upsilon$ & SOK product weight increase due to brining (proportion) & \Sexpr{pars$sok$upsilon} & \cite{WhyteEnglar1977} \\
 $w$ & Average weight of a fertilized egg & \Sexpr{pars$sok$w}$\,\text{kg}$ & \cite{HayMiller1982} \\
-$B'$ & SOK spawn index & t & \\
+$B'$ & SOK spawn index (i.e., biomass) & t & \\
 \bottomrule
 \end{tabulary}
 \label{tabNotationSOK}
