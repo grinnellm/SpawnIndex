@@ -767,7 +767,7 @@ The following is a brief summary of the spawn survey sampling protocol in the \s
 \fishName{} in BC primarily spawn in sheltered bays and inlets, depositing their eggs on rocks and algae between depths of
 $1.5\,\text{m}$ above and $18\,\text{m}$ below the 0-tide level \citep{HumphreysHourston1978, HaegeleSchweigert1985}.
 We identify distinct spawns (both spatially and temporally) by a unique combination of year, Location, and `spawn number'
-$s_{xnry}=1,\,2,\,3,\,...,\,S_{xnry}$.
+$s_{xnry}=1,\,2,\,3,\,...,\,S_{xnry}$ (\autoref{tabNotationIndices}).
 Spawn numbers identify distinct spawns,
 which we define as a continuous stretch of shoreline with no detectable break in egg deposition;
 this is the finest scale at which we calculate the spawn index.
@@ -978,7 +978,8 @@ $\theta$ & Egg conversion factor & $10^8 \cdot \text{eggs} \cdot \text{t}^{-1}$ 
 This section describes steps \ref{sSamp} to \ref{sInd} (\autoref{figFlow}).
 As previously mentioned, surface spawn surveyors sample along transects or using their judgement (\autoref{secSurfProt}).
 Surveyors collect data at the substrate type $i$, sample $j$, and spawn $s$ levels;
-we calculate metrics at the substrate type $i$, sample $j$, and spawn $s$ levels (\autoref{tabNotationSurf}).
+we calculate metrics at the substrate type $i$, sample $j$, and spawn $s$ levels
+(\autoref{tabNotationIndices} and \autoref{tabNotationSurf}).
 We use the term `metric' to refer to a measure of quantitative assessment.
 Recall that surface spawn `samples' include observations collected using specialized rakes and viewing boxes (\autoref{secSurfProt}).
 Occasionally, we use field data sheets to fill-in missing egg layer information for surface survey data (\autoref{secUpdate}).
@@ -1101,7 +1102,8 @@ $B'_s$ is in tonnes (\autoref{figFlow}, step \ref{sInd}).
 
 This section describes steps \ref{mPlant} to \ref{mInd} (\autoref{figFlow}).
 Macrocystis spawn surveyors use SCUBA gear to collect underwater data for individual plants $p$, transects $t$, and spawns $s$ (\autoref{secMacroProt});
-we calculate metrics at the transect $t$, and spawn $s$ levels (\autoref{tabNotationMacro}).
+we calculate metrics at the transect $t$, and spawn $s$ levels
+(\autoref{tabNotationIndices} and \autoref{tabNotationMacro}).
 Recall that divers enumerate every Macrocystis plant within the transect swath.
 
 \begin{table}
@@ -1298,7 +1300,8 @@ print(num_egg_plot)
 
 This section describes steps \ref{uQuad} to \ref{uInd} (\autoref{figFlow}).
 Understory spawn surveyors use SCUBA gear to collect underwater data for substrate $i$, algae (i.e., vegetation) types $v$, quadrats $q$, transects $t$, and spawns $s$ (\autoref{secUnderProt});
-we calculate metrics at the substrate $i$, algae type $v$, quadrat $q$, transect $t$, and spawn $s$ levels (\autoref{tabNotationUnder}).
+we calculate metrics at the substrate $i$, algae type $v$, quadrat $q$, transect $t$, and spawn $s$ levels
+(\autoref{tabNotationIndices} and \autoref{tabNotationUnder}).
 Recall that divers collect understory observations in quadrats, which are distributed along transects.
 
 \begin{table}
@@ -1525,7 +1528,8 @@ $B'_s$ is in tonnes (\autoref{figFlow}, step \ref{uInd}).
 \section{TOTAL SPAWN CALCULATIONS}\label{secTotal}
 
 This section describes step \ref{tIndex} (\autoref{figFlow}).
-The total spawn index in spawn $s$, Location $n$, region $r$, and year $y$ is
+The total spawn index in spawn $s$, Location $n$, region $r$, and year $y$
+(\autoref{tabNotationIndices}) is
 \begin{equation}\label{eqTotIndSLRY}
 B'_{snry} = \sum_{x=1}^X B'_{xsnry},
 \end{equation}
@@ -1610,7 +1614,8 @@ unfortunately we are unable to account for osmosis at this time.
 The last factor to consider is the mean fertilized egg weight,
 $2.38 \cdot 10^{-6}\,\text{kg}$ \citep{HayMiller1982}.
 
-We estimate the biomass of \fishName{} that spawned and produced eggs which were removed from the population by SOK fishery $g$ in SAR $r$ and year $y$ as
+We estimate the biomass of \fishName{} that spawned and produced eggs which were removed from the population by SOK fishery $g$ in SAR $r$ and year $y$
+(\autoref{tabNotationIndices}) as
 \begin{equation}\label{eqSOKBioGRY}
 B_{gry} = \frac{H_{gry} \left(1 - \nu\right) \frac{1}{1+\upsilon}} {w \theta},
 \end{equation}
