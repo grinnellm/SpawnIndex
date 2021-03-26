@@ -1075,16 +1075,16 @@ print(egg_dens_sub_plot)
 
 The mean egg density in spawn $s$ (\autoref{figFlow}, step \ref{sSpawn}) is
 \begin{equation}\label{eqSurfDensS}
-\mean{\rho_s} = \frac{1}{J} \sum_{j=1}^J\rho_{js},
+\mean{\rho_{s_{nry}}} = \frac{1}{J_{xsnry}} \sum_{j_{xsnry}=1}^{J_{xsnry}} \rho_{j_{xsnry}},
 \end{equation}
-where $\rho_{js}$ is egg density in sample $j$ from \autoref{eqSurfDensJS},
+where $\rho_j$ is egg density in sample $j$ from \autoref{eqSurfDensJS},
 $J$ is the number of samples, and
 $\mean{\rho_s}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
 Two other metrics are required at the spawn level:
-spawn length $L_s$, and
-spawn width $W_s$, both in metres.
-We set $W_s$ to the first non-missing value of
-median pool width, median Section width, median SAR width, or observed width $W'$
+spawn length $L_{s_{nry}}$, and
+spawn width $W_{s_{nry}}$, both in metres.
+We set $W_{s_{nry}}$ to the first non-missing value of
+median pool width, median Section width, median SAR width, or observed width $W_{s_{nry}}'$
 (in that order; \autoref{secWidthSurface}).
 A pool is a group of Locations within a Section that are
 often adjacent,
@@ -1093,7 +1093,7 @@ can be treated as a group with likely similar widths.
 
 The surface spawn index in spawn $s$ is
 \begin{equation}\label{eqSurfIndS}
-B'_s = \frac{\mean{\rho_s} L_s W_s 10^3} {\theta},
+B'_{s_{nry}} = \frac{\mean{\rho_{s_{nry}}} L_{s_{nry}} W_{s_{nry}} 10^3} {\theta},
 \end{equation}
 where $\mean{\rho_s}$ is mean egg density in spawn $s$ from \autoref{eqSurfDensS},
 $L_s$ is length of spawn $s$,
