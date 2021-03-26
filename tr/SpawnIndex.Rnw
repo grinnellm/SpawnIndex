@@ -1156,7 +1156,7 @@ in square metres.
 In addition, divers estimate summary statistics for mature Macrocystis plants $p$ along transect $t$:
 mean height $\mean{H_{t_{xsnry}}}$ in metres, and
 mean number of egg layers $\mean{E_{t_{xsnry}}}$.
-We calculate the total number of stalks $k$ in transect $t$
+We calculate the total number of stalks $K$ in transect $t$ as
 \begin{equation}\label{eqMacroStalksTS}
 K_{t_{xsnry}} = \sum_{p_{txsnry}=1}^{P_{tsxnry}} K_{p_{tsxnry}},
 \end{equation}
@@ -1166,21 +1166,21 @@ $K_t$ is in number of stalks.
 \subsection{SPAWN OBSERVATIONS AND CALCULATIONS}\label{secMacroS}
 
 At the spawn $s$ level (\autoref{figFlow}, step \ref{mSpawn}),
-the Macrocystis bed length is $L_{s_nry}'$ in metres.
-If $L_{s_nry}'$ is inadvertently not recorded,
-we set $L_{s_nry}'$ to the spawn length $L_{s_nry}$.
+the Macrocystis bed length is $L_{s_{nry}}'$ in metres.
+If $L_{s_{nry}}'$ is inadvertently not recorded,
+we set $L_{s_{nry}}'$ to the spawn length $L_{s_{nry}}$.
 The mean width of spawn $s$ is
 \begin{equation}\label{eqMacroWidthS}
-\mean{W_s} = \frac{1}{T} \sum_{t=1}^T W_{ts},
+\mean{W_{s_{nry}}} = \frac{1}{T_{xsnry}} \sum_{t_{xsnry}=1}^{T_{xsnry}} W_{t_{xsnry}},
 \end{equation}
-where $W_{ts}$ is the spawn width at transect $t$,
+where $W_t$ is the spawn width at transect $t$,
 $T$ is the number of transects in spawn $s$, and
 $\mean{W_s}$ is in metres.
 The total area of transects in spawn $s$ is
 \begin{equation}\label{eqMacroAreaS}
-A_s = \sum_{t=1}^T A_{ts},
+A_{s_{nry}} = \sum_{t_{xsnry}=1}^{T_{xsnry}} A_{t_{xsnry}},
 \end{equation}
-where $A_{ts}$ is the transect area from \autoref{eqMacroAreaTS},
+where $A_t$ is the transect area from \autoref{eqMacroAreaTS},
 and $A_s$ is in square metres.
 
 Three metrics are required to calculate the number of eggs on Macrocystis plants \citep{HaegeleSchweigert1990}:
