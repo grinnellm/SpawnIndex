@@ -1311,8 +1311,8 @@ print(num_egg_plot)
 \section{UNDERSTORY SPAWN CALCULATIONS}\label{secUnder}
 
 This section describes steps \ref{uQuad} to \ref{uInd} (\autoref{figFlow}).
-Understory spawn surveyors use SCUBA gear to collect underwater data for substrate $i$, algae (i.e., vegetation) types $v$, quadrats $q$, transects $t$, and spawns $s$ (\autoref{secUnderProt});
-we calculate metrics at the substrate $i$, algae type $v$, quadrat $q$, transect $t$, and spawn $s$ levels
+Understory spawn surveyors use SCUBA gear to collect underwater data for substrate $i'$, algae (i.e., vegetation) types $v$, quadrats $q$, transects $t$, and spawns $s$ (\autoref{secUnderProt});
+we calculate metrics at the substrate $i'$, algae type $v$, quadrat $q$, transect $t$, and spawn $s$ levels
 (\autoref{tabNotationIndices} and \autoref{tabNotationUnder}).
 Recall that divers collect understory observations in quadrats, which are distributed along transects.
 
@@ -1346,15 +1346,15 @@ $B'$ & Understory spawn index (i.e., biomass) & t & \\
 
 \subsection{QUADRAT OBSERVATIONS AND CALCULATIONS}\label{secUnderQ}
 
-We calculate two separate estimates of egg density at the quadrat level (\autoref{figFlow}, step \ref{uQuad}): spawn on substrate $i$, and spawn on algae $v$.
+We calculate two separate estimates of egg density at the quadrat level (\autoref{figFlow}, step \ref{uQuad}): spawn on substrate $i'$, and spawn on algae $v$.
 \citet{HaegeleEtal1979} developed a model of substrate egg density in quadrat $q$, transect $t$, and spawn $s$ from egg layers using a linear model
 \begin{equation}\label{eqUnderDensSubQTS}
-\rho_{i_{qtxsnry}} = \varphi E_{i_{qtxsnry}} \phi_{i_{qtxsnry}},
+\rho_{i_{qtxsnry}'} = \varphi E_{i_{qtxsnry}'} \phi_{i_{qtxsnry}'},
 \end{equation}
 where $\varphi$ is the slope,
-$E_i$ is the number of egg layers on substrate $i$ in quadrat $q$,
-$\phi_i$ is the proportion of substrate $i$ covered by spawn, and
-$\rho_i$ is substrate egg density in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$ (\autoref{figUnderDensSubQTS}).
+$E_{i'}$ is the number of egg layers on substrate $i'$,
+$\phi_{i'}$ is the proportion of substrate $i'$ covered by spawn, and
+$\rho_{i'}$ is substrate egg density in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$ (\autoref{figUnderDensSubQTS}).
 
 <<UnderDensSubQTS, fig.width=3.5, fig.asp=0.85, fig.lp="fig", echo=FALSE, fig.cap=fig_cap, fig.scap="Substrate egg density for \\fishName{} underwater spawn surveys">>=
 # Caption
@@ -1481,9 +1481,9 @@ print(egg_dens_alg_plot)
 
 The total understory egg density for quadrat $q$ in transect $t$ and spawn $s$ is
 \begin{equation}\label{eqUnderDensQTS}
-\rho_{q_{txsnry}} = \rho_{i_{qtxsnry}} + \sum_{v_{qtxsnry}=1}^{V_{qtxsnry}} \rho_{v_{qtxsnry}},
+\rho_{q_{txsnry}} = \rho_{i_{qtxsnry}'} + \sum_{v_{qtxsnry}=1}^{V_{qtxsnry}} \rho_{v_{qtxsnry}},
 \end{equation}
-where $\rho_i$ is substrate egg density from \autoref{eqUnderDensSubQTS},
+where $\rho_{i'}$ is substrate egg density from \autoref{eqUnderDensSubQTS},
 $\rho_v$ is egg density on algae $v$ from \autoref{eqUnderDensAlgVQTS}, and
 $\rho_q$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
 Thus, we assume that eggs on substrate and algae are independent, and can be added without bias.
