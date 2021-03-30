@@ -1541,13 +1541,14 @@ $B_s'$ is in tonnes (\autoref{figFlow}, step \ref{uInd}).
 \section{TOTAL SPAWN CALCULATIONS}\label{secTotal}
 
 This section describes step \ref{tIndex} (\autoref{figFlow}).
-The total spawn index in spawn $s$, Location $n$, region $r$, and year $y$
-(\autoref{tabNotationIndices}) is
+The total spawn index in spawn $s$ (\autoref{tabNotationIndices}) is
 \begin{equation}\label{eqTotIndSLRY}
-B_{snry}'' = \sum_{x=1}^X B_{xsnry}',
+B_{s_{nry}}' = \sum_{x=1}^X B_{x_{snry}}',
 \end{equation}
-where $B_{xsnry}'$ is the spawn index for surface, Macrocystis, and understory spawn surveys from \autoref{eqSurfIndS}, \autoref{eqMacroIndS}, and \autoref{eqUnderIndS}, respectively, and
-$B_{snry}'$ is in tonnes (\autoref{figFlow}, step \ref{tIndex}).
+where $B_x'$ is the spawn index for
+surface, Macrocystis, and understory spawn surveys from
+\autoref{eqSurfIndS}, \autoref{eqMacroIndS}, and \autoref{eqUnderIndS}, respectively, and
+$B_s'$ is in tonnes (\autoref{figFlow}, step \ref{tIndex}).
 
 \begin{table}
 \centering
