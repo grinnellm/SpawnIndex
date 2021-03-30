@@ -563,7 +563,10 @@ Legend: rounded rectangles indicate start, rectangles indicate observations and 
 \label{figFlow}
 \end{figure}
 
-We developed this document while converting spawn index calculations implemented in a \textbf{Microsoft Access} database to an \textbf{R} \citeyearpar[RCT][]{R-3.6.1-32} package, SpawnIndex.
+This written document is meant to accompany our SpawnIndex (\autoref{secDown}) \textbf{R} \citeyearpar[RCT][]{R-3.6.1-32} package.
+The SpawnIndex package has all the calculations to calculate the spawn index,
+and is another step towards following `good enough' practices in scientific computing \citep{WilsonEtal2016}.
+Previously, spawn index calculations were implemented in a \textbf{Microsoft Access} database, and were practically documented.
 We updated the calculations from a database to an \textbf{R} package for several reasons.
 First, the database has been used for various purposes over the last two decades and has incidental calculations that make it overly complex.
 Second, the database is difficult to troubleshoot because it is hard to differentiate between input (i.e., data) and derived values.
@@ -573,7 +576,6 @@ For example, users can run \textbf{R} package functions to implement calculation
 Fourth, we consider it good practice to separate data from analyses.
 Fifth, an \textbf{R} package will facilitate future research to quantify spawn index uncertainty.
 Finally, an \textbf{R} package will allow us to generate dynamic documents in the spirit of reproducible research using \textbf{knitr} \citep{Xie2015, MarwickEtal2018}.
-Essentially, we have attempted to follow `good enough' practices in scientific computing \citep{WilsonEtal2016}.
 
 \section{STATISTICAL FRAMEWORK}\label{secStat}
 
