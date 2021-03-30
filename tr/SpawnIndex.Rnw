@@ -650,36 +650,36 @@ First, mean egg density for transect $t$ is
 \begin{equation}\label{eqStatRhoT}
 \mean{\rho_{t_{xsnry}}} = \frac{1}{Q_{txsnry}} \sum_{q_{txsnry}=1}^{Q_{txsnry}} \rho_{q_{txsnry}},
 \end{equation}
-where $\rho_{q_{txsnry}}$ is egg density in thousands of eggs per square metre (m) for quadrat $q$ ($10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$),
-$Q_{tsxnry}$ is the number of quadrats (\autoref{tabNotationStat}), and
-$\mean{\rho_{t_{xsnry}}}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
+where $\rho_q$ is egg density in thousands of eggs per square metre (m) for quadrat $q$ ($10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$),
+$Q$ is the number of quadrats (\autoref{tabNotationStat}), and
+$\mean{\rho_t}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
 Before we calculate the mean egg density for spawn $s$, we determine the mean number of potential quadrats in spawn $s$
 \begin{equation}\label{eqStatQSPrime}
 \mean{Q_{xsnry}'} = \frac{1}{T_{xsnry}} \sum_{t_{xsnry}=1}^{T_{xsnry}} Q_{txsnry}',
 \end{equation}
-where $Q_{txsnry}'$ is the number of potential quadrats in transect $t$
+where $Q'$ is the number of potential quadrats
 (i.e., a function of spawn width).
 Then, we calculate mean egg density in eggs per square metre for spawn $s$
 \begin{equation}\label{eqStatRhoS}
 \mean{\rho_{s_{nry}}} = \frac{1}{T_{xsnry}\mean{Q_{xsnry}'}}\sum_{t_{xsnry}=1}^{T_{xsnry}} Q_{txsnry}' \mean{\rho_{t_{xsnry}}},
 \end{equation}
 where $T$ is the number of transects in spawn $s$,
-$\mean{Q_{xsnry}'}$ is the mean number of potential quadrats in spawn $s$ from \autoref{eqStatQSPrime},
-$Q_{ts}'$ is the number of potential quadrats in transect $t$,
-$\mean{\rho_{t_{xsnry}}}$ is the mean transect egg density from \autoref{eqStatRhoT}, and
-$\mean{\rho_{s_{nry}}}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
+$\mean{Q'}$ is the mean number of potential quadrats from \autoref{eqStatQSPrime},
+$Q'$ is the number of potential quadrats,
+$\mean{\rho_t}$ is the mean transect egg density from \autoref{eqStatRhoT}, and
+$\mean{\rho_s}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
 The egg density estimator from \autoref{eqStatRhoS} is unbiased, and the variance is
-\begin{equation}\label{eqStatSigmaS}
-\sigma_s^2 =
-\frac{T'-T}{TT'} \sum_{t=1}^T
-\frac{\left(Q'\mean{\rho_{ts}}-\mean{Q_s'}\mean{\rho_s}\right)^2}
-{\mean{Q_s'}^2\left(T-1\right)} +
-\frac{f_t}{T^2} \sum_{t=1}^T
-\left(\frac{Q'}{\mean{Q_s'}}\right)^2
-\frac{\left(1-f_q\right)\sigma_{ts}^2}{Q},
-\end{equation}
+\begin{multline}\label{eqStatSigmaS}
+\sigma_{s_{nry}}^2 =
+\frac{T_{xsnry}'-T_{xsnry}}{T_{xsnry}T_{xsnry}'} \sum_{t_{xsnry}=1}^{T_{xsnry}}
+\frac{\left(Q_{txsnry}'\mean{\rho_{t_{xsnry}}}-\mean{Q_{s_{nry}}'}\mean{\rho_{s_{nry}}}\right)^2}
+{\mean{Q_{s_{nry}}'}^2\left(T_{xsnry}-1\right)} \\
++ \frac{f_{t_{xsnry}}}{T_{xsnry}^2} \sum_{t_{xsnry}=1}^{T_{xsnry}}
+\left(\frac{Q_{txsnry}'}{\mean{Q_{s_{nry}}'}}\right)^2
+\frac{\left(1-f_{q_{txsnry}}\right)\sigma_{t_{xsnry}}^2}{Q_{txsnry}},
+\end{multline}
 where $T'$ is the number of potential transects in spawn $s$ (i.e., a function of spawn length),
-$\mean{\rho_{ts}}$ is the mean transect egg density from \autoref{eqStatRhoT},
+$\mean{\rho_t}$ is the mean transect egg density from \autoref{eqStatRhoT},
 $\mean{\rho_s}$ is the mean spawn egg density from \autoref{eqStatRhoS},
 $f_t$ is the transect sampling fraction for spawn $s$
 \begin{equation}\label{eqFT}
