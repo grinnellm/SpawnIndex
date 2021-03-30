@@ -1083,10 +1083,10 @@ where $\rho_j$ is egg density in sample $j$ from \autoref{eqSurfDensJS},
 $J$ is the number of samples, and
 $\mean{\rho_s}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
 Two other metrics are required at the spawn level:
-spawn length $L_{s_{nry}}$, and
-spawn width $W_{s_{nry}}$, both in metres.
-We set $W_{s_{nry}}$ to the first non-missing value of
-median pool width, median Section width, median SAR width, or observed width $W_{s_{nry}}'$
+spawn length $L_s$, and
+spawn width $W_s$, both in metres.
+We set $W_s$ to the first non-missing value of
+median pool width, median Section width, median SAR width, or observed width $W_s'$
 (in that order; \autoref{secWidthSurface}).
 A pool is a group of Locations within a Section that are
 often adjacent,
@@ -1169,9 +1169,9 @@ $K_t$ is in number of stalks.
 \subsection{SPAWN OBSERVATIONS AND CALCULATIONS}\label{secMacroS}
 
 At the spawn $s$ level (\autoref{figFlow}, step \ref{mSpawn}),
-the Macrocystis bed length is $L_{s_{nry}}'$ in metres.
-If $L_{s_{nry}}'$ is inadvertently not recorded,
-we set $L_{s_{nry}}'$ to the spawn length $L_{s_{nry}}$.
+the Macrocystis bed length is $L_s'$ in metres.
+If $L_s'$ is inadvertently not recorded,
+we set $L_s'$ to the spawn length $L_s$.
 The mean width of spawn $s$ is
 \begin{equation}\label{eqMacroWidthS}
 \mean{W_{s_{nry}}} = \frac{1}{T_{xsnry}} \sum_{t_{xsnry}=1}^{T_{xsnry}} W_{t_{xsnry}},
@@ -1509,10 +1509,10 @@ At the spawn level (\autoref{figFlow}, step \ref{uSpawn}), the mean width of spa
 where $W_t$ is the spawn width at transect $t$,
 $T$ is the number of transects in spawn $s$, and
 $\mean{W_s}$ is in metres.
-The algae bed length is $L_{s_{nry}}''$, also in metres.
+The algae bed length is $L_s''$, also in metres.
 As with Macrocystis spawn calculations,
-if $L_{s_{nry}}''$ is inadvertently not recorded,
-we set $L_{s_{nry}}''$ to the spawn length $L_{s_{nry}}$.
+if $L_s''$ is inadvertently not recorded,
+we set $L_s''$ to the spawn length $L_s$.
 Thus, we assume that eggs on substrate and eggs on algae are represented by the same length measurement.
 
 Next, we calculate the weighted mean egg density in spawn $s$,
