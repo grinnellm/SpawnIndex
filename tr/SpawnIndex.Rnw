@@ -2004,9 +2004,10 @@ As with understory spawn width updates, we make this update in the \textbf{R} pa
 We update intensity from 0 to 1 because spawn was surveyed but not reported.
 \end{enumerate}
 Spawn survey records prior to \Sexpr{pars$years$assess} have additional missing or inaccurate egg layer information, and are unreliable for indexing purposes.
-Therefore, we do not include spawn data prior to \Sexpr{pars$years$assess} in stock assessments.
+Therefore, stock assessments exclude spawn data prior to \Sexpr{pars$years$assess}.
 
-While reviewing the spawn index calculations and translating them from the \textbf{Microsoft Access} database to \textbf{R}, we found several cases where index data were being over-written with no documented reason.
+While reviewing spawn index calculations and translating them from a \textbf{Microsoft Access} database to \textbf{R},
+we found several cases where index data were being over-written with no documented reason.
 These updates have been omitted, and affected the following records:
 \begin{enumerate}
 \item Update $E_j$ (i.e., number of egg layers; \autoref{tabNotationSurf}) to 2.1496 for the records (there are 15 records) in the year 1979, Statistical Area 2, and with intensity 4;
