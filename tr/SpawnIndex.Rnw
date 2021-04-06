@@ -772,7 +772,7 @@ The following is a brief summary of the spawn survey sampling protocol in the \s
 \fishName{} in BC primarily spawn in sheltered bays and inlets, depositing their eggs on rocks and algae between depths of
 $1.5\,\text{m}$ above and $18\,\text{m}$ below the 0-tide level \citep{HumphreysHourston1978, HaegeleSchweigert1985}.
 We identify distinct spawns (both spatially and temporally) by a unique combination of year, Location, and `spawn number'
-$s_{xnry}=1,\,2,\,3,\,...,\,S_{xnry}$ (\autoref{tabNotationIndices}).
+$s_{nry}=1,\,2,\,3,\,...,\,S_{nry}$ (\autoref{tabNotationIndices}).
 Spawn numbers identify distinct spawns,
 which we define as a continuous stretch of shoreline with no detectable break in egg deposition;
 this is the finest scale at which we calculate the spawn index.
@@ -1161,7 +1161,7 @@ mean height $\mean{H_{t_{xsnry}}}$ in metres, and
 mean number of egg layers $\mean{E_{t_{xsnry}}}$.
 We calculate the total number of stalks $K$ in transect $t$ as
 \begin{equation}\label{eqMacroStalksTS}
-K_{t_{xsnry}} = \sum_{p_{txsnry}=1}^{P_{tsxnry}} K_{p_{tsxnry}},
+K_{t_{xsnry}} = \sum_{p_{txsnry}=1}^{P_{txsnry}} K_{p_{txsnry}},
 \end{equation}
 where $K_p$ is the number of stalks on plant $p$, and
 $K_t$ is in number of stalks.
