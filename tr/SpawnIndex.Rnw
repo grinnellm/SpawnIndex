@@ -1555,7 +1555,7 @@ $B_s'$ is in tonnes (\autoref{figFlow}, step \ref{tIndex}).
 \caption[Notation for \fishName{} total spawn index calculations]
 {Notation for \fishName{} total spawn index calculations.
 Note that in this table $q$ represents the spawn index scaling parameter,
-not the quadrat number as in other sections of this report.
+not quadrat number as in other sections of this report.
 Legend: tonnes (t).}
 \begin{tabulary}{\linewidth}{lLLL}
 \toprule
@@ -1587,7 +1587,7 @@ where $B_{ry}'$ is the total spawn index in tonnes from \autoref{eqTotIndRY},
 $q$ is the spawn index scaling parameter \citeyearpar[DFO][]{DFO2016}, and
 $B_{ry}$ is scaled abundance (i.e., biomass) for SAR $r$ and year $y$ in tonnes.
 To be consistent with stock assessments, in this section $q$ represents the spawn index scaling parameter,
-not the quadrat number as in other sections of this report.
+not quadrat number as in other sections of this report.
 In \fishName{} stock assessment models,
 $q$ describes the proportion of spawn observed by spawn surveys,
 accounting for egg loss (e.g., due to predation) and unobserved spawns \citeyearpar[DFO][]{DFO2016}.
@@ -1938,11 +1938,11 @@ and others had a combination of $1.0\,\text{m}$ and $1.15\,\text{m}$ increment l
 which we assume to be in equal proportion ($\tau_{ry} = 1.075$).
 We correct understory spawn widths by multiplying the observed width by the correction factor
 \begin{equation}\label{eqWidthCorT}
-W_{txsnry} = W_{txsnry}' \tau_{ry},
+W_{t_{xsnry}} = W_{t_{xsnry}}' \tau_{ry},
 \end{equation}
-where $W_{txsnry}'$ is the observed spawn width for transect $t$ in spawn survey type $x$ (i.e., understory), spawn $s$, Location $n$, SAR $r$, and year $y$,
+where $W_t'$ is the observed spawn width for transect $t$,
 $\tau_{ry}$ is the spawn width correction factor for SAR $r$ and year $y$ (\autoref{tab:WidthFac}), and
-$W_{txsnry}$ is the corrected understory spawn width in metres (\autoref{tabNotationWidth}).
+$W_t$ is the corrected understory spawn width in metres (\autoref{tabNotationWidth}).
 Instead of updating the database permanently, we adjust spawn width in the \textbf{R} package to be transparent, and to prevent mismatches between the original data sheets and databases.
 It is now standard practice to re-measure transect segments annually
 to ensure that this issue does not reoccur due to another change in lead line manufacturing.
@@ -2009,7 +2009,7 @@ Therefore, we do not include spawn data prior to \Sexpr{pars$years$assess} in st
 While reviewing the spawn index calculations and translating them from the \textbf{Microsoft Access} database to \textbf{R}, we found several cases where index data were being over-written with no documented reason.
 These updates have been omitted, and affected the following records:
 \begin{enumerate}
-\item Update $E_j$ (i.e., the total number of egg layers) to 2.1496 for the records (there are 15 records) in the year 1979, Statistical Area 2, and with intensity 4;
+\item Update $E_j$ (i.e., number of egg layers; \autoref{tabNotationSurf}) to 2.1496 for the records (there are 15 records) in the year 1979, Statistical Area 2, and with intensity 4;
 \item Update $E_j$ to 0.5529 for the records (4) in the year 1981, Statistical Area 24, and with $E_j = 0.0$;
 \item Update $E_j$ to 1.3360 for the records (7) in the year 1982, Statistical Area 23, and with intensity 3;
 \item Update $E_j$ to 2.3300 for the records (41) in the year 1984, Statistical Area 24, and with intensity 0; and
@@ -2017,7 +2017,7 @@ These updates have been omitted, and affected the following records:
 \end{enumerate}
 In the first three cases, $E_j$ was updated using intensity categories (\autoref{tab:Intensity});
 in the last two cases, $E_j$ was updated using historical averages.
-These changes had negligible effects on the spawn index.
+These changes had negligible effects on spawn index values.
 
 % End appendices
 \end{appendices}
