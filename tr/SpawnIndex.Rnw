@@ -624,7 +624,7 @@ $K_{ptxsnry}$ & Number of stalks & \\
 $q_{txsnry}$ & Quadrat & 1, 2, 3, ..., $Q_{txsnry}$ \\
 $Q_{txsnry}$ & Number of quadrats & \\
 $Q_{txsnry}'$ & Number of potential quadrats & \\
-$i_{qtxsnry}'$ & Substrate type (understory) & 1, 2, 3, ..., $I_{jxsnry}$ \\
+$i_{qtxsnry}'$ & Substrate type (understory) & 1, 2, 3, ..., $I_{qtxsnry}'$ \\
 $I_{qtxsnry}'$ & Number of substrate types (understory) & \\
 $v_{qtxsnry}$ & Algae (i.e., vegetation) type & 1, 2, 3, ..., $V_{qtxsnry}$ \\
 $V_{qtxsnry}$ & Number of algae types & \\
