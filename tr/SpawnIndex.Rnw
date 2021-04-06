@@ -563,11 +563,11 @@ Legend: rounded rectangles indicate start, rectangles indicate observations and 
 \label{figFlow}
 \end{figure}
 
-This document accompanies our SpawnIndex (\autoref{secDown}) \textbf{R} \citeyearpar[RCT][]{R-4.0.3-32} package.
+This document accompanies our SpawnIndex package (\autoref{secDown}).
 The SpawnIndex package has functions to calculate the spawn index,
 and is a step towards `good enough' practices in scientific computing \citep{WilsonEtal2016}.
-Previously, spawn index calculations were implemented in a \textbf{Microsoft Access} database, and documentation was scattered.
-We updated the calculations from a database to an \textbf{R} package for several reasons.
+Previously, spawn index calculations were implemented in a \textbf{Microsoft Access} database.
+We updated the calculations from a database to an \textbf{R} \citeyearpar[RCT][]{R-4.0.3-32} package for several reasons.
 First, the database has been used for various purposes over the last two decades and has incidental calculations that make it overly complex.
 Second, the database is difficult to troubleshoot because it is hard to differentiate between input (i.e., data) and derived values.
 Third, the \textbf{R} package is open and transparent;
