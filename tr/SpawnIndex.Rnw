@@ -910,7 +910,7 @@ k_intensity
 \subsection{MACROCYSTIS SPAWN PROTOCOL}\label{secMacroProt}
 
 Macrocystis spawn surveyors take a census of Macrocystis plants within $1\,\text{m}$ of the transect line, on both the left- and right-hand sides.
-We refer to the swath of substrate along Macrocystis transects as the transect swath, $\chi_{ts} = 2\,\text{m}$ in transect $t$ and spawn $s$.
+We refer to the swath of substrate along Macrocystis transects as the transect swath, $\chi_t = 2\,\text{m}$ in transect $t$.
 Divers categorize Macrocystis plants as either `mature' or `immature' based on stipe height;
 mature plants have stipes $\geq 1\,\text{m}$ high, and are the only plants used for Macrocystis spawn index calculations.
 Immature plants are excluded because \fishName{} spawn on Macrocystis fronds, not stipes;
