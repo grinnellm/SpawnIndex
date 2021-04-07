@@ -1899,7 +1899,7 @@ The issue was caused by the assumed accuracy of transect lines used by spawn sur
 Spawn surveyors determine spawn width by placing transects perpendicular to the shore.
 Surveyors use weighted lead lines to ensure that lines rest on the substrate;
 these lines are marked in $1\,\text{m}$ increments, and are standardized to $20\,\text{m}$ segments (i.e., a `chain').
-Segments refer to individual sections of line, which may be linked together to make complete transects.
+Segments refer to individual sections of line, which can be linked together to make complete transects.
 
 During the late 1990s it became apparent that the $20\,\text{m}$ segments shrank by approximately $1\,\text{m}$ during the first season of use, and
 continued to shrink over time.
@@ -1908,7 +1908,8 @@ They also modified the lead line marking protocol to account for shrinkage by ma
 thus, segments were extended to $23\,\text{m}$.
 DFO staff derived this 15\% increase by measuring and re-marking lead lines each year.
 Lead lines are made of a mix of polypropylene and nylon;
-nylon tightens up under repeated use, which is thought to explain the shrinkage.
+nylon tightens up under repeated use,
+which we think explains the shrinkage.
 DFO staff re-measured lead line increments in about 2005, and found that
 they still shrank from $1.15\,\text{m}$ to $1.0\,\text{m}$, and
 continued to use the modified protocol.
@@ -1920,7 +1921,7 @@ The combination of observed increment lengths is explained by the lifespan of le
 lead lines are replaced every 5 to 10 years, with some segments being replaced more frequently.
 For example, inner segments are replaced more frequently than seaward segments, and
 segments in some SARs are replaced more frequently than in other SARs.
-DFO staff believe that a change in lead line manufacturing prevents new lead lines from shrinking.
+We believe that a change in lead line manufacturing prevents new lead lines from shrinking.
 
 The earliest written instructions that describe the modified protocol of marking $1.15\,\text{m}$ increments is from \Sexpr{min(under_width_facs$Year)},
 and this protocol was used until 2013.
@@ -1932,11 +1933,11 @@ we adjust spawn width estimates based on written instructions for the marking pr
 Accordingly, our best estimate of years impacted by marking lead lines at $1.15\,\text{m}$ increments (when shrinking no longer occurred) is
 from \Sexpr{min(under_width_facs$Year)} to \Sexpr{max(under_width_facs$Year)}.
 However, not all SARs $r$ and years $y$ are impacted equally by this issue (\autoref{tab:WidthFac}):
-some SARs and years had all $1.0\,\text{m}$ increment lengths (no correction factor needed; $\tau_{ry} = 1.0$),
-others had all $1.15\,\text{m}$ increment lengths ($\tau_{ry} = 1.15$),
+some SARs and years had all $1.0\,\text{m}$ increment lengths (no correction factor needed; $\tau_{ry} = 1.000$),
+others had all $1.15\,\text{m}$ increment lengths ($\tau_{ry} = 1.150$),
 and others had a combination of $1.0\,\text{m}$ and $1.15\,\text{m}$ increment lengths
 which we assume to be in equal proportion ($\tau_{ry} = 1.075$).
-We correct understory spawn widths by multiplying the observed width by the correction factor
+We correct understory spawn width by multiplying the observed width by the correction factor
 \begin{equation}\label{eqWidthCorT}
 W_{t_{xsnry}} = W_{t_{xsnry}}' \tau_{ry},
 \end{equation}
@@ -2004,21 +2005,21 @@ As with understory spawn width updates, we make this update in the \textbf{R} pa
 We update intensity from 0 to 1 because spawn was surveyed but not reported.
 \end{enumerate}
 Spawn survey records prior to \Sexpr{pars$years$assess} have additional missing or inaccurate egg layer information, and are unreliable for indexing purposes.
-Therefore, stock assessments exclude spawn data prior to \Sexpr{pars$years$assess}.
+Therefore, we exclude spawn data prior to \Sexpr{pars$years$assess} from stock assessments.
 
 While reviewing spawn index calculations and translating them from a \textbf{Microsoft Access} database to \textbf{R},
 we found several cases where index data were being over-written with no documented reason.
 These updates have been omitted, and affected the following records:
 \begin{enumerate}
-\item Update $E_j$ (i.e., number of egg layers; \autoref{tabNotationSurf}) to 2.1496 for the records (there are 15 records) in the year 1979, Statistical Area 2, and with intensity 4;
-\item Update $E_j$ to 0.5529 for the records (4) in the year 1981, Statistical Area 24, and with $E_j = 0.0$;
-\item Update $E_j$ to 1.3360 for the records (7) in the year 1982, Statistical Area 23, and with intensity 3;
-\item Update $E_j$ to 2.3300 for the records (41) in the year 1984, Statistical Area 24, and with intensity 0; and
+\item Update $E_j$ (i.e., number of egg layers; \autoref{tabNotationSurf}) to 2.1496 for the records (there are 15 records) in the year 1979, Statistical Area 2, and with intensity 4,
+\item Update $E_j$ to 0.5529 for the records (4) in the year 1981, Statistical Area 24, and with $E_j = 0.0$,
+\item Update $E_j$ to 1.3360 for the records (7) in the year 1982, Statistical Area 23, and with intensity 3,
+\item Update $E_j$ to 2.3300 for the records (41) in the year 1984, Statistical Area 24, and with intensity 0, and
 \item Update $E_j$ to 2.9800 for the records (14) in the year 1982, Statistical Area 27, and with $E_j = 0.0$.
 \end{enumerate}
 In the first three cases, $E_j$ was updated using intensity categories (\autoref{tab:Intensity});
 in the last two cases, $E_j$ was updated using historical averages.
-These changes had negligible effects on spawn index values.
+These changes have negligible effects on spawn index values.
 
 % End appendices
 \end{appendices}
