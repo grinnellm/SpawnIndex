@@ -74,8 +74,8 @@ theta
 
     ## [1] 1e+08
 
-Thus, convert eggs to the spawn index by dividing the number of eggs by
-10<sup>8</sup>, where `theta` is in units of
+Thus, convert eggs to the spawn index in tonnes by dividing the number
+of eggs by 10<sup>8</sup>, where `theta` is in units of
 10<sup>8</sup> eggs t<sup>-1</sup>. Then, calculate egg density for a
 given number of egg layers.
 
