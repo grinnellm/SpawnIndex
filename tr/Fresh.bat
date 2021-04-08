@@ -11,6 +11,7 @@ del *.out
 del *.ps
 del *.snm
 del *.toc
+del *.upa
 del *.vrb
 del *-concordance.tex
 del *.synctex.gz*
