@@ -1564,7 +1564,7 @@ Legend: tonnes (t).}
 \textbf{Name} & \textbf{Description} & \textbf{Value or unit} & \textbf{References} \\
 \midrule
 $B'$ & Spawn index (i.e., biomass) & t & \\
-$q$ & Spawn index scaling parameter & & DFO \citeyearpar{DFO2020} \\
+$q$ & Spawn index scaling parameter & $0.0 < q \leq 1.0$ & DFO \citeyearpar{DFO2020} \\
 $B$ & Scaled abundance (i.e., biomass) & t & \\
 \bottomrule
 \end{tabulary}
@@ -1986,7 +1986,7 @@ Legend: metres (m).}
 \textbf{Name} & \textbf{Description} & \textbf{Value or unit} \\
 \midrule
 $W'$ & Observed spawn width & m \\
-$\tau$ & Spawn width correction factor & see \autoref{tab:WidthFac} \\
+$\tau$ & Spawn width correction factor & See \autoref{tab:WidthFac} \\
 $W$ & Corrected spawn width & m \\
 \bottomrule
 \end{tabulary}
