@@ -82,8 +82,8 @@ Troisièmement, nous calculons l'indice de frai pour chacun des trois types de r
 Enfin, nous combinons les indices de frai des trois types d'observations des relevés, et
 nous les agrégeons par région d'évaluation des stocks et par année pour produire un indice relatif de la biomasse reproductrice des sexes combinés.
 Nous identifions les incertitudes dans les calculs de l'indice de frai,
-et décrivons comment les utilisateurs peuvent installer le paquet R SpawnIndex
-pour calculer l'indice de frai en utilisant une base de données d'exemple.
+et décrivons comment les utilisateurs peuvent installer le paquet \textbf{R} SpawnIndex pour
+calculer l'indice de frai en utilisant une base de données d'exemple.
 Bien que nous transformions les données du relevé de la densité des œufs en biomasse en tonnes, les séries chronologiques annuelles de la densité et de la biomasse des œufs sont des indices relatifs de la biomasse des géniteurs.}
 
 % Label flow diagram steps: surface, Macrocystis, and understory
