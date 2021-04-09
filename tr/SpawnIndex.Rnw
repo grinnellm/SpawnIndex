@@ -63,7 +63,8 @@ Third, we calculate the spawn index for each of the three aforementioned spawn s
 Finally, we combine the spawn indices from the three types of survey observations, and
 aggregate by stock assessment region and year to produce a relative index of combined sex spawning biomass.
 We identify uncertainties in spawn index calculations, and
-describe how users can install the \textbf{R} package to calculate the spawn index using an example database.
+describe how users can install the SpawnIndex \textbf{R} package
+to calculate the spawn index using an example database.
 Although we transform the spawn survey data from egg density to biomass in tonnes, the annual time series of egg density and biomass are relative indices of spawning biomass.}
 
 % Resume (i.e., French abstract)
@@ -80,8 +81,9 @@ Deuxièmement, nous élaborons un facteur de conversion pour convertir les oeufs
 Troisièmement, nous calculons l'indice de frai pour chacun des trois types de relevés de frai susmentionnés: surface, Macrocystis, et sous-étage.
 Enfin, nous combinons les indices de frai des trois types d'observations des relevés, et
 nous les agrégeons par région d'évaluation des stocks et par année pour produire un indice relatif de la biomasse reproductrice des sexes combinés.
-Nous identifions les incertitudes dans le calcul de l'indice de frai,
-et décrivons comment les utilisateurs peuvent installer le packet \textbf{R} pour calculer l'indice de frai à l'aide d'une base de données exemple.
+Nous identifions les incertitudes dans les calculs de l'indice de frai,
+et décrivons comment les utilisateurs peuvent installer le paquet R SpawnIndex
+pour calculer l'indice de frai en utilisant une base de données d'exemple.
 Bien que nous transformions les données du relevé de la densité des œufs en biomasse en tonnes, les séries chronologiques annuelles de la densité et de la biomasse des œufs sont des indices relatifs de la biomasse des géniteurs.}
 
 % Label flow diagram steps: surface, Macrocystis, and understory
