@@ -62,17 +62,22 @@ This document describes how we calculate the spawn index from spawn survey obser
 There are three types of spawn survey observations:
 (1) observations of spawn taken from the surface usually at low tide;
 (2) underwater observations of spawn on giant kelp, Macrocystis (\emph{Macrocystis} spp.); and
-(3) underwater observations of spawn on other types of algae and the substrate, which we refer to as `understory.'
+(3) underwater observations of spawn on other types of algae and the substrate,
+which we refer to as `understory.'
 We calculate the spawn index in four steps.
 First, we develop a statistical framework and sampling protocol to estimate the number of eggs in a given area.
-Second, we develop a conversion factor to convert \fishName{} eggs to biomass, which is critical to calculating the spawn index.
-Third, we calculate the spawn index for each of the three aforementioned spawn survey types: surface, Macrocystis, and understory.
+Second, we develop a conversion factor to convert \fishName{} eggs to biomass,
+which is critical to calculating the spawn index.
+Third, we calculate the spawn index for each of the three aforementioned spawn survey types:
+surface, Macrocystis, and understory.
 Finally, we combine the spawn indices from the three types of survey observations, and
-aggregate by stock assessment region and year to produce a relative index of combined sex spawning biomass.
+aggregate by stock assessment region and year to produce
+a relative index of combined sex spawning biomass.
 We identify uncertainties in spawn index calculations, and
 describe how users can install the SpawnIndex \textbf{R} package
 to calculate the spawn index using an example database.
-Although we transform the spawn survey data from egg density to biomass in tonnes, the annual time series of egg density and biomass are relative indices of spawning biomass.}
+Although we transform the spawn survey data from egg density to biomass in tonnes,
+the annual time series of egg density and biomass are relative indices of spawning biomass.}
 
 % Resume (i.e., French abstract)
 \newcommand{\trResume}{
@@ -342,7 +347,8 @@ There are three types of spawn survey observations:
 \begin{enumerate}
 \item Observations of spawn taken from the surface usually at low tide,
 \item Underwater observations of spawn on giant kelp, Macrocystis (\emph{Macrocystis} spp.), and
-\item Underwater observations of spawn on other types of algae and the substrate, which we refer to as `understory.'
+\item Underwater observations of spawn on other types of algae and the substrate,
+which we refer to as `understory.'
 \end{enumerate}
 Surface spawn surveys are believed to be the least accurate of the three survey types, but they have the greatest temporal and spatial extent \citep{Schweigert1993b}.
 For example, surface spawn surveys were the only survey type prior to \Sexpr{pars$years$dive}, and
