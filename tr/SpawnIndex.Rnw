@@ -593,7 +593,7 @@ This document accompanies our SpawnIndex package (\autoref{secPack}).
 The SpawnIndex package has functions to calculate the spawn index,
 and is a step towards `good enough' practices in scientific computing \citep{WilsonEtal2016}.
 Previously, spawn index calculations were implemented in a \textbf{Microsoft Access} database.
-We updated the calculations from a database to an \textbf{R} \citeyearpar[RCT][]{R-4.0.3-32} package for several reasons.
+We updated the calculations from a database to an \textbf{R} \citeyearpar[RCT][]{R-4.0.5-32} package for several reasons.
 First, the database has been used for various purposes over the last two decades
 and has incidental calculations that make it overly complex.
 Second, the database is difficult to troubleshoot because
@@ -1916,15 +1916,16 @@ and includes uncertainty and assumptions (\autoref{secUncertain}), and
 
 \section{R PACKAGE}\label{secPack}
 
-The SpawnIndex \textbf{R} \citeyearpar[RCT][]{R-4.0.3-32} package is publicly accessible on the \gitRepo{}.
-The package includes an example database of \fishName{} spawn survey observations,
-and a vignette with examples.
-The SpawnIndex package contains functions to import tables from the database
-and calculate the spawn index.
-This document is meant to accompany the \textbf{R} package,
-which implements the calculations described herein.
+We created an \textbf{R} \citeyearpar[RCT][]{R-4.0.5-32} package
+to implement the calculations described in this document.
+The SpawnIndex \textbf{R} package is publicly accessible on the \gitRepo{}.
+The SpawnIndex package contains
+an example database of \fishName{} spawn survey observations, as well as
+functions to import tables from the database, and
+functions to calculate the spawn index.
 The SpawnIndex package is documented, and
 has examples to promote accessibility and transparency.
+There is also a vignette with an example workflow.
 
 \section{ACKNOWLEDGEMENTS}
 

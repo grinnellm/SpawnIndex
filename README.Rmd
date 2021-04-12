@@ -27,15 +27,13 @@ Note: `R-CMD-check` works on my Windows machine but fails on GitHub Actions
 ## Description
 
 The SpawnIndex **R** package provides data, parameter values, and methods to
-calculate the spawn index for Pacific Herring (*Clupea pallasii*) in
-British Columbia (BC), Canada. Essentially, spawn index calculations convert
-spawn survey observations (e.g., spatial extent, number of egg layers,
-substrate type) to the Pacific Herring spawn index in BC. There are three
-types of spawn survey observations: surface spawn observations, Macrocystis
-spawn observations, and understory spawn observations. In addition, we
-include methods to convert eggs to biomass, and estimate spawning biomass in
-spawn-on-kelp operations. Note that the 'spawn index' is a relative index of
-spawning biomass.
+calculate the spawn index for Pacific Herring (*Clupea pallasii*) in British
+Columbia (BC), Canada. Essentially, spawn index calculations convert spawn
+survey observations (e.g., spatial extent, number of egg layers, substrate type)
+to the Pacific Herring spawn index in BC. There are three types of spawn survey observations: surface spawn observations, Macrocystis spawn observations, and
+understory spawn observations. In addition, we include methods to convert eggs
+to biomass, and estimate spawning biomass in spawn-on-kelp operations. Note that
+the 'spawn index' is a relative index of spawning biomass.
 
 ## Installation
 
@@ -130,7 +128,8 @@ In this example, `r sok`\ kg of SOK was produced by
 
 ## Additional information
 
-The technical report has background information on the spawn index and calculations.
+The technical report has background information on the spawn index and
+calculations.
 A draft technical report is available here: `./tr/Draft.pdf`.
 **Please do not cite or circulate this draft.**
 In addition, there is a vignette with an example workflow;
