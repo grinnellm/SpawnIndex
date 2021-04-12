@@ -9,7 +9,7 @@ pallasii}) in British Columbia, Canada.}
 The SpawnIndex package provides data, parameter values, and methods to
 calculate the spawn index for Pacific Herring (\emph{Clupea pallasii}) in
 British Columbia (BC), Canada. Essentially, spawn index calculations convert
-spawn survey observations (e.g., spawn extent, number of egg layers,
+spawn survey observations (e.g., spatial extent, number of egg layers,
 substrate type) to the Pacific Herring spawn index in BC. There are three
 types of spawn survey observations: surface spawn observations, Macrocystis
 spawn observations, and understory spawn observations. In addition, we

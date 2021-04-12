@@ -58,7 +58,7 @@ $^3$ Institute of Ocean Sciences, Fisheries and Oceans Canada,\\
 % Abstract
 \newcommand{\trAbstract}{
 The spawn index time series is one component of \fishName{} (\scienceName{}) stock assessments in British Columbia, Canada.
-This document describes how we calculate the spawn index from spawn survey observations (e.g., spawn extent, number of egg layers, substrate type).
+This document describes how we calculate the spawn index from spawn survey observations (e.g., spatial extent, number of egg layers, substrate type).
 There are three types of spawn survey observations:
 (1) observations of spawn taken from the surface usually at low tide;
 (2) underwater observations of spawn on giant kelp, Macrocystis (\emph{Macrocystis} spp.); and
@@ -82,7 +82,7 @@ the annual time series of egg density and biomass are relative indices of spawni
 % Resume (i.e., French abstract)
 \newcommand{\trResume}{
 La série chronologique de l'indice de frai est une composante des évaluations des stocks de hareng du Pacifique (\scienceName{}) en Colombie-Britannique, Canada.
-Ce document décrit comment nous calculons l'indice de frai à partir des observations du relevé du frai (par ex., l'étendue du frai, le nombre de couches d'œufs, le type de substrat).
+Ce document décrit comment nous calculons l'indice de frai à partir des observations du relevé du frai (par ex., l'étendue spatiale, le nombre de couches d'oeufs, le type de substrat).
 Il existe trois types d'observations du relevé des frayères:
 (1) les observations des frayères prélevées à la surface habituellement à marée basse;
 (2) les observations sous-marines des frayères sur varech géant, Macrocystis (\emph{Macrocystis} spp.); et
@@ -96,7 +96,7 @@ nous les agrégeons par région d'évaluation des stocks et par année pour prod
 Nous identifions les incertitudes dans les calculs de l'indice de frai,
 et décrivons comment les utilisateurs peuvent installer le paquet \textbf{R} SpawnIndex pour
 calculer l'indice de frai en utilisant une base de données d'exemple.
-Bien que nous transformions les données du relevé de la densité des œufs en biomasse en tonnes, les séries chronologiques annuelles de la densité et de la biomasse des œufs sont des indices relatifs de la biomasse des géniteurs.}
+Bien que nous transformions les données du relevé de la densité des oeufs en biomasse en tonnes, les séries chronologiques annuelles de la densité et de la biomasse des oeufs sont des indices relatifs de la biomasse des géniteurs.}
 
 % Label flow diagram steps: surface, Macrocystis, and understory
 \newcounter{SurfStep}
@@ -333,7 +333,7 @@ For \fishName{} (\scienceName{}) in British Columbia (BC), Canada,
 an index of relative population abundance is provided by monitoring the
 extent and intensity of spawn (i.e., egg) deposition throughout coastal BC \citeyearpar[DFO][]{DFO2020}.
 This document describes our calculations to convert spawn survey observations
-(e.g., spawn extent, number of egg layers, substrate type)
+(e.g., spatial extent, number of egg layers, substrate type)
 to the \fishName{} spawn index in BC.
 These calculations have been described elsewhere,
 in either published or informal, internal documents.
