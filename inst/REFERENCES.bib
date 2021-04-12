@@ -420,19 +420,6 @@
   groups      = {SpawnIndex},
 }
 
-@TechReport{DFO2021,
-  author      = {{DFO (Fisheries and Oceans Canada)}},
-  institution = {Canadian Science Advisory Secretariat, Fisheries and Oceans Canada},
-  title       = {Stock status update with application of management procedures for {Pacific} {Herring} (\emph{{Clupea} pallasii}) in {British} {Columbia}: Status in 2020 and forecast for 2021},
-  number      = {2021/001},
-  pagetotal   = {49},
-  type        = {Science Response},
-  url         = {https://www.dfo-mpo.gc.ca/csas-sccs/Publications/ScR-RS/2021/2021_001-eng.html},
-  file        = {:Reports/DFO2021 - Stock status update with application of management procedures for Pacific Herring....pdf:PDF},
-  groups      = {SpawnIndex},
-  year        = {2021},
-}
-
 @Article{MarwickEtal2018,
   author   = {Ben Marwick and Carl Boettiger and Lincoln Mullen},
   title    = {Packaging data analytical work reproducibly with {R} (and friends)},
@@ -492,17 +479,6 @@
   year        = {1975},
 }
 
-@Misc{R-4.0.5-32,
-  author       = {{RCT (R Core Team)}},
-  title        = {{R}: A language and environment for statistical computing},
-  note         = {R Foundation for Statistical Computing. {Vienna, Austria}. Version 4.0.5 (32-bit)},
-  organization = {R Foundation for Statistical Computing},
-  url          = {http://www.R-project.org},
-  address      = {Vienna, Austria},
-  groups       = {SpawnIndex},
-  year         = {2021},
-}
-
 @Article{BrunelPiet2013,
   author   = {Thomas Brunel and Gerlan J Piet},
   title    = {Is age structure a relevant criterion for the health of fish stocks?},
@@ -557,14 +533,16 @@
 
 @TechReport{GrinnellEtalYYYY,
   author      = {Matthew H Grinnell and Jake S Schweigert and Matt Thompson and Sarah Hawkshaw and Jaclyn S Cleary},
-  year        = {2021},
+  date        = {2021},
   institution = {{Fisheries and Oceans Canada}},
   title       = {Calculate the spawn index for {Pacific} {Herring} (\emph{{Clupea} pallasii}) in {British} {Columbia}},
   note        = {In prep},
   number      = {nnnn},
   type        = {Canadian Technical Report of Fisheries and Aquatic Sciences},
-  abstract    = {The spawn index time series is one component of Pacific Herring (Clupea pallasii) stock assessments in British Columbia, Canada. This document describes how we calculate the spawn index from spawn survey observations (e.g., spatial extent, number of egg layers, substrate type). There are three types of spawn survey observations: (1) observations of spawn taken from the surface usually at low tide; (2) underwater observations of spawn on giant kelp, Macrocystis (Macrocystis spp.); and (3) underwater observations of spawn on other types of algae and the substrate, which we refer to as ‘understory.’ We calculate the spawn index in four steps. First, we develop a sampling protocol to estimate the number of eggs in a given area. Second, we develop a conversion factor to convert Pacific Herring eggs to biomass, which is critical to calculating the spawn index. Third, we calculate the spawn index for each of the three aforementioned spawn survey types: surface, Macrocystis, and understory. Finally, we combine the three spawn indices, and aggregate by stock assessment region and year to produce a relative index of combined sex spawning biomass. In addition, we identify uncertainties in spawn index calculations, and we describe how users can install the R package to calculate the spawn index using an example database. Although we transform the spawn survey data from egg density to biomass in tonnes, the annual time series of egg density and biomass are relative indices of spawning biomass.},
+  abstract    = {The spawn index time series is one component of Pacific Herring (Clupea pallasii) stock assessments in British Columbia, Canada. This document describes how we calculate the spawn index from spawn survey observations (e.g., spatial extent, number of egg layers, substrate type). There are three types of spawn survey observations: (1) observations of spawn taken from the surface usually at low tide; (2) underwater observations of spawn on giant kelp, Macrocystis (Macrocystis spp.); and (3) underwater observations of spawn on other types of algae and the substrate, which we refer to as ‘understory.’ We calculate the spawn index in four steps. First, we develop a statistical framework and sampling protocol to estimate the number of eggs in a given area. Second, we develop a conversion factor to convert Pacific Herring eggs to biomass, which is critical to calculating the spawn index. Third, we calculate the spawn index for each of the three aforementioned spawn survey types: surface, Macrocystis, and understory. Finally, we combine the spawn indices from the three types of survey observations, and aggregate by stock assessment region and year to produce a relative index of combined sex spawning biomass. We identify uncertainties in spawn index calculations, and describe how users can install the SpawnIndex R package to calculate the spawn index using an example database. Although we transform the spawn survey data from
+egg density to biomass in tonnes, the annual time series of egg density and biomass are relative indices of spawning biomass.},
   groups      = {SpawnIndex},
+  year        = {2021},
 }
 
 @Article{AldericeEtal1979,
@@ -592,4 +570,29 @@
   file      = {:Books/ScheafferEtal2012 - Elementary survey sampling.pdf:PDF},
   groups    = {SpawnIndex},
   year      = {2012},
+}
+
+@Misc{R-4.0.5-32,
+  author       = {{RCT (R Core Team)}},
+  title        = {{R}: A language and environment for statistical computing},
+  note         = {R Foundation for Statistical Computing. {Vienna, Austria}. Version 4.0.5 (32-bit)},
+  organization = {R Foundation for Statistical Computing},
+  url          = {http://www.R-project.org},
+  address      = {Vienna, Austria},
+  groups       = {SpawnIndex},
+  owner        = {GrinnellM},
+  timestamp    = {2011-12-21},
+  year         = {2021},
+}
+
+@TechReport{DFO2021,
+  author      = {{DFO (Fisheries and Oceans Canada)}},
+  institution = {Canadian Science Advisory Secretariat, Fisheries and Oceans Canada},
+  title       = {Stock status update with application of management procedures for {Pacific} {Herring} (\emph{{Clupea} pallasii}) in {British} {Columbia}: Status in 2020 and forecast for 2021},
+  number      = {2021/001},
+  pagetotal   = {49},
+  type        = {Science Response},
+  url         = {https://www.dfo-mpo.gc.ca/csas-sccs/Publications/ScR-RS/2021/2021_001-eng.pdf},
+  groups      = {SpawnIndex},
+  year        = {2021},
 }
