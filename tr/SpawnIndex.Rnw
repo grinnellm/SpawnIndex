@@ -633,35 +633,35 @@ Legend: stock assessment region (SAR), spawn-on-kelp (SOK).}
 \toprule
 \textbf{Name} & \textbf{Description} & \textbf{Range} \\
 \midrule
-$y$ & Year & $y_1$, $y_2$, $y_3$, ..., $Y$ \\
+$y$ & Year & $y_1$, $y_2$, $y_3$, \ldots, $Y$ \\
 $Y$ & Last year of time series & \\
-$r$ & SAR & 1, 2, 3, ..., $R$ \\
+$r$ & SAR & 1, 2, 3, \ldots, $R$ \\
 $R$ & Number of SARs & \\
-$n_{ry}$ & Location & 1, 2, 3, ..., $N_{ry}$ \\
+$n_{ry}$ & Location & 1, 2, 3, \ldots, $N_{ry}$ \\
 $N_{ry}$ & Number of locations & \\
-$s_{nry}$ & Spawn & 1, 2, 3, ..., $S_{nry}$ \\
+$s_{nry}$ & Spawn & 1, 2, 3, \ldots, $S_{nry}$ \\
 $S_{nry}$ & Number of spawns & \\
-$x_{snry}$ & Spawn survey type & 1, 2, 3, ..., $X_{snry}$ \\
+$x_{snry}$ & Spawn survey type & 1, 2, 3, \ldots, $X_{snry}$ \\
 $X_{snry}$ & Number of spawn survey types & \\
-$j_{xsnry}$ & Sample & 1, 2, 3, ..., $J_{xsnry}$ \\
+$j_{xsnry}$ & Sample & 1, 2, 3, \ldots, $J_{xsnry}$ \\
 $J_{xsnry}$ & Number of samples & \\
-$i_{jxsnry}$ & Substrate type (surface) & 1, 2, 3, ..., $I_{jxsnry}$ \\
+$i_{jxsnry}$ & Substrate type (surface) & 1, 2, 3, \ldots, $I_{jxsnry}$ \\
 $I_{jxsnry}$ & Number of substrate types (surface) & \\
-$t_{xsnry}$ & Transect & 1, 2, 3, ..., $T_{xsnry}$ \\
+$t_{xsnry}$ & Transect & 1, 2, 3, \ldots, $T_{xsnry}$ \\
 $T_{xsnry}$ & Number of transects & \\
 $T_{xsnry}'$ & Number of potential transects & \\
-$p_{txsnry}$ & Plant & 1, 2, 3, ..., $P_{txsnry}$ \\
+$p_{txsnry}$ & Plant & 1, 2, 3, \ldots, $P_{txsnry}$ \\
 $P_{txsnry}$ & Number of plants & \\
-$k_{ptxsnry}$ & Stalk & 1, 2, 3, ..., $K_{ptxsnry}$ \\
+$k_{ptxsnry}$ & Stalk & 1, 2, 3, \ldots, $K_{ptxsnry}$ \\
 $K_{ptxsnry}$ & Number of stalks & \\
-$q_{txsnry}$ & Quadrat & 1, 2, 3, ..., $Q_{txsnry}$ \\
+$q_{txsnry}$ & Quadrat & 1, 2, 3, \ldots, $Q_{txsnry}$ \\
 $Q_{txsnry}$ & Number of quadrats & \\
 $Q_{txsnry}'$ & Number of potential quadrats & \\
-$i_{qtxsnry}'$ & Substrate type (understory) & 1, 2, 3, ..., $I_{qtxsnry}'$ \\
+$i_{qtxsnry}'$ & Substrate type (understory) & 1, 2, 3, \ldots, $I_{qtxsnry}'$ \\
 $I_{qtxsnry}'$ & Number of substrate types (understory) & \\
-$v_{qtxsnry}$ & Algae (i.e., vegetation) type & 1, 2, 3, ..., $V_{qtxsnry}$ \\
+$v_{qtxsnry}$ & Algae (i.e., vegetation) type & 1, 2, 3, \ldots, $V_{qtxsnry}$ \\
 $V_{qtxsnry}$ & Number of algae types & \\
-$g_{ry}$ & SOK fishery & 1, 2, 3, ..., $G_{ry}$ \\
+$g_{ry}$ & SOK fishery & 1, 2, 3, \ldots, $G_{ry}$ \\
 $G_{ry}$ & Number of SOK fisheries & \\
 \bottomrule
 \end{tabulary}
@@ -809,13 +809,16 @@ These data are used to determine the total egg deposition on Macrocystis plants 
 
 \section{SAMPLING PROTOCOL}\label{secProt}
 
-The following is a brief summary of the spawn survey sampling protocol in the \surveyManual{}.
-\fishName{} in BC primarily spawn in sheltered bays and inlets, depositing their eggs on rocks and algae between depths of
-$1.5\,\text{m}$ above and $18\,\text{m}$ below the 0-tide level \citep{HumphreysHourston1978, HaegeleSchweigert1985}.
+The following is a brief summary of the spawn survey sampling protocol from the \surveyManual{}.
+\fishName{} in BC primarily spawn in sheltered bays and inlets,
+depositing eggs on rocks and algae between depths of
+$1.5\,\text{m}$ above and $18\,\text{m}$ below
+the 0-tide level \citep{HumphreysHourston1978, HaegeleSchweigert1985}.
 We identify distinct spawns (both spatially and temporally) by a unique combination of year, Location, and `spawn number'
-$s_{nry}=1,\,2,\,3,\,...,\,S_{nry}$ (\autoref{tabNotationIndices}).
+$s_{nry}=1,\,2,\,3,\,\ldots,\,S_{nry}$ (\autoref{tabNotationIndices}).
 Spawn numbers identify distinct spawns,
-which we define as a continuous stretch of shoreline with no detectable break in egg deposition;
+which we define as a continuous stretch of shoreline
+with no detectable break in egg deposition;
 this is the finest scale at which we calculate the spawn index.
 A break in egg deposition is determined by the absence of \fishName{} spawn on two consecutive transects,or
 by a temporal gap in spawning.
