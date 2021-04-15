@@ -553,7 +553,7 @@ aggregate by SAR and year to produce a relative index of combined sex spawning b
 
 \begin{figure}
 \centering
-\begin{tikzpicture}[node distance=1cm and 0.2cm, font=\footnotesize]
+\begin{tikzpicture}[node distance=1.1cm and 0.2cm, font=\footnotesize]
 \node [terminal, label={[text width=10em] \textbf{Macrocystis (M)}}] (mExt) {\labelMacro{mExt} Determine spatial extent and transect locations (\S{}~\ref{secMacroProt}).};
 \node [process, below=of mExt] (mPlant) {\labelMacro{mPlant} Plant $p$ observations for mature plants (e.g., number of stalks; \S{}~\ref{secMacroP}).};
 \node [process, below=of mPlant] (mTrans) {\labelMacro{mTrans} Transect $t$ observations and calculations (e.g., spawn width, mean number of egg layers, mean plant height; \S{}~\ref{secMacroT}).};
@@ -568,7 +568,7 @@ aggregate by SAR and year to produce a relative index of combined sex spawning b
 \node [process, below=of uQuad, right=of mTrans] (uTrans) {\labelUnder{uTrans} Transect $t$ observations and calculations weighted by spawn width (e.g., spawn width, mean egg density; \S{}~\ref{secUnderT}).};
 \node [process, below=of uTrans, right=of mSpawn] (uSpawn) {\labelUnder{uSpawn} Spawn $s$ observations and calculations (e.g., algae bed length, mean spawn width, egg density; \S{}~\ref{secUnderS}).};
 \node [inout, below=of uSpawn, right=of mInd] (uInd) {\labelUnder{uInd} Understory spawn index $B_{x_{snry}}'$ (Eq~\ref{eqUnderIndS}).};
-\node [inout, below=of mInd, text width=12em] (tIndex) {\labelTotal{tIndex} Total spawn index $B_{s_{nry}}'=\sum_{x_{snry}=1}^{X_{snry}} B_{x_{snry}}'$ (Eq~\ref{eqTotIndSLRY}).};
+\node [inout, below=of mInd] (tIndex) {\labelTotal{tIndex} Total spawn index $B_{s_{nry}}'$ (Eq~\ref{eqTotIndSLRY}).};
 \draw [line] (mExt) -- (mPlant);
 \draw [line] (mPlant) -- (mTrans);
 \draw [line] (mTrans) -- (mSpawn);
