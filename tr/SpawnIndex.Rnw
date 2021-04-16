@@ -1689,7 +1689,7 @@ a second one for the dive survey period $q_2$
 
 Spawn-on-kelp (SOK) fisheries collect \fishName{} roe that adheres to algae such as Macrocystis after spawning.
 Other similar fisheries include spawn-on-bough,
-in which operators collect roe that adhere to tree boughs;
+in which operators collect roe that adhere to submerged tree boughs;
 we refer to these fisheries collectively as SOK in this document.
 There are two types of SOK fisheries in BC:
 `open-pond' in which operators provide algae to spawning \fishName{}, and
