@@ -1679,11 +1679,11 @@ unobserved spawns \citeyearpar[DFO][]{DFO2016}.
 Although $q$ is uncertain
 and a number of assumptions are made within the assessment model,
 there are differences between the proportion of spawn observed in the two spawn survey periods \citeyearpar[DFO][]{DFO2021}.
-Therefore, we estimate one spawn index scaling parameter for
-the surface survey period
-($q_1$; \Sexpr{pars$years$assess} to \Sexpr{pars$years$dive-1}), and
-a second one for the dive survey period
-($q_2$; \Sexpr{pars$years$dive} to present), for each SAR.
+Therefore, for each SAR we estimate one spawn index scaling parameter for
+the surface survey period $q_1$
+(\Sexpr{pars$years$assess} to \Sexpr{pars$years$dive-1}), and
+a second one for the dive survey period $q_2$
+(\Sexpr{pars$years$dive} to present).
 
 \section{SPAWN-ON-KELP CALCULATIONS}\label{secSOK}
 
