@@ -1673,16 +1673,17 @@ To be consistent with stock assessments,
 in this section $q$ represents the spawn index scaling parameter,
 not quadrat number as in other sections of this report.
 In \fishName{} stock assessment models,
-$q$ describes the proportion of spawn observed by spawn surveys,
-accounting for egg loss (e.g., due to predation) and unobserved spawns \citeyearpar[DFO][]{DFO2016}.
-Although $q$ is highly uncertain
+$q$ describes the proportion of spawn observed in spawn surveys,
+accounting for egg loss (e.g., due to predation) and
+unobserved spawns \citeyearpar[DFO][]{DFO2016}.
+Although $q$ is uncertain
 and a number of assumptions are made within the assessment model,
 there are differences between the proportion of spawn observed in the two spawn survey periods \citeyearpar[DFO][]{DFO2021}.
 Therefore, we estimate one spawn index scaling parameter for
-the surface survey period $q_{r1}$
-(\Sexpr{pars$years$assess} to \Sexpr{pars$years$dive-1}), and
-a second one for the dive survey period $q_{r2}$
-(\Sexpr{pars$years$dive} to present).
+the surface survey period
+($q_1$; \Sexpr{pars$years$assess} to \Sexpr{pars$years$dive-1}), and
+a second one for the dive survey period
+($q_2$; \Sexpr{pars$years$dive} to present), for each SAR.
 
 \section{SPAWN-ON-KELP CALCULATIONS}\label{secSOK}
 
