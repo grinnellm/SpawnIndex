@@ -38,7 +38,8 @@ that the ‘spawn index’ is a relative index of spawning biomass.
 
 ## Installation
 
-Install the SpawnIndex package from [GitHub](https://github.com/) with:
+Install the SpawnIndex package from
+[GitHub](https://github.com/grinnellm/SpawnIndex) with:
 
 ``` r
 # install.packages("devtools")
