@@ -26,7 +26,7 @@
 *.html
 /vignettes/*.R
 
-doc
-Meta
-inst/doc
-inst/PACKAGES.bib
+/doc/
+/Meta/
+/inst/doc
+/inst/PACKAGES.bib
