@@ -23,7 +23,7 @@ opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.width = 7,
-  fig.height = 7
+  fig.height = 5.75
 )
 options(knitr.kable.NA = "")
 ```
@@ -104,7 +104,7 @@ Here we show the first 10 Locations.
 
 ```{r areas_table, echo = FALSE, results = 'asis'}
 # Table caption
-a_t_cap <- paste(
+areas_table_cap <- paste(
   "<i>Example spawn survey locations in the", region,
   "stock assessment region (SAR).</i>"
 )
@@ -119,7 +119,9 @@ areas %>%
     `Location code` = LocationCode
   ) %>%
   slice(1:10) %>%
-  kable(caption = a_t_cap, booktabs = TRUE, digits = c(0, 0, 0, 0, 0, 3, 3))
+  kable(
+    caption = areas_table_cap, booktabs = TRUE, digits = c(0, 0, 0, 0, 0, 3, 3)
+  )
 ```
 
 # Spawn index calculations
@@ -159,7 +161,7 @@ width_bar <- get_width(where = width_loc, areas = areas)
 
 ```{r width_table, echo = FALSE, results = 'asis'}
 # Table caption
-w_t_cap <- paste(
+width_table_cap <- paste(
   "<i>Median spawn width in metres (m) in the", region,
   "stock assessment region (SAR).</i>"
 )
@@ -171,7 +173,9 @@ full_join(x = width_bar$region, y = width_bar$section, by = "Region") %>%
     `Pool width` = WidthPool
   ) %>%
   slice(1:10) %>%
-  kable(caption = w_t_cap, booktabs = TRUE, digits = c(0, 1, 0, 1, 0, 1))
+  kable(
+    caption = width_table_cap, booktabs = TRUE, digits = c(0, 1, 0, 1, 0, 1)
+  )
 ```
 
 Surface spawn index calculations also require a table to convert
@@ -194,9 +198,9 @@ surf_spawn <- calc_surf_index(
 
 Show surface spawn on a map, aggregated by Location and year.
 
-```{r surf_loc_yr, fig.cap = s_f_cap}
+```{r surf_loc_yr, fig.cap = surf_loc_yr_cap}
 # Figure caption
-s_f_cap <- paste(
+surf_loc_yr_cap <- paste(
   "<i>Surface spawn index in tonnes (t) by location and year from",
   min(yr_range), "to", max(yr_range), "in the", region,
   "stock assessment region (SAR).</i>"
@@ -219,14 +223,15 @@ ggplot(data = surf_loc_yr) +
   labs(colour = "Spawn\nindex (t)") +
   coord_sf(xlim = x_lims, ylim = y_lims) +
   facet_wrap(Year ~ ., ncol = 2) +
-  theme_bw()
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
 Calculate the total surface spawn by year.
 
 ```{r surf_yr, results = 'asis'}
 # Table caption
-s_t_cap <- paste(
+surf_yr_cap <- paste(
   "<i>Surface spawn index in tonnes (t) by year from", min(yr_range), "to",
   max(yr_range), "in the", region, "stock assessment region (SAR).</i>"
 )
@@ -238,7 +243,7 @@ surf_yr <- surf_spawn$si %>%
   complete(Year = yr_range) %>%
   arrange(Year)
 # Table
-kable(x = surf_yr, digits = c(0, 1), booktabs = TRUE, caption = s_t_cap)
+kable(x = surf_yr, digits = c(0, 1), booktabs = TRUE, caption = surf_yr_cap)
 ```
 
 ## Macrocystis spawn index
@@ -262,9 +267,9 @@ macro_spawn <- calc_macro_index(
 
 Show Macrocystis spawn on a map, aggregated by Location and year.
 
-```{r macro_loc_yr, fig.cap = m_f_cap}
+```{r macro_loc_yr, fig.cap = macro_loc_yr_cap}
 # Figure caption
-m_f_cap <- paste(
+macro_loc_yr_cap <- paste(
   "<i>Macrocystis spawn index in tonnes (t) by location and year from",
   min(yr_range), "to", max(yr_range), "in the", region,
   "stock assessment region (SAR).</i>"
@@ -287,14 +292,15 @@ ggplot(data = macro_loc_yr) +
   labs(colour = "Spawn\nindex (t)") +
   coord_sf(xlim = x_lims, ylim = y_lims) +
   facet_wrap(Year ~ ., ncol = 2) +
-  theme_bw()
+  theme_bw()  +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
 Calculate the total Macrocystis spawn by year.
 
 ```{r macro_yr, results = 'asis'}
 # Table caption
-m_t_cap <- paste(
+macro_yr_cap <- paste(
   "<i>Macrocystis spawn index in tonnes (t) by year from", min(yr_range), "to",
   max(yr_range), "in the", region, "stock assessment region (SAR).</i>"
 )
@@ -306,7 +312,7 @@ macro_yr <- macro_spawn$si %>%
   complete(Year = yr_range) %>%
   arrange(Year)
 # Table
-kable(x = macro_yr, digits = c(0, 1), booktabs = TRUE, caption = m_t_cap)
+kable(x = macro_yr, digits = c(0, 1), booktabs = TRUE, caption = macro_yr_cap)
 ```
 
 ## Understory spawn index
@@ -336,9 +342,9 @@ under_spawn <- calc_under_index(
 
 Show understory spawn on a map, aggregated by Location and year.
 
-```{r under_loc_yr, fig.cap = u_f_cap}
+```{r under_loc_yr, fig.cap = under_loc_yr_cap}
 # Figure caption
-u_f_cap <- paste(
+under_loc_yr_cap <- paste(
   "<i>Understory spawn index in tonnes (t) by location and year from",
   min(yr_range), "to", max(yr_range), "in the", region,
   "stock assessment region (SAR).</i>"
@@ -361,14 +367,15 @@ ggplot(data = under_loc_yr) +
   labs(colour = "Spawn\nindex (t)") +
   coord_sf(xlim = x_lims, ylim = y_lims) +
   facet_wrap(Year ~ ., ncol = 2) +
-  theme_bw()
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
 Calculate the total understory spawn by year.
 
 ```{r under_yr, results = 'asis'}
 # Table caption
-u_t_cap <- paste(
+under_yr_cap <- paste(
   "<i>Understory spawn index in tonnes (t) by year from", min(yr_range), "to",
   max(yr_range), "in the", region, "stock assessment region (SAR).</i>"
 )
@@ -380,7 +387,7 @@ under_yr <- under_spawn$si %>%
   complete(Year = yr_range) %>%
   arrange(Year)
 # Table
-kable(x = under_yr, digits = c(0, 1), booktabs = TRUE, caption = u_t_cap)
+kable(x = under_yr, digits = c(0, 1), booktabs = TRUE, caption = under_yr_cap)
 ```
 
 ## Total spawn index
@@ -391,7 +398,7 @@ surface, Macrocystis, and understory.
 
 ```{r total_yr, results = 'asis'}
 # Table caption
-t_t_cap <- paste(
+total_yr_cap <- paste(
   "<i>Total spawn index in tonnes (t) by year from", min(yr_range), "to",
   max(yr_range), "in the", region, "stock assessment region (SAR).</i>"
 )
@@ -405,7 +412,8 @@ total_yr <- full_join(x = surf_yr, y = macro_yr, by = "Year") %>%
   arrange(Year)
 # Table
 kable(
-  x = total_yr, digits = c(0, 1, 1, 1, 1), booktabs = TRUE, caption = t_t_cap
+  x = total_yr, digits = c(0, 1, 1, 1, 1), booktabs = TRUE,
+  caption = total_yr_cap
 ) %>%
   add_header_above(header = c("", "Survey" = 3, ""))
 ```
@@ -418,7 +426,7 @@ Note that these are fictional values.
 
 ```{r sok_yr, results='asis'}
 # Table caption
-k_t_cap <- paste(
+sok_yr_cap <- paste(
   "<i>SOK harvest in kilograms (kg) by year and associated biomass in tonnes",
   "(t) from", min(yr_range), "to", max(yr_range), "in the", region,
   "stock assessment region (SAR).</i>"
@@ -431,7 +439,7 @@ kg_sok <- tibble(
 ) %>%
   mutate(Biomass = calc_sok_sb(Harvest))
 # Table
-kable(x = kg_sok, digits = c(0, 0, 1), booktabs = TRUE, caption = k_t_cap)
+kable(x = kg_sok, digits = c(0, 0, 1), booktabs = TRUE, caption = sok_yr_cap)
 ```
 
 # References
