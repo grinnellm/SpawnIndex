@@ -37,7 +37,7 @@ See the technical report for background information [@GrinnellEtalYYYY].
 Source code is on the
 [GitHub repository](https://github.com/grinnellm/SpawnIndex).
 Load the `SpawnIndex` package [@R-SpawnIndex], and
-a few other packages for analyses, tables, and figures.
+a few other packages for data wrangling, tables, and figures.
 
 ```{r libraries, message = FALSE, warning = FALSE}
 # Packages
@@ -45,8 +45,8 @@ library(SpawnIndex)
 library(dplyr)
 library(ggplot2)
 library(tidyr)
-library(sf)
 library(kableExtra)
+library(sf)
 library(rnaturalearth)
 library(rnaturalearthhires)
 # Suppress summarise info
@@ -62,7 +62,7 @@ load some land polygons for maps.
 ```{r pars}
 # Parameters
 region <- "WCVI"
-yr_range <- 2010:2015
+yr_range <- 2010:2013
 # Data
 data(pars) # Default spawn index parameter values
 # Canada: coarse polygons for mapping
@@ -119,8 +119,7 @@ areas %>%
     `Location code` = LocationCode
   ) %>%
   slice(1:10) %>%
-  kable(caption = a_t_cap, booktabs = TRUE, digits = c(0, 0, 0, 0, 0, 3, 3)) %>%
-  kableExtra::kable_styling(full_width = F)
+  kable(caption = a_t_cap, booktabs = TRUE, digits = c(0, 0, 0, 0, 0, 3, 3))
 ```
 
 # Spawn index calculations
