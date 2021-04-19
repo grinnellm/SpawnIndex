@@ -77,7 +77,8 @@ from `r min(yr_range)` to `r max(yr_range)`.
 Load the spatial information for this region;
 we will use the example spawn database that comes with
 the package (`HerringSpawn.mdb`).
-Note that this example database only includes WCVI from 2010 to 2015.
+Note that this example database includes spawn survey data from 2010 to 2015
+in the West Coast of Vancouver Island (WCVI) stock assessment region (SAR).
 
 ```{r areas}
 # Database location
@@ -95,22 +96,31 @@ x_lims <- range(areas$Longitude)
 y_lims <- range(areas$Latitude)
 ```
 
-In this example database, `r region` has
+In this example database, the `r region` SAR has
 `r n_distinct(areas$StatArea)` Statistical Areas,
 `r n_distinct(areas$Section)` Sections, and
 `r n_distinct(areas$LocationName)` Locations.
 Here we show the first 10 Locations.
 
 ```{r areas_table, echo = FALSE, results = 'asis'}
+# Table caption
+a_t_cap <- paste(
+  "<i>Example spawn survey locations in the", region,
+  "stock assessment region (SAR).</i>"
+)
 # Areas to include
 areas %>%
-  select(Region, StatArea, Section, LocationName, Longitude, Latitude) %>%
+  select(
+    Region, StatArea, Section, LocationName, LocationCode, Longitude, Latitude
+  ) %>%
   arrange(StatArea, Section, LocationName) %>%
+  rename(
+    `Statistical Area` = StatArea, `Location name` = LocationName,
+    `Location code` = LocationCode
+  ) %>%
   slice(1:10) %>%
-  kable(
-    caption = paste("Example spawn survey Locations in the", region, "region."),
-    booktabs = TRUE
-  )
+  kable(caption = a_t_cap, booktabs = TRUE, digits = c(0, 0, 0, 0, 0, 3, 3)) %>%
+  kableExtra::kable_styling(full_width = F)
 ```
 
 # Spawn index calculations
@@ -137,9 +147,10 @@ Surface spawn index calculations require a table of median spawn width estimates
 because width estimates from surfaces surveys are inaccurate.
 
 ```{r width}
-# Median spawn widths
+# Median spawn width
 width_loc <- list(
-  loc = db_loc, db = "HerringSpawn.mdb",
+  loc = db_loc,
+  db = "HerringSpawn.mdb",
   fns = list(
     region_std = "RegionStd", section_std = "SectionStd", pool_std = "PoolStd"
   )
@@ -148,6 +159,11 @@ width_bar <- get_width(where = width_loc, areas = areas)
 ```
 
 ```{r width_table, echo = FALSE, results = 'asis'}
+# Table caption
+w_t_cap <- paste(
+  "<i>Median spawn width in metres (m) in the", region,
+  "stock assessment region (SAR).</i>"
+)
 # Median spawn width: table
 full_join(x = width_bar$region, y = width_bar$section, by = "Region") %>%
   full_join(y = width_bar$pool, by = c("Region", "Section")) %>%
@@ -156,12 +172,7 @@ full_join(x = width_bar$region, y = width_bar$section, by = "Region") %>%
     `Pool width` = WidthPool
   ) %>%
   slice(1:10) %>%
-  kable(
-    caption = paste(
-      "Median spawn widths in metres (m) in the", region, "region."
-    ),
-    booktabs = TRUE
-  )
+  kable(caption = w_t_cap, booktabs = TRUE, digits = c(0, 1, 0, 1, 0, 1))
 ```
 
 Surface spawn index calculations also require a table to convert
@@ -172,7 +183,8 @@ intensity categories to the number of egg layers.
 data(intensity) # Spawn intensity categories and number of egg layers
 # List indicating the necessary tables
 surf_loc <- list(
-  loc = db_loc, db = "HerringSpawn.mdb",
+  loc = db_loc,
+  db = "HerringSpawn.mdb",
   fns = list(surface = "tSSSurface", all_spawn = "tSSAllspawn")
 )
 # Calculate the surface spawn index
@@ -183,7 +195,13 @@ surf_spawn <- calc_surf_index(
 
 Show surface spawn on a map, aggregated by Location and year.
 
-```{r surf_loc_yr, fig.cap = "Surface spawn index in tonnes (t) by location and year."}
+```{r surf_loc_yr, fig.cap = s_f_cap}
+# Figure caption
+s_f_cap <- paste(
+  "<i>Surface spawn index in tonnes (t) by location and year from",
+  min(yr_range), "to", max(yr_range), "in the", region,
+  "stock assessment region (SAR).</i>"
+)
 # Make a spatial object for mapping
 surf_loc_yr <- surf_spawn$si %>%
   group_by(Year, LocationCode) %>%
@@ -208,6 +226,11 @@ ggplot(data = surf_loc_yr) +
 Calculate the total surface spawn by year.
 
 ```{r surf_yr, results = 'asis'}
+# Table caption
+s_t_cap <- paste(
+  "<i>Surface spawn index in tonnes (t) by year from", min(yr_range), "to",
+  max(yr_range), "in the", region, "stock assessment region (SAR).</i>"
+)
 # Aggregate the surface spawn index by year
 surf_yr <- surf_spawn$si %>%
   group_by(Year) %>%
@@ -216,10 +239,7 @@ surf_yr <- surf_spawn$si %>%
   complete(Year = yr_range) %>%
   arrange(Year)
 # Table
-kable(
-  x = surf_yr, digits = 1, booktabs = TRUE,
-  caption = "Surface spawn index in tonnes (t) by year."
-)
+kable(x = surf_yr, digits = c(0, 1), booktabs = TRUE, caption = s_t_cap)
 ```
 
 ## Macrocystis spawn index
@@ -229,7 +249,8 @@ Calculate the Macrocystis spawn index.
 ```{r macro}
 # List indicating the necessary tables
 macro_loc <- list(
-  loc = file.path(db_loc), db = "HerringSpawn.mdb",
+  loc = file.path(db_loc),
+  db = "HerringSpawn.mdb",
   fns = list(
     all_spawn = "tSSAllspawn", plants = "tSSMacPlant", transects = "tSSMacTrans"
   )
@@ -242,7 +263,13 @@ macro_spawn <- calc_macro_index(
 
 Show Macrocystis spawn on a map, aggregated by Location and year.
 
-```{r macro_loc_yr, fig.cap = "Macrocystis spawn index in tonnes (t) by location and year."}
+```{r macro_loc_yr, fig.cap = m_f_cap}
+# Figure caption
+m_f_cap <- paste(
+  "<i>Macrocystis spawn index in tonnes (t) by location and year from",
+  min(yr_range), "to", max(yr_range), "in the", region,
+  "stock assessment region (SAR).</i>"
+)
 # Make a spatial object for mapping
 macro_loc_yr <- macro_spawn$si %>%
   group_by(Year, LocationCode) %>%
@@ -267,6 +294,11 @@ ggplot(data = macro_loc_yr) +
 Calculate the total Macrocystis spawn by year.
 
 ```{r macro_yr, results = 'asis'}
+# Table caption
+m_t_cap <- paste(
+  "<i>Macrocystis spawn index in tonnes (t) by year from", min(yr_range), "to",
+  max(yr_range), "in the", region, "stock assessment region (SAR).</i>"
+)
 # Aggregate the Macrocystis spawn index by year
 macro_yr <- macro_spawn$si %>%
   group_by(Year) %>%
@@ -275,16 +307,13 @@ macro_yr <- macro_spawn$si %>%
   complete(Year = yr_range) %>%
   arrange(Year)
 # Table
-kable(
-  x = macro_yr, digits = 1, booktabs = TRUE,
-  caption = "Macrocystis spawn index in tonnes (t) by year."
-)
+kable(x = macro_yr, digits = c(0, 1), booktabs = TRUE, caption = m_t_cap)
 ```
 
 ## Understory spawn index
 
 Calculate the understory spawn index.
-Understory spawn index calculations require tables to correct spawn widths,
+Understory spawn index calculations require tables to correct spawn width,
 and to specify algae coefficients.
 
 ```{r under}
@@ -293,7 +322,8 @@ data(under_width_facs) # Understory spawn width correction factors
 data(algae_coefs) # Algae types and coefficients
 # List indicating the necessary tables
 under_loc <- list(
-  loc = file.path(db_loc), db = "HerringSpawn.mdb",
+  loc = file.path(db_loc),
+  db = "HerringSpawn.mdb",
   fns = list(
     all_spawn = "tSSAllspawn", alg_trans = "tSSVegTrans",
     stations = "tSSStations", algae = "tSSVegetation"
@@ -307,7 +337,13 @@ under_spawn <- calc_under_index(
 
 Show understory spawn on a map, aggregated by Location and year.
 
-```{r under_loc_yr, fig.cap = "Understory spawn index in tonnes (t) by location and year."}
+```{r under_loc_yr, fig.cap = u_f_cap}
+# Figure caption
+u_f_cap <- paste(
+  "<i>Understory spawn index in tonnes (t) by location and year from",
+  min(yr_range), "to", max(yr_range), "in the", region,
+  "stock assessment region (SAR).</i>"
+)
 # Make a spatial object for mapping
 under_loc_yr <- under_spawn$si %>%
   group_by(Year, LocationCode) %>%
@@ -332,6 +368,11 @@ ggplot(data = under_loc_yr) +
 Calculate the total understory spawn by year.
 
 ```{r under_yr, results = 'asis'}
+# Table caption
+u_t_cap <- paste(
+  "<i>Understory spawn index in tonnes (t) by year from", min(yr_range), "to",
+  max(yr_range), "in the", region, "stock assessment region (SAR).</i>"
+)
 # Aggregate the understory spawn index by year
 under_yr <- under_spawn$si %>%
   group_by(Year) %>%
@@ -340,10 +381,7 @@ under_yr <- under_spawn$si %>%
   complete(Year = yr_range) %>%
   arrange(Year)
 # Table
-kable(
-  x = under_yr, digits = 1, booktabs = TRUE,
-  caption = "Understory spawn index in tonnes (t) by year."
-)
+kable(x = under_yr, digits = c(0, 1), booktabs = TRUE, caption = u_t_cap)
 ```
 
 ## Total spawn index
@@ -353,6 +391,11 @@ from the three survey types:
 surface, Macrocystis, and understory.
 
 ```{r total_yr, results = 'asis'}
+# Table caption
+t_t_cap <- paste(
+  "<i>Total spawn index in tonnes (t) by year from", min(yr_range), "to",
+  max(yr_range), "in the", region, "stock assessment region (SAR).</i>"
+)
 # Total spawn index
 total_yr <- full_join(x = surf_yr, y = macro_yr, by = "Year") %>%
   full_join(y = under_yr, by = "Year") %>%
@@ -363,8 +406,7 @@ total_yr <- full_join(x = surf_yr, y = macro_yr, by = "Year") %>%
   arrange(Year)
 # Table
 kable(
-  x = total_yr, digits = 1, booktabs = TRUE,
-  caption = "Total spawn index in tonnes (t) by year."
+  x = total_yr, digits = c(0, 1, 1, 1, 1), booktabs = TRUE, caption = t_t_cap
 ) %>%
   add_header_above(header = c("", "Survey" = 3, ""))
 ```
@@ -376,17 +418,21 @@ spawn-on-kelp (SOK) operations.
 Note that these are fictional values.
 
 ```{r sok_yr, results='asis'}
+# Table caption
+k_t_cap <- paste(
+  "<i>SOK harvest in kilograms (kg) by year and associated biomass in tonnes",
+  "(t) from", min(yr_range), "to", max(yr_range), "in the", region,
+  "stock assessment region (SAR).</i>"
+)
+# Set a random seed
+set.seed(12)
 # SOK harvest (kg) by year -- make up some values
 kg_sok <- tibble(
   Year = yr_range, Harvest = sample(x = 500:10000, size = length(yr_range))
 ) %>%
   mutate(Biomass = calc_sok_sb(Harvest))
 # Table
-kable(
-  x = kg_sok, digits = 1, booktabs = TRUE,
-  caption = "SOK harvest in kilograms (kg) by year and associated biomass
-            in tonnes (t)."
-)
+kable(x = kg_sok, digits = c(0, 0, 1), booktabs = TRUE, caption = k_t_cap)
 ```
 
 # References
