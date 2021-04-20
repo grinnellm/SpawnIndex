@@ -139,9 +139,15 @@ Pacific Herring.
 
 The technical report has background information on the spawn index and
 calculations. A draft technical report is available here:
-`./tr/Draft.pdf`. **Please do not cite or circulate this draft.** In
-addition, there is a vignette with an example workflow; build the
-vignette
+`./tr/Draft.pdf`. **Please do not cite or circulate this draft.** Build
+the manual
+
+``` r
+devtools::build_manual(pkg = ".", path = ".")
+```
+
+and open the file `./SpawnIndex_0.3.0.pdf`. In addition, there is a
+vignette with an example workflow; build the vignette
 
 ``` r
 devtools::build_vignettes(pkg = ".")

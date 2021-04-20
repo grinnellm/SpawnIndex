@@ -133,6 +133,13 @@ The technical report has background information on the spawn index and
 calculations.
 A draft technical report is available here: `./tr/Draft.pdf`.
 **Please do not cite or circulate this draft.**
+Build the manual
+
+```{r manual, eval = FALSE}
+devtools::build_manual(pkg = ".", path = ".")
+```
+
+and open the file ``r paste0("./SpawnIndex_", version, ".pdf")``.
 In addition, there is a vignette with an example workflow;
 build the vignette
 
