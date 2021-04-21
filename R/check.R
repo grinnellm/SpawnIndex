@@ -4,7 +4,7 @@
 #' error if not numeric.
 #'
 #' @param dat List of objects. Message if NAs; error if not numeric.
-#' @param quiet Logical. Suppress messages; default is FALSE.
+#' @template param-quiet
 #' @importFrom Rdpack reprompt
 #' @return NULL.
 #' @family check functions
@@ -46,7 +46,7 @@ check_numeric <- function(dat,
 #'
 #' @param dat List of objects. Message if fewer rows; error if not a tibble.
 #' @param min_rows Numeric. Minimum number of rows in the tibble; default is 1.
-#' @param quiet Logical. Suppress messages; default is FALSE.
+#' @template param-quiet
 #' @importFrom tibble is_tibble
 #' @importFrom Rdpack reprompt
 #' @return NULL.

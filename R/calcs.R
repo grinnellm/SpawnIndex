@@ -7,7 +7,7 @@
 #'   from \code{\link{pars}}. Message if < 0.
 #' @param female Numeric. The proportion of spawners that are female; from
 #'   \code{\link{pars}}. Message if < 0 and/or > 1.
-#' @param quiet Logical. Suppress messages; default is FALSE.
+#' @template param-quiet
 #' @importFrom Rdpack reprompt
 #' @importFrom stats na.omit
 #' @return Numeric. The conversion factor for eggs to spawn index in tonnes
@@ -56,7 +56,7 @@ eggs_to_sb <- function(omega = pars$conversion$omega,
 #'   \code{\link{pars}}. Message if < 0.
 #' @param theta Numeric. Egg conversion factor (eggs to biomass); from
 #'   \code{\link{eggs_to_sb}}. Message if < 0.
-#' @param quiet Logical. Suppress messages; default is FALSE.
+#' @template param-quiet
 #' @importFrom Rdpack reprompt
 #' @importFrom stats na.omit
 #' @return Numeric. Spawning biomass in tonnes. Message if < 0.
@@ -115,7 +115,7 @@ calc_sok_sb <- function(sok,
 #' @param beta Numeric. Regression slope; from \code{\link{pars}}
 #'   \insertCite{SchweigertEtal1997}{SpawnIndex}.
 #' @param egg_layers Numeric. Number of egg layers. Message if < 0.
-#' @param quiet Logical. Suppress messages; default is FALSE.
+#' @template param-quiet
 #' @importFrom Rdpack reprompt
 #' @importFrom stats na.omit
 #' @return Numeric. Egg density in thousands of eggs per square metre. Message
@@ -163,9 +163,7 @@ dens_surf <- function(alpha = pars$surface$alpha,
 #'
 #' @param where List. Location of the Pacific Herring surface spawn database
 #'   (see examples).
-#' @param areas Tibble. Table of geographic information indicating the subset of
-#'   spawn survey observations to include in calculations; from
-#'   \code{\link{load_area_data}}.
+#' @template param-areas
 #' @param widths List. List of three tables: median region, section, and pool
 #'   widths in metres (m); from \code{\link{get_width}}.
 #' @param yrs Numeric vector. Years(s) to include in the calculations. Message
@@ -182,7 +180,7 @@ dens_surf <- function(alpha = pars$surface$alpha,
 #'   \insertCite{SchweigertEtal1997}{SpawnIndex}.
 #' @param theta Numeric. Egg conversion factor (eggs to biomass); from
 #'   \code{\link{eggs_to_sb}}.
-#' @param quiet Logical. Suppress messages; default is FALSE.
+#' @template param-quiet
 #' @importFrom odbc dbConnect odbc dbDisconnect
 #' @importFrom DBI dbReadTable
 #' @importFrom dplyr select distinct rename left_join filter %>% ends_with
@@ -502,7 +500,7 @@ calc_surf_index <- function(where,
 #' @param egg_layers Numeric. Number of egg layers. Message if < 0.
 #' @param height Numeric. Plant height in metres. Message if < 0.
 #' @param stalks_per_plant Numeric. Number of stalks per plant. Message if < 0.
-#' @param quiet Logical. Suppress messages; default is FALSE.
+#' @template param-quiet
 #' @importFrom Rdpack reprompt
 #' @importFrom stats na.omit
 #' @return Numeric. Number of eggs per plant in thousands. Message if < 0.
@@ -559,9 +557,7 @@ eggs_macro <- function(xi = pars$macrocystis$xi,
 #'
 #' @param where List. Location of the Pacific Herring Macrocystis spawn database
 #'   (see examples).
-#' @param areas Tibble. Table of geographic information indicating the subset of
-#'   spawn survey observations to include in calculations; from
-#'   \code{\link{load_area_data}}.
+#' @template param-areas
 #' @param yrs Numeric vector. Years(s) to include in the calculations, usually
 #'   starting in `pars$years$assess`.
 #' @param chi Numeric. Transect swath (i.e., width) in metres.
@@ -575,7 +571,7 @@ eggs_macro <- function(xi = pars$macrocystis$xi,
 #'   from \code{\link{pars}} \insertCite{HaegeleSchweigert1990}{SpawnIndex}.
 #' @param theta Numeric. Egg conversion factor (eggs to biomass); from
 #'   \code{\link{eggs_to_sb}}.
-#' @param quiet Logical. Suppress messages; default is FALSE.
+#' @template param-quiet
 #' @importFrom odbc dbConnect odbc dbDisconnect
 #' @importFrom DBI dbReadTable
 #' @importFrom dplyr select distinct rename left_join filter %>% group_by
@@ -795,7 +791,7 @@ calc_macro_index <- function(where,
 #' @param sub_layers Numeric. Number of egg layers on substrate. Message if < 0.
 #' @param sub_prop Numeric. Proportion of substrate covered in eggs. Message if
 #'   < 0 or > 1.
-#' @param quiet Logical. Suppress messages; default is FALSE.
+#' @template param-quiet
 #' @importFrom Rdpack reprompt
 #' @importFrom stats na.omit
 #' @return Numeric. Egg density in thousands of eggs per square metre. Message
@@ -851,7 +847,7 @@ dens_under_sub <- function(varphi = pars$understory$varphi,
 #'   or > 1.
 #' @param coeff Numeric. Algae coefficients; from \code{\link{algae_coefs}}
 #'   \insertCite{Schweigert2005}{SpawnIndex}. Message if < 0.
-#' @param quiet Logical. Suppress messages; default is FALSE.
+#' @template param-quiet
 #' @importFrom Rdpack reprompt
 #' @importFrom stats na.omit
 #' @return Numeric. Egg density in thousands of eggs per square metre. Message
@@ -907,9 +903,7 @@ dens_under_alg <- function(vartheta = pars$understory$vartheta,
 #'
 #' @param where List. Location of the Pacific Herring understory spawn database
 #'   (see examples).
-#' @param areas Tibble. Table of geographic information indicating the subset of
-#'   spawn survey observations to include in calculations; from
-#'   \code{\link{load_area_data}}.
+#' @template param-areas
 #' @param yrs Numeric vector. Years(s) to include in the calculations, usually
 #'   staring in `pars$years$assess`.
 #' @param alg_coefs Tibble. Table of algae coefficients; from
@@ -926,7 +920,7 @@ dens_under_alg <- function(vartheta = pars$understory$vartheta,
 #'   \code{\link{pars}} \insertCite{Schweigert2005}{SpawnIndex}.
 #' @param theta Numeric. Egg conversion factor (eggs to biomass); from
 #'   \code{\link{eggs_to_sb}}.
-#' @param quiet Logical. Suppress messages; default is FALSE.
+#' @template param-quiet
 #' @importFrom odbc dbConnect odbc dbDisconnect
 #' @importFrom DBI dbReadTable
 #' @importFrom dplyr select distinct rename left_join filter %>% ungroup
