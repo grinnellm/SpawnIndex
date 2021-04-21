@@ -7,7 +7,7 @@
 dens_under_sub(
   varphi = pars$understory$varphi,
   sub_layers,
-  sub_prop,
+  proportion,
   quiet = FALSE
 )
 }
@@ -17,8 +17,8 @@ dens_under_sub(
 
 \item{sub_layers}{Numeric. Number of egg layers on substrate. Message if < 0.}
 
-\item{sub_prop}{Numeric. Proportion of substrate covered in eggs. Message if
-< 0 or > 1.}
+\item{proportion}{Numeric. Proportion of substrate covered in eggs. Message
+if < 0 or > 1.}
 
 \item{quiet}{Logical. Suppress messages; default is FALSE.}
 }
@@ -34,7 +34,7 @@ in \code{\link{calc_under_index}} \insertCite{HaegeleEtal1979}{SpawnIndex}.
 }
 \examples{
 data(pars)
-dens_under_sub(sub_layers = 4, sub_prop = 0.5)
+dens_under_sub(sub_layers = 4, proportion = 0.5)
 }
 \references{
 \insertAllCited

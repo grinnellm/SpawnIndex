@@ -148,26 +148,26 @@ test_that("Macrocystis number of eggs", {
 })
 
 test_that("Understory egg density on substrate", {
-  expect_type(dens_under_sub(sub_layers = 4, sub_prop = 0.5), "double")
-  expect_equal(dens_under_sub(sub_layers = 0, sub_prop = 0.5), 0)
-  expect_equal(dens_under_sub(sub_layers = 4, sub_prop = 0), 0)
-  expect_message(dens_under_sub(sub_layers = as.numeric(NA), sub_prop = 0.5))
-  expect_message(dens_under_sub(sub_layers = -0.1, sub_prop = 0.5))
-  expect_message(dens_under_sub(sub_layers = 4, sub_prop = as.numeric(NA)))
-  expect_message(dens_under_sub(sub_layers = 4, sub_prop = -0.1))
-  expect_message(dens_under_sub(sub_layers = 4, sub_prop = 1.1))
+  expect_type(dens_under_sub(sub_layers = 4, proportion = 0.5), "double")
+  expect_equal(dens_under_sub(sub_layers = 0, proportion = 0.5), 0)
+  expect_equal(dens_under_sub(sub_layers = 4, proportion = 0), 0)
+  expect_message(dens_under_sub(sub_layers = as.numeric(NA), proportion = 0.5))
+  expect_message(dens_under_sub(sub_layers = -0.1, proportion = 0.5))
+  expect_message(dens_under_sub(sub_layers = 4, proportion = as.numeric(NA)))
+  expect_message(dens_under_sub(sub_layers = 4, proportion = -0.1))
+  expect_message(dens_under_sub(sub_layers = 4, proportion = 1.1))
   expect_error(
-    dens_under_sub(sub_layers = 4, sub_prop = 0.5, varphi = "varphi")
+    dens_under_sub(sub_layers = 4, proportion = 0.5, varphi = "varphi")
   )
   expect_message(
-    dens_under_sub(sub_layers = 4, sub_prop = 0.5, varphi = as.numeric(NA))
+    dens_under_sub(sub_layers = 4, proportion = 0.5, varphi = as.numeric(NA))
   )
   expect_silent(
-    dens_under_sub(sub_layers = -0.1, sub_prop = -0.1, quiet = TRUE)
+    dens_under_sub(sub_layers = -0.1, proportion = -0.1, quiet = TRUE)
   )
   expect_silent(
     dens_under_sub(
-      sub_layers = as.numeric(NA), sub_prop = as.numeric(NA),
+      sub_layers = as.numeric(NA), proportion = as.numeric(NA),
       varphi = as.numeric(NA), quiet = TRUE
     )
   )

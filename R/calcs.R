@@ -788,8 +788,8 @@ calc_macro_index <- function(where,
 #' @param varphi Numeric. Regression slope for substrate; from
 #'   \code{\link{pars}} \insertCite{HaegeleEtal1979}{SpawnIndex}.
 #' @param sub_layers Numeric. Number of egg layers on substrate. Message if < 0.
-#' @param sub_prop Numeric. Proportion of substrate covered in eggs. Message if
-#'   < 0 or > 1.
+#' @param proportion Numeric. Proportion of substrate covered in eggs. Message
+#'   if < 0 or > 1.
 #' @template param-quiet
 #' @importFrom Rdpack reprompt
 #' @importFrom stats na.omit
@@ -802,24 +802,26 @@ calc_macro_index <- function(where,
 #' @export
 #' @examples
 #' data(pars)
-#' dens_under_sub(sub_layers = 4, sub_prop = 0.5)
+#' dens_under_sub(sub_layers = 4, proportion = 0.5)
 dens_under_sub <- function(varphi = pars$understory$varphi,
                            sub_layers,
-                           sub_prop,
+                           proportion,
                            quiet = FALSE) {
   # Check input: NA and numeric
   check_numeric(
-    dat = list(varphi = varphi, sub_layers = sub_layers, sub_prop = sub_prop),
+    dat = list(
+      varphi = varphi, sub_layers = sub_layers, proportion = proportion
+    ),
     quiet = quiet
   )
   # Check sub_layers: range
   if (any(na.omit(sub_layers) < 0) & !quiet) message("`sub_layers` < 0.")
-  # Check sub_prop: range
-  if ((any(na.omit(sub_prop) < 0) | any(na.omit(sub_prop) > 1)) & !quiet) {
-    message("`sub_prop` < 0 and/or > 1.")
+  # Check proportion: range
+  if ((any(na.omit(proportion) < 0) | any(na.omit(proportion) > 1)) & !quiet) {
+    message("`proportion` < 0 and/or > 1.")
   }
   # Egg density in thousands (eggs x 10^3 / m^2; Haegele et al. 1979)
-  density <- varphi * sub_layers * sub_prop
+  density <- varphi * sub_layers * proportion
   # Check output: NA and numeric
   check_numeric(dat = list(density = density), quiet = quiet)
   # Check density: range
@@ -1144,7 +1146,8 @@ calc_under_index <- function(where,
     left_join(y = areas_sm_2, by = c("Region", "LocationCode")) %>%
     # Egg density in thousands (eggs x 10^3 / m^2); quadrat q
     mutate(EggDensSub = dens_under_sub(
-      varphi = varphi, sub_layers = SubLayers, sub_prop = SubProp, quiet = quiet
+      varphi = varphi, sub_layers = SubLayers, proportion = SubProp,
+      quiet = quiet
     )) %>%
     replace_na(replace = list(EggDensSub = 0)) %>%
     select(
