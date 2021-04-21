@@ -107,8 +107,8 @@ calc_sok_sb <- function(sok,
 #'
 #' Calculate Pacific Herring surface spawn egg density in thousands of eggs per
 #' square metre (10^3 * eggs / m^2). This function implements a linear
-#' regression model to estimate egg density in \code{\link{calc_surf_index}}
-#' \insertCite{SchweigertEtal1997}{SpawnIndex}.
+#' regression model to estimate egg density; implemented in
+#' \code{\link{calc_surf_index}} \insertCite{SchweigertEtal1997}{SpawnIndex}.
 #'
 #' @param alpha Numeric. Regression intercept; from \code{\link{pars}}
 #'   \insertCite{SchweigertEtal1997}{SpawnIndex}.
@@ -487,8 +487,8 @@ calc_surf_index <- function(where,
 #'
 #' Calculate Pacific Herring Macrocystis spawn number of eggs per plant in
 #' thousands of eggs per plant (10^3 * eggs / plant). This function implements a
-#' nonlinear multiple regression model to estimate the number of eggs in
-#' \code{\link{calc_macro_index}}
+#' nonlinear multiple regression model to estimate the number of eggs;
+#' implemented in \code{\link{calc_macro_index}}
 #' \insertCite{HaegeleSchweigert1990}{SpawnIndex}.
 #'
 #' @param xi Numeric. Regression slope; from \code{\link{pars}}
@@ -787,8 +787,8 @@ calc_macro_index <- function(where,
 #'
 #' Calculate Pacific Herring understory spawn egg density on substrate in
 #' thousands of eggs per square metre (10^3 * eggs / m^2). This function
-#' implements a linear model to estimate egg density on substrate in
-#' \code{\link{calc_under_index}} \insertCite{HaegeleEtal1979}{SpawnIndex}.
+#' implements a linear model to estimate egg density on substrate; implemented
+#' in \code{\link{calc_under_index}} \insertCite{HaegeleEtal1979}{SpawnIndex}.
 #'
 #' @param varphi Numeric. Regression slope for substrate; from
 #'   \code{\link{pars}} \insertCite{HaegeleEtal1979}{SpawnIndex}.
@@ -837,7 +837,7 @@ dens_under_sub <- function(varphi = pars$understory$varphi,
 #'
 #' Calculate Pacific Herring understory spawn egg density on algae in thousands
 #' of eggs per square metre (10^3 * eggs / m^2). This function implements a
-#' generalized linear model to estimate egg density on algae in
+#' generalized linear model to estimate egg density on algae; implemented in
 #' \code{\link{calc_under_index}} \insertCite{Schweigert2005}{SpawnIndex}.
 #'
 #' @param vartheta Numeric. Regression slope for algae; from \code{\link{pars}}
