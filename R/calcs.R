@@ -54,8 +54,7 @@ eggs_to_sb <- function(omega = pars$conversion$omega,
 #'   proportion; from \code{\link{pars}}. Message if < 0 and/or > 1.
 #' @param w Numeric. Average weight in kilograms of a fertilized egg; from
 #'   \code{\link{pars}}. Message if < 0.
-#' @param theta Numeric. Egg conversion factor (eggs to biomass); from
-#'   \code{\link{eggs_to_sb}}. Message if < 0.
+#' @template param-theta
 #' @template param-quiet
 #' @importFrom Rdpack reprompt
 #' @importFrom stats na.omit
@@ -114,7 +113,7 @@ calc_sok_sb <- function(sok,
 #'   \insertCite{SchweigertEtal1997}{SpawnIndex}.
 #' @param beta Numeric. Regression slope; from \code{\link{pars}}
 #'   \insertCite{SchweigertEtal1997}{SpawnIndex}.
-#' @param egg_layers Numeric. Number of egg layers. Message if < 0.
+#' @template param-egg_layers
 #' @template param-quiet
 #' @importFrom Rdpack reprompt
 #' @importFrom stats na.omit
@@ -166,8 +165,7 @@ dens_surf <- function(alpha = pars$surface$alpha,
 #' @template param-areas
 #' @param widths List. List of three tables: median region, section, and pool
 #'   widths in metres (m); from \code{\link{get_width}}.
-#' @param yrs Numeric vector. Years(s) to include in the calculations. Message
-#'   if < `pars$years$assess`.
+#' @template param-yrs
 #' @param intense Tibble. Table of spawn intensity categories and number of egg
 #'   layers; from \code{\link{intensity}}.
 #' @param intense_yrs Numeric vector. Years where intensity categories are used
@@ -178,8 +176,7 @@ dens_surf <- function(alpha = pars$surface$alpha,
 #'   \insertCite{SchweigertEtal1997}{SpawnIndex}.
 #' @param beta Numeric. Regression slope; from \code{\link{pars}}
 #'   \insertCite{SchweigertEtal1997}{SpawnIndex}.
-#' @param theta Numeric. Egg conversion factor (eggs to biomass); from
-#'   \code{\link{eggs_to_sb}}.
+#' @template param-theta
 #' @template param-quiet
 #' @importFrom odbc dbConnect odbc dbDisconnect
 #' @importFrom DBI dbReadTable
@@ -300,6 +297,8 @@ calc_surf_index <- function(where,
   if (any(rescale_yrs >= pars$years$assess) & !quiet) {
     message("`rescale_yrs` >= ", pars$years$assess, ".")
   }
+  # Check theta: range
+  if (any(na.omit(theta) < 0) & !quiet) message("`theta` < 0.")
   # Establish connection with access
   access_db <- dbConnect(
     drv = odbc(),
@@ -497,7 +496,7 @@ calc_surf_index <- function(where,
 #'   \code{\link{pars}} \insertCite{HaegeleSchweigert1990}{SpawnIndex}.
 #' @param epsilon Numeric. Regression exponent on number of stalks per plant;
 #'   from \code{\link{pars}} \insertCite{HaegeleSchweigert1990}{SpawnIndex}.
-#' @param egg_layers Numeric. Number of egg layers. Message if < 0.
+#' @template param-egg_layers
 #' @param height Numeric. Plant height in metres. Message if < 0.
 #' @param stalks_per_plant Numeric. Number of stalks per plant. Message if < 0.
 #' @template param-quiet
@@ -558,8 +557,7 @@ eggs_macro <- function(xi = pars$macrocystis$xi,
 #' @param where List. Location of the Pacific Herring Macrocystis spawn database
 #'   (see examples).
 #' @template param-areas
-#' @param yrs Numeric vector. Years(s) to include in the calculations, usually
-#'   starting in `pars$years$assess`.
+#' @template param-yrs
 #' @param chi Numeric. Transect swath (i.e., width) in metres.
 #' @param xi Numeric. Regression slope; from \code{\link{pars}}
 #'   \insertCite{HaegeleSchweigert1990}{SpawnIndex}.
@@ -569,8 +567,7 @@ eggs_macro <- function(xi = pars$macrocystis$xi,
 #'   \code{\link{pars}} \insertCite{HaegeleSchweigert1990}{SpawnIndex}.
 #' @param epsilon Numeric. Regression exponent on number of stalks per plant;
 #'   from \code{\link{pars}} \insertCite{HaegeleSchweigert1990}{SpawnIndex}.
-#' @param theta Numeric. Egg conversion factor (eggs to biomass); from
-#'   \code{\link{eggs_to_sb}}.
+#' @template param-theta
 #' @template param-quiet
 #' @importFrom odbc dbConnect odbc dbDisconnect
 #' @importFrom DBI dbReadTable
@@ -656,6 +653,8 @@ calc_macro_index <- function(where,
   }
   # Check chi: value
   if (chi != 2 & !quiet) message("`chi` != 2")
+  # Check theta: range
+  if (any(na.omit(theta) < 0) & !quiet) message("`theta` < 0.")
   # Establish connection with access
   access_db <- dbConnect(
     drv = odbc(),
@@ -904,8 +903,7 @@ dens_under_alg <- function(vartheta = pars$understory$vartheta,
 #' @param where List. Location of the Pacific Herring understory spawn database
 #'   (see examples).
 #' @template param-areas
-#' @param yrs Numeric vector. Years(s) to include in the calculations, usually
-#'   staring in `pars$years$assess`.
+#' @template param-yrs
 #' @param alg_coefs Tibble. Table of algae coefficients; from
 #'   \code{\link{algae_coefs}}.
 #' @param tau Tibble. Table of understory spawn width adjustment factors from
@@ -918,8 +916,7 @@ dens_under_alg <- function(vartheta = pars$understory$vartheta,
 #'   \code{\link{pars}} \insertCite{Schweigert2005}{SpawnIndex}.
 #' @param varsigma Numeric. Regression exponent on proportion of algae; from
 #'   \code{\link{pars}} \insertCite{Schweigert2005}{SpawnIndex}.
-#' @param theta Numeric. Egg conversion factor (eggs to biomass); from
-#'   \code{\link{eggs_to_sb}}.
+#' @template param-theta
 #' @template param-quiet
 #' @importFrom odbc dbConnect odbc dbDisconnect
 #' @importFrom DBI dbReadTable
@@ -1026,6 +1023,8 @@ calc_under_index <- function(where,
   %in% names(tau))) {
     stop("`tau` is missing columns", call. = FALSE)
   }
+  # Check theta: range
+  if (any(na.omit(theta) < 0) & !quiet) message("`theta` < 0.")
   # Establish connection with access
   access_db <- dbConnect(
     drv = odbc(),
