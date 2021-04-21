@@ -11,6 +11,9 @@ setwd("tr")
 knitr::knit2pdf("SpawnIndex.Rnw")
 setwd("..")
 
+# Compile the manual
+devtools::build_manual(path = "./doc")
+
 # Styler
 styler::style_pkg()
 styler::style_file(file.path("vignettes", "Introduction.Rmd"))
