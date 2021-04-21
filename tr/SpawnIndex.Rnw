@@ -1448,7 +1448,7 @@ df <- expand.grid(Layers = layers, Proportion = prop)
 # Make a table of egg layers, proportion, and egg density
 dat <- as_tibble(df) %>%
   mutate(EggDens = dens_under_sub(
-    sub_layers = Layers, proportion = Proportion
+    egg_layers = Layers, proportion = Proportion
   ))
 # Figure
 egg_dens_sub_plot <- ggplot(
@@ -1531,7 +1531,7 @@ dat <- as_tibble(df) %>%
   arrange(Coefficient) %>%
   mutate(
     EggDens = dens_under_alg(
-      alg_layers = Layers, proportion = Proportion, coef = Coefficient
+      egg_layers = Layers, proportion = Proportion, coef = Coefficient
     ),
     Coefficient = paste("Algae coefficient: ", format(Coefficient, digits = 4),
       sep = ""

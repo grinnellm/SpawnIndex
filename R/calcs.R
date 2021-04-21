@@ -787,7 +787,7 @@ calc_macro_index <- function(where,
 #'
 #' @param varphi Numeric. Regression slope for substrate; from
 #'   \code{\link{pars}} \insertCite{HaegeleEtal1979}{SpawnIndex}.
-#' @param sub_layers Numeric. Number of egg layers on substrate. Message if < 0.
+#' @template param-egg_layers
 #' @template param-proportion
 #' @template param-quiet
 #' @importFrom Rdpack reprompt
@@ -801,26 +801,26 @@ calc_macro_index <- function(where,
 #' @export
 #' @examples
 #' data(pars)
-#' dens_under_sub(sub_layers = 4, proportion = 0.5)
+#' dens_under_sub(egg_layers = 4, proportion = 0.5)
 dens_under_sub <- function(varphi = pars$understory$varphi,
-                           sub_layers,
+                           egg_layers,
                            proportion,
                            quiet = FALSE) {
   # Check input: NA and numeric
   check_numeric(
     dat = list(
-      varphi = varphi, sub_layers = sub_layers, proportion = proportion
+      varphi = varphi, egg_layers = egg_layers, proportion = proportion
     ),
     quiet = quiet
   )
-  # Check sub_layers: range
-  if (any(na.omit(sub_layers) < 0) & !quiet) message("`sub_layers` < 0.")
+  # Check egg_layers: range
+  if (any(na.omit(egg_layers) < 0) & !quiet) message("`egg_layers` < 0.")
   # Check proportion: range
   if ((any(na.omit(proportion) < 0) | any(na.omit(proportion) > 1)) & !quiet) {
     message("`proportion` < 0 and/or > 1.")
   }
   # Egg density in thousands (eggs x 10^3 / m^2; Haegele et al. 1979)
-  density <- varphi * sub_layers * proportion
+  density <- varphi * egg_layers * proportion
   # Check output: NA and numeric
   check_numeric(dat = list(density = density), quiet = quiet)
   # Check density: range
@@ -842,7 +842,7 @@ dens_under_sub <- function(varphi = pars$understory$varphi,
 #'   \code{\link{pars}} \insertCite{Schweigert2005}{SpawnIndex}.
 #' @param varsigma Numeric. Regression exponent on proportion of algae; from
 #'   \code{\link{pars}} \insertCite{Schweigert2005}{SpawnIndex}.
-#' @param alg_layers Numeric. Number of egg layers on algae Message if < 0.
+#' @template param-egg_layers
 #' @template param-proportion
 #' @param coeff Numeric. Algae coefficients; from \code{\link{algae_coefs}}
 #'   \insertCite{Schweigert2005}{SpawnIndex}. Message if < 0.
@@ -858,11 +858,11 @@ dens_under_sub <- function(varphi = pars$understory$varphi,
 #' @export
 #' @examples
 #' data(pars)
-#' dens_under_alg(alg_layers = 4, proportion = 0.5, coeff = 1.1)
+#' dens_under_alg(egg_layers = 4, proportion = 0.5, coeff = 1.1)
 dens_under_alg <- function(vartheta = pars$understory$vartheta,
                            varrho = pars$understory$varrho,
                            varsigma = pars$understory$varsigma,
-                           alg_layers,
+                           egg_layers,
                            proportion,
                            coeff,
                            quiet = FALSE) {
@@ -870,12 +870,12 @@ dens_under_alg <- function(vartheta = pars$understory$vartheta,
   check_numeric(
     dat = list(
       vartheta = vartheta, varrho = varrho, varsigma = varsigma,
-      alg_layers = alg_layers, proportion = proportion, coeff = coeff
+      egg_layers = egg_layers, proportion = proportion, coeff = coeff
     ),
     quiet = quiet
   )
-  # Check alg_layers: range
-  if (any(na.omit(alg_layers) < 0) & !quiet) message("`alg_layers` < 0.")
+  # Check egg_layers: range
+  if (any(na.omit(egg_layers) < 0) & !quiet) message("`egg_layers` < 0.")
   # Check proportion: range
   if ((any(na.omit(proportion) < 0) | any(na.omit(proportion) > 1)) & !quiet) {
     message("`proportion` < 0 and/or > 1.")
@@ -884,7 +884,7 @@ dens_under_alg <- function(vartheta = pars$understory$vartheta,
   if (any(na.omit(coeff) < 0) & !quiet) message("`coeff` < 0.")
   # Egg density in thousands (10^3 * eggs / m^2; Schweigert 2005); quadrat
   # size coefficient not required because all quadrats are 0.5m^2 (1.0512)
-  density <- vartheta * alg_layers^varrho * proportion^varsigma * coeff * 1.0512
+  density <- vartheta * egg_layers^varrho * proportion^varsigma * coeff * 1.0512
   # Check output: NA and numeric
   check_numeric(dat = list(density = density), quiet = quiet)
   # Check density: range
@@ -1144,7 +1144,7 @@ calc_under_index <- function(where,
     left_join(y = areas_sm_2, by = c("Region", "LocationCode")) %>%
     # Egg density in thousands (eggs x 10^3 / m^2); quadrat q
     mutate(EggDensSub = dens_under_sub(
-      varphi = varphi, sub_layers = SubLayers, proportion = SubProp,
+      varphi = varphi, egg_layers = SubLayers, proportion = SubProp,
       quiet = quiet
     )) %>%
     replace_na(replace = list(EggDensSub = 0)) %>%
@@ -1167,7 +1167,7 @@ calc_under_index <- function(where,
     # Egg density in thousands (10^3 * eggs / m^2); algae a
     mutate(EggDensAlg = dens_under_alg(
       vartheta = vartheta, varrho = varrho, varsigma = varsigma,
-      alg_layers = AlgLayers, proportion = AlgProp, coeff = Coef, quiet = quiet
+      egg_layers = AlgLayers, proportion = AlgProp, coeff = Coef, quiet = quiet
     )) %>%
     group_by(
       Year, Region, StatArea, Section, LocationCode, SpawnNumber, Transect,

@@ -6,7 +6,7 @@
 \usage{
 dens_under_sub(
   varphi = pars$understory$varphi,
-  sub_layers,
+  egg_layers,
   proportion,
   quiet = FALSE
 )
@@ -15,7 +15,7 @@ dens_under_sub(
 \item{varphi}{Numeric. Regression slope for substrate; from
 \code{\link{pars}} \insertCite{HaegeleEtal1979}{SpawnIndex}.}
 
-\item{sub_layers}{Numeric. Number of egg layers on substrate. Message if < 0.}
+\item{egg_layers}{Numeric. Number of egg layers. Message if < 0.}
 
 \item{proportion}{Numeric. Proportion covered in eggs. Message if < 0 or > 1.}
 
@@ -33,7 +33,7 @@ in \code{\link{calc_under_index}} \insertCite{HaegeleEtal1979}{SpawnIndex}.
 }
 \examples{
 data(pars)
-dens_under_sub(sub_layers = 4, proportion = 0.5)
+dens_under_sub(egg_layers = 4, proportion = 0.5)
 }
 \references{
 \insertAllCited

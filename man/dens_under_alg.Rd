@@ -8,7 +8,7 @@ dens_under_alg(
   vartheta = pars$understory$vartheta,
   varrho = pars$understory$varrho,
   varsigma = pars$understory$varsigma,
-  alg_layers,
+  egg_layers,
   proportion,
   coeff,
   quiet = FALSE
@@ -24,7 +24,7 @@ dens_under_alg(
 \item{varsigma}{Numeric. Regression exponent on proportion of algae; from
 \code{\link{pars}} \insertCite{Schweigert2005}{SpawnIndex}.}
 
-\item{alg_layers}{Numeric. Number of egg layers on algae Message if < 0.}
+\item{egg_layers}{Numeric. Number of egg layers. Message if < 0.}
 
 \item{proportion}{Numeric. Proportion covered in eggs. Message if < 0 or > 1.}
 
@@ -45,7 +45,7 @@ generalized linear model to estimate egg density on algae; implemented in
 }
 \examples{
 data(pars)
-dens_under_alg(alg_layers = 4, proportion = 0.5, coeff = 1.1)
+dens_under_alg(egg_layers = 4, proportion = 0.5, coeff = 1.1)
 }
 \references{
 \insertAllCited
