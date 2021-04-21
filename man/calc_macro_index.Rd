@@ -25,8 +25,8 @@ calc_macro_index(
 spawn survey observations to include in calculations; from
 \code{\link{load_area_data}}.}
 
-\item{yrs}{Numeric vector. Years(s) to include in the calculations, usually
-starting in \code{pars$years$assess}.}
+\item{yrs}{Numeric vector. Years(s) to include in the calculations. Message
+if < \code{pars$years$assess}.}
 
 \item{chi}{Numeric. Transect swath (i.e., width) in metres.}
 
@@ -43,7 +43,7 @@ starting in \code{pars$years$assess}.}
 from \code{\link{pars}} \insertCite{HaegeleSchweigert1990}{SpawnIndex}.}
 
 \item{theta}{Numeric. Egg conversion factor (eggs to biomass); from
-\code{\link{eggs_to_sb}}.}
+\code{\link{eggs_to_sb}}. Message if < 0.}
 
 \item{quiet}{Logical. Suppress messages; default is FALSE.}
 }

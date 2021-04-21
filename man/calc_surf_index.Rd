@@ -48,7 +48,7 @@ re-scaled from 5 to 9 categories. Message if >= \code{pars$years$assess}.}
 \insertCite{SchweigertEtal1997}{SpawnIndex}.}
 
 \item{theta}{Numeric. Egg conversion factor (eggs to biomass); from
-\code{\link{eggs_to_sb}}.}
+\code{\link{eggs_to_sb}}. Message if < 0.}
 
 \item{quiet}{Logical. Suppress messages; default is FALSE.}
 }

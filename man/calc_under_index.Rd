@@ -26,8 +26,8 @@ calc_under_index(
 spawn survey observations to include in calculations; from
 \code{\link{load_area_data}}.}
 
-\item{yrs}{Numeric vector. Years(s) to include in the calculations, usually
-staring in \code{pars$years$assess}.}
+\item{yrs}{Numeric vector. Years(s) to include in the calculations. Message
+if < \code{pars$years$assess}.}
 
 \item{alg_coefs}{Tibble. Table of algae coefficients; from
 \code{\link{algae_coefs}}.}
@@ -48,7 +48,7 @@ staring in \code{pars$years$assess}.}
 \code{\link{pars}} \insertCite{Schweigert2005}{SpawnIndex}.}
 
 \item{theta}{Numeric. Egg conversion factor (eggs to biomass); from
-\code{\link{eggs_to_sb}}.}
+\code{\link{eggs_to_sb}}. Message if < 0.}
 
 \item{quiet}{Logical. Suppress messages; default is FALSE.}
 }
