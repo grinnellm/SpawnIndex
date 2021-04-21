@@ -165,7 +165,7 @@ dens_surf <- function(alpha = pars$surface$alpha,
 #' @template param-areas
 #' @param widths List. List of three tables: median region, section, and pool
 #'   widths in metres (m); from \code{\link{get_width}}.
-#' @template param-yrs
+#' @template param-years
 #' @param intense Tibble. Table of spawn intensity categories and number of egg
 #'   layers; from \code{\link{intensity}}.
 #' @param intense_yrs Numeric vector. Years where intensity categories are used
@@ -221,13 +221,13 @@ dens_surf <- function(alpha = pars$surface$alpha,
 #'   fns = list(surface = "tSSSurface", all_spawn = "tSSAllspawn")
 #' )
 #' surf_spawn <- calc_surf_index(
-#'   where = surf_loc, areas = areas, widths = width_bar, yrs = 2010:2015
+#'   where = surf_loc, areas = areas, widths = width_bar, years = 2010:2015
 #' )
 #' surf_spawn$si
 calc_surf_index <- function(where,
                             areas,
                             widths,
-                            yrs,
+                            years,
                             intense = intensity,
                             intense_yrs =
                               pars$years$survey:(pars$years$layers - 1),
@@ -240,7 +240,7 @@ calc_surf_index <- function(where,
   # Check input: NA and numeric
   check_numeric(
     dat = list(
-      yrs = yrs, intense_yrs = intense_yrs, rescale_yrs = rescale_yrs,
+      years = years, intense_yrs = intense_yrs, rescale_yrs = rescale_yrs,
       theta = theta
     ),
     quiet = quiet
@@ -281,9 +281,9 @@ calc_surf_index <- function(where,
     names(widths$pool))) {
     stop("`widths$pool` is missing columns", call. = FALSE)
   }
-  # Check yrs: range
-  if (any(yrs < pars$years$assess) & !quiet) {
-    message("`yrs` < ", pars$years$assess, ".")
+  # Check years: range
+  if (any(years < pars$years$assess) & !quiet) {
+    message("`years` < ", pars$years$assess, ".")
   }
   # Check intense: names
   if (!all(c("Intensity", "Description", "Layers") %in% names(intense))) {
@@ -319,13 +319,13 @@ calc_surf_index <- function(where,
       LocationCode = Loc_Code, SpawnNumber = Spawn_Number, WidthObs = Width
     ) %>%
     mutate(Method = str_to_title(Method)) %>%
-    filter(Year %in% yrs, LocationCode %in% areas$LocationCode) %>%
+    filter(Year %in% years, LocationCode %in% areas$LocationCode) %>%
     select(Year, LocationCode, SpawnNumber, Length, WidthObs, Method) %>%
     as_tibble()
   # Extract relevant surface data
   surface <- dbReadTable(conn = access_db, name = where$fns$surface) %>%
     rename(LocationCode = Loc_Code, SpawnNumber = Spawn_Number) %>%
-    filter(Year %in% yrs, LocationCode %in% areas_sm$LocationCode) %>%
+    filter(Year %in% years, LocationCode %in% areas_sm$LocationCode) %>%
     left_join(y = areas_sm, by = "LocationCode") %>%
     left_join(y = spawn, by = c("Year", "LocationCode", "SpawnNumber")) %>%
     replace_na(replace = list(
@@ -557,7 +557,7 @@ eggs_macro <- function(xi = pars$macrocystis$xi,
 #' @param where List. Location of the Pacific Herring Macrocystis spawn database
 #'   (see examples).
 #' @template param-areas
-#' @template param-yrs
+#' @template param-years
 #' @param chi Numeric. Transect swath (i.e., width) in metres.
 #' @param xi Numeric. Regression slope; from \code{\link{pars}}
 #'   \insertCite{HaegeleSchweigert1990}{SpawnIndex}.
@@ -606,12 +606,12 @@ eggs_macro <- function(xi = pars$macrocystis$xi,
 #'   )
 #' )
 #' macro_spawn <- calc_macro_index(
-#'   where = macro_loc, areas = areas, yrs = 2010:2015
+#'   where = macro_loc, areas = areas, years = 2010:2015
 #' )
 #' macro_spawn$si
 calc_macro_index <- function(where,
                              areas,
-                             yrs,
+                             years,
                              chi = 2,
                              xi = pars$macrocystis$xi,
                              gamma = pars$macrocystis$gamma,
@@ -622,7 +622,7 @@ calc_macro_index <- function(where,
   # Check input: NA and numeric
   check_numeric(
     dat = list(
-      yrs = yrs, chi = chi, xi = xi, gamma = gamma, delta = delta,
+      years = years, chi = chi, xi = xi, gamma = gamma, delta = delta,
       epsilon = epsilon, theta = theta
     ),
     quiet = quiet
@@ -647,9 +647,9 @@ calc_macro_index <- function(where,
   ) %in% names(areas))) {
     stop("`areas` is missing columns", call. = FALSE)
   }
-  # Check yrs: range
-  if (any(yrs < pars$years$assess) & !quiet) {
-    message("`yrs` < ", pars$years$assess, ".")
+  # Check years: range
+  if (any(years < pars$years$assess) & !quiet) {
+    message("`years` < ", pars$years$assess, ".")
   }
   # Check chi: value
   if (chi != 2 & !quiet) message("`chi` != 2")
@@ -676,21 +676,21 @@ calc_macro_index <- function(where,
       LengthMacro = Length_Macrocystis
     ) %>%
     mutate(Method = str_to_title(Method)) %>%
-    filter(Year %in% yrs, LocationCode %in% areas_sm$LocationCode) %>%
+    filter(Year %in% years, LocationCode %in% areas_sm$LocationCode) %>%
     select(Year, LocationCode, SpawnNumber, LengthMacro, Length, Method) %>%
     as_tibble()
   # Get plant-level data
   plants <- dbReadTable(conn = access_db, name = where$fns$plants) %>%
     rename(LocationCode = Loc_Code, SpawnNumber = Spawn_Number) %>%
     filter(
-      Year %in% yrs, LocationCode %in% areas_sm$LocationCode, !is.na(Mature)
+      Year %in% years, LocationCode %in% areas_sm$LocationCode, !is.na(Mature)
     ) %>%
     select(Year, LocationCode, SpawnNumber, Transect, Mature) %>%
     as_tibble()
   # Get transect-level data
   transects <- dbReadTable(conn = access_db, name = where$fns$transects) %>%
     rename(LocationCode = Loc_Code, SpawnNumber = Spawn_Number) %>%
-    filter(Year %in% yrs, LocationCode %in% areas_sm$LocationCode) %>%
+    filter(Year %in% years, LocationCode %in% areas_sm$LocationCode) %>%
     left_join(y = areas_sm, by = "LocationCode") %>%
     select(
       Year, Region, StatArea, Section, LocationCode, SpawnNumber, Transect,
@@ -903,7 +903,7 @@ dens_under_alg <- function(vartheta = pars$understory$vartheta,
 #' @param where List. Location of the Pacific Herring understory spawn database
 #'   (see examples).
 #' @template param-areas
-#' @template param-yrs
+#' @template param-years
 #' @param alg_coefs Tibble. Table of algae coefficients; from
 #'   \code{\link{algae_coefs}}.
 #' @param tau Tibble. Table of understory spawn width adjustment factors from
@@ -958,12 +958,12 @@ dens_under_alg <- function(vartheta = pars$understory$vartheta,
 #' data(pars)
 #' data(algae_coefs)
 #' under_spawn <- calc_under_index(
-#'   where = under_loc, areas = areas, yrs = 2010:2015
+#'   where = under_loc, areas = areas, years = 2010:2015
 #' )
 #' under_spawn$si
 calc_under_index <- function(where,
                              areas,
-                             yrs,
+                             years,
                              alg_coefs = algae_coefs,
                              tau = under_width_facs,
                              varphi = pars$understory$varphi,
@@ -975,7 +975,7 @@ calc_under_index <- function(where,
   # Check input: NA and numeric
   check_numeric(
     dat = list(
-      yrs = yrs, varphi = varphi, vartheta = vartheta, varrho = varrho,
+      years = years, varphi = varphi, vartheta = vartheta, varrho = varrho,
       varsigma = varsigma, theta = theta
     ),
     quiet = quiet
@@ -1004,9 +1004,9 @@ calc_under_index <- function(where,
   ) %in% names(areas))) {
     stop("`areas` is missing columns", call. = FALSE)
   }
-  # Check yrs: range
-  if (any(yrs < pars$years$assess) & !quiet) {
-    message("`yrs` < ", pars$years$assess, ".")
+  # Check years: range
+  if (any(years < pars$years$assess) & !quiet) {
+    message("`years` < ", pars$years$assess, ".")
   }
   # Check alg_coefs: tibble
   if (!is_tibble(alg_coefs)) {
@@ -1046,7 +1046,7 @@ calc_under_index <- function(where,
       LengthAlgae = Length_Vegetation
     ) %>%
     mutate(Method = str_to_title(Method)) %>%
-    filter(Year %in% yrs, LocationCode %in% areas_sm1$LocationCode) %>%
+    filter(Year %in% years, LocationCode %in% areas_sm1$LocationCode) %>%
     select(Year, LocationCode, SpawnNumber, LengthAlgae, Length, Method) %>%
     as_tibble()
   # Load algae transects
@@ -1055,7 +1055,7 @@ calc_under_index <- function(where,
       LocationCode = Loc_Code, SpawnNumber = Spawn_Number,
       QuadratSize = Quadrat_Size, WidthObs = Width_Recorded
     ) %>%
-    filter(Year %in% yrs, LocationCode %in% areas_sm1$LocationCode) %>%
+    filter(Year %in% years, LocationCode %in% areas_sm1$LocationCode) %>%
     select(Year, LocationCode, SpawnNumber, Transect, WidthObs, QuadratSize) %>%
     left_join(y = areas_sm1, by = "LocationCode") %>%
     as_tibble()
@@ -1077,7 +1077,7 @@ calc_under_index <- function(where,
       LocationCode = Loc_Code, SpawnNumber = Spawn_Number,
       SubLayers = Layers_Bottom
     ) %>%
-    filter(Year %in% yrs, LocationCode %in% areas_sm1$LocationCode) %>%
+    filter(Year %in% years, LocationCode %in% areas_sm1$LocationCode) %>%
     mutate(SubProp = Percent_Bottom / 100) %>%
     select(
       Year, LocationCode, SpawnNumber, Transect, Station, SubLayers, SubProp
@@ -1095,7 +1095,7 @@ calc_under_index <- function(where,
       LocationCode = Loc_Code, SpawnNumber = Spawn_Number,
       AlgType = Type_Vegetation, AlgLayers = Layers_Vegetation
     ) %>%
-    filter(Year %in% yrs, LocationCode %in% areas_sm1$LocationCode) %>%
+    filter(Year %in% years, LocationCode %in% areas_sm1$LocationCode) %>%
     mutate(
       AlgType = str_to_upper(AlgType),
       AlgProp = Percent_Vegetation / 100,

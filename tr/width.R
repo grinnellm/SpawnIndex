@@ -83,7 +83,7 @@ data(under_width_facs)
 # Get surface widths
 get_surf_width <- function(where,
                            areas,
-                           yrs = yr_range,
+                           years = yr_range,
                            widths) {
   # Establish connection with access
   access_db <- odbcDriverConnect(
@@ -102,7 +102,7 @@ get_surf_width <- function(where,
     rename(
       LocationCode = Loc_Code, SpawnNumber = Spawn_Number, WidthObs = Width
     ) %>%
-    filter(Year %in% yrs, LocationCode %in% areas_sm$LocationCode) %>%
+    filter(Year %in% years, LocationCode %in% areas_sm$LocationCode) %>%
     select(Year, LocationCode, SpawnNumber, WidthObs) %>%
     as_tibble()
   # Bind the tables
@@ -143,7 +143,7 @@ surf_width <- get_surf_width(where = surf_loc, a = areas, widths = width_bar)
 # Get dive widths
 get_dive_width <- function(where,
                            areas,
-                           yrs = yr_range,
+                           years = yr_range,
                            tau = under_width_facs) {
   # Establish connection with access
   access_db <- odbcDriverConnect(
@@ -163,7 +163,7 @@ get_dive_width <- function(where,
       LocationCode = Loc_Code, SpawnNumber = Spawn_Number,
       QuadratSize = Quadrat_Size, WidthObs = Width_Recorded
     ) %>%
-    filter(Year %in% yrs, LocationCode %in% areas_sm$LocationCode) %>%
+    filter(Year %in% years, LocationCode %in% areas_sm$LocationCode) %>%
     select(
       Year, LocationCode, SpawnNumber, Transect, WidthObs
     ) %>%
@@ -222,7 +222,7 @@ all_width <- bind_rows(surf_width, dive_width)
 # Get surface widths (second option)
 get_surf_width_2 <- function(where,
                              areas,
-                             yrs = yr_range,
+                             years = yr_range,
                              widths) {
   # Establish connection with access
   access_db <- odbcDriverConnect(
@@ -241,7 +241,7 @@ get_surf_width_2 <- function(where,
     rename(
       LocationCode = Loc_Code, SpawnNumber = Spawn_Number, WidthObs = Width
     ) %>%
-    filter(Year %in% yrs, LocationCode %in% areas_sm$LocationCode) %>%
+    filter(Year %in% years, LocationCode %in% areas_sm$LocationCode) %>%
     select(Year, LocationCode, SpawnNumber, WidthObs) %>%
     as_tibble()
   # Bind the tables

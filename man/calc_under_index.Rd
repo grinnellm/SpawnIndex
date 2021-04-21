@@ -7,7 +7,7 @@
 calc_under_index(
   where,
   areas,
-  yrs,
+  years,
   alg_coefs = algae_coefs,
   tau = under_width_facs,
   varphi = pars$understory$varphi,
@@ -26,7 +26,7 @@ calc_under_index(
 spawn survey observations to include in calculations; from
 \code{\link{load_area_data}}.}
 
-\item{yrs}{Numeric vector. Years(s) to include in the calculations. Message
+\item{years}{Numeric vector. Years(s) to include in the calculations. Message
 if < \code{pars$years$assess}.}
 
 \item{alg_coefs}{Tibble. Table of algae coefficients; from
@@ -86,7 +86,7 @@ data(under_width_facs)
 data(pars)
 data(algae_coefs)
 under_spawn <- calc_under_index(
-  where = under_loc, areas = areas, yrs = 2010:2015
+  where = under_loc, areas = areas, years = 2010:2015
 )
 under_spawn$si
 }

@@ -192,7 +192,7 @@ surf_loc <- list(
 )
 # Calculate the surface spawn index
 surf_spawn <- calc_surf_index(
-  where = surf_loc, areas = areas, widths = width_bar, yrs = yr_range
+  where = surf_loc, areas = areas, widths = width_bar, years = yr_range
 )
 ```
 
@@ -261,7 +261,7 @@ macro_loc <- list(
 )
 # Calculate the Macrocystis spawn index
 macro_spawn <- calc_macro_index(
-  where = macro_loc, areas = areas, yrs = yr_range
+  where = macro_loc, areas = areas, years = yr_range
 )
 ```
 
@@ -336,7 +336,7 @@ under_loc <- list(
 )
 # Calculate the understory spawn index
 under_spawn <- calc_under_index(
-  where = under_loc, areas = areas, yrs = yr_range
+  where = under_loc, areas = areas, years = yr_range
 )
 ```
 

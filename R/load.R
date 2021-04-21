@@ -340,7 +340,7 @@ load_area_data <- function(reg,
 #' @param where List. Location of the Pacific Herring understory spawn database
 #'   (see examples).
 #' @template param-areas
-#' @template param-yrs
+#' @template param-years
 #' @param ft2m Numeric. Conversion factor for feet to metres; default is 0.3048.
 #'   Message if not 0.3048.
 #' @template param-quiet
@@ -372,12 +372,12 @@ load_area_data <- function(reg,
 #'   fns = list(all_spawn = "tSSAllspawn", stations = "tSSStations")
 #' )
 #' all_spawn <- load_all_spawn(
-#'   where = all_spawn_loc, areas = areas, yrs = 2010:2015
+#'   where = all_spawn_loc, areas = areas, years = 2010:2015
 #' )
 #' all_spawn
 load_all_spawn <- function(where,
                            areas,
-                           yrs,
+                           years,
                            ft2m = 0.3048,
                            quiet = FALSE) {
   # Get where names
@@ -403,12 +403,12 @@ load_all_spawn <- function(where,
   }
   # Check input: NA and numeric
   check_numeric(
-    dat = list(yrs = yrs, ft2m = ft2m),
+    dat = list(years = years, ft2m = ft2m),
     quiet = quiet
   )
-  # Check yrs: range
-  if (any(yrs < pars$years$assess) & !quiet) {
-    message("`yrs` < ", pars$years$assess, ".")
+  # Check years: range
+  if (any(years < pars$years$assess) & !quiet) {
+    message("`years` < ", pars$years$assess, ".")
   }
   # Check ft2m: range
   if (!all.equal(ft2m, 0.3048, 0.00001) & !quiet) {
@@ -438,7 +438,7 @@ load_all_spawn <- function(where,
       Start = as_date(Start), End = as_date(End),
       Method = str_to_title(Method)
     ) %>%
-    filter(Year %in% yrs, LocationCode %in% areas_sm$LocationCode) %>%
+    filter(Year %in% years, LocationCode %in% areas_sm$LocationCode) %>%
     select(
       Year, LocationCode, SpawnNumber, Start, End, Length, Width, Method
     ) %>%

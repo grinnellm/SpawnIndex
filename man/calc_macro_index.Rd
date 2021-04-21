@@ -7,7 +7,7 @@
 calc_macro_index(
   where,
   areas,
-  yrs,
+  years,
   chi = 2,
   xi = pars$macrocystis$xi,
   gamma = pars$macrocystis$gamma,
@@ -25,7 +25,7 @@ calc_macro_index(
 spawn survey observations to include in calculations; from
 \code{\link{load_area_data}}.}
 
-\item{yrs}{Numeric vector. Years(s) to include in the calculations. Message
+\item{years}{Numeric vector. Years(s) to include in the calculations. Message
 if < \code{pars$years$assess}.}
 
 \item{chi}{Numeric. Transect swath (i.e., width) in metres.}
@@ -79,7 +79,7 @@ macro_loc <- list(
   )
 )
 macro_spawn <- calc_macro_index(
-  where = macro_loc, areas = areas, yrs = 2010:2015
+  where = macro_loc, areas = areas, years = 2010:2015
 )
 macro_spawn$si
 }

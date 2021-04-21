@@ -8,7 +8,7 @@ calc_surf_index(
   where,
   areas,
   widths,
-  yrs,
+  years,
   intense = intensity,
   intense_yrs = pars$years$survey:(pars$years$layers - 1),
   rescale_yrs = pars$years$survey:(pars$years$assess - 1),
@@ -29,7 +29,7 @@ spawn survey observations to include in calculations; from
 \item{widths}{List. List of three tables: median region, section, and pool
 widths in metres (m); from \code{\link{get_width}}.}
 
-\item{yrs}{Numeric vector. Years(s) to include in the calculations. Message
+\item{years}{Numeric vector. Years(s) to include in the calculations. Message
 if < \code{pars$years$assess}.}
 
 \item{intense}{Tibble. Table of spawn intensity categories and number of egg
@@ -90,7 +90,7 @@ surf_loc <- list(
   fns = list(surface = "tSSSurface", all_spawn = "tSSAllspawn")
 )
 surf_spawn <- calc_surf_index(
-  where = surf_loc, areas = areas, widths = width_bar, yrs = 2010:2015
+  where = surf_loc, areas = areas, widths = width_bar, years = 2010:2015
 )
 surf_spawn$si
 }

@@ -4,7 +4,7 @@
 \alias{load_all_spawn}
 \title{Get the all spawn table.}
 \usage{
-load_all_spawn(where, areas, yrs, ft2m = 0.3048, quiet = FALSE)
+load_all_spawn(where, areas, years, ft2m = 0.3048, quiet = FALSE)
 }
 \arguments{
 \item{where}{List. Location of the Pacific Herring understory spawn database
@@ -14,7 +14,7 @@ load_all_spawn(where, areas, yrs, ft2m = 0.3048, quiet = FALSE)
 spawn survey observations to include in calculations; from
 \code{\link{load_area_data}}.}
 
-\item{yrs}{Numeric vector. Years(s) to include in the calculations. Message
+\item{years}{Numeric vector. Years(s) to include in the calculations. Message
 if < \code{pars$years$assess}.}
 
 \item{ft2m}{Numeric. Conversion factor for feet to metres; default is 0.3048.
@@ -43,7 +43,7 @@ all_spawn_loc <- list(
   fns = list(all_spawn = "tSSAllspawn", stations = "tSSStations")
 )
 all_spawn <- load_all_spawn(
-  where = all_spawn_loc, areas = areas, yrs = 2010:2015
+  where = all_spawn_loc, areas = areas, years = 2010:2015
 )
 all_spawn
 }
