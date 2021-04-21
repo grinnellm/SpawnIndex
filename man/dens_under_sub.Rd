@@ -17,8 +17,7 @@ dens_under_sub(
 
 \item{sub_layers}{Numeric. Number of egg layers on substrate. Message if < 0.}
 
-\item{proportion}{Numeric. Proportion of substrate covered in eggs. Message
-if < 0 or > 1.}
+\item{proportion}{Numeric. Proportion covered in eggs. Message if < 0 or > 1.}
 
 \item{quiet}{Logical. Suppress messages; default is FALSE.}
 }

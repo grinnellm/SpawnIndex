@@ -1531,7 +1531,7 @@ dat <- as_tibble(df) %>%
   arrange(Coefficient) %>%
   mutate(
     EggDens = dens_under_alg(
-      alg_layers = Layers, alg_prop = Proportion, coef = Coefficient
+      alg_layers = Layers, proportion = Proportion, coef = Coefficient
     ),
     Coefficient = paste("Algae coefficient: ", format(Coefficient, digits = 4),
       sep = ""

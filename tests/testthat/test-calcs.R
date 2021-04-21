@@ -175,62 +175,64 @@ test_that("Understory egg density on substrate", {
 
 test_that("Understory egg density on algae", {
   expect_type(
-    dens_under_alg(alg_layers = 4, alg_prop = 0.5, coeff = 1.1), "double"
+    dens_under_alg(alg_layers = 4, proportion = 0.5, coeff = 1.1), "double"
   )
-  expect_equal(dens_under_alg(alg_layers = 0, alg_prop = 0.5, coeff = 1.1), 0)
-  expect_equal(dens_under_alg(alg_layers = 4, alg_prop = 0, coeff = 1.1), 0)
-  expect_equal(dens_under_alg(alg_layers = 4, alg_prop = 0.5, coeff = 0), 0)
+  expect_equal(dens_under_alg(alg_layers = 0, proportion = 0.5, coeff = 1.1), 0)
+  expect_equal(dens_under_alg(alg_layers = 4, proportion = 0, coeff = 1.1), 0)
+  expect_equal(dens_under_alg(alg_layers = 4, proportion = 0.5, coeff = 0), 0)
   expect_message(
-    dens_under_alg(alg_layers = as.numeric(NA), alg_prop = 0.5, coeff = 1.1)
+    dens_under_alg(alg_layers = as.numeric(NA), proportion = 0.5, coeff = 1.1)
   )
-  expect_message(dens_under_alg(alg_layers = -0.1, alg_prop = 0.5, coeff = 1.1))
   expect_message(
-    dens_under_alg(alg_layers = 4, alg_prop = as.numeric(NA), coeff = 1.1)
+    dens_under_alg(alg_layers = -0.1, proportion = 0.5, coeff = 1.1)
   )
-  expect_message(dens_under_alg(alg_layers = 4, alg_prop = -0.1, coeff = 1.1))
-  expect_message(dens_under_alg(alg_layers = 4, alg_prop = 1.1, coeff = 1.1))
   expect_message(
-    dens_under_alg(alg_layers = 4, alg_prop = 0.5, coeff = as.numeric(NA))
+    dens_under_alg(alg_layers = 4, proportion = as.numeric(NA), coeff = 1.1)
   )
-  expect_message(dens_under_alg(alg_layers = 4, alg_prop = 0.5, coeff = -0.1))
+  expect_message(dens_under_alg(alg_layers = 4, proportion = -0.1, coeff = 1.1))
+  expect_message(dens_under_alg(alg_layers = 4, proportion = 1.1, coeff = 1.1))
+  expect_message(
+    dens_under_alg(alg_layers = 4, proportion = 0.5, coeff = as.numeric(NA))
+  )
+  expect_message(dens_under_alg(alg_layers = 4, proportion = 0.5, coeff = -0.1))
   expect_error(
     dens_under_alg(
-      alg_layers = 4, alg_prop = 0.5, coeff = 1.1, vartheta = "vartheta"
+      alg_layers = 4, proportion = 0.5, coeff = 1.1, vartheta = "vartheta"
     )
   )
   expect_message(
     dens_under_alg(
-      alg_layers = 4, alg_prop = 0.5, coeff = 1.1, vartheta = as.numeric(NA)
-    )
-  )
-  expect_error(
-    dens_under_alg(
-      alg_layers = 4, alg_prop = 0.5, coeff = 1.1, varrho = "varrho"
-    )
-  )
-  expect_message(
-    dens_under_alg(
-      alg_layers = 4, alg_prop = 0.5, coeff = 1.1, varrho = as.numeric(NA)
+      alg_layers = 4, proportion = 0.5, coeff = 1.1, vartheta = as.numeric(NA)
     )
   )
   expect_error(
     dens_under_alg(
-      alg_layers = 4, alg_prop = 0.5, coeff = 1.1, varsigma = "varsigma"
+      alg_layers = 4, proportion = 0.5, coeff = 1.1, varrho = "varrho"
     )
   )
   expect_message(
     dens_under_alg(
-      alg_layers = 4, alg_prop = 0.5, coeff = 1.1, varsigma = as.numeric(NA)
+      alg_layers = 4, proportion = 0.5, coeff = 1.1, varrho = as.numeric(NA)
+    )
+  )
+  expect_error(
+    dens_under_alg(
+      alg_layers = 4, proportion = 0.5, coeff = 1.1, varsigma = "varsigma"
+    )
+  )
+  expect_message(
+    dens_under_alg(
+      alg_layers = 4, proportion = 0.5, coeff = 1.1, varsigma = as.numeric(NA)
     )
   )
   expect_silent(
     dens_under_alg(
-      alg_layers = -0.1, alg_prop = -0.1, coeff = -0.1, quiet = TRUE
+      alg_layers = -0.1, proportion = -0.1, coeff = -0.1, quiet = TRUE
     )
   )
   expect_silent(
     dens_under_alg(
-      alg_layers = as.numeric(NA), alg_prop = as.numeric(NA),
+      alg_layers = as.numeric(NA), proportion = as.numeric(NA),
       vartheta = as.numeric(NA), varrho = as.numeric(NA),
       varsigma = as.numeric(NA), coeff = as.numeric(NA), quiet = TRUE
     )
