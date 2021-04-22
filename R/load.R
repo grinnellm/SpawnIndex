@@ -12,8 +12,7 @@
 #'   or A2W).
 #' @param sec_sub Numeric vector or NULL Subset of Sections to include in the
 #'   analysis, or NULL to include all the Sections in the region.
-#' @param where List. Location of the Pacific Herring "locations" database (see
-#'   examples).
+#' @template param-where
 #' @param in_crs Character. Input coordinate reference system;
 #'   \href{https://spatialreference.org/}{use EPSG codes if desired}.
 #' @param out_crs Character. Output coordinate reference system;
@@ -337,8 +336,7 @@ load_area_data <- function(reg,
 #'
 #' Get the all spawn table.
 #'
-#' @param where List. Location of the Pacific Herring understory spawn database
-#'   (see examples).
+#' @template param-where
 #' @template param-areas
 #' @template param-years
 #' @param ft2m Numeric. Conversion factor for feet to metres; default is 0.3048.
@@ -492,8 +490,7 @@ load_all_spawn <- function(where,
 #' \insertCite{HayKronlund1987}{SpawnIndex}. Instead, the preferred with comes
 #' from underwater surveys \insertCite{GrinnellEtalYYYY}{SpawnIndex}.
 #'
-#' @param where List. Location of the Pacific Herring surface spawn database
-#'   (see examples).
+#' @template param-where
 #' @template param-areas
 #' @template param-quiet
 #' @importFrom odbc dbConnect odbc dbDisconnect

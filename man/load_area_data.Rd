@@ -21,7 +21,7 @@ or A2W).}
 \item{sec_sub}{Numeric vector or NULL Subset of Sections to include in the
 analysis, or NULL to include all the Sections in the region.}
 
-\item{where}{List. Location of the Pacific Herring "locations" database (see
+\item{where}{List. Location of the Pacific Herring spawn survey database (see
 examples).}
 
 \item{in_crs}{Character. Input coordinate reference system;

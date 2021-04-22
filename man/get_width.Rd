@@ -7,8 +7,8 @@
 get_width(where, areas, quiet = FALSE)
 }
 \arguments{
-\item{where}{List. Location of the Pacific Herring surface spawn database
-(see examples).}
+\item{where}{List. Location of the Pacific Herring spawn survey database (see
+examples).}
 
 \item{areas}{Tibble. Table of geographic information indicating the subset of
 spawn survey observations to include in calculations; from

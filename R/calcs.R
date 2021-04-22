@@ -160,8 +160,7 @@ dens_surf <- function(alpha = pars$surface$alpha,
 #' and prepares the data; the actual calculation is done by
 #' \code{\link{dens_surf}}.
 #'
-#' @param where List. Location of the Pacific Herring surface spawn database
-#'   (see examples).
+#' @template param-where
 #' @template param-areas
 #' @param widths List. List of three tables: median region, section, and pool
 #'   widths in metres (m); from \code{\link{get_width}}.
@@ -554,8 +553,7 @@ eggs_macro <- function(xi = pars$macrocystis$xi,
 #' wrangles and prepares the data; the actual calculation is done by
 #' \code{\link{eggs_macro}}.
 #'
-#' @param where List. Location of the Pacific Herring Macrocystis spawn database
-#'   (see examples).
+#' @template param-where
 #' @template param-areas
 #' @template param-years
 #' @param chi Numeric. Transect swath (i.e., width) in metres.
@@ -900,8 +898,7 @@ dens_under_alg <- function(vartheta = pars$understory$vartheta,
 #' primarily wrangles and prepares the data; the actual calculations are done by
 #' \code{\link{dens_under_sub}} and \code{\link{dens_under_alg}}.
 #'
-#' @param where List. Location of the Pacific Herring understory spawn database
-#'   (see examples).
+#' @template param-where
 #' @template param-areas
 #' @template param-years
 #' @param alg_coefs Tibble. Table of algae coefficients; from
