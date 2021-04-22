@@ -52,7 +52,7 @@ eggs_to_sb <- function(omega = pars$conversion$omega,
 #'   \code{\link{pars}}. Message if < 0 and/or > 1.
 #' @param upsilon Numeric. SOK product weight increase due to brining as a
 #'   proportion; from \code{\link{pars}}. Message if < 0 and/or > 1.
-#' @param w Numeric. Average weight in kilograms of a fertilized egg; from
+#' @param egg_weight Numeric. Average weight in kilograms of a fertilized egg; from
 #'   \code{\link{pars}}. Message if < 0.
 #' @template param-theta
 #' @template param-quiet
@@ -69,12 +69,15 @@ eggs_to_sb <- function(omega = pars$conversion$omega,
 calc_sok_sb <- function(sok,
                         nu = pars$sok$nu,
                         upsilon = pars$sok$upsilon,
-                        w = pars$sok$w,
+                        egg_weight = pars$sok$egg_weight,
                         theta = eggs_to_sb(),
                         quiet = FALSE) {
   # Check input: NA and numeric
   check_numeric(
-    dat = list(sok = sok, nu = nu, upsilon = upsilon, w = w, theta = theta),
+    dat = list(
+      sok = sok, nu = nu, upsilon = upsilon, egg_weight = egg_weight,
+      theta = theta
+    ),
     quiet = quiet
   )
   # Check sok: range
@@ -87,13 +90,13 @@ calc_sok_sb <- function(sok,
   if ((any(na.omit(upsilon) < 0) | any(na.omit(upsilon) > 1)) & !quiet) {
     message("`upsilon` < 0 and/or > 1.")
   }
-  # Check w: range
-  if (any(na.omit(w) < 0) & !quiet) message("`w` < 0.")
+  # Check egg_weight: range
+  if (any(na.omit(egg_weight) < 0) & !quiet) message("`egg_weight` < 0.")
   # Check theta: range
   if (any(na.omit(theta) < 0) & !quiet) message("`theta` < 0.")
   # Spawning biomass in tonnes: (kg SOK * proportion eggs * proportion eggs) /
   # (kg per egg * eggs per tonne )
-  sb <- (sok * (1 - nu) * 1 / (1 + upsilon)) / (w * theta)
+  sb <- (sok * (1 - nu) * 1 / (1 + upsilon)) / (egg_weight * theta)
   # Check output: NA and numeric
   check_numeric(dat = list(sb = sb), quiet = quiet)
   # Check sb: range
