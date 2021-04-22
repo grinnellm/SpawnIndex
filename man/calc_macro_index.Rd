@@ -18,8 +18,8 @@ calc_macro_index(
 )
 }
 \arguments{
-\item{where}{List. Location of the Pacific Herring spawn survey database (see
-examples).}
+\item{where}{List. Location and name of the Pacific Herring spawn survey
+database, as well as required tables (see examples).}
 
 \item{areas}{Tibble. Table of geographic information indicating the subset of
 spawn survey observations to include in calculations; from
