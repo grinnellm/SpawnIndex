@@ -1936,27 +1936,19 @@ has examples to promote accessibility and transparency.
 There is also a vignette with an example workflow.
 
 <<>>=
-# Lookup table for parameter names
-lookup_pars <- read_csv(
-  "Name in TechReport, Symbol in TechReport, Name in R, Description, Context
-  theta, \\theta, `theta`, Egg conversion factor, `eggs_to_sb()`"
-)
-save(lookup_pars, file = file.path("data", "lookup_pars.RData"))
-# Cross-walk table for functions
-lookup_funs <- read_csv(
-  "a, b
-  one, two"
-)
-save(lookup_funs, file = file.path("data", "lookup_funs.RData"))
+# # Lookup table for parameter names
+# lookup_pars <- read_csv(
+#   "Name in TechReport, Symbol in TechReport, Name in R, Description, Context
+#   theta, \\theta, `theta`, Egg conversion factor, `eggs_to_sb()`"
+# )
+# save(lookup_pars, file = file.path("data", "lookup_pars.RData"))
+# # Cross-walk table for functions
+# lookup_funs <- read_csv(
+#   "a, b
+#   one, two"
+# )
+# save(lookup_funs, file = file.path("data", "lookup_funs.RData"))
 @
-
-# Cross-walk table for functions
-lookup_funs <- read_csv(
-  "a, b
-  one, two"
-)
-save(lookup_funs, file = file.path("data", "lookup_funs.RData"))
-
 
 \section{ACKNOWLEDGEMENTS}
 
