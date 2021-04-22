@@ -5,7 +5,9 @@ library(readr)
 # Parameter values
 pars <- list(
   conversion = list(omega = 200000, female = 0.5),
-  sok = list(nu = 0.12, upsilon = (19.73 - 6.53) / 100, w = 2.38 * 10^-6),
+  sok = list(
+    nu = 0.12, upsilon = (19.73 - 6.53) / 100, egg_weight = 2.38 * 10^-6
+  ),
   surface = list(alpha = 14.698, beta = 212.218),
   macrocystis = list(
     xi = 0.073, gamma = 0.673, delta = 0.932, epsilon = 0.703
