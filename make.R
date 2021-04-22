@@ -17,7 +17,7 @@ devtools::build_manual(path = "./doc")
 # Styler
 styler::style_pkg()
 styler::style_file(file.path("vignettes", "Introduction.Rmd"))
-styler::style_file(file.path("tr", "SpawnIndex.Rnw"))
+# styler::style_file(file.path("tr", "SpawnIndex.Rnw"))
 
 # Lint
 lintr::lint_package()
