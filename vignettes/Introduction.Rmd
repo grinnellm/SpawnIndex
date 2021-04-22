@@ -292,7 +292,7 @@ ggplot(data = macro_loc_yr) +
   labs(colour = "Spawn\nindex (t)") +
   coord_sf(xlim = x_lims, ylim = y_lims) +
   facet_wrap(Year ~ ., ncol = 2) +
-  theme_bw()  +
+  theme_bw() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
