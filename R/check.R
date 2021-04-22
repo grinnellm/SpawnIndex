@@ -16,7 +16,10 @@ check_numeric <- function(dat,
   # Ensure input is a list
   if (!is.list(dat)) stop("`dat` must be a list", call. = FALSE)
   # Check for NA
-  any_na <- sapply(X = dat, FUN = function(x) any(is.na(x)))
+  any_na <- vapply(
+    X = dat, FUN = function(x) any(is.na(x)),
+    FUN.VALUE = vector(mode = "logical", length = 1)
+  )
   # If NAs
   if (any(any_na) & !quiet) {
     # Where are the NAs
@@ -25,7 +28,10 @@ check_numeric <- function(dat,
     message("NA(s) in: ", paste_nicely(na_names, do_quotes = TRUE), ".")
   } # End if NAs
   # Check for numeric
-  not_numeric <- sapply(X = dat, FUN = function(x) !is.numeric(x))
+  not_numeric <- vapply(
+    X = dat, FUN = function(x) !is.numeric(x),
+    FUN.VALUE = vector(mode = "logical", length = 1)
+  )
   # If not numeric
   if (any(not_numeric)) {
     # Names of not numeric
@@ -62,7 +68,10 @@ check_tibble <- function(dat,
   # Check input: numeric
   check_numeric(dat = list(min_rows = min_rows), quiet = quiet)
   # Check for enough rows
-  few_rows <- sapply(X = dat, FUN = function(x) nrow(x) < min_rows)
+  few_rows <- vapply(
+    X = dat, FUN = function(x) nrow(x) < min_rows,
+    FUN.VALUE = vector(mode = "logical", length = 1)
+  )
   # If not enough rows
   if (any(few_rows) & !quiet) {
     # Where are there not enough rows
@@ -73,7 +82,10 @@ check_tibble <- function(dat,
     ), ".")
   } # End if not enough rows
   # Check for tibbles
-  not_tibble <- sapply(X = dat, FUN = function(x) !is_tibble(x))
+  not_tibble <- vapply(
+    X = dat, FUN = function(x) !is_tibble(x),
+    FUN.VALUE = vector(mode = "logical", length = 1)
+  )
   # If not tibbles
   if (any(not_tibble)) {
     # Names of not tibbles
