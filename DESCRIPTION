@@ -2,7 +2,7 @@ Package: SpawnIndex
 Type: Package
 Title: Calculate the spawn index for Pacific Herring (Clupea pallasii) in
     British Columbia, Canada
-Version: 0.3.0
+Version: 0.3.1
 Authors@R: c(
     person(given = c("Matthew", "H."), family = "Grinnell",
     role = c("aut", "cre"), email = "matthew.grinnell@dfo-mpo.gc.ca"),
