@@ -27,27 +27,28 @@ test_that("SOK biomass", {
   expect_message(calc_sok_sb(sok = 100, upsilon = as.numeric(NA)))
   expect_message(calc_sok_sb(sok = 100, upsilon = 1.1))
   expect_message(calc_sok_sb(sok = 100, upsilon = -0.1))
-  expect_error(calc_sok_sb(sok = 100, w = "w"))
-  expect_message(calc_sok_sb(sok = 100, w = as.numeric(NA)))
-  expect_message(calc_sok_sb(sok = 100, w = -0.1))
+  expect_error(calc_sok_sb(sok = 100, egg_weight = "egg_weight"))
+  expect_message(calc_sok_sb(sok = 100, egg_weight = as.numeric(NA)))
+  expect_message(calc_sok_sb(sok = 100, egg_weight = -0.1))
   expect_error(calc_sok_sb(sok = 100, theta = "theta"))
   expect_message(calc_sok_sb(sok = 100, theta = as.numeric(NA)))
   expect_message(calc_sok_sb(sok = 100, theta = -100))
   expect_silent(
     calc_sok_sb(
-      sok = -100, nu = 1.1, upsilon = 1.1, w = -0.1, theta = -100, quiet = TRUE
+      sok = -100, nu = 1.1, upsilon = 1.1, egg_weight = -0.1, theta = -100,
+      quiet = TRUE
     )
   )
   expect_silent(
     calc_sok_sb(
-      sok = -100, nu = -0.1, upsilon = -0.1, w = -0.1, theta = -100,
+      sok = -100, nu = -0.1, upsilon = -0.1, egg_weight = -0.1, theta = -100,
       quiet = TRUE
     )
   )
   expect_silent(
     calc_sok_sb(
       sok = as.numeric(NA), nu = as.numeric(NA), upsilon = as.numeric(NA),
-      w = as.numeric(NA), theta = as.numeric(NA), quiet = TRUE
+      egg_weight = as.numeric(NA), theta = as.numeric(NA), quiet = TRUE
     )
   )
 })
