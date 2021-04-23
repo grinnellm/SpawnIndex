@@ -29,7 +29,7 @@ tibble comes from \code{a}: Region, Statistical Area, Section, and Location
 code.
 }
 \description{
-Load the all spawn table.
+Load the all spawn table, which has additional spawn survey data.
 }
 \examples{
 db_loc <- system.file("extdata", package = "SpawnIndex")

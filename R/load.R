@@ -334,7 +334,7 @@ load_area_data <- function(reg,
 
 #' Load the all spawn table.
 #'
-#' Load the all spawn table.
+#' Load the all spawn table, which has additional spawn survey data.
 #'
 #' @template param-where
 #' @template param-areas
