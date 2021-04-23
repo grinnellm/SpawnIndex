@@ -1931,12 +1931,12 @@ The SpawnIndex package contains
 an example database of \fishName{} spawn survey observations, as well as
 functions to import tables from the database, and
 calculate the spawn index.
-To facilitate pairing this document with the \textbf{R} package,
-we provide tables to cross-reference parameters and equations/functions
-(\autoref{seccCross}).
 The SpawnIndex package is documented, and
 has examples to promote accessibility and transparency.
 There is also a vignette with an example workflow.
+To facilitate pairing this document with the \textbf{R} package,
+we provide tables to cross-reference parameters and equations
+(\autoref{secCross}).
 
 \section{ACKNOWLEDGEMENTS}
 
@@ -2158,7 +2158,7 @@ in the last two cases,
 $E_j$ was updated using historical averages.
 These changes have negligible effects on spawn index values.
 
-\section{CROSSWALK TABLES}\label{seccCross}
+\section{CROSSWALK TABLES}\label{secCross}
 
 % Reset figure, table, and equation counters
 \setcounter{figure}{0}
@@ -2168,12 +2168,12 @@ These changes have negligible effects on spawn index values.
 Two crosswalk tables facilitate pairing this document with the SpawnIndex \textbf{R} package.
 First, we cross-reference equations in this document with
 functions in the \textbf{R} package (\autoref{tabLookupFuns}).
-Second, we cross-reference parameters between this document and
-the \textbf{R} package (\autoref{tabLookupPars}).
+Second, we cross-reference parameter in this document with
+function arguments in the \textbf{R} package (\autoref{tabLookupPars}).
 
 \begin{table}
 \centering
-\caption[Crosswalk table for functions in the SpawnIndex \textbf{R} package]
+\caption[Crosswalk table for equations and functions in the SpawnIndex \textbf{R} package]
 {Crosswalk table for equations in this document (i.e., technical report) and
 functions in the SpawnIndex \textbf{R} package (\gitRepo{}).}
 \begin{tabulary}{\linewidth}{LLLl}
@@ -2197,24 +2197,34 @@ Spawn-on-kelp calculations & \ref{secSOK} & \ref{eqSOKBioGRY} & \texttt{calc\_so
 \end{table}
 
 \FloatBarrier
-\begin{table}
-\centering
-\caption[Crosswalk table for parameters in the SpawnIndex \textbf{R} package]
+\begin{longtable}{P{3.5cm}P{1.25cm}P{1.75cm}P{1.5cm}P{3.5cm}}
+\caption[Crosswalk table for parameters and function arguments in the SpawnIndex \textbf{R} package]
 {Crosswalk table for parameters in this document (i.e., technical report) and
-the SpawnIndex \textbf{R} package (\gitRepo{}).}
-\begin{tabulary}{\linewidth}{LLLLL}
+function arguments in the SpawnIndex \textbf{R} package (\gitRepo{}).
+Legend: `Eq' indicates equation.}\\
 \toprule
 & \multicolumn{2}{c}{\textbf{Technical report}} & \multicolumn{2}{c}{\textbf{R package}} \\
 \cmidrule(r){2-3} \cmidrule(l){4-5}
 \textbf{Description} & \textbf{Name} & \textbf{Scope} & \textbf{Name} & \textbf{Scope} \\
 \midrule
-Female fecundity & $\omega$ & \autoref{tabNotationEggs}, \autoref{eqECF} & \texttt{omega} & \texttt{pars}, \texttt{eggs\_to\_sb} \\
-Proportion female & $\female$ & \autoref{tabNotationEggs}, \autoref{eqECF} & \texttt{female} & \texttt{pars}, \texttt{eggs\_to\_sb} \\
-Egg conversion factor & $\theta$ & \autoref{tabNotationEggs}, \autoref{eqECF} & \texttt{theta} & \texttt{eggs\_to\_sb} \\
+\endfirsthead
+\toprule
+\multicolumn{5}{c}{\emph{\tablename~\thetable~continued}} \\
+& \multicolumn{2}{c}{\textbf{Technical report}} & \multicolumn{2}{c}{\textbf{R package}} \\
+\cmidrule(r){2-3} \cmidrule(l){4-5}
+\textbf{Description} & \textbf{Name} & \textbf{Scope} & \textbf{Name} & \textbf{Scope} \\
+\midrule
+\endhead
 \bottomrule
-\end{tabulary}
+\endfoot
+\bottomrule
+\endlastfoot
+Female fecundity & $\omega$ & \autoref{tabNotationEggs}, Eq~\ref{eqECF} & \texttt{omega} & \texttt{pars}, \texttt{eggs\_to\_sb} \\
+Proportion female & $\female$ & \autoref{tabNotationEggs}, Eq~\ref{eqECF} & \texttt{female} & \texttt{pars}, \texttt{eggs\_to\_sb} \\
+Egg conversion factor & $\theta$ & \autoref{tabNotationEggs}, Eqs~\ref{eqECF}, \ref{eqSurfIndS}, \ref{eqMacroIndS}, \ref{eqUnderIndS}, \ref{eqSOKBioGRY} & \texttt{theta} & \texttt{eggs\_to\_sb}, \texttt{calc\_surf\_index}, \texttt{calc\_macro\_index}, \texttt{calc\_under\_index}, \texttt{calc\_sok\_index} \\
+\bottomrule
 \label{tabLookupPars}
-\end{table}
+\end{longtable}
 \FloatBarrier
 
 % End appendices
