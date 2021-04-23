@@ -22,7 +22,7 @@
 #' @docType data
 #' @name HerringSpawn
 #' @seealso \code{\link{load_area_data}} \code{\link{load_all_spawn}}
-#'   \code{\link{get_width}} \code{\link{calc_surf_index}}
+#'   \code{\link{load_width}} \code{\link{calc_surf_index}}
 #'   \code{\link{calc_macro_index}} \code{\link{calc_under_index}}
 #' @family raw data
 #' @note This is a 32-bit MS Access database; 32-bit R is required to access the

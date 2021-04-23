@@ -82,7 +82,7 @@ dplyr::distinct(dplyr::select(
 \code{\link{HerringSpawn}}
 
 Other load functions: 
-\code{\link{get_width}()},
-\code{\link{load_all_spawn}()}
+\code{\link{load_all_spawn}()},
+\code{\link{load_width}()}
 }
 \concept{load functions}

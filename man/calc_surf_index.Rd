@@ -27,7 +27,7 @@ spawn survey observations to include in calculations; from
 \code{\link{load_area_data}}.}
 
 \item{widths}{List. List of three tables: median region, section, and pool
-widths in metres (m); from \code{\link{get_width}}.}
+widths in metres (m); from \code{\link{load_width}}.}
 
 \item{years}{Numeric vector. Years(s) to include in the calculations. Message
 if < \code{pars$years$assess}.}
@@ -82,7 +82,7 @@ width_loc <- list(
     pool_std = "PoolStd"
   )
 )
-width_bar <- get_width(where = width_loc, a = areas)
+width_bar <- load_width(where = width_loc, a = areas)
 data(pars)
 data(intensity)
 surf_loc <- list(
@@ -99,7 +99,7 @@ surf_spawn$si
 }
 \seealso{
 \code{\link{HerringSpawn}} \code{\link{load_area_data}}
-\code{\link{get_width}} \code{\link{eggs_to_sb}}
+\code{\link{load_width}} \code{\link{eggs_to_sb}}
 \code{\link{pars}} \code{\link{intensity}} \code{\link{dens_surf}}
 
 Other calculation functions: 

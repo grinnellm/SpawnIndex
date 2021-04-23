@@ -73,7 +73,7 @@ areas <- load_area_data(
 )
 
 # Median widths
-width_bar <- get_width(where = width_loc, areas = areas)
+width_bar <- load_width(where = width_loc, areas = areas)
 
 # Understory spawn width correction factors
 data(under_width_facs)

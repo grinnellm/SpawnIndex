@@ -156,7 +156,7 @@ width_loc <- list(
     region_std = "RegionStd", section_std = "SectionStd", pool_std = "PoolStd"
   )
 )
-width_bar <- get_width(where = width_loc, areas = areas)
+width_bar <- load_width(where = width_loc, areas = areas)
 ```
 
 ```{r width_table, echo = FALSE, results = 'asis'}

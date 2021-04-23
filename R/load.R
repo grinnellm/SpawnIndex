@@ -332,9 +332,9 @@ load_area_data <- function(reg,
   res
 } # End load_area_data function
 
-#' Get the all spawn table.
+#' Load the all spawn table.
 #'
-#' Get the all spawn table.
+#' Load the all spawn table.
 #'
 #' @template param-where
 #' @template param-areas
@@ -520,9 +520,9 @@ load_all_spawn <- function(where,
 #'     pool_std = "PoolStd"
 #'   )
 #' )
-#' width_bar <- get_width(where = width_loc, areas = areas)
+#' width_bar <- load_width(where = width_loc, areas = areas)
 #' width_bar
-get_width <- function(where,
+load_width <- function(where,
                       areas,
                       quiet = FALSE) {
   # Get where names
@@ -611,4 +611,4 @@ get_width <- function(where,
   }
   # Table to return
   res
-} # End get_width function
+} # End load_width function

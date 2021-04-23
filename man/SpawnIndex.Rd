@@ -37,7 +37,7 @@ an example database with spawn survey observations
 
 \section{Load}{
  The load functions are \code{\link{load_area_data}},
-\code{\link{load_all_spawn}}, and \code{\link{get_width}}.
+\code{\link{load_all_spawn}}, and \code{\link{load_width}}.
 }
 
 \section{Calculation}{

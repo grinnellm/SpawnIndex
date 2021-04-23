@@ -2,7 +2,7 @@
 % Please edit documentation in R/load.R
 \name{load_all_spawn}
 \alias{load_all_spawn}
-\title{Get the all spawn table.}
+\title{Load the all spawn table.}
 \usage{
 load_all_spawn(where, areas, years, ft2m = 0.3048, quiet = FALSE)
 }
@@ -29,7 +29,7 @@ tibble comes from \code{a}: Region, Statistical Area, Section, and Location
 code.
 }
 \description{
-Get the all spawn table.
+Load the all spawn table.
 }
 \examples{
 db_loc <- system.file("extdata", package = "SpawnIndex")
@@ -54,7 +54,7 @@ all_spawn
 \code{\link{HerringSpawn}} \code{\link{load_area_data}}
 
 Other load functions: 
-\code{\link{get_width}()},
-\code{\link{load_area_data}()}
+\code{\link{load_area_data}()},
+\code{\link{load_width}()}
 }
 \concept{load functions}

@@ -166,7 +166,7 @@ dens_surf <- function(alpha = pars$surface$alpha,
 #' @template param-where
 #' @template param-areas
 #' @param widths List. List of three tables: median region, section, and pool
-#'   widths in metres (m); from \code{\link{get_width}}.
+#'   widths in metres (m); from \code{\link{load_width}}.
 #' @template param-years
 #' @param intense Tibble. Table of spawn intensity categories and number of egg
 #'   layers; from \code{\link{intensity}}.
@@ -197,7 +197,7 @@ dens_surf <- function(alpha = pars$surface$alpha,
 #' @note The `spawn index' is a relative index of spawning biomass.
 #' @references \insertAllCited
 #' @seealso \code{\link{HerringSpawn}} \code{\link{load_area_data}}
-#'   \code{\link{get_width}} \code{\link{eggs_to_sb}}
+#'   \code{\link{load_width}} \code{\link{eggs_to_sb}}
 #'   \code{\link{pars}} \code{\link{intensity}} \code{\link{dens_surf}}
 #' @family calculation functions
 #' @export
@@ -215,7 +215,7 @@ dens_surf <- function(alpha = pars$surface$alpha,
 #'     pool_std = "PoolStd"
 #'   )
 #' )
-#' width_bar <- get_width(where = width_loc, a = areas)
+#' width_bar <- load_width(where = width_loc, a = areas)
 #' data(pars)
 #' data(intensity)
 #' surf_loc <- list(

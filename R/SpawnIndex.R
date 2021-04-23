@@ -23,7 +23,7 @@
 #'   (\code{\link{HerringSpawn}}).
 #'
 #' @section Load: The load functions are \code{\link{load_area_data}},
-#'   \code{\link{load_all_spawn}}, and \code{\link{get_width}}.
+#'   \code{\link{load_all_spawn}}, and \code{\link{load_width}}.
 #'
 #' @section Calculation: The calculation functions are \code{\link{eggs_to_sb}},
 #'   \code{\link{calc_sok_index}}, \code{\link{dens_surf}},
