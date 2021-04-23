@@ -33,7 +33,6 @@
 #' @return Tibble. Table of geographic information for Pacific Herring: SAR,
 #'   Region, Region name, Statistical Area, Group, Section, Location code,
 #'   Location name, Pool, Eastings, Northings, Longitude, and Latitude.
-#' @references \insertAllCited
 #' @seealso \code{\link{HerringSpawn}}
 #' @family load functions
 #' @note This function requires 32-bit R to load data from the 32-bit MS Access
@@ -354,7 +353,6 @@ load_area_data <- function(reg,
 #'   dates, as well as spawn length, width, and depth. Other information in this
 #'   tibble comes from \code{a}: Region, Statistical Area, Section, and Location
 #'   code.
-#' @references \insertAllCited
 #' @seealso \code{\link{HerringSpawn}} \code{\link{load_area_data}}
 #' @family load functions
 #' @export
@@ -523,8 +521,8 @@ load_all_spawn <- function(where,
 #' width_bar <- load_width(where = width_loc, areas = areas)
 #' width_bar
 load_width <- function(where,
-                      areas,
-                      quiet = FALSE) {
+                       areas,
+                       quiet = FALSE) {
   # Get where names
   where_names <- c(
     "loc", "db", "fns.region_std", "fns.section_std", "fns.pool_std"

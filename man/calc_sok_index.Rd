@@ -42,9 +42,6 @@ kilograms.
 data(pars)
 calc_sok_index(sok = 100)
 }
-\references{
-\insertAllCited
-}
 \seealso{
 \code{\link{eggs_to_sb}} \code{\link{pars}}
 

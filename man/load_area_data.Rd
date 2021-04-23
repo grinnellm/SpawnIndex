@@ -75,9 +75,6 @@ dplyr::distinct(dplyr::select(
   areas_sec_grp, Region, StatArea, Group, Section
 ))
 }
-\references{
-\insertAllCited
-}
 \seealso{
 \code{\link{HerringSpawn}}
 

@@ -32,9 +32,6 @@ spawning biomass (i.e., the spawn index) in tonnes.
 data(pars)
 eggs_to_sb()
 }
-\references{
-\insertAllCited
-}
 \seealso{
 \code{\link{pars}}
 

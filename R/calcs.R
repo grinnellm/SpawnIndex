@@ -13,7 +13,6 @@
 #' @return Numeric. The conversion factor for eggs to spawn index in tonnes
 #'   (i.e., biomass). Divide the number of eggs by the conversion factor to get
 #'   biomass. Message if < 0.
-#' @references \insertAllCited
 #' @seealso \code{\link{pars}}
 #' @family calculation functions
 #' @export
@@ -59,7 +58,6 @@ eggs_to_sb <- function(omega = pars$conversion$omega,
 #' @importFrom Rdpack reprompt
 #' @importFrom stats na.omit
 #' @return Numeric. Spawn index in tonnes. Message if < 0.
-#' @references \insertAllCited
 #' @seealso \code{\link{eggs_to_sb}} \code{\link{pars}}
 #' @family calculation functions
 #' @export
