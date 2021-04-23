@@ -52,8 +52,8 @@ eggs_to_sb <- function(omega = pars$conversion$omega,
 #'   \code{\link{pars}}. Message if < 0 and/or > 1.
 #' @param upsilon Numeric. SOK product weight increase due to brining as a
 #'   proportion; from \code{\link{pars}}. Message if < 0 and/or > 1.
-#' @param egg_weight Numeric. Average weight in kilograms of a fertilized egg; from
-#'   \code{\link{pars}}. Message if < 0.
+#' @param egg_weight Numeric. Average weight in kilograms of a fertilized egg;
+#' from \code{\link{pars}}. Message if < 0.
 #' @template param-theta
 #' @template param-quiet
 #' @importFrom Rdpack reprompt

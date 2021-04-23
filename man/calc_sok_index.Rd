@@ -2,7 +2,7 @@
 % Please edit documentation in R/calcs.R
 \name{calc_sok_index}
 \alias{calc_sok_index}
-\title{Calculate spawning biomass from spawn-on-kelp (SOK) harvest.}
+\title{Calculate the spawn index from spawn-on-kelp (SOK) harvest.}
 \usage{
 calc_sok_index(
   sok,
@@ -23,8 +23,8 @@ Message if < 0.}
 \item{upsilon}{Numeric. SOK product weight increase due to brining as a
 proportion; from \code{\link{pars}}. Message if < 0 and/or > 1.}
 
-\item{egg_weight}{Numeric. Average weight in kilograms of a fertilized egg; from
-\code{\link{pars}}. Message if < 0.}
+\item{egg_weight}{Numeric. Average weight in kilograms of a fertilized egg;
+from \code{\link{pars}}. Message if < 0.}
 
 \item{theta}{Numeric. Egg conversion factor (eggs to biomass); from
 \code{\link{eggs_to_sb}}. Message if < 0.}
@@ -32,10 +32,10 @@ proportion; from \code{\link{pars}}. Message if < 0 and/or > 1.}
 \item{quiet}{Logical. Suppress messages; default is FALSE.}
 }
 \value{
-Numeric. Spawning biomass in tonnes. Message if < 0.
+Numeric. Spawn index in tonnes. Message if < 0.
 }
 \description{
-Calculate spawning biomass in tonnes from spawn-on-kelp (SOK) harvest in
+Calculate the spawn index in tonnes from spawn-on-kelp (SOK) harvest in
 kilograms.
 }
 \examples{

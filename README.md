@@ -126,7 +126,7 @@ in kilograms, kg.
 
 ``` r
 sok <- 100
-biomass <- calc_sok_sb(sok = sok, theta = theta)
+biomass <- calc_sok_index(sok = sok, theta = theta)
 biomass
 ```
 
