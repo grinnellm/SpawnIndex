@@ -56,7 +56,7 @@ dens_under_alg(egg_layers = 4, proportion = 0.5, coeff = 1.1)
 
 Other calculation functions: 
 \code{\link{calc_macro_index}()},
-\code{\link{calc_sok_sb}()},
+\code{\link{calc_sok_index}()},
 \code{\link{calc_surf_index}()},
 \code{\link{calc_under_index}()},
 \code{\link{dens_surf}()},

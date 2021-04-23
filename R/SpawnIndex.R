@@ -26,7 +26,7 @@
 #'   \code{\link{load_all_spawn}}, and \code{\link{get_width}}.
 #'
 #' @section Calculation: The calculation functions are \code{\link{eggs_to_sb}},
-#'   \code{\link{calc_sok_sb}}, \code{\link{dens_surf}},
+#'   \code{\link{calc_sok_index}}, \code{\link{dens_surf}},
 #'   \code{\link{calc_surf_index}}, \code{\link{eggs_macro}},
 #'   \code{\link{calc_macro_index}}, \code{\link{dens_under_sub}},
 #'   \code{\link{dens_under_alg}}, and \code{\link{calc_under_index}}.

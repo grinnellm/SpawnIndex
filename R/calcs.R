@@ -41,9 +41,9 @@ eggs_to_sb <- function(omega = pars$conversion$omega,
   theta
 } # End eggs_to_sb function
 
-#' Calculate spawning biomass from spawn-on-kelp (SOK) harvest.
+#' Calculate the spawn index from spawn-on-kelp (SOK) harvest.
 #'
-#' Calculate spawning biomass in tonnes from spawn-on-kelp (SOK) harvest in
+#' Calculate the spawn index in tonnes from spawn-on-kelp (SOK) harvest in
 #' kilograms.
 #'
 #' @param sok Numeric. Weight of spawn-on-kelp (SOK) harvest in kilograms.
@@ -58,20 +58,20 @@ eggs_to_sb <- function(omega = pars$conversion$omega,
 #' @template param-quiet
 #' @importFrom Rdpack reprompt
 #' @importFrom stats na.omit
-#' @return Numeric. Spawning biomass in tonnes. Message if < 0.
+#' @return Numeric. Spawn index in tonnes. Message if < 0.
 #' @references \insertAllCited
 #' @seealso \code{\link{eggs_to_sb}} \code{\link{pars}}
 #' @family calculation functions
 #' @export
 #' @examples
 #' data(pars)
-#' calc_sok_sb(sok = 100)
-calc_sok_sb <- function(sok,
-                        nu = pars$sok$nu,
-                        upsilon = pars$sok$upsilon,
-                        egg_weight = pars$sok$egg_weight,
-                        theta = eggs_to_sb(),
-                        quiet = FALSE) {
+#' calc_sok_index(sok = 100)
+calc_sok_index <- function(sok,
+                           nu = pars$sok$nu,
+                           upsilon = pars$sok$upsilon,
+                           egg_weight = pars$sok$egg_weight,
+                           theta = eggs_to_sb(),
+                           quiet = FALSE) {
   # Check input: NA and numeric
   check_numeric(
     dat = list(
@@ -103,7 +103,7 @@ calc_sok_sb <- function(sok,
   if (any(na.omit(sb) < 0) & !quiet) message("`sb` < 0.")
   # Return the spawning biomass
   sb
-} # End calc_sok_sb
+} # End calc_sok_index
 
 #' Calculate surface spawn egg density.
 #'

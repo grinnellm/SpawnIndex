@@ -437,7 +437,7 @@ set.seed(12)
 kg_sok <- tibble(
   Year = yr_range, Harvest = sample(x = 500:10000, size = length(yr_range))
 ) %>%
-  mutate(Biomass = calc_sok_sb(Harvest))
+  mutate(Biomass = calc_sok_index(Harvest))
 # Table
 kable(x = kg_sok, digits = c(0, 0, 1), booktabs = TRUE, caption = sok_yr_cap)
 ```

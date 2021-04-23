@@ -40,7 +40,7 @@ eggs_to_sb()
 
 Other calculation functions: 
 \code{\link{calc_macro_index}()},
-\code{\link{calc_sok_sb}()},
+\code{\link{calc_sok_index}()},
 \code{\link{calc_surf_index}()},
 \code{\link{calc_under_index}()},
 \code{\link{dens_surf}()},

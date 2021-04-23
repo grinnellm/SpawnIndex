@@ -101,7 +101,7 @@ under_spawn$si
 
 Other calculation functions: 
 \code{\link{calc_macro_index}()},
-\code{\link{calc_sok_sb}()},
+\code{\link{calc_sok_index}()},
 \code{\link{calc_surf_index}()},
 \code{\link{dens_surf}()},
 \code{\link{dens_under_alg}()},

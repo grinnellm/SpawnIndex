@@ -69,7 +69,7 @@ pars
 }
 \seealso{
 \code{\link{load_all_spawn}} \code{\link{eggs_to_sb}}
-\code{\link{calc_sok_sb}} \code{\link{calc_surf_index}}
+\code{\link{calc_sok_index}} \code{\link{calc_surf_index}}
 \code{\link{calc_macro_index}} \code{\link{calc_under_index}}
 
 Other parameters: 
