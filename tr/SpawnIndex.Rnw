@@ -1931,7 +1931,7 @@ The SpawnIndex package contains
 an example database of \fishName{} spawn survey observations, as well as
 functions to import tables from the database, and
 calculate the spawn index.
-To facilitate integrating this document with the \textbf{R} package,
+To facilitate pairing this document with the \textbf{R} package,
 we provide tables to cross-reference parameters and equations/functions
 (\autoref{seccCross}).
 The SpawnIndex package is documented, and
@@ -2165,7 +2165,7 @@ These changes have negligible effects on spawn index values.
 \setcounter{table}{0}
 \setcounter{equation}{0}
 
-Two crosswalk tables facilitate integrating this document with the SpawnIndex \textbf{R} package.
+Two crosswalk tables facilitate pairing this document with the SpawnIndex \textbf{R} package.
 First, we cross-reference equations in this document with
 functions in the \textbf{R} package (\autoref{tabLookupFuns}).
 Second, we cross-reference parameters between this document and
