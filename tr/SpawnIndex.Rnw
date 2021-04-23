@@ -2174,7 +2174,8 @@ the \textbf{R} package (\autoref{tabLookupPars}).
 \begin{table}
 \centering
 \caption[Crosswalk table for functions in the SpawnIndex \textbf{R} package]
-{Crosswalk table for equations in this technical report and functions in the SpawnIndex \textbf{R} package (\gitRepo{}).}
+{Crosswalk table for equations in this document (i.e., technical report) and
+functions in the SpawnIndex \textbf{R} package (\gitRepo{}).}
 \begin{tabulary}{\linewidth}{LLLl}
 \toprule
 & \multicolumn{2}{c}{\textbf{Technical report}} & \multicolumn{1}{c}{\textbf{R package}} \\
@@ -2195,10 +2196,12 @@ Spawn-on-kelp calculations & \ref{secSOK} & \ref{eqSOKBioGRY} & \texttt{calc\_so
 \label{tabLookupFuns}
 \end{table}
 
+\FloatBarrier
 \begin{table}
 \centering
 \caption[Crosswalk table for parameters in the SpawnIndex \textbf{R} package]
-{Crosswalk table for parameters in this technical report and the SpawnIndex \textbf{R} package (\gitRepo{}).}
+{Crosswalk table for parameters in this document (i.e., technical report) and
+the SpawnIndex \textbf{R} package (\gitRepo{}).}
 \begin{tabulary}{\linewidth}{LLLLL}
 \toprule
 & \multicolumn{2}{c}{\textbf{Technical report}} & \multicolumn{2}{c}{\textbf{R package}} \\
@@ -2212,6 +2215,7 @@ Egg conversion factor & $\theta$ & \autoref{tabNotationEggs}, \autoref{eqECF} & 
 \end{tabulary}
 \label{tabLookupPars}
 \end{table}
+\FloatBarrier
 
 % End appendices
 \end{appendices}
