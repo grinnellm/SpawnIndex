@@ -1934,8 +1934,41 @@ calculate the spawn index.
 The SpawnIndex package is documented, and
 has examples to promote accessibility and transparency.
 There is also a vignette with an example workflow.
-To facilitate pairing this document with the \textbf{R} package,
-we cross-reference equations and functions (\autoref{secCross}).
+
+To facilitate pairing this document with the SpawnIndex \textbf{R} package,
+we cross-reference equations in this document with
+functions in the \textbf{R} package (\autoref{tabLookupFuns}).
+In addition, parameters names in this document have corresponding
+function argument names in the \textbf{R} package.
+For example, theta $\theta$ in \autoref{eqECF} corresponds to
+\texttt{theta} in the function \texttt{eggs\_to\_sb}.
+Similarly, egg layers $E_j$ in \autoref{eqSurfDensJS} corresponds to
+\texttt{egg\_layers} in the function \texttt{dens\_surf}.
+
+\begin{table}
+\centering
+\caption[Crosswalk table for equations and functions in the SpawnIndex \textbf{R} package]
+{Crosswalk table for equations in this document (i.e., technical report) and
+functions in the SpawnIndex \textbf{R} package (\gitRepo{}).}
+\begin{tabulary}{\linewidth}{LLLl}
+\toprule
+& \multicolumn{2}{c}{\textbf{Technical report}} & \multicolumn{1}{c}{\textbf{R package}} \\
+\cmidrule(r){2-3} \cmidrule(l){4-4}
+\textbf{Description} & \textbf{Section} & \textbf{Equation(s)} & \textbf{Function} \\
+\midrule
+Egg conversion factor & \ref{secProd} & \ref{eqECF} & \texttt{eggs\_to\_sb} \\
+Surface spawn calculations & \ref{secSurf} & \ref{eqSurfLayersIJS} to \ref{eqSurfIndS} & \texttt{calc\_surf\_index} \\
+Surface egg density & \ref{secSurfJ} & \ref{eqSurfDensJS} & \texttt{dens\_surf} \\
+Macrocystis spawn calculations & \ref{secMacro} & \ref{eqMacroAreaTS} to \ref{eqMacroIndS} & \texttt{calc\_macro\_index} \\
+Number of eggs per Macrocystis plant & \ref{secMacroS} & \ref{eqMacroEggsPerPlantS} & \texttt{eggs\_macro} \\
+Understory spawn calculations & \ref{secUnder} & \ref{eqUnderDensSubQTS} to \ref{eqUnderIndS} & \texttt{calc\_under\_index} \\
+Understory egg density on substrate & \ref{secUnderQ} & \ref{eqUnderDensSubQTS} & \texttt{dens\_under\_sub} \\
+Understory egg density on algae & \ref{secUnderQ} & \ref{eqUnderDensAlgVQTS} & \texttt{dens\_under\_alg} \\
+Spawn-on-kelp calculations & \ref{secSOK} & \ref{eqSOKBioGRY} & \texttt{calc\_sok\_index} \\
+\bottomrule
+\end{tabulary}
+\label{tabLookupFuns}
+\end{table}
 
 \section{ACKNOWLEDGEMENTS}
 
@@ -2156,79 +2189,6 @@ $E_j$ was updated using intensity categories (\autoref{tab:Intensity});
 in the last two cases,
 $E_j$ was updated using historical averages.
 These changes have negligible effects on spawn index values.
-
-\section{CROSSWALK TABLE}\label{secCross}
-
-% Reset figure, table, and equation counters
-\setcounter{figure}{0}
-\setcounter{table}{0}
-\setcounter{equation}{0}
-
-To facilitate pairing this document with the SpawnIndex \textbf{R} package,
-we cross-reference equations in this document with
-functions in the \textbf{R} package (\autoref{tabLookupFuns}).
-In addition, most parameters names in this document have consistent
-function argument names in the \textbf{R} package
-(e.g., theta $\theta$ in \autoref{eqECF} is
-\texttt{theta} in the corresponding function \texttt{eggs\_to\_sb}).
-% Second, we cross-reference parameter in this document with
-% function arguments in the \textbf{R} package (\autoref{tabLookupPars}).
-
-\begin{table}
-\centering
-\caption[Crosswalk table for equations and functions in the SpawnIndex \textbf{R} package]
-{Crosswalk table for equations in this document (i.e., technical report) and
-functions in the SpawnIndex \textbf{R} package (\gitRepo{}).}
-\begin{tabulary}{\linewidth}{LLLl}
-\toprule
-& \multicolumn{2}{c}{\textbf{Technical report}} & \multicolumn{1}{c}{\textbf{R package}} \\
-\cmidrule(r){2-3} \cmidrule(l){4-4}
-\textbf{Description} & \textbf{Section} & \textbf{Equation(s)} & \textbf{Function} \\
-\midrule
-Egg conversion factor & \ref{secProd} & \ref{eqECF} & \texttt{eggs\_to\_sb} \\
-Surface spawn calculations & \ref{secSurf} & \ref{eqSurfLayersIJS} to \ref{eqSurfIndS} & \texttt{calc\_surf\_index} \\
-Surface egg density & \ref{secSurfJ} & \ref{eqSurfDensJS} & \texttt{dens\_surf} \\
-Macrocystis spawn calculations & \ref{secMacro} & \ref{eqMacroAreaTS} to \ref{eqMacroIndS} & \texttt{calc\_macro\_index} \\
-Number of eggs per Macrocystis plant & \ref{secMacroS} & \ref{eqMacroEggsPerPlantS} & \texttt{eggs\_macro} \\
-Understory spawn calculations & \ref{secUnder} & \ref{eqUnderDensSubQTS} to \ref{eqUnderIndS} & \texttt{calc\_under\_index} \\
-Understory egg density on substrate & \ref{secUnderQ} & \ref{eqUnderDensSubQTS} & \texttt{dens\_under\_sub} \\
-Understory egg density on algae & \ref{secUnderQ} & \ref{eqUnderDensAlgVQTS} & \texttt{dens\_under\_alg} \\
-Spawn-on-kelp calculations & \ref{secSOK} & \ref{eqSOKBioGRY} & \texttt{calc\_sok\_index} \\
-\bottomrule
-\end{tabulary}
-\label{tabLookupFuns}
-\end{table}
-
-% \FloatBarrier
-% \begin{longtable}{P{3.5cm}P{1.25cm}P{1.75cm}P{1.5cm}P{3.5cm}}
-% \caption[Crosswalk table for parameters and function arguments in the SpawnIndex \textbf{R} package]
-% {Crosswalk table for parameters in this document (i.e., technical report) and
-% function arguments in the SpawnIndex \textbf{R} package (\gitRepo{}).
-% Legend: `Eq' indicates equation.}\\
-% \toprule
-% & \multicolumn{2}{c}{\textbf{Technical report}} & \multicolumn{2}{c}{\textbf{R package}} \\
-% \cmidrule(r){2-3} \cmidrule(l){4-5}
-% \textbf{Description} & \textbf{Name} & \textbf{Scope} & \textbf{Name} & \textbf{Scope} \\
-% \midrule
-% \endfirsthead
-% \toprule
-% \multicolumn{5}{c}{\emph{\tablename~\thetable~continued}} \\
-% & \multicolumn{2}{c}{\textbf{Technical report}} & \multicolumn{2}{c}{\textbf{R package}} \\
-% \cmidrule(r){2-3} \cmidrule(l){4-5}
-% \textbf{Description} & \textbf{Name} & \textbf{Scope} & \textbf{Name} & \textbf{Scope} \\
-% \midrule
-% \endhead
-% \bottomrule
-% \endfoot
-% \bottomrule
-% \endlastfoot
-% Female fecundity & $\omega$ & \autoref{tabNotationEggs}, Eq~\ref{eqECF} & \texttt{omega} & \texttt{pars}, \texttt{eggs\_to\_sb} \\
-% Proportion female & $\female$ & \autoref{tabNotationEggs}, Eq~\ref{eqECF} & \texttt{female} & \texttt{pars}, \texttt{eggs\_to\_sb} \\
-% Egg conversion factor & $\theta$ & \autoref{tabNotationEggs}, Eqs~\ref{eqECF}, \ref{eqSurfIndS}, \ref{eqMacroIndS}, \ref{eqUnderIndS}, \ref{eqSOKBioGRY} & \texttt{theta} & \texttt{eggs\_to\_sb}, \texttt{calc\_surf\_index}, \texttt{calc\_macro\_index}, \texttt{calc\_under\_index}, \texttt{calc\_sok\_index} \\
-% \bottomrule
-% \label{tabLookupPars}
-% \end{longtable}
-% \FloatBarrier
 
 % End appendices
 \end{appendices}
