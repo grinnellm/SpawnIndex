@@ -595,13 +595,18 @@ SpawnIndex \textbf{R} \citeyearpar[RCT][]{R-4.0.5-32} package which
 has functions to calculate the spawn index (\autoref{secPack}).
 Previously, spawn index calculations were implemented in a \textbf{Microsoft Access} database.
 Issues with the \textbf{Access} database include:
-the database has been used for various purposes over the last two decades
-and has incidental calculations that make it overly complex, and
-the database is difficult to troubleshoot because
-it is hard to differentiate between input (i.e., data) and derived values.
+\begin{enumerate}
+\item The \textbf{Access} database has been used for various purposes
+over the last two decades and
+has incidental calculations that make it overly complex,
+\item The \textbf{Access} database is difficult to troubleshoot because
+it is hard to differentiate between input (i.e., data) and
+derived values, and
+\item The \textbf{Access} database is difficult to determine the
+equations and parameter values used.
+\end{enumerate}
 We updated the calculations from a database to an \textbf{R} package for several reasons:
 \begin{enumerate}
-\item The \textbf{R} package is a step towards `good enough' practices in scientific computing \citep{WilsonEtal2016},
 \item The \textbf{R} package is open and transparent;
 researchers can view the script and download the package
 with an example spawn survey database to
@@ -612,6 +617,8 @@ run functions which implement calculations described in this document,
 in the spirit of reproducible research
 using \textbf{knitr} \citep{Xie2015, MarwickEtal2018}.
 \end{enumerate}
+Essentially, the \textbf{R} package is a step towards
+`good enough' practices in scientific computing \citep{WilsonEtal2016}.
 
 \section{STATISTICAL FRAMEWORK}\label{secStat}
 
