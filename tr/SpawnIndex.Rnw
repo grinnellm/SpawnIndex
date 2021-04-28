@@ -590,10 +590,11 @@ Legend: rounded rectangles indicate start, rectangles indicate observations and 
 \label{figFlow}
 \end{figure}
 
-This document accompanies the
+This document accompanies our
 SpawnIndex \textbf{R} \citeyearpar[RCT][]{R-4.0.5-32} package which
 has functions to calculate the spawn index (\autoref{secPack}).
-Previously, spawn index calculations were implemented in a \textbf{Microsoft Access} database.
+Previously, spawn index calculations were implemented in
+a \textbf{Microsoft Access} database.
 Issues with the \textbf{Access} database include:
 \begin{enumerate}
 \item The \textbf{Access} database has been used for various purposes
@@ -602,10 +603,10 @@ has incidental calculations that make it overly complex,
 \item The \textbf{Access} database is difficult to troubleshoot because
 it is hard to differentiate between input (i.e., data) and
 derived values, and
-\item The \textbf{Access} database is difficult to determine the
-equations and parameter values used.
+\item It is difficult to determine the equations and parameter values
+used in the \textbf{Access} database.
 \end{enumerate}
-We updated the calculations from a database to an \textbf{R} package for several reasons:
+We updated the calculations from an \textbf{Access} database to an \textbf{R} package for several reasons:
 \begin{enumerate}
 \item The \textbf{R} package is open and transparent;
 researchers can view the script and download the package
@@ -618,7 +619,8 @@ in the spirit of reproducible research
 using \textbf{knitr} \citep{Xie2015, MarwickEtal2018}.
 \end{enumerate}
 Essentially, the \textbf{R} package is a step towards
-`good enough' practices in scientific computing \citep{WilsonEtal2016}.
+`good enough' practices in scientific computing \citep{WilsonEtal2016}
+for \fishName{}.
 
 \section{STATISTICAL FRAMEWORK}\label{secStat}
 
