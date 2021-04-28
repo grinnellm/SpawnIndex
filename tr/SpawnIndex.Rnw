@@ -1963,7 +1963,7 @@ Similarly, egg layers $E_j$ in \autoref{eqSurfDensJS} corresponds to
 \caption[Crosswalk table for equations and functions in the SpawnIndex \textbf{R} package]
 {Crosswalk table for equations in this document (i.e., technical report) and
 functions in the SpawnIndex \textbf{R} package (\gitRepo{}).}
-\begin{tabulary}{\linewidth}{LLLl}
+\begin{tabulary}{\linewidth}{Llll}
 \toprule
 & \multicolumn{2}{c}{\textbf{Technical report}} & \multicolumn{1}{c}{\textbf{R package}} \\
 \cmidrule(r){2-3} \cmidrule(l){4-4}
