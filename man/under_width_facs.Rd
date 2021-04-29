@@ -34,7 +34,8 @@ under_width_facs
 Other parameters: 
 \code{\link{algae_coefs}},
 \code{\link{intensity}},
-\code{\link{pars}}
+\code{\link{pars}},
+\code{\link{regions}}
 }
 \concept{parameters}
 \keyword{datasets}
