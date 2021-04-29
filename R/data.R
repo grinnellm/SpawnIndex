@@ -1,3 +1,21 @@
+#' Cross-walk table for regions and region names.
+#'
+#' Cross-walk table with stock assessment region (SAR) numbers, regions, region
+#' names, and whether regions are major or minor
+#' \insertCite{GrinnellEtalYYYY}{SpawnIndex}.
+#'
+#' @format Tibble with rows for regions and columns for attributes.
+#' @note JS is not an official SAR. In addition, JS sections 132 and 135 are
+#'   also in SoG.
+#' @docType data
+#' @references \insertAllCited{}
+#' @seealso \code{\link{load_area_data}}
+#' @family parameters
+#' @examples
+#' data(regions)
+#' regions
+"regions"
+
 #' Understory spawn width correction factors.
 #'
 #' Spawn width correction factors for Pacific Herring understory spawn surveys
