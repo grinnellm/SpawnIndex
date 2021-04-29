@@ -13,3 +13,15 @@ test_that("Check tibble", {
   expect_error(check_tibble(dat = list(x = data.frame(x = 1))))
   expect_silent(check_tibble(dat = list(x = tibble::tibble(x = 1))))
 })
+
+test_that("Check where", {
+  expect_error(check_where(
+    dat = list(x = "one", y = "two"), dat_names = c("a", "b")
+  ))
+  expect_error(check_where(
+    dat = c(x = "one", y = "two"), dat_names = c("x", "y")
+  ))
+  expect_silent(check_where(
+    dat = list(x = "one", y = "two"), dat_names = c("x", "y")
+  ))
+})

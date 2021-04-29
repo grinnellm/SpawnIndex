@@ -99,3 +99,31 @@ check_tibble <- function(dat,
   # Nothing to return
   NULL
 }
+
+#' Check a `where' object.
+#'
+#' Check that a `where' object is a list of characters with required names.
+#' Error if this is not the case.
+#'
+#' @param dat List. Where object: list of characters with names (see examples).
+#' @param dat_names Character vector. Names of list items.
+#' @importFrom Rdpack reprompt
+#' @return NULL.
+#' @family check functions
+#' @export
+#' @examples
+#' check_where(dat = list(x = "one", y = "two"), dat_names = c("x", "y"))
+check_where <- function(dat, dat_names) {
+  # Check dat: list
+  if (!is.list(dat)) stop("Argument `where` must be a list.", call. = FALSE)
+  # Check dat: names
+  if (any(names(unlist(dat)) != dat_names)) {
+    stop("Argument `where` needs names:", dat_names, call. = FALSE)
+  }
+  # Check dat: contents
+  if (typeof(unlist(dat)) != "character") {
+    stop("Argument `where` must contain characters", call. = FALSE)
+  }
+  # Nothing to return
+  NULL
+}

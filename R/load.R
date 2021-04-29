@@ -64,24 +64,16 @@ load_area_data <- function(reg,
                            out_crs = "+init=epsg:3005",
                            groups = NULL,
                            quiet = FALSE) {
-  # Check where: character
+  # Check reg: character
   if (!is.character(reg)) stop("`reg` must be character.", call. = FALSE)
   # Check sec_sub: numeric or null
   if (!is.numeric(sec_sub) & !is.null(sec_sub)) {
     stop("`sec_sub` must be numeric or NULL.", call. = FALSE)
   }
-  # Get where names
-  where_names <- c("loc", "db", "fns.sections", "fns.locations")
-  # Check where: list
-  if (!is.list(where)) stop("Argument `where` must be a list.", call. = FALSE)
-  # Check where: names
-  if (any(names(unlist(where)) != where_names)) {
-    stop("Argument `where` needs names:", where_names, call. = FALSE)
-  }
-  # Check where: contents
-  if (typeof(unlist(where)) != "character") {
-    stop("Argument `where` must contain characters", call. = FALSE)
-  }
+  # Check where
+  check_where(
+    dat = where, dat_names = c("loc", "db", "fns.sections", "fns.locations")
+  )
   # Check in_crs and out_crs: character
   if (!is.character(in_crs) & !is.character(out_crs)) {
     stop("`in_crs` and `out_crs` must be characters.")
@@ -376,18 +368,10 @@ load_all_spawn <- function(where,
                            years,
                            ft2m = 0.3048,
                            quiet = FALSE) {
-  # Get where names
-  where_names <- c("loc", "db", "fns.all_spawn", "fns.stations")
-  # Check where: list
-  if (!is.list(where)) stop("Argument `where` must be a list.", call. = FALSE)
-  # Check where: names
-  if (any(names(unlist(where)) != where_names)) {
-    stop("Argument `where` needs names:", where_names, call. = FALSE)
-  }
-  # Check where: contents
-  if (typeof(unlist(where)) != "character") {
-    stop("Argument `where` must contain characters", call. = FALSE)
-  }
+  # Check where
+  check_where(
+    dat = where, dat_names = c("loc", "db", "fns.all_spawn", "fns.stations")
+  )
   # Check input: tibble rows
   check_tibble(dat = list(areas = areas), quiet = quiet)
   # Check a: names
@@ -523,20 +507,10 @@ load_all_spawn <- function(where,
 load_width <- function(where,
                        areas,
                        quiet = FALSE) {
-  # Get where names
-  where_names <- c(
+  # Check where
+  check_where(dat = where, dat_names = c(
     "loc", "db", "fns.region_std", "fns.section_std", "fns.pool_std"
-  )
-  # Check where: list
-  if (!is.list(where)) stop("Argument `where` must be a list.", call. = FALSE)
-  # Check where: names
-  if (any(names(unlist(where)) != where_names)) {
-    stop("Argument `where` needs names:", where_names, call. = FALSE)
-  }
-  # Check where: contents
-  if (typeof(unlist(where)) != "character") {
-    stop("Argument `where` must contain characters", call. = FALSE)
-  }
+  ))
   # Check input: tibble rows
   check_tibble(dat = list(areas = areas), quiet = quiet)
   # Check areas: names

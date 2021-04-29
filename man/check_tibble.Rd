@@ -25,6 +25,7 @@ check_tibble(dat = list(x = tibble::tibble(), y = tibble::tibble(x = 1)))
 }
 \seealso{
 Other check functions: 
-\code{\link{check_numeric}()}
+\code{\link{check_numeric}()},
+\code{\link{check_where}()}
 }
 \concept{check functions}

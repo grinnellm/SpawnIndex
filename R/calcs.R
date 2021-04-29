@@ -245,18 +245,10 @@ calc_surf_index <- function(where,
     ),
     quiet = quiet
   )
-  # Get where names
-  where_names <- c("loc", "db", "fns.surface", "fns.all_spawn")
-  # Check where: list
-  if (!is.list(where)) stop("Argument `where` must be a list.", call. = FALSE)
-  # Check where: names
-  if (any(names(unlist(where)) != where_names)) {
-    stop("Argument `where` needs names:", where_names, call. = FALSE)
-  }
-  # Check where: contents
-  if (typeof(unlist(where)) != "character") {
-    stop("Argument `where` must contain characters", call. = FALSE)
-  }
+  # Check where
+  check_where(
+    dat = where, dat_names = c("loc", "db", "fns.surface", "fns.all_spawn")
+  )
   # Check input: tibble rows
   check_tibble(dat = list(
     areas = areas, region = widths$region, section = widths$section,
@@ -626,18 +618,11 @@ calc_macro_index <- function(where,
     ),
     quiet = quiet
   )
-  # Get where names
-  where_names <- c("loc", "db", "fns.all_spawn", "fns.plants", "fns.transects")
-  # Check where: list
-  if (!is.list(where)) stop("Argument `where` must be a list.", call. = FALSE)
-  # Check where: names
-  if (any(names(unlist(where)) != where_names)) {
-    stop("Argument `where` needs names:", where_names, call. = FALSE)
-  }
-  # Check where: contents
-  if (typeof(unlist(where)) != "character") {
-    stop("Argument `where` must contain characters", call. = FALSE)
-  }
+  # Check where
+  check_where(
+    dat = where,
+    dat_names = c("loc", "db", "fns.all_spawn", "fns.plants", "fns.transects")
+  )
   # Check input: tibble rows
   check_tibble(dat = list(areas = areas), quiet = quiet)
   # Check areas: names
@@ -978,20 +963,13 @@ calc_under_index <- function(where,
     ),
     quiet = quiet
   )
-  # Get where names
-  where_names <- c(
-    "loc", "db", "fns.all_spawn", "fns.alg_trans", "fns.stations", "fns.algae"
+  # Check where
+  check_where(
+    dat = where,
+    dat_names = c(
+      "loc", "db", "fns.all_spawn", "fns.alg_trans", "fns.stations", "fns.algae"
+    )
   )
-  # Check where: list
-  if (!is.list(where)) stop("Argument `where` must be a list.", call. = FALSE)
-  # Check where: names
-  if (any(names(unlist(where)) != where_names)) {
-    stop("Argument `where` needs names:", where_names, call. = FALSE)
-  }
-  # Check where: contents
-  if (typeof(unlist(where)) != "character") {
-    stop("Argument `where` must contain characters", call. = FALSE)
-  }
   # Check input: tibble rows
   check_tibble(
     dat = list(areas = areas, alg_coefs = alg_coefs, tau = tau), quiet = quiet

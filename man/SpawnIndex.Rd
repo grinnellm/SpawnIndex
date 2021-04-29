@@ -49,8 +49,8 @@ an example database with spawn survey observations
 }
 
 \section{Check}{
- The check functions are \code{\link{check_numeric}}, and
-\code{\link{check_tibble}}.
+ The check functions are \code{\link{check_numeric}},
+\code{\link{check_tibble}}, and \code{\link{check_where}}.
 }
 
 \section{Utility}{

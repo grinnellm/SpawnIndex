@@ -31,8 +31,8 @@
 #'   \code{\link{calc_macro_index}}, \code{\link{dens_under_sub}},
 #'   \code{\link{dens_under_alg}}, and \code{\link{calc_under_index}}.
 #'
-#' @section Check: The check functions are \code{\link{check_numeric}}, and
-#'   \code{\link{check_tibble}}.
+#' @section Check: The check functions are \code{\link{check_numeric}},
+#'   \code{\link{check_tibble}}, and \code{\link{check_where}}.
 #'
 #' @section Utility: The utility function is \code{\link{paste_nicely}}.
 #'
