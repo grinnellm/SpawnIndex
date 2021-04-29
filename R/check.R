@@ -113,7 +113,8 @@ check_tibble <- function(dat,
 #' @export
 #' @examples
 #' check_where(dat = list(x = "one", y = "two"), dat_names = c("x", "y"))
-check_where <- function(dat, dat_names) {
+check_where <- function(dat,
+                        dat_names) {
   # Check dat: list
   if (!is.list(dat)) stop("Argument `where` must be a list.", call. = FALSE)
   # Check dat: names
