@@ -11,6 +11,7 @@ load_area_data(
   in_crs = "+init=epsg:4326",
   out_crs = "+init=epsg:3005",
   groups = NULL,
+  region_table = regions,
   quiet = FALSE
 )
 }
@@ -35,6 +36,9 @@ results, say to aggregate data by combinations of Sections. Must have a
 column named "Group", and one or more of "StatArea", "Section",
 "LocationCode". Set to NULL to ignore (and Group column will be NA).}
 
+\item{region_table}{Tibble. Cross-walk table for regions and region names;
+from \code{\link{regions}}.}
+
 \item{quiet}{Logical. Suppress messages; default is FALSE.}
 }
 \value{
@@ -56,6 +60,7 @@ This function requires 32-bit R to load data from the 32-bit MS Access
 database.
 }
 \examples{
+data(regions)
 db_loc <- system.file("extdata", package = "SpawnIndex")
 area_loc <- list(
   loc = db_loc, db = "HerringSpawn.mdb",
@@ -76,7 +81,7 @@ dplyr::distinct(dplyr::select(
 ))
 }
 \seealso{
-\code{\link{HerringSpawn}}
+\code{\link{HerringSpawn}} \code{\link{regions}}
 
 Other load functions: 
 \code{\link{load_all_spawn}()},

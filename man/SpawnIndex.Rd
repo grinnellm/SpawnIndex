@@ -27,12 +27,12 @@ technical report for more details and background on spawn index
 calculations \insertCite{GrinnellEtalYYYY}{SpawnIndex}.
 }
 \section{Data}{
- The data are understory spawn width correction factors
-(\code{\link{under_width_facs}}), parameters for spawn index calculations
-(\code{\link{pars}}), spawn intensity categories (\code{\link{intensity}}),
-and algae coefficients (\code{\link{algae_coefs}}). In addition, there is
-an example database with spawn survey observations
-(\code{\link{HerringSpawn}}).
+ The data are region names (\code{\link{regions}}), understory
+spawn width correction factors (\code{\link{under_width_facs}}), parameters
+for spawn index calculations (\code{\link{pars}}), spawn intensity
+categories (\code{\link{intensity}}), and algae coefficients
+(\code{\link{algae_coefs}}). In addition, there is an example database with
+spawn survey observations (\code{\link{HerringSpawn}}).
 }
 
 \section{Load}{

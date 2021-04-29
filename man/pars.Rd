@@ -75,6 +75,7 @@ pars
 Other parameters: 
 \code{\link{algae_coefs}},
 \code{\link{intensity}},
+\code{\link{regions}},
 \code{\link{under_width_facs}}
 }
 \concept{parameters}
