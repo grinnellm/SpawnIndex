@@ -1,3 +1,12 @@
+test_that("Regions", {
+  expect_type(regions, "list")
+  expect_equal(dim(regions), c(8, 4))
+  expect_named(regions, c("SAR", "Region", "RegionName", "Major"))
+  expect_setequal(
+    regions$Region, c("HG", "PRD", "CC", "SoG", "WCVI", "A27", "A2W", "JS")
+  )
+})
+
 test_that("Understory width factors", {
   expect_type(under_width_facs, "list")
   expect_equal(dim(under_width_facs), c(12, 8))
