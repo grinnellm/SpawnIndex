@@ -21,6 +21,8 @@
 #'   results, say to aggregate data by combinations of Sections. Must have a
 #'   column named "Group", and one or more of "StatArea", "Section",
 #'   "LocationCode". Set to NULL to ignore (and Group column will be NA).
+#' @param region_table Tibble. Cross-walk table for regions and region names;
+#'   from \code{\link{regions}}.
 #' @template param-quiet
 #' @importFrom readr read_csv cols
 #' @importFrom dplyr filter select mutate full_join %>% transmute right_join
@@ -33,12 +35,13 @@
 #' @return Tibble. Table of geographic information for Pacific Herring: SAR,
 #'   Region, Region name, Statistical Area, Group, Section, Location code,
 #'   Location name, Pool, Eastings, Northings, Longitude, and Latitude.
-#' @seealso \code{\link{HerringSpawn}}
+#' @seealso \code{\link{HerringSpawn}} \code{\link{regions}}
 #' @family load functions
 #' @note This function requires 32-bit R to load data from the 32-bit MS Access
 #'   database.
 #' @export
 #' @examples
+#' data(regions)
 #' db_loc <- system.file("extdata", package = "SpawnIndex")
 #' area_loc <- list(
 #'   loc = db_loc, db = "HerringSpawn.mdb",
@@ -63,6 +66,7 @@ load_area_data <- function(reg,
                            in_crs = "+init=epsg:4326",
                            out_crs = "+init=epsg:3005",
                            groups = NULL,
+                           region_table = regions,
                            quiet = FALSE) {
   # Check reg: character
   if (!is.character(reg)) stop("`reg` must be character.", call. = FALSE)
@@ -92,26 +96,12 @@ load_area_data <- function(reg,
     # If not tibble, must be NULL
     if (!is.null(groups)) stop("`groups` must be tibble or NULL.")
   }
-  # Cross-walk table for SAR to region and region name
-  regions <- read_csv(
-    file =
-      "SAR, Region, RegionName, Major
-          1, HG, Haida Gwaii, TRUE
-          2, PRD, Prince Rupert District, TRUE
-          3, CC, Central Coast, TRUE
-          4, SoG, Strait of Georgia, TRUE
-          5, WCVI, West Coast of Vancouver Island, TRUE
-          6, A27, Area 27, FALSE
-          7, A2W, Area 2 West, FALSE
-          8, JS, Johnstone Strait, FALSE",
-    col_types = cols("i", "c", "c", "l")
-  )
   # If region isn't JS, remove it
   if (!reg %in% c("JS", "All")) {
-    regions <- filter(.data = regions, SAR != 8)
+    region_table <- filter(.data = region_table, SAR != 8)
   }
   # Return region names
-  region_names <- regions %>%
+  region_names <- region_table %>%
     select(RegionName, Region, Major) %>%
     mutate(Region = paste("(", Region, ")", sep = "")) %>%
     unite(RegionName, Region, col = "Region", sep = " ")
@@ -122,8 +112,8 @@ load_area_data <- function(reg,
   )
   # Possible regions by type
   all_regions <- list(
-    major = as.character(regions$Region[regions$Major]),
-    minor = as.character(regions$Region[!regions$Major])
+    major = as.character(region_table$Region[region_table$Major]),
+    minor = as.character(region_table$Region[!region_table$Major])
   )
   # Error if region is incorrect
   if (!(reg %in% c(unlist(all_regions), "All"))) {
@@ -141,49 +131,39 @@ load_area_data <- function(reg,
       sep = ""
     )
   )
-  # TODO: Sections 132 and 135 are also SoG sections -- how to resolve?
-  # Manual fix: Johnstone Strait herring sections
-  js_sections <- c(111, 112, 121:127, 131:136)
+  # Access the sections worksheet
+  sections <- dbReadTable(conn = access_db, name = where$fns$sections)
+  # Error if data was not fetched
+  if (class(sections) != "data.frame") {
+    stop("No data available in MS Access connection.", call. = FALSE)
+  }
+  # Check sections: names
+  if (!all(c("SAR", "Section") %in% names(sections))) {
+    stop("Sections table is missing columns", call. = FALSE)
+  }
   # If the region is Johnstone Strait
   if (reg == "JS") {
+    # TODO: Sections 132 and 135 are also SoG sections -- how to resolve?
+    # Manual fix: Johnstone Strait herring sections
+    js_sections <- c(111, 112, 121:127, 131:136)
     # Message
     if (!quiet) {
       cat("Note overlap between JS and SoG: Sections 132 and 135\n")
-    }
-    # Access the sections worksheet and wrangle
-    sections <- dbReadTable(conn = access_db, name = where$fns$sections)
-    # Error if data was not fetched
-    if (class(sections) != "data.frame") {
-      stop("No data available in MS Access connection.", call. = FALSE)
-    }
-    # Check sections: names
-    if (!all(c("SAR", "Section") %in% names(sections))) {
-      stop("Sections table is missing columns", call. = FALSE)
     }
     # Wrangle the sections worksheet
     sections <- sections %>%
       filter(Section %in% js_sections) %>%
       mutate(SAR = 8) %>%
-      full_join(y = regions, by = "SAR") %>%
+      full_join(y = region_table, by = "SAR") %>%
       filter(Region %in% reg) %>%
       select(SAR, Region, RegionName, Section) %>%
       mutate(Section = as.integer(Section)) %>%
       distinct() %>%
       as_tibble()
   } else { # End if Johnstone Strait, otherwise
-    # Wrangle the sections worksheet
-    sections <- dbReadTable(conn = access_db, name = where$fns$sections)
-    # Error if data was not fetched
-    if (class(sections) != "data.frame") {
-      stop("No data available in MS Access connection.", call. = FALSE)
-    }
-    # Check sections: names
-    if (!all(c("SAR", "Section") %in% names(sections))) {
-      stop("Sections table is missing columns", call. = FALSE)
-    }
     # Wrangle the sections table
     sections <- sections %>%
-      full_join(y = regions, by = "SAR") %>%
+      full_join(y = region_table, by = "SAR") %>%
       select(SAR, Region, RegionName, Section) %>%
       mutate(Section = as.integer(Section)) %>%
       distinct() %>%
