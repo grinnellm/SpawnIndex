@@ -5,6 +5,7 @@ source(file.path("data-raw", "pars.R"))
 
 # Build the read me file
 rmarkdown::render("README.Rmd")
+file.remove("README.html")
 
 # Knit the technical report
 setwd("tr")
