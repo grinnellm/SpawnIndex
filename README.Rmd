@@ -6,11 +6,10 @@ output: github_document
 
 # SpawnIndex <img src='man/sticker/sticker.png' align="right" height="200"/>
 
-Calculate the spawn index for Pacific Herring (*Clupea pallasii*) in
-British Columbia, Canada.
+`r read.dcf(file = "DESCRIPTION", fields = "Title")`.
 
 ```{r version, echo = FALSE}
-version <- as.vector(read.dcf('DESCRIPTION')[, 'Version'])
+version <- read.dcf(file = "DESCRIPTION", fields = "Version")
 ```
 
 <!-- badges: start -->
@@ -26,14 +25,7 @@ Note: `R-CMD-check` works on my Windows machine but fails on GitHub Actions
 
 ## Description
 
-The SpawnIndex **R** package provides data, parameter values, and methods to
-calculate the spawn index for Pacific Herring (*Clupea pallasii*) in British
-Columbia (BC), Canada. Essentially, spawn index calculations convert spawn
-survey observations (e.g., spatial extent, number of egg layers, substrate type)
-to the Pacific Herring spawn index in BC. There are three types of spawn survey observations: surface spawn observations, Macrocystis spawn observations, and
-understory spawn observations. In addition, we include methods to convert eggs
-to biomass, and estimate spawning biomass in spawn-on-kelp operations. Note that
-the 'spawn index' is a relative index of spawning biomass.
+`r read.dcf(file = "DESCRIPTION", fields = "Description")`
 
 ## Installation
 

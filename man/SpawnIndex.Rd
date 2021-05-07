@@ -3,11 +3,11 @@
 \docType{package}
 \name{SpawnIndex}
 \alias{SpawnIndex}
-\title{SpawnIndex: Calculate the spawn index for Pacific Herring (Clupea pallasii)
-in British Columbia, Canada.}
+\title{SpawnIndex: Calculate the spawn index for Pacific Herring (\emph{Clupea pallasii}) in
+British Columbia, Canada.}
 \description{
-The SpawnIndex package provides data, parameter values, and methods to
-calculate the spawn index for Pacific Herring (\emph{Clupea pallasii}) in
+The SpawnIndex package provides data, parameter values, and methods
+to calculate the spawn index for Pacific Herring (\emph{Clupea pallasii}) in
 British Columbia (BC), Canada. Essentially, spawn index calculations convert
 spawn survey observations (e.g., spatial extent, number of egg layers,
 substrate type) to the Pacific Herring spawn index in BC. There are three

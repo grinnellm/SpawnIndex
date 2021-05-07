@@ -25,12 +25,12 @@ Actions (see [\#30](https://github.com/grinnellm/SpawnIndex/issues/30)).
 
 ## Description
 
-The SpawnIndex **R** package provides data, parameter values, and
-methods to calculate the spawn index for Pacific Herring (*Clupea
-pallasii*) in British Columbia (BC), Canada. Essentially, spawn index
-calculations convert spawn survey observations (e.g., spatial extent,
-number of egg layers, substrate type) to the Pacific Herring spawn index
-in BC. There are three types of spawn survey observations: surface spawn
+The SpawnIndex package provides data, parameter values, and methods to
+calculate the spawn index for Pacific Herring (*Clupea pallasii*) in
+British Columbia (BC), Canada. Essentially, spawn index calculations
+convert spawn survey observations (e.g., spatial extent, number of egg
+layers, substrate type) to the Pacific Herring spawn index in BC. There
+are three types of spawn survey observations: surface spawn
 observations, Macrocystis spawn observations, and understory spawn
 observations. In addition, we include methods to convert eggs to
 biomass, and estimate spawning biomass in spawn-on-kelp operations. Note
