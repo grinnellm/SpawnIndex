@@ -2213,7 +2213,6 @@ Spawn-on-kelp calculations & \ref{secSOK} & \ref{eqSOKBioGRY} & \texttt{calc\_so
 \label{tabLookupFuns}
 \end{table}
 
-
 % End appendices
 \end{appendices}
 
