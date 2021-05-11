@@ -32,12 +32,13 @@ options(knitr.kable.NA = "")
 knitr::write_bib(x = "SpawnIndex", file = "../inst/PACKAGES.bib")
 ```
 
-This vignette provides an example on how to calculate the spawn index for Pacific Herring (*Clupea pallasii*) in British Columbia, Canada.
+This vignette shows how to calculate the spawn index for
+Pacific Herring (*Clupea pallasii*) in British Columbia, Canada.
 See the technical report for background information [@GrinnellEtalYYYY].
 Source code is on the
 [GitHub repository](https://github.com/grinnellm/SpawnIndex).
 Load the `SpawnIndex` package [@R-SpawnIndex], and
-a few other packages for data wrangling, tables, and figures.
+a few other packages for data wrangling, as well as making tables, and figures.
 
 ```{r libraries, message = FALSE, warning = FALSE}
 # Packages
