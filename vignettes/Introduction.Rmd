@@ -1,5 +1,5 @@
 ---
-title: "Pacific Herring spawn index: An example"
+title: "Introduction to Pacific Herring spawn index calculations"
 author: "Matthew H. Grinnell"
 date: "`r Sys.Date()`"
 output:
@@ -13,7 +13,7 @@ bibliography:
 csl: "../inst/cjfas.csl"
 link-citations: true
 vignette: >
-  %\VignetteIndexEntry{Pacific Herring spawn index: An example}
+  %\VignetteIndexEntry{Introduction to Pacific Herring spawn index calculations}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -81,8 +81,8 @@ yr_range <- 2010:2013
 set.seed(12)
 # Number of samples
 n_samp <- 3
-# Data
-data(pars) # Default spawn index parameter values
+# Default spawn index parameter values
+data(pars) 
 # Canada: coarse polygons for mapping
 canada <- ne_countries(scale = "large", returnclass = "sf", country = "canada")
 ```
@@ -200,8 +200,8 @@ Surface spawn index calculations also require a table to convert
 intensity categories to the number of egg layers.
 
 ```{r surf}
-# Data
-data(intensity) # Spawn intensity categories and number of egg layers
+# Spawn intensity categories and number of egg layers
+data(intensity) 
 # List indicating the necessary tables
 surf_loc <- list(
   loc = db_loc,
@@ -340,9 +340,10 @@ Understory spawn index calculations require tables to correct spawn width,
 and to specify algae coefficients.
 
 ```{r under}
-# Data
-data(under_width_facs) # Understory spawn width correction factors
-data(algae_coefs) # Algae types and coefficients
+# Understory spawn width correction factors
+data(under_width_facs)
+# Algae types and coefficients
+data(algae_coefs)
 # List indicating the necessary tables
 under_loc <- list(
   loc = file.path(db_loc),
