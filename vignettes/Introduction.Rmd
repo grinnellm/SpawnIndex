@@ -6,6 +6,7 @@ output:
       rmarkdown::html_vignette:
         fig_caption: yes
         toc: true
+        number_sections: true
 bibliography:
   - "../inst/REFERENCES.bib"
   - "../inst/PACKAGES.bib"
@@ -54,16 +55,32 @@ library(rnaturalearthhires)
 options(dplyr.summarise.inform = FALSE)
 ```
 
-# Set up
+We provide three examples:
+
+1. Spawn index calculations using the example database,
+1. Surface spawn index calculations using custom data, and
+1. Spawn index calculations for spawn-on-kelp (SOK) operations.
+
+# Spawn index calculations using the example database
+
+Calculate the Pacific Herring spawn index using the example database
+provided with the SpawnIndex package.
+
+## Set up
 
 Specify the region and years of interest.
 Then load the parameters required for spawn index calculations, and
 load some land polygons for maps.
 
 ```{r pars}
-# Parameters
+# Region
 region <- "WCVI"
+# Years
 yr_range <- 2010:2013
+# Set a random seed
+set.seed(12)
+# Number of samples
+n_samp <- 3
 # Data
 data(pars) # Default spawn index parameter values
 # Canada: coarse polygons for mapping
@@ -73,7 +90,7 @@ canada <- ne_countries(scale = "large", returnclass = "sf", country = "canada")
 This example will focus on `r region`
 from `r min(yr_range)` to `r max(yr_range)`.
 
-# Spatial information
+## Spatial information
 
 Load the spatial information for this region;
 we will use the example spawn database that comes with
@@ -125,7 +142,7 @@ areas %>%
   )
 ```
 
-# Spawn index calculations
+## Spawn index calculations
 
 Calculate the conversion factor to convert the number of eggs to
 the spawn index (i.e., biomass in tonnes).
@@ -142,7 +159,7 @@ This is the default conversion factor for the spawn index calculations below
 Then we calculate the spawn index for the three spawn survey types:
 surface, Macrocystis, and understory.
 
-## Surface spawn index
+### Surface spawn index
 
 Calculate the surface spawn index.
 Surface spawn index calculations require a table of median spawn width estimates
@@ -247,7 +264,7 @@ surf_yr <- surf_spawn$si %>%
 kable(x = surf_yr, digits = c(0, 1), booktabs = TRUE, caption = surf_yr_cap)
 ```
 
-## Macrocystis spawn index
+### Macrocystis spawn index
 
 Calculate the Macrocystis spawn index.
 
@@ -316,7 +333,7 @@ macro_yr <- macro_spawn$si %>%
 kable(x = macro_yr, digits = c(0, 1), booktabs = TRUE, caption = macro_yr_cap)
 ```
 
-## Understory spawn index
+### Understory spawn index
 
 Calculate the understory spawn index.
 Understory spawn index calculations require tables to correct spawn width,
@@ -391,7 +408,7 @@ under_yr <- under_spawn$si %>%
 kable(x = under_yr, digits = c(0, 1), booktabs = TRUE, caption = under_yr_cap)
 ```
 
-## Total spawn index
+### Total spawn index
 
 Calculate the total spawn index by year as the sum of spawn index
 from the three survey types:
@@ -419,7 +436,130 @@ kable(
   add_header_above(header = c("", "Survey" = 3, ""))
 ```
 
-# Spawn-on-kelp calculations
+# Surface spawn index calculations using custom data
+
+Calculate the Pacific Herring spawn index using custom data,
+such as would be collected during a surface spawn survey.
+<!-- First we provide an example where surveyors did surface surveys, -->
+<!-- then we provide examples where surveyors did underwater dive surveys. -->
+First, generate some values for the number of egg layers in each sample,
+where there are `r n_samp` samples in each of the `r length(yr_range)` spawns.
+
+```{r surface_raw}
+# Generate some data: samples within spawns
+surf_raw <- tibble(
+  Spawn = rep(1:length(yr_range), each = n_samp),
+  Sample = rep(1:n_samp, times = length(yr_range)),
+  Layers = sample(1:9, size = length(yr_range) * n_samp, replace = TRUE)
+)
+# Table caption
+surf_raw_cap <- paste(
+  "<i>Surface spawn survey observations: number of egg layers in each",
+  "sample.</i>"
+)
+# Table
+kable(
+  x = surf_raw, digits = c(0, 0, 0), booktabs = TRUE, caption = surf_raw_cap
+)
+```
+
+Then we summarise each spawn by the average number of egg layers,
+as well as the length and width of the spawn in metres.
+
+```{r surace_dat}
+# Summarise the data
+surf_dat <- surf_raw %>%
+  group_by(Spawn) %>%
+  summarise(Layers = mean(Layers)) %>%
+  ungroup() %>%
+  mutate(
+    Length = sample(x = 1000:5000, size = length(yr_range)),
+    Width = sample(x = 20:100, size = length(yr_range))
+  )
+# Table caption
+surf_dat_cap <- paste(
+  "<i>Surface spawn survey observations: average number of egg layers, as well",
+  "as length and width of the spawn in metres (m).</i>"
+)
+# Table
+kable(
+  x = surf_dat, digits = c(0, 1, 0, 0), booktabs = TRUE, caption = surf_dat_cap
+)
+```
+
+Finally, we calculate egg density using the default parameters, and
+calculate the spawn index in tonnes for each spawn.
+
+```{r surface_index}
+# Calculate the index
+surf_ind <- surf_dat %>%
+  mutate(
+    Density = dens_surf(egg_layers = Layers),
+    Index = Density * Length * Width * 1000 / theta
+  )
+# Table caption
+surf_ind_cap <- paste(
+  "<i>Surface spawn survey observations and spawn index: average number of egg",
+  "layers, length and width of the spawn in metres (m), egg density in",
+  "thousands of eggs per square metre (10^3 * eggs / m^2), and surface spawn",
+  "index in tonnes (t).</i>"
+)
+# Table
+kable(
+  x = surf_ind, digits = c(0, 1, 0, 0, 0, 1), booktabs = TRUE,
+  caption = surf_ind_cap
+)
+```
+
+<!-- ## Macrocystis spawn index -->
+
+<!-- Similar to the previous example, -->
+<!-- we assume that there were `r length(yr_range)` spawns -->
+<!-- which are summarised by -->
+<!-- average number of egg layers, -->
+<!-- average plant height in metres, -->
+<!-- average number of stalks per plant, as well as -->
+<!-- the length and width of the spawn in metres. -->
+<!-- We also calculate the number of eggs per plant using the default parameters, -->
+<!-- and then calculate the spawn index in tonnes for each spawn. -->
+
+```{r macrocystis, include = FALSE, eval = FALSE}
+# Generate some data
+macro_dat <- tibble(
+  Number = 1:length(yr_range),
+  Layers = sample(x = 2:8, size = length(yr_range), replace = TRUE),
+  Height = sample(x = 2:10, size = length(yr_range), replace = TRUE),
+  StalksPerPlant = sample(x = 2:5, size = length(yr_range), replace = TRUE),
+  Plants = sample(x = 5:20, size = length(yr_range))
+)
+# Calculate the index
+macro_ind <- macro_dat %>%
+  mutate(
+    EggsPerPlant = eggs_macro(
+      egg_layers = Layers, height = Height, stalks_per_plant = StalksPerPlant
+    ),
+    Eggs = EggsPerPlant * Plants,
+    Index = Eggs * 1000 / theta
+  )
+# Table caption
+macro_ind_cap <- paste(
+  "<i>Macrocystis spawn survey observations and spawn index: average number of",
+  "egg layers, average plant height in metres (m), average number of stalks",
+  "per plant, number of eggs per plant in thousands (10^3 * eggs / plant),",
+  "number of eggs in thousands (10^3 * eggs), and macrocystis spawn index in",
+  "tonnes (t).</i>"
+)
+# Table
+kable(
+  x = macro_ind, digits = c(0, 0, 0, 0, 0, 1, 1, 1), booktabs = TRUE,
+  caption = macro_ind_cap
+)
+```
+
+Note that this example is for surface spawn surveys,
+but Macrocystis and understory spawn surveys would follow similar processes.
+
+# Spawn index calculations for spawn-on-kelp (SOK) operations
 
 Calculate the biomass of spawning Pacific Herring from
 spawn-on-kelp (SOK) operations.
