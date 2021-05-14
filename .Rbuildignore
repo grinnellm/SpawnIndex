@@ -5,6 +5,9 @@
 ^tr$
 ^data-raw$
 ^\.github$
-^README\.Rmd$
-^make\.R$
+^README.Rmd$
+^make.R$
 ^man-roxygen$
+^CONDUCT.md$
+^CONTRIBUTING.md$
+^ISSUE.md$
