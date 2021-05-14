@@ -4,7 +4,6 @@ about: Create a report to help us improve
 title: ''
 labels: ''
 assignees: ''
-
 ---
 
 **Describe the bug**
@@ -17,10 +16,10 @@ A minimal reproducible example to demonstrate the bug.
 
 This could be a link to a (minimal) `.Rmd` file on
 Dropbox, Google Drive, or GitHub
-that a developer can click the "Knit" button in RStudio and see the issue.
+that a developer can click the "Knit" button in **RStudio** and see the issue.
 This demo document should be self contained
 (i.e., not require any additional data files or figures or
-time-consuming R code to run).
+time-consuming **R** code to run).
 
 **Expected behavior**
 
@@ -42,4 +41,4 @@ If applicable, add screenshots to help explain your problem.
 
 **Additional context**
 
-Add any other context about the problem here.
+Add any other context about the problem.

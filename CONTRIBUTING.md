@@ -8,24 +8,22 @@ you agree to abide by our [code of conduct](CONDUCT.md).
 
 * Make sure you have a [GitHub account](https://github.com/signup/free).
 If you are not familiar with Git and GitHub,
-take a look at <http://happygitwithr.com/> to get started.
-* [Submit a post for your issue](https://github.com/grinnellm/SpawnIndex/issues/),
+[get started here](http://happygitwithr.com/).
+* [Submit your issue](https://github.com/grinnellm/SpawnIndex/issues/),
 assuming one does not already exist.
-* [Clearly describe your issue](ISSUE.md),
+* Clearly describe your issue,
 including steps to reproduce when it is a bug,
 or some justification for a proposed improvement.
+* [Discuss your issue](https://github.com/grinnellm/SpawnIndex/issues/).
 * [Fork](https://github.com/grinnellm/SpawnIndex/#fork-destination-box)
 the repository on GitHub to make a copy of the repository on your account.
-Or use this line in your shell terminal:
-
-    `git clone git@github.com:your-username/SpawnIndex.git`
 
 ## Making changes
 
 * Edit the files, save often, and make commits of logical units,
 where each commit indicates one concept.
 * Follow our [style guide](http://adv-r.had.co.nz/Style.html).
-* Make sure you write
+* Write
 [good commit messages](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html).
 * Make sure you have added the necessary tests for your code changes.
 * Run all the tests using `devtools::check()`
@@ -42,11 +40,3 @@ At this point you're waiting on us.
 We like to at least comment on pull requests
 within a few days (and, typically, one business day).
 We may suggest some changes or improvements or alternatives.
-
-Some things you can do that will increase the chance
-that your pull request is accepted:
-
-* Engage in discussion on
-[your issue](https://github.com/grinnellm/SpawnIndex/issues/).
-* Write tests that pass `devtools::check()`.
-* Follow our [code style guide](http://adv-r.had.co.nz/Style.html).
