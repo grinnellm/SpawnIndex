@@ -14,7 +14,6 @@ assuming one does not already exist.
 * Clearly describe your issue,
 including steps to reproduce when it is a bug,
 or some justification for a proposed improvement.
-* [Discuss your issue](https://github.com/grinnellm/SpawnIndex/issues/).
 * [Fork the repository on GitHub](https://github.com/grinnellm/SpawnIndex/#fork-destination-box)
 to make a copy of the repository on your account.
 
@@ -22,14 +21,13 @@ to make a copy of the repository on your account.
 
 * Edit the files, save often, and make commits of logical units,
 where each commit indicates one concept.
-* Follow our [style guide](http://adv-r.had.co.nz/Style.html).
-* Write
-[good commit messages](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html).
+* [Follow our style guide](http://adv-r.had.co.nz/Style.html).
+* [Write good commit messages](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html).
 * Make sure you have added the necessary tests for your code changes.
 * Run all the tests using `devtools::check()`
 to assure nothing else was accidentally broken.
 * If you need help or unsure about anything,
-update [your issue](https://github.com/grinnellm/SpawnIndex/issues/).
+[update and discuss your issue](https://github.com/grinnellm/SpawnIndex/issues/).
 
 ## Submitting your changes
 
