@@ -354,7 +354,7 @@ load_all_spawn <- function(where,
   )
   # Check input: tibble rows
   check_tibble(dat = list(areas = areas), quiet = quiet)
-  # Check a: names
+  # Check areas: names
   if (!all(c(
     "Region", "StatArea", "Group", "Section", "LocationCode", "LocationName",
     "Eastings", "Northings", "Longitude", "Latitude"
