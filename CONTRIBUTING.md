@@ -11,7 +11,7 @@ If you are not familiar with Git and GitHub,
 [get started here](http://happygitwithr.com/).
 * [Submit your issue](https://github.com/grinnellm/SpawnIndex/issues/),
 assuming one does not already exist.
-* Clearly describe your issue,
+* [Clearly describe your issue](./.github/ISSUE_TEMPLATE/bug_report.md),
 including steps to reproduce when it is a bug,
 or some justification for a proposed improvement.
 * [Fork the repository on GitHub](https://github.com/grinnellm/SpawnIndex/#fork-destination-box)
