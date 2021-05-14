@@ -4,9 +4,9 @@ We love pull requests from everyone.
 By participating in this project,
 you agree to abide by our [code of conduct](CONDUCT.md).
 
-## Getting Started
+## Getting started
 
-* Make sure you have a [GitHub account](https://github.com/signup/free).
+* [Get a GitHub account](https://github.com/signup/free).
 If you are not familiar with Git and GitHub,
 [get started here](http://happygitwithr.com/).
 * [Submit your issue](https://github.com/grinnellm/SpawnIndex/issues/),
@@ -15,8 +15,8 @@ assuming one does not already exist.
 including steps to reproduce when it is a bug,
 or some justification for a proposed improvement.
 * [Discuss your issue](https://github.com/grinnellm/SpawnIndex/issues/).
-* [Fork](https://github.com/grinnellm/SpawnIndex/#fork-destination-box)
-the repository on GitHub to make a copy of the repository on your account.
+* [Fork the repository on GitHub](https://github.com/grinnellm/SpawnIndex/#fork-destination-box)
+to make a copy of the repository on your account.
 
 ## Making changes
 
@@ -29,7 +29,7 @@ where each commit indicates one concept.
 * Run all the tests using `devtools::check()`
 to assure nothing else was accidentally broken.
 * If you need help or unsure about anything,
-post an update to [your issue](https://github.com/grinnellm/SpawnIndex/issues/).
+update [your issue](https://github.com/grinnellm/SpawnIndex/issues/).
 
 ## Submitting your changes
 

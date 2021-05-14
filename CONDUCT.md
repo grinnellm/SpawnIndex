@@ -1,4 +1,4 @@
-# Contributor Code of Conduct
+# Contributor code of conduct
 
 As contributors and maintainers of this project,
 we pledge to respect all people who contribute through
@@ -25,5 +25,5 @@ Instances of abusive, harassing, or otherwise unacceptable behaviour may be
 reported by opening an issue or
 contacting one or more of the project maintainers.
 
-This Code of Conduct is adapted from the
+This code of conduct is adapted from the
 [Contributor Covenant version 1.0.0](http://contributor-covenant.org/version/1/0/0/).
