@@ -21,11 +21,11 @@ This demo document should be self contained
 (i.e., not require any additional data files or figures or
 time-consuming **R** code to run).
 
-**Expected behavior**
+**Expected behaviour**
 
 A clear and concise description of what you expected to happen.
 
-**Observed behavior**
+**Observed behaviour**
 
 What is actually happening?
 
