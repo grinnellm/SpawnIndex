@@ -37,7 +37,7 @@ If applicable, add screenshots to help explain your problem.
 
  - Operating system: [Windows, macOS, Linux]
  - R version: [Find with `R.version.string`]
- - gfplot version: [Find with `packageVersion("SpawnIndex")`]
+ - SpawnIndex package version: [Find with `packageVersion("SpawnIndex")`]
 
 **Additional context**
 
