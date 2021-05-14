@@ -17,8 +17,8 @@ or other unprofessional conduct.
 
 Project maintainers have the right and responsibility to
 remove, edit, or reject comments, commits, code, wiki edits, issues,
-and other contributions that are not aligned to this Code of Conduct.
-Project maintainers who do not follow the Code of Conduct
+and other contributions that are not aligned to this code of conduct.
+Project maintainers who do not follow the code of conduct
 may be removed from the project team.
 
 Instances of abusive, harassing, or otherwise unacceptable behaviour may be
