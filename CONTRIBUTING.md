@@ -37,9 +37,9 @@ Push to your fork and
 At this point you're waiting on us.
 We like to at least comment on pull requests
 within a few days (and, typically, one business day).
-We may suggest some changes or improvements or alternatives.
+We may suggest some changes, improvements, or alternatives.
 
-## Note
+# Note
 
-This contributing document is adapted from the 
-[csasdown](https://github.com/pbs-assess/csasdown) project.
+This document is adapted from the 
+[csasdown **R** package](https://github.com/pbs-assess/csasdown) project.
