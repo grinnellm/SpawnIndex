@@ -159,6 +159,6 @@ and open the file `./doc/Introduction.html`.
 
 If you would like to contribute to this project, please start by reading
 the [guide to contributing](CONTRIBUTING.md). This applies to bug
-reports, feature requests, and other changes. Note that this project is
+reports, feature requests, and other updates. Note that this project is
 released with a [contributor code of conduct](CONDUCT.md). By
 participating in this project you agree to abide by its terms.

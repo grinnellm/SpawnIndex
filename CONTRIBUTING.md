@@ -38,3 +38,8 @@ At this point you're waiting on us.
 We like to at least comment on pull requests
 within a few days (and, typically, one business day).
 We may suggest some changes or improvements or alternatives.
+
+## Note
+
+This contributing document is adapted from the 
+[csasdown](https://github.com/pbs-assess/csasdown) project.
