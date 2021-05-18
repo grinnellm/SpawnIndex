@@ -12,7 +12,8 @@ A clear and concise description of the bug.
 
 **To reproduce**
 
-A minimal reproducible example to demonstrate the bug.
+A minimal [reproducible example](https://reprex.tidyverse.org/)
+to demonstrate the bug.
 
 This could be a link to a (minimal) `.Rmd` file on
 Dropbox, Google Drive, or GitHub
@@ -41,4 +42,4 @@ If applicable, add screenshots to help explain your problem.
 
 **Additional context**
 
-Add any other context about the issue.
+Any other context about the issue.

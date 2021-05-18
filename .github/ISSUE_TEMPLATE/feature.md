@@ -13,13 +13,13 @@ provide a description of the problem.
 
 **Describe the solution**
 
-Provide a clear and concise description of what you want to happen.
+A clear and concise description of what you want to happen.
 
 **Describe alternatives you've considered**
 
-Provide a clear and concise description of any alternative solutions
+A clear and concise description of any alternative solutions
 or features that you have considered.
 
 **Additional context**
 
-Add any other context about the issue.
+Any other context about the issue.

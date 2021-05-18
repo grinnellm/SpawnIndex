@@ -41,7 +41,7 @@ At this point you'll have to wait.
 We like to at least comment on pull requests within a few days.
 We may suggest some changes, improvements, or alternatives.
 
-# Note
+## Attribution
 
 This document is adapted from the 
 [csasdown **R** package](https://github.com/pbs-assess/csasdown) project.

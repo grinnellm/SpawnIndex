@@ -20,4 +20,4 @@ your process while looking at the current documentation.
 
 **Additional context**
 
-Add any other context about the issue.
+Any other context about the issue.

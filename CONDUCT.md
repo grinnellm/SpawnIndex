@@ -25,5 +25,7 @@ Instances of abusive, harassing, or otherwise unacceptable behaviour may be
 reported by opening an issue or
 contacting one or more of the project maintainers.
 
+## Attribution
+
 This code of conduct is adapted from the
 [Contributor Covenant version 1.0.0](http://contributor-covenant.org/version/1/0/0/).
