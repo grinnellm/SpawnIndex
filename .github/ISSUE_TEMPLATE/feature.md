@@ -1,6 +1,6 @@
 ---
 name: Feature request
-about: Suggest an idea or feature for SpawnIndex
+about: Suggest an idea or feature to enhance SpawnIndex
 title: ''
 labels: 'enhancement'
 assignees: ''

@@ -27,7 +27,7 @@ A clear and concise description of what you expected to happen.
 
 **Observed behaviour**
 
-What is actually happening?
+Describe what is actually happening.
 
 **Screenshots**
 

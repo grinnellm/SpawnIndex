@@ -9,8 +9,8 @@ assignees: ''
 **Summary**
 
 Describe what is wrong with the documentation.
-Is the documentation unclear, or
-is more information required?
+Is the documentation unclear?
+Is more information required?
 
 **Proposed solution**
 
