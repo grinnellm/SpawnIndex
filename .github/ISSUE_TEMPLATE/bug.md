@@ -10,15 +10,16 @@ assignees: ''
 
 A clear and concise description of the bug.
 
-**To reproduce**
+**Make a reprex**
 
-A minimal [reproducible example](https://reprex.tidyverse.org/)
+A minimal reprex ([reproducible example](https://www.tidyverse.org/help/))
 to demonstrate the bug.
+Two things are important here:
+ 
+1. The code must be reproducible, and 
+2. The example must be minimal.
 
-This could be a link to a (minimal) `.Rmd` file on
-Dropbox, Google Drive, or GitHub
-that a developer can click the "Knit" button in **RStudio** and see the issue.
-This demo document should be self contained
+Thus, the demo must be self contained
 (i.e., not require any additional data files, figures, or
 time-consuming **R** code to run).
 
