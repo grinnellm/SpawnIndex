@@ -34,9 +34,8 @@ to assure nothing else was accidentally broken.
 Push to your fork and
 [submit a pull request](https://github.com/grinnellm/SpawnIndex/compare/).
 
-At this point you're waiting on us.
-We like to at least comment on pull requests
-within a few days (and, typically, one business day).
+At this point you'll have to wait.
+We like to at least comment on pull requests within a few days.
 We may suggest some changes, improvements, or alternatives.
 
 # Note
