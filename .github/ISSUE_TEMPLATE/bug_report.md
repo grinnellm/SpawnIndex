@@ -1,16 +1,16 @@
 ---
 name: Bug report
-about: Create a report to help us improve
+about: Create a report to help improve SpawnIndex
 title: ''
-labels: ''
+labels: 'bug'
 assignees: ''
 ---
 
 **Describe the bug**
 
-A clear and concise description of what the bug is.
+A clear and concise description of the bug.
 
-**To Reproduce**
+**To reproduce**
 
 A minimal reproducible example to demonstrate the bug.
 
@@ -18,7 +18,7 @@ This could be a link to a (minimal) `.Rmd` file on
 Dropbox, Google Drive, or GitHub
 that a developer can click the "Knit" button in **RStudio** and see the issue.
 This demo document should be self contained
-(i.e., not require any additional data files or figures or
+(i.e., not require any additional data files, figures, or
 time-consuming **R** code to run).
 
 **Expected behaviour**
@@ -33,7 +33,7 @@ What is actually happening?
 
 If applicable, add screenshots to help explain your problem.
 
-**Desktop (please complete the following information):**
+**Desktop (please complete the following information)**
 
  - Operating system: [Windows, macOS, Linux]
  - R version: [Find with `R.version.string`]
@@ -41,4 +41,4 @@ If applicable, add screenshots to help explain your problem.
 
 **Additional context**
 
-Add any other context about the problem.
+Add any other context about the issue.
