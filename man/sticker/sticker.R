@@ -5,7 +5,7 @@ require(sysfonts)
 require(tidyverse)
 
 # Set the seed (for highlight)
-set.seed(12)
+set.seed(11)
 
 # Get fonts: emojis
 load.emojifont("OpenSansEmoji.ttf")
@@ -15,6 +15,9 @@ fName <- "Righteous"
 
 # Get google font
 font_add_google(name = fName)
+
+# URL
+link <- "github.com/grinnellm/SpawnIndex"
 
 # Padding
 pad <- 10
@@ -32,8 +35,8 @@ df <- tibble(
 
 # Plot
 hImage <- ggplot(data = df, mapping = aes(x = x, y = y, label = label)) +
-  geom_text(data = df[1:2, ], family = "OpenSansEmoji", size = c(17, 20)) +
-  geom_text(data = df[3, ], fontface = "italic", size = 20) +
+  geom_text(data = df[1:2, ], family = "OpenSansEmoji", size = pad * c(7, 8)) +
+  geom_text(data = df[3, ], fontface = "italic", size = pad * 8) +
   expand_limits(
     x = c(min(df$x) - pad, max(df$x) + pad),
     y = c(min(df$y) - pad, max(df$y) + pad)
@@ -57,15 +60,16 @@ hImage <- ggplot(data = df, mapping = aes(x = x, y = y, label = label)) +
 stickerSI <- sticker(
   subplot = hImage,
   s_x = 1, s_y = 0.65, s_width = 1.5, s_height = 1.5,
-  package = "SpawnIndex", p_size = 10, p_color = "red", p_family = fName,
-  spotlight = TRUE, l_alpha = 0.35,
+  package = "SpawnIndex", p_size = pad * 4.25, p_color = "red",
+  p_family = fName, spotlight = TRUE, l_alpha = 0.35,
   l_x = 1, l_y = 0.7, l_width = 5, l_height = 5,
-  h_fill = "blue", h_size = 2, h_color = "red",
-  dpi = 150, filename = file.path("man", "sticker", "sticker.png")
+  h_fill = "blue", h_size = 1, h_color = "red",
+  url = link, u_size = pad * 0.75,
+  dpi = 600, filename = file.path("man", "sticker", "sticker.png")
 )
 
 # Reorder the layers to put highlight on bottom
 stickerSI$layers <- stickerSI$layers[c(1, 4, 2, 3, 5, 6)]
 
 # Re-save the sticker
-save_sticker(file.path("man", "sticker", "sticker.png"), stickerSI, dpi = 150)
+save_sticker(file.path("man", "sticker", "sticker.png"), stickerSI, dpi = 600)
