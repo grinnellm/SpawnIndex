@@ -20,7 +20,7 @@ version](https://img.shields.io/badge/Version-0.3.1-orange.svg?style=flat-square
 status](https://www.r-pkg.org/badges/version/SpawnIndex)](https://CRAN.R-project.org/package=SpawnIndex)
 <!-- badges: end -->
 
-Note: `R-CMD-check` works on my Windows machine but fails on GitHub
+Note: `R-CMD-check` succeeds on my Windows machine but fails on GitHub
 Actions (see [\#30](https://github.com/grinnellm/SpawnIndex/issues/30)).
 
 ## Description
