@@ -1,5 +1,5 @@
 ---
-name: Mistake
+name: Mistake notice
 about: Help correct a mistake in SpawnIndex
 title: ''
 labels: 'mistake'
@@ -9,8 +9,8 @@ assignees: ''
 **Summary**
 
 A clear and concise description of the mistake.
-Does the mistake relate to documentation?
-Is it numerical?
+Does the mistake relate to documentation, like a typo?
+Did we provide the wrong reference or citation?
 
 **Proposed correction**
 

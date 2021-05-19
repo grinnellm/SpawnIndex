@@ -1,5 +1,5 @@
 ---
-name: Documentation
+name: Improve documentation
 about: Help improve SpawnIndex documentation
 title: ''
 labels: 'documentation'
