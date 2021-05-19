@@ -10,8 +10,11 @@ set.seed(12)
 # Get fonts: emojis
 load.emojifont("OpenSansEmoji.ttf")
 
-# Get google font: Orbitron, Righteous, Limelight
-font_add_google(name = "Limelight")
+# Font name: Orbitron, Righteous, Limelight
+fName <- "Righteous"
+
+# Get google font
+font_add_google(name = fName)
 
 # Padding
 pad <- 10
@@ -54,7 +57,7 @@ hImage <- ggplot(data = df, mapping = aes(x = x, y = y, label = label)) +
 stickerSI <- sticker(
   subplot = hImage,
   s_x = 1, s_y = 0.65, s_width = 1.5, s_height = 1.5,
-  package = "SpawnIndex", p_size = 9, p_color = "red", p_family = "Limelight",
+  package = "SpawnIndex", p_size = 10, p_color = "red", p_family = fName,
   spotlight = TRUE, l_alpha = 0.35,
   l_x = 1, l_y = 0.7, l_width = 5, l_height = 5,
   h_fill = "blue", h_size = 2, h_color = "red",
