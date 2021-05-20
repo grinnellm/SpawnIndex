@@ -199,23 +199,24 @@ r_name <- "SoG"
 loc_image <- file.path("..", "..", "DataSummaries", r_name)
 # Load a saved workspace
 load(file = file.path(loc_image, paste("Image.", r_name, ".RData", sep = "")))
-# Region name
-reg_name_long <- regions %>%
-  filter(Region == regName) %>%
-  select(RegionName) %>%
-  pull()
 # All region names
 all_regions <- regions %>%
-  mutate(FullName = paste(RegionName, " (", Region, ")", sep = ""))
+  mutate(FullName = paste(RegionName, " (", Region, ")", sep = "")) %>%
+  filter(Type %in% c("Major", "Minor"))
 # Major region names
 major_regions <- all_regions %>%
-  filter(Major) %>%
+  filter(Type == "Major") %>%
   select(FullName) %>%
   pull()
 # Minor region names
 minor_regions <- all_regions %>%
-  filter(!Major) %>%
+  filter(Type == "Minor") %>%
   select(FullName) %>%
+  pull()
+# Region name
+reg_name_long <- regions %>%
+  filter(Region == r_name) %>%
+  select(RegionName) %>%
   pull()
 # Stat Area to examine (character with 2 digits)
 zoom_sa <- "14"
@@ -386,11 +387,11 @@ To develop spawn indices,
 Locations are nested within Sections (\autoref{figRegionSec}),
 Sections are nested within Statistical Areas (\autoref{figRegionSA}), and
 Statistical Areas are nested within stock assessment regions (SARs; \autoref{figRegionReg}).
-There are \Sexpr{num_to_word(nrow(regions))} SARs in BC,
+There are \Sexpr{num_to_word(nrow(all_regions))} SARs in BC,
 which we categorize as either `major' or `minor' (\autoref{figBC}; \citealt{HaistRosenfeld1988}).
 The terms `major' and `minor' describe relative differences in geographic and biomass scales.
 The major SARs are Haida Gwaii (formerly known as Queen Charlotte Islands), Prince Rupert District (formerly known as North Coast), Central Coast, Strait of Georgia, and West Coast of Vancouver Island.
-The minor SARs are \Sexpr{paste_nicely(regions$RegionName[!regions$Major])}.
+The minor SARs are \Sexpr{paste_nicely(minor_regions)}.
 
 <<Region>>=
 # Number of plots
@@ -474,23 +475,23 @@ map_reg <- base_map +
 \centering
 \begin{subfigure}[t]{0.32\linewidth}
 \includegraphics[width=\linewidth]{knitr-figs/MapSection.png}
-\caption{Spawn index in tonnes (t) by Location in Section \Sexpr{zoom_sec}, \Sexpr{regName} SAR.}
+\caption{Spawn index in tonnes (t) by Location in Section \Sexpr{zoom_sec}, \Sexpr{r_name} SAR.}
 \label{figRegionSec}
 \end{subfigure}
 \hfill
 \begin{subfigure}[t]{0.32\linewidth}
 \includegraphics[width=\linewidth]{knitr-figs/MapStatArea.png}
-\caption{Sections (Sec) in Statistical Area \Sexpr{zoom_sa}, \Sexpr{regName} SAR.}
+\caption{Sections (Sec) in Statistical Area \Sexpr{zoom_sa}, \Sexpr{r_name} SAR.}
 \label{figRegionSA}
 \end{subfigure}
 \hfill
 \begin{subfigure}[t]{0.32\linewidth}
 \includegraphics[width=\linewidth]{knitr-figs/MapRegion.png}
-\caption{Statistical Areas (SA) in the \Sexpr{regName} SAR.}
+\caption{Statistical Areas (SA) in the \Sexpr{r_name} SAR.}
 \label{figRegionReg}
 \end{subfigure}
 \caption[\fishName{} spawn index by Location, as well as Sections and Statistical Areas in the \Sexpr{reg_name_long}]
-{\fishName{} spawn index by Location in \Sexpr{yr_index} (\subref{figRegionSec}), Sections (\subref{figRegionSA}), and Statistical Areas (\subref{figRegionReg}) in the \Sexpr{reg_name_long} (\Sexpr{regName}) stock assessment region (SAR; \autoref{figBC}).}
+{\fishName{} spawn index by Location in \Sexpr{yr_index} (\subref{figRegionSec}), Sections (\subref{figRegionSA}), and Statistical Areas (\subref{figRegionReg}) in the \Sexpr{reg_name_long} (\Sexpr{r_name}) stock assessment region (SAR; \autoref{figBC}).}
 \label{figRegion}
 \end{figure}
 

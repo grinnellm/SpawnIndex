@@ -100,25 +100,10 @@ load_area_data <- function(reg,
   if (!reg %in% c("JS", "All")) {
     region_table <- filter(.data = region_table, SAR != 8)
   }
-  # Return region names
-  region_names <- region_table %>%
-    select(RegionName, Region, Major) %>%
-    mutate(Region = paste("(", Region, ")", sep = "")) %>%
-    unite(RegionName, Region, col = "Region", sep = " ")
-  # Make a nice list
-  all_region_names <- list(
-    major = region_names$Region[region_names$Major],
-    minor = region_names$Region[!region_names$Major]
-  )
-  # Possible regions by type
-  all_regions <- list(
-    major = as.character(region_table$Region[region_table$Major]),
-    minor = as.character(region_table$Region[!region_table$Major])
-  )
   # Error if region is incorrect
-  if (!(reg %in% c(unlist(all_regions), "All"))) {
+  if (!(reg %in% c(regions$Region, "All"))) {
     stop(
-      "Possible regions are: ", paste_nicely(unlist(all_regions)), ".",
+      "Possible regions are: ", paste_nicely(regions$Region), ".",
       call. = FALSE
     )
   }
