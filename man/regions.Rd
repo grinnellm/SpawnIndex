@@ -12,12 +12,13 @@ regions
 }
 \description{
 Cross-walk table with stock assessment region (SAR) numbers, regions, region
-names, and whether regions are major or minor
+names, and type (i.e., major, minor, special)
 \insertCite{GrinnellEtalYYYY}{SpawnIndex}.
 }
 \note{
-JS is not an official SAR. In addition, JS sections 132 and 135 are
-also in SoG.
+JS is not an official SAR; sections 132 and 135 are also in SoG.
+Similarly, A10 is not an official SAR; sections 101, 102, and 103 are in
+CC.
 }
 \examples{
 data(regions)

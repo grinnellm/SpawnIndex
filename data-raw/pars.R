@@ -4,15 +4,16 @@ library(readr)
 
 # Stock assessment regions (SARs)
 regions <- read_csv(
-  "SAR, Region, RegionName, Major
-  1, HG, Haida Gwaii, TRUE
-  2, PRD, Prince Rupert District, TRUE
-  3, CC, Central Coast, TRUE
-  4, SoG, Strait of Georgia, TRUE
-  5, WCVI, West Coast of Vancouver Island, TRUE
-  6, A27, Area 27, FALSE
-  7, A2W, Area 2 West, FALSE
-  8, JS, Johnstone Strait, FALSE"
+  "SAR, Region, RegionName, Type
+  1, HG, Haida Gwaii, Major
+  2, PRD, Prince Rupert District, Major
+  3, CC, Central Coast, Major
+  4, SoG, Strait of Georgia, Major
+  5, WCVI, West Coast of Vancouver Island, Major
+  6, A27, Area 27, Minor
+  7, A2W, Area 2 West, Minor
+  8, JS, Johnstone Strait, Special
+  9, A10, Area 10, Special"
 )
 save(regions, file = file.path("data", "regions.RData"))
 
