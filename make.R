@@ -18,12 +18,14 @@ devtools::build_manual(path = "./doc")
 # Styler
 styler::style_pkg()
 styler::style_file(path = file.path("vignettes", "Introduction.Rmd"))
+styler::style_file(path = file.path("man", "sticker", "sticker.R"))
 styler::style_file(path = "README.Rmd")
 # styler::style_file(path = file.path("tr", "SpawnIndex.Rnw"))
 
 # Lint
 lintr::lint_package()
 lintr::lint(filename = file.path("vignettes", "Introduction.Rmd"))
+lintr::lint(filename = file.path("man", "sticker", "sticker.R"))
 lintr::lint(filename = "README.Rmd")
 lintr::lint(filename = file.path("tr", "SpawnIndex.Rnw"))
 

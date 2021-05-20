@@ -60,17 +60,17 @@ hImage <- ggplot(data = df, mapping = aes(x = x, y = y, label = label)) +
 stickerSI <- sticker(
   subplot = hImage,
   s_x = 1, s_y = 0.65, s_width = 1.5, s_height = 1.5,
-  package = "SpawnIndex", p_size = pad * 4.25, p_color = c("darkblue", "red"),
-  p_x=c(1.02, 1), p_y = c(1.38, 1.4),
-  p_family = fName, spotlight = TRUE, l_alpha = 0.35,
+  package = "SpawnIndex", p_size = pad * 4.25,
+  p_color = c("darkblue", "red"), p_x=c(1.02, 1), p_y = c(1.38, 1.4),
+  p_family = fName, spotlight = FALSE, l_alpha = 0.35,
   l_x = 1, l_y = 0.7, l_width = 5, l_height = 5,
   h_fill = "blue", h_size = 1, h_color = "red",
-  url = link, u_y = 0.06, u_size = pad * 0.75,
+  url = link, u_y = 0.06, u_size = pad * 0.75, #u_family = "mono",
   dpi = 600, filename = file.path("man", "sticker", "sticker.png")
 )
 
-# Reorder the layers to put highlight on bottom
-stickerSI$layers <- stickerSI$layers[c(1, 4, 2, 3, 5, 6)]
-
-# Re-save the sticker
-save_sticker(file.path("man", "sticker", "sticker.png"), stickerSI, dpi = 600)
+# # Reorder the layers to put highlight on bottom
+# stickerSI$layers <- stickerSI$layers[c(1, 4, 2, 3, 5, 6)]
+#
+# # Re-save the sticker
+# save_sticker(file.path("man", "sticker", "sticker.png"), stickerSI, dpi = 600)
