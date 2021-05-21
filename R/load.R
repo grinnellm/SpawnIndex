@@ -8,8 +8,7 @@
 #' for the region(s) in question. There is an option to subset the sections if
 #' desired.
 #'
-#' @param reg Character. Region of interest (i.e., HG, PRD, CC, SoG, WCVI, A27,
-#'   or A2W).
+#' @param reg Character. Region of interest (see \code{\link{regions}}).
 #' @param sec_sub Numeric vector or NULL Subset of Sections to include in the
 #'   analysis, or NULL to include all the Sections in the region.
 #' @template param-where
@@ -101,9 +100,9 @@ load_area_data <- function(reg,
     region_table <- filter(.data = region_table, SAR != 8)
   }
   # Error if region is incorrect
-  if (!(reg %in% c(regions$Region, "All"))) {
+  if (!(reg %in% c(region_table$Region, "All"))) {
     stop(
-      "Possible regions are: ", paste_nicely(regions$Region), ".",
+      "Possible regions are: ", paste_nicely(region_table$Region), ".",
       call. = FALSE
     )
   }
@@ -126,26 +125,35 @@ load_area_data <- function(reg,
   if (!all(c("SAR", "Section") %in% names(sections))) {
     stop("Sections table is missing columns", call. = FALSE)
   }
-  # If the region is Johnstone Strait
-  if (reg == "JS") {
+  # Is it a special region?
+  reg_type <- region_table$Type[which(region_table$Region == reg)]
+  # If the region is special
+  if (reg_type == "Special") {
     # TODO: Sections 132 and 135 are also SoG sections -- how to resolve?
     # Manual fix: Johnstone Strait herring sections
-    js_sections <- c(111, 112, 121:127, 131:136)
+    if(reg == "JS") special_sections <- c(111, 112, 121:127, 131:136)
+    if(reg == "A10") special_sections <- c(101:103)
     # Message
     if (!quiet) {
-      cat("Note overlap between JS and SoG: Sections 132 and 135\n")
+      cat("Note that this is a special SAR, not an official SAR.")
+      if(reg == "JS")
+        cat("Sections 132 and 135 are in SoG.\n")
+      if(reg == "A10")
+        cat("Sections 101, 102, and 103 are in CC.\n")
     }
+    # Get the region number from the table
+    reg_num <- region_table$SAR[which(region_table$Region == reg)]
     # Wrangle the sections worksheet
     sections <- sections %>%
-      filter(Section %in% js_sections) %>%
-      mutate(SAR = 8) %>%
+      filter(Section %in% special_sections) %>%
+      mutate(SAR = reg_num) %>%
       full_join(y = region_table, by = "SAR") %>%
       filter(Region %in% reg) %>%
       select(SAR, Region, RegionName, Section) %>%
       mutate(Section = as.integer(Section)) %>%
       distinct() %>%
       as_tibble()
-  } else { # End if Johnstone Strait, otherwise
+  } else { # End if special, otherwise
     # Wrangle the sections table
     sections <- sections %>%
       full_join(y = region_table, by = "SAR") %>%
