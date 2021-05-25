@@ -22,6 +22,7 @@ font_add_google(name = fName)
 link <- "github.com/grinnellm/SpawnIndex"
 
 # Egg image (not sure why the egg emoji doesn't work)
+# https://commons.wikimedia.org/wiki/File:Emojione_BW_1F95A.svg
 eggs <- readPNG(source = file.path("man", "sticker", "egg.png"))
 
 # Padding
