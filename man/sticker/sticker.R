@@ -3,8 +3,7 @@ require(hexSticker)
 require(emojifont)
 require(sysfonts)
 require(tidyverse)
-require(png)
-require(cowplot)
+require(ggimage)
 
 # Set the seed (for highlight)
 set.seed(11)
@@ -13,25 +12,20 @@ set.seed(11)
 load.emojifont("OpenSansEmoji.ttf")
 
 # Font name: Orbitron, Righteous, Limelight
-fName <- "Righteous"
+font_name <- "Righteous"
 
 # Get google font
-font_add_google(name = fName)
+font_add_google(name = font_name)
 
 # URL
 link <- "github.com/grinnellm/SpawnIndex"
 
-# Egg image (not sure why the egg emoji doesn't work)
-# https://commons.wikimedia.org/wiki/File:Emojione_BW_1F95A.svg
-eggs <- readPNG(source = file.path("man", "sticker", "egg.png"))
+# Egg image (not sure why the egg emoji doesn't work) from
+# https://www.clipartmax.com/middle/m2H7G6K9H7H7m2b1_chicken-eggs-egg-outline/
+egg_image <- file.path("man", "sticker", "egg.png")
 
 # Padding
 pad <- 10
-
-# # Point cloud
-# dat <- tibble(x = rnorm(n = pad * 500, mean = 0, sd = pad / 2),
-#               y = rnorm(n = pad * 500, mean = 0, sd = pad / 2),
-#               label = 0)
 
 # Angles
 a1 <- c(60, 180, 300) * pi / 180
@@ -41,48 +35,46 @@ a2 <- c(0, 120, 240) * pi / 180
 df <- tibble(
   x = c(pad * sin(a1[1]), pad * sin(a1[2]), pad * sin(a1[3])),
   y = c(pad * cos(a1[1]), pad * cos(a1[2]), pad * cos(a1[3])),
-  label = c("", emoji("fish"), "\u03B8")
+  thing = c(egg_image, emoji("fish"), "\u03B8")
 )
 
 # Plot
-hImage <- ggplot(data = df, mapping = aes(x = x, y = y, label = label)) +
-  # geom_point(data = dat, colour = "transparent", fill = "white", alpha = 0.01) +
-  geom_text(data = df[1:2, ], family = "OpenSansEmoji", size = pad * c(7, 8)) +
-  geom_text(data = df[3, ], fontface = "italic", size = pad * 8) +
-  draw_image(eggs, width = 10, height = 10, x = df$x[1]/3, y = df$y[1]/5) +
+sticker_image <- ggplot(data = df, mapping = aes(x = x, y = y)) +
+  geom_image(data = df[1, ], mapping = aes(image = thing), size = 0.2) +
+  geom_text(
+    data = df[2, ], mapping = aes(label = thing), family = "OpenSansEmoji",
+    fontface = "italic", size = pad * 8
+  ) +
+  # "Monotype Modern" would be a nice font for theta
+  geom_text(
+    data = df[3, ], mapping = aes(label = thing), fontface = "italic",
+    size = pad * 8
+  ) +
   expand_limits(
     x = c(min(df$x) - pad, max(df$x) + pad),
     y = c(min(df$y) - pad, max(df$y) + pad)
   ) +
   annotate(
-    geom = "segment", colour = "red",
+    geom = "segment", colour = "red", size = 0.5,
     x = 0, xend = pad * 1.25 * sin(a2[1]), y = 0, yend = pad * 1.25 * cos(a2[1])
   ) +
   annotate(
-    geom = "segment", colour = "red",
+    geom = "segment", colour = "red", size = 0.5,
     x = 0, xend = pad * 1.25 * sin(a2[2]), y = 0, yend = pad * 1.25 * cos(a2[2])
   ) +
   annotate(
-    geom = "segment", colour = "red",
+    geom = "segment", colour = "red", size = 0.5,
     x = 0, xend = pad * 1.25 * sin(a2[3]), y = 0, yend = pad * 1.25 * cos(a2[3])
   ) +
   coord_fixed() +
   theme_void()
 
 # Make the sticker
-stickerSI <- sticker(
-  subplot = hImage, s_x = 1, s_y = 0.65, s_width = 1.5, s_height = 1.5,
+spawn_index_sticker <- sticker(
+  subplot = sticker_image, s_x = 1, s_y = 0.65, s_width = 1.5, s_height = 1.5,
   package = "SpawnIndex", p_size = pad * 4.25, p_color = c("darkblue", "red"),
-  p_x=c(1.02, 1), p_y = c(1.38, 1.4), p_family = fName,
-  spotlight = FALSE, l_alpha = 0.4, l_x = 1.06, l_y = 0.735, l_width = 5,
-  l_height = 5,
+  p_x = c(1.02, 1), p_y = c(1.38, 1.4), p_family = font_name,
   h_fill = "blue", h_size = 1, h_color = "red",
   url = link, u_y = 0.06, u_size = pad * 0.75, u_family = "mono",
-  dpi = 600, filename = file.path("man", "sticker", "sticker.png")
+  filename = file.path("man", "sticker", "sticker.png"), dpi = 600
 )
-
-# # Reorder the layers to put highlight on bottom
-# stickerSI$layers <- stickerSI$layers[c(1, 4, 2, 3, 5, 6)]
-
-# Re-save the sticker
-# save_sticker(file.path("man", "sticker", "sticker.png"), stickerSI, dpi = 600)
