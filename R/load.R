@@ -127,6 +127,8 @@ load_area_data <- function(reg,
   }
   # Is it a special region?
   reg_type <- region_table$Type[which(region_table$Region == reg)]
+  # Fix if region is All
+  if (region == "All" & length(reg_type) == 0) reg_type <- ""
   # If the region is special
   if (reg_type == "Special") {
     # TODO: Sections 132 and 135 are also SoG sections -- how to resolve?
