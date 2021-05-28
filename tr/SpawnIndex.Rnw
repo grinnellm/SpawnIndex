@@ -30,13 +30,13 @@
 \newcommand{\trISBN}{xxx-x-xxx-xxxxx-x}
 
 % Author names: this is all cludgy but it works (including the affiliations)
-\newcommand{\trAuthsLong}{Matthew H.~Grinnell$^1$, Jake F.~Schweigert$^2$, Matt Thompson$^1$, Sarah Hawkshaw$^3$, and Jaclyn S.~Cleary$^1$}
+\newcommand{\trAuthsLong}{Matthew H.~Grinnell$^1$, Jake F.~Schweigert$^2$, Matt Thompson$^1$, Sarah Hawkshaw$^3$, Sarah J.~H.~Power$^1$, and Jaclyn S.~Cleary$^1$}
 
 % Author names without
-\newcommand{\trAuthsNoMath}{Matthew H.~Grinnell, Jake F.~Schweigert, Matt Thompson, Sarah Hawkshaw, and Jaclyn S.~Cleary}
+\newcommand{\trAuthsNoMath}{Matthew H.~Grinnell, Jake F.~Schweigert, Matt Thompson, Sarah Hawkshaw, Sarah J.~H.~Power, and Jaclyn S.~Cleary}
 
 % Author names reversed (for citation)
-\newcommand{\trAuthsBack}{Grinnell, M.H., Schweigert, J.F., Thompson, M., Hawkshaw, S., and Cleary, J.S.}
+\newcommand{\trAuthsBack}{Grinnell, M.H., Schweigert, J.F., Thompson, M., Hawkshaw, S., Power, S.J.H., and Cleary, J.S.}
 
 % Address
 \newcommand{\trAddy}{Fisheries and Oceans Canada\\
