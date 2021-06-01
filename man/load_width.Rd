@@ -54,6 +54,7 @@ width_bar
 
 Other load functions: 
 \code{\link{load_all_spawn}()},
-\code{\link{load_area_data}()}
+\code{\link{load_area_data}()},
+\code{\link{load_sections}()}
 }
 \concept{load functions}

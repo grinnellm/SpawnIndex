@@ -52,6 +52,7 @@ all_spawn
 
 Other load functions: 
 \code{\link{load_area_data}()},
+\code{\link{load_sections}()},
 \code{\link{load_width}()}
 }
 \concept{load functions}

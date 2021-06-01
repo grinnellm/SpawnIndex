@@ -2,18 +2,22 @@
 #'
 #' `r read.dcf(file = "DESCRIPTION", fields = "Description")`
 #'
-#' The SpawnIndex package provides data, and four families of functions: load,
-#' calculation, check, and utility.
+#' The SpawnIndex package provides raw data, data, and four families of
+#' functions: load, calculation, check, and utility.
+#'
+#' @section Raw data: The raw data is an example database with spawn survey
+#'   observations (\code{\link{HerringSpawn}}), and a shapefile with Section
+#'   polygons (\code{\link{HerringSections}}).
 #'
 #' @section Data: The data are region names (\code{\link{regions}}), understory
 #'   spawn width correction factors (\code{\link{under_width_facs}}), parameters
 #'   for spawn index calculations (\code{\link{pars}}), spawn intensity
 #'   categories (\code{\link{intensity}}), and algae coefficients
-#'   (\code{\link{algae_coefs}}). In addition, there is an example database with
-#'   spawn survey observations (\code{\link{HerringSpawn}}).
+#'   (\code{\link{algae_coefs}}).
 #'
 #' @section Load: The load functions are \code{\link{load_area_data}},
-#'   \code{\link{load_all_spawn}}, and \code{\link{load_width}}.
+#'   \code{\link{load_all_spawn}}, \code{\link{load_width}}, and
+#'   \code{\link{load_sections}}.
 #'
 #' @section Calculation: The calculation functions are \code{\link{eggs_to_sb}},
 #'   \code{\link{calc_sok_index}}, \code{\link{dens_surf}},

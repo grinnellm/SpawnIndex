@@ -49,5 +49,8 @@ dbDisconnect(conn = access_db)
 \code{\link{load_area_data}} \code{\link{load_all_spawn}}
 \code{\link{load_width}} \code{\link{calc_surf_index}}
 \code{\link{calc_macro_index}} \code{\link{calc_under_index}}
+
+Other raw data: 
+\code{\link{HerringSections}}
 }
 \concept{raw data}

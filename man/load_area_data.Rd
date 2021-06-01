@@ -18,7 +18,7 @@ load_area_data(
 \arguments{
 \item{reg}{Character. Region of interest (see \code{\link{regions}}).}
 
-\item{sec_sub}{Numeric vector or NULL Subset of Sections to include in the
+\item{sec_sub}{Numeric vector or NULL. Subset of Sections to include in the
 analysis, or NULL to include all the Sections in the region.}
 
 \item{where}{List. Location and name of the Pacific Herring spawn survey
@@ -84,6 +84,7 @@ dplyr::distinct(dplyr::select(
 
 Other load functions: 
 \code{\link{load_all_spawn}()},
+\code{\link{load_sections}()},
 \code{\link{load_width}()}
 }
 \concept{load functions}

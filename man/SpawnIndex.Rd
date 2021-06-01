@@ -18,26 +18,32 @@ spawn-on-kelp operations. Note that the 'spawn index' is a relative index of
 spawning biomass.
 }
 \details{
-The SpawnIndex package provides data, and four families of functions: load,
-calculation, check, and utility.
+The SpawnIndex package provides raw data, data, and four families of
+functions: load, calculation, check, and utility.
 }
 \note{
 The `spawn index' is a relative index of spawning biomass. Read the
 technical report for more details and background on spawn index
 calculations \insertCite{GrinnellEtalYYYY}{SpawnIndex}.
 }
+\section{Raw data}{
+ The raw data is an example database with spawn survey
+observations (\code{\link{HerringSpawn}}), and a shapefile with Section
+polygons (\code{\link{HerringSections}}).
+}
+
 \section{Data}{
  The data are region names (\code{\link{regions}}), understory
 spawn width correction factors (\code{\link{under_width_facs}}), parameters
 for spawn index calculations (\code{\link{pars}}), spawn intensity
 categories (\code{\link{intensity}}), and algae coefficients
-(\code{\link{algae_coefs}}). In addition, there is an example database with
-spawn survey observations (\code{\link{HerringSpawn}}).
+(\code{\link{algae_coefs}}).
 }
 
 \section{Load}{
  The load functions are \code{\link{load_area_data}},
-\code{\link{load_all_spawn}}, and \code{\link{load_width}}.
+\code{\link{load_all_spawn}}, \code{\link{load_width}}, and
+\code{\link{load_sections}}.
 }
 
 \section{Calculation}{
