@@ -1,6 +1,5 @@
 A10
-A27
-A2W
+Albers
 Clupea
 Codecov
 EPSG
@@ -9,8 +8,8 @@ GitHub
 JS
 LocationCode
 Macrocystis
+NAD
 Northings
-PRD
 SAR
 SOK
 SoG
@@ -28,6 +27,7 @@ spawners
 summarise
 svg
 tibble
+tibbles
 understory
 varphi
 varrho
