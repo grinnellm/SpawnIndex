@@ -27,8 +27,8 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Depends: R (>= 3.5.0)
 Imports: gfiscamutils, Rdpack, dplyr, readr, sp, stringr, tibble, tidyr,
-    lubridate, DBI, odbc
-Suggests: spelling, knitr, rmarkdown, ggplot2, magrittr, kableExtra, sf,
+    lubridate, DBI, odbc, rgeos, rgdal, ggplot2, foreign
+Suggests: spelling, knitr, rmarkdown, magrittr, kableExtra, sf,
     rnaturalearth, rnaturalearthhires, testthat, covr
 Remotes: pbs-assess/gfiscamutils, ropensci/rnaturalearthhires
 RdMacros: Rdpack
