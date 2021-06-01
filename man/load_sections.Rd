@@ -4,18 +4,14 @@
 \alias{load_sections}
 \title{Load and crop Pacific Herring Section shapefiles.}
 \usage{
-load_sections(where, areas, sec_sub = NULL, buffer = 5000, quiet = FALSE)
+load_sections(where, areas, buffer = 5000, quiet = FALSE)
 }
 \arguments{
 \item{where}{List. Location and name of the Pacific Herring spawn survey
 database, as well as required tables (see examples).}
 
 \item{areas}{Tibble. Table of geographic information indicating the subset of
-spawn survey observations to include in calculations; from
-\code{\link{load_area_data}}.}
-
-\item{sec_sub}{Numeric vector or NULL. Subset of Sections to include in the
-analysis, or NULL to include all the Sections in the region.}
+observations to include; from \code{\link{load_area_data}}.}
 
 \item{buffer}{Numeric. Buffer around polygons; distance in metres. Default
 5000.}

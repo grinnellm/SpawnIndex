@@ -11,8 +11,7 @@ load_width(where, areas, quiet = FALSE)
 database, as well as required tables (see examples).}
 
 \item{areas}{Tibble. Table of geographic information indicating the subset of
-spawn survey observations to include in calculations; from
-\code{\link{load_area_data}}.}
+observations to include; from \code{\link{load_area_data}}.}
 
 \item{quiet}{Logical. Suppress messages; default is FALSE.}
 }

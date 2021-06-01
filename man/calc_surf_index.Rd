@@ -23,8 +23,7 @@ calc_surf_index(
 database, as well as required tables (see examples).}
 
 \item{areas}{Tibble. Table of geographic information indicating the subset of
-spawn survey observations to include in calculations; from
-\code{\link{load_area_data}}.}
+observations to include; from \code{\link{load_area_data}}.}
 
 \item{widths}{List. List of three tables: median region, section, and pool
 widths in metres (m); from \code{\link{load_width}}.}
