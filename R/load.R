@@ -9,8 +9,7 @@
 #' desired.
 #'
 #' @param reg Character. Region of interest (see \code{\link{regions}}).
-#' @param sec_sub Numeric vector or NULL Subset of Sections to include in the
-#'   analysis, or NULL to include all the Sections in the region.
+#' @template param-sec_sub
 #' @template param-where
 #' @param in_crs Character. Input coordinate reference system;
 #'   \href{https://spatialreference.org/}{use EPSG codes if desired}.
@@ -128,7 +127,7 @@ load_area_data <- function(reg,
   # Is it a special region?
   reg_type <- region_table$Type[which(region_table$Region == reg)]
   # Fix if region is All
-  if (region == "All" & length(reg_type) == 0) reg_type <- ""
+  if (reg == "All" & length(reg_type) == 0) reg_type <- ""
   # If the region is special
   if (reg_type == "Special") {
     # TODO: Sections 132 and 135 are also SoG sections -- how to resolve?
@@ -539,9 +538,7 @@ load_width <- function(where,
   dbDisconnect(conn = access_db)
   # Check output: tibble rows
   check_tibble(
-    dat = list(
-      region = res$region, section = res$section, pool = res$pool
-    ),
+    dat = list(region = res$region, section = res$section, pool = res$pool),
     quiet = quiet
   )
   # Check output: region names
@@ -559,3 +556,271 @@ load_width <- function(where,
   # Table to return
   res
 } # End load_width function
+
+#' Load and crop Pacific Herring Section shapefiles.
+#'
+#' Load and crop Pacific Herring Section shapefiles, and aggregate to
+#' Statistical Areas and Region(s).
+#'
+#' @template param-where
+#' @template param-areas
+#' @template param-sec_sub
+#' @param buffer Numeric. Buffer around polygons; distance in metres. Default
+#'   5000.
+#' @template param-quiet
+#' @importFrom rgeos gCentroid gBuffer
+#' @importFrom stats aggregate
+#' @importFrom rgdal readOGR
+#' @importFrom ggplot2 fortify
+#' @importFrom sp bbox
+#' @importFrom tibble tibble
+#' @return List of many things.
+#' @references \insertAllCited
+#' @seealso \code{\link{HerringSections}}
+#' @family load functions
+#' @export
+#' @examples
+#' db_loc <- system.file("extdata", package = "SpawnIndex")
+#' area_loc <- list(
+#'   loc = db_loc, db = "HerringSpawn.mdb",
+#'   fns = list(sections = "Sections", locations = "Location")
+#' )
+#' areas <- load_area_data(reg = "WCVI", where = area_loc)
+#' sections_files <- system.file("extdata", "Sections", package = "SpawnIndex")
+#' sections_loc <- list(
+#'   loc_sec = sections_files,
+#'   fns = list(sections = "HerringSections")
+#' )
+#' load_sections(where = sections_loc, areas = areas)
+load_sections <- function(where,
+                          areas,
+                          sec_sub = NULL,
+                          buffer = 5000,
+                          quiet = FALSE) {
+  # Get area information
+  areas_sm <- areas %>%
+    select(SAR, Region, StatArea, Group, Section) %>%
+    distinct() %>%
+    mutate(
+      StatArea = formatC(StatArea, width = 2, flag = "0"),
+      Section = formatC(Section, width = 3, flag = "0")
+    ) %>%
+    arrange(SAR, StatArea, Group, Section)
+  # Load the Section shapefile (has Statistical Areas and Regions)
+  secRaw <- readOGR(dsn = where$loc_sec, layer = where$fns$sections, verbose = FALSE)
+  # Get region
+  region <- unique(areas_sm$Region)
+  # If region is All
+  if (region == "All") {
+    # Set the region number
+    reg_num <- 0
+    # Is it a special region?
+    reg_type <- "All"
+  } else { # End if all, otherwise
+    # Get the region number from the table
+    reg_num <- regions$SAR[which(regions$Region == region)]
+    # Is it a special region?
+    reg_type <- regions$Type[which(regions$Region == region)]
+  } # End if not all
+  # Function to perform some light wrangling
+  UpdateSections <- function(dat, keepAll) {
+    # Subset the sections to the region(s) in question, and perform some light
+    # wrangling to get correct column names and IDs. Note that this would also
+    # be the place to apply a slight spatial buffer to ensure that boundaries
+    # are contiguous without overlapping.
+    # Some light wrangling
+    dat@data <- dat@data %>%
+      mutate(
+        StatArea = as.character(StatArea),
+        Section = as.character(Section)
+      ) %>%
+      select(SAR, StatArea, Section)
+    # If retain all the regions
+    if (keepAll) {
+      # If the region is special
+      if (all(reg_type == "Special")) {
+        # Update the SAR
+        dat@data <- dat@data %>%
+          mutate(SAR = ifelse(Section %in% areas_sm$Section & SAR == -1, 8,
+                              SAR
+          ))
+      } # End if special
+      # Remove the non-SAR areas
+      if (region != "All") res <- dat[dat$SAR != -1, ]
+    } else { # End if retain all, otherwise
+      # If the region is special
+      if (all(reg_type == "Special")) {
+        # Subset to the right sections
+        res <- dat[dat$Section %in% areas_sm$Section, ]
+        # Update the SAR
+        res$SAR <- reg_num
+      } else { # End if special, otherwise
+        # Subset to the right area
+        res <- dat[dat$SAR %in% areas_sm$SAR, ]
+        # Pub sections to subset in proper format
+        secSubChar <- formatC(sec_sub, width = 3, format = "d", flag = "0")
+        # If requested, get the subset of sections specified
+        if (!all(is.na(sec_sub))) res <- res[res$Section %in% secSubChar, ]
+      } # End if the region is not special
+    } # End if not retaining all
+    # Return updated sections
+    return(res)
+  } # End UpdateSections function
+  # Update sections
+  secSPDF <- UpdateSections(dat = secRaw, keepAll = FALSE)
+  # Convert to data frame and select stat areas in question
+  secDF <- secSPDF %>%
+    fortify(region = "Section") %>%
+    rename(Eastings = long, Northings = lat, Section = group) %>%
+    as_tibble()
+  # Determine section centroids
+  secCent <- gCentroid(spgeom = secSPDF, byid = TRUE)
+  # Convert to data frame
+  secCentDF <- secCent %>%
+    as_tibble() %>%
+    rename(Eastings = x, Northings = y) %>%
+    mutate(Section = formatC(secSPDF$Section, width = 3, flag = "0")) %>%
+    arrange(Section)
+  # If 'Groups' has info, dissolve to Groups
+  if (!(all(is.na(areas_sm$Group))) & !region %in% c("JS", "All")) { # & all(is.na(sec_sub))
+    # First, remove NAs
+    aSmC <- areas_sm %>%
+      filter(!is.na(Group), !is.na(Section)) %>%
+      select(StatArea, Group, Section)
+    # Merge groups information with sections
+    secSPDF@data <- secSPDF@data %>%
+      left_join(y = aSmC, by = c("StatArea", "Section"))
+    # Dissolve to group
+    grpSPDF <- aggregate(x = secSPDF, by = list(Temp = secSPDF$Group), FUN = unique)
+    # Convert to data frame
+    grpDF <- grpSPDF %>%
+      fortify(region = "Group") %>%
+      rename(Eastings = long, Northings = lat, Group = group) %>%
+      as_tibble()
+    # Determine group centroids
+    grpCent <- gCentroid(spgeom = grpSPDF, byid = TRUE)
+    # Convert to data frame
+    grpCentDF <- grpCent %>%
+      as_tibble() %>%
+      rename(Eastings = x, Northings = y) %>%
+      mutate(Group = grpSPDF$Group) %>%
+      arrange(Group)
+  } else { # End if Groups has info, otherwise
+    # No objects (null?)
+    grpDF <- NULL
+    grpCentDF <- NULL
+  } # End if Groups has no info
+  # Dissolve to stat area
+  saSPDF <- aggregate(x = secSPDF, by = list(Temp = secSPDF$StatArea), FUN = unique)
+  # Convert to data frame and select stat areas in question
+  saDF <- saSPDF %>%
+    fortify(region = "StatArea") %>%
+    rename(Eastings = long, Northings = lat, StatArea = group) %>%
+    as_tibble()
+  # Determine stat area centroids
+  saCent <- gCentroid(spgeom = saSPDF, byid = TRUE)
+  # Convert to data frame
+  saCentDF <- saCent %>%
+    as_tibble() %>%
+    rename(Eastings = x, Northings = y) %>%
+    mutate(StatArea = formatC(saSPDF$StatArea, width = 2, flag = "0")) %>%
+    filter(StatArea != "00") %>%
+    arrange(StatArea)
+  # Dissolve to region
+  regSPDF <- aggregate(x = secSPDF, by = list(Temp = secSPDF$SAR), FUN = unique)
+  # Convert to data frame and select region(s) in question
+  regDF <- regSPDF %>%
+    fortify(region = "SAR") %>%
+    rename(Eastings = long, Northings = lat, Region = group) %>%
+    as_tibble()
+  # Get a buffer around the region(s) in question
+  buff <- gBuffer(spgeom = regSPDF, width = buffer, byid = FALSE)
+  # Calculate the extent
+  extBuff <- bbox(buff)
+  # Convert the extent to a table
+  extDF <- tibble(Eastings = extBuff[1, ], Northings = extBuff[2, ])
+  # Determine x:y aspect ratio (for plotting)
+  xyRatio <- diff(extDF$Eastings) / diff(extDF$Northings)
+  # # Read the polygon data: land
+  # landSPDF <- readOGR(dsn = where$loc_land, layer = where$fns$land, verbose = FALSE)
+  # # Clip the land to the buffer: big
+  # landCropSPDF <- crop(x = landSPDF, y = extBuff)
+  # # Convert to data frame
+  # landCropDF <- landCropSPDF %>%
+  #   fortify(region = "id") %>%
+  #   rename(Eastings = long, Northings = lat) %>%
+  #   as_tibble()
+  # If region is All
+  if (region == "All") {
+    # No need to re-run
+    secAllSPDF <- secSPDF
+  } else { # End if All, otherwise
+    # Update sections (keep all areas)
+    secAllSPDF <- UpdateSections(dat = secRaw, keepAll = TRUE)
+  } # End if not All
+  # Dissolve to stat area
+  saAllSPDF <- aggregate(
+    x = secAllSPDF, by = list(Temp = secAllSPDF$StatArea),
+    FUN = unique
+  )
+  # Dissolve to region
+  regAllSPDF <- aggregate(
+    x = secAllSPDF, by = list(Temp = secAllSPDF$SAR),
+    FUN = unique
+  )
+  # Determine region centroids
+  regCent <- gCentroid(spgeom = regAllSPDF, byid = TRUE)
+  # Get region numbers and names
+  temp <- regions %>%
+    select(SAR, Region)
+  # Convert to data frame
+  regCentDF <- regCent %>%
+    as_tibble() %>%
+    rename(Eastings = x, Northings = y) %>%
+    mutate(SAR = regAllSPDF$SAR) %>%
+    left_join(y = temp, by = "SAR") %>%
+    arrange(SAR)
+  # Convert to data frame and select all regions: sections
+  secAllDF <- secAllSPDF %>%
+    fortify(region = "Section") %>%
+    rename(Eastings = long, Northings = lat, Section = group) %>%
+    as_tibble()
+  # Convert to data frame and select all regions: statistical areas
+  saAllDF <- saAllSPDF %>%
+    fortify(region = "StatArea") %>%
+    rename(Eastings = long, Northings = lat, StatArea = group) %>%
+    as_tibble()
+  # Convert to data frame and select all regions: regions
+  regAllDF <- regAllSPDF %>%
+    fortify(region = "SAR") %>%
+    rename(Eastings = long, Northings = lat, Region = group) %>%
+    as_tibble()
+  # Get a buffer around the region(s) in question
+  buffAll <- gBuffer(spgeom = regAllSPDF, width = buffer, byid = FALSE)
+  # Calculate the extent
+  extAllBuff <- bbox(buffAll)
+  # Convert the extent to a table
+  extAllDF <- tibble(Eastings = extAllBuff[1, ], Northings = extAllBuff[2, ])
+  # Determine x:y aspect ration (for plotting)
+  xyAllRatio <- diff(extAllDF$Eastings) / diff(extAllDF$Northings)
+  # # Clip the land to the buffer: big
+  # landAllCropSPDF <- crop(x = landSPDF, y = extAllBuff)
+  # # Convert to data frame
+  # landAllCropDF <- landAllCropSPDF %>%
+  #   fortify(region = "id") %>%
+  #   rename(Eastings = long, Northings = lat) %>%
+  #   as_tibble()
+  # Return the data frames etc
+  return(list(
+    secDF = secDF, secCentDF = secCentDF,
+    grpDF = grpDF, grpCentDF = grpCentDF,
+    saDF = saDF, saCentDF = saCentDF,
+    regSPDF = regSPDF, regDF = regDF, regCentDF = regCentDF,
+    xyRatio = xyRatio, extDF = extDF,
+    # landCropSPDF = landCropSPDF, landCropDF = landCropDF,
+    secAllSPDF = secAllSPDF,
+    secAllDF = secAllDF, saAllDF = saAllDF, regAllDF = regAllDF,
+    extAllDF = extAllDF, xyAllRation = xyAllRatio#,
+    # landAllCropDF = landAllCropDF
+  ))
+} # End load_sections function
