@@ -19,8 +19,8 @@ observations to include; from \code{\link{load_area_data}}.}
 \item{quiet}{Logical. Suppress messages; default is FALSE.}
 }
 \value{
-List of spatial objects showing Section, Group, Statistical Area, and
-Region boundaries.
+List of spatial objects showing Section, Group, Statistical Area, and Region
+boundaries.
 }
 \description{
 Load and wrangle Pacific Herring Section shapefiles, and aggregate to
