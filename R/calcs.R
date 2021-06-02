@@ -1078,14 +1078,14 @@ calc_under_index <- function(where,
       AlgProp = ifelse(AlgProp > 1, 1, AlgProp)
     ) %>%
     select(
-      Year, LocationCode, SpawnNumber, Transect, Station, AlgType, AlgLayers,
-      AlgProp
+      Year, LocationCode, SpawnNumber, Transect, Station, .data$AlgType,
+      .data$AlgLayers, AlgProp
     ) %>%
     as_tibble()
   # Get egg layer info: algae
   egg_layers_alg <- algae %>%
     group_by(Year, LocationCode, SpawnNumber, Transect) %>%
-    summarise(Layers = mean_na(AlgLayers)) %>%
+    summarise(Layers = mean_na(.data$AlgLayers)) %>%
     ungroup() %>%
     mutate(Source = "Algae")
   # Combine egg layer info
@@ -1143,7 +1143,8 @@ calc_under_index <- function(where,
     # Egg density in thousands (10^3 * eggs / m^2); algae a
     mutate(EggDensAlg = dens_under_alg(
       vartheta = vartheta, varrho = varrho, varsigma = varsigma,
-      egg_layers = AlgLayers, proportion = AlgProp, coeff = Coef, quiet = quiet
+      egg_layers = .data$AlgLayers, proportion = AlgProp, coeff = Coef,
+      quiet = quiet
     )) %>%
     group_by(
       Year, Region, StatArea, Section, LocationCode, SpawnNumber, Transect,
