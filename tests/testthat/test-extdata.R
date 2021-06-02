@@ -1,6 +1,6 @@
 test_that("Sections", {
-  sections_loc <- system.file("extdata", "Sections", package = "SpawnIndex")
   library(sf)
+  sections_loc <- system.file("extdata", "Sections", package = "SpawnIndex")
   sections <- st_read(
     dsn = sections_loc, layer = "HerringSections", quiet = TRUE
   )
@@ -12,4 +12,5 @@ test_that("Sections", {
   )
   expect_equal(dim(sections), c(108, 6))
   expect_equal(st_crs(sections)$input, "NAD83 / BC Albers")
+  # expect_equal(st_geometry_type(sections, by_geometry = FALSE), "POLYGON")
 })
