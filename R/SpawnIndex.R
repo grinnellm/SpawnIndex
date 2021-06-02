@@ -31,6 +31,7 @@
 #' @section Utility: The utility function is \code{\link{paste_nicely}}.
 #'
 #' @docType package
+#' @importFrom rlang .data
 #' @name SpawnIndex
 #' @note The `spawn index' is a relative index of spawning biomass. Read the
 #'   technical report for more details and background on spawn index
