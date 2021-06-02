@@ -2,7 +2,7 @@
 % Please edit documentation in R/load.R
 \name{load_sections}
 \alias{load_sections}
-\title{Load and crop Pacific Herring Section shapefiles.}
+\title{Load and wrangle Pacific Herring Section shapefiles.}
 \usage{
 load_sections(where, areas, buffer = 5000, quiet = FALSE)
 }
@@ -22,7 +22,7 @@ observations to include; from \code{\link{load_area_data}}.}
 List of many things.
 }
 \description{
-Load and crop Pacific Herring Section shapefiles, and aggregate to
+Load and wrangle Pacific Herring Section shapefiles, and aggregate to
 Statistical Areas and Region(s).
 }
 \examples{
