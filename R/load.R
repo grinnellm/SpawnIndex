@@ -565,18 +565,21 @@ load_width <- function(where,
 #' Load and wrangle Pacific Herring Section shapefiles, and aggregate to
 #' Statistical Areas and Region(s).
 #'
-#' @template param-where
+#' @param sections Simple feature collection of polygons; from
+#'   \code{\link{sections}}.
 #' @template param-areas
 #' @param subset Logical. Subset sections to those in \code{areas}. Default
 #'   TRUE.
 #' @param buffer Numeric. Buffer around polygons; distance in metres. Default
 #'   5000.
+#' @param out_crs Numeric. Target coordinate reference system. Default
+#'   \href{https://spatialreference.org/ref/epsg/wgs-84/}{4326}.
 #' @template param-quiet
-#' @importFrom sf st_read st_bbox st_buffer
-#' @return List of spatial objects showing Section, Group, Statistical Area, and Region
-#'   boundaries.
+#' @importFrom sf st_read st_bbox st_buffer st_transform
+#' @return List of spatial objects showing Section, Group, Statistical Area, and
+#'   Region boundaries.
 #' @references \insertAllCited
-#' @seealso \code{\link{HerringSections}}
+#' @seealso \code{\link{sections}}
 #' @family load functions
 #' @export
 #' @examples
@@ -586,18 +589,13 @@ load_width <- function(where,
 #'   fns = list(sections = "Sections", locations = "Location")
 #' )
 #' areas <- load_area_data(reg = "WCVI", where = area_loc)
-#' sections_loc <- list(
-#'   loc = file.path(db_loc, "Sections"),
-#'   fns = list(sections = "HerringSections")
-#' )
-#' polys <- load_sections(where = sections_loc, areas = areas)
-load_sections <- function(where,
+#' polys <- load_sections(sections = sections, areas = areas)
+load_sections <- function(sections,
                           areas,
                           subset = TRUE,
                           buffer = 5000,
+                          out_crs = 4326,
                           quiet = FALSE) {
-  # Check where
-  check_where(dat = where, dat_names = c("loc", "fns.sections"))
   # Check input: tibble rows
   check_tibble(dat = list(areas = areas), quiet = quiet)
   # Check areas: names
@@ -606,7 +604,7 @@ load_sections <- function(where,
     stop("`areas` is missing columns", call. = FALSE)
   }
   # Check input: NA and numeric
-  check_numeric(dat = list(buffer = buffer), quiet = quiet )
+  check_numeric(dat = list(buffer = buffer, out_crs = out_crs), quiet = quiet )
   # Check buffer: range
   if (any(na.omit(buffer) < 0) & !quiet) message("`buffer` < 0.")
   # Get area information
@@ -619,9 +617,7 @@ load_sections <- function(where,
     ) %>%
     arrange(SAR, StatArea, Group, Section)
   # Load the Section shapefile (has Statistical Areas and Regions) and wrangle
-  sections <- st_read(
-    dsn = where$loc, layer = where$fns$sections, quiet = TRUE
-  ) %>%
+  sections <- sections %>%
     select(Section, geometry)
   # Subset to sections in areas
   if (subset) {
@@ -637,12 +633,14 @@ load_sections <- function(where,
   groups <- sections %>%
     group_by(Group) %>%
     summarise() %>%
-    ungroup()
+    ungroup()  %>%
+    st_transform(crs = out_crs)
   # Dissolve to statistical area
   stat_areas <- sections %>%
     group_by(Region, StatArea) %>%
     summarise() %>%
-    ungroup()
+    ungroup() %>%
+    st_transform(crs = out_crs)
   # Dissolve to region
   regions <- sections %>%
     group_by(Region) %>%
@@ -654,6 +652,12 @@ load_sections <- function(where,
     st_bbox()
   # Determine x:y aspect ratio (for plotting)
   xy_ratio <- as.numeric((buff$xmax - buff$xmin) / (buff$ymax - buff$ymin))
+  # Transform sections
+  sections <- sections %>%
+    st_transform(crs = out_crs)
+  # Transform regions
+  regions <- regions %>%
+    st_transform(crs = out_crs)
   # Return the spatial objects etc
   return(list(
     sections = sections, groups = groups, stat_areas = stat_areas,

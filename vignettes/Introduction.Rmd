@@ -158,10 +158,6 @@ sections_loc <- list(
 )
 # Get the polygons
 polys <- load_sections(where = sections_loc, areas = areas)
-stat_areas <- polys$stat_areas
-# Grab stat areas and convert
-stat_areas <- stat_areas %>%
-  st_transform(crs = epsg_crs)
 ```
 
 ## Spawn index calculations

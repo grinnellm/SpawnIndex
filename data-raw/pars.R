@@ -1,6 +1,7 @@
 # R packages
 library(tibble)
 library(readr)
+library(sf)
 
 # Stock assessment regions (SARs)
 regions <- read_csv(
@@ -76,3 +77,8 @@ under_width_facs <- read_csv(
    2014, 1.15, 1.15, 1, 1, 1, 1, 1.15"
 )
 save(under_width_facs, file = file.path("data", "under_width_facs.RData"))
+
+# Section polygons
+sec_files <- file.path("data-raw", "Sections")
+sections <- st_read(dsn = sec_files, layer = "HerringSections", quiet = TRUE)
+save(sections, file = file.path("data", "sections.RData"))

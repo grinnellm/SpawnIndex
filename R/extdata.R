@@ -42,26 +42,3 @@
 #' dbListTables(conn = access_db)
 #' dbDisconnect(conn = access_db)
 NULL
-
-#' Pacific Herring Section polygons.
-#'
-#' Pacific Herring Section polygons, with information to aggregate Sections by
-#' Statistical Area and Region.
-#'
-#' @format Shapefile. Cluster of files that define the spatial boundaries of
-#'   Pacific Herring Sections, Statistical Areas, and Regions as polygons.
-#'   Coordinate reference system: these polygons are projected in BC Albers (NAD
-#'   83).
-#' @docType data
-#' @name HerringSections
-#' @seealso \code{\link{load_sections}}
-#' @family raw data
-#' @note These are not official Section polygons such as might be used to
-#'   ascribe catch to a given area for management purposes; these polygons are
-#'   only to be used for making nice maps. Do not use these polygons for
-#'   navigation.
-#' @examples
-#' sections_files <- system.file("extdata", "Sections", package = "SpawnIndex")
-#' library(sf)
-#' st_read(dsn = sections_files, layer = "HerringSections", quiet = TRUE)
-NULL

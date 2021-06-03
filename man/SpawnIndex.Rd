@@ -28,16 +28,16 @@ calculations \insertCite{GrinnellEtalYYYY}{SpawnIndex}.
 }
 \section{Raw data}{
  The raw data is an example database with spawn survey
-observations (\code{\link{HerringSpawn}}), and a shapefile with Section
-polygons (\code{\link{HerringSections}}).
+observations (\code{\link{HerringSpawn}}).
 }
 
 \section{Data}{
  The data are region names (\code{\link{regions}}), understory
 spawn width correction factors (\code{\link{under_width_facs}}), parameters
 for spawn index calculations (\code{\link{pars}}), spawn intensity
-categories (\code{\link{intensity}}), and algae coefficients
-(\code{\link{algae_coefs}}).
+categories (\code{\link{intensity}}), algae coefficients
+(\code{\link{algae_coefs}}), and a simple feature collection with Section
+polygons (\code{\link{sections}}).
 }
 
 \section{Load}{

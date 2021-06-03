@@ -75,3 +75,19 @@ test_that("Algae coefficients", {
     c(0.9715, 1.000, 0.9119, 1.1766, 0.6553, 0.7793)
   )
 })
+
+test_that("Sections", {
+  library(sf)
+  expect_type(sections, "list")
+  expect_true("sf" %in% class(sections))
+  expect_equal(
+    names(sections),
+    c("OBJECTID", "Section", "SAR", "Assessment", "StatArea", "geometry")
+  )
+  expect_equal(dim(sections), c(108, 6))
+  expect_equal(st_crs(sections)$input, "NAD83 / BC Albers")
+  expect_true(
+    "POLYGON" %in% as.character(st_geometry_type(sections, by_geometry = FALSE))
+  )
+})
+

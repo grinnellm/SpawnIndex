@@ -27,11 +27,12 @@ algae_coefs
 \seealso{
 \code{\link{calc_under_index}}
 
-Other parameters: 
+Other data: 
 \code{\link{intensity}},
 \code{\link{pars}},
 \code{\link{regions}},
+\code{\link{sections}},
 \code{\link{under_width_facs}}
 }
-\concept{parameters}
+\concept{data}
 \keyword{datasets}

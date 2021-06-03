@@ -30,11 +30,12 @@ regions
 \seealso{
 \code{\link{load_area_data}}
 
-Other parameters: 
+Other data: 
 \code{\link{algae_coefs}},
 \code{\link{intensity}},
 \code{\link{pars}},
+\code{\link{sections}},
 \code{\link{under_width_facs}}
 }
-\concept{parameters}
+\concept{data}
 \keyword{datasets}

@@ -31,11 +31,12 @@ under_width_facs
 \seealso{
 \code{\link{calc_under_index}}
 
-Other parameters: 
+Other data: 
 \code{\link{algae_coefs}},
 \code{\link{intensity}},
 \code{\link{pars}},
-\code{\link{regions}}
+\code{\link{regions}},
+\code{\link{sections}}
 }
-\concept{parameters}
+\concept{data}
 \keyword{datasets}

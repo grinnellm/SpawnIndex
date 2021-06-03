@@ -32,11 +32,12 @@ intensity
 \seealso{
 \code{\link{calc_surf_index}}
 
-Other parameters: 
+Other data: 
 \code{\link{algae_coefs}},
 \code{\link{pars}},
 \code{\link{regions}},
+\code{\link{sections}},
 \code{\link{under_width_facs}}
 }
-\concept{parameters}
+\concept{data}
 \keyword{datasets}

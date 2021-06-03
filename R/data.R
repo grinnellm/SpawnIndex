@@ -11,7 +11,7 @@
 #' @docType data
 #' @references \insertAllCited{}
 #' @seealso \code{\link{load_area_data}}
-#' @family parameters
+#' @family data
 #' @examples
 #' data(regions)
 #' regions
@@ -31,7 +31,7 @@
 #' @docType data
 #' @references \insertAllCited{}
 #' @seealso \code{\link{calc_under_index}}
-#' @family parameters
+#' @family data
 #' @examples
 #' data(under_width_facs)
 #' under_width_facs
@@ -95,7 +95,7 @@
 #' @seealso \code{\link{load_all_spawn}} \code{\link{eggs_to_sb}}
 #'   \code{\link{calc_sok_index}} \code{\link{calc_surf_index}}
 #'   \code{\link{calc_macro_index}} \code{\link{calc_under_index}}
-#' @family parameters
+#' @family data
 #' @examples
 #' data(pars)
 #' pars
@@ -119,7 +119,7 @@
 #' @importFrom Rdpack reprompt
 #' @references \insertAllCited{}
 #' @seealso \code{\link{calc_surf_index}}
-#' @family parameters
+#' @family data
 #' @examples
 #' data(intensity)
 #' intensity
@@ -138,8 +138,29 @@
 #' @importFrom Rdpack reprompt
 #' @references \insertAllCited{}
 #' @seealso \code{\link{calc_under_index}}
-#' @family parameters
+#' @family data
 #' @examples
 #' data(algae_coefs)
 #' algae_coefs
 "algae_coefs"
+
+#' Pacific Herring Section polygons.
+#'
+#' Pacific Herring Section polygons, with information to aggregate Sections by
+#' Statistical Area and Region.
+#'
+#' @format Simple feature collection of polygons that define the spatial
+#'   boundaries of Pacific Herring Sections, Statistical Areas, and Regions.
+#'   Coordinate reference system: these polygons are projected in BC Albers (NAD
+#'   83).
+#' @docType data
+#' @seealso \code{\link{load_sections}}
+#' @family data
+#' @note These are not official Section polygons such as might be used to
+#'   ascribe catch to a given area for management purposes; these polygons are
+#'   only to be used for making nice maps. Do not use these polygons for
+#'   navigation.
+#' @examples
+#' data(sections)
+#' sections
+"sections"

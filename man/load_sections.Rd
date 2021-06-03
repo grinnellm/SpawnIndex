@@ -4,11 +4,18 @@
 \alias{load_sections}
 \title{Load and wrangle Pacific Herring Section shapefiles.}
 \usage{
-load_sections(where, areas, subset = TRUE, buffer = 5000, quiet = FALSE)
+load_sections(
+  sections,
+  areas,
+  subset = TRUE,
+  buffer = 5000,
+  out_crs = 4326,
+  quiet = FALSE
+)
 }
 \arguments{
-\item{where}{List. Location and name of the Pacific Herring spawn survey
-database, as well as required tables (see examples).}
+\item{sections}{Simple feature collection of polygons; from
+\code{\link{sections}}.}
 
 \item{areas}{Tibble. Table of geographic information indicating the subset of
 observations to include; from \code{\link{load_area_data}}.}
@@ -19,11 +26,14 @@ TRUE.}
 \item{buffer}{Numeric. Buffer around polygons; distance in metres. Default
 5000.}
 
+\item{out_crs}{Numeric. Target coordinate reference system. Default
+\href{https://spatialreference.org/ref/epsg/wgs-84/}{4326}.}
+
 \item{quiet}{Logical. Suppress messages; default is FALSE.}
 }
 \value{
-List of spatial objects showing Section, Group, Statistical Area, and Region
-boundaries.
+List of spatial objects showing Section, Group, Statistical Area, and
+Region boundaries.
 }
 \description{
 Load and wrangle Pacific Herring Section shapefiles, and aggregate to
@@ -36,17 +46,13 @@ area_loc <- list(
   fns = list(sections = "Sections", locations = "Location")
 )
 areas <- load_area_data(reg = "WCVI", where = area_loc)
-sections_loc <- list(
-  loc = file.path(db_loc, "Sections"),
-  fns = list(sections = "HerringSections")
-)
-polys <- load_sections(where = sections_loc, areas = areas)
+polys <- load_sections(sections = sections, areas = areas)
 }
 \references{
 \insertAllCited
 }
 \seealso{
-\code{\link{HerringSections}}
+\code{\link{sections}}
 
 Other load functions: 
 \code{\link{load_all_spawn}()},
