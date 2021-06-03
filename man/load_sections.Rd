@@ -4,7 +4,7 @@
 \alias{load_sections}
 \title{Load and wrangle Pacific Herring Section shapefiles.}
 \usage{
-load_sections(where, areas, buffer = 5000, quiet = FALSE)
+load_sections(where, areas, subset = TRUE, buffer = 5000, quiet = FALSE)
 }
 \arguments{
 \item{where}{List. Location and name of the Pacific Herring spawn survey
@@ -12,6 +12,9 @@ database, as well as required tables (see examples).}
 
 \item{areas}{Tibble. Table of geographic information indicating the subset of
 observations to include; from \code{\link{load_area_data}}.}
+
+\item{subset}{Logical. Subset sections to those in \code{areas}. Default
+TRUE.}
 
 \item{buffer}{Numeric. Buffer around polygons; distance in metres. Default
 5000.}
@@ -33,12 +36,11 @@ area_loc <- list(
   fns = list(sections = "Sections", locations = "Location")
 )
 areas <- load_area_data(reg = "WCVI", where = area_loc)
-sections_files <- system.file("extdata", "Sections", package = "SpawnIndex")
 sections_loc <- list(
-  loc_sec = sections_files,
+  loc = file.path(db_loc, "Sections"),
   fns = list(sections = "HerringSections")
 )
-load_sections(where = sections_loc, areas = areas)
+polys <- load_sections(where = sections_loc, areas = areas)
 }
 \references{
 \insertAllCited
