@@ -2,7 +2,7 @@ Package: SpawnIndex
 Type: Package
 Title: Calculate the spawn index for Pacific Herring (*Clupea pallasii*) in
     British Columbia, Canada
-Version: 0.3.1
+Version: 0.3.2
 Authors@R: c(
     person(given = c("Matthew", "H."), family = "Grinnell",
     role = c("aut", "cre"), email = "matthew.grinnell@dfo-mpo.gc.ca"),
@@ -27,7 +27,7 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Depends: R (>= 3.5.0)
 Imports: gfiscamutils, Rdpack, dplyr, readr, sp, stringr, tibble, tidyr, sf,
-    lubridate, DBI, odbc, foreign, rlang
+    lubridate, DBI, odbc
 Suggests: spelling, knitr, rmarkdown, magrittr, kableExtra, ggplot2, covr,
     rnaturalearth, rnaturalearthhires, testthat
 Remotes: pbs-assess/gfiscamutils, ropensci/rnaturalearthhires
