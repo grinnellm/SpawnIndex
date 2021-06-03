@@ -6,16 +6,26 @@ test_that("Load sections", {
     fns = list(sections = "Sections", locations = "Location")
   )
   areas <- load_area_data(reg = "WCVI", where = area_loc)
-  sections_files <- system.file("extdata", "Sections", package = "SpawnIndex")
   sections_loc <- list(
-    loc_sec = sections_files,
+    loc = file.path(db_loc, "Sections"),
     fns = list(sections = "HerringSections")
   )
-  polys <- load_sections(where = sections_loc, areas = areas, quiet = TRUE)
+  polys <- load_sections(where = sections_loc, areas = areas)
   expect_type(polys, "list")
-  expect_named(polys, c("sections", "groups", "stat_areas", "regions"))
-  # expect_equal(st_geometry_type(polys$sections, by_geometry = FALSE), "POLYGON")
-  # expect_equal(st_geometry_type(polys$groups, by_geometry = FALSE), "POLYGON")
-  # expect_equal(st_geometry_type(polys$stat_areas, by_geometry = FALSE), "POLYGON")
-  # expect_equal(st_geometry_type(polys$regions, by_geometry = FALSE), "POLYGON")
+  expect_named(
+    polys, c("sections", "groups", "stat_areas", "regions", "xy_ratio")
+  )
+  expect_true("sf" %in% class(polys$sections))
+  expect_true("sf" %in% class(polys$groups))
+  expect_true("sf" %in% class(polys$stat_areas))
+  expect_true("sf" %in% class(polys$regions))
+  expect_true(
+    "POLYGON" %in%
+      as.character(st_geometry_type(polys$sections, by_geometry = FALSE))
+  )
+  expect_type(polys$xy_ratio, "double")
+  expect_silent(load_sections(where = sections_loc, areas = areas))
+  expect_message(
+    load_sections(where = sections_loc, areas = areas, buffer = -1)
+  )
 })

@@ -5,12 +5,14 @@ test_that("Sections", {
     dsn = sections_loc, layer = "HerringSections", quiet = TRUE
   )
   expect_type(sections, "list")
-  expect_equal(class(sections), c('sf', 'data.frame'))
+  expect_true("sf" %in% class(sections))
   expect_equal(
     names(sections),
     c("OBJECTID", "Section", "SAR", "Assessment", "StatArea", "geometry")
   )
   expect_equal(dim(sections), c(108, 6))
   expect_equal(st_crs(sections)$input, "NAD83 / BC Albers")
-  # expect_equal(st_geometry_type(sections, by_geometry = FALSE), "POLYGON")
+  expect_true(
+    "POLYGON" %in% as.character(st_geometry_type(sections, by_geometry = FALSE))
+  )
 })
