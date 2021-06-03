@@ -15,7 +15,7 @@ coverage](https://codecov.io/gh/grinnellm/SpawnIndex/branch/master/graph/badge.s
 [![Code
 factor](https://github.com/grinnellm/SpawnIndex/workflows/lint/badge.svg)](https://github.com/grinnellm/SpawnIndex/actions)
 [![Development
-version](https://img.shields.io/badge/Version-0.3.1-orange.svg?style=flat-square)](commits/master)
+version](https://img.shields.io/badge/Version-0.3.2-orange.svg?style=flat-square)](commits/master)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/SpawnIndex)](https://CRAN.R-project.org/package=SpawnIndex)
 <!-- badges: end -->
@@ -61,7 +61,7 @@ survey. First, load the SpawnIndex package in the usual way.
 library(SpawnIndex)
 ```
 
-    ## This is SpawnIndex version 0.3.1.
+    ## This is SpawnIndex version 0.3.2.
 
 Next, load the default parameter values for spawn index calculations,
 and calculate the conversion factor for the number of Pacific Herring
@@ -147,7 +147,7 @@ the manual
 devtools::build_manual(pkg = ".", path = ".")
 ```
 
-and open the file `./SpawnIndex_0.3.1.pdf`. In addition, there is a
+and open the file `./SpawnIndex_0.3.2.pdf`. In addition, there is a
 vignette with an example workflow; build the vignette
 
 ``` r
