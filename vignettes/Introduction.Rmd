@@ -151,13 +151,10 @@ Next, load the Section shapefiles (i.e., polygons) for Pacific Herring in BC.
 This has information on Section, Statistical Area, and Region boundaries.
 
 ```{r polygons}
-# List indicating the necessary files
-sections_loc <- list(
-  loc = file.path(db_loc, "Sections"),
-  fns = list(sections = "HerringSections")
-)
-# Get the polygons
-polys <- load_sections(where = sections_loc, areas = areas)
+# Section polygons
+data(sections)
+# Wrangle sections
+polys <- load_sections(sections = sections, areas = areas)
 ```
 
 ## Spawn index calculations
