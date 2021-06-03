@@ -82,9 +82,14 @@ set.seed(12)
 # Number of samples
 n_samp <- 3
 # Default spawn index parameter values
-data(pars) 
+data(pars)
+# Coordinate reference system
+epsg_crs <- 4326
 # Canada: coarse polygons for mapping
-canada <- ne_countries(scale = "large", returnclass = "sf", country = "canada")
+canada <- ne_countries(
+  scale = "large", returnclass = "sf", country = "canada"
+  ) %>%
+  st_transform(crs = epsg_crs)
 ```
 
 This example will focus on `r region`
@@ -142,6 +147,23 @@ areas %>%
   )
 ```
 
+Next, load the Section shapefiles (i.e., polygons) for Pacific Herring in BC.
+This has information on Section, Statistical Area, and Region boundaries.
+
+```{r polygons}
+# List indicating the necessary files
+sections_loc <- list(
+  loc = file.path(db_loc, "Sections"),
+  fns = list(sections = "HerringSections")
+)
+# Get the polygons
+polys <- load_sections(where = sections_loc, areas = areas)
+stat_areas <- polys$stat_areas
+# Grab stat areas and convert
+stat_areas <- stat_areas %>%
+  st_transform(crs = epsg_crs)
+```
+
 ## Spawn index calculations
 
 Calculate the conversion factor to convert the number of eggs to
@@ -166,7 +188,7 @@ Surface spawn index calculations require a table of median spawn width estimates
 because width estimates from surfaces surveys are inaccurate.
 
 ```{r width}
-# Median spawn width
+# List indicating data locations
 width_loc <- list(
   loc = db_loc,
   db = "HerringSpawn.mdb",
@@ -174,6 +196,7 @@ width_loc <- list(
     region_std = "RegionStd", section_std = "SectionStd", pool_std = "PoolStd"
   )
 )
+# Median spawn width
 width_bar <- load_width(where = width_loc, areas = areas)
 ```
 
@@ -226,22 +249,26 @@ surf_loc_yr <- surf_spawn$si %>%
     y = select(.data = areas, LocationCode, Longitude, Latitude),
     by = "LocationCode"
   ) %>%
-  st_as_sf(coords = c("Longitude", "Latitude"), crs = 4326)
+  st_as_sf(coords = c("Longitude", "Latitude"), crs = epsg_crs)
 ```
 
-```{r surf_loc_yr_fig, echo = FALSE, fig.cap = surf_loc_yr_cap}
+```{r surf_loc_yr_fig, echo = FALSE, fig.cap = surf_loc_yr_cap, warning = FALSE}
 # Figure caption
 surf_loc_yr_cap <- paste(
   "<i>Surface spawn index in tonnes (t) by location and year from",
   min(yr_range), "to", max(yr_range), "in the", region,
-  "stock assessment region (SAR).</i>"
+  "stock assessment region (SAR). Dark lines and labels indicate Statistical",
+  "Areas.</i>"
 )
 # Map
 ggplot(data = surf_loc_yr) +
   geom_sf(data = canada) +
+  geom_sf(data = polys$stat_areas, fill = "transparent", size = 1) +
+  geom_sf_label(data = polys$stat_areas, mapping = aes(label = StatArea),
+                alpha = 0.5) +
   geom_sf(mapping = aes(colour = Surface), size = 3) +
   scale_colour_viridis_c() +
-  labs(colour = "Spawn\nindex (t)") +
+  labs(x = "Longitude", y = "Latitude", colour = "Spawn\nindex (t)") +
   coord_sf(xlim = x_lims, ylim = y_lims) +
   facet_wrap(Year ~ ., ncol = 2) +
   theme_bw() +
@@ -301,22 +328,26 @@ macro_loc_yr <- macro_spawn$si %>%
     y = select(.data = areas, LocationCode, Longitude, Latitude),
     by = "LocationCode"
   ) %>%
-  st_as_sf(coords = c("Longitude", "Latitude"), crs = 4326)
+  st_as_sf(coords = c("Longitude", "Latitude"), crs = epsg_crs)
 ```
 
-```{r macro_loc_yr_fig, echo = FALSE, fig.cap = macro_loc_yr_cap}
+```{r macro_loc_yr_fig, echo = FALSE, fig.cap = macro_loc_yr_cap, warning = FALSE}
 # Figure caption
 macro_loc_yr_cap <- paste(
   "<i>Macrocystis spawn index in tonnes (t) by location and year from",
   min(yr_range), "to", max(yr_range), "in the", region,
-  "stock assessment region (SAR).</i>"
+  "stock assessment region (SAR). Dark lines and labels indicate Statistical",
+  "Areas.</i>"
 )
 # Map
 ggplot(data = macro_loc_yr) +
   geom_sf(data = canada) +
+  geom_sf(data = polys$stat_areas, fill = "transparent", size = 1) +
+  geom_sf_label(data = polys$stat_areas, mapping = aes(label = StatArea),
+                alpha = 0.5) +
   geom_sf(mapping = aes(colour = Macrocystis), size = 3) +
   scale_colour_viridis_c() +
-  labs(colour = "Spawn\nindex (t)") +
+  labs(x = "Longitude", y = "Latitude", colour = "Spawn\nindex (t)") +
   coord_sf(xlim = x_lims, ylim = y_lims) +
   facet_wrap(Year ~ ., ncol = 2) +
   theme_bw() +
@@ -383,22 +414,26 @@ under_loc_yr <- under_spawn$si %>%
     y = select(.data = areas, LocationCode, Longitude, Latitude),
     by = "LocationCode"
   ) %>%
-  st_as_sf(coords = c("Longitude", "Latitude"), crs = 4326)
+  st_as_sf(coords = c("Longitude", "Latitude"), crs = epsg_crs)
 ```
 
-```{r under_loc_yr_fig, echo = FALSE, fig.cap = under_loc_yr_cap}
+```{r under_loc_yr_fig, echo = FALSE, fig.cap = under_loc_yr_cap, warning = FALSE}
 # Figure caption
 under_loc_yr_cap <- paste(
   "<i>Understory spawn index in tonnes (t) by location and year from",
   min(yr_range), "to", max(yr_range), "in the", region,
-  "stock assessment region (SAR).</i>"
+  "stock assessment region (SAR). Dark lines and labels indicate Statistical",
+  "Areas.</i>"
 )
 # Map
 ggplot(data = under_loc_yr) +
   geom_sf(data = canada) +
+  geom_sf(data = polys$stat_areas, fill = "transparent", size = 1) +
+  geom_sf_label(data = polys$stat_areas, mapping = aes(label = StatArea),
+                alpha = 0.5) +
   geom_sf(mapping = aes(colour = Understory), size = 3) +
   scale_colour_viridis_c() +
-  labs(colour = "Spawn\nindex (t)") +
+  labs(x = "Longitude", y = "Latitude", colour = "Spawn\nindex (t)") +
   coord_sf(xlim = x_lims, ylim = y_lims) +
   facet_wrap(Year ~ ., ncol = 2) +
   theme_bw() +
