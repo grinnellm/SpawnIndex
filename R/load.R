@@ -616,9 +616,9 @@ load_sections <- function(sections,
       Section = formatC(Section, width = 3, flag = "0")
     ) %>%
     arrange(SAR, StatArea, Group, Section)
-  # Load the Section shapefile (has Statistical Areas and Regions) and wrangle
-  sections <- sections %>%
-    select(Section, geometry)
+  # # Load the Section shapefile and wrangle
+  # sections <- sections %>%
+  #   select(Section, geometry)
   # Subset to sections in areas
   if (subset) {
     sections <- sections %>%
