@@ -616,9 +616,6 @@ load_sections <- function(sections,
       Section = formatC(Section, width = 3, flag = "0")
     ) %>%
     arrange(SAR, StatArea, Group, Section)
-  # # Load the Section shapefile and wrangle
-  # sections <- sections %>%
-  #   select(Section, geometry)
   # Subset to sections in areas
   if (subset) {
     sections <- sections %>%
@@ -628,8 +625,7 @@ load_sections <- function(sections,
     sections <- sections %>%
       left_join(y = areas_sm, by = "Section")
   } # End if no subset
-  # If 'Groups' has info, dissolve to Groups
-  # if (!(all(is.na(areas_sm$Group))) & !region %in% c("A10", "JS", "All")) { # & all(is.na(sec_sub))
+  # Dissolve to Groups
   groups <- sections %>%
     group_by(Group) %>%
     summarise() %>%

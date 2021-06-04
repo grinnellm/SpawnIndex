@@ -80,7 +80,9 @@ under_width_facs <- read_csv(
 save(under_width_facs, file = file.path("data", "under_width_facs.RData"))
 
 # Section polygons
-sec_files <- file.path("data-raw", "Sections")
-sections <- st_read(dsn = sec_files, layer = "HerringSections", quiet = TRUE) %>%
+sections <- st_read(
+  dsn = file.path("data-raw", "Sections"), layer = "HerringSections",
+  quiet = TRUE
+) %>%
   select(Section, geometry)
 save(sections, file = file.path("data", "sections.RData"))
