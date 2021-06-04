@@ -10,14 +10,10 @@ test_that("Load sections", {
   expect_named(
     polys, c("sections", "groups", "stat_areas", "regions", "xy_ratio")
   )
-  expect_true("sf" %in% class(polys$sections))
-  expect_true("sf" %in% class(polys$groups))
-  expect_true("sf" %in% class(polys$stat_areas))
-  expect_true("sf" %in% class(polys$regions))
-  expect_true(
-    "POLYGON" %in%
-      as.character(st_geometry_type(polys$sections, by_geometry = FALSE))
-  )
+  expect_true(all(st_is_valid(polys$sections)))
+  expect_true(all(st_is_valid(polys$groups)))
+  expect_true(all(st_is_valid(polys$stat_areas)))
+  expect_true(all(st_is_valid(polys$regions)))
   expect_type(polys$xy_ratio, "double")
   expect_silent(load_sections(sections = sections, areas = areas))
   expect_message(
