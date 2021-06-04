@@ -600,11 +600,11 @@ load_sections <- function(sections,
   check_tibble(dat = list(areas = areas), quiet = quiet)
   # Check areas: names
   if (!all(c("SAR", "Region", "StatArea", "Group", "Section")
-           %in% names(areas))) {
+  %in% names(areas))) {
     stop("`areas` is missing columns", call. = FALSE)
   }
   # Check input: NA and numeric
-  check_numeric(dat = list(buffer = buffer, out_crs = out_crs), quiet = quiet )
+  check_numeric(dat = list(buffer = buffer, out_crs = out_crs), quiet = quiet)
   # Check buffer: range
   if (any(na.omit(buffer) < 0) & !quiet) message("`buffer` < 0.")
   # Get area information
@@ -633,7 +633,7 @@ load_sections <- function(sections,
   groups <- sections %>%
     group_by(Group) %>%
     summarise() %>%
-    ungroup()  %>%
+    ungroup() %>%
     st_transform(crs = out_crs)
   # Dissolve to statistical area
   stat_areas <- sections %>%

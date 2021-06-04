@@ -80,4 +80,3 @@ test_that("Sections", {
   expect_equal(names(sections), c("Section", "geometry"))
   expect_equal(dim(sections), c(108, 2))
 })
-
