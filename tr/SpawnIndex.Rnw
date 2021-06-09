@@ -1891,20 +1891,26 @@ limited spatial or temporal range, or both.
 In addition to work mentioned here and in \autoref{secUncertain}, potential research includes:
 \begin{enumerate}
 \item Check the assumed statistical framework for spawn index calculations,
+\item Develop egg density variance estimators for surface and Macrocystis spawn
+(i.e., comparable to \autoref{eqStatSigmaS} for understory spawn),
 \item Check accuracy and temporal stability of fecundity and sex ratios (\autoref{eqECF}),
-\item Compare two methods to calculate the mean number of stalks per plant (\autoref{eqMacroStalksPerPlantS}): ratio of means (i.e., current method) versus mean of ratios,
+\item Compare two methods to calculate the mean number of stalks per plant
+(\autoref{eqMacroStalksPerPlantS}):
+ratio of means (i.e., current method) versus mean of ratios,
 \item Review the assumptions that eggs on substrate and algae are:
 \begin{enumerate}
-\item Independent (\autoref{eqUnderDensQTS}), and
-\item Represented by the same length measurement (\autoref{secUnderS}),
+  \item Independent (\autoref{eqUnderDensQTS}), and
+  \item Represented by the same length measurement (\autoref{secUnderS}),
 \end{enumerate}
 \item Review surface spawn width adjustments (\autoref{secWidthSurface}):
 \begin{enumerate}
-\item Mean versus median width,
-\item Annual versus periodic updates, and
-\item Occurrence of relationship between spawn width and spawning biomass,
+  \item Mean versus median width,
+  \item Annual versus periodic updates, and
+  \item Occurrence of relationship between spawn width and spawning biomass,
 \end{enumerate}
-\item Periodically review the accuracy of egg density models using egg layer and vegetation cover estimates collected underwater, compared to egg counts in a subset of sampled quadrats,
+\item Periodically review the accuracy of egg density models
+using egg layer and vegetation cover estimates collected underwater,
+compared to egg counts in a subset of sampled quadrats,
 \item Quantify incidental mortality in SOK operations, and
 \item Account for osmosis in SOK calculations (\autoref{eqSOKBioGRY}).
 \end{enumerate}
