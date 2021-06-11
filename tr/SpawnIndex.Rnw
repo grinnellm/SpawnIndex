@@ -1925,17 +1925,17 @@ These caveats include:
 thus the spawn index is a minimum spawning biomass,
 \item There are two different spawn survey periods with substantial differences in survey effort and method (\autoref{secSurfProt}):
 \begin{enumerate}
-\item Surface period from \Sexpr{pars$years$assess} to \Sexpr{pars$years$dive-1}, and
-\item Dive period from \Sexpr{pars$years$dive} to present,
+  \item Surface period from \Sexpr{pars$years$assess} to \Sexpr{pars$years$dive-1}, and
+  \item Dive period from \Sexpr{pars$years$dive} to present,
 \end{enumerate}
 \item Surface spawn surveys use two different methods to estimate the number of egg layers (\autoref{secIntensity}):
 \begin{enumerate}
-\item Spawn intensity categories:
-\begin{enumerate}
-\item Five categories from \Sexpr{pars$years$assess} to \Sexpr{pars$years$nine_cats-1}, and
-\item Nine categories from \Sexpr{pars$years$nine_cats} to \Sexpr{pars$years$layers-1}, and
+  \item Spawn intensity categories:
+  \begin{enumerate}
+    \item Five categories from \Sexpr{pars$years$assess} to \Sexpr{pars$years$nine_cats-1}, and
+    \item Nine categories from \Sexpr{pars$years$nine_cats} to \Sexpr{pars$years$layers-1}, and
 \end{enumerate}
-\item Direct estimates from \Sexpr{pars$years$layers} to present,
+  \item Direct estimates from \Sexpr{pars$years$layers} to present,
 \end{enumerate}
 \item The spawn index is derived from surface and dive observations of egg deposition,
 and includes uncertainty and assumptions (\autoref{secUncertain}), and
