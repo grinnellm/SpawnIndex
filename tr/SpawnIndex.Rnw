@@ -420,11 +420,11 @@ map_sec <- base_map +
     legend.text = element_text(size = 8), legend.title = element_text(size = 8),
     legend.margin = margin(c(4, 4, 4, 4)), legend.key.height = unit(0.3, "cm"),
     legend.text.align = 1, aspect.ratio = xy_ratio_sec
-  ) +
-  ggsave(
-    filename = file.path("knitr-figs", "MapSection.png"), dpi = 600,
-    width = figWidth / n_maps, height = figWidth / n_maps * xy_ratio_sec
   )
+ggsave(
+  filename = file.path("knitr-figs", "MapSection.png"), dpi = 600,
+  width = figWidth / n_maps, height = figWidth / n_maps * xy_ratio_sec
+)
 # Plot Statistical Area
 map_sa <- base_map +
   geom_path(
@@ -446,11 +446,11 @@ map_sa <- base_map +
   theme(
     panel.border = element_rect(colour = "black", fill = NA, size = 0.5),
     aspect.ratio = xy_ratio_sa
-  ) +
-  ggsave(
-    filename = file.path("knitr-figs", "MapStatArea.png"), dpi = 600,
-    width = figWidth / n_maps, height = figWidth / n_maps * xy_ratio_sa
   )
+ggsave(
+  filename = file.path("knitr-figs", "MapStatArea.png"), dpi = 600,
+  width = figWidth / n_maps, height = figWidth / n_maps * xy_ratio_sa
+)
 # Plot SAR
 map_reg <- base_map +
   geom_path(
@@ -464,11 +464,11 @@ map_reg <- base_map +
     data = shapes$saCentDF, alpha = 0.75,
     aes(label = paste("SA", StatArea, sep = " ")), size = 3
   ) +
-  theme(panel.border = element_rect(colour = "black", fill = NA, size = 0.5)) +
-  ggsave(
-    filename = file.path("knitr-figs", "MapRegion.png"), dpi = 600,
-    width = figWidth / n_maps, height = figWidth / n_maps / shapes$xyRatio
-  )
+  theme(panel.border = element_rect(colour = "black", fill = NA, size = 0.5))
+ggsave(
+  filename = file.path("knitr-figs", "MapRegion.png"), dpi = 600,
+  width = figWidth / n_maps, height = figWidth / n_maps / shapes$xyRatio
+)
 @
 
 \begin{figure}
