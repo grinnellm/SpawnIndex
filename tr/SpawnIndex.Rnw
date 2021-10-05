@@ -61,7 +61,7 @@ The spawn index time series is one component of \fishName{} (\scienceName{}) sto
 This document describes how we calculate the spawn index from spawn survey observations (e.g., spatial extent, number of egg layers, substrate type).
 There are three types of spawn survey observations:
 (1) observations of spawn taken from the surface usually at low tide;
-(2) underwater observations of spawn on giant kelp, Macrocystis (\emph{Macrocystis} spp.); and
+(2) underwater observations of spawn on giant kelp, Macrocystis (\emph{Macrocystis pyrifera}); and
 (3) underwater observations of spawn on other types of algae and the substrate,
 which we refer to as `understory.'
 We calculate the spawn index in four steps.
@@ -85,7 +85,7 @@ La série chronologique de l'indice de frai est une composante des évaluations 
 Ce document décrit comment nous calculons l'indice de frai à partir des observations du relevé du frai (par ex., l'étendue spatiale, le nombre de couches d'oeufs, le type de substrat).
 Il existe trois types d'observations du relevé des frayères:
 (1) les observations des frayères prélevées à la surface habituellement à marée basse;
-(2) les observations sous-marines des frayères sur varech géant, Macrocystis (\emph{Macrocystis} spp.); et
+(2) les observations sous-marines des frayères sur varech géant, Macrocystis (\emph{Macrocystis pyrifera}); et
 (3) les observations sous-marines des frayères sur les autres algues et le substrat, que nous appelons <<sous-étage>>.
 Nous calculons l'indice de frai en quatre étapes.
 Premièrement, nous élaborons un cadre statistique et un protocole d'échantillonnage pour estimer le nombre d'oeufs dans une zone donnée.
@@ -348,7 +348,7 @@ Based on their work, annual spawn surveys collect data used to calculate the spa
 There are three types of spawn survey observations:
 \begin{enumerate}
 \item Observations of spawn taken from the surface usually at low tide,
-\item Underwater observations of spawn on giant kelp, Macrocystis (\emph{Macrocystis} spp.), and
+\item Underwater observations of spawn on giant kelp, Macrocystis (\emph{Macrocystis pyrifera}), and
 \item Underwater observations of spawn on other types of algae and the substrate,
 which we refer to as `understory.'
 \end{enumerate}
@@ -816,7 +816,7 @@ to obtain a random sample \citep{QuinnEtal1983, Sen1984}.
 
 \subsubsection{MACROCYSTIS SPAWN FRAMEWORK}
 
-Giant kelp, Macrocystis (\emph{Macrocystis} spp.),
+Giant kelp, Macrocystis (\emph{Macrocystis pyrifera}),
 requires a different framework than the aforementioned understory spawn framework.
 Macrocystis plants routinely reach heights of 15~m,
 but once weighed down with \fishName{} eggs the plants can sink to lay flat on the substrate.
