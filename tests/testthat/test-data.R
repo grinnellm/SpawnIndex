@@ -43,8 +43,11 @@ test_that("Parameters", {
   expect_named(pars$understory, c("varphi", "vartheta", "varrho", "varsigma"))
   expect_setequal(pars$understory, c(340, 600.567, 0.6355, 1.413))
   expect_type(pars$years, "list")
-  expect_named(pars$years, c("survey", "assess", "nine_cats", "layers", "dive"))
-  expect_setequal(pars$years, c(1928, 1951, 1969, 1979, 1988))
+  expect_named(
+    pars$years,
+    c("survey", "complete", "assess", "nine_cats", "layers", "dive")
+  )
+  expect_setequal(pars$years, c(1928, 1937, 1951, 1969, 1979, 1988))
 })
 
 test_that("Intensity", {

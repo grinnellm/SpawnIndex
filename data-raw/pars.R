@@ -33,7 +33,8 @@ pars <- list(
     varphi = 340, vartheta = 600.567, varrho = 0.6355, varsigma = 1.413
   ),
   years = list(
-    survey = 1928, assess = 1951, nine_cats = 1969, layers = 1979, dive = 1988
+    survey = 1928, complete = 1937, assess = 1951, nine_cats = 1969,
+    layers = 1979, dive = 1988
   )
 )
 save(pars, file = file.path("data", "pars.RData"))

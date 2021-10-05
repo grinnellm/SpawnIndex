@@ -43,6 +43,7 @@ period as a proportion \insertCite{WhyteEnglar1977}{SpawnIndex}, and
 \insertCite{Schweigert2005}{SpawnIndex}.}
 \item{years}{List with items \insertCite{GrinnellEtalYYYY}{SpawnIndex}:
 \emph{survey} is the first year of spawn survey data,
+\emph{complete} is the first year of complete coastwide coverage,
 \emph{assess} is the first year of spawn survey data that is reliable for
 indexing purposes,
 \emph{nine_cats} is the first year that spawn surveyors used nine
