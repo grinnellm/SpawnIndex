@@ -365,19 +365,31 @@ based on the predominant survey type:
 the surface survey period from \Sexpr{pars$years$assess} to \Sexpr{pars$years$dive-1}, and
 the dive survey period from \Sexpr{pars$years$dive} to present.
 
-The introduction of dive surveys in \Sexpr{pars$years$dive} makes it challenging to compare the spawn index between these two periods.
-For example, surface surveys are less accurate than dive surveys (\autoref{secWidthSurface}), and
-spawn surveyors used subjective intensity categories instead of direct egg layer estimates until \Sexpr{pars$years$layers-1} (\autoref{secIntensity}).
-In addition, \fishName{} spawn survey effort has been inconsistent over time due to variation in available resources and departmental priorities.
-For example, in the past, surveyors often dedicated several months each year to spawn surveys;
-they used small vessels to search for spawn, and surface surveys to estimate egg deposition.
-Currently, surveyors use aircraft to search for spawn, and underwater SCUBA surveys to estimate egg deposition.
+\fishName{} spawn surveys began in \Sexpr{pars$years$survey},
+but are considered incomplete for indexing purposes
+prior to \Sexpr{pars$years$complete}
+because many potential areas were not surveyed \citep{HayKronlund1987}.
+The introduction of dive surveys in \Sexpr{pars$years$dive}
+makes it challenging to compare the spawn index between these two periods.
+For example, surface surveys are less accurate than
+dive surveys (\autoref{secWidthSurface}), and
+spawn surveyors used subjective intensity categories
+instead of direct egg layer estimates until
+\Sexpr{pars$years$layers-1} (\autoref{secIntensity}).
+In addition, \fishName{} spawn survey effort has been inconsistent over time
+due to variation in available resources and departmental priorities.
+For example, in the past,
+surveyors often dedicated several months each year to spawn surveys;
+they used small vessels to search for spawn, and
+surface surveys to estimate egg deposition.
+Currently, surveyors use aircraft to search for spawn, and
+underwater SCUBA surveys to estimate egg deposition.
 It typically takes less time to search for spawn using aircraft, and
 more effort to measure egg deposition using SCUBA surveys,
-Thus, widespread effort (both spatially and temporally) in the past has been replaced with intense effort in the present.
-\fishName{} spawn surveys began in \Sexpr{pars$years$survey},
-but are considered incomplete for indexing purposes prior to 1937
-because many potential areas were not surveyed \citep{HayKronlund1987}.
+Thus, widespread effort (both spatially and temporally) in the past
+has been replaced with intense effort in the present.
+Despite these changes, since \Sexpr{pars$years$complete} the intent of
+\fishName{} spawn surveys has been to monitor spawn throughout the BC coast.
 
 \fishName{} spawn survey observations have a nested hierarchical structure:
 samples, Macrocystis plants, and quadrats are nested within transects,
