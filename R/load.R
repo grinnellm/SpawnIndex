@@ -25,6 +25,7 @@
 #' @template param-quiet
 #' @importFrom readr read_csv cols
 #' @importFrom dplyr filter select mutate full_join %>% transmute right_join
+#'   distinct
 #' @importFrom tidyr unite
 #' @importFrom odbc dbConnect odbc dbDisconnect
 #' @importFrom DBI dbReadTable
@@ -97,7 +98,8 @@ load_area_data <- function(reg,
   }
   # If region isn't JS, remove it
   if (!reg %in% c("JS", "All")) {
-    region_table <- filter(.data = region_table, SAR != 8)
+    region_table <- region_table %>%
+      filter(SAR != 8)
   }
   # Error if region is incorrect
   if (!(reg %in% c(region_table$Region, "All"))) {
@@ -313,6 +315,7 @@ load_area_data <- function(reg,
 #' @importFrom odbc dbConnect odbc dbDisconnect
 #' @importFrom DBI dbReadTable
 #' @importFrom dplyr select rename full_join filter mutate %>% arrange ungroup
+#'   distinct
 #' @importFrom tibble as_tibble
 #' @importFrom stringr str_to_title
 #' @importFrom lubridate as_date
