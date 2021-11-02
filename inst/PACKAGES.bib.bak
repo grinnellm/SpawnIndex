@@ -1,0 +1,9 @@
+@Manual{R-SpawnIndex,
+  title = {SpawnIndex: Calculate the spawn index for Pacific Herring (*Clupea pallasii*) in
+British Columbia, Canada},
+  author = {Matthew H. Grinnell},
+  note = {R package version 0.3.2},
+  url = {https://github.com/grinnellm/SpawnIndex},
+  year = {2021},
+}
+

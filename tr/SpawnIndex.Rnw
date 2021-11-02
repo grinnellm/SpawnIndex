@@ -9,7 +9,6 @@
 
 % Style file for DFO Technical Reports
 \usepackage{\locRes/TechReport}
-% \usepackage{draftwatermark}  % Draft watermark
 
 %%%%% Variables %%%%%
 
@@ -21,7 +20,7 @@
 \newcommand{\trTitle}{Calculate the spawn index for \fishName{} (\scienceName{}) in British Columbia, Canada}
 
 % Publication year
-\newcommand{\trYear}{2021}
+\newcommand{\trYear}{2022}
 
 % Publication number
 \newcommand{\trReportNum}{nnnn}
@@ -29,14 +28,14 @@
 % ISBN
 \newcommand{\trISBN}{xxx-x-xxx-xxxxx-x}
 
-% Author names: this is all cludgy but it works (including the affiliations)
-\newcommand{\trAuthsLong}{Matthew H.~Grinnell$^1$, Jake F.~Schweigert$^2$, Matt Thompson$^1$, Sarah Hawkshaw$^3$, Sarah J.~H.~Power$^1$, and Jaclyn S.~Cleary$^1$}
+% Author names with affiliations
+\newcommand{\trAuthsLong}{Matthew H.~Grinnell$^1$, Jake F.~Schweigert$^2$, Matt Thompson$^1$, Sarah Hawkshaw$^3$, and Jaclyn S.~Cleary$^1$}
 
-% Author names without
-\newcommand{\trAuthsNoMath}{Matthew H.~Grinnell, Jake F.~Schweigert, Matt Thompson, Sarah Hawkshaw, Sarah J.~H.~Power, and Jaclyn S.~Cleary}
+% Author names without affiliations
+\newcommand{\trAuthsNoMath}{Matthew H.~Grinnell, Jake F.~Schweigert, Matt Thompson, Sarah Hawkshaw, and Jaclyn S.~Cleary}
 
 % Author names reversed (for citation)
-\newcommand{\trAuthsBack}{Grinnell, M.H., Schweigert, J.F., Thompson, M., Hawkshaw, S., Power, S.J.H., and Cleary, J.S.}
+\newcommand{\trAuthsBack}{Grinnell, M.H., Schweigert, J.F., Thompson, M., Hawkshaw, S., and Cleary, J.S.}
 
 % Address
 \newcommand{\trAddy}{Fisheries and Oceans Canada\\
@@ -52,8 +51,7 @@ $^1$ Pacific Biological Station, Fisheries and Oceans Canada,\\
 $^2$ Emeritus, Pacific Biological Station, Fisheries and Oceans Canada,\\
 3190~Hammond Bay Road, Nanaimo, British Columbia, V9T 6N7\\
 $^3$ Institute of Ocean Sciences, Fisheries and Oceans Canada,\\
-9860~W.~Saanich Road, Sidney, British Columbia, V8L 5T5
-}
+9860~W.~Saanich Road, Sidney, British Columbia, V8L 5T5}
 
 % Abstract
 \newcommand{\trAbstract}{
@@ -108,25 +106,21 @@ Bien que nous transformions les données du relevé de la densité des oeufs en 
 \newcounter{TotalStep}
 \renewcommand{\theTotalStep}{T\arabic{TotalStep}}
 
-\newcommand{\labelSurf}[1]{%
+\newcommand{\labelSurf}[1]{
 \smash{\raisebox{15pt}{\refstepcounter{SurfStep}\hypertarget{#1}{}\label{#1}}}%
-(\theSurfStep)%
-}
+(\theSurfStep)}
 
-\newcommand{\labelMacro}[1]{%
+\newcommand{\labelMacro}[1]{
 \smash{\raisebox{15pt}{\refstepcounter{MacroStep}\hypertarget{#1}{}\label{#1}}}%
-(\theMacroStep)%
-}
+(\theMacroStep)}
 
-\newcommand{\labelUnder}[1]{%
+\newcommand{\labelUnder}[1]{
 \smash{\raisebox{15pt}{\refstepcounter{UnderStep}\hypertarget{#1}{}\label{#1}}}%
-(\theUnderStep)%
-}
+(\theUnderStep)}
 
-\newcommand{\labelTotal}[1]{%
+\newcommand{\labelTotal}[1]{
 \smash{\raisebox{15pt}{\refstepcounter{TotalStep}\hypertarget{#1}{}\label{#1}}}%
-(\theTotalStep)%
-}
+(\theTotalStep)}
 
 \newcommand{\surveyManual}{\href{http://www.pac.dfo-mpo.gc.ca/science/species-especes/pelagic-pelagique/herring-hareng/hertags/pdf/SurveyManual.pdf}{\fishName{} spawn survey manual}}
 
@@ -197,8 +191,14 @@ if (!"knitr-figs" %in% list.files()) dir.create("knitr-figs")
 r_name <- "SoG"
 # Location of the saved R image (SoG data summary)
 loc_image <- file.path("..", "..", "DataSummaries", r_name)
+# Image name
+image_name <- paste("Image.", r_name, ".RData", sep = "")
+# Stop if saved workspace is not available
+if(!image_name %in% list.files(path = loc_image)){
+  stop("Saved workspace image not available.")
+}  # End if not available
 # Load a saved workspace
-load(file = file.path(loc_image, paste("Image.", r_name, ".RData", sep = "")))
+load(file = file.path(loc_image, image_name))
 # All region names
 all_regions <- regions %>%
   mutate(FullName = paste(RegionName, " (", Region, ")", sep = "")) %>%
@@ -370,6 +370,7 @@ but are considered incomplete for indexing purposes
 prior to \Sexpr{pars$years$complete}
 because many potential areas were not surveyed \citep{HayKronlund1987}.
 The introduction of dive surveys in \Sexpr{pars$years$dive}
+\citep{SchweigertHaegele2021}
 makes it challenging to compare the spawn index between these two periods.
 For example, surface surveys are less accurate than
 dive surveys (\autoref{secWidthSurface}), and
@@ -566,7 +567,7 @@ aggregate by SAR and year to produce a relative index of combined sex spawning b
 
 \begin{figure}
 \centering
-\begin{tikzpicture}[node distance=1.0cm and 0.2cm, font=\footnotesize]
+\begin{tikzpicture}[node distance=1.1cm and 0.2cm, font=\footnotesize]
 \node [terminal, label={[text width=10em] \textbf{Macrocystis (M)}}] (mExt) {\labelMacro{mExt} Determine spatial extent and transect locations (\S{}~\ref{secMacroProt}).};
 \node [process, below=of mExt] (mPlant) {\labelMacro{mPlant} Plant $p$ observations for mature plants (e.g., number of stalks; \S{}~\ref{secMacroP}).};
 \node [process, below=of mPlant] (mTrans) {\labelMacro{mTrans} Transect $t$ observations and calculations (e.g., spawn width, mean number of egg layers, mean plant height; \S{}~\ref{secMacroT}).};
@@ -2196,7 +2197,8 @@ These changes have negligible effects on spawn index values.
 \setcounter{table}{0}
 \setcounter{equation}{0}
 
-To facilitate pairing this document with the SpawnIndex \textbf{R} package,
+To facilitate pairing this document with the SpawnIndex \textbf{R} package
+(\gitRepo{}),
 we cross-reference equations in this document with
 functions in the package (\autoref{tabLookupFuns}).
 In addition, parameters names in this document have corresponding
@@ -2212,11 +2214,11 @@ Similarly, egg layers $E_j$ in \autoref{eqSurfDensJS} corresponds to
 {Crosswalk table for equations in this document (i.e., technical report) and
 corresponding functions in the SpawnIndex \textbf{R} package (\gitRepo{}).
 Legend: `Eq' indicates equation.}
-\begin{tabulary}{\linewidth}{Llll}
+\begin{tabulary}{\linewidth}{>{\hangindent=1em}Llll}
 \toprule
 & \multicolumn{2}{c}{\textbf{Technical report}} & \multicolumn{1}{c}{\textbf{R package}} \\
 \cmidrule(r){2-3} \cmidrule(l){4-4}
-\textbf{Description} & \textbf{Section} & \textbf{Eq(s)} & \textbf{Function} \\
+\textbf{Description} & \textbf{Section} & \textbf{Eq} & \textbf{Function} \\
 \midrule
 Egg conversion factor & \ref{secProd} & \ref{eqECF} & \texttt{eggs\_to\_sb} \\
 Surface spawn calculations & \ref{secSurf} & \ref{eqSurfLayersIJS} to \ref{eqSurfIndS} & \texttt{calc\_surf\_index} \\
