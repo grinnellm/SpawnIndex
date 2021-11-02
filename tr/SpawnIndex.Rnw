@@ -605,7 +605,7 @@ Legend: rounded rectangles indicate start, rectangles indicate observations and 
 \end{figure}
 
 This document accompanies our
-SpawnIndex \textbf{R} \citeyearpar[RCT][]{R-4.0.5-32} package which
+SpawnIndex \textbf{R} package \citeyearpar[RCT][]{R-4.0.5-32} which
 has functions to calculate the spawn index (\autoref{secPack}).
 Previously, spawn index calculations were implemented in
 a \textbf{Microsoft Access} database which presented some challenges:
