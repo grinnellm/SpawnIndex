@@ -15,9 +15,10 @@ regions <- read_csv(
   6, A27, Area 27, Minor
   7, A2W, Area 2 West, Minor
   8, JS, Johnstone Strait, Special
-  9, A10, Area 10, Special"
-)
-save(regions, file = file.path("data", "regions.RData"))
+  9, A10, Area 10, Special",
+  col_types = cols("d", "c", "c", "c")
+) %>%
+  save(file = file.path("data", "regions.RData"))
 
 # Parameter values
 pars <- list(
@@ -36,8 +37,8 @@ pars <- list(
     survey = 1928, complete = 1937, assess = 1951, nine_cats = 1969,
     layers = 1979, dive = 1988
   )
-)
-save(pars, file = file.path("data", "pars.RData"))
+) %>%
+  save(file = file.path("data", "pars.RData"))
 
 # Intensity categories
 intensity <- tibble(
@@ -48,8 +49,8 @@ intensity <- tibble(
   Layers = c(
     0.5529, 0.9444, 1.3360, 2.1496, 2.9633, 4.1318, 5.3002, 6.5647, 7.8291
   )
-)
-save(intensity, file = file.path("data", "intensity.RData"))
+) %>%
+  save(file = file.path("data", "intensity.RData"))
 
 # Algae coefficients
 algae_coefs <- tibble(
@@ -59,8 +60,8 @@ algae_coefs <- tibble(
   ),
   AlgType = c("GR", "GG", "KF", "KS", "LA", "RW", "SM", "SA"),
   Coef = c(0.9715, 1.0000, 0.9119, 1.1766, 0.6553, 0.7793, 1.1766, 1.0000)
-)
-save(algae_coefs, file = file.path("data", "algae_coefs.RData"))
+) %>%
+  save(file = file.path("data", "algae_coefs.RData"))
 
 # Understory spawn width correction factors
 under_width_facs <- read_csv(
@@ -76,14 +77,15 @@ under_width_facs <- read_csv(
    2011, 1.15, 1.075, 1.075, 1.075, 1.075, 1.075, 1.15
    2012, 1.15, 1.075, 1.075, 1.075, 1.075, 1.075, 1.15
    2013, 1.15, 1.15, 1.075, 1.075, 1.075, 1, 1.15
-   2014, 1.15, 1.15, 1, 1, 1, 1, 1.15"
-)
-save(under_width_facs, file = file.path("data", "under_width_facs.RData"))
+   2014, 1.15, 1.15, 1, 1, 1, 1, 1.15",
+  col_types = cols("d", "d", "d", "d", "d", "d", "d", "d")
+) %>%
+  save(file = file.path("data", "under_width_facs.RData"))
 
 # Section polygons
 sections <- st_read(
   dsn = file.path("data-raw", "Sections"), layer = "HerringSections",
   quiet = TRUE
 ) %>%
-  select(Section, geometry)
-save(sections, file = file.path("data", "sections.RData"))
+  select(Section, geometry) %>%
+  save(file = file.path("data", "sections.RData"))
