@@ -1,4 +1,4 @@
-# Additional checks to run before R-CMD-CHECK
+# Additional checks to run before `R-CMD-CHECK`
 
 # Build the raw data files
 source(file = file.path("data-raw", "pars.R"))

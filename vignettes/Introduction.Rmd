@@ -88,7 +88,7 @@ epsg_crs <- 4326
 # Canada: coarse polygons for mapping
 canada <- ne_countries(
   scale = "large", returnclass = "sf", country = "canada"
-  ) %>%
+) %>%
   st_transform(crs = epsg_crs)
 ```
 
@@ -217,7 +217,7 @@ intensity categories to the number of egg layers.
 
 ```{r surf}
 # Spawn intensity categories and number of egg layers
-data(intensity) 
+data(intensity)
 # List indicating the necessary tables
 surf_loc <- list(
   loc = db_loc,
@@ -257,8 +257,9 @@ surf_loc_yr_cap <- paste(
 ggplot(data = surf_loc_yr) +
   geom_sf(data = canada) +
   geom_sf(data = polys$stat_areas, fill = "transparent", size = 1) +
-  geom_sf_label(data = polys$stat_areas, mapping = aes(label = StatArea),
-                alpha = 0.5) +
+  geom_sf_label(
+    data = polys$stat_areas, mapping = aes(label = StatArea), alpha = 0.5
+  ) +
   geom_sf(mapping = aes(colour = Surface), size = 3) +
   scale_colour_viridis_c() +
   labs(x = "Longitude", y = "Latitude", colour = "Spawn\nindex (t)") +
@@ -336,8 +337,9 @@ macro_loc_yr_cap <- paste(
 ggplot(data = macro_loc_yr) +
   geom_sf(data = canada) +
   geom_sf(data = polys$stat_areas, fill = "transparent", size = 1) +
-  geom_sf_label(data = polys$stat_areas, mapping = aes(label = StatArea),
-                alpha = 0.5) +
+  geom_sf_label(
+    data = polys$stat_areas, mapping = aes(label = StatArea), alpha = 0.5
+  ) +
   geom_sf(mapping = aes(colour = Macrocystis), size = 3) +
   scale_colour_viridis_c() +
   labs(x = "Longitude", y = "Latitude", colour = "Spawn\nindex (t)") +
@@ -422,8 +424,9 @@ under_loc_yr_cap <- paste(
 ggplot(data = under_loc_yr) +
   geom_sf(data = canada) +
   geom_sf(data = polys$stat_areas, fill = "transparent", size = 1) +
-  geom_sf_label(data = polys$stat_areas, mapping = aes(label = StatArea),
-                alpha = 0.5) +
+  geom_sf_label(
+    data = polys$stat_areas, mapping = aes(label = StatArea), alpha = 0.5
+  ) +
   geom_sf(mapping = aes(colour = Understory), size = 3) +
   scale_colour_viridis_c() +
   labs(x = "Longitude", y = "Latitude", colour = "Spawn\nindex (t)") +

@@ -22,7 +22,7 @@ status](https://www.r-pkg.org/badges/version/SpawnIndex)](https://CRAN.R-project
 
 Note that `R-CMD-check` succeeds on my Windows machine but fails on
 GitHub Actions (see [issue
-\#30](https://github.com/grinnellm/SpawnIndex/issues/30)).
+#30](https://github.com/grinnellm/SpawnIndex/issues/30)).
 
 ## Description
 

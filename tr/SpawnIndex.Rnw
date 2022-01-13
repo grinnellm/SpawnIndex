@@ -194,7 +194,7 @@ loc_image <- file.path("..", "..", "DataSummaries", r_name)
 # Image name
 image_name <- paste("Image.", r_name, ".RData", sep = "")
 # Stop if saved workspace is not available
-if(!image_name %in% list.files(path = loc_image)){
+if (!image_name %in% list.files(path = loc_image)) {
   stop("Saved workspace image not available.")
 }  # End if not available
 # Load a saved workspace
@@ -2201,7 +2201,7 @@ To facilitate pairing this document with the SpawnIndex \textbf{R} package
 (\gitRepo{}),
 we cross-reference equations in this document with
 functions in the package (\autoref{tabLookupFuns}).
-In addition, parameters names in this document have corresponding
+In addition, parameters names in this document correspond to
 function argument names in the \textbf{R} package.
 For example, theta $\theta$ in \autoref{eqECF} corresponds to
 \texttt{theta} in the function \texttt{eggs\_to\_sb}.
