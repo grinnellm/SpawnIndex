@@ -836,14 +836,6 @@ Although samples are collected systematically within each spawn,
 we assume that transects and quadrats are located randomly
 with respect to the underlying spawn distribution,
 and so these estimators are applicable \citep{SchaefferEtal2012}.
-Systematic sampling has advantages and disadvantages \citep{SchaefferEtal2012}:
-advantages include ease of implementation in the field, and
-more precision in certain situations;
-disadvantages include biased estimators when populations are periodic.
-An analogous approach has previously been adopted
-to sample commercial fisheries,
-where vessels arrive in port randomly but are sampled systematically
-to obtain a random sample \citep{QuinnEtal1983, Sen1984}.
 
 \subsubsection{MACROCYSTIS SPAWN FRAMEWORK}
 
