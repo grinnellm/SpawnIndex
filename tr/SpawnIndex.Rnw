@@ -1847,7 +1847,8 @@ They determined that kelp represents an average of
 Since SOK product is universally brined at the time of harvest,
 it is necessary to also consider the uptake of salt by the eggs,
 which increases the overall product weight.
-However, there is uncertainty in the degree of brining that occurs prior to weighing the product.
+However, there is uncertainty in the degree of brining
+that occurs prior to weighing the product.
 Nevertheless, \cite{WhyteEnglar1977} determined that
 wet product weight increases by approximately 13\%
 due to salt uptake during a 24-hour brining period.
@@ -1858,7 +1859,8 @@ The last factor to consider is the mean fertilized egg weight,
 $2.38 \cdot 10^{-6}\,\text{kg}$ \citep{HayMiller1982}.
 
 We estimate the relative biomass of \fishName{} that spawned and produced eggs
-which were removed from the population by SOK fishery $g$ (\autoref{tabNotationIndices}) as
+which were removed from the population
+by SOK fishery $g$ (\autoref{tabNotationIndices}) as
 \begin{equation}\label{eqSOKBioGRY}
 B_{g_{ry}}' = \frac{H_{g_{ry}} \left(1 - \nu\right) \frac{1}{1+\upsilon}} {w \theta},
 \end{equation}
@@ -1889,7 +1891,7 @@ Legend: kilograms (kg), tonnes (t).}
 $H$ & Weight of SOK harvest & kg & \\
 $\nu$ & Proportion of SOK product that is kelp & \Sexpr{pars$sok$nu} & \cite{ShieldsEtal1985} \\
 $\upsilon$ & SOK product weight increase due to brining (proportion) & \Sexpr{pars$sok$upsilon} & \cite{WhyteEnglar1977} \\
-$w$ & Average weight of a fertilized egg & \Sexpr{pars$sok$w}$\,\text{kg}$ & \cite{HayMiller1982} \\
+$w$ & Average weight of a fertilized egg & \Sexpr{pars$sok$egg_weight}$\,\text{kg}$ & \cite{HayMiller1982} \\
 $B'$ & Relative SOK spawn biomass & t & \\
 \bottomrule
 \end{tabulary}
@@ -1907,17 +1909,21 @@ model structural complexity \citep{LinkEtal2012}.
 Some examples illustrate these sources of uncertainty:
 \begin{enumerate}
 \item Natural variability could affect \fishName{} fecundity, and the sex ratio of spawning \fishName{} (\autoref{eqECF}).
-Fecundity could be influenced by biological processes such as the observed non-stationarity of weight-at-age \citeyearpar[DFO][]{DFO2021}, or
+Fecundity could be influenced by biological processes such as
+the observed non-stationarity of weight-at-age \citeyearpar[DFO][]{DFO2021}, or
 a truncated age distribution caused by selective fishing \citep{BrunelPiet2013}.
-\item Measurement error could affect input data (e.g., number of egg layers, spawn length and width), while
+\item Measurement error could affect input data
+(e.g., number of egg layers, spawn length and width), while
 model structural complexity could affect estimated prediction model parameters,
 or the form of their relationship, or both (e.g., \autoref{eqSurfDensJS}).
 In addition, spawn index prediction models are dated,
 and the processes could have changed in the intervening years
 (e.g., \autoref{eqSurfDensJS}, \autoref{eqMacroEggsPerPlantS}).
-\item Uncertainty in fixed parameters that are used as data without error (e.g., \autoref{eqSurfDensJS});
+\item Uncertainty in fixed parameters that are used as data without error
+(e.g., \autoref{eqSurfDensJS});
 uncertainty in spawn index parameters is currently unknown.
-\item Uncertainty in the number of egg layers for spawn intensity categories (\autoref{tab:Intensity}), and algae coefficients (\autoref{tab:AlgaeCoefs}).
+\item Uncertainty in the number of egg layers for spawn intensity categories
+(\autoref{tab:Intensity}), and algae coefficients (\autoref{tab:AlgaeCoefs}).
 Again, uncertainty in these values is currently unknown.
 \end{enumerate}
 Despite these assumptions and potential sources of uncertainty,
@@ -1935,9 +1941,12 @@ First, quantifying uncertainty could
 identify parameters to target with future research.
 Potential analyses to quantify spawn index uncertainty include:
 \begin{enumerate}
-\item Quantify and report variability in estimated prediction model parameters and equations (e.g., \autoref{eqSurfDensJS}),
-\item Propagate uncertainty in parameters and prediction models through spawn index calculations,
-\item Incorporate the underlying data that informs prediction model equations into spawn index calculations,
+\item Quantify and report variability in estimated prediction model parameters
+and equations (e.g., \autoref{eqSurfDensJS}),
+\item Propagate uncertainty in parameters and prediction models
+through spawn index calculations,
+\item Incorporate the underlying data that informs prediction model equations
+into spawn index calculations,
 \item Bootstrap observed input data \citep[see][]{Schweigert1993b}, and
 \item Conduct sensitivity analyses.
 \end{enumerate}
@@ -1962,8 +1971,10 @@ Therefore, understanding this trade-off is important if, for example,
 budget reductions cause reduced survey effort.
 Potential strategies to improve spawn survey efficiency include:
 \begin{enumerate}
-\item Conduct underwater surveys for major spawns in core areas, and surface surveys for other spawns,
-\item Review transect and quadrat spacing \citep[\autoref{secStat}; see][]{Schweigert1993b}, and
+\item Conduct underwater surveys for major spawns in core areas, and
+surface surveys for other spawns,
+\item Review transect and quadrat spacing
+\citep[\autoref{secStat}; see][]{Schweigert1993b}, and
 \item Conduct periodic versus annual surveys.
 \end{enumerate}
 Even with a stable budget,
