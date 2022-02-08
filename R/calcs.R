@@ -317,6 +317,9 @@ calc_surf_index <- function(where,
   # Extract relevant surface data
   surface <- dbReadTable(conn = access_db, name = where$fns$surface) %>%
     rename(LocationCode = Loc_Code, SpawnNumber = Spawn_Number) %>%
+    mutate_at(
+      .vars = vars(starts_with("Lay"), ends_with("Percent")), .funs = as.double
+    ) %>%
     filter(Year %in% years, LocationCode %in% areas_sm$LocationCode) %>%
     left_join(y = areas_sm, by = "LocationCode") %>%
     left_join(y = spawn, by = c("Year", "LocationCode", "SpawnNumber")) %>%
@@ -327,8 +330,6 @@ calc_surf_index <- function(where,
       Lay_Stringy_Red = 0, Stringy_Red_Percent = 0, Lay_Rock = 0,
       Rock_Percent = 0, Lay_Other = 0, Other_Percent = 0
     )) %>%
-    mutate_at(.vars = vars(starts_with("Lay_")), .funs = as.numeric) %>%
-    mutate_at(.vars = vars(ends_with("_Percent")), .funs = as.numeric) %>%
     mutate(Intensity = as.integer(Intensity)) %>%
     # Substrate i
     mutate(
