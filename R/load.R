@@ -428,6 +428,14 @@ load_all_spawn <- function(where,
     arrange(
       Year, Region, StatArea, Section, LocationCode, SpawnNumber, Start
     )
+  # Check for zeros in length (should probably be NA)
+  if (any(na.omit(res$Length) == 0)) {
+    warning("Zero(s) in Length", call. = FALSE)
+  }
+  # Check for zeros in width (should probably be NA)
+  if (any(na.omit(res$Width) == 0)) {
+    warning("Zero(s) in Width", call. = FALSE)
+  }
   # Close the connection
   dbDisconnect(conn = access_db)
   # Check output: tibble rows
