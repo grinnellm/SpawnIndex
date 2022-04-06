@@ -1842,7 +1842,7 @@ and determine the biomass of \fishName{} that produced those eggs.
 \cite{ShieldsEtal1985} collected information on the relationship between
 the number of egg layers in SOK product, and
 the proportion of product weight that consists of eggs and kelp.
-They determined that kelp represents an average of
+They determined that Macrocystis kelp represents an average of
 12\% of the total product weight.
 Since SOK product is universally brined at the time of harvest,
 it is necessary to also consider the uptake of salt by the eggs,
@@ -1865,7 +1865,7 @@ by SOK fishery $g$ (\autoref{tabNotationIndices}) as
 B_{g_{ry}}' = \frac{H_{g_{ry}} \left(1 - \nu\right) \frac{1}{1+\upsilon}} {w \theta},
 \end{equation}
 where $H_g$ is the weight in kilograms of \fishName{} SOK harvest in fishery $g$,
-$\nu$ is the proportion of SOK product weight that is kelp,
+$\nu$ is the proportion of SOK product weight that is Macrocystis kelp,
 $\upsilon$ is the SOK product weight increase due to brining as a proportion,
 $w$ is the average weight in kilograms of a fertilized egg,
 $\theta$ is the egg conversion factor from \autoref{eqECF}, and
@@ -1889,7 +1889,7 @@ Legend: kilograms (kg), tonnes (t).}
 \textbf{Name} & \textbf{Description} & \textbf{Value or unit} & \textbf{References} \\
 \midrule
 $H$ & Weight of SOK harvest & kg & \\
-$\nu$ & Proportion of SOK product that is kelp & \Sexpr{pars$sok$nu} & \cite{ShieldsEtal1985} \\
+$\nu$ & Proportion of SOK product that is Macrocystis kelp & \Sexpr{pars$sok$nu} & \cite{ShieldsEtal1985} \\
 $\upsilon$ & SOK product weight increase due to brining (proportion) & \Sexpr{pars$sok$upsilon} & \cite{WhyteEnglar1977} \\
 $w$ & Average weight of a fertilized egg & \Sexpr{pars$sok$egg_weight}$\,\text{kg}$ & \cite{HayMiller1982} \\
 $B'$ & Relative SOK spawn biomass & t & \\
@@ -2051,7 +2051,9 @@ ratio of means (i.e., current method) versus mean of ratios,
 \item Periodically review the accuracy of egg density models
 using egg layer and vegetation cover estimates collected underwater,
 compared to egg counts in a subset of sampled quadrats,
-\item Quantify incidental mortality in SOK operations, and
+\item Quantify incidental mortality in SOK operations,
+\item Determine the proportion of SOK product that is kelp for
+other algae species and tree boughs (\autoref{eqSOKBioGRY}), and
 \item Account for osmosis in SOK calculations (\autoref{eqSOKBioGRY}).
 \end{enumerate}
 

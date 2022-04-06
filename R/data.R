@@ -51,7 +51,7 @@
 #'     \insertCite{Hay1985,HayBrett1988}{SpawnIndex}, and
 #'   \emph{female} is the proportion of spawners that are female.}
 #' \item{sok}{List with items:
-#'   \emph{nu} is the proportion of SOK product that is kelp
+#'   \emph{nu} is the proportion of SOK product that is Macrocystis kelp
 #'     \insertCite{ShieldsEtal1985}{SpawnIndex},
 #'   \emph{upsilon} is the SOK product weight increase during a 24-hour brining
 #'     period as a proportion \insertCite{WhyteEnglar1977}{SpawnIndex}, and
