@@ -38,8 +38,8 @@ Pacific Herring (*Clupea pallasii*) in British Columbia, Canada.
 See the technical report for background information [@GrinnellEtalYYYY].
 Source code is on the
 [GitHub repository](https://github.com/grinnellm/SpawnIndex).
-Load the `SpawnIndex` package [@R-SpawnIndex], and
-a few other packages for data wrangling, as well as making tables, and figures.
+Load the `SpawnIndex` package [@R-SpawnIndex] and
+a few other packages to wrangle data and make tables and figures.
 
 ```{r libraries, message = FALSE, warning = FALSE}
 # Packages
@@ -501,7 +501,7 @@ where there are `r n_samp` samples in each of the `r length(yr_range)` spawns.
 ```{r surface_raw}
 # Generate some data: samples within spawns
 surf_raw <- tibble(
-  Spawn = rep(1:length(yr_range), each = n_samp),
+  Spawn = rep(seq_along(yr_range), each = n_samp),
   Sample = rep(1:n_samp, times = length(yr_range)),
   Layers = sample(1:9, size = length(yr_range) * n_samp, replace = TRUE)
 )
@@ -588,7 +588,7 @@ kable(
 ```{r macrocystis, include = FALSE, eval = FALSE}
 # Generate some data
 macro_dat <- tibble(
-  Number = 1:length(yr_range),
+  Number = seq_along(yr_range),
   Layers = sample(x = 2:8, size = length(yr_range), replace = TRUE),
   Height = sample(x = 2:10, size = length(yr_range), replace = TRUE),
   StalksPerPlant = sample(x = 2:5, size = length(yr_range), replace = TRUE),
