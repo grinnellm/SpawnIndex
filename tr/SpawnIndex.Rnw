@@ -1151,7 +1151,8 @@ $\theta$ & Egg conversion factor & $10^8 \cdot \text{eggs} \cdot \text{t}^{-1}$ 
 
 \section{SURFACE SPAWN CALCULATIONS}\label{secSurf}
 
-This section describes steps \ref{sSamp} to \ref{sInd} (\autoref{figFlow}).
+This section describes steps \ref{sSamp} to \ref{sInd}
+(i.e., spawn survey observation type $x = \text{surface}$; \autoref{figFlow}).
 As previously mentioned, surface spawn surveyors sample along transects or
 using their judgement (\autoref{secSurfProt}).
 Surveyors collect data at the
@@ -1290,7 +1291,8 @@ $B_s'$ is in tonnes (\autoref{figFlow}, step \ref{sInd}).
 
 \section{MACROCYSTIS SPAWN CALCULATIONS}\label{secMacro}
 
-This section describes steps \ref{mPlant} to \ref{mInd} (\autoref{figFlow}).
+This section describes steps \ref{mPlant} to \ref{mInd}
+(i.e., spawn survey observation type $x = \text{Macrocystis}$; \autoref{figFlow}).
 Macrocystis spawn surveyors use SCUBA gear to collect underwater data for
 individual plants $p$, transects $t$, and spawns $s$ (\autoref{secMacroProt}),
 where divers enumerate every Macrocystis plant within the transect swath.
@@ -1498,7 +1500,8 @@ print(num_egg_plot)
 
 \section{UNDERSTORY SPAWN CALCULATIONS}\label{secUnder}
 
-This section describes steps \ref{uQuad} to \ref{uInd} (\autoref{figFlow}).
+This section describes steps \ref{uQuad} to \ref{uInd}
+(i.e., spawn survey observation type $x = \text{understory}$; \autoref{figFlow}).
 Understory spawn surveyors use SCUBA gear to collect underwater data
 for substrate $i'$, algae (i.e., vegetation) types $v$, quadrats $q$,
 transects $t$, and spawns $s$ (\autoref{secUnderProt});
