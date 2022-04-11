@@ -592,16 +592,16 @@ combined sex spawning biomass (\autoref{secTotal}).
 \node [process, below=of mExt] (mPlant) {\labelMacro{mPlant} Plant $p$ observations for mature plants (e.g., number of stalks; \S{}~\ref{secMacroP}).};
 \node [process, below=of mPlant] (mTrans) {\labelMacro{mTrans} Transect $t$ observations and calculations (e.g., spawn width, mean number of egg layers, mean plant height; \S{}~\ref{secMacroT}).};
 \node [process, below=of mTrans] (mSpawn) {\labelMacro{mSpawn} Spawn $s$ observations and calculations (e.g., Macrocystis bed length, mean spawn width, mean egg density; \S{}~\ref{secMacroS}).};
-\node [inout, below=of mSpawn] (mInd) {\labelMacro{mInd} Macrocystis spawn index $B_{x_{snry}}'$ (Eq~\ref{eqMacroIndS}).};
+\node [inout, below=of mSpawn] (mInd) {\labelMacro{mInd} Macrocystis spawn index $B_{{xs}_{nry}}'$ (Eq~\ref{eqMacroIndS}).};
 \node [terminal, label={[text width=10em] \textbf{Surface (S)}}, left=of mExt] (sExt) {\labelSurf{sExt} Determine spatial extent and sample locations (along transects if possible; \S{}~\ref{secSurfProt}).};
 \node [process, left=of mPlant] (sSamp) {\labelSurf{sSamp} Sample $j$ observations and calculations (e.g., number of egg layers, substrate type $i$; \S{}~\ref{secSurfJ}).};
 \node [process, below=of sSamp, left=of mSpawn] (sSpawn) {\labelSurf{sSpawn} Spawn $s$ observations and calculations (e.g., spawn length, spawn width, mean egg density; \S{}~\ref{secSurfS}).};
-\node [inout, below=of sSpawn, left=of mInd] (sInd) {\labelSurf{sInd} Surface spawn index $B_{x_{snry}}'$ (Eq~\ref{eqSurfIndS}).};
+\node [inout, below=of sSpawn, left=of mInd] (sInd) {\labelSurf{sInd} Surface spawn index $B_{{xs}_{nry}}'$ (Eq~\ref{eqSurfIndS}).};
 \node [terminal, label={[text width=10em] \textbf{Understory (U)}}, right=of mExt] (uExt) {\labelUnder{uExt} Determine spatial extent, transect locations, and quadrat spacing (\S{}~\ref{secUnderProt}).};
 \node [process, below=of uExt, right=of mPlant] (uQuad) {\labelUnder{uQuad} Quadrat $q$ observations and calculations (e.g., number of egg layers, algae type $v$; \S{}~\ref{secUnderQ}).};
 \node [process, below=of uQuad, right=of mTrans] (uTrans) {\labelUnder{uTrans} Transect $t$ observations and calculations weighted by spawn width (e.g., spawn width, mean egg density; \S{}~\ref{secUnderT}).};
 \node [process, below=of uTrans, right=of mSpawn] (uSpawn) {\labelUnder{uSpawn} Spawn $s$ observations and calculations (e.g., algae bed length, mean spawn width, egg density; \S{}~\ref{secUnderS}).};
-\node [inout, below=of uSpawn, right=of mInd] (uInd) {\labelUnder{uInd} Understory spawn index $B_{x_{snry}}'$ (Eq~\ref{eqUnderIndS}).};
+\node [inout, below=of uSpawn, right=of mInd] (uInd) {\labelUnder{uInd} Understory spawn index $B_{{xs}_{nry}}'$ (Eq~\ref{eqUnderIndS}).};
 \node [inout, below=of mInd] (tIndex) {\labelTotal{tIndex} Total spawn index $B_{s_{nry}}'$ (\S{}~\ref{secTotal}, Eq~\ref{eqTotIndSLRY}).};
 \draw [line] (mExt) -- (mPlant);
 \draw [line] (mPlant) -- (mTrans);
@@ -1105,7 +1105,7 @@ the percentage of the quadrat covered by the algae and number of egg layers.
 
 \section{CONVERTING EGGS TO BIOMASS}\label{secProd}
 
-After estimating the number of eggs in a spawn by survey observation type,
+After estimating the number of eggs in a spawn by spawn survey observation type,
 the next step is to estimate the biomass of \fishName{} that spawned.
 Female \fishName{} produce an average of
 approximately $200\,000$ eggs per kilogram (kg)
@@ -1151,8 +1151,8 @@ $\theta$ & Egg conversion factor & $10^8 \cdot \text{eggs} \cdot \text{t}^{-1}$ 
 
 \section{SURFACE SPAWN CALCULATIONS}\label{secSurf}
 
-This section describes steps \ref{sSamp} to \ref{sInd}
-(i.e., spawn survey observation type $x = \text{surface}$; \autoref{figFlow}).
+This section describes steps \ref{sSamp} to \ref{sInd} in \autoref{figFlow}
+(i.e., spawn survey type $x = \text{surface}$).
 As previously mentioned, surface spawn surveyors sample along transects or
 using their judgement (\autoref{secSurfProt}).
 Surveyors collect data at the
@@ -1193,7 +1193,7 @@ $B'$ & Surface spawn index (i.e., biomass) & t & \\
 
 \subsection{SAMPLE OBSERVATIONS AND CALCULATIONS}\label{secSurfJ}
 
-Each sample $j$ (\autoref{figFlow}, step \ref{sSamp}) can have
+Each sample $j$ (step \ref{sSamp} in \autoref{figFlow}) can have
 one or more substrate types $i$.
 The number of egg layers in substrate $i$ is
 \begin{equation}\label{eqSurfLayersIJS}
@@ -1260,19 +1260,19 @@ print(egg_dens_sub_plot)
 
 \subsection{SPAWN OBSERVATIONS AND CALCULATIONS}\label{secSurfS}
 
-The mean egg density in spawn $s$ (\autoref{figFlow}, step \ref{sSpawn}) is
+The mean egg density in spawn $s$ (step \ref{sSpawn} in \autoref{figFlow}) is
 \begin{equation}\label{eqSurfDensS}
-\mean{\rho_{s_{nry}}} = \frac{1}{J_{xsnry}} \sum_{j_{xsnry}=1}^{J_{xsnry}} \rho_{j_{xsnry}},
+\mean{\rho_{{xs}_{nry}}} = \frac{1}{J_{xsnry}} \sum_{j_{xsnry}=1}^{J_{xsnry}} \rho_{j_{xsnry}},
 \end{equation}
 where $\rho_j$ is egg density in sample $j$ from \autoref{eqSurfDensJS},
 $J$ is the number of samples, and
-$\mean{\rho_s}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
+$\mean{\rho_{xs}}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
 Two other metrics are required at the spawn level:
-spawn length $L_s$, and
-spawn width $W_s$, both in metres.
-We set $W_s$ to the first non-missing value of
+spawn length $L_{xs}$, and
+spawn width $W_{xs}$, both in metres.
+We set $W_{xs}$ to the first non-missing value of
 median pool width, median Section width, median SAR width, or
-observed width $W_s'$
+observed width $W_{xs}'$
 (in that order; \autoref{secWidthSurface}).
 A pool is a group of Locations within a Section that are
 often adjacent,
@@ -1281,18 +1281,18 @@ can be treated as a group with likely similar widths.
 
 The surface spawn index in spawn $s$ is
 \begin{equation}\label{eqSurfIndS}
-B_{s_{nry}}' = \frac{\mean{\rho_{s_{nry}}} L_{s_{nry}} W_{s_{nry}} 10^3} {\theta},
+B_{{xs}_{nry}}' = \frac{\mean{\rho_{{xs}_{nry}}} L_{{xs}_{nry}} W_{{xs}_{nry}} 10^3} {\theta},
 \end{equation}
-where $\mean{\rho_s}$ is mean egg density in spawn $s$ from \autoref{eqSurfDensS},
-$L_s$ is length of spawn $s$,
-$W_s$ is width of spawn $s$,
+where $\mean{\rho_{xs}}$ is mean egg density in spawn $s$ from \autoref{eqSurfDensS},
+$L_{xs}$ is length of spawn $s$,
+$W_{xs}$ is width of spawn $s$,
 $\theta$ is the egg conversion factor from \autoref{eqECF}, and
-$B_s'$ is in tonnes (\autoref{figFlow}, step \ref{sInd}).
+$B_{xs}'$ is in tonnes (step \ref{sInd} in \autoref{figFlow}).
 
 \section{MACROCYSTIS SPAWN CALCULATIONS}\label{secMacro}
 
-This section describes steps \ref{mPlant} to \ref{mInd}
-(i.e., spawn survey observation type $x = \text{Macrocystis}$; \autoref{figFlow}).
+This section describes steps \ref{mPlant} to \ref{mInd} in \autoref{figFlow}
+(i.e., spawn survey type $x = \text{Macrocystis}$).
 Macrocystis spawn surveyors use SCUBA gear to collect underwater data for
 individual plants $p$, transects $t$, and spawns $s$ (\autoref{secMacroProt}),
 where divers enumerate every Macrocystis plant within the transect swath.
@@ -1331,12 +1331,12 @@ $B'$ & Macrocystis spawn index (i.e., biomass) & t & \\
 
 \subsection{PLANT OBSERVATIONS}\label{secMacroP}
 
-For each mature plant $p$ (\autoref{figFlow}, step \ref{mPlant}),
+For each mature plant $p$ (step \ref{mPlant} in \autoref{figFlow}),
 surveyors count the number of stalks $K_p$.
 
 \subsection{TRANSECT OBSERVATIONS AND CALCULATIONS}\label{secMacroT}
 
-At the transect $t$ level (\autoref{figFlow}, step \ref{mTrans}),
+At the transect $t$ level (step \ref{mTrans} in \autoref{figFlow}),
 spawn width is $W_t$, and
 transect swath is $\chi_t = 2\,\text{m}$, both in metres.
 We calculate the area in transect $t$ as
@@ -1357,23 +1357,23 @@ $K_t$ is in number of stalks.
 
 \subsection{SPAWN OBSERVATIONS AND CALCULATIONS}\label{secMacroS}
 
-At the spawn $s$ level (\autoref{figFlow}, step \ref{mSpawn}),
-the Macrocystis bed length is $L_s'$ in metres.
-If $L_s'$ is inadvertently not recorded,
-we set $L_s'$ to the spawn length $L_s$.
+At the spawn $s$ level (step \ref{mSpawn} in \autoref{figFlow}),
+the Macrocystis bed length is $L_{xs}'$ in metres.
+If $L_{xs}'$ is inadvertently not recorded,
+we set $L_{xs}'$ to the spawn length $L_{xs}$.
 The mean width of spawn $s$ is
 \begin{equation}\label{eqMacroWidthS}
-\mean{W_{s_{nry}}} = \frac{1}{T_{xsnry}} \sum_{t_{xsnry}=1}^{T_{xsnry}} W_{t_{xsnry}},
+\mean{W_{{xs}_{nry}}} = \frac{1}{T_{xsnry}} \sum_{t_{xsnry}=1}^{T_{xsnry}} W_{t_{xsnry}},
 \end{equation}
 where $W_t$ is the spawn width at transect $t$,
 $T$ is the number of transects in spawn $s$, and
-$\mean{W_s}$ is in metres.
+$\mean{W_{xs}}$ is in metres.
 The total area of transects in spawn $s$ is
 \begin{equation}\label{eqMacroAreaS}
-A_{s_{nry}} = \sum_{t_{xsnry}=1}^{T_{xsnry}} A_{t_{xsnry}},
+A_{{xs}_{nry}} = \sum_{t_{xsnry}=1}^{T_{xsnry}} A_{t_{xsnry}},
 \end{equation}
 where $A_t$ is the transect area from \autoref{eqMacroAreaTS},
-and $A_s$ is in square metres.
+and $A_{xs}$ is in square metres.
 
 Three metrics are required to calculate
 the number of eggs on Macrocystis plants \citep{HaegeleSchweigert1990}:
@@ -1382,76 +1382,77 @@ plant height, and
 number of stalks per plant.
 First, the mean number of egg layers in spawn $s$ is
 \begin{equation}\label{eqMacroLayersS}
-\mean{E_{s_{nry}}} = \frac{1}{T_{xsnry}} \sum_{t_{xsnry}=1}^{T_{xsnry}} \mean{E_{t_{xsnry}}},
+\mean{E_{{xs}_{nry}}} = \frac{1}{T_{xsnry}} \sum_{t_{xsnry}=1}^{T_{xsnry}} \mean{E_{t_{xsnry}}},
 \end{equation}
 where $\mean{E_t}$ is the mean number of egg layers in transect $t$,
 $T$ is the number of transects in spawn $s$, and
-$\mean{E_s}$ is in number of egg layers.
+$\mean{E_{xs}}$ is in number of egg layers.
 Second, the mean plant height in spawn $s$ is
 \begin{equation}\label{eqMacroHeightS}
-\mean{H_{s_{nry}}} = \frac{1}{T_{xsnry}} \sum_{t_{xsnry}=1}^{T_{xsnry}} \mean{H_{t_{xsnry}}},
+\mean{H_{{xs}_{nry}}} = \frac{1}{T_{xsnry}} \sum_{t_{xsnry}=1}^{T_{xsnry}} \mean{H_{t_{xsnry}}},
 \end{equation}
 where $\mean{H_t}$ is the mean plant height in transect $t$,
 $T$ is the number of transects in spawn $s$, and
-$\mean{H_s}$ is in metres.
+$\mean{H_{xs}}$ is in metres.
 The third metric is the number of stalks per plant,
 which we calculate in three steps.
 The total number of observed stalks in spawn $s$ is
 \begin{equation}\label{eqMacroStalksS}
-K_{s_{nry}} = \sum_{t_{xsnry}=1}^{T_{xsnry}} K_{t_{xsnry}},
+K_{{xs}_{nry}} = \sum_{t_{xsnry}=1}^{T_{xsnry}} K_{t_{xsnry}},
 \end{equation}
-where $K_t$ is the number of stalks in transect $t$ from \autoref{eqMacroStalksTS},
-$T$ is the number of transects in spawn $s$, and
-$K_s$ is in number of stalks.
+where $K_t$ is the number of stalks in transect $t$
+from \autoref{eqMacroStalksTS} and
+$K_{xs}$ is in number of stalks.
 The total number of observed plants in spawn $s$ is
 \begin{equation}\label{eqMacroPlantsS}
-P_{s_{nry}} = \sum_{t_{xsnry}=1}^{T_{xsnry}} P_{t_{xsnry}},
+P_{{xs}_{nry}} = \sum_{t_{xsnry}=1}^{T_{xsnry}} P_{t_{xsnry}},
 \end{equation}
-where $P_t$ is the number of plants in transect $t$,
-$T$ is the number of transects in spawn $s$, and
-$P_s$ is in number of plants.
+where $P_t$ is the number of plants in transect $t$ and
+$P_{xs}$ is in number of plants.
 Thus, the mean number of stalks per plant in spawn $s$ is
 \begin{equation}\label{eqMacroStalksPerPlantS}
-\mean{\kappa_{s_{nry}}} = \frac{K_{s_{nry}}}{P_{s_{nry}}},
+\mean{\kappa_{{xs}_{nry}}} = \frac{K_{{xs}_{nry}}}{P_{{xs}_{nry}}},
 \end{equation}
-where $K_s$ is the number of stalks in spawn $s$ from \autoref{eqMacroStalksS},
-$P_s$ is the number of plants in spawn $s$ from \autoref{eqMacroPlantsS},
-and $\mean{\kappa_s}$ is in number of stalks per plant.
+where $K_{xs}$ is the number of stalks in spawn $s$ from \autoref{eqMacroStalksS},
+$P_{xs}$ is the number of plants in spawn $s$ from \autoref{eqMacroPlantsS},
+and $\mean{\kappa_{xs}}$ is in number of stalks per plant.
 
 \citet{HaegeleSchweigert1990} developed a model of the number of eggs per plant
 as a function of the three aforementioned metrics
 (number of egg layers, plant height, and number of stalks per plant)
 using a nonlinear multiple regression model
 \begin{equation}\label{eqMacroEggsPerPlantS}
-\mean{\psi_{s_{nry}}} = \xi \mean{E_{s_{nry}}}^\gamma \mean{H_{s_{nry}}}^\delta \mean{\kappa_{s_{nry}}}^\epsilon 10^3,
+\mean{\psi_{{xs}_{nry}}} = \xi \mean{E_{{xs}_{nry}}}^\gamma \mean{H_{{xs}_{nry}}}^\delta \mean{\kappa_{{xs}_{nry}}}^\epsilon 10^3,
 \end{equation}
 where $\xi$ is the regression slope,
-$\mean{E_s}$ is the mean number of egg layers in spawn $s$ from \autoref{eqMacroLayersS},
-$\gamma$ is the regression exponent on $\mean{E_s}$,
-$\mean{H_s}$ is the mean plant height in spawn $s$ from \autoref{eqMacroHeightS},
-$\delta$ is the regression exponent on $\mean{H_s}$,
-$\mean{\kappa_s}$ is the mean number of stalks per plant in spawn $s$ from \autoref{eqMacroStalksPerPlantS},
-$\epsilon$ is the regression exponent on $\mean{\kappa_s}$, and
-$\mean{\psi_s}$ is in $\text{eggs} \cdot 10^3 \cdot \text{plant}^{-1}$ (\autoref{figMacroEggsPerPlantS}).
+$\mean{E_{xs}}$ is the mean number of egg layers in spawn $s$ from \autoref{eqMacroLayersS},
+$\gamma$ is the regression exponent on $\mean{E_{xs}}$,
+$\mean{H_{xs}}$ is the mean plant height in spawn $s$
+from \autoref{eqMacroHeightS},
+$\delta$ is the regression exponent on $\mean{H_{xs}}$,
+$\mean{\kappa_{xs}}$ is the mean number of stalks per plant in spawn $s$
+from \autoref{eqMacroStalksPerPlantS},
+$\epsilon$ is the regression exponent on $\mean{\kappa_{xs}}$, and
+$\mean{\psi_{xs}}$ is in $\text{eggs} \cdot 10^3 \cdot \text{plant}^{-1}$ (\autoref{figMacroEggsPerPlantS}).
 Mean Macrocystis egg density in spawn $s$ is
 \begin{equation}\label{eqMacroDensS}
-\mean{\rho_{s_{nry}}} = \frac{\mean{\psi_{s_{nry}}} P_{s_{nry}}}{A_{s_{nry}}},
+\mean{\rho_{{xs}_{nry}}} = \frac{\mean{\psi_{{xs}_{nry}}} P_{{xs}_{nry}}}{A_{{xs}_{nry}}},
 \end{equation}
 where
-$\mean{\psi_s}$ is the mean number of eggs per plant in spawn $s$ from \autoref{eqMacroEggsPerPlantS},
-$P_s$ is the number of plants in spawn $s$ from \autoref{eqMacroPlantsS},
-$A_s$ is the total area of transects in spawn $s$ from \autoref{eqMacroAreaS}, and
-$\mean{\rho_s}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
+$\mean{\psi_{xs}}$ is the mean number of eggs per plant in spawn $s$ from \autoref{eqMacroEggsPerPlantS},
+$P_{xs}$ is the number of plants in spawn $s$ from \autoref{eqMacroPlantsS},
+$A_{xs}$ is the total area of transects in spawn $s$ from \autoref{eqMacroAreaS}, and
+$\mean{\rho_{xs}}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
 
 The Macrocystis spawn index in spawn $s$ is
 \begin{equation}\label{eqMacroIndS}
-B_{s_{nry}}' = \frac{\mean{\rho_{s_{nry}}} L_{s_{nry}}' \mean{W_{s_{nry}}} 10^3} {\theta},
+B_{{xs}_{nry}}' = \frac{\mean{\rho_{{xs}_{nry}}} L_{{xs}_{nry}}' \mean{W_{{xs}_{nry}}} 10^3} {\theta},
 \end{equation}
-where $\mean{\rho_s}$ is the mean egg density in spawn $s$ from \autoref{eqMacroDensS},
-$L_s'$ is the length of the Macrocystis bed in spawn $s$,
-$\mean{W_s}$ is the mean width of spawn $s$ from \autoref{eqMacroWidthS},
+where $\mean{\rho_{xs}}$ is the mean egg density in spawn $s$ from \autoref{eqMacroDensS},
+$L_{xs}'$ is the length of the Macrocystis bed in spawn $s$,
+$\mean{W_{xs}}$ is the mean width of spawn $s$ from \autoref{eqMacroWidthS},
 $\theta$ is the egg conversion factor from \autoref{eqECF}, and
-$B_s'$ is in tonnes (\autoref{figFlow}, step \ref{mInd}).
+$B_{xs}'$ is in tonnes (step \ref{mInd} in \autoref{figFlow}).
 
 <<MacroEggsPerPlantS, fig.width=6, fig.asp=0.9, fig.lp="fig", echo=FALSE, fig.cap=fig_cap, fig.scap="Number of eggs per plant for \\fishName{} Macrocystis spawn surveys">>=
 # Caption
@@ -1500,8 +1501,8 @@ print(num_egg_plot)
 
 \section{UNDERSTORY SPAWN CALCULATIONS}\label{secUnder}
 
-This section describes steps \ref{uQuad} to \ref{uInd}
-(i.e., spawn survey observation type $x = \text{understory}$; \autoref{figFlow}).
+This section describes steps \ref{uQuad} to \ref{uInd} in \autoref{figFlow}
+(i.e., spawn survey type $x = \text{understory}$).
 Understory spawn surveyors use SCUBA gear to collect underwater data
 for substrate $i'$, algae (i.e., vegetation) types $v$, quadrats $q$,
 transects $t$, and spawns $s$ (\autoref{secUnderProt});
@@ -1540,7 +1541,7 @@ $B'$ & Understory spawn index (i.e., biomass) & t & \\
 \subsection{QUADRAT OBSERVATIONS AND CALCULATIONS}\label{secUnderQ}
 
 We calculate two separate estimates of egg density at the quadrat level
-(\autoref{figFlow}, step \ref{uQuad}):
+(step \ref{uQuad} in \autoref{figFlow}):
 spawn on substrate $i'$, and spawn on algae $v$.
 \citet{HaegeleEtal1979} developed a model of substrate egg density
 in quadrat $q$, transect $t$, and spawn $s$ from egg layers
@@ -1693,7 +1694,8 @@ and can be combined.
 
 \subsection{TRANSECT OBSERVATIONS AND CALCULATIONS}\label{secUnderT}
 
-At the transect level (\autoref{figFlow}, step \ref{uTrans}), the mean understory egg density in transect $t$ is
+At the transect level (step \ref{uTrans} in \autoref{figFlow}),
+the mean understory egg density in transect $t$ is
 \begin{equation}\label{eqUnderDensTS}
 \mean{\rho_{t_{xsnry}}} = \frac{1}{Q_{txsnry}} \sum_{q_{txsnry}=1}^{Q_{txsnry}} \rho_{q_{txsnry}},
 \end{equation}
@@ -1707,57 +1709,59 @@ understory surveys between \Sexpr{min(under_width_facs$Year)} and
 
 \subsection{SPAWN OBSERVATIONS AND CALCULATIONS}\label{secUnderS}
 
-At the spawn level (\autoref{figFlow}, step \ref{uSpawn}),
+At the spawn level (step \ref{uSpawn} in \autoref{figFlow}),
 the mean width of spawn $s$ is
 \begin{equation}\label{eqUnderWidthMuS}
-\mean{W_{s_{nry}}} = \frac{1}{T_{xsnry}} \sum_{t_{xsnry}=1}^{T_{xsnry}} W_{t_{xsnry}},
+\mean{W_{{xs}_{nry}}} = \frac{1}{T_{xsnry}} \sum_{t_{xsnry}=1}^{T_{xsnry}} W_{t_{xsnry}},
 \end{equation}
 where $W_t$ is the spawn width at transect $t$,
 $T$ is the number of transects in spawn $s$, and
-$\mean{W_s}$ is in metres.
-The algae bed length is $L_s''$, also in metres.
+$\mean{W_{xs}}$ is in metres.
+The algae bed length is $L_{xs}''$, also in metres.
 As with Macrocystis spawn calculations,
-if $L_s''$ is inadvertently not recorded,
-we set $L_s''$ to the spawn length $L_s$.
+if $L_{xs}''$ is inadvertently not recorded,
+we set $L_{xs}''$ to the spawn length $L_{xs}$.
 Thus, we assume that eggs on substrate and eggs on algae
 are represented by the same length measurement.
 
 Next, we calculate the weighted mean egg density in spawn $s$,
-where transect egg density is weighted by spawn width at transect $t$, $W_{ts}$.
+where transect egg density is weighted by spawn width at transect $t$, $W_t$.
 We calculate a weighted mean because spawn width varies along the spawn length;
 a weighted mean ensures that transects contribute proportionally to their area.
 The mean egg density in spawn $s$ is
 \begin{equation}\label{eqUnderDensMuS}
-\mean{\rho_{s_{nry}}} = \frac{\sum_{t_{xsnry}=1}^{T_{xsnry}} \mean{\rho_{t_{xsnry}}} W_{t_{xsnry}}}
+\mean{\rho_{{xs}_{nry}}} = \frac{\sum_{t_{xsnry}=1}^{T_{xsnry}} \mean{\rho_{t_{xsnry}}} W_{t_{xsnry}}}
 {\sum_{t_{xsnry}=1}^{T_{xsnry}} W_{t_{xsnry}}},
 \end{equation}
-where $\mean{\rho_t}$ is the mean understory egg density in transect $t$ from \autoref{eqUnderDensTS},
+where $\mean{\rho_t}$ is the mean understory egg density in transect $t$
+from \autoref{eqUnderDensTS},
 $W_t$ is the spawn width for transect $t$ in metres, and
-$\mean{\rho_s}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
+$\mean{\rho_{xs}}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
 
 The understory spawn index in spawn $s$ is
 \begin{equation}\label{eqUnderIndS}
-B_{s_{nry}}' = \frac{\mean{\rho_{s_{nry}}} L_{s_{nry}}'' \mean{W_{s_{nry}}} 10^3} {\theta},
+B_{{xs}_{nry}}' = \frac{\mean{\rho_{{xs}_{nry}}} L_{{xs}_{nry}}'' \mean{W_{{xs}_{nry}}} 10^3} {\theta},
 \end{equation}
-where $\mean{\rho_s}$ is the mean understory egg density from
+where $\mean{\rho_{xs}}$ is the mean understory egg density from
 \autoref{eqUnderDensMuS},
-$L_s''$ is the length of the algae bed,
-$\mean{W_s}$ is the mean spawn width from \autoref{eqUnderWidthMuS},
+$L_{xs}''$ is the length of the algae bed,
+$\mean{W_{xs}}$ is the mean spawn width from \autoref{eqUnderWidthMuS},
 $\theta$ is the egg conversion factor from \autoref{eqECF}, and
-$B_s'$ is in tonnes (\autoref{figFlow}, step \ref{uInd}).
+$B_{xs}'$ is in tonnes (step \ref{uInd} in \autoref{figFlow}).
 
 \section{TOTAL SPAWN CALCULATIONS}\label{secTotal}
 
-This section describes step \ref{tIndex} (\autoref{figFlow}).
+This section describes step \ref{tIndex} in \autoref{figFlow}.
 The total spawn index in spawn $s$ (\autoref{tabNotationIndices}) is
 \begin{equation}\label{eqTotIndSLRY}
-B_{s_{nry}}' = \sum_{x_{snry}=1}^{X_{snry}} B_{x_{snry}}',
+B_{s_{nry}}' = \sum_{x_{snry}=1}^{X_{snry}} B_{{xs}_{nry}}',
 \end{equation}
-where $B_x'$ is the spawn index for
+where $B_{xs}'$ is the spawn index for
 surface, Macrocystis, and understory spawn surveys from
 \autoref{eqSurfIndS}, \autoref{eqMacroIndS}, and \autoref{eqUnderIndS},
-respectively, and
-$B_s'$ is in tonnes (\autoref{figFlow}, step \ref{tIndex}).
+respectively,
+$X$ is the number of spawn survey types in spawn $s$, and
+$B_s'$ is in tonnes (step \ref{tIndex} in \autoref{figFlow}).
 
 \begin{table}
 \centering
@@ -1783,7 +1787,9 @@ Finally, we aggregate the total spawn index by SAR $r$ and year $y$
 B_{ry}' = \sum_{n_{ry}=1}^{N_{ry}} \sum_{s_{nry}=1}^{S_{nry}} B_{s_{nry}}',
 \end{equation}
 where $B_s'$ is the total spawn index from \autoref{eqTotIndSLRY},
-and $B_{ry}'$ is a relative index of combined sex spawning biomass
+$S$ is the number of spawns in location $n$,
+$N$ is the number of locations in SAR $r$, and
+$B_{ry}'$ is a relative index of combined sex spawning biomass
 for SAR $r$ and year $y$ in tonnes.
 
 \subsection{SCALED BIOMASS}\label{secScaled}
