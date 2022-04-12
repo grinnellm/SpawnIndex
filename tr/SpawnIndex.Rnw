@@ -1206,7 +1206,7 @@ The total number of egg layers in sample $j$ is
 \begin{equation}\label{eqSurfLayersJS}
 E_{j_{xsnry}} = \sum_{i_{jxsnry}=1}^{I_{jxsnry}} E_{i_{jxsnry}},
 \end{equation}
-where $E_i$ is the number of egg layers in substrate $i$ from \autoref{eqSurfLayersIJS}, and
+where $E_i$ is the number of egg layers in substrate $i$ from \autoref{eqSurfLayersIJS} and
 $E_j$ is in number of egg layers.
 For the time period when surveyors recorded spawn `intensity' categories
 instead of direct egg layer estimates,
@@ -1343,7 +1343,9 @@ We calculate the area in transect $t$ as
 \begin{equation}\label{eqMacroAreaTS}
 A_{t_{xsnry}} = W_{t_{xsnry}} \chi_{t_{xsnry}}
 \end{equation}
-in square metres.
+where $W_t$ is spawn width in metres,
+$\chi_t$ is transect swath in metres, and
+$A_t$ is in square metres.
 In addition, divers estimate summary statistics for
 mature Macrocystis plants $p$ along transect $t$:
 mean height $\mean{H_{t_{xsnry}}}$ in metres, and
@@ -1352,7 +1354,7 @@ We calculate the total number of stalks $K$ in transect $t$ as
 \begin{equation}\label{eqMacroStalksTS}
 K_{t_{xsnry}} = \sum_{p_{txsnry}=1}^{P_{txsnry}} K_{p_{txsnry}},
 \end{equation}
-where $K_p$ is the number of stalks on plant $p$, and
+where $K_p$ is the number of stalks on plant $p$ and
 $K_t$ is in number of stalks.
 
 \subsection{SPAWN OBSERVATIONS AND CALCULATIONS}\label{secMacroS}
@@ -1759,8 +1761,7 @@ B_{s_{nry}}' = \sum_{x_{snry}=1}^{X_{snry}} B_{{xs}_{nry}}',
 where $B_{xs}'$ is the spawn index for
 surface, Macrocystis, and understory spawn surveys from
 \autoref{eqSurfIndS}, \autoref{eqMacroIndS}, and \autoref{eqUnderIndS},
-respectively,
-$X$ is the number of spawn survey types in spawn $s$, and
+respectively and
 $B_s'$ is in tonnes (step \ref{tIndex} in \autoref{figFlow}).
 
 \begin{table}
@@ -1786,9 +1787,7 @@ Finally, we aggregate the total spawn index by SAR $r$ and year $y$
 \begin{equation}\label{eqTotIndRY}
 B_{ry}' = \sum_{n_{ry}=1}^{N_{ry}} \sum_{s_{nry}=1}^{S_{nry}} B_{s_{nry}}',
 \end{equation}
-where $B_s'$ is the total spawn index from \autoref{eqTotIndSLRY},
-$S$ is the number of spawns in location $n$,
-$N$ is the number of locations in SAR $r$, and
+where $B_s'$ is the total spawn index from \autoref{eqTotIndSLRY} and
 $B_{ry}'$ is a relative index of combined sex spawning biomass
 for SAR $r$ and year $y$ in tonnes.
 
@@ -1883,7 +1882,7 @@ Then we aggregate the relative biomass by SAR $r$ and year $y$
 \begin{equation}\label{eqSOKBioRY}
 B_{ry}' = \sum_{g_{ry}=1}^{G_{ry}} B_{g_{ry}}',
 \end{equation}
-where $B_g'$ is the relative biomass for fishery $g$ from \autoref{eqSOKBioGRY}, and
+where $B_g'$ is the relative biomass for fishery $g$ from \autoref{eqSOKBioGRY} and
 $B_{ry}'$ is in tonnes.
 Thus, $B_{ry}'$ is the relative biomass of \fishName{} that produced eggs
 which were removed by SOK fisheries in SAR $r$ and year $y$ in tonnes.
