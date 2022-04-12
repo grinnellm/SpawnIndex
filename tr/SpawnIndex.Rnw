@@ -228,7 +228,7 @@ buff_sa <- 3000
 # Buffer for Section map
 buff_sec <- 1000
 # Year (for spawn index)
-yr_index <- 2020
+yr_index <- 2021
 # Calculate spawn summary in current year by location code
 spawn_by_loc_xy <- spawnRaw %>%
   filter(Year == yr_index, StatArea == zoom_sa, Section == zoom_sec) %>%
@@ -436,7 +436,7 @@ map_sec <- base_map +
     ylim = c(ext_sec$ymin, ext_sec$ymax), default = TRUE
   ) +
   geom_point(
-    data = spawn_by_loc_xy, aes(colour = TotalSI), size = 3, alpha = 0.5
+    data = spawn_by_loc_xy, aes(colour = TotalSI), size = 3, alpha = 0.75
   ) +
   scale_colour_viridis(labels = comma) +
   labs(colour = "Spawn\nindex (t)") +
@@ -462,7 +462,7 @@ map_sa <- base_map +
   ) +
   geom_path(
     data = filter(shapes$secDF, id == zoom_sec), aes(group = Section),
-    size = 0.75, colour = "black"
+    size = 1, colour = "black"
   ) +
   geom_label(
     data = filter(shapes$secCentDF, Section %in% sections_sa),
@@ -487,7 +487,7 @@ map_reg <- base_map +
   ) +
   geom_path(
     data = filter(shapes$saDF, id == zoom_sa), aes(group = StatArea),
-    size = 0.75, colour = "black"
+    size = 1, colour = "black"
   ) +
   geom_label_repel(
     data = shapes$saCentDF, alpha = 0.75,
@@ -504,19 +504,22 @@ ggsave(
 \centering
 \begin{subfigure}[t]{0.32\linewidth}
 \includegraphics[width=\linewidth]{knitr-figs/MapSection.png}
-\caption{Spawn index in tonnes (t) by Location in Section \Sexpr{zoom_sec}, \Sexpr{r_name} SAR.}
+\caption{Spawn index in tonnes (t) by Location in Section \Sexpr{zoom_sec},
+Statistical Area \Sexpr{zoom_sa}, \Sexpr{r_name} SAR.}
 \label{figRegionSec}
 \end{subfigure}
 \hfill
 \begin{subfigure}[t]{0.32\linewidth}
 \includegraphics[width=\linewidth]{knitr-figs/MapStatArea.png}
-\caption{Sections (Sec) in Statistical Area \Sexpr{zoom_sa}, \Sexpr{r_name} SAR.}
+\caption{Sections (Sec) in Statistical Area \Sexpr{zoom_sa}, \Sexpr{r_name} SAR.
+Section \Sexpr{zoom_sec} has a thicker border line.}
 \label{figRegionSA}
 \end{subfigure}
 \hfill
 \begin{subfigure}[t]{0.32\linewidth}
 \includegraphics[width=\linewidth]{knitr-figs/MapRegion.png}
-\caption{Statistical Areas (SA) in the \Sexpr{r_name} SAR.}
+\caption{Statistical Areas (SA) in the \Sexpr{r_name} SAR.
+Statistical Area \Sexpr{zoom_sa} has a thicker border line.}
 \label{figRegionReg}
 \end{subfigure}
 \caption[\fishName{} spawn index by Location, as well as Sections and Statistical Areas in the \Sexpr{reg_name_long}]
@@ -2266,7 +2269,7 @@ $W_t$ is the corrected understory spawn width in metres (\autoref{tabNotationWid
 Instead of updating the database permanently,
 we adjust spawn width in the \textbf{R} package to be transparent, and
 to prevent mismatches between the original data sheets and databases.
-It is now standard practice to re-measure transect segments annually
+DFO staff now re-measure transect segments annually
 to ensure that this issue does not reoccur
 due to another change in lead line manufacturing.
 
@@ -2291,6 +2294,7 @@ k_width_fac <- under_width_facs %>%
     escape = FALSE, digits = c(0, 3, 3, 3, 3, 3, 3, 3)
   ) %>%
   row_spec(0, bold = TRUE) %>%
+  add_header_above(header = c("", "Major" = 5, "Minor" = 2), bold = TRUE) %>%
   add_header_above(header = c("", "SAR" = 7), bold = TRUE)
 # Print the table
 k_width_fac
