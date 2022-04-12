@@ -512,18 +512,18 @@ Statistical Area \Sexpr{zoom_sa}, \Sexpr{r_name} SAR.}
 \begin{subfigure}[t]{0.32\linewidth}
 \includegraphics[width=\linewidth]{knitr-figs/MapStatArea.png}
 \caption{Sections (Sec) in Statistical Area \Sexpr{zoom_sa}, \Sexpr{r_name} SAR.
-Section \Sexpr{zoom_sec} has a thicker border line.}
+Section \Sexpr{zoom_sec} is emphasized with a thick boundary line.}
 \label{figRegionSA}
 \end{subfigure}
 \hfill
 \begin{subfigure}[t]{0.32\linewidth}
 \includegraphics[width=\linewidth]{knitr-figs/MapRegion.png}
 \caption{Statistical Areas (SA) in the \Sexpr{r_name} SAR.
-Statistical Area \Sexpr{zoom_sa} has a thicker border line.}
+Statistical Area \Sexpr{zoom_sa} is emphasized with a thick boundary line.}
 \label{figRegionReg}
 \end{subfigure}
 \caption[\fishName{} spawn index by Location, as well as Sections and Statistical Areas in the \Sexpr{reg_name_long}]
-{\fishName{} spawn index by Location in \Sexpr{yr_index} (\subref{figRegionSec}), Sections (\subref{figRegionSA}), and Statistical Areas (\subref{figRegionReg}) in the \Sexpr{reg_name_long} (\Sexpr{r_name}) stock assessment region (SAR; \autoref{figBC}).}
+{\fishName{} spawn index by Location in \Sexpr{yr_index} (\subref{figRegionSec}), as well as Sections (\subref{figRegionSA}) and Statistical Areas (\subref{figRegionReg}) in the \Sexpr{reg_name_long} (\Sexpr{r_name}) stock assessment region (SAR; \autoref{figBC}).}
 \label{figRegion}
 \end{figure}
 
