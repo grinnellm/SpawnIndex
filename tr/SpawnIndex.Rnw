@@ -1881,21 +1881,23 @@ We estimate the relative biomass of \fishName{} that spawned and produced eggs
 which were removed from the population
 by SOK fishery $g$ (\autoref{tabNotationIndices}) as
 \begin{equation}\label{eqSOKBioGRY}
-B_{g_{ry}}' = \frac{H_{g_{ry}} \left(1 - \nu\right) \frac{1}{1+\upsilon}} {w \theta},
+B_{gry}' = \frac{H_{gry} \left(1 - \nu\right) \frac{1}{1+\upsilon}} {w \theta},
 \end{equation}
-where $H_g$ is the weight in kilograms of \fishName{} SOK harvest in fishery $g$,
+where $H_{gry}$ is the weight in kilograms of \fishName{} SOK harvest
+in fishery $g$,
 $\nu$ is the proportion of SOK product weight that is Macrocystis kelp,
 $\upsilon$ is the SOK product weight increase due to brining as a proportion,
 $w$ is the average weight in kilograms of a fertilized egg,
 $\theta$ is the egg conversion factor from \autoref{eqECF}, and
-$B_g'$ is in tonnes (\autoref{tabNotationSOK}).
+$B_{gry}'$ is in tonnes (\autoref{tabNotationSOK}).
 Then we aggregate the relative biomass by SAR $r$ and year $y$
 \begin{equation}\label{eqSOKBioRY}
-B_{ry}' = \sum_{g=1}^{G_{ry}} B_{g_{ry}}',
+B_{\cdot ry}' = \sum_{g=1}^{G_{ry}} B_{gry}',
 \end{equation}
-where $B_g'$ is the relative biomass for fishery $g$ from \autoref{eqSOKBioGRY} and
-$B_{ry}'$ is in tonnes.
-Thus, $B_{ry}'$ is the relative biomass of \fishName{} that produced eggs
+where $B_{gry}'$ is the relative biomass for fishery $g$
+from \autoref{eqSOKBioGRY} and
+$B_{\cdot ry}'$ is in tonnes.
+Thus, $B_{\cdot ry}'$ is the relative biomass of \fishName{} that produced eggs
 which were removed by SOK fisheries in SAR $r$ and year $y$ in tonnes.
 
 \begin{table}
