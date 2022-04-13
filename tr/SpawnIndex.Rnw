@@ -735,7 +735,7 @@ Two steps are required to calculate mean understory egg density
 in each surveyed spawn $s$ (\autoref{tabNotationIndices}).
 First, mean egg density for transect $t$ is
 \begin{equation}\label{eqStatRhoT}
-\mean{\rho_{t_{xsnry}}} = \frac{1}{Q_{txsnry}} \sum_{q_{txsnry}=1}^{Q_{txsnry}} \rho_{q_{txsnry}},
+\mean{\rho_{t_{xsnry}}} = \frac{1}{Q_{txsnry}} \sum_{q=1}^{Q_{txsnry}} \rho_{q_{txsnry}},
 \end{equation}
 where $\rho_q$ is egg density in thousands of eggs per square metre (m) for quadrat $q$ ($10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$),
 $Q$ is the number of quadrats (\autoref{tabNotationStat}), and
@@ -743,13 +743,13 @@ $\mean{\rho_t}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
 Before we calculate the mean egg density for spawn $s$,
 we determine the mean number of potential quadrats in spawn $s$
 \begin{equation}\label{eqStatQSPrime}
-\mean{Q_{xsnry}'} = \frac{1}{T_{xsnry}} \sum_{t_{xsnry}=1}^{T_{xsnry}} Q_{txsnry}',
+\mean{Q_{xsnry}'} = \frac{1}{T_{xsnry}} \sum_{t=1}^{T_{xsnry}} Q_{txsnry}',
 \end{equation}
 where $Q'$ is the number of potential quadrats
 (i.e., a function of spawn width).
 Then, we calculate mean egg density in eggs per square metre for spawn $s$
 \begin{equation}\label{eqStatRhoS}
-\mean{\rho_{s_{nry}}} = \frac{1}{T_{xsnry}\mean{Q_{xsnry}'}}\sum_{t_{xsnry}=1}^{T_{xsnry}} Q_{txsnry}' \mean{\rho_{t_{xsnry}}},
+\mean{\rho_{s_{nry}}} = \frac{1}{T_{xsnry}\mean{Q_{xsnry}'}}\sum_{t=1}^{T_{xsnry}} Q_{txsnry}' \mean{\rho_{t_{xsnry}}},
 \end{equation}
 where $T$ is the number of transects in spawn $s$,
 $\mean{Q'}$ is the mean number of potential quadrats from \autoref{eqStatQSPrime},
@@ -760,10 +760,10 @@ The egg density estimator from \autoref{eqStatRhoS} is unbiased,
 and the variance is
 \begin{multline}\label{eqStatSigmaS}
 \sigma_{s_{nry}}^2 =
-\frac{T_{xsnry}'-T_{xsnry}}{T_{xsnry}T_{xsnry}'} \sum_{t_{xsnry}=1}^{T_{xsnry}}
+\frac{T_{xsnry}'-T_{xsnry}}{T_{xsnry}T_{xsnry}'} \sum_{t=1}^{T_{xsnry}}
 \frac{\left(Q_{txsnry}'\mean{\rho_{t_{xsnry}}}-\mean{Q_{s_{nry}}'}\mean{\rho_{s_{nry}}}\right)^2}
 {\mean{Q_{s_{nry}}'}^2\left(T_{xsnry}-1\right)} \\
-+ \frac{f_{t_{xsnry}}}{T_{xsnry}^2} \sum_{t_{xsnry}=1}^{T_{xsnry}}
++ \frac{f_{t_{xsnry}}}{T_{xsnry}^2} \sum_{t=1}^{T_{xsnry}}
 \left(\frac{Q_{txsnry}'}{\mean{Q_{s_{nry}}'}}\right)^2
 \frac{\left(1-f_{q_{txsnry}}\right)\sigma_{t_{xsnry}}^2}{Q_{txsnry}},
 \end{multline}
@@ -781,7 +781,7 @@ f_{q_{txsnry}} = \frac{Q_{txsnry}}{Q_{txsnry}'},
 and
 $\sigma_{t}^2$ is the within transect egg density variance
 \begin{equation}\label{eqStatSigmaT}
-\sigma_{t_{xsnry}}^2 = \frac{1}{{Q_{txsnry}-1}} \sum_{q_{txsnry}=1}^{Q_{txsnry}}
+\sigma_{t_{xsnry}}^2 = \frac{1}{{Q_{txsnry}-1}} \sum_{q=1}^{Q_{txsnry}}
 \left(\rho_{q_{txsnry}} - \mean{\rho_{t_{xsnry}}}\right)^2,
 \end{equation}
 where $\rho_{q}$ is egg density for quadrat $q$, and
@@ -1207,7 +1207,7 @@ $\phi_i$ is the proportion of substrate $i$ covered with spawn, and
 $E_i$ is in number of egg layers.
 The total number of egg layers in sample $j$ is
 \begin{equation}\label{eqSurfLayersJS}
-E_{j_{xsnry}} = \sum_{i_{jxsnry}=1}^{I_{jxsnry}} E_{i_{jxsnry}},
+E_{j_{xsnry}} = \sum_{i=1}^{I_{jxsnry}} E_{i_{jxsnry}},
 \end{equation}
 where $E_i$ is the number of egg layers in substrate $i$ from \autoref{eqSurfLayersIJS} and
 $E_j$ is in number of egg layers.
@@ -1265,7 +1265,7 @@ print(egg_dens_sub_plot)
 
 The mean egg density in spawn $s$ (step \ref{sSpawn} in \autoref{figFlow}) is
 \begin{equation}\label{eqSurfDensS}
-\mean{\rho_{{xs}_{nry}}} = \frac{1}{J_{xsnry}} \sum_{j_{xsnry}=1}^{J_{xsnry}} \rho_{j_{xsnry}},
+\mean{\rho_{{xs}_{nry}}} = \frac{1}{J_{xsnry}} \sum_{j=1}^{J_{xsnry}} \rho_{j_{xsnry}},
 \end{equation}
 where $\rho_j$ is egg density in sample $j$ from \autoref{eqSurfDensJS},
 $J$ is the number of samples, and
@@ -1355,7 +1355,7 @@ mean height $\mean{H_{t_{xsnry}}}$ in metres, and
 mean number of egg layers $\mean{E_{t_{xsnry}}}$.
 We calculate the total number of stalks $K$ in transect $t$ as
 \begin{equation}\label{eqMacroStalksTS}
-K_{t_{xsnry}} = \sum_{p_{txsnry}=1}^{P_{txsnry}} K_{p_{txsnry}},
+K_{t_{xsnry}} = \sum_{p=1}^{P_{txsnry}} K_{p_{txsnry}},
 \end{equation}
 where $K_p$ is the number of stalks on plant $p$ and
 $K_t$ is in number of stalks.
@@ -1368,14 +1368,14 @@ If $L_{xs}'$ is inadvertently not recorded,
 we set $L_{xs}'$ to the spawn length $L_{xs}$.
 The mean width of spawn $s$ is
 \begin{equation}\label{eqMacroWidthS}
-\mean{W_{{xs}_{nry}}} = \frac{1}{T_{xsnry}} \sum_{t_{xsnry}=1}^{T_{xsnry}} W_{t_{xsnry}},
+\mean{W_{{xs}_{nry}}} = \frac{1}{T_{xsnry}} \sum_{t=1}^{T_{xsnry}} W_{t_{xsnry}},
 \end{equation}
 where $W_t$ is the spawn width at transect $t$,
 $T$ is the number of transects in spawn $s$, and
 $\mean{W_{xs}}$ is in metres.
 The total area of transects in spawn $s$ is
 \begin{equation}\label{eqMacroAreaS}
-A_{{xs}_{nry}} = \sum_{t_{xsnry}=1}^{T_{xsnry}} A_{t_{xsnry}},
+A_{{xs}_{nry}} = \sum_{t=1}^{T_{xsnry}} A_{t_{xsnry}},
 \end{equation}
 where $A_t$ is the transect area from \autoref{eqMacroAreaTS},
 and $A_{xs}$ is in square metres.
@@ -1387,14 +1387,14 @@ plant height, and
 number of stalks per plant.
 First, the mean number of egg layers in spawn $s$ is
 \begin{equation}\label{eqMacroLayersS}
-\mean{E_{{xs}_{nry}}} = \frac{1}{T_{xsnry}} \sum_{t_{xsnry}=1}^{T_{xsnry}} \mean{E_{t_{xsnry}}},
+\mean{E_{{xs}_{nry}}} = \frac{1}{T_{xsnry}} \sum_{t=1}^{T_{xsnry}} \mean{E_{t_{xsnry}}},
 \end{equation}
 where $\mean{E_t}$ is the mean number of egg layers in transect $t$,
 $T$ is the number of transects in spawn $s$, and
 $\mean{E_{xs}}$ is in number of egg layers.
 Second, the mean plant height in spawn $s$ is
 \begin{equation}\label{eqMacroHeightS}
-\mean{H_{{xs}_{nry}}} = \frac{1}{T_{xsnry}} \sum_{t_{xsnry}=1}^{T_{xsnry}} \mean{H_{t_{xsnry}}},
+\mean{H_{{xs}_{nry}}} = \frac{1}{T_{xsnry}} \sum_{t=1}^{T_{xsnry}} \mean{H_{t_{xsnry}}},
 \end{equation}
 where $\mean{H_t}$ is the mean plant height in transect $t$,
 $T$ is the number of transects in spawn $s$, and
@@ -1403,14 +1403,14 @@ The third metric is the number of stalks per plant,
 which we calculate in three steps.
 The total number of observed stalks in spawn $s$ is
 \begin{equation}\label{eqMacroStalksS}
-K_{{xs}_{nry}} = \sum_{t_{xsnry}=1}^{T_{xsnry}} K_{t_{xsnry}},
+K_{{xs}_{nry}} = \sum_{t=1}^{T_{xsnry}} K_{t_{xsnry}},
 \end{equation}
 where $K_t$ is the number of stalks in transect $t$
 from \autoref{eqMacroStalksTS} and
 $K_{xs}$ is in number of stalks.
 The total number of observed plants in spawn $s$ is
 \begin{equation}\label{eqMacroPlantsS}
-P_{{xs}_{nry}} = \sum_{t_{xsnry}=1}^{T_{xsnry}} P_{t_{xsnry}},
+P_{{xs}_{nry}} = \sum_{t=1}^{T_{xsnry}} P_{t_{xsnry}},
 \end{equation}
 where $P_t$ is the number of plants in transect $t$ and
 $P_{xs}$ is in number of plants.
@@ -1689,7 +1689,7 @@ print(egg_dens_alg_plot)
 The total understory egg density for
 quadrat $q$ in transect $t$ and spawn $s$ is
 \begin{equation}\label{eqUnderDensQTS}
-\rho_{q_{txsnry}} = \rho_{i_{qtxsnry}'} + \sum_{v_{qtxsnry}=1}^{V_{qtxsnry}} \rho_{v_{qtxsnry}},
+\rho_{q_{txsnry}} = \rho_{i_{qtxsnry}'} + \sum_{v=1}^{V_{qtxsnry}} \rho_{v_{qtxsnry}},
 \end{equation}
 where $\rho_{i'}$ is substrate egg density from \autoref{eqUnderDensSubQTS},
 $\rho_v$ is egg density on algae $v$ from \autoref{eqUnderDensAlgVQTS}, and
@@ -1702,7 +1702,7 @@ and can be combined.
 At the transect level (step \ref{uTrans} in \autoref{figFlow}),
 the mean understory egg density in transect $t$ is
 \begin{equation}\label{eqUnderDensTS}
-\mean{\rho_{t_{xsnry}}} = \frac{1}{Q_{txsnry}} \sum_{q_{txsnry}=1}^{Q_{txsnry}} \rho_{q_{txsnry}},
+\mean{\rho_{t_{xsnry}}} = \frac{1}{Q_{txsnry}} \sum_{q=1}^{Q_{txsnry}} \rho_{q_{txsnry}},
 \end{equation}
 where $Q$ is the number of quadrats in transect $t$,
 $\rho_q$ is total understory egg density in quadrat $q$ from \autoref{eqUnderDensQTS}, and
@@ -1717,7 +1717,7 @@ understory surveys between \Sexpr{min(under_width_facs$Year)} and
 At the spawn level (step \ref{uSpawn} in \autoref{figFlow}),
 the mean width of spawn $s$ is
 \begin{equation}\label{eqUnderWidthMuS}
-\mean{W_{{xs}_{nry}}} = \frac{1}{T_{xsnry}} \sum_{t_{xsnry}=1}^{T_{xsnry}} W_{t_{xsnry}},
+\mean{W_{{xs}_{nry}}} = \frac{1}{T_{xsnry}} \sum_{t=1}^{T_{xsnry}} W_{t_{xsnry}},
 \end{equation}
 where $W_t$ is the spawn width at transect $t$,
 $T$ is the number of transects in spawn $s$, and
@@ -1735,8 +1735,8 @@ We calculate a weighted mean because spawn width varies along the spawn length;
 a weighted mean ensures that transects contribute proportionally to their area.
 The mean egg density in spawn $s$ is
 \begin{equation}\label{eqUnderDensMuS}
-\mean{\rho_{{xs}_{nry}}} = \frac{\sum_{t_{xsnry}=1}^{T_{xsnry}} \mean{\rho_{t_{xsnry}}} W_{t_{xsnry}}}
-{\sum_{t_{xsnry}=1}^{T_{xsnry}} W_{t_{xsnry}}},
+\mean{\rho_{{xs}_{nry}}} = \frac{\sum_{t=1}^{T_{xsnry}} \mean{\rho_{t_{xsnry}}} W_{t_{xsnry}}}
+{\sum_{t=1}^{T_{xsnry}} W_{t_{xsnry}}},
 \end{equation}
 where $\mean{\rho_t}$ is the mean understory egg density in transect $t$
 from \autoref{eqUnderDensTS},
@@ -1759,7 +1759,7 @@ $B_{xs}'$ is in tonnes (step \ref{uInd} in \autoref{figFlow}).
 This section describes step \ref{tIndex} in \autoref{figFlow}.
 The total spawn index in spawn $s$ (\autoref{tabNotationIndices}) is
 \begin{equation}\label{eqTotIndSLRY}
-B_{s_{nry}}' = \sum_{x_{snry}=1}^{X_{snry}} B_{{xs}_{nry}}',
+B_{s_{nry}}' = \sum_{x=1}^{X_{snry}} B_{{xs}_{nry}}',
 \end{equation}
 where $B_{xs}'$ is the spawn index for
 surface, Macrocystis, and understory spawn surveys from
@@ -1788,7 +1788,7 @@ $B$ & Scaled biomass & t & \\
 
 Finally, we aggregate the total spawn index by SAR $r$ and year $y$
 \begin{equation}\label{eqTotIndRY}
-B_{ry}' = \sum_{n_{ry}=1}^{N_{ry}} \sum_{s_{nry}=1}^{S_{nry}} B_{s_{nry}}',
+B_{ry}' = \sum_{n=1}^{N_{ry}} \sum_{s=1}^{S_{nry}} B_{s_{nry}}',
 \end{equation}
 where $B_s'$ is the total spawn index from \autoref{eqTotIndSLRY} and
 $B_{ry}'$ is a relative index of combined sex spawning biomass
@@ -1883,7 +1883,7 @@ $\theta$ is the egg conversion factor from \autoref{eqECF}, and
 $B_g'$ is in tonnes (\autoref{tabNotationSOK}).
 Then we aggregate the relative biomass by SAR $r$ and year $y$
 \begin{equation}\label{eqSOKBioRY}
-B_{ry}' = \sum_{g_{ry}=1}^{G_{ry}} B_{g_{ry}}',
+B_{ry}' = \sum_{g=1}^{G_{ry}} B_{g_{ry}}',
 \end{equation}
 where $B_g'$ is the relative biomass for fishery $g$ from \autoref{eqSOKBioGRY} and
 $B_{ry}'$ is in tonnes.
