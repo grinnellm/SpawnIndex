@@ -595,17 +595,17 @@ combined sex spawning biomass (\autoref{secTotal}).
 \node [process, below=of mExt] (mPlant) {\labelMacro{mPlant} Plant $p$ observations for mature plants (e.g., number of stalks; \S{}~\ref{secMacroP}).};
 \node [process, below=of mPlant] (mTrans) {\labelMacro{mTrans} Transect $t$ observations and calculations (e.g., spawn width, mean number of egg layers, mean plant height; \S{}~\ref{secMacroT}).};
 \node [process, below=of mTrans] (mSpawn) {\labelMacro{mSpawn} Spawn $s$ observations and calculations (e.g., Macrocystis bed length, mean spawn width, mean egg density; \S{}~\ref{secMacroS}).};
-\node [inout, below=of mSpawn] (mInd) {\labelMacro{mInd} Macrocystis spawn index $B_{{xs}_{nry}}'$ (Eq~\ref{eqMacroIndS}).};
+\node [inout, below=of mSpawn] (mInd) {\labelMacro{mInd} Macrocystis spawn index $B_{xsnry}'$ (Eq~\ref{eqMacroIndS}).};
 \node [terminal, label={[text width=10em] \textbf{Surface (S)}}, left=of mExt] (sExt) {\labelSurf{sExt} Determine spatial extent and sample locations (along transects if possible; \S{}~\ref{secSurfProt}).};
 \node [process, left=of mPlant] (sSamp) {\labelSurf{sSamp} Sample $j$ observations and calculations (e.g., number of egg layers, substrate type $i$; \S{}~\ref{secSurfJ}).};
 \node [process, below=of sSamp, left=of mSpawn] (sSpawn) {\labelSurf{sSpawn} Spawn $s$ observations and calculations (e.g., spawn length, spawn width, mean egg density; \S{}~\ref{secSurfS}).};
-\node [inout, below=of sSpawn, left=of mInd] (sInd) {\labelSurf{sInd} Surface spawn index $B_{{xs}_{nry}}'$ (Eq~\ref{eqSurfIndS}).};
+\node [inout, below=of sSpawn, left=of mInd] (sInd) {\labelSurf{sInd} Surface spawn index $B_{xsnry}'$ (Eq~\ref{eqSurfIndS}).};
 \node [terminal, label={[text width=10em] \textbf{Understory (U)}}, right=of mExt] (uExt) {\labelUnder{uExt} Determine spatial extent, transect locations, and quadrat spacing (\S{}~\ref{secUnderProt}).};
 \node [process, below=of uExt, right=of mPlant] (uQuad) {\labelUnder{uQuad} Quadrat $q$ observations and calculations (e.g., number of egg layers, algae type $v$; \S{}~\ref{secUnderQ}).};
 \node [process, below=of uQuad, right=of mTrans] (uTrans) {\labelUnder{uTrans} Transect $t$ observations and calculations weighted by spawn width (e.g., spawn width, mean egg density; \S{}~\ref{secUnderT}).};
 \node [process, below=of uTrans, right=of mSpawn] (uSpawn) {\labelUnder{uSpawn} Spawn $s$ observations and calculations (e.g., algae bed length, mean spawn width, egg density; \S{}~\ref{secUnderS}).};
-\node [inout, below=of uSpawn, right=of mInd] (uInd) {\labelUnder{uInd} Understory spawn index $B_{{xs}_{nry}}'$ (Eq~\ref{eqUnderIndS}).};
-\node [inout, below=of mInd] (tIndex) {\labelTotal{tIndex} Total spawn index $B_{s_{nry}}'$ (\S{}~\ref{secTotal}, Eq~\ref{eqTotIndSLRY}).};
+\node [inout, below=of uSpawn, right=of mInd] (uInd) {\labelUnder{uInd} Understory spawn index $B_{xsnry}'$ (Eq~\ref{eqUnderIndS}).};
+\node [inout, below=of mInd] (tIndex) {\labelTotal{tIndex} Total spawn index $B_{\cdot snry}'$ (\S{}~\ref{secTotal}, Eq~\ref{eqTotIndSLRY}).};
 \draw [line] (mExt) -- (mPlant);
 \draw [line] (mPlant) -- (mTrans);
 \draw [line] (mTrans) -- (mSpawn);
@@ -1200,17 +1200,20 @@ Each sample $j$ (step \ref{sSamp} in \autoref{figFlow}) can have
 one or more substrate types $i$.
 The number of egg layers in substrate $i$ is
 \begin{equation}\label{eqSurfLayersIJS}
-E_{i_{jxsnry}} = E_{i_{jxsnry}}' \phi_{i_{jxsnry}},
+E_{ijxsnry} = E_{ijxsnry}' \phi_{ijxsnry},
 \end{equation}
-where $E_i'$ is the number of egg layers on substrate $i$,
-$\phi_i$ is the proportion of substrate $i$ covered with spawn, and
-$E_i$ is in number of egg layers.
+where $E_{ijxsnry}'$ is the number of egg layers on substrate $i$,
+$\phi_{ijxsnry}$ is the proportion of substrate $i$ covered with spawn, and
+$E_{ijxsnry}$ is in number of egg layers.
 The total number of egg layers in sample $j$ is
 \begin{equation}\label{eqSurfLayersJS}
-E_{j_{xsnry}} = \sum_{i=1}^{I_{jxsnry}} E_{i_{jxsnry}},
+E_{\cdot jxsnry} = \sum_{i=1}^{I_{jxsnry}} E_{ijxsnry},
 \end{equation}
-where $E_i$ is the number of egg layers in substrate $i$ from \autoref{eqSurfLayersIJS} and
-$E_j$ is in number of egg layers.
+where $E_{ijxsnry}$ is the number of egg layers in substrate $i$
+from \autoref{eqSurfLayersIJS} and
+$E_{\cdot jxsnry}$ is in number of egg layers.
+Throughout this report, the subscript `$\cdot$' indicates a summation
+(e.g., $E_{\cdot jxsnry}$ is the sum of the $E_{ijxsnry}$ values).
 For the time period when surveyors recorded spawn `intensity' categories
 instead of direct egg layer estimates,
 we convert intensity to number of egg layers $E_j$ (\autoref{tab:Intensity}).
@@ -1222,14 +1225,17 @@ surface egg density is in thousands per square metre
 Likewise, we report eggs in thousands (i.e., $10^3 \cdot \text{eggs}$)
 in this document and in the \textbf{R} package.}
 \begin{equation}\label{eqSurfDensJS}
-\rho_{j_{xsnry}} = \alpha + \beta E_{j_{xsnry}},
+\rho_{jxsnry} = \alpha + \beta E_{\cdot jxsnry},
 \end{equation}
 where $\alpha$ is the regression intercept,
 $\beta$ is the regression slope,
-$E_j$ is the total number of egg layers in sample $j$ from \autoref{eqSurfLayersJS}, and
-$\rho_j$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$ (\autoref{figSurfDensJS}).
-Note that $E_j = 0 \Rightarrow \rho_j = 0$ to avoid having
-$\rho_j = \alpha$ when there are no egg layers (i.e., $E_j = 0$).
+$E_{\cdot jxsnry}$ is the total number of egg layers in sample $j$
+from \autoref{eqSurfLayersJS}, and
+$\rho_{jxsnry}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$
+(\autoref{figSurfDensJS}).
+Note that $E_{\cdot jxsnry} = 0 \Rightarrow \rho_{jxsnry} = 0$ to avoid having
+$\rho_{jxsnry} = \alpha$ when there are no egg layers
+(i.e., $E_{\cdot jxsnry} = 0$).
 
 <<SurfDensJS, fig.width=3.5, fig.asp=0.67, fig.lp="fig", echo=FALSE, fig.cap=fig_cap, fig.scap="Egg density for \\fishName{} surface spawn surveys">>=
 # Caption
@@ -1265,17 +1271,19 @@ print(egg_dens_sub_plot)
 
 The mean egg density in spawn $s$ (step \ref{sSpawn} in \autoref{figFlow}) is
 \begin{equation}\label{eqSurfDensS}
-\mean{\rho_{{xs}_{nry}}} = \frac{1}{J_{xsnry}} \sum_{j=1}^{J_{xsnry}} \rho_{j_{xsnry}},
+\rho_{\mean{j} xsnry} = \frac{1}{J_{xsnry}} \sum_{j=1}^{J_{xsnry}} \rho_{jxsnry},
 \end{equation}
-where $\rho_j$ is egg density in sample $j$ from \autoref{eqSurfDensJS},
+where $\rho_{jxsnry}$ is egg density in sample $j$ from \autoref{eqSurfDensJS},
 $J$ is the number of samples, and
-$\mean{\rho_{xs}}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
+$\rho_{\mean{j} xsnry}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
+Throughout this report, the notation `$\mean{x}$' indicates a mean
+(e.g., $\rho_{\mean{j} xsnry}$ is the mean of the $\rho_{jxsnry}$ values).
 Two other metrics are required at the spawn level:
-spawn length $L_{xs}$, and
-spawn width $W_{xs}$, both in metres.
-We set $W_{xs}$ to the first non-missing value of
+spawn length $L$, and
+spawn width $W$, both in metres.
+We set $W$ to the first non-missing value of
 median pool width, median Section width, median SAR width, or
-observed width $W_{xs}'$
+observed width $W'$
 (in that order; \autoref{secWidthSurface}).
 A pool is a group of Locations within a Section that are
 often adjacent,
@@ -1284,13 +1292,13 @@ can be treated as a group with likely similar widths.
 
 The surface spawn index in spawn $s$ is
 \begin{equation}\label{eqSurfIndS}
-B_{{xs}_{nry}}' = \frac{\mean{\rho_{{xs}_{nry}}} L_{{xs}_{nry}} W_{{xs}_{nry}} 10^3} {\theta},
+B_{xsnry}' = \frac{\rho_{\mean{j} xsnry} L_{xsnry} W_{xsnry} 10^3} {\theta},
 \end{equation}
-where $\mean{\rho_{xs}}$ is mean egg density in spawn $s$ from \autoref{eqSurfDensS},
-$L_{xs}$ is length of spawn $s$,
-$W_{xs}$ is width of spawn $s$,
+where $\rho_{\mean{j} xsnry}$ is mean egg density in spawn $s$ from \autoref{eqSurfDensS},
+$L_{xsnry}$ is length of spawn $s$,
+$W_{xsnry}$ is width of spawn $s$,
 $\theta$ is the egg conversion factor from \autoref{eqECF}, and
-$B_{xs}'$ is in tonnes (step \ref{sInd} in \autoref{figFlow}).
+$B_{xsnry}'$ is in tonnes (step \ref{sInd} in \autoref{figFlow}).
 
 \section{MACROCYSTIS SPAWN CALCULATIONS}\label{secMacro}
 
@@ -1759,13 +1767,13 @@ $B_{xs}'$ is in tonnes (step \ref{uInd} in \autoref{figFlow}).
 This section describes step \ref{tIndex} in \autoref{figFlow}.
 The total spawn index in spawn $s$ (\autoref{tabNotationIndices}) is
 \begin{equation}\label{eqTotIndSLRY}
-B_{s_{nry}}' = \sum_{x=1}^{X_{snry}} B_{{xs}_{nry}}',
+B_{\cdot snry}' = \sum_{x=1}^{X_{snry}} B_{xsnry}',
 \end{equation}
-where $B_{xs}'$ is the spawn index for
+where $B_{xsnry}'$ is the spawn index for
 surface, Macrocystis, and understory spawn surveys from
 \autoref{eqSurfIndS}, \autoref{eqMacroIndS}, and \autoref{eqUnderIndS},
 respectively and
-$B_s'$ is in tonnes (step \ref{tIndex} in \autoref{figFlow}).
+$B_{\cdot snry}'$ is in tonnes (step \ref{tIndex} in \autoref{figFlow}).
 
 \begin{table}
 \centering
@@ -1788,9 +1796,9 @@ $B$ & Scaled biomass & t & \\
 
 Finally, we aggregate the total spawn index by SAR $r$ and year $y$
 \begin{equation}\label{eqTotIndRY}
-B_{ry}' = \sum_{n=1}^{N_{ry}} \sum_{s=1}^{S_{nry}} B_{s_{nry}}',
+B_{ry}' = \sum_{n=1}^{N_{ry}} \sum_{s=1}^{S_{nry}} B_{\cdot snry}',
 \end{equation}
-where $B_s'$ is the total spawn index from \autoref{eqTotIndSLRY} and
+where $B_{\cdot snry}'$ is the total spawn index from \autoref{eqTotIndSLRY} and
 $B_{ry}'$ is a relative index of combined sex spawning biomass
 for SAR $r$ and year $y$ in tonnes.
 
