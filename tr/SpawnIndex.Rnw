@@ -1277,7 +1277,7 @@ where $\rho_{jxsnry}$ is egg density in sample $j$ from \autoref{eqSurfDensJS},
 $J$ is the number of samples,
 $\rho_{\mean{j}xsnry}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$, and
 `$\mean{\phantom{x}}$' represents a mean of the index that it covers
-(e.g., $\rho_{\mean{j}xsnry}$ is the mean of the $\rho_{jxsnry}$ values).
+(e.g., mean of $j$ in \autoref{eqSurfDensS}).
 Two other metrics are required at the spawn level:
 spawn length $L$, and
 spawn width $W$, both in metres.
@@ -1539,7 +1539,7 @@ $\rho$ & Egg density & $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$ & \\
 $\vartheta$ & Regression slope for algae & \Sexpr{pars$understory$vartheta}$~10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$ & \cite{Schweigert2005} \\
 $\varrho$ & Regression exponent on $E$ & \Sexpr{pars$understory$varrho} & \cite{Schweigert2005} \\
 $\varsigma$ & Regression exponent on $\phi$ & \Sexpr{pars$understory$varsigma} & \cite{Schweigert2005} \\
-$C$ & Algae coefficient & see \autoref{tab:AlgaeCoefs} & \\
+$C$ & Algae coefficient & See \autoref{tab:AlgaeCoefs} & \\
 $W$ & Spawn width & m & \\
 $\mean{\rho}$ & Mean egg density & $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$ & \\
 $\mean{W}$ & Mean spawn width & m & \\
