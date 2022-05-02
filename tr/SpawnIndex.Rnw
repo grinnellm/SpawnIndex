@@ -1804,15 +1804,15 @@ for SAR $r$ and year $y$ in tonnes.
 
 \subsection{SCALED BIOMASS}\label{secScaled}
 
-We use $B_{ry}'$ as an indicator of relative biomass
+We use $B_{\cdot ry}'$ as an indicator of relative biomass
 in \fishName{} stock assessment models \citeyearpar[DFO][]{DFO2021}.
-We scale $B_{ry}'$ to biomass
+We scale $B_{\cdot ry}'$ to biomass
 \begin{equation}\label{eqAbundRY}
-B_{ry} = \frac{B_{ry}'} {q_{ry}},
+B_{\cdot ry} = \frac{B_{\cdot ry}'} {q_{ry}},
 \end{equation}
-where $B_{ry}'$ is the total spawn index in tonnes from \autoref{eqTotIndRY},
+where $B_{\cdot ry}'$ is the total spawn index in tonnes from \autoref{eqTotIndRY},
 $q_{ry}$ is the spawn index scaling parameter \citeyearpar[DFO][]{DFO2016}, and
-$B_{ry}$ is scaled biomass for SAR $r$ and year $y$ in tonnes.
+$B_{\cdot ry}$ is scaled biomass for SAR $r$ and year $y$ in tonnes.
 To be consistent with stock assessments,
 in this section $q$ represents the spawn index scaling parameter,
 not quadrat number as in other sections of this report.
