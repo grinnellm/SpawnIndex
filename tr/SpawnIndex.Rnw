@@ -1796,10 +1796,10 @@ $B$ & Scaled biomass & t & \\
 
 Finally, we aggregate the total spawn index by SAR $r$ and year $y$
 \begin{equation}\label{eqTotIndRY}
-B_{ry}' = \sum_{n=1}^{N_{ry}} \sum_{s=1}^{S_{nry}} B_{\cdot snry}',
+B_{\cdot ry}' = \sum_{n=1}^{N_{ry}} \sum_{s=1}^{S_{nry}} B_{\cdot snry}',
 \end{equation}
 where $B_{\cdot snry}'$ is the total spawn index from \autoref{eqTotIndSLRY} and
-$B_{ry}'$ is a relative index of combined sex spawning biomass
+$B_{\cdot ry}'$ is a relative index of combined sex spawning biomass
 for SAR $r$ and year $y$ in tonnes.
 
 \subsection{SCALED BIOMASS}\label{secScaled}
