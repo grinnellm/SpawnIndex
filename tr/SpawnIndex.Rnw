@@ -735,62 +735,75 @@ Two steps are required to calculate mean understory egg density
 in each surveyed spawn $s$ (\autoref{tabNotationIndices}).
 First, mean egg density for transect $t$ is
 \begin{equation}\label{eqStatRhoT}
-\rho_{\mean{q}txsnry} = \frac{1}{Q_{txsnry}} \sum_{q=1}^{Q_{txsnry}} \rho_{qtxsnry},
+\mean{\rho}_{\cdot txsnry} =
+\frac{1}{Q_{txsnry}} \sum_{q=1}^{Q_{txsnry}} \rho_{qtxsnry},
 \end{equation}
 where $\rho_{qtxsnry}$ is egg density in thousands of eggs per square metre (m)
-for quadrat $q$ ($10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$;
-\autoref{tabNotationStat}),
+($10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$; \autoref{tabNotationStat}),
 $Q_{txsnry}$ is the number of quadrats, and
-$\rho_{\mean{q}txsnry}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
-Before we calculate the mean egg density for spawn $s$,
-we determine the mean number of potential quadrats in spawn $s$
+$\mean{\rho}_{\cdot txsnry}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
+Throughout this report,
+`$\cdot$' represents a summation over the index that it replaces
+(e.g., summation over $q$ in \autoref{eqStatRhoT}) and
+`$\mean{\phantom{x}}$' represents a mean
+(e.g., mean of $\rho$ in \autoref{eqStatRhoT}).
+Before we calculate mean egg density for spawn $s$,
+we determine the mean number of potential quadrats
+for spawn survey type $x$ in spawn $s$
 \begin{equation}\label{eqStatQSPrime}
-Q_{\mean{t}xsnry}' = \frac{1}{T_{xsnry}} \sum_{t=1}^{T_{xsnry}} Q_{txsnry}',
+\mean{Q}_{\cdot xsnry}' = \frac{1}{T_{xsnry}} \sum_{t=1}^{T_{xsnry}} Q_{txsnry}',
 \end{equation}
 where $Q_{txsnry}'$ is the number of potential quadrats
-(i.e., a function of spawn width), and
+(i.e., a function of spawn width) and
 $T_{xsnry}$ is the number of transects.
-Then, we calculate mean egg density in eggs per square metre for spawn $s$
+Throughout this report,
+`$'$' indicates related variables
+(e.g., $Q'$ is related to $Q$).
+Then, we calculate mean egg density in eggs per square metre
+for spawn survey type $x$ in spawn $s$
 \begin{equation}\label{eqStatRhoS}
-\mean{\rho_{snry}} = \frac{1}{T_{xsnry}Q_{\mean{t}xsnry}'}\sum_{t=1}^{T_{xsnry}} Q_{txsnry}' \rho_{\mean{q}txsnry},
+\mean{\rho}_{\cdot xsnry} =
+\frac{1}{T_{xsnry}\mean{Q}_{\cdot xsnry}'}
+\sum_{t=1}^{T_{xsnry}} Q_{txsnry}' \mean{\rho}_{\cdot txsnry},
 \end{equation}
 where $T_{xsnry}$ is the number of transects,
-$Q_{\mean{t}xsnry}'$ is the mean number of potential quadrats
+$\mean{Q}_{\cdot xsnry}'$ is the mean number of potential quadrats
 from \autoref{eqStatQSPrime},
 $Q_{txsnry}'$ is the number of potential quadrats,
-$\rho_{\mean{q}txsnry}$ is the mean transect egg density from \autoref{eqStatRhoT}, and
-$\mean{\rho_s}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
+$\mean{\rho}_{\cdot txsnry}$ is the mean transect egg density from \autoref{eqStatRhoT}, and
+$\mean{\rho}_{\cdot xsnry}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
 The egg density estimator from \autoref{eqStatRhoS} is unbiased,
 and the variance is
 \begin{multline}\label{eqStatSigmaS}
-\sigma_{snry}^2 =
+\sigma_{\cdot xsnry}^2 =
 \frac{T_{xsnry}'-T_{xsnry}}{T_{xsnry}T_{xsnry}'} \sum_{t=1}^{T_{xsnry}}
-\frac{\left(Q_{txsnry}'\rho_{\mean{q}txsnry}-\mean{Q_{snry}'}\mean{\rho_{snry}}\right)^2}
+\frac{\left(Q_{txsnry}'\rho_{\mean{q}txsnry}
+-\mean{Q_{snry}'}\mean{\rho_{snry}}\right)^2}
 {\mean{Q_{snry}'}^2\left(T_{xsnry}-1\right)} \\
-+ \frac{f_{txsnry}}{T_{xsnry}^2} \sum_{t=1}^{T_{xsnry}}
++ \frac{f_{xsnry}'}{T_{xsnry}^2} \sum_{t=1}^{T_{xsnry}}
 \left(\frac{Q_{txsnry}'}{\mean{Q_{snry}'}}\right)^2
-\frac{\left(1-f_{qtxsnry}\right)\sigma_{txsnry}^2}{Q_{txsnry}},
+\frac{\left(1-f_{txsnry}''\right)\sigma_{txsnry}^2}{Q_{txsnry}},
 \end{multline}
 where $T'$ is the number of potential transects in spawn $s$
 (i.e., a function of spawn length),
 $\rho_{\mean{q}txsnry}$ is the mean transect egg density from \autoref{eqStatRhoT},
 $\mean{\rho_s}$ is the mean spawn egg density from \autoref{eqStatRhoS},
-$f_t$ is the transect sampling fraction for spawn $s$
+$f_{xsnry}'$ is the transect sampling fraction for spawn $s$
 \begin{equation}\label{eqFT}
-f_{txsnry} = \frac{T_{xsnry}}{T_{xsnry}'},
+f_{xsnry}' = \frac{T_{xsnry}}{T_{xsnry}'},
 \end{equation}
-$f_q$ is the quadrat sampling fraction for transect $t$
+$f_{txsnry}''$ is the quadrat sampling fraction for transect $t$
 \begin{equation}\label{eqFQ}
-f_{qtxsnry} = \frac{Q_{txsnry}}{Q_{txsnry}'},
+f_{txsnry}'' = \frac{Q_{txsnry}}{Q_{txsnry}'},
 \end{equation}
 and
-$\sigma_{t}^2$ is the within transect egg density variance
+$\sigma_{txsnry}^2$ is the within transect egg density variance
 \begin{equation}\label{eqStatSigmaT}
 \sigma_{txsnry}^2 = \frac{1}{{Q_{txsnry}-1}} \sum_{q=1}^{Q_{txsnry}}
-\left(\rho_{qtxsnry} - \rho_{\mean{q}txsnry}\right)^2,
+\left(\rho_{qtxsnry} - \mean{\rho}_{\cdot txsnry}\right)^2,
 \end{equation}
-where $\rho_{q}$ is egg density for quadrat $q$, and
-$\rho_{\mean{q}txsnry}$ is the mean transect egg density
+where $\rho_{qtxsnry}$ is egg density, and
+$\mean{\rho}_{\cdot txsnry}$ is the mean transect egg density
 from \autoref{eqStatRhoT}.
 
 \begin{table}
@@ -803,8 +816,8 @@ Legend: metres (m).}
 \textbf{Name} & \textbf{Description} & \textbf{Value or unit} \\
 \midrule
 $\rho$ & Egg density & $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$ \\
-$f_t$ & Transect sampling fraction & $0 < f_t \leq 1$ \\
-$f_q$ & Quadrat sampling fraction & $0 < f_q \leq 1$ \\
+$f'$ & Transect sampling fraction & $0 < f' \leq 1$ \\
+$f''$ & Quadrat sampling fraction & $0 < f'' \leq 1$ \\
 $\sigma^2$ & Egg density variance & $\rho^2$ \\
 \bottomrule
 \end{tabulary}
@@ -1214,10 +1227,8 @@ The total number of egg layers in sample $j$ is
 E_{\cdot jxsnry} = \sum_{i=1}^{I_{jxsnry}} E_{ijxsnry},
 \end{equation}
 where $E_{ijxsnry}$ is the number of egg layers in substrate $i$
-from \autoref{eqSurfLayersIJS},
-$E_{\cdot jxsnry}$ is in number of egg layers, and
-`$\cdot$' represents a summation over the index that it replaces
-(e.g., summation over $i$ in \autoref{eqSurfLayersJS}).
+from \autoref{eqSurfLayersIJS}, and
+$E_{\cdot jxsnry}$ is in number of egg layers.
 For the time period when surveyors recorded spawn `intensity' categories
 instead of direct egg layer estimates,
 we convert intensity to number of egg layers $E_j$ (\autoref{tab:Intensity}).
@@ -1278,10 +1289,8 @@ The mean egg density in spawn $s$ (step \ref{sSpawn} in \autoref{figFlow}) is
 \rho_{\mean{j}xsnry} = \frac{1}{J_{xsnry}} \sum_{j=1}^{J_{xsnry}} \rho_{jxsnry},
 \end{equation}
 where $\rho_{jxsnry}$ is egg density in sample $j$ from \autoref{eqSurfDensJS},
-$J_{xsnry}$ is the number of samples,
-$\rho_{\mean{j}xsnry}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$, and
-`$\mean{\phantom{x}}$' represents a mean of the index that it covers
-(e.g., mean of $j$ in \autoref{eqSurfDensS}).
+$J_{xsnry}$ is the number of samples, and
+$\rho_{\mean{j}xsnry}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
 Two other metrics are required at the spawn level:
 spawn length $L$, and
 spawn width $W$, both in metres.
@@ -2030,7 +2039,7 @@ Legend: equation (Eq), sample size ($n$), standard error (SE), standard deviatio
 \endfoot
 \bottomrule
 \endlastfoot
-$f_t$, $f_q$ & Parameters for statistical framework (Eq \ref{eqStatSigmaS}). & SoG in 1981 and 1983; WCVI in 1982. & Objective is mean egg density $\text{SE}\leq 25$\%. & \cite{SchweigertEtal1985, SchweigertEtal1990} \\
+$f'$, $f''$ & Parameters for statistical framework (Eq \ref{eqStatSigmaS}). & SoG in 1981 and 1983; WCVI in 1982. & Objective is mean egg density $\text{SE}\leq 25$\%. & \cite{SchweigertEtal1985, SchweigertEtal1990} \\
 Intensity & Spawn intensity categories and number of egg layers (\autoref{tab:Intensity}). & NA & NA & \cite{HayKronlund1987, SchweigertStocker1988} \\
 $\omega$ & Female fecundity (Eq \ref{eqECF}); values in $\text{eggs} \cdot \text{kg}^{-1}$. & PRD, WCVI, and SoG in 1974 ($n=$ 3,293 fish) and 1980 ($n=$ 1,642); California in 1975 ($n=37$). & 186,800 $\leq \omega \leq$ 224,500; 16,900 $\leq \text{SD} \leq$ 53,500. & \cite{Hay1985, HayBrett1988} \\
 $\female$ & Proportion female (Eq \ref{eqECF}). & NA & NA & NA \\
