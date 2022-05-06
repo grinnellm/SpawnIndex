@@ -678,7 +678,7 @@ Data are analysed assuming simple random sampling.
 \centering
 \caption[Index notation for \fishName{} spawn index calculations]
 {Index notation for \fishName{} spawn index calculations.
-Legend: stock assessment region (SAR), spawn-on-kelp (SOK).
+Legend: stock assessment region (SAR) and spawn-on-kelp (SOK).
 Note that `$\,'$' indicates related variables (e.g., $T'$ is related to $T$).}
 \begin{tabulary}{\linewidth}{lLL}
 \toprule
@@ -1165,7 +1165,7 @@ is negligible \citep{Ware1985, Schweigert1993b}.
 \centering
 \caption[Notation for converting \fishName{} eggs to spawning biomass]
 {Notation for converting the number of \fishName{} eggs to spawning biomass.
-Legend: kilograms (kg), tonnes (t).}
+Legend: kilograms (kg) and tonnes (t).}
 \begin{tabulary}{\linewidth}{lLLL}
 \toprule
 \textbf{Name} & \textbf{Description} & \textbf{Value or unit} & \textbf{References} \\
@@ -1179,16 +1179,6 @@ $\theta$ & Egg conversion factor & $10^8 \cdot \text{eggs} \cdot \text{t}^{-1}$ 
 \end{table}
 
 \section{SURFACE SPAWN CALCULATIONS}\label{secSurf}
-
-% TODO: Check for instances where a variable has an "xs" subscript,
-% but the description says "for spawn s" --
-% update the description to say "for spawn type x in spawn s."
-% Also check for "for spawn s" in the equation description:
-% this is (should be) set up before the equation
-% and is not needed in the variable descriptions below the equation.
-% Make sure equation variables are described in the order that they appear.
-% Make sure all equation outputs (left hand side) have units explained
-% (or say that x has no units).
 
 This section describes steps \ref{sSamp} to \ref{sInd} in \autoref{figFlow}
 (i.e., spawn survey type $x = \text{surface}$).
@@ -1210,7 +1200,7 @@ to fill-in missing egg layer information for surface survey data
 \centering
 \caption[Notation for \fishName{} surface spawn index calculations]
 {Notation for \fishName{} surface spawn index calculations.
-Legend: metres (m), tonnes (t).
+Legend: metres (m) and tonnes (t).
 Note that `$\,'$' indicates related variables (e.g., $E'$ is related to $E$).}
 \begin{tabulary}{\linewidth}{lLLL}
 \toprule
@@ -1349,7 +1339,7 @@ We calculate metrics at the transect $t$, and spawn $s$ levels
 \centering
 \caption[Notation for \fishName{} Macrocystis spawn index calculations]
 {Notation for \fishName{} Macrocystis spawn index calculations.
-Legend: metres (m), tonnes (t).
+Legend: metres (m) and tonnes (t).
 Note that `$\,'$' indicates related variables (e.g., $L'$ is related to $L$).}
 \begin{tabulary}{\linewidth}{lLLL}
 \toprule
@@ -1571,7 +1561,7 @@ quadrat $q$, transect $t$, and spawn $s$ levels
 \centering
 \caption[Notation for \fishName{} understory spawn index calculations]
 {Notation for \fishName{} understory spawn index calculations.
-Legend: metres (m), tonnes (t).
+Legend: metres (m) and tonnes (t).
 Note that `$\,'$' indicates related variables (e.g., $L''$ is related to $L$).}
 \begin{tabulary}{\linewidth}{lLLL}
 \toprule
@@ -1600,16 +1590,16 @@ $B'$ & Understory spawn index (i.e., relative biomass) & t & \\
 We calculate two separate estimates of egg density at the quadrat level
 (step \ref{uQuad} in \autoref{figFlow}):
 spawn on substrate $i'$, and spawn on algae $v$.
-\citet{HaegeleEtal1979} developed a model of substrate egg density
-in quadrat $q$, transect $t$, and spawn $s$ from egg layers
-using a linear model
+\citet{HaegeleEtal1979} developed a model of substrate $i$ egg density
+from egg layers using a linear model
 \begin{equation}\label{eqUnderDensSubQTS}
 \rho_{i'qtxsnry} = \varphi E_{i'qtxsnry} \phi_{i'qtxsnry},
 \end{equation}
-where $\varphi$ is the slope,
-$E_{i'}$ is the number of egg layers on substrate $i'$,
-$\phi_{i'}$ is the proportion of substrate $i'$ covered by spawn, and
-$\rho_{i'}$ is substrate egg density in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$ (\autoref{figUnderDensSubQTS}).
+where $\varphi$ is the regression slope,
+$E_{i'qtxsnry}$ is the number of egg layers,
+$\phi_{i'qtxsnry}$ is the proportion of substrate $i'$ covered by spawn, and
+$\rho_{i'qtxsnry}$ is substrate egg density
+in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$ (\autoref{figUnderDensSubQTS}).
 
 <<UnderDensSubQTS, fig.width=3.5, fig.asp=0.85, fig.lp="fig", echo=FALSE, fig.cap=fig_cap, fig.scap="Substrate egg density for \\fishName{} underwater spawn surveys">>=
 # Caption
@@ -1657,18 +1647,17 @@ proportion of the quadrat covered by algae, and
 algae coefficients using a generalized linear model.
 Algae coefficients account for the effect of algae morphology
 on \fishName{} egg density (\autoref{tab:AlgaeCoefs}).
-Egg density on algae $v$ in quadrat $q$, transect $t$, and spawn $s$
-\citep{Schweigert2005} is
+Egg density on algae $v$ \citep{Schweigert2005} is
 \begin{equation}\label{eqUnderDensAlgVQTS}
 \rho_{vqtxsnry} = \vartheta E_{vqtxsnry}^\varrho \phi_{vqtxsnry}^\varsigma C_v,
 \end{equation}
 where $\vartheta$ is the regression slope,
-$E_v$ is the number of egg layers on algae $v$,
-$\varrho$ is the regression exponent on $E_v$,
-$\phi_v$ is the proportion of quadrat $q$ covered by algae $v$,
-$\varsigma$ is the regression exponent on $\phi_v$,
+$E_{vqtxsnry}$ is the number of egg layers,
+$\varrho$ is the regression exponent on $E_{vqtxsnry}$,
+$\phi_{vqtxsnry}$ is the proportion covered by algae,
+$\varsigma$ is the regression exponent on $\phi_{vqtxsnry}$,
 $C_v$ is the coefficient for algae $v$, and
-$\rho_v$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$
+$\rho_{vqtxsnry}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$
 (\autoref{figUnderDensAlgVQTS}).
 
 <<AlgaeCoefs>>=
@@ -1738,14 +1727,14 @@ egg_dens_alg_plot <- ggplot(
 print(egg_dens_alg_plot)
 @
 
-The total understory egg density for
-quadrat $q$ in transect $t$ and spawn $s$ is
+The total understory egg density for quadrat $q$ is
 \begin{equation}\label{eqUnderDensQTS}
 \rho_{qtxsnry} = \rho_{i'qtxsnry} + \sum_{v=1}^{V_{qtxsnry}} \rho_{vqtxsnry},
 \end{equation}
-where $\rho_{i'}$ is substrate egg density from \autoref{eqUnderDensSubQTS},
-$\rho_v$ is egg density on algae $v$ from \autoref{eqUnderDensAlgVQTS}, and
-$\rho_q$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
+where $\rho_{i'qtxsnry}$ is substrate egg density
+from \autoref{eqUnderDensSubQTS},
+$\rho_{vqtxsnry}$ is algae egg density from \autoref{eqUnderDensAlgVQTS}, and
+$\rho_{qtxsnry}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
 Thus, we assume that eggs on substrate and algae are independent,
 and can be combined.
 
@@ -1754,11 +1743,13 @@ and can be combined.
 At the transect level (step \ref{uTrans} in \autoref{figFlow}),
 the mean understory egg density in transect $t$ is
 \begin{equation}\label{eqUnderDensTS}
-\mean{\rho}_{txsnry} = \frac{1}{Q_{txsnry}} \sum_{q=1}^{Q_{txsnry}} \rho_{qtxsnry},
+\mean{\rho}_{txsnry} =
+\frac{1}{Q_{txsnry}} \sum_{q=1}^{Q_{txsnry}} \rho_{qtxsnry},
 \end{equation}
-where $Q$ is the number of quadrats in transect $t$,
-$\rho_q$ is total understory egg density in quadrat $q$ from \autoref{eqUnderDensQTS}, and
-$\mean{\rho}_t$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
+where $Q_{txsnry}$ is the number of quadrats,
+$\rho_{qtxsnry}$ is total understory egg density
+from \autoref{eqUnderDensQTS}, and
+$\mean{\rho}_{txsnry}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
 Note that we update spawn width to correct for errors regarding
 the assumed accuracy of transect lines used to measure spawn width for
 understory surveys between \Sexpr{min(under_width_facs$Year)} and
@@ -1767,45 +1758,45 @@ understory surveys between \Sexpr{min(under_width_facs$Year)} and
 \subsection{SPAWN OBSERVATIONS AND CALCULATIONS}\label{secUnderS}
 
 At the spawn level (step \ref{uSpawn} in \autoref{figFlow}),
-the mean width of spawn $s$ is
+the mean width of spawn survey type $x$ in spawn $s$ is
 \begin{equation}\label{eqUnderWidthMuS}
 \mean{W}_{xsnry} = \frac{1}{T_{xsnry}} \sum_{t=1}^{T_{xsnry}} W_{txsnry},
 \end{equation}
-where $W_t$ is the spawn width at transect $t$,
-$T$ is the number of transects in spawn $s$, and
-$\mean{W}_x$ is in metres.
-The algae bed length is $L_x''$, also in metres.
+where $T_{xsnry}$ is the number of transects,
+$W_{txsnry}$ is the spawn width, and
+$\mean{W}_{xsnry}$ is in metres.
+The algae bed length is $L_{xsnry}''$, also in metres.
 As with Macrocystis spawn calculations,
-if $L_x''$ is inadvertently not recorded,
-we set $L_x''$ to the spawn length $L_x$.
+if $L_{xsnry}''$ is inadvertently not recorded,
+we set $L_{xsnry}''$ to the spawn length $L_{xsnry}$.
 Thus, we assume that eggs on substrate and eggs on algae
 are represented by the same length measurement.
 
-Next, we calculate the weighted mean egg density in spawn $s$,
-where transect egg density is weighted by spawn width at transect $t$, $W_t$.
+Next, we calculate the weighted mean egg density in spawn $s$, where
+transect egg density is weighted by spawn width at transect $t$, $W_{txsnry}$.
 We calculate a weighted mean because spawn width varies along the spawn length;
 a weighted mean ensures that transects contribute proportionally to their area.
-The mean egg density in spawn $s$ is
+The mean egg density for spawn survey type $x$ in spawn $s$ is
 \begin{equation}\label{eqUnderDensMuS}
 \mean{\rho}_{xsnry} =
 \frac{\sum_{t=1}^{T_{xsnry}} \mean{\rho}_{txsnry} W_{txsnry}}
 {\sum_{t=1}^{T_{xsnry}} W_{txsnry}},
 \end{equation}
-where $\mean{\rho}_t$ is the mean understory egg density in transect $t$
+where $\mean{\rho}_{txsnry}$ is the mean understory egg density
 from \autoref{eqUnderDensTS},
-$W_t$ is the spawn width for transect $t$ in metres, and
-$\mean{\rho}_x$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
+$W_{txsnry}$ is the spawn width, and
+$\mean{\rho}_{xsnry}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
 
 The understory spawn index in spawn $s$ is
 \begin{equation}\label{eqUnderIndS}
 B_{xsnry}' = \frac{\mean{\rho}_{xsnry} L_{xsnry}'' \mean{W}_{xsnry} 10^3} {\theta},
 \end{equation}
-where $\mean{\rho}_x$ is the mean understory egg density from
-\autoref{eqUnderDensMuS},
-$L_x''$ is the algae bed length,
-$\mean{W}_x$ is the mean spawn width from \autoref{eqUnderWidthMuS},
+where $\mean{\rho}_{xsnry}$ is the mean understory egg density
+from \autoref{eqUnderDensMuS},
+$L_{xsnry}''$ is the algae bed length,
+$\mean{W}_{xsnry}$ is the mean spawn width from \autoref{eqUnderWidthMuS},
 $\theta$ is the egg conversion factor from \autoref{eqECF}, and
-$B_x'$ is in tonnes (step \ref{uInd} in \autoref{figFlow}).
+$B_{xsnry}'$ is in tonnes (step \ref{uInd} in \autoref{figFlow}).
 
 \section{TOTAL SPAWN CALCULATIONS}\label{secTotal}
 
@@ -1965,7 +1956,7 @@ which were removed by SOK fisheries in SAR $r$ and year $y$ in tonnes.
 \centering
 \caption[Notation for \fishName{} spawn-on-kelp calculations]
 {Notation for \fishName{} spawn-on-kelp (SOK) calculations.
-Legend: kilograms (kg), tonnes (t).
+Legend: kilograms (kg) and tonnes (t).
 Note that `$\,'$' indicates related variables
 (e.g., $B'$ is related to scaled biomass $B$ in \autoref{tabNotationTotal}).}
 \begin{tabulary}{\linewidth}{lLLL}
