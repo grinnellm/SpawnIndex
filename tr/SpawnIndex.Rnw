@@ -9,7 +9,6 @@
 
 % Style file for DFO Technical Reports
 \usepackage{\locRes/TechReport}
-\usepackage{draftwatermark}
 
 %%%%% Variables %%%%%
 
@@ -2330,13 +2329,13 @@ and others had a combination of
 $1.0\,\text{m}$ and $1.15\,\text{m}$ increment lengths
 which we assume to be in equal proportion ($\tau_{ry} = 1.075$).
 We correct understory spawn width by
-multiplying the observed width by the correction factor
+multiplying the observed width on transect $t$ by a correction factor
 \begin{equation}\label{eqWidthCorT}
 W_{txsnry} = W_{txsnry}' \tau_{ry},
 \end{equation}
-where $W_t'$ is the observed spawn width for transect $t$,
-$\tau_{ry}$ is the spawn width correction factor for SAR $r$ and year $y$ (\autoref{tab:WidthFac}), and
-$W_t$ is the corrected understory spawn width in metres (\autoref{tabNotationWidth}).
+where $W_{txsnry}'$ is the observed spawn width,
+$\tau_{ry}$ is the spawn width correction factor (\autoref{tab:WidthFac}), and
+$W_{txsnry}$ is in metres (\autoref{tabNotationWidth}).
 Instead of updating the database permanently,
 we adjust spawn width in the \textbf{R} package to be transparent, and
 to prevent mismatches between the original data sheets and databases.
