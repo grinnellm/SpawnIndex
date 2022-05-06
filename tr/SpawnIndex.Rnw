@@ -2186,7 +2186,8 @@ in the \textbf{Microsoft Access} database to an \textbf{R} script,
 which they referenced when developing the SpawnIndex package.
 They thank Paul Starr and Rob Kronlund for their thorough reviews
 that improved this document.
-They also thank Andy Edwards for help with mathematical notation, and
+They also thank Andy Edwards and Joe Watson
+for help with mathematical notation, as well as
 Chris Grandin for help developing the \textbf{R} package.
 
 %%%%% References %%%%%
