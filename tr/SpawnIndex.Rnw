@@ -9,6 +9,7 @@
 
 % Style file for DFO Technical Reports
 \usepackage{\locRes/TechReport}
+\usepackage{draftwatermark}
 
 %%%%% Variables %%%%%
 
@@ -732,6 +733,8 @@ then we describe the Macrocystis spawn framework
 which is related to understory, but simpler.
 
 \subsubsection{UNDERSTORY SPAWN FRAMEWORK}
+
+% Get a nicer mean symbol
 
 Two steps are required to calculate mean understory egg density
 in each surveyed spawn $s$ (\autoref{tabNotationIndices}).
