@@ -1267,7 +1267,8 @@ fig_cap <- paste("Relationship between egg density in thousands of eggs per
                  square metre (m; line), and number of egg layers for
                  \\fishName{} surface spawn surveys based on
                  \\autoref{eqSurfDensJS} \\citep{SchweigertEtal1997}. Note that
-                 number of egg layers can exceed those shown in this figure.")
+                 the number of egg layers can exceed those shown in this
+                 figure.")
 # Expand the values
 df <- expand.grid(Layers = layers)
 # Make a table of egg layers, proportion, and egg density
@@ -1508,7 +1509,7 @@ fig_cap <- paste("Relationship between number of eggs in thousands per
                  plant height in metres (m), and number of stalks per plant for
                  \\fishName{} Macrocystis spawn surveys based on
                  \\autoref{eqMacroEggsPerPlantS} \\citep{HaegeleSchweigert1990}.
-                 Note that number of egg layers, plant height, and number of
+                 Note that the number of egg layers, plant height, and number of
                  stalks per plant can exceed those shown in this figure.")
 # Expand the values
 df <- expand.grid(Layers = layers, PlantHeight = ht, Stalks = stlks)
@@ -1608,7 +1609,7 @@ fig_cap <- paste("Relationship between substrate egg density in thousands of
                  substrate and proportion of substrate covered in spawn for
                  \\fishName{} underwater spawn surveys based on
                  \\autoref{eqUnderDensSubQTS} \\citep{HaegeleEtal1979}. Note
-                 that number of egg layers can exceed those shown in this
+                 that the number of egg layers can exceed those shown in this
                  figure.")
 # Expand the values
 df <- expand.grid(Layers = layers, Proportion = prop)
@@ -1688,7 +1689,7 @@ fig_cap <- paste("Relationship between algae egg density in thousands of eggs
                  proportion of substrate covered in algae, and algae coefficient
                  (\\autoref{tab:AlgaeCoefs}) for \\fishName{} underwater spawn
                  surveys based on  \\autoref{eqUnderDensAlgVQTS}
-                 \\citep{Schweigert2005}. Note that number of egg layers can
+                 \\citep{Schweigert2005}. Note that the number of egg layers can
                  exceed those shown in this figure.")
 # Expand the values
 df <- expand.grid(
