@@ -662,7 +662,8 @@ for \fishName{} spawn index calculations.
 
 \section{STATISTICAL FRAMEWORK}\label{secStat}
 
-Each spawn survey type has a different statistical framework and sampling protocol (\autoref{secProt}):
+Each spawn survey type has a different statistical framework
+and sampling protocol (\autoref{secProt}):
 surface observations, and
 two types of dive observations (Macrocystis and understory).
 
@@ -677,7 +678,8 @@ Data are analysed assuming simple random sampling.
 \centering
 \caption[Index notation for \fishName{} spawn index calculations]
 {Index notation for \fishName{} spawn index calculations.
-Legend: stock assessment region (SAR), spawn-on-kelp (SOK).}
+Legend: stock assessment region (SAR), spawn-on-kelp (SOK).
+Note that `$\,'$' indicates related variables (e.g., $T'$ is related to $T$).}
 \begin{tabulary}{\linewidth}{lLL}
 \toprule
 \textbf{Name} & \textbf{Description} & \textbf{Range} \\
@@ -735,62 +737,63 @@ Two steps are required to calculate mean understory egg density
 in each surveyed spawn $s$ (\autoref{tabNotationIndices}).
 First, mean egg density for transect $t$ is
 \begin{equation}\label{eqStatRhoT}
-\mean{\rho}_{\cdot txsnry} =
+\mean{\rho}_{txsnry} =
 \frac{1}{Q_{txsnry}} \sum_{q=1}^{Q_{txsnry}} \rho_{qtxsnry},
 \end{equation}
-where $\rho_{qtxsnry}$ is egg density in thousands of eggs per square metre (m)
-($10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$; \autoref{tabNotationStat}),
-$Q_{txsnry}$ is the number of quadrats, and
-$\mean{\rho}_{\cdot txsnry}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
+where $Q_{txsnry}$ is the number of quadrats,
+$\rho_{qtxsnry}$ is egg density in thousands of eggs per square metre (m)
+($10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$; \autoref{tabNotationStat}), and
+$\mean{\rho}_{txsnry}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
 Throughout this report,
-`$\cdot$' represents a summation over the index that it replaces
-(e.g., summation over $q$ in \autoref{eqStatRhoT}) and
-`$\mean{\phantom{x}}$' represents a mean
+`$\mean{\phantom{x}}$' represents a mean of the variable that it covers
 (e.g., mean of $\rho$ in \autoref{eqStatRhoT}).
 Before we calculate mean egg density for spawn $s$,
 we determine the mean number of potential quadrats
 for spawn survey type $x$ in spawn $s$
 \begin{equation}\label{eqStatQSPrime}
-\mean{Q}_{\cdot xsnry}' =
+\mean{Q}_{xsnry}' =
 \frac{1}{T_{xsnry}} \sum_{t=1}^{T_{xsnry}} Q_{txsnry}',
 \end{equation}
-where $Q_{txsnry}'$ is the number of potential quadrats
-(i.e., a function of spawn width) and
-$T_{xsnry}$ is the number of transects.
-Throughout this report,
-`$'$' indicates related variables
-(e.g., $Q'$ is related to $Q$).
+where $T_{xsnry}$ is the number of transects,
+$Q_{txsnry}'$ is the number of potential quadrats
+(i.e., a function of spawn width), and
+$\mean{Q}_{xsnry}'$ has no units.
 Then, we calculate mean egg density in eggs per square metre
 for spawn survey type $x$ in spawn $s$
 \begin{equation}\label{eqStatRhoS}
-\mean{\rho}_{\cdot xsnry} =
-\frac{1}{T_{xsnry} \mean{Q}_{\cdot xsnry}'}
-\sum_{t=1}^{T_{xsnry}} Q_{txsnry}' \mean{\rho}_{\cdot txsnry},
+\mean{\rho}_{xsnry} =
+\frac{1}{T_{xsnry} \mean{Q}_{xsnry}'}
+\sum_{t=1}^{T_{xsnry}} Q_{txsnry}' \mean{\rho}_{txsnry},
 \end{equation}
 where $T_{xsnry}$ is the number of transects,
-$\mean{Q}_{\cdot xsnry}'$ is the mean number of potential quadrats
+$\mean{Q}_{xsnry}'$ is the mean number of potential quadrats
 from \autoref{eqStatQSPrime},
 $Q_{txsnry}'$ is the number of potential quadrats,
-$\mean{\rho}_{\cdot txsnry}$ is the mean transect egg density from \autoref{eqStatRhoT}, and
-$\mean{\rho}_{\cdot xsnry}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
+$\mean{\rho}_{txsnry}$ is the mean transect egg density from \autoref{eqStatRhoT}, and
+$\mean{\rho}_{xsnry}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
 The egg density estimator from \autoref{eqStatRhoS} is unbiased,
 and the variance is
 \begin{multline}\label{eqStatSigmaS}
-\sigma_{\cdot xsnry}^2 =
+\sigma_{xsnry}^2 =
 \frac{T_{xsnry}'-T_{xsnry}}{T_{xsnry}T_{xsnry}'} \sum_{t=1}^{T_{xsnry}}
-\frac{\left(Q_{txsnry}'\mean{\rho}_{\cdot txsnry}
--\mean{Q}_{snry}'\mean{\rho}_{snry}\right)^2}
-{\mean{Q}_{snry}'^2\left(T_{xsnry}-1\right)} \\
+\frac{\left(Q_{txsnry}'\mean{\rho}_{txsnry}
+-\mean{Q}_{xsnry}'\mean{\rho}_{xsnry}\right)^2}
+{\mean{Q}_{xsnry}'^2\left(T_{xsnry}-1\right)} \\
 + \frac{f_{xsnry}'}{T_{xsnry}^2} \sum_{t=1}^{T_{xsnry}}
 \left(\frac{Q_{txsnry}'}{\mean{Q}_{snry}'}\right)^2
 \frac{\left(1-f_{txsnry}''\right)\sigma_{txsnry}^2}{Q_{txsnry}},
 \end{multline}
-where $T'$ is the number of potential transects in spawn $s$
+where $T_{xsnry}'$ is the number of potential transects
 (i.e., a function of spawn length),
-$\mean{\rho}_{\cdot txsnry}$ is the mean transect egg density
+$T_{xsnry}$ is the number of transects,
+$Q_{txsnry}'$ is the number of potential quadrats,
+$\mean{\rho}_{txsnry}$ is the mean transect egg density
 from \autoref{eqStatRhoT},
-$\mean{\rho_s}$ is the mean spawn egg density from \autoref{eqStatRhoS},
-$f_{xsnry}'$ is the transect sampling fraction for spawn $s$
+$\mean{Q}_{xsnry}'$ is the mean number of potential quadrats
+from \autoref{eqStatQSPrime},
+$\mean{\rho}_{xsnry}$ is the mean spawn egg density from \autoref{eqStatRhoS},
+$f_{xsnry}'$ is the transect sampling fraction for
+spawn survey type $x$ in spawn $s$
 \begin{equation}\label{eqFT}
 f_{xsnry}' = \frac{T_{xsnry}}{T_{xsnry}'},
 \end{equation}
@@ -798,23 +801,23 @@ $f_{txsnry}''$ is the quadrat sampling fraction for transect $t$
 \begin{equation}\label{eqFQ}
 f_{txsnry}'' = \frac{Q_{txsnry}}{Q_{txsnry}'},
 \end{equation}
-and
+where $Q_{txsnry}$ is the number of quadrats, and
 $\sigma_{txsnry}^2$ is the within transect egg density variance
 \begin{equation}\label{eqStatSigmaT}
 \sigma_{txsnry}^2 =
 \frac{1}{{Q_{txsnry} - 1}}
 \sum_{q=1}^{Q_{txsnry}}
-\left(\rho_{qtxsnry} - \mean{\rho}_{\cdot txsnry}\right)^2,
+\left(\rho_{qtxsnry} - \mean{\rho}_{txsnry}\right)^2,
 \end{equation}
 where $\rho_{qtxsnry}$ is egg density, and
-$\mean{\rho}_{\cdot txsnry}$ is the mean transect egg density
-from \autoref{eqStatRhoT}.
+$\sigma_{txsnry}^2$ is in units of $\rho^2$.
 
 \begin{table}
 \centering
 \caption[Notation for \fishName{} spawn survey statistical framework]
 {Notation for \fishName{} spawn survey statistical framework.
-Legend: metres (m).}
+Legend: metres (m).
+Note that `$\,'$' indicates related variables (e.g., $f'$ is related to $f''$).}
 \begin{tabulary}{\linewidth}{lLL}
 \toprule
 \textbf{Name} & \textbf{Description} & \textbf{Value or unit} \\
@@ -898,8 +901,9 @@ a unique combination of year, Location, and `spawn number'
 $s=1,\,2,\,3,\,\ldots,\,S_{nry}$ (\autoref{tabNotationIndices}).
 Spawn numbers identify distinct spawns,
 which we define as a continuous stretch of shoreline
-with no detectable break in egg deposition;
-this is the finest scale at which we calculate the spawn index.
+with no detectable break in egg deposition.
+For a given spawn survey type $x$,
+a spawn $s$ is the finest scale at which we calculate the spawn index.
 A break in egg deposition is determined by the absence of \fishName{} spawn
 on two consecutive transects, or
 by a temporal gap in spawning.
@@ -1176,6 +1180,16 @@ $\theta$ & Egg conversion factor & $10^8 \cdot \text{eggs} \cdot \text{t}^{-1}$ 
 
 \section{SURFACE SPAWN CALCULATIONS}\label{secSurf}
 
+% TODO: Check for instances where a variable has an "xs" subscript,
+% but the description says "for spawn s" --
+% update the description to say "for spawn type x in spawn s."
+% Also check for "for spawn s" in the equation description:
+% this is (should be) set up before the equation
+% and is not needed in the variable descriptions below the equation.
+% Make sure equation variables are described in the order that they appear.
+% Make sure all equation outputs (left hand side) have units explained
+% (or say that x has no units).
+
 This section describes steps \ref{sSamp} to \ref{sInd} in \autoref{figFlow}
 (i.e., spawn survey type $x = \text{surface}$).
 As previously mentioned, surface spawn surveyors sample along transects or
@@ -1196,7 +1210,8 @@ to fill-in missing egg layer information for surface survey data
 \centering
 \caption[Notation for \fishName{} surface spawn index calculations]
 {Notation for \fishName{} surface spawn index calculations.
-Legend: metres (m), tonnes (t).}
+Legend: metres (m), tonnes (t).
+Note that `$\,'$' indicates related variables (e.g., $E'$ is related to $E$).}
 \begin{tabulary}{\linewidth}{lLLL}
 \toprule
 \textbf{Name} & \textbf{Description} & \textbf{Value or unit} & \textbf{References} \\
@@ -1209,7 +1224,7 @@ $\beta$ & Regression slope & \Sexpr{pars$surface$beta}$~10^3 \cdot \text{eggs} \
 $\rho$ & Egg density & $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$ & \\[0.5ex]
 $L$ & Spawn length & m & \\
 $W$ & Spawn width & m & \\
-$B'$ & Surface spawn index (i.e., biomass) & t & \\
+$B'$ & Surface spawn index (i.e., relative biomass) & t & \\
 \bottomrule
 \end{tabulary}
 \label{tabNotationSurf}
@@ -1333,7 +1348,8 @@ We calculate metrics at the transect $t$, and spawn $s$ levels
 \centering
 \caption[Notation for \fishName{} Macrocystis spawn index calculations]
 {Notation for \fishName{} Macrocystis spawn index calculations.
-Legend: metres (m), tonnes (t).}
+Legend: metres (m), tonnes (t).
+Note that `$\,'$' indicates related variables (e.g., $L'$ is related to $L$).}
 \begin{tabulary}{\linewidth}{lLLL}
 \toprule
 \textbf{Name} & \textbf{Description} & \textbf{Value or unit} & \textbf{References} \\
@@ -1352,7 +1368,7 @@ $\delta$ & Regression exponent on $H$ & \Sexpr{pars$macrocystis$delta} & \cite{H
 $\epsilon$ & Regression exponent on $\mean{\kappa}$ & \Sexpr{pars$macrocystis$epsilon} & \cite{HaegeleSchweigert1990} \\
 $\psi$ & Number of eggs per plant & $\text{eggs} \cdot 10^3 \cdot \text{plant}^{-1}$ & \\
 $\rho$ & Egg density & $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$ & \\
-$B'$ & Macrocystis spawn index (i.e., biomass) & t & \\
+$B'$ & Macrocystis spawn index (i.e., relative biomass) & t & \\
 \bottomrule
 \end{tabulary}
 \label{tabNotationMacro}
@@ -1551,7 +1567,8 @@ quadrat $q$, transect $t$, and spawn $s$ levels
 \centering
 \caption[Notation for \fishName{} understory spawn index calculations]
 {Notation for \fishName{} understory spawn index calculations.
-Legend: metres (m), tonnes (t).}
+Legend: metres (m), tonnes (t).
+Note that `$\,'$' indicates related variables (e.g., $L''$ is related to $L$).}
 \begin{tabulary}{\linewidth}{lLLL}
 \toprule
 \textbf{Name} & \textbf{Description} & \textbf{Value or unit} & \textbf{References} \\
@@ -1568,7 +1585,7 @@ $W$ & Spawn width & m & \\
 $\rho$ & Egg density & $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$ & \\
 $L''$ & Length of the algae bed & m & \\
 $L$ & Spawn length & m & \\
-$B'$ & Understory spawn index (i.e., biomass) & t & \\
+$B'$ & Understory spawn index (i.e., relative biomass) & t & \\
 \bottomrule
 \end{tabulary}
 \label{tabNotationUnder}
@@ -1789,7 +1806,19 @@ $B_x'$ is in tonnes (step \ref{uInd} in \autoref{figFlow}).
 \section{TOTAL SPAWN CALCULATIONS}\label{secTotal}
 
 This section describes step \ref{tIndex} in \autoref{figFlow}.
-The total spawn index in spawn $s$ (\autoref{tabNotationIndices}) is
+For spawn index calculations up to this point,
+subscript notation has been nested and hierarchical
+(e.g., substrate type $i$ is nested within sample $j$
+for surface spawn calculations in \autoref{secSurf}).
+Recall from \autoref{secProt} that
+the finest scale that we calculate the spawn index is
+for a given spawn survey type $x$ and spawn $s$
+(i.e., $B_{xsnry}'$).
+We use the notation of \cite{Montgomery2012} in the following calculations,
+where `$\cdot$' subscript notation indicates summation
+over the subscript that it replaces.
+Thus, we sum over $x$ to calculate the total spawn index
+in spawn $s$ (\autoref{tabNotationIndices})
 \begin{equation}\label{eqTotIndSLRY}
 B_{\cdot snry}' = \sum_{x=1}^{X_{snry}} B_{xsnry}',
 \end{equation}
@@ -1805,12 +1834,13 @@ $B_{\cdot snry}'$ is in tonnes (step \ref{tIndex} in \autoref{figFlow}).
 {Notation for \fishName{} total spawn index calculations.
 Note that in this table $q$ represents the spawn index scaling parameter,
 not quadrat number as in other sections of this report.
-Legend: tonnes (t).}
-\begin{tabulary}{\linewidth}{lLLL}
+Legend: tonnes (t).
+Note that `$\,'$' indicates related variables (e.g., $B'$ is related to $B$).}
+\begin{tabulary}{\linewidth}{lLLl}
 \toprule
 \textbf{Name} & \textbf{Description} & \textbf{Value or unit} & \textbf{References} \\
 \midrule
-$B'$ & Spawn index (i.e., biomass) & t & \\
+$B'$ & Spawn index (i.e., relative biomass) & t & \\
 $q$ & Spawn index scaling parameter & $0.0 < q \leq 1.0$ & DFO \citeyearpar{DFO2021} \\
 $B$ & Scaled biomass & t & \\
 \bottomrule
@@ -1820,23 +1850,25 @@ $B$ & Scaled biomass & t & \\
 
 Finally, we aggregate the total spawn index by SAR $r$ and year $y$
 \begin{equation}\label{eqTotIndRY}
-B_{\cdot ry}' = \sum_{n=1}^{N_{ry}} \sum_{s=1}^{S_{nry}} B_{\cdot snry}',
+B_{\cdot \cdot \cdot ry}' =
+\sum_{n=1}^{N_{ry}} \sum_{s=1}^{S_{nry}} B_{\cdot snry}',
 \end{equation}
 where $B_{\cdot snry}'$ is the total spawn index from \autoref{eqTotIndSLRY} and
-$B_{\cdot ry}'$ is a relative index of combined sex spawning biomass
-for SAR $r$ and year $y$ in tonnes.
+$B_{\cdot \cdot \cdot ry}'$ is a relative index of
+combined sex spawning biomass in tonnes.
 
 \subsection{SCALED BIOMASS}\label{secScaled}
 
-We use $B_{\cdot ry}'$ as an indicator of relative biomass
+We use $B_{\cdot \cdot \cdot ry}'$ as an indicator of relative biomass
 in \fishName{} stock assessment models \citeyearpar[DFO][]{DFO2021}.
-We scale $B_{\cdot ry}'$ to biomass
+We scale $B_{\cdot \cdot \cdot ry}'$ to biomass
 \begin{equation}\label{eqAbundRY}
-B_{\cdot ry} = \frac{B_{\cdot ry}'} {q_{ry}},
+B_{\cdot \cdot \cdot ry} = \frac{B_{\cdot \cdot \cdot ry}'} {q_{ry}},
 \end{equation}
-where $B_{\cdot ry}'$ is the total spawn index in tonnes from \autoref{eqTotIndRY},
+where $B_{\cdot \cdot \cdot ry}'$ is the total spawn index in tonnes
+from \autoref{eqTotIndRY},
 $q_{ry}$ is the spawn index scaling parameter \citeyearpar[DFO][]{DFO2016}, and
-$B_{\cdot ry}$ is scaled biomass for SAR $r$ and year $y$ in tonnes.
+$B_{\cdot \cdot \cdot ry}$ is scaled biomass for SAR $r$ and year $y$ in tonnes.
 To be consistent with stock assessments,
 in this section $q$ represents the spawn index scaling parameter,
 not quadrat number as in other sections of this report.
@@ -1928,7 +1960,9 @@ which were removed by SOK fisheries in SAR $r$ and year $y$ in tonnes.
 \centering
 \caption[Notation for \fishName{} spawn-on-kelp calculations]
 {Notation for \fishName{} spawn-on-kelp (SOK) calculations.
-Legend: kilograms (kg), tonnes (t).}
+Legend: kilograms (kg), tonnes (t).
+Note that `$\,'$' indicates related variables
+(e.g., $B'$ is related to scaled biomass $B$ in \autoref{tabNotationTotal}).}
 \begin{tabulary}{\linewidth}{lLLL}
 \toprule
 \textbf{Name} & \textbf{Description} & \textbf{Value or unit} & \textbf{References} \\
@@ -2338,7 +2372,8 @@ k_width_fac
 \centering
 \caption[Notation for \fishName{} understory spawn width adjustments]
 {Notation for \fishName{} understory spawn width adjustments.
-Legend: metres (m).}
+Legend: metres (m).
+Note that `$\,'$' indicates related variables (e.g., $W'$ is related to $W$).}
 \begin{tabulary}{\linewidth}{LLL}
 \toprule
 \textbf{Name} & \textbf{Description} & \textbf{Value or unit} \\
