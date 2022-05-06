@@ -2251,8 +2251,6 @@ or within the SAR if there are no dives within the Section.
 In the rare instances where no dive data meet these criteria
 (e.g., outside SAR boundaries),
 we use the observed width $W'$ from the surface survey.
-% TODO: Should this be $W''$ to differentiate from understory observed width?
-% If yes, make it $W'$ and change understory observed width to $W''$.
 We update the aforementioned median width values periodically, not annually.
 Note that we use this process to update widths for spawns
 in previous years using current observations.
