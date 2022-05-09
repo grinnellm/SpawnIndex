@@ -2,8 +2,8 @@
 require(hexSticker)
 require(emojifont)
 require(sysfonts)
-require(tidyverse)
 require(ggimage)
+require(tidyverse)
 
 # Set the seed (for highlight)
 set.seed(11)
@@ -40,7 +40,7 @@ df <- tibble(
 
 # Plot
 sticker_image <- ggplot(data = df, mapping = aes(x = x, y = y)) +
-  geom_image(data = df[1, ], mapping = aes(image = thing), size = 0.2) +
+  geom_image(data = df[1, ], mapping = aes(image = thing), size = 0.35) +
   geom_text(
     data = df[2, ], mapping = aes(label = thing), family = "OpenSansEmoji",
     fontface = "italic", size = pad * 8

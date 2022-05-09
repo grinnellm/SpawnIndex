@@ -1,5 +1,5 @@
 
-<!-- README.md is generated from README.Rmd. Please edit that file. -->
+<!-- README.md is generated from README.Rmd; please edit README.Rmd. -->
 
 # SpawnIndex <img src='man/sticker/sticker.png' align="right" height="200"/>
 
