@@ -2250,7 +2250,7 @@ we use the median width from all dives within the Section,
 or within the SAR if there are no dives within the Section.
 In the rare instances where no dive data meet these criteria
 (e.g., outside SAR boundaries),
-we use the observed width $W'$ from the surface survey.
+we use the observed width $W_{xsnry}'$ from the surface survey.
 We update the aforementioned median width values periodically, not annually.
 Note that we use this process to update widths for spawns
 in previous years using current observations.
@@ -2329,9 +2329,9 @@ which we assume to be in equal proportion ($\tau_{ry} = 1.075$).
 We correct understory spawn width by
 multiplying the observed width on transect $t$ by a correction factor
 \begin{equation}\label{eqWidthCorT}
-W_{txsnry} = W_{txsnry}' \tau_{ry},
+W_{txsnry} = W_{txsnry}'' \tau_{ry},
 \end{equation}
-where $W_{txsnry}'$ is the observed spawn width,
+where $W_{txsnry}''$ is the observed spawn width,
 $\tau_{ry}$ is the spawn width correction factor (\autoref{tab:WidthFac}), and
 $W_{txsnry}$ is in metres (\autoref{tabNotationWidth}).
 Instead of updating the database permanently,
@@ -2373,12 +2373,12 @@ k_width_fac
 \caption[Notation for \fishName{} understory spawn width adjustments]
 {Notation for \fishName{} understory spawn width adjustments.
 Legend: metres (m).
-Note that `$\,'$' indicates related variables (e.g., $W'$ is related to $W$).}
+Note that `$\,'$' indicates related variables (e.g., $W''$ is related to $W$).}
 \begin{tabulary}{\linewidth}{LLL}
 \toprule
 \textbf{Name} & \textbf{Description} & \textbf{Value or unit} \\
 \midrule
-$W'$ & Observed spawn width & m \\
+$W''$ & Observed spawn width & m \\
 $\tau$ & Spawn width correction factor & See \autoref{tab:WidthFac} \\
 $W$ & Corrected spawn width & m \\
 \bottomrule
