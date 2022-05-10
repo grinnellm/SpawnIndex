@@ -128,10 +128,10 @@ A draft technical report is available here: `./tr/Draft.pdf`.
 Build the manual
 
 ```{r manual, eval = FALSE}
-devtools::build_manual(pkg = ".", path = ".")
+devtools::build_manual(pkg = ".", path = "./doc")
 ```
 
-and open the file ``r paste0("./SpawnIndex_", version, ".pdf")``.
+and open the file ``r paste0("./doc/SpawnIndex_", version, ".pdf")``.
 In addition, there is a vignette with an example workflow;
 build the vignette
 
