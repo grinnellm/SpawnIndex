@@ -1,8 +1,10 @@
+# R and Rproject
 .Rproj.user
 .Rhistory
 .RData
 .Ruserdata
 
+# Technical report
 /tr/resources
 /tr/knitr-figs
 /tr/knitr-cache
@@ -23,10 +25,9 @@
 /tr/SpawnIndex.synctex.gz
 /tr/SpawnIndex.synctex(busy)
 
-*.html
-/vignettes/*.R
-
+# Documentation
 /doc/
 /Meta/
 /inst/doc
 /inst/PACKAGES.bib
+*.html
