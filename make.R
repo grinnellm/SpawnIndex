@@ -20,7 +20,7 @@ styler::style_pkg()
 styler::style_file(path = file.path("vignettes", "Introduction.Rmd"))
 styler::style_file(path = file.path("man", "sticker", "sticker.R"))
 styler::style_file(path = "README.Rmd")
-# styler::style_file(path = file.path("tr", "SpawnIndex.Rnw"))
+styler::style_file(path = file.path("tr", "SpawnIndex.Rnw"))
 
 # Lint
 lintr::lint_package()

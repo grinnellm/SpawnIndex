@@ -197,7 +197,7 @@ image_name <- paste("Image.", r_name, ".RData", sep = "")
 # Stop if saved workspace is not available
 if (!image_name %in% list.files(path = loc_image)) {
   stop("Saved workspace image not available.")
-}  # End if not available
+} # End if not available
 # Load a saved workspace
 load(file = file.path(loc_image, image_name))
 # All region names
@@ -529,12 +529,14 @@ Statistical Area \Sexpr{zoom_sa} is emphasized with a thick boundary line.}
 
 <<BC, fig.width=figWidth*0.67, fig.height=figWidth/shapes$xyRatio*0.67, fig.lp="fig", echo=FALSE, fig.cap=fig_cap, fig.scap="Spatial boundaries for \\fishName{} stock assessment regions in British Columbia">>=
 # Caption
-fig_cap <- paste("Spatial boundaries for \\fishName{} stock assessment
-                 regions (SARs) in British Columbia. There are ",
-  num_to_word(length(major_regions)), " major SARs: ",
-  paste_nicely(major_regions), ". There are ",
-  num_to_word(length(minor_regions)), " minor SARs: ",
-  paste_nicely(minor_regions), ". Units: kilometres (km).",
+fig_cap <- paste(
+  "Spatial boundaries for \\fishName{} stock assessment regions (SARs) in ",
+  "British Columbia. ",
+  "There are ", num_to_word(length(major_regions)), " major SARs: ",
+  paste_nicely(major_regions), ". ",
+  "There are ", num_to_word(length(minor_regions)), " minor SARs: ",
+  paste_nicely(minor_regions), ". ",
+  "Units: kilometres (km).",
   sep = ""
 )
 # Plot BC coast and regions
@@ -1056,17 +1058,20 @@ a direct estimate of the number of egg layers.
 
 <<Intensity>>=
 # Caption
-tab_cap <- paste("Spawn intensity categories, description, and number of egg
-                 layers for \\fishName{} surface spawn surveys for the
-                 periods ", pars$years$survey, " to ", pars$years$nine_cats - 1,
-                 ", and ", pars$years$nine_cats, " to ", pars$years$layers - 1,
-                 " \\citep{HayKronlund1987, SchweigertStocker1988}. Uncertainty
-                 in the number of egg layers is not available.",
-                 sep = ""
+tab_cap <- paste(
+  "Spawn intensity categories, description, and number of egg ",
+  "layers for \\fishName{} surface spawn surveys for the periods ",
+  pars$years$survey, " to ", pars$years$nine_cats - 1, ", and ",
+  pars$years$nine_cats, " to ", pars$years$layers - 1,
+  " \\citep{HayKronlund1987, SchweigertStocker1988}. ",
+  "Uncertainty in the number of egg layers is not available.",
+  sep = ""
 )
 # Short caption
-tab_s_cap <- "Spawn intensity categories and number of egg layers for
-              \\fishName{} surface spawn surveys"
+tab_s_cap <- paste(
+  "Spawn intensity categories and number of egg layers for",
+  "\\fishName{} surface spawn surveys"
+)
 # Column name (5 categories)
 p5 <- paste0(pars$years$survey, "--", pars$years$nine_cats - 1)
 # Column name (9 categories)
@@ -1265,12 +1270,12 @@ $\rho_{jxsnry} = \alpha$ when there are no egg layers
 
 <<SurfDensJS, fig.width=3.5, fig.asp=0.67, fig.lp="fig", echo=FALSE, fig.cap=fig_cap, fig.scap="Egg density for \\fishName{} surface spawn surveys">>=
 # Caption
-fig_cap <- paste("Relationship between egg density in thousands of eggs per
-                 square metre (m; line), and number of egg layers for
-                 \\fishName{} surface spawn surveys based on
-                 \\autoref{eqSurfDensJS} \\citep{SchweigertEtal1997}. Note that
-                 the number of egg layers can exceed those shown in this
-                 figure.")
+fig_cap <- paste(
+  "Relationship between egg density in thousands of eggs per square metre",
+  "(m; line), and number of egg layers for \\fishName{} surface spawn surveys",
+  "based on \\autoref{eqSurfDensJS} \\citep{SchweigertEtal1997}.",
+  "Note that the number of egg layers can exceed those shown in this figure."
+)
 # Expand the values
 df <- expand.grid(Layers = layers)
 # Make a table of egg layers, proportion, and egg density
@@ -1506,13 +1511,17 @@ $B_{xsnry}'$ is in tonnes (step \ref{mInd} in \autoref{figFlow}).
 
 <<MacroEggsPerPlantS, fig.width=6, fig.asp=0.9, fig.lp="fig", echo=FALSE, fig.cap=fig_cap, fig.scap="Number of eggs per plant for \\fishName{} Macrocystis spawn surveys">>=
 # Caption
-fig_cap <- paste("Relationship between number of eggs in thousands per
-                 Macrocystis plant (lines), and number of egg layers on plants,
-                 plant height in metres (m), and number of stalks per plant for
-                 \\fishName{} Macrocystis spawn surveys based on
-                 \\autoref{eqMacroEggsPerPlantS} \\citep{HaegeleSchweigert1990}.
-                 Note that the number of egg layers, plant height, and number of
-                 stalks per plant can exceed those shown in this figure.")
+fig_cap <- paste(
+  "Relationship between number of eggs in thousands",
+  "per Macrocystis plant (lines), and",
+  "number of egg layers on plants,",
+  "plant height in metres (m), and",
+  "number of stalks per plant for",
+  "\\fishName{} Macrocystis spawn surveys",
+  "based on \\autoref{eqMacroEggsPerPlantS} \\citep{HaegeleSchweigert1990}.",
+  "Note that the number of egg layers, plant height, and number of stalks",
+  "per plant can exceed those shown in this figure."
+)
 # Expand the values
 df <- expand.grid(Layers = layers, PlantHeight = ht, Stalks = stlks)
 # Make a table of egg layers, proportion, coefficient, and egg density
@@ -1606,13 +1615,15 @@ in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$ (\autoref{figUnderDensSubQTS}).
 
 <<UnderDensSubQTS, fig.width=3.5, fig.asp=0.85, fig.lp="fig", echo=FALSE, fig.cap=fig_cap, fig.scap="Substrate egg density for \\fishName{} underwater spawn surveys">>=
 # Caption
-fig_cap <- paste("Relationship between substrate egg density in thousands of
-                 eggs per square metre (m; lines), and number of egg layers on
-                 substrate and proportion of substrate covered in spawn for
-                 \\fishName{} underwater spawn surveys based on
-                 \\autoref{eqUnderDensSubQTS} \\citep{HaegeleEtal1979}. Note
-                 that the number of egg layers can exceed those shown in this
-                 figure.")
+fig_cap <- paste(
+  "Relationship between substrate egg density",
+  "in thousands of eggs per square metre (m; lines), and",
+  "number of egg layers on substrate and",
+  "proportion of substrate covered in spawn for",
+  "\\fishName{} underwater spawn surveys",
+  "based on \\autoref{eqUnderDensSubQTS} \\citep{HaegeleEtal1979}.",
+  "Note that the number of egg layers can exceed those shown in this figure."
+)
 # Expand the values
 df <- expand.grid(Layers = layers, Proportion = prop)
 # Make a table of egg layers, proportion, and egg density
@@ -1665,10 +1676,12 @@ $\rho_{vqtxsnry}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$
 
 <<AlgaeCoefs>>=
 # Caption
-tab_cap <- "Algae (i.e., vegetation) types $v$ and coefficients $C$ for
-            \\fishName{} understory spawn surveys \\citep{Schweigert2005}.
-            Uncertainty in algae coefficients is not available. Algae types are
-            described in the \\surveyManual{}."
+tab_cap <- paste(
+  "Algae (i.e., vegetation) types $v$ and coefficients $C$ for",
+  "\\fishName{} understory spawn surveys \\citep{Schweigert2005}.",
+  "Uncertainty in algae coefficients is not available.",
+  "Algae types are described in the \\surveyManual{}."
+)
 # Short caption
 tab_s_cap <- "Algae types and coefficients for \\fishName{} understory spawn
               surveys"
@@ -1686,13 +1699,16 @@ k_algae_coefs
 
 <<UnderDensAlgVQTS, fig.width=6, fig.asp=1.1, fig.lp="fig", echo=FALSE, fig.cap=fig_cap, fig.scap="Algae egg density for \\fishName{} underwater spawn surveys">>=
 # Caption
-fig_cap <- paste("Relationship between algae egg density in thousands of eggs
-                 per square metre (m; lines), and number of egg layers on algae,
-                 proportion of substrate covered in algae, and algae coefficient
-                 (\\autoref{tab:AlgaeCoefs}) for \\fishName{} underwater spawn
-                 surveys based on  \\autoref{eqUnderDensAlgVQTS}
-                 \\citep{Schweigert2005}. Note that the number of egg layers can
-                 exceed those shown in this figure.")
+fig_cap <- paste(
+  "Relationship between algae egg density in",
+  "thousands of eggs per square metre (m; lines), and",
+  "number of egg layers on algae,",
+  "proportion of substrate covered in algae, and",
+  "algae coefficients (\\autoref{tab:AlgaeCoefs})",
+  "for \\fishName{} underwater spawn surveys based on",
+  "\\autoref{eqUnderDensAlgVQTS} \\citep{Schweigert2005}.",
+  "Note that the number of egg layers can exceed those shown in this figure."
+)
 # Expand the values
 df <- expand.grid(
   Layers = layers, Proportion = prop, Coefficient = unique(algae_coefs$Coef)
@@ -2343,15 +2359,18 @@ due to another change in lead line manufacturing.
 
 <<WidthFac>>=
 # Caption
-tab_cap <- paste("Spawn width correction factors $\\tau_{ry}$ for \\fishName{}
-                 understory spawn surveys by stock assessment region (SAR, $r$)
-                 and year $y$. Legend: ",
-                 paste_nicely(c(major_regions, minor_regions)), ".",
-                 sep = ""
+tab_cap <- paste(
+  "Spawn width correction factors $\\tau_{ry}$ for ",
+  "\\fishName{} understory spawn surveys by ",
+  "stock assessment region (SAR, $r$) and year $y$. ",
+  "Legend: ",
+  paste_nicely(c(major_regions, minor_regions)), ".",
+  sep = ""
 )
 # Short caption
-tab_s_cap <- "Spawn width correction factors for \\fishName{} understory spawn
-              surveys"
+tab_s_cap <- paste(
+  "Spawn width correction factors for \\fishName{} understory spawn surveys"
+)
 # Format the table
 k_width_fac <- under_width_facs %>%
   mutate_if(is.double, ~ format(., nsmall = 3)) %>%
