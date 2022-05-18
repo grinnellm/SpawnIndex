@@ -682,9 +682,6 @@ given particulars of access, weather, and tides,
 as well as available sampling tools such as boats, rakes, and bathyscopes.
 Data are analysed assuming simple random sampling.
 
-% TODO: Is it worth distinguishing between hierarchical and non-hierarchical
-% indices in this table?
-
 \begin{table}
 \centering
 \caption[Index notation for \fishName{} spawn index calculations]
@@ -743,8 +740,6 @@ then we describe the Macrocystis spawn framework
 which is related to understory, but simpler.
 
 \subsubsection{UNDERSTORY SPAWN FRAMEWORK}
-
-% TODO: Get a nicer mean symbol?
 
 Two steps are required to calculate mean understory egg density
 in each surveyed spawn $s$ (\autoref{tabNotationIndices}).
@@ -1148,11 +1143,8 @@ the number of egg layers.
 \section{CONVERT EGGS TO BIOMASS}\label{secProd}
 
 After estimating the number of eggs by survey type $x$ in spawn $s$,
-we estimate the biomass of \fishName{} that spawned.
-% TODO: Not sure this is necessary..
-% We use a conversion factor to convert
-% the number of observed eggs to
-% biomass of fish that produced those eggs.
+we use a conversion factor to estimate the biomass of
+\fishName{} that spawned to produce those eggs.
 Female \fishName{} produce an average of
 approximately $200\,000$ eggs per kilogram (kg)
 of total body weight \citep{Hay1985};
@@ -1507,8 +1499,6 @@ from \autoref{eqMacroEggsPerPlantS},
 $P_{xsnry}$ is the number of plants from \autoref{eqMacroPlantsS},
 $A_{xsnry}$ is the total area of transects from \autoref{eqMacroAreaS}, and
 $\mean{\rho}_{xsnry}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
-% TODO: Use a different symbol, to differentiate the \cdot from the summation
-% symbol. Not sure what it should be.
 
 The Macrocystis spawn index in spawn $s$ is
 \begin{equation}\label{eqMacroIndS}
@@ -1568,8 +1558,6 @@ num_egg_plot <- ggplot(
 # Show the figure
 print(num_egg_plot)
 @
-% TODO: Axis labels are faint and should be darker (all figures); same with
-% grid lines in the background.
 
 \section{UNDERSTORY SPAWN CALCULATIONS}\label{secUnder}
 
@@ -1771,10 +1759,6 @@ Thus, we assume that eggs on substrate and algae are independent,
 and can be combined.
 
 \subsection{TRANSECT OBSERVATIONS AND CALCULATIONS}\label{secUnderT}
-
-% TODO: Consider adding a table with spawn index data summary: say, "number of
-% egg layers on algae" with min, max, and mean. Do this for each variable shown
-% in the figures (6, 7, 8, and 9).
 
 At the transect level (step \ref{uTrans} in \autoref{figFlow}),
 the mean understory egg density in transect $t$ is
@@ -2321,7 +2305,6 @@ which we think explains the shrinkage.
 DFO staff re-measured lead line increments in about 2005, and found that
 they still shrank from $1.15\,\text{m}$ to $1.0\,\text{m}$, and
 continued to use the modified protocol.
-% TODO: Why 5% and then 15%? 1 m and then 3 m.. doesn't make sense.
 
 In 2013, spawn surveyors observed that
 lead line increments were consistently $1.15\,\text{m}$,
