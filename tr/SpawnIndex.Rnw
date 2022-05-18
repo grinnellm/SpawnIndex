@@ -163,8 +163,9 @@ herring_theme <- theme(
   legend.key = element_blank(),
   legend.margin = margin(),
   legend.text.align = 1,
-  panel.grid.major = element_line(colour = "darkgrey", size = 0.2),
-  panel.grid.minor = element_line(colour = "darkgrey", size = 0.1),
+  panel.grid.major = element_line(colour = "grey10", size = 0.2),
+  panel.grid.minor = element_line(colour = "grey10", size = 0.1),
+  axis.text = element_text(colour = "black"),
   legend.background = element_rect(fill = "transparent"),
   plot.margin = unit(c(0.1, 0.6, 0.1, 0.1), "lines")
 )
@@ -1313,7 +1314,7 @@ where $J_{xsnry}$ is the number of samples,
 $\rho_{jxsnry}$ is egg density from \autoref{eqSurfDensJS}, and
 $\mean{\rho}_{xsnry}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
 Two other metrics are required at the spawn level:
-spawn length $L_{xsnry}$, and
+spawn length $L_{xsnry}$ and
 spawn width $W_{xsnry}$, both in metres.
 We set $W_{xsnry}$ to the first non-missing value of
 median pool width, median Section width, median SAR width, or
