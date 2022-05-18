@@ -330,7 +330,7 @@ data(under_width_facs)
 
 %%%%% Main document %%%%%
 
-\section{INTRODUCTION}
+\section{INTRODUCTION}\label{secIntro}
 
 Statistical age-structured stock assessment models rely on
 an indicator of relative population abundance or biomass
@@ -375,7 +375,7 @@ under water using SCUBA gear and
 have been used for all major spawns since \Sexpr{pars$years$dive}.
 Thus, we describe the spawn index as having two survey periods
 based on the predominant spawn survey observation type:
-the surface survey period from \Sexpr{pars$years$assess} to \Sexpr{pars$years$dive-1}, and
+the surface survey period from \Sexpr{pars$years$assess} to \Sexpr{pars$years$dive-1} and
 the dive survey period from \Sexpr{pars$years$dive} to present.
 
 The intent of \fishName{} spawn surveys is to
@@ -1102,8 +1102,7 @@ Macrocystis spawn surveyors take a census of Macrocystis plants
 within $1\,\text{m}$ of the transect line,
 on both the left- and right-hand sides.
 We refer to the swath of substrate along Macrocystis transects
-as the transect swath,
-$\chi_t = 2\,\text{m}$ in transect $t$.
+as the transect swath $\chi_{txsnry} = 2\,\text{m}$.
 Divers categorize Macrocystis plants as either `mature' or `immature'
 based on stipe height;
 mature plants have stipes $\geq 1\,\text{m}$ high,
@@ -1115,8 +1114,8 @@ In addition, \fishName{} typically deposit spawn higher up Macrocystis plants.
 For each mature plant, divers record the number of stalks.
 For each transect, divers record the average number of egg layers, and
 average plant height.
-\cite{HaegeleSchweigert1990} provide a description of the sampling technique,
-and the basis for estimating the total number of eggs per plant.
+\cite{HaegeleSchweigert1990} provide a description of the sampling technique and
+the basis for estimating the total number of eggs per plant.
 
 \subsection{UNDERSTORY SPAWN PROTOCOL}\label{secUnderProt}
 
@@ -1126,7 +1125,7 @@ given a minimum spacing of $2\,\text{m}$ and
 a maximum spacing of $40\,\text{m}$.
 Similar to how the first transect is moved in from one end of the spawn,
 the first quadrat is moved in from the edge of the spawn
-to the first $5\,\text{m}$ mark on the transect line
+to the first $5\,\text{m}$ mark on the transect line,
 to avoid surveying areas with patchy and sparse egg layers.
 Note that quadrat position along permanent transects varies among years
 due to the location and extent (i.e., width) of spawn
@@ -1138,17 +1137,22 @@ other sizes (e.g., $0.25$ and $1.0\,\text{m}^2$) have been used for research,
 but are not used to calculate the spawn index \citep{Schweigert1993b}.
 Within each quadrat, divers record
 the dominant (i.e., most heavily spawned) substrate type,
-percentage of the quadrat covered by spawn, and
+proportion of the quadrat covered by spawn, and
 number of egg layers.
 In addition, divers identify the three most abundant algae types
 that have spawn.
 For each of these algae types, divers record
-the percentage of the quadrat covered by the algae and number of egg layers.
+the proportion of the quadrat covered by algae and
+the number of egg layers.
 
 \section{CONVERT EGGS TO BIOMASS}\label{secProd}
 
-After estimating the number of eggs in a spawn by survey type $x$,
-the next step is to estimate the biomass of \fishName{} that spawned.
+After estimating the number of eggs by survey type $x$ in spawn $s$,
+we estimate the biomass of \fishName{} that spawned.
+% TODO: Not sure this is necessary..
+% We use a conversion factor to convert
+% the number of observed eggs to
+% biomass of fish that produced those eggs.
 Female \fishName{} produce an average of
 approximately $200\,000$ eggs per kilogram (kg)
 of total body weight \citep{Hay1985};
@@ -1179,11 +1183,11 @@ is negligible \citep{Ware1985, Schweigert1993b}.
 \caption[Notation for converting \fishName{} eggs to spawning biomass]
 {Notation for converting the number of \fishName{} eggs to spawning biomass.
 Legend: kilograms (kg) and tonnes (t).}
-\begin{tabulary}{\linewidth}{lLLL}
+\begin{tabulary}{\linewidth}{lLlL}
 \toprule
 \textbf{Name} & \textbf{Description} & \textbf{Value or unit} & \textbf{References} \\
 \midrule
-$\omega$ & Female fecundity & \Sexpr{format(pars$conversion$omega, big.mark=",", scientific=FALSE)}$~\text{eggs} \cdot \text{kg}^{-1}$ & \cite{Hay1985, HayBrett1988} \\
+$\omega$ & Female fecundity & \Sexpr{format(pars$conversion$omega, big.mark=",", scientific=FALSE)}$~\text{eggs} \cdot \text{kg}^{-1}$ & \cite{RabinBarnhart1977, Hay1985, HayBrett1988} \\
 $\female$ & Proportion female & \Sexpr{pars$conversion$female} & \\
 $\theta$ & Egg conversion factor & $10^8 \cdot \text{eggs} \cdot \text{t}^{-1}$ & \\
 \bottomrule
@@ -1253,7 +1257,8 @@ from \autoref{eqSurfLayersIJS}, and
 $E_{jxsnry}$ is in number of egg layers.
 For the time period when surveyors recorded spawn `intensity' categories
 instead of direct egg layer estimates,
-we convert intensity to number of egg layers $E_j$ (\autoref{tab:Intensity}).
+we convert intensity to number of egg layers $E_{jxsnry}$
+(\autoref{tab:Intensity}).
 \citet{SchweigertEtal1997} developed a model of surface egg density
 as a function of number of egg layers using a linear regression model%
 \footnote{There is an error in \cite{SchweigertEtal1997};
@@ -1344,7 +1349,7 @@ This section describes steps \ref{mPlant} to \ref{mInd} in \autoref{figFlow}
 Macrocystis spawn surveyors use SCUBA gear to collect underwater data for
 individual plants $p$, transects $t$, and spawns $s$ (\autoref{secMacroProt}),
 where divers enumerate every Macrocystis plant within the transect swath.
-We calculate metrics at the transect $t$, and spawn $s$ levels
+We calculate metrics at the transect $t$ and spawn $s$ levels
 (\autoref{tabNotationIndices} and \autoref{tabNotationMacro}).
 
 \begin{table}
@@ -1358,7 +1363,7 @@ Note that `$\,'$' indicates related variables (e.g., $L'$ is related to $L$).}
 \textbf{Name} & \textbf{Description} & \textbf{Value or unit} & \textbf{References} \\
 \midrule
 $W$ & Spawn width & m & \\
-$\chi$ & Transect swath & m & \\
+$\chi$ & Transect swath & 2 m & \\
 $A$ & Area & $\text{m}^2$ & \\
 $H$ & Plant height & m & \\
 $E$ & Number of egg layers & $\mean{E} > 0$ & \\
@@ -1396,7 +1401,7 @@ $\chi_{txsnry}$ is transect swath in metres, and
 $A_{txsnry}$ is in square metres.
 In addition, divers estimate summary statistics for
 mature Macrocystis plants $p$ along transect $t$:
-mean height $\mean{H}_{txsnry}$ in metres, and
+mean height $\mean{H}_{txsnry}$ in metres and
 mean number of egg layers $\mean{E}_{txsnry}$.
 We calculate the total number of stalks $K$ in transect $t$ as
 \begin{equation}\label{eqMacroStalksTS}
@@ -1502,6 +1507,8 @@ from \autoref{eqMacroEggsPerPlantS},
 $P_{xsnry}$ is the number of plants from \autoref{eqMacroPlantsS},
 $A_{xsnry}$ is the total area of transects from \autoref{eqMacroAreaS}, and
 $\mean{\rho}_{xsnry}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
+% TODO: Use a different symbol, to differentiate the \cdot from the summation
+% symbol. Not sure what it should be.
 
 The Macrocystis spawn index in spawn $s$ is
 \begin{equation}\label{eqMacroIndS}
@@ -1561,6 +1568,8 @@ num_egg_plot <- ggplot(
 # Show the figure
 print(num_egg_plot)
 @
+% TODO: Axis labels are faint and should be darker (all figures); same with
+% grid lines in the background.
 
 \section{UNDERSTORY SPAWN CALCULATIONS}\label{secUnder}
 
@@ -1605,15 +1614,15 @@ $B'$ & Understory spawn index (i.e., relative biomass) & t & \\
 
 We calculate two separate estimates of egg density at the quadrat level
 (step \ref{uQuad} in \autoref{figFlow}):
-spawn on substrate $i'$, and spawn on algae $v$.
-\citet{HaegeleEtal1979} developed a model of substrate $i$ egg density
+spawn on substrate $i'$ and spawn on algae $v$.
+\citet{HaegeleEtal1979} developed a model of substrate $i'$ egg density
 from egg layers using a linear model
 \begin{equation}\label{eqUnderDensSubQTS}
 \rho_{i'qtxsnry} = \varphi E_{i'qtxsnry} \phi_{i'qtxsnry},
 \end{equation}
 where $\varphi$ is the regression slope,
 $E_{i'qtxsnry}$ is the number of egg layers,
-$\phi_{i'qtxsnry}$ is the proportion of substrate $i'$ covered by spawn, and
+$\phi_{i'qtxsnry}$ is the proportion of substrate covered by spawn, and
 $\rho_{i'qtxsnry}$ is substrate egg density
 in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$ (\autoref{figUnderDensSubQTS}).
 
@@ -1763,6 +1772,10 @@ and can be combined.
 
 \subsection{TRANSECT OBSERVATIONS AND CALCULATIONS}\label{secUnderT}
 
+% TODO: Consider adding a table with spawn index data summary: say, "number of
+% egg layers on algae" with min, max, and mean. Do this for each variable shown
+% in the figures (6, 7, 8, and 9).
+
 At the transect level (step \ref{uTrans} in \autoref{figFlow}),
 the mean understory egg density in transect $t$ is
 \begin{equation}\label{eqUnderDensTS}
@@ -1823,19 +1836,20 @@ $B_{xsnry}'$ is in tonnes (step \ref{uInd} in \autoref{figFlow}).
 
 \section{TOTAL SPAWN CALCULATIONS}\label{secTotal}
 
-This section describes step \ref{tIndex} in \autoref{figFlow}.
-For spawn index calculations up to this point,
-subscript notation has been nested and hierarchical
+Recall that spawn index calculations so far
+have a nested hierarchical structure
 (e.g., substrate type $i$ is nested within sample $j$
 for surface spawn calculations in \autoref{secSurf}).
-Recall from \autoref{secProt} that
-the finest scale that we calculate the spawn index is
-for a given survey type $x$ and spawn $s$
-(i.e., $B_{xsnry}'$).
-We use the notation of \cite{Montgomery2012} in the following calculations,
+However, quantities at the survey type $x$ in spawn $s$ level
+are not necessarily nested and hierarchical (e.g., $B_{xsnry}'$);
+this is the finest scale that we calculate the spawn index (\autoref{secProt})
+Thus, we use the notation of \cite{Montgomery2012}
+in the following calculations,
 where `$\cdot$' subscript notation indicates summation
 over the subscript that it replaces.
-Thus, we sum over survey type $x$ to calculate
+
+This section describes step \ref{tIndex} in \autoref{figFlow}.
+We sum over survey type $x$ to calculate
 the total spawn index in spawn $s$
 (\autoref{tabNotationIndices} and \autoref{tabNotationTotal})
 \begin{equation}\label{eqTotIndSLRY}
@@ -1851,7 +1865,7 @@ $B_{\cdot snry}'$ is in tonnes (step \ref{tIndex} in \autoref{figFlow}).
 \centering
 \caption[Notation for \fishName{} total spawn index calculations]
 {Notation for \fishName{} total spawn index calculations.
-Note that in this table $q$ represents the spawn index scaling parameter,
+Note that $q$ represents the spawn index scaling parameter in this table,
 not quadrat number as in other sections of this report.
 Legend: tonnes (t).
 Note that `$\,'$' indicates related variables (e.g., $B'$ is related to $B$).}
@@ -1889,7 +1903,7 @@ from \autoref{eqTotIndRY},
 $q_{ry}$ is the spawn index scaling parameter \citeyearpar[DFO][]{DFO2016}, and
 $B_{\cdot \cdot \cdot ry}$ is scaled biomass for SAR $r$ and year $y$ in tonnes.
 To be consistent with stock assessments,
-in this section $q$ represents the spawn index scaling parameter,
+$q$ represents the spawn index scaling parameter in this section,
 not quadrat number as in other sections of this report.
 In \fishName{} stock assessment models,
 $q$ describes the proportion of spawn observed in spawn surveys,
@@ -1901,7 +1915,7 @@ there are differences between the proportion of spawn observed
 in the two spawn survey periods \citeyearpar[DFO][]{DFO2021b}.
 Therefore, for each SAR we estimate one spawn index scaling parameter for
 the surface survey period $q_1$
-(\Sexpr{pars$years$assess} to \Sexpr{pars$years$dive-1}), and
+(\Sexpr{pars$years$assess} to \Sexpr{pars$years$dive-1}) and
 a second one for the dive survey period $q_2$
 (\Sexpr{pars$years$dive} to present).
 
@@ -1910,7 +1924,7 @@ a second one for the dive survey period $q_2$
 Spawn-on-kelp (SOK) fisheries collect \fishName{} roe that
 adheres to algae such as Macrocystis after spawning.
 Other similar fisheries include spawn-on-bough,
-in which operators collect roe that adhere to submerged tree boughs;
+in which operators collect roe that adheres to submerged tree boughs;
 we refer to these fisheries collectively as SOK in this document.
 There are two types of SOK fisheries in BC:
 `open-pond' in which operators provide algae to spawning \fishName{}, and
@@ -1924,22 +1938,23 @@ but we do not address this issue here.
 Thus, SOK fisheries present an issue in terms of their impact to the population,
 and accounting in stock assessment and monitoring \citep{SchweigertEtal2018}.
 For example, failing to account for SOK spawn in assessments is analogous to
-treating it as missed spawn via the $q$ parameter (\autoref{secScaled});
+treating it as missed spawn via the
+spawn index scaling parameter $q$ (\autoref{secScaled});
 conversely, accounting for SOK spawn directly in assessments
-may reduce the uncertainty in $q$.
+may reduce uncertainty in $q$.
 Although \fishName{} stock assessments do not account for
 eggs removed by SOK fisheries at this time,
-there are a few options to account for the impact of SOK harvest.
-The most direct is to estimate the quantity of eggs removed from the population,
+there are a few options to account for impacts from SOK harvest.
+The most direct is to estimate the quantity of eggs removed from the population
 and determine the biomass of \fishName{} that produced those eggs.
 
 \cite{ShieldsEtal1985} collected information on the relationship between
-the number of egg layers in SOK product, and
+the number of egg layers in SOK product and
 the proportion of product weight that consists of eggs and kelp.
 They determined that Macrocystis kelp represents an average of
 12\% of the total product weight.
 Since SOK product is universally brined at the time of harvest,
-it is necessary to also consider the uptake of salt by the eggs,
+we also need to consider the uptake of salt by the eggs,
 which increases the overall product weight.
 However, there is uncertainty in the degree of brining
 that occurs prior to weighing the product.
@@ -1958,8 +1973,7 @@ by SOK fishery $g$ (\autoref{tabNotationIndices}) as
 \begin{equation}\label{eqSOKBioGRY}
 B_{gry}' = \frac{H_{gry} \left(1 - \nu\right) \frac{1}{1+\upsilon}} {w \theta},
 \end{equation}
-where $H_{gry}$ is the weight in kilograms of \fishName{} SOK harvest
-in fishery $g$,
+where $H_{gry}$ is the weight in kilograms of \fishName{} SOK harvest,
 $\nu$ is the proportion of SOK product weight that is Macrocystis kelp,
 $\upsilon$ is the SOK product weight increase due to brining as a proportion,
 $w$ is the average weight in kilograms of a fertilized egg,
@@ -1969,8 +1983,7 @@ Then we aggregate the relative biomass by SAR $r$ and year $y$
 \begin{equation}\label{eqSOKBioRY}
 B_{\cdot ry}' = \sum_{g=1}^{G_{ry}} B_{gry}',
 \end{equation}
-where $B_{gry}'$ is the relative biomass for fishery $g$
-from \autoref{eqSOKBioGRY} and
+where $B_{gry}'$ is the relative biomass from \autoref{eqSOKBioGRY} and
 $B_{\cdot ry}'$ is in tonnes.
 Thus, $B_{\cdot ry}'$ is the relative biomass of \fishName{} that produced eggs
 which were removed by SOK fisheries in SAR $r$ and year $y$ in tonnes.
@@ -2006,9 +2019,10 @@ measurement error, and
 model structural complexity \citep{LinkEtal2012}.
 Some examples illustrate these sources of uncertainty:
 \begin{enumerate}
-\item Natural variability could affect \fishName{} fecundity, and the sex ratio of spawning \fishName{} (\autoref{eqECF}).
+\item Natural variability could affect \fishName{} fecundity and
+the sex ratio of spawning \fishName{} (\autoref{eqECF}).
 Fecundity could be influenced by biological processes such as
-the observed non-stationarity of weight-at-age \citeyearpar[DFO][]{DFO2021b}, or
+the observed non-stationarity of weight-at-age \citeyearpar[DFO][]{DFO2021b} or
 a truncated age distribution caused by selective fishing \citep{BrunelPiet2013}.
 \item Measurement error could affect input data
 (e.g., number of egg layers, spawn length and width), while
@@ -2051,7 +2065,7 @@ into spawn index calculations,
 Second, acknowledging uncertainty can reduce another source of uncertainty:
 inadequate communication among scientists, managers, and stakeholders,
 which can lead to misapplication of scientific advice \citep{LinkEtal2012}.
-Finally, acknowledging uncertainty will increase transparency, and
+Finally, acknowledging uncertainty will increase transparency and
 enable users to assess potential impacts to \fishName{} stock assessments
 in a management strategy evaluation (MSE)
 approach \citeyearpar[e.g., DFO][]{DFO2019}.
@@ -2123,7 +2137,7 @@ $w$ & Average weight of a fertilized egg (Eq \ref{eqSOKBioGRY}). & SoG in 1980 (
 Many of the studies to quantify parameters and prediction models
 used in spawn index calculations are dated (\autoref{tabUncertainty});
 these analyses could be reviewed with new information, and updated if required.
-In addition, some of these studies had limited number of samples,
+In addition, some of these studies have limited number of samples,
 limited spatial or temporal range, or both.
 In addition to work mentioned here and in \autoref{secUncertain},
 potential research includes:
@@ -2144,7 +2158,7 @@ ratio of means (i.e., current method) versus mean of ratios,
 \begin{enumerate}
   \item Mean versus median width,
   \item Annual versus periodic updates, and
-  \item Occurrence of relationship between spawn width and spawning biomass,
+  \item Relationship between spawn width and biomass,
 \end{enumerate}
 \item Periodically review the accuracy of egg density models
 using egg layer and vegetation cover estimates collected underwater,
@@ -2158,7 +2172,7 @@ other algae species and tree boughs (\autoref{eqSOKBioGRY}), and
 \section{CAVEATS}
 
 There are a few caveats to consider when interpreting
-the \fishName{} spawn index, and using spawn index data in analyses.
+the \fishName{} spawn index and using spawn index data in analyses.
 These caveats include:
 \begin{enumerate}
 \item The spawn index is a relative index of spawning biomass,
@@ -2192,8 +2206,8 @@ The SpawnIndex package contains
 an example database of \fishName{} spawn survey observations, as well as
 functions to import tables from the database and
 calculate the spawn index.
-The SpawnIndex package is documented, and
-has examples to promote accessibility and transparency.
+The SpawnIndex package is documented and
+includes examples to promote accessibility and transparency.
 There is also a vignette with an example workflow.
 Finally, we cross-references equations in this document with
 functions in the \textbf{R} package (\autoref{secCross}).
@@ -2236,24 +2250,25 @@ Chris Grandin for help developing the \textbf{R} package.
 
 Spawn width is a critical component in spawn index calculations.
 There are two cases where we adjust spawn width estimates
-to improve spawn index accuracy:
-surface surveys in all years from \Sexpr{pars$years$assess} to present, and
+to increase the accuracy of spawn index calculations:
+surface surveys in all years from \Sexpr{pars$years$assess} to present
+(\autoref{secWidthSurface}) and
 understory dive surveys from \Sexpr{min(under_width_facs$Year)}
-to \Sexpr{max(under_width_facs$Year)}.
+to \Sexpr{max(under_width_facs$Year)} (\autoref{secWidthUnder}).
 
 \subsection{SURFACE SPAWN WIDTH}\label{secWidthSurface}
 
 Surface surveys were the only survey type prior to \Sexpr{pars$years$dive},
 while the majority of spawns since \Sexpr{pars$years$dive}
-have been surveyed using SCUBA gear.
+have been surveyed using SCUBA gear (\autoref{secIntro}).
 Recall that we describe the spawn index as having two periods
 based on the predominant survey type:
 surface survey period from \Sexpr{pars$years$assess}
-to \Sexpr{pars$years$dive-1}, and
+to \Sexpr{pars$years$dive-1} and
 dive survey period from \Sexpr{pars$years$dive} to present.
-
 One issue with comparing these two partly overlapping protocols is that
 surface surveyors tend to underestimate spawn width $W$ \citep{HayKronlund1987}.
+
 To improve the consistency of spawn index estimates throughout the time period
 from \Sexpr{pars$years$assess} to present,
 we adjust surface spawn width estimates using underwater estimates
@@ -2306,6 +2321,7 @@ which we think explains the shrinkage.
 DFO staff re-measured lead line increments in about 2005, and found that
 they still shrank from $1.15\,\text{m}$ to $1.0\,\text{m}$, and
 continued to use the modified protocol.
+% TODO: Why 5% and then 15%? 1 m and then 3 m.. doesn't make sense.
 
 In 2013, spawn surveyors observed that
 lead line increments were consistently $1.15\,\text{m}$,
@@ -2320,8 +2336,7 @@ with some segments being replaced more frequently.
 For example, inner segments are replaced more frequently
 than seaward segments, and
 segments in some SARs are replaced more frequently than in other SARs.
-We believe that a change in lead line manufacturing
-prevents new lead lines from shrinking.
+We think that a change in manufacturing prevents new lead lines from shrinking.
 
 The earliest written instructions that describe the modified protocol
 of marking $1.15\,\text{m}$ increments is
@@ -2332,7 +2347,7 @@ in \Sexpr{max(under_width_facs$Year)}.
 The practice of annually re-measuring lead line increments ceased around 2005;
 thus we are unable to determine when lead lines ceased shrinking.
 Given the observations summarized above,
-we adjust spawn width estimates based on written instructions
+we adjust understory spawn width estimates based on written instructions
 for the marking protocol in \Sexpr{min(under_width_facs$Year)}.
 Accordingly, our best estimate of years impacted by
 marking lead lines at $1.15\,\text{m}$ increments
@@ -2346,8 +2361,8 @@ others had all $1.15\,\text{m}$ increment lengths ($\tau_{ry} = 1.150$),
 and others had a combination of
 $1.0\,\text{m}$ and $1.15\,\text{m}$ increment lengths
 which we assume to be in equal proportion ($\tau_{ry} = 1.075$).
-We correct understory spawn width by
-multiplying the observed width on transect $t$ by a correction factor
+
+We correct understory spawn width on transect $t$
 \begin{equation}\label{eqWidthCorT}
 W_{txsnry} = W_{txsnry}'' \tau_{ry},
 \end{equation}
@@ -2355,7 +2370,7 @@ where $W_{txsnry}''$ is the observed spawn width,
 $\tau_{ry}$ is the spawn width correction factor (\autoref{tab:WidthFac}), and
 $W_{txsnry}$ is in metres (\autoref{tabNotationWidth}).
 Instead of updating the database permanently,
-we adjust spawn width in the \textbf{R} package to be transparent, and
+we adjust spawn width in the \textbf{R} package to be transparent and
 to prevent mismatches between the original data sheets and databases.
 DFO staff now re-measure transect segments annually
 to ensure that this issue does not reoccur
@@ -2436,16 +2451,23 @@ we found several cases where
 index data were being over-written with no documented reason.
 These updates have been omitted, and affected the following records:
 \begin{enumerate}
-\item Update $E_j$ (i.e., number of egg layers; \autoref{tabNotationSurf}) to 2.1496 for the records (there are 15 records) in the year 1979, Statistical Area 2, and with intensity 4,
-\item Update $E_j$ to 0.5529 for the records (4) in the year 1981, Statistical Area 24, and with $E_j = 0.0$,
-\item Update $E_j$ to 1.3360 for the records (7) in the year 1982, Statistical Area 23, and with intensity 3,
-\item Update $E_j$ to 2.3300 for the records (41) in the year 1984, Statistical Area 24, and with intensity 0, and
-\item Update $E_j$ to 2.9800 for the records (14) in the year 1982, Statistical Area 27, and with $E_j = 0.0$.
+\item Update $E_{jxsnry}$
+(i.e., number of egg layers; \autoref{tabNotationSurf}) to 2.1496
+for the records (there are 15 records)
+in the year 1979, Statistical Area 2, and with intensity 4,
+\item Update $E_{jxsnry}$ to 0.5529 for the records (4)
+in the year 1981, Statistical Area 24, and with $E_{jxsnry} = 0.0$,
+\item Update $E_{jxsnry}$ to 1.3360 for the records (7)
+in the year 1982, Statistical Area 23, and with intensity 3,
+\item Update $E_{jxsnry}$ to 2.3300 for the records (41)
+in the year 1984, Statistical Area 24, and with intensity 0, and
+\item Update $E_{jxsnry}$ to 2.9800 for the records (14)
+in the year 1982, Statistical Area 27, and with $E_{jxsnry} = 0.0$.
 \end{enumerate}
 In the first three cases,
-$E_j$ was updated using intensity categories (\autoref{tab:Intensity});
+$E_{jxsnry}$ was updated using intensity categories (\autoref{tab:Intensity});
 in the last two cases,
-$E_j$ was updated using historical averages.
+$E_{jxsnry}$ was updated using historical averages.
 These changes have negligible effects on spawn index values.
 
 \section{R PACKAGE CROSSWALK}\label{secCross}
@@ -2462,31 +2484,31 @@ functions in the package (\autoref{tabLookupFuns}).
 In addition, parameters names in this document correspond to
 function argument names in the \textbf{R} package.
 For example, theta $\theta$ in \autoref{eqECF} corresponds to
-\texttt{theta} in the function \texttt{eggs\_to\_sb}.
-Similarly, egg layers $E_j$ in \autoref{eqSurfDensJS} corresponds to
-\texttt{egg\_layers} in the function \texttt{dens\_surf}.
+\texttt{theta} in the function \texttt{eggs\_to\_sb()}.
+Similarly, egg layers $E_{jxsnry}$ in \autoref{eqSurfDensJS} corresponds to
+\texttt{egg\_layers} in the function \texttt{dens\_surf()}.
 
 \begin{table}
 \centering
 \caption[Crosswalk table for equations and functions in the SpawnIndex \textbf{R} package]
 {Crosswalk table for equations in this document (i.e., technical report) and
 corresponding functions in the SpawnIndex \textbf{R} package (\gitRepo{}).
-Legend: `Eq' indicates equation.}
+Legend: `\S{}' indicates section and `Eq' indicates equation.}
 \begin{tabulary}{\linewidth}{>{\hangindent=1em}Llll}
 \toprule
 & \multicolumn{2}{c}{\textbf{Technical report}} & \multicolumn{1}{c}{\textbf{R package}} \\
 \cmidrule(r){2-3} \cmidrule(l){4-4}
-\textbf{Description} & \textbf{Section} & \textbf{Eq} & \textbf{Function} \\
+\textbf{Description} & \textbf{\S{}} & \textbf{Eq} & \textbf{Function} \\
 \midrule
-Egg conversion factor & \ref{secProd} & \ref{eqECF} & \texttt{eggs\_to\_sb} \\
-Surface spawn calculations & \ref{secSurf} & \ref{eqSurfLayersIJS} to \ref{eqSurfIndS} & \texttt{calc\_surf\_index} \\
-Surface egg density & \ref{secSurfJ} & \ref{eqSurfDensJS} & \texttt{dens\_surf} \\
-Macrocystis spawn calculations & \ref{secMacro} & \ref{eqMacroAreaTS} to \ref{eqMacroIndS} & \texttt{calc\_macro\_index} \\
-Number of eggs per Macrocystis plant & \ref{secMacroS} & \ref{eqMacroEggsPerPlantS} & \texttt{eggs\_macro} \\
-Understory spawn calculations & \ref{secUnder} & \ref{eqUnderDensSubQTS} to \ref{eqUnderIndS} & \texttt{calc\_under\_index} \\
-Understory egg density on substrate & \ref{secUnderQ} & \ref{eqUnderDensSubQTS} & \texttt{dens\_under\_sub} \\
-Understory egg density on algae & \ref{secUnderQ} & \ref{eqUnderDensAlgVQTS} & \texttt{dens\_under\_alg} \\
-Spawn-on-kelp calculations & \ref{secSOK} & \ref{eqSOKBioGRY} & \texttt{calc\_sok\_index} \\
+Egg conversion factor & \ref{secProd} & \ref{eqECF} & \texttt{eggs\_to\_sb()} \\
+Surface spawn calculations & \ref{secSurf} & \ref{eqSurfLayersIJS} to \ref{eqSurfIndS} & \texttt{calc\_surf\_index()} \\
+Surface egg density & \ref{secSurfJ} & \ref{eqSurfDensJS} & \texttt{dens\_surf()} \\
+Macrocystis spawn calculations & \ref{secMacro} & \ref{eqMacroAreaTS} to \ref{eqMacroIndS} & \texttt{calc\_macro\_index()} \\
+Number of eggs per Macrocystis plant & \ref{secMacroS} & \ref{eqMacroEggsPerPlantS} & \texttt{eggs\_macro()} \\
+Understory spawn calculations & \ref{secUnder} & \ref{eqUnderDensSubQTS} to \ref{eqUnderIndS} & \texttt{calc\_under\_index()} \\
+Understory egg density on substrate & \ref{secUnderQ} & \ref{eqUnderDensSubQTS} & \texttt{dens\_under\_sub()} \\
+Understory egg density on algae & \ref{secUnderQ} & \ref{eqUnderDensAlgVQTS} & \texttt{dens\_under\_alg()} \\
+Spawn-on-kelp calculations & \ref{secSOK} & \ref{eqSOKBioGRY} & \texttt{calc\_sok\_index()} \\
 \bottomrule
 \end{tabulary}
 \label{tabLookupFuns}
