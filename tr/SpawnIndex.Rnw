@@ -148,6 +148,12 @@ require(ggrepel)
 require(SpawnIndex)
 require(gfiscamutils)
 require(knitr)
+require(maps)
+require(ggspatial)
+require(rnaturalearth)
+require(rnaturalearthdata)
+require(sf)
+
 # Omit xcolor warning(s)
 knit_hooks$set(document = function(x) {
   sub("\\usepackage[]{color}", "\\usepackage{xcolor}", x, fixed = TRUE)
@@ -404,7 +410,7 @@ the surface survey method to estimate egg deposition.
 Since \Sexpr{pars$years$dive} surveyors primarily use aircraft
 to identify spawning activity and
 underwater SCUBA surveys to estimate egg deposition.
-More recently, surveyors are using satellite imagery to
+Starting in 2018 surveyors have used satellite imagery to
 identify spawns in remote areas.
 It typically takes less time to search for spawn using aircraft, and
 more effort to measure egg deposition using SCUBA surveys,
@@ -429,6 +435,57 @@ The major SARs are Haida Gwaii (formerly known as Queen Charlotte Islands),
 Prince Rupert District (formerly known as North Coast), Central Coast,
 Strait of Georgia, and West Coast of Vancouver Island.
 The minor SARs are \Sexpr{paste_nicely(minor_regions)}.
+
+<<st>>=
+reg <- regions %>%
+  filter(Type %in% c("Major", "Minor")) %>%
+  select(SAR, Region)
+
+n_america <- ne_countries(
+  scale = "large", returnclass = "sf", continent = "North America"
+)
+
+sf_sec <- st_read(
+  dsn = file.path("..", "..", "Data", "Polygons"),
+  layer = "SectionsIntegrated", quiet = TRUE
+) %>%
+  st_transform(crs = st_crs(n_america)) %>%
+  filter(SAR %in% reg$SAR) %>%
+  left_join(reg, by = "SAR")
+
+sf_sa <- sf_sec %>%
+  group_by(StatArea) %>%
+  summarise() %>%
+  ungroup()
+
+sf_reg <- sf_sec %>%
+  group_by(Region) %>%
+  summarise() %>%
+  ungroup()
+
+sf_reg_cent <- st_centroid(sf_reg)
+
+tibble_reg_cent <- sf_reg_cent %>%
+  st_coordinates() %>%
+  as_tibble() %>%
+  mutate(Region = sf_reg_cent$Region)
+
+sec_bbox <- sf_sec %>%
+  st_bbox() %>%
+  st_as_sfc() %>%
+  st_buffer(dist = 10000)
+
+box_coord <- sf_sec %>%
+  st_bbox() %>%
+  st_as_sfc() %>%
+  st_buffer(dist = 5000) %>%
+  st_coordinates() %>%
+  as_tibble()
+
+bc_coast <- n_america %>%
+  st_crop(y = sec_bbox)
+@
+
 
 <<Region>>=
 # Number of plots
@@ -535,7 +592,7 @@ Statistical Area \Sexpr{zoom_sa} is emphasized with a thick boundary line.}
 \label{figRegion}
 \end{figure}
 
-<<BC, fig.width=figWidth*0.67, fig.height=figWidth/shapes$xyRatio*0.67, fig.lp="fig", echo=FALSE, fig.cap=fig_cap, fig.scap="Spatial boundaries for \\fishName{} stock assessment regions in British Columbia">>=
+<<BC, fig.width=figWidth*0.67, fig.height=figWidth*0.67, fig.lp="fig", echo=FALSE, fig.cap=fig_cap, fig.scap="Spatial boundaries for \\fishName{} stock assessment regions in British Columbia">>=
 # Caption
 fig_cap <- paste(
   "Spatial boundaries for \\fishName{} stock assessment regions (SARs) in ",
@@ -544,37 +601,38 @@ fig_cap <- paste(
   paste_nicely(major_regions), ". ",
   "There are ", num_to_word(length(minor_regions)), " minor SARs: ",
   paste_nicely(minor_regions), ". ",
-  "Units: kilometres (km).",
   sep = ""
 )
 # Plot BC coast and regions
-map_bc <- ggplot(
-  data = shapes$landAllCropDF, aes(x = Eastings, y = Northings)
-) +
-  geom_polygon(
-    data = shapes$landAllCropDF, aes(group = group), fill = "darkgrey"
+map_bc <- ggplot(data = bc_coast) +
+  geom_sf(fill = "antiquewhite", colour = "grey", size = 0.25) +
+  geom_sf(data = sf_reg, fill = "transparent", colour = "black", size = 0.5) +
+  coord_sf(xlim = range(box_coord$X), ylim = range(box_coord$Y), expand = FALSE) +
+  annotate(
+    geom = "text", x = -125, y = 53, label = "British\nColumbia,\nCanada",
+    size = 3
   ) +
-  geom_point(data = shapes$extAllDF, colour = "transparent") +
-  geom_path(
-    data = shapes$regAllDF, aes(group = Region), size = 0.5, colour = "black"
+  annotate(
+    geom = "text", x = -131, y = 50.25, label = "Northeast\nPacific\nOcean",
+    size = 3
   ) +
   geom_label(
-    data = shapes$regCentDF, alpha = 0.5, aes(label = Region), size = 3
+    data = tibble_reg_cent, aes(x = X, y = Y, label = Region), alpha = 0.75,
+    size = 3
   ) +
-  annotate(
-    geom = "text", x = 1050000, y = 900000,
-    label = "British\nColumbia,\nCanada", size = 4
+  scale_x_continuous(label = abs) +
+  scale_y_continuous(label = abs) +
+  labs(x = expression(paste("Longitude (", degree, "W)", sep = "")),
+       y = expression(paste("Latitude (", degree, "N)", sep = ""))
   ) +
-  annotate(
-    geom = "text", x = 700000, y = 500000,
-    label = "Northeast\nPacific\nOcean", size = 4
-  ) +
-  coord_equal() +
-  labs(x = "Eastings (km)", y = "Northings (km)", caption = geoProj) +
-  scale_x_continuous(labels = function(x) comma(x / 1000), expand = c(0, 0)) +
-  scale_y_continuous(labels = function(x) comma(x / 1000), expand = c(0, 0)) +
-  herring_theme +
-  theme(panel.border = element_rect(colour = "black", fill = NA, size = 0.5))
+  theme(
+    axis.text = element_text(colour = "black"),
+    panel.grid.major = element_line(
+      color = "darkgrey", linetype = "dashed", size = 0.5
+    ),
+    panel.background = element_rect(fill = "aliceblue"),
+    panel.border = element_rect(colour = "black", fill = "transparent")
+  )
 # Show the figure
 print(map_bc)
 @
