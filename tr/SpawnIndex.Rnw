@@ -68,7 +68,7 @@ Second, we develop a conversion factor to convert \fishName{} eggs to biomass,
 which is critical spawn index calculations.
 Third, we calculate the spawn index for each of the three aforementioned spawn survey types:
 surface, Macrocystis, and understory.
-Finally, we combine the spawn indices from the three types of survey observations, and
+Finally, we add the spawn indices from the three types of survey observations, and
 aggregate by stock assessment region and year to produce
 a relative index of combined sex spawning biomass.
 We also provide an approach to calculate biomass for spawn-on-kelp fisheries.
@@ -148,8 +148,6 @@ require(ggrepel)
 require(SpawnIndex)
 require(gfiscamutils)
 require(knitr)
-require(maps)
-require(ggspatial)
 require(rnaturalearth)
 require(rnaturalearthdata)
 require(sf)
@@ -197,19 +195,14 @@ options(knitr.kable.NA = "")
 if (!"knitr-figs" %in% list.files()) dir.create("knitr-figs")
 @
 
-<<maps, echo=FALSE>>=
-# Region to consider
-r_name <- "SoG"
-# Location of the saved R image (SoG data summary)
-loc_image <- file.path("..", "..", "DataSummaries", r_name)
-# Image name
-image_name <- paste("Image.", r_name, ".RData", sep = "")
-# Stop if saved workspace is not available
-if (!image_name %in% list.files(path = loc_image)) {
-  stop("Saved workspace image not available.")
-} # End if not available
-# Load a saved workspace
-load(file = file.path(loc_image, image_name))
+<<spatial, echo=FALSE>>=
+# Region, Statistical Area, Section and Year to consider
+zoom_reg <- "CC" # CC
+zoom_sa <- "07" # 07
+zoom_sec <- "074" # 074
+yr_index <- 2021
+# Coordinate reference system
+epsg_crs <- 4326
 # All region names
 all_regions <- regions %>%
   mutate(FullName = paste(RegionName, " (", Region, ")", sep = "")) %>%
@@ -226,71 +219,123 @@ minor_regions <- all_regions %>%
   pull()
 # Region name
 reg_name_long <- regions %>%
-  filter(Region == r_name) %>%
+  filter(Region == zoom_reg) %>%
   select(RegionName) %>%
   pull()
-# Stat Area to examine (character with 2 digits)
-zoom_sa <- "14"
-# Section to examine (character with 3 digits)
-zoom_sec <- "142"
-# Buffer for Stat Area map
-buff_sa <- 3000
-# Buffer for Section map
-buff_sec <- 1000
-# Year (for spawn index)
-yr_index <- 2021
-# Calculate spawn summary in current year by location code
-spawn_by_loc_xy <- spawnRaw %>%
-  filter(Year == yr_index, StatArea == zoom_sa, Section == zoom_sec) %>%
-  group_by(LocationCode, LocationName) %>%
+# Get spawn data
+spawn_all <- read_csv(
+  file = file.path("..", "..", "FIND", "Data", "FIND.csv"), col_types = cols()
+) %>%
+  group_by(
+    Region, Year, StatisticalArea, Section, LocationCode, LocationName,
+    Longitude, Latitude, Surface, Macrocystis, Understory
+  )  %>%
   summarise(
-    TotalSI = sum_na(c(MacroSI, SurfSI, UnderSI)), Eastings = unique(Eastings),
-    Northings = unique(Northings)
+    Surface = sum(Surface, na.rm = TRUE),
+    Macrocystis = sum(Macrocystis, na.rm = TRUE),
+    Understory = sum(Understory, na.rm = TRUE)
   ) %>%
   ungroup() %>%
-  arrange(TotalSI)
-# Coordinates for Statistical Area map
-ext_sa <- shapes$saDF %>%
-  filter(id == zoom_sa) %>%
-  group_by(id) %>%
-  summarise(
-    xmin = min(Eastings) - buff_sa, xmax = max(Eastings) + buff_sa,
-    ymin = min(Northings) - buff_sa, ymax = max(Northings) + buff_sa
-  ) %>%
+  replace_na(replace = list(Surface = 0, Macrocystis = 0, Understory = 0)) %>%
+  mutate(Index = Surface + Macrocystis + Understory) %>%
+  select(
+    Region, Year, StatisticalArea, Section, LocationCode, LocationName,
+    Longitude, Latitude, Index
+  )
+# Get areas information
+areas <- spawn_all %>%
+  select(Region, StatisticalArea, Section) %>%
+  distinct()
+# Make spawn data a spatial object
+sf_spawn <- spawn_all %>%
+  filter(Section == zoom_sec, Year == yr_index) %>%
+  select(LocationCode, LocationName, Index, Longitude, Latitude) %>%
+  st_as_sf(coords = c("Longitude", "Latitude"), crs = epsg_crs)
+# Subset regions
+reg <- regions %>%
+  filter(Type %in% c("Major", "Minor")) %>%
+  select(SAR, Region, RegionName)
+# Get sections data
+sf_sec <- sections %>%
+  st_transform(crs = epsg_crs) %>%
+  left_join(areas, by = "Section") %>%
+  filter(Region %in% reg$Region)
+# Aggregate sections to statisical areas
+sf_sa <- sf_sec %>%
+  group_by(Region, StatisticalArea) %>%
+  summarise() %>%
   ungroup()
-# Ratio for Statistical Area figure
-xy_ratio_sa <- (ext_sa$ymax - ext_sa$ymin) / (ext_sa$xmax - ext_sa$xmin)
-# Determine Sections in the Stat Area
-sections_sa <- areas %>%
-  filter(StatArea == as.integer(zoom_sa)) %>%
-  select(Section) %>%
-  distinct() %>%
-  mutate(Section = formatC(Section, flag = "0", width = 3)) %>%
-  pull(Section)
-# Coordinates for Section 142
-ext_sec <- shapes$secDF %>%
-  filter(id == zoom_sec) %>%
-  group_by(id) %>%
-  summarise(
-    xmin = min(Eastings) - buff_sec, xmax = max(Eastings) + buff_sec,
-    ymin = min(Northings) - buff_sec, ymax = max(Northings) + buff_sec
-  ) %>%
+# Aggregate sections to regions
+sf_reg <- sf_sec %>%
+  group_by(Region) %>%
+  summarise() %>%
   ungroup()
-# Ratio for Section figure
-xy_ratio_sec <- (ext_sec$ymax - ext_sec$ymin) / (ext_sec$xmax - ext_sec$xmin)
-# Create a base map for the region
-base_map <- ggplot(data = shapes$landCropDF, aes(x = Eastings, y = Northings)) +
-  geom_polygon(
-    data = shapes$landCropDF, aes(group = group), fill = "darkgrey"
-  ) +
-  geom_point(data = shapes$extDF, colour = "transparent") +
-  coord_equal() +
-  labs(x = NULL, y = NULL) +
-  scale_x_continuous(labels = function(x) comma(x / 1000), expand = c(0, 0)) +
-  scale_y_continuous(labels = function(x) comma(x / 1000), expand = c(0, 0)) +
-  herring_theme +
-  theme_void() +
-  theme(panel.border = element_rect(colour = "black", fill = NA, size = 0.5))
+# Get centroid
+get_centroid <- function(dat, col){
+  cent <- dat %>%
+    st_transform(crs = 32609) %>%
+    st_centroid() %>%
+    st_transform(crs = epsg_crs)
+  res <- cent %>%
+    st_coordinates() %>%
+    as_tibble() %>%
+    mutate(Label = pull(dat, var = col))
+  res
+}
+# Centroids: regions, statistical areas, and sections
+reg_cent <- get_centroid(dat = sf_reg, col = "Region")
+sa_cent <- get_centroid(
+  dat = filter(sf_sa, Region == zoom_reg), col = "StatisticalArea")
+sec_cent <- get_centroid(
+  dat = filter(sf_sec, StatisticalArea == zoom_sa), col = "Section"
+)
+# Outer extent of study area
+map_bbox <- sf_sec %>%
+  st_bbox() %>%
+  st_as_sfc() %>%
+  st_buffer(dist = 50000)
+# Get land data
+bc_coast <- ne_countries(
+  scale = "large", returnclass = "sf", continent = "North America"
+) %>%
+  st_transform(crs = epsg_crs) %>%
+  st_geometry(x = NULL) %>%
+  st_crop(map_bbox)
+# BC extent
+ext_bc <- sf_sec %>%
+  st_bbox()
+# Region extent
+ext_reg <- sf_reg %>%
+  filter(Region == zoom_reg) %>%
+  st_bbox()
+# Statistical area extent
+ext_sa <- sf_sa %>%
+  filter(StatisticalArea == zoom_sa) %>%
+  st_bbox()
+# Section extent
+ext_sec <- sf_sec %>%
+  filter(Section == zoom_sec) %>%
+  st_bbox()
+# Get ratio of x to y
+get_ext_ratio <- function(dat) {
+  ext <- dat %>%
+    st_transform(crs = 32609) %>%
+    st_bbox()
+  x_range <- ext$xmax - ext$xmin
+  y_range <- ext$ymax - ext$ymin
+  res <- abs(y_range) / abs(x_range)
+  res
+}
+# BC extent ratio
+xy_bc <- get_ext_ratio(dat = sf_sec)
+# Region extent ratio
+xy_reg <- get_ext_ratio(dat = filter(sf_reg, Region == zoom_reg))
+# Statistical area extent ratio
+xy_sa <- get_ext_ratio(dat = filter(sf_sa, StatisticalArea == zoom_sa))
+# Section extent ratio
+xy_sec <- get_ext_ratio(dat = filter(sf_sec, Section == zoom_sec))
+# Max ratio for 3-panel plot
+xy_max <- max(xy_reg, xy_sa, xy_sec)
 @
 
 <<pars, echo=FALSE>>=
@@ -436,163 +481,133 @@ Prince Rupert District (formerly known as North Coast), Central Coast,
 Strait of Georgia, and West Coast of Vancouver Island.
 The minor SARs are \Sexpr{paste_nicely(minor_regions)}.
 
-<<st>>=
-reg <- regions %>%
-  filter(Type %in% c("Major", "Minor")) %>%
-  select(SAR, Region)
-
-n_america <- ne_countries(
-  scale = "large", returnclass = "sf", continent = "North America"
-)
-
-sf_sec <- st_read(
-  dsn = file.path("..", "..", "Data", "Polygons"),
-  layer = "SectionsIntegrated", quiet = TRUE
-) %>%
-  st_transform(crs = st_crs(n_america)) %>%
-  filter(SAR %in% reg$SAR) %>%
-  left_join(reg, by = "SAR")
-
-sf_sa <- sf_sec %>%
-  group_by(StatArea) %>%
-  summarise() %>%
-  ungroup()
-
-sf_reg <- sf_sec %>%
-  group_by(Region) %>%
-  summarise() %>%
-  ungroup()
-
-sf_reg_cent <- st_centroid(sf_reg)
-
-tibble_reg_cent <- sf_reg_cent %>%
-  st_coordinates() %>%
-  as_tibble() %>%
-  mutate(Region = sf_reg_cent$Region)
-
-sec_bbox <- sf_sec %>%
-  st_bbox() %>%
-  st_as_sfc() %>%
-  st_buffer(dist = 10000)
-
-box_coord <- sf_sec %>%
-  st_bbox() %>%
-  st_as_sfc() %>%
-  st_buffer(dist = 5000) %>%
-  st_coordinates() %>%
-  as_tibble()
-
-bc_coast <- n_america %>%
-  st_crop(y = sec_bbox)
-@
-
-
 <<Region>>=
 # Number of plots
 n_maps <- 3
 # Plot Section
-map_sec <- base_map +
-  geom_path(
-    data = filter(shapes$secDF, id %in% zoom_sec), aes(group = Section),
-    size = 0.25, colour = "black"
+map_sec <- ggplot(data = bc_coast) +
+  geom_sf(fill = "antiquewhite", colour = "grey", size = 0.25) +
+  geom_sf(
+    data = filter(sf_sec, Section == zoom_sec), fill = "transparent",
+    colour = "black", size = 0.5
   ) +
-  coord_cartesian(
-    xlim = c(ext_sec$xmin, ext_sec$xmax),
-    ylim = c(ext_sec$ymin, ext_sec$ymax), default = TRUE
-  ) +
-  geom_point(
-    data = spawn_by_loc_xy, aes(colour = TotalSI), size = 3, alpha = 0.75
+  geom_sf(data = sf_spawn, aes(colour = Index), size = 3, alpha = 0.75) +
+  coord_sf(
+    xlim = c(ext_sec$xmin, ext_sec$xmax), ylim = c(ext_sec$ymin, ext_sec$ymax)
   ) +
   scale_colour_viridis(labels = comma) +
-  labs(colour = "Spawn\nindex (t)") +
+  labs(x = NULL, y = NULL, colour = "Spawn index (t)") +
+  guides(
+    colour = guide_colourbar(
+      title.position = "top", title.hjust = 0.5,
+      label.theme = element_text(angle = 45, hjust = 1)
+    )
+  ) +
   theme(
-    legend.justification = c(0, 0), legend.position = c(0.02, 0.02),
-    legend.background = element_rect(
-      fill = alpha("white", 0.75), colour = "black", size = 0.2
-    ),
-    panel.border = element_rect(colour = "black", fill = NA, size = 0.5),
-    legend.text = element_text(size = 8), legend.title = element_text(size = 8),
-    legend.margin = margin(c(4, 4, 4, 4)), legend.key.height = unit(0.3, "cm"),
-    legend.text.align = 1, aspect.ratio = xy_ratio_sec
+    axis.text.x = element_blank(), axis.text.y = element_blank(),
+    axis.title.x = element_blank(), axis.title.y = element_blank(),
+    axis.ticks = element_blank(),
+    panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+    panel.background = element_rect(fill = "aliceblue"),
+    panel.border = element_rect(colour = "black", fill = "transparent"),
+    legend.position = "top"
   )
 ggsave(
-  filename = file.path("knitr-figs", "MapSection.png"), dpi = 600,
-  width = figWidth / n_maps, height = figWidth / n_maps * xy_ratio_sec
+  filename = file.path("knitr-figs", "MapSection.png"), dpi = 600, width = 2,
+  height = 2 * xy_max
 )
 # Plot Statistical Area
-map_sa <- base_map +
-  geom_path(
-    data = filter(shapes$secDF, id %in% sections_sa), aes(group = Section),
-    size = 0.25, colour = "black"
+map_sa <- ggplot(data = bc_coast) +
+  geom_sf(fill = "antiquewhite", colour = "grey", size = 0.25) +
+  geom_sf(
+    data = filter(sf_sec, StatisticalArea == zoom_sa),
+    fill = "transparent", colour = "black", size = 0.5
   ) +
-  geom_path(
-    data = filter(shapes$secDF, id == zoom_sec), aes(group = Section),
-    size = 1, colour = "black"
+  geom_sf(
+    data = filter(sf_sec, Section == zoom_sec),
+    fill = "transparent", colour = "black", size = 1
   ) +
-  geom_label(
-    data = filter(shapes$secCentDF, Section %in% sections_sa),
-    alpha = 0.75, aes(label = paste("Sec", Section, sep = " ")), size = 3
-  ) +
-  coord_cartesian(
-    xlim = c(ext_sa$xmin, ext_sa$xmax),
-    ylim = c(ext_sa$ymin, ext_sa$ymax), default = TRUE
-  ) +
-  theme(
-    panel.border = element_rect(colour = "black", fill = NA, size = 0.5),
-    aspect.ratio = xy_ratio_sa
-  )
-ggsave(
-  filename = file.path("knitr-figs", "MapStatArea.png"), dpi = 600,
-  width = figWidth / n_maps, height = figWidth / n_maps * xy_ratio_sa
-)
-# Plot SAR
-map_reg <- base_map +
-  geom_path(
-    data = shapes$saDF, aes(group = StatArea), size = 0.25, colour = "black"
-  ) +
-  geom_path(
-    data = filter(shapes$saDF, id == zoom_sa), aes(group = StatArea),
-    size = 1, colour = "black"
+  coord_sf(
+    xlim = c(ext_sa$xmin, ext_sa$xmax), ylim = c(ext_sa$ymin, ext_sa$ymax)
   ) +
   geom_label_repel(
-    data = shapes$saCentDF, alpha = 0.75,
-    aes(label = paste("SA", StatArea, sep = " ")), size = 3
+    data = sec_cent, aes(x = X, y = Y, label = paste("Sec", Label)),
+    alpha = 0.75, size = 3
   ) +
-  theme(panel.border = element_rect(colour = "black", fill = NA, size = 0.5))
+  labs(x = NULL, y = NULL) +
+  theme(
+    axis.text.x = element_blank(), axis.text.y = element_blank(),
+    axis.title.x = element_blank(), axis.title.y = element_blank(),
+    axis.ticks = element_blank(),
+    panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+    panel.background = element_rect(fill = "aliceblue"),
+    panel.border = element_rect(colour = "black", fill = "transparent")
+  )
 ggsave(
-  filename = file.path("knitr-figs", "MapRegion.png"), dpi = 600,
-  width = figWidth / n_maps, height = figWidth / n_maps / shapes$xyRatio
+  filename = file.path("knitr-figs", "MapStatArea.png"), dpi = 600, width = 2,
+  height = 2 * xy_max
+)
+# Plot SAR
+map_reg <- ggplot(data = bc_coast) +
+  geom_sf(fill = "antiquewhite", colour = "grey", size = 0.25) +
+  geom_sf(
+    data = filter(sf_sa, Region == zoom_reg), fill = "transparent",
+    colour = "black", size = 0.5
+  ) +
+  geom_sf(
+    data = filter(sf_sa, StatisticalArea == zoom_sa), fill = "transparent",
+    colour = "black", size = 1
+  ) +
+  coord_sf(
+    xlim = c(ext_reg$xmin, ext_reg$xmax), ylim = c(ext_reg$ymin, ext_reg$ymax)
+  ) +
+  geom_label_repel(
+    data = sa_cent, aes(x = X, y = Y, label = paste("SA", Label)), alpha = 0.75,
+    size = 3
+  ) +
+  labs(x = NULL, y = NULL) +
+  theme(
+    axis.text.x = element_blank(), axis.text.y = element_blank(),
+    axis.title.x = element_blank(), axis.title.y = element_blank(),
+    axis.ticks = element_blank(),
+    panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+    panel.background = element_rect(fill = "aliceblue"),
+    panel.border = element_rect(colour = "black", fill = "transparent")
+  )
+ggsave(
+  filename = file.path("knitr-figs", "MapRegion.png"), dpi = 600, width = 2,
+  height = 2 * xy_max
 )
 @
 
 \begin{figure}
 \centering
-\begin{subfigure}[t]{0.32\linewidth}
+\begin{subfigure}[t]{0.325\linewidth}
 \includegraphics[width=\linewidth]{knitr-figs/MapSection.png}
 \caption{Spawn index in tonnes (t) in \Sexpr{yr_index} by Location in
-Section \Sexpr{zoom_sec}, Statistical Area \Sexpr{zoom_sa}, \Sexpr{r_name} SAR.}
+Section \Sexpr{zoom_sec}, Statistical Area \Sexpr{zoom_sa}, \Sexpr{zoom_reg} SAR.}
 \label{figRegionSec}
 \end{subfigure}
 \hfill
-\begin{subfigure}[t]{0.32\linewidth}
+\begin{subfigure}[t]{0.325\linewidth}
 \includegraphics[width=\linewidth]{knitr-figs/MapStatArea.png}
-\caption{Sections (Sec) in Statistical Area \Sexpr{zoom_sa}, \Sexpr{r_name} SAR.
+\caption{Sections (Sec) in Statistical Area \Sexpr{zoom_sa}, \Sexpr{zoom_reg} SAR.
 Section \Sexpr{zoom_sec} is emphasized with a thick boundary line.}
 \label{figRegionSA}
 \end{subfigure}
 \hfill
-\begin{subfigure}[t]{0.32\linewidth}
+\begin{subfigure}[t]{0.325\linewidth}
 \includegraphics[width=\linewidth]{knitr-figs/MapRegion.png}
-\caption{Statistical Areas (SA) in the \Sexpr{r_name} SAR.
+\caption{Statistical Areas (SA) in the \Sexpr{zoom_reg} SAR.
 Statistical Area \Sexpr{zoom_sa} is emphasized with a thick boundary line.}
 \label{figRegionReg}
 \end{subfigure}
 \caption[\fishName{} spawn index by Location, as well as Sections and Statistical Areas in the \Sexpr{reg_name_long} stock assessment region]
-{\fishName{} spawn index in \Sexpr{yr_index} by Location (\subref{figRegionSec}), as well as Sections (\subref{figRegionSA}) and Statistical Areas (\subref{figRegionReg}) in the \Sexpr{reg_name_long} (\Sexpr{r_name}) stock assessment region (SAR; \autoref{figBC}).}
+{\fishName{} spawn index in \Sexpr{yr_index} by Location (\subref{figRegionSec}), as well as Sections (\subref{figRegionSA}) and Statistical Areas (\subref{figRegionReg}) in the \Sexpr{reg_name_long} (\Sexpr{zoom_reg}) stock assessment region (SAR; \autoref{figBC}).}
 \label{figRegion}
 \end{figure}
 
-<<BC, fig.width=figWidth*0.67, fig.height=figWidth*0.67, fig.lp="fig", echo=FALSE, fig.cap=fig_cap, fig.scap="Spatial boundaries for \\fishName{} stock assessment regions in British Columbia">>=
+<<BC, fig.width=4, fig.height=4*xy_bc, fig.lp="fig", echo=FALSE, fig.cap=fig_cap, fig.scap="Spatial boundaries for \\fishName{} stock assessment regions in British Columbia">>=
 # Caption
 fig_cap <- paste(
   "Spatial boundaries for \\fishName{} stock assessment regions (SARs) in ",
@@ -607,18 +622,19 @@ fig_cap <- paste(
 map_bc <- ggplot(data = bc_coast) +
   geom_sf(fill = "antiquewhite", colour = "grey", size = 0.25) +
   geom_sf(data = sf_reg, fill = "transparent", colour = "black", size = 0.5) +
-  coord_sf(xlim = range(box_coord$X), ylim = range(box_coord$Y), expand = FALSE) +
-  annotate(
-    geom = "text", x = -125, y = 53, label = "British\nColumbia,\nCanada",
-    size = 3
+  coord_sf(
+    xlim = c(ext_bc$xmin, ext_bc$xmax), ylim = c(ext_bc$ymin, ext_bc$ymax)
   ) +
   annotate(
-    geom = "text", x = -131, y = 50.25, label = "Northeast\nPacific\nOcean",
-    size = 3
+    geom = "label", x = -125, y = 53.5, label = "British\nColumbia,\nCanada",
+    alpha = 0.75, size = 3
+  ) +
+  annotate(
+    geom = "label", x = -131, y = 50.5, label = "Northeast\nPacific\nOcean",
+    alpha = 0.75, size = 3
   ) +
   geom_label(
-    data = tibble_reg_cent, aes(x = X, y = Y, label = Region), alpha = 0.75,
-    size = 3
+    data = reg_cent, aes(x = X, y = Y, label = Label), alpha = 0.75, size = 3
   ) +
   scale_x_continuous(label = abs) +
   scale_y_continuous(label = abs) +
@@ -651,7 +667,7 @@ understory (\autoref{secUnder}).
 Note that in this report, we use subsections within sections
 to separate levels of spatial aggregation
 (e.g., calculations at the quadrat, or transect level; \autoref{figFlow}).
-Finally, we combine the spawn indices
+Finally, we add the spawn indices
 from the three types of survey observations, and
 aggregate by SAR and year to produce a relative index of
 combined sex spawning biomass (\autoref{secTotal}).
