@@ -201,8 +201,9 @@ if (!fig_path %in% list.files()) dir.create(fig_path)
 @
 
 <<spatial, echo=FALSE>>=
-# Section and Year to consider
-zoom_sec <- "074" # 074
+# Section to show
+zoom_sec <- "142" # 074
+# Year (for spawn index data)
 yr_index <- 2021
 # Coordinate reference system
 epsg_crs <- 4326
@@ -232,11 +233,11 @@ areas <- spawn_all %>%
   distinct()
 # Get Region name
 zoom_reg <- areas %>%
-  filter(Section = zoom_sec) %>%
+  filter(Section == zoom_sec) %>%
   pull(Region)
 # Get Statistical Area name
 zoom_sa <- areas %>%
-  filter(Section = zoom_sec) %>%
+  filter(Section == zoom_sec) %>%
   pull(StatisticalArea)
 # All region names
 all_regions <- regions %>%
@@ -329,9 +330,7 @@ get_ext_ratio <- function(dat) {
   ext <- dat %>%
     st_transform(crs = 32609) %>%
     st_bbox()
-  x_range <- ext$xmax - ext$xmin
-  y_range <- ext$ymax - ext$ymin
-  res <- abs(y_range) / abs(x_range)
+  res <- abs(ext$ymax - ext$ymin) / abs(ext$xmax - ext$xmin)
   res
 }
 # BC extent ratio
@@ -340,10 +339,10 @@ xy_bc <- get_ext_ratio(dat = sf_sec)
 xy_reg <- get_ext_ratio(dat = filter(sf_reg, Region == zoom_reg))
 # Statistical area extent ratio
 xy_sa <- get_ext_ratio(dat = filter(sf_sa, StatisticalArea == zoom_sa))
-# Section extent ratio
-xy_sec <- get_ext_ratio(dat = filter(sf_sec, Section == zoom_sec))
+# Section extent ratio (plus a buffer for legend on top)
+xy_sec <- get_ext_ratio(dat = filter(sf_sec, Section == zoom_sec)) + 0.75
 # Max ratio for 3-panel plot
-xy_max <- max(xy_reg, xy_sa, xy_sec)
+xy_max <- max(xy_reg, xy_sa, xy_sec, 1.5)
 @
 
 <<pars, echo=FALSE>>=
@@ -490,8 +489,6 @@ Strait of Georgia, and West Coast of Vancouver Island.
 The minor SARs are \Sexpr{paste_nicely(minor_regions)}.
 
 <<Region>>=
-# Number of plots
-n_maps <- 3
 # Plot Section
 map_sec <- ggplot(data = bc_coast) +
   geom_sf(fill = "antiquewhite", colour = "grey", size = 0.25) +
@@ -504,7 +501,7 @@ map_sec <- ggplot(data = bc_coast) +
     xlim = c(ext_sec$xmin, ext_sec$xmax), ylim = c(ext_sec$ymin, ext_sec$ymax)
   ) +
   scale_colour_viridis(labels = comma) +
-  labs(x = NULL, y = NULL, colour = "Spawn index (t)") +
+  labs(colour = "Spawn index (t)") +
   guides(
     colour = guide_colourbar(
       title.position = "top", title.hjust = 0.5,
@@ -521,7 +518,7 @@ map_sec <- ggplot(data = bc_coast) +
     legend.position = "top"
   )
 ggsave(
-  filename = here("tr", fig_path, "MapSection.png"), dpi = 600, width = 2,
+  filename = here(tr_path, fig_path, "MapSection.png"), dpi = 600, width = 2,
   height = 2 * xy_max
 )
 # Plot Statistical Area
@@ -542,7 +539,6 @@ map_sa <- ggplot(data = bc_coast) +
     data = sec_cent, aes(x = X, y = Y, label = paste("Sec", Label)),
     alpha = 0.75, size = 3
   ) +
-  labs(x = NULL, y = NULL) +
   theme(
     axis.text.x = element_blank(), axis.text.y = element_blank(),
     axis.title.x = element_blank(), axis.title.y = element_blank(),
@@ -552,7 +548,7 @@ map_sa <- ggplot(data = bc_coast) +
     panel.border = element_rect(colour = "black", fill = "transparent")
   )
 ggsave(
-  filename = here("tr", fig_path, "MapStatArea.png"), dpi = 600, width = 2,
+  filename = here(tr_path, fig_path, "MapStatArea.png"), dpi = 600, width = 2,
   height = 2 * xy_max
 )
 # Plot SAR
@@ -573,7 +569,6 @@ map_reg <- ggplot(data = bc_coast) +
     data = sa_cent, aes(x = X, y = Y, label = paste("SA", Label)), alpha = 0.75,
     size = 3
   ) +
-  labs(x = NULL, y = NULL) +
   theme(
     axis.text.x = element_blank(), axis.text.y = element_blank(),
     axis.title.x = element_blank(), axis.title.y = element_blank(),
@@ -583,7 +578,7 @@ map_reg <- ggplot(data = bc_coast) +
     panel.border = element_rect(colour = "black", fill = "transparent")
   )
 ggsave(
-  filename = here("tr", fig_path, "MapRegion.png"), dpi = 600, width = 2,
+  filename = here(tr_path, fig_path, "MapRegion.png"), dpi = 600, width = 2,
   height = 2 * xy_max
 )
 @
