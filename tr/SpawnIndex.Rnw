@@ -234,7 +234,7 @@ spawn_all <- read_csv(
   group_by(
     Region, Year, StatisticalArea, Section, LocationCode, LocationName,
     Longitude, Latitude, Surface, Macrocystis, Understory
-  )  %>%
+  ) %>%
   summarise(
     Surface = sum(Surface, na.rm = TRUE),
     Macrocystis = sum(Macrocystis, na.rm = TRUE),
@@ -272,7 +272,7 @@ sf_reg <- sf_sec %>%
   summarise() %>%
   ungroup()
 # Get centroid
-get_centroid <- function(dat, col){
+get_centroid <- function(dat, col) {
   cent <- dat %>%
     st_transform(crs = 32609) %>%
     st_centroid() %>%
@@ -286,7 +286,8 @@ get_centroid <- function(dat, col){
 # Centroids: regions, statistical areas, and sections
 reg_cent <- get_centroid(dat = sf_reg, col = "Region")
 sa_cent <- get_centroid(
-  dat = filter(sf_sa, Region == zoom_reg), col = "StatisticalArea")
+  dat = filter(sf_sa, Region == zoom_reg), col = "StatisticalArea"
+)
 sec_cent <- get_centroid(
   dat = filter(sf_sec, StatisticalArea == zoom_sa), col = "Section"
 )
@@ -639,8 +640,9 @@ map_bc <- ggplot(data = bc_coast) +
   ) +
   scale_x_continuous(label = abs) +
   scale_y_continuous(label = abs) +
-  labs(x = expression(paste("Longitude (", degree, "W)", sep = "")),
-       y = expression(paste("Latitude (", degree, "N)", sep = ""))
+  labs(
+    x = expression(paste("Longitude (", degree, "W)", sep = "")),
+    y = expression(paste("Latitude (", degree, "N)", sep = ""))
   ) +
   theme(
     axis.text = element_text(colour = "black"),
