@@ -151,7 +151,7 @@ require(knitr)
 require(rnaturalearth)
 require(rnaturalearthdata)
 require(sf)
-
+require(here)
 # Omit xcolor warning(s)
 knit_hooks$set(document = function(x) {
   sub("\\usepackage[]{color}", "\\usepackage{xcolor}", x, fixed = TRUE)
@@ -191,8 +191,13 @@ knitr::opts_chunk$set(
 )
 # Knitr table options
 options(knitr.kable.NA = "")
+# Get figure path
+fig_path <- opts_chunk$get()$fig.path %>%
+  str_replace(pattern = "/", replacement = "")
+# Get technical report path
+tr_path <- "tr"
 # Create folder for figures
-if (!"knitr-figs" %in% list.files()) dir.create("knitr-figs")
+if (!fig_path %in% list.files()) dir.create(fig_path)
 @
 
 <<spatial, echo=FALSE>>=
@@ -224,7 +229,7 @@ reg_name_long <- regions %>%
   pull()
 # Get spawn data
 spawn_all <- read_csv(
-  file = file.path("..", "..", "FIND", "Data", "FIND.csv"), col_types = cols()
+  file = here("..", "FIND", "Data", "FIND.csv"), col_types = cols()
 ) %>%
   group_by(
     Region, Year, StatisticalArea, Section, LocationCode, LocationName,
@@ -251,15 +256,11 @@ sf_spawn <- spawn_all %>%
   filter(Section == zoom_sec, Year == yr_index) %>%
   select(LocationCode, LocationName, Index, Longitude, Latitude) %>%
   st_as_sf(coords = c("Longitude", "Latitude"), crs = epsg_crs)
-# Subset regions
-reg <- regions %>%
-  filter(Type %in% c("Major", "Minor")) %>%
-  select(SAR, Region, RegionName)
 # Get sections data
 sf_sec <- sections %>%
   st_transform(crs = epsg_crs) %>%
   left_join(areas, by = "Section") %>%
-  filter(Region %in% reg$Region)
+  filter(Region %in% all_regions$Region)
 # Aggregate sections to statisical areas
 sf_sa <- sf_sec %>%
   group_by(Region, StatisticalArea) %>%
@@ -513,7 +514,7 @@ map_sec <- ggplot(data = bc_coast) +
     legend.position = "top"
   )
 ggsave(
-  filename = file.path("knitr-figs", "MapSection.png"), dpi = 600, width = 2,
+  filename = here("tr", fig_path, "MapSection.png"), dpi = 600, width = 2,
   height = 2 * xy_max
 )
 # Plot Statistical Area
@@ -544,7 +545,7 @@ map_sa <- ggplot(data = bc_coast) +
     panel.border = element_rect(colour = "black", fill = "transparent")
   )
 ggsave(
-  filename = file.path("knitr-figs", "MapStatArea.png"), dpi = 600, width = 2,
+  filename = here("tr", fig_path, "MapStatArea.png"), dpi = 600, width = 2,
   height = 2 * xy_max
 )
 # Plot SAR
@@ -575,7 +576,7 @@ map_reg <- ggplot(data = bc_coast) +
     panel.border = element_rect(colour = "black", fill = "transparent")
   )
 ggsave(
-  filename = file.path("knitr-figs", "MapRegion.png"), dpi = 600, width = 2,
+  filename = here("tr", fig_path, "MapRegion.png"), dpi = 600, width = 2,
   height = 2 * xy_max
 )
 @
@@ -583,21 +584,21 @@ ggsave(
 \begin{figure}
 \centering
 \begin{subfigure}[t]{0.325\linewidth}
-\includegraphics[width=\linewidth]{knitr-figs/MapSection.png}
+\includegraphics[width=\linewidth]{\Sexpr{fig_path}/MapSection.png}
 \caption{Spawn index in tonnes (t) in \Sexpr{yr_index} by Location in
 Section \Sexpr{zoom_sec}, Statistical Area \Sexpr{zoom_sa}, \Sexpr{zoom_reg} SAR.}
 \label{figRegionSec}
 \end{subfigure}
 \hfill
 \begin{subfigure}[t]{0.325\linewidth}
-\includegraphics[width=\linewidth]{knitr-figs/MapStatArea.png}
+\includegraphics[width=\linewidth]{\Sexpr{fig_path}/MapStatArea.png}
 \caption{Sections (Sec) in Statistical Area \Sexpr{zoom_sa}, \Sexpr{zoom_reg} SAR.
 Section \Sexpr{zoom_sec} is emphasized with a thick boundary line.}
 \label{figRegionSA}
 \end{subfigure}
 \hfill
 \begin{subfigure}[t]{0.325\linewidth}
-\includegraphics[width=\linewidth]{knitr-figs/MapRegion.png}
+\includegraphics[width=\linewidth]{\Sexpr{fig_path}/MapRegion.png}
 \caption{Statistical Areas (SA) in the \Sexpr{zoom_reg} SAR.
 Statistical Area \Sexpr{zoom_sa} is emphasized with a thick boundary line.}
 \label{figRegionReg}
