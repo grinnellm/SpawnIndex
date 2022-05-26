@@ -201,32 +201,11 @@ if (!fig_path %in% list.files()) dir.create(fig_path)
 @
 
 <<spatial, echo=FALSE>>=
-# Region, Statistical Area, Section and Year to consider
-zoom_reg <- "CC" # CC
-zoom_sa <- "07" # 07
+# Section and Year to consider
 zoom_sec <- "074" # 074
 yr_index <- 2021
 # Coordinate reference system
 epsg_crs <- 4326
-# All region names
-all_regions <- regions %>%
-  mutate(FullName = paste(RegionName, " (", Region, ")", sep = "")) %>%
-  filter(Type %in% c("Major", "Minor"))
-# Major region names
-major_regions <- all_regions %>%
-  filter(Type == "Major") %>%
-  select(FullName) %>%
-  pull()
-# Minor region names
-minor_regions <- all_regions %>%
-  filter(Type == "Minor") %>%
-  select(FullName) %>%
-  pull()
-# Region name
-reg_name_long <- regions %>%
-  filter(Region == zoom_reg) %>%
-  select(RegionName) %>%
-  pull()
 # Get spawn data
 spawn_all <- read_csv(
   file = here("..", "FIND", "Data", "FIND.csv"), col_types = cols()
@@ -251,6 +230,33 @@ spawn_all <- read_csv(
 areas <- spawn_all %>%
   select(Region, StatisticalArea, Section) %>%
   distinct()
+# Get Region name
+zoom_reg <- areas %>%
+  filter(Section = zoom_sec) %>%
+  pull(Region)
+# Get Statistical Area name
+zoom_sa <- areas %>%
+  filter(Section = zoom_sec) %>%
+  pull(StatisticalArea)
+# All region names
+all_regions <- regions %>%
+  mutate(FullName = paste(RegionName, " (", Region, ")", sep = "")) %>%
+  filter(Type %in% c("Major", "Minor"))
+# Major region names
+major_regions <- all_regions %>%
+  filter(Type == "Major") %>%
+  select(FullName) %>%
+  pull()
+# Minor region names
+minor_regions <- all_regions %>%
+  filter(Type == "Minor") %>%
+  select(FullName) %>%
+  pull()
+# Region name
+reg_name_long <- regions %>%
+  filter(Region == zoom_reg) %>%
+  select(RegionName) %>%
+  pull()
 # Make spawn data a spatial object
 sf_spawn <- spawn_all %>%
   filter(Section == zoom_sec, Year == yr_index) %>%
