@@ -224,7 +224,7 @@ get_spawn <- function(fn) {
       file = "https://pacgis01.dfo-mpo.gc.ca/FGPPublic/Pacific_Herring_Spawn_Index_Data/Pacific_herring_spawn_index_data_EN.csv",
       col_types = cols()
     ) %>%
-      write_csv(path = here(tr_path, cache_path, fn))
+      write_csv(file = here(tr_path, cache_path, fn))
   } # End if no data
   # Wrangle the data
   res <- dat %>%
@@ -239,7 +239,11 @@ get_spawn <- function(fn) {
     ) %>%
     ungroup() %>%
     replace_na(replace = list(Surface = 0, Macrocystis = 0, Understory = 0)) %>%
-    mutate(Index = Surface + Macrocystis + Understory) %>%
+    mutate(
+      StatisticalArea = formatC(StatisticalArea, width = 2, flag = "0"),
+      Section = formatC(Section, width = 3, flag = "0"),
+      Index = Surface + Macrocystis + Understory
+      ) %>%
     select(
       Region, Year, StatisticalArea, Section, LocationCode, LocationName,
       Longitude, Latitude, Index
@@ -248,7 +252,7 @@ get_spawn <- function(fn) {
   res
 } # End get_spawn function
 # Get spawn data
-all_spawn <- get_spawn(fn = "all_spawn.csv")
+spawn_all <- get_spawn(fn = "spawn_all.csv")
 # Get areas information
 areas <- spawn_all %>%
   select(Region, StatisticalArea, Section) %>%
@@ -1933,7 +1937,7 @@ have a nested hierarchical structure
 for surface spawn calculations in \autoref{secSurf}).
 However, quantities at the survey type $x$ in spawn $s$ level
 are not necessarily nested and hierarchical (e.g., $B_{xsnry}'$);
-this is the finest scale that we calculate the spawn index (\autoref{secProt})
+this is the finest scale that we calculate the spawn index (\autoref{secProt}).
 Thus, we use the notation of \cite{Montgomery2012}
 in the following calculations,
 where `$\cdot$' subscript notation indicates summation
@@ -2386,18 +2390,19 @@ in previous years using current observations.
 In 2013, Fisheries and Oceans Canada (DFO) staff realized that they were
 inadvertently underestimating spawn width for
 \fishName{} understory dive surveys \citep{ClearyEtal2017}.
-The issue was caused by the assumed accuracy of transect lines
+The issue is caused by the assumed accuracy of transect lines
 used by spawn surveyors to measure spawn width.
 Spawn surveyors determine spawn width by
 placing transects perpendicular to the shore.
 Surveyors use weighted lead lines to ensure that lines rest on the substrate;
 these lines are marked in $1\,\text{m}$ increments, and
-are standardized to $20\,\text{m}$ segments (i.e., a `chain').
+are standardized to $20\,\text{m}$ segments.
 Segments refer to individual sections of line,
 which can be linked together to make complete transects.
 
-During the late 1990s it became apparent that the $20\,\text{m}$ segments shrank
-by approximately $1\,\text{m}$ during the first season of use, and
+During the late 1990s it became apparent that
+the $20\,\text{m}$ segments shrank
+by approximately $1\,\text{m}$ during the first season of use and
 continued to shrink over time.
 DFO staff noticed that this issue was occurring coast wide, and
 began re-measuring lead lines each season.
@@ -2414,8 +2419,8 @@ they still shrank from $1.15\,\text{m}$ to $1.0\,\text{m}$, and
 continued to use the modified protocol.
 
 In 2013, spawn surveyors observed that
-lead line increments were consistently $1.15\,\text{m}$,
-and no longer appeared to be shrinking.
+some lead line increments were $1.15\,\text{m}$ and
+no longer appeared to be shrinking.
 Following this observation, DFO staff re-measured additional lead lines
 and found that lead lines were made up of a combination of
 $1.0\,\text{m}$ and $1.15\,\text{m}$ increments.
@@ -2425,8 +2430,10 @@ lead lines are replaced every 5 to 10 years,
 with some segments being replaced more frequently.
 For example, inner segments are replaced more frequently
 than seaward segments, and
-segments in some SARs are replaced more frequently than in other SARs.
-We think that a change in manufacturing prevents new lead lines from shrinking.
+segments in some SARs are replaced more frequently
+than segments in other SARs.
+DFO staff think that a change in manufacturing
+prevents new lead lines from shrinking.
 
 The earliest written instructions that describe the modified protocol
 of marking $1.15\,\text{m}$ increments is
@@ -2439,7 +2446,7 @@ thus we are unable to determine when lead lines ceased shrinking.
 Given the observations summarized above,
 we adjust understory spawn width estimates based on written instructions
 for the marking protocol in \Sexpr{min(under_width_facs$Year)}.
-Accordingly, our best estimate of years impacted by
+Accordingly, we estimate the years impacted by
 marking lead lines at $1.15\,\text{m}$ increments
 (when shrinking no longer occurred) is
 from \Sexpr{min(under_width_facs$Year)} to \Sexpr{max(under_width_facs$Year)}.
