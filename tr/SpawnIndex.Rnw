@@ -200,7 +200,13 @@ cache_path <- opts_chunk$get()$cache.path %>%
 # Get technical report path
 tr_path <- "tr"
 # Create folder for figures
-if (!fig_path %in% list.files()) dir.create(fig_path)
+if (!fig_path %in% list.files(path = here(tr_path))) {
+  dir.create(path = here(tr_path, fig_path))
+}
+# Create folder for cache
+if (!cache_path %in% list.files(path = here(tr_path))) {
+  dir.create(path = here(tr_path, cache_path))
+}
 @
 
 <<spatial, echo=FALSE>>=
@@ -215,7 +221,7 @@ get_spawn <- function(fn) {
   # Check if the data exists locally
   is_data <- fn %in% list.files(here(tr_path, cache_path))
   # If the data is present
-  if( is_data ) {
+  if (is_data) {
     # Load the data
     dat <- read_csv(file = here(tr_path, cache_path, fn), col_types = cols())
   } else { # End if data, otherwise download it (takes a while)
@@ -243,7 +249,7 @@ get_spawn <- function(fn) {
       StatisticalArea = formatC(StatisticalArea, width = 2, flag = "0"),
       Section = formatC(Section, width = 3, flag = "0"),
       Index = Surface + Macrocystis + Understory
-      ) %>%
+    ) %>%
     select(
       Region, Year, StatisticalArea, Section, LocationCode, LocationName,
       Longitude, Latitude, Index
