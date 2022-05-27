@@ -194,6 +194,9 @@ options(knitr.kable.NA = "")
 # Get figure path
 fig_path <- opts_chunk$get()$fig.path %>%
   str_replace(pattern = "/", replacement = "")
+# Get cache path
+cache_path <- opts_chunk$get()$cache.path %>%
+  str_replace(pattern = "/", replacement = "")
 # Get technical report path
 tr_path <- "tr"
 # Create folder for figures
@@ -208,25 +211,44 @@ yr_index <- 2021
 # Coordinate reference system
 epsg_crs <- 4326
 # Get spawn data
-spawn_all <- read_csv(
-  file = here("..", "FIND", "Data", "FIND.csv"), col_types = cols()
-) %>%
-  group_by(
-    Region, Year, StatisticalArea, Section, LocationCode, LocationName,
-    Longitude, Latitude, Surface, Macrocystis, Understory
-  ) %>%
-  summarise(
-    Surface = sum(Surface, na.rm = TRUE),
-    Macrocystis = sum(Macrocystis, na.rm = TRUE),
-    Understory = sum(Understory, na.rm = TRUE)
-  ) %>%
-  ungroup() %>%
-  replace_na(replace = list(Surface = 0, Macrocystis = 0, Understory = 0)) %>%
-  mutate(Index = Surface + Macrocystis + Understory) %>%
-  select(
-    Region, Year, StatisticalArea, Section, LocationCode, LocationName,
-    Longitude, Latitude, Index
-  )
+get_spawn <- function(fn) {
+  # Check if the data exists locally
+  is_data <- fn %in% list.files(here(tr_path, cache_path))
+  # If the data is present
+  if( is_data ) {
+    # Load the data
+    dat <- read_csv(file = here(tr_path, cache_path, fn), col_types = cols())
+  } else { # End if data, otherwise download it (takes a while)
+    # Grab the data and save it
+    dat <- read_csv(
+      file = "https://pacgis01.dfo-mpo.gc.ca/FGPPublic/Pacific_Herring_Spawn_Index_Data/Pacific_herring_spawn_index_data_EN.csv",
+      col_types = cols()
+    ) %>%
+      write_csv(path = here(tr_path, cache_path, fn))
+  } # End if no data
+  # Wrangle the data
+  res <- dat %>%
+    group_by(
+      Region, Year, StatisticalArea, Section, LocationCode, LocationName,
+      Longitude, Latitude, Surface, Macrocystis, Understory
+    ) %>%
+    summarise(
+      Surface = sum(Surface, na.rm = TRUE),
+      Macrocystis = sum(Macrocystis, na.rm = TRUE),
+      Understory = sum(Understory, na.rm = TRUE)
+    ) %>%
+    ungroup() %>%
+    replace_na(replace = list(Surface = 0, Macrocystis = 0, Understory = 0)) %>%
+    mutate(Index = Surface + Macrocystis + Understory) %>%
+    select(
+      Region, Year, StatisticalArea, Section, LocationCode, LocationName,
+      Longitude, Latitude, Index
+    )
+  # Return the spawn data
+  res
+} # End get_spawn function
+# Get spawn data
+all_spawn <- get_spawn(fn = "all_spawn.csv")
 # Get areas information
 areas <- spawn_all %>%
   select(Region, StatisticalArea, Section) %>%
@@ -280,16 +302,19 @@ sf_reg <- sf_sec %>%
   ungroup()
 # Get centroid
 get_centroid <- function(dat, col) {
+  # Calculate centroids
   cent <- dat %>%
     st_transform(crs = 32609) %>%
     st_centroid() %>%
     st_transform(crs = epsg_crs)
+  # Wrangle into a tibble
   res <- cent %>%
     st_coordinates() %>%
     as_tibble() %>%
     mutate(Label = pull(dat, var = col))
+  # Return centroids and names
   res
-}
+} # End get_centroid function
 # Centroids: regions, statistical areas, and sections
 reg_cent <- get_centroid(dat = sf_reg, col = "Region")
 sa_cent <- get_centroid(
@@ -327,12 +352,15 @@ ext_sec <- sf_sec %>%
   st_bbox()
 # Get ratio of x to y
 get_ext_ratio <- function(dat) {
+  # Get range
   ext <- dat %>%
     st_transform(crs = 32609) %>%
     st_bbox()
+  # Calculate the ratio
   res <- abs(ext$ymax - ext$ymin) / abs(ext$xmax - ext$xmin)
+  # Return the ratio
   res
-}
+} # End get_ext_ratio function
 # BC extent ratio
 xy_bc <- get_ext_ratio(dat = sf_sec)
 # Region extent ratio
@@ -342,7 +370,7 @@ xy_sa <- get_ext_ratio(dat = filter(sf_sa, StatisticalArea == zoom_sa))
 # Section extent ratio (plus a buffer for legend on top)
 xy_sec <- get_ext_ratio(dat = filter(sf_sec, Section == zoom_sec)) + 0.75
 # Max ratio for 3-panel plot
-xy_max <- max(xy_reg, xy_sa, xy_sec, 1.5)
+xy_max <- max(xy_reg, xy_sa, xy_sec)
 @
 
 <<pars, echo=FALSE>>=
