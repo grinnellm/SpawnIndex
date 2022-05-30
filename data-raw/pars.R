@@ -18,7 +18,7 @@ regions <- read_csv(
   9, A10, Area 10, Special",
   col_types = cols("d", "c", "c", "c")
 )
-save(regions, file = file.path("data", "regions.RData"))
+save(regions, file = here("data", "regions.RData"))
 
 # Parameter values
 pars <- list(
@@ -38,7 +38,7 @@ pars <- list(
     layers = 1979, dive = 1988
   )
 )
-save(pars, file = file.path("data", "pars.RData"))
+save(pars, file = here("data", "pars.RData"))
 
 # Intensity categories
 intensity <- tibble(
@@ -50,7 +50,7 @@ intensity <- tibble(
     0.5529, 0.9444, 1.3360, 2.1496, 2.9633, 4.1318, 5.3002, 6.5647, 7.8291
   )
 )
-save(intensity, file = file.path("data", "intensity.RData"))
+save(intensity, file = here("data", "intensity.RData"))
 
 # Algae coefficients
 algae_coefs <- tibble(
@@ -61,7 +61,7 @@ algae_coefs <- tibble(
   AlgType = c("GR", "GG", "KF", "KS", "LA", "RW", "SM", "SA"),
   Coef = c(0.9715, 1.0000, 0.9119, 1.1766, 0.6553, 0.7793, 1.1766, 1.0000)
 )
-save(algae_coefs, file = file.path("data", "algae_coefs.RData"))
+save(algae_coefs, file = here("data", "algae_coefs.RData"))
 
 # Understory spawn width correction factors
 under_width_facs <- read_csv(
@@ -80,12 +80,12 @@ under_width_facs <- read_csv(
    2014, 1.15, 1.15, 1, 1, 1, 1, 1.15",
   col_types = cols("d", "d", "d", "d", "d", "d", "d", "d")
 )
-save(under_width_facs, file = file.path("data", "under_width_facs.RData"))
+save(under_width_facs, file = here("data", "under_width_facs.RData"))
 
 # Section polygons
 sections <- st_read(
-  dsn = file.path("data-raw", "Sections"), layer = "HerringSections",
+  dsn = here("data-raw", "Sections"), layer = "HerringSections",
   quiet = TRUE
 ) %>%
   select(Section, geometry)
-save(sections, file = file.path("data", "sections.RData"))
+save(sections, file = here("data", "sections.RData"))

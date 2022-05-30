@@ -18,7 +18,7 @@ region <- "SoG"
 yr_range <- pars$years$assess:2019
 
 # Figure path
-fig_path <- file.path("tr", "cache")
+fig_path <- here("tr", "cache")
 
 # Figure width
 fig_width <- 6.5
@@ -33,7 +33,7 @@ if (!dir.exists(fig_path)) dir.create(path = fig_path)
 
 # Database location
 # db_loc <- system.file("extdata", package = "SpawnIndex")
-db_loc <- file.path("..", "Data", "Local")
+db_loc <- here("..", "Data", "Local")
 
 # Database name
 # db_name <- "HerringSpawn.mdb"
@@ -318,7 +318,7 @@ pool_plot <- ggplot(data = all_width, mapping = aes(y = Pool)) +
   theme_bw() +
   theme(strip.text.y = element_text(angle = 0), legend.position = "top") +
   ggsave(
-    filename = file.path(fig_path, "PoolWidth.png"), width = fig_width,
+    filename = here(fig_path, "PoolWidth.png"), width = fig_width,
     height = fig_width * 1.33
   )
 # print(pool_plot)

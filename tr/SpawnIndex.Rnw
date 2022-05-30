@@ -227,7 +227,12 @@ get_spawn <- function(fn) {
   } else { # End if data, otherwise download it (takes a while)
     # Grab the data and save it
     dat <- read_csv(
-      file = "https://pacgis01.dfo-mpo.gc.ca/FGPPublic/Pacific_Herring_Spawn_Index_Data/Pacific_herring_spawn_index_data_EN.csv",
+      file = paste(
+        "https://pacgis01.dfo-mpo.gc.ca", "FGPPublic",
+        "Pacific_Herring_Spawn_Index_Data",
+        "Pacific_herring_spawn_index_data_EN.csv",
+        sep = "/"
+      ),
       col_types = cols()
     ) %>%
       write_csv(file = here(tr_path, cache_path, fn))

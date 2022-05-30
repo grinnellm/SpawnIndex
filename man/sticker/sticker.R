@@ -4,6 +4,7 @@ require(emojifont)
 require(sysfonts)
 require(ggimage)
 require(tidyverse)
+require(here)
 
 # Set the seed (for highlight)
 set.seed(11)
@@ -22,7 +23,7 @@ link <- "github.com/grinnellm/SpawnIndex"
 
 # Egg image (not sure why the egg emoji doesn't work) from
 # https://www.clipartmax.com/middle/m2H7G6K9H7H7m2b1_chicken-eggs-egg-outline/
-egg_image <- file.path("man", "sticker", "egg.png")
+egg_image <- here("man", "sticker", "egg.png")
 
 # Padding
 pad <- 10
@@ -76,5 +77,5 @@ spawn_index_sticker <- sticker(
   p_x = c(1.02, 1), p_y = c(1.38, 1.4), p_family = font_name,
   h_fill = "blue", h_size = 1, h_color = "red",
   url = link, u_y = 0.06, u_size = pad * 0.75, u_family = "mono",
-  filename = file.path("man", "sticker", "sticker.png"), dpi = 600
+  filename = here("man", "sticker", "sticker.png"), dpi = 600
 )

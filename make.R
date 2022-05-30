@@ -1,33 +1,37 @@
 # Additional checks to run before `R-CMD-CHECK`
 
+# Load packages
+require(SpawnIndex)
+require(here)
+
 # Build the raw data files
-source(file = file.path("data-raw", "pars.R"))
+source(file = here("data-raw", "pars.R"))
 
 # Build the read me file
-rmarkdown::render(input = "README.Rmd")
-file.remove("README.html")
+rmarkdown::render(input = here("README.Rmd"))
+file.remove(here("README.html"))
 
 # Knit the technical report
-setwd(dir = "tr")
+setwd(dir = here("tr"))
 knitr::knit2pdf(input = "SpawnIndex.Rnw")
-setwd(dir = "..")
+setwd(dir = here())
 
 # Compile the manual
-devtools::build_manual(path = "./doc")
+devtools::build_manual(path = here("doc"))
 
 # Styler
 styler::style_pkg()
-styler::style_file(path = file.path("vignettes", "Introduction.Rmd"))
-styler::style_file(path = file.path("man", "sticker", "sticker.R"))
-styler::style_file(path = "README.Rmd")
-styler::style_file(path = file.path("tr", "SpawnIndex.Rnw"))
+styler::style_file(path = here("vignettes", "Introduction.Rmd"))
+styler::style_file(path = here("man", "sticker", "sticker.R"))
+styler::style_file(path = here("README.Rmd"))
+styler::style_file(path = here("tr", "SpawnIndex.Rnw"))
 
 # Lint
 lintr::lint_package()
-lintr::lint(filename = file.path("vignettes", "Introduction.Rmd"))
-lintr::lint(filename = file.path("man", "sticker", "sticker.R"))
-lintr::lint(filename = "README.Rmd")
-lintr::lint(filename = file.path("tr", "SpawnIndex.Rnw"))
+lintr::lint(filename = here("vignettes", "Introduction.Rmd"))
+lintr::lint(filename = here("man", "sticker", "sticker.R"))
+lintr::lint(filename = here("README.Rmd"))
+lintr::lint(filename = here("tr", "SpawnIndex.Rnw"))
 
 # Good practice (takes a while; require `SpawnIndex` first)
 goodpractice::gp(path = ".")
