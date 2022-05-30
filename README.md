@@ -61,6 +61,8 @@ survey. First, load the SpawnIndex package in the usual way.
 library(SpawnIndex)
 ```
 
+    ## This is SpawnIndex version 0.3.2.
+
 Next, load the default parameter values for spawn index calculations,
 and calculate the conversion factor for the number of Pacific Herring
 eggs to the spawn index (i.e., biomass in tonnes, t). Call the function
