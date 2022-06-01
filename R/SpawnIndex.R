@@ -1,6 +1,6 @@
-#' SpawnIndex: `r read.dcf(file = here("DESCRIPTION"), fields = "Title")`.
+#' SpawnIndex: `r read.dcf(file = "DESCRIPTION", fields = "Title")`.
 #'
-#' `r read.dcf(file = here("DESCRIPTION"), fields = "Description")`
+#' `r read.dcf(file = "DESCRIPTION", fields = "Description")`
 #'
 #' The SpawnIndex package provides raw data, data, and four families of
 #' functions: load, calculation, check, and utility.
