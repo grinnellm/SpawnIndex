@@ -1942,20 +1942,23 @@ $B_{xsnry}'$ is in tonnes (step \ref{uInd} in \autoref{figFlow}).
 
 \section{TOTAL SPAWN CALCULATIONS}\label{secTotal}
 
-Recall that spawn index calculations so far
+This section describes step \ref{tIndex} in \autoref{figFlow}.
+Recall that spawn index calculations
 have a nested hierarchical structure
 (e.g., substrate type $i$ is nested within sample $j$
 for surface spawn calculations in \autoref{secSurf}).
 However, quantities at the survey type $x$ in spawn $s$ level
-are not necessarily nested and hierarchical (e.g., $B_{xsnry}'$);
-this is the finest scale that we calculate the spawn index (\autoref{secProt}).
-Thus, we use the notation of \cite{Montgomery2012}
-in the following calculations,
+are not necessarily nested and hierarchical.
+For example, $B_{xsnry}'$ is the finest scale
+that we calculate the spawn index (\autoref{secProt}),
+which we could aggregate by any combination of
+survey type $x$, spawn $s$, location $n$, region $r$, and year $y$.
+To prevent confusion,
+we use the notation of \cite{Montgomery2012} in the following calculations,
 where `$\cdot$' subscript notation indicates summation
 over the subscript that it replaces.
 
-This section describes step \ref{tIndex} in \autoref{figFlow}.
-We sum over survey type $x$ to calculate
+First we sum over survey type $x$ to calculate
 the total spawn index in spawn $s$
 (\autoref{tabNotationIndices} and \autoref{tabNotationTotal})
 \begin{equation}\label{eqTotIndSLRY}
@@ -1987,7 +1990,7 @@ $B$ & Scaled biomass & t & \\
 \label{tabNotationTotal}
 \end{table}
 
-Finally, we aggregate the total spawn index by SAR $r$ and year $y$
+Then we aggregate the total spawn index by SAR $r$ and year $y$
 \begin{equation}\label{eqTotIndRY}
 B_{\cdot \cdot \cdot ry}' =
 \sum_{n=1}^{N_{ry}} \sum_{s=1}^{S_{nry}} B_{\cdot snry}',
