@@ -1969,6 +1969,14 @@ surface, Macrocystis, and understory spawn survey types from
 \autoref{eqSurfIndS}, \autoref{eqMacroIndS}, and \autoref{eqUnderIndS},
 respectively and
 $B_{\cdot snry}'$ is in tonnes (step \ref{tIndex} in \autoref{figFlow}).
+Then we aggregate the total spawn index by SAR $r$ and year $y$
+\begin{equation}\label{eqTotIndRY}
+B_{\cdot \cdot \cdot ry}' =
+\sum_{n=1}^{N_{ry}} \sum_{s=1}^{S_{nry}} B_{\cdot snry}',
+\end{equation}
+where $B_{\cdot snry}'$ is the total spawn index from \autoref{eqTotIndSLRY} and
+$B_{\cdot \cdot \cdot ry}'$ is a relative index of
+combined sex spawning biomass in tonnes.
 
 \begin{table}
 \centering
@@ -1989,15 +1997,6 @@ $B$ & Scaled biomass & t & \\
 \end{tabulary}
 \label{tabNotationTotal}
 \end{table}
-
-Then we aggregate the total spawn index by SAR $r$ and year $y$
-\begin{equation}\label{eqTotIndRY}
-B_{\cdot \cdot \cdot ry}' =
-\sum_{n=1}^{N_{ry}} \sum_{s=1}^{S_{nry}} B_{\cdot snry}',
-\end{equation}
-where $B_{\cdot snry}'$ is the total spawn index from \autoref{eqTotIndSLRY} and
-$B_{\cdot \cdot \cdot ry}'$ is a relative index of
-combined sex spawning biomass in tonnes.
 
 \subsection{SCALED BIOMASS}\label{secScaled}
 
