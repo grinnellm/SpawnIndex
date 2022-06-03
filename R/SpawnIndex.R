@@ -15,20 +15,23 @@
 #'   (\code{\link{algae_coefs}}), and a simple feature collection with Section
 #'   polygons (\code{\link{sections}}).
 #'
-#' @section Load: The load functions are \code{\link{load_area_data}},
+#' @section Load functions: The load functions are \code{\link{load_area_data}},
 #'   \code{\link{load_all_spawn}}, \code{\link{load_width}}, and
 #'   \code{\link{load_sections}}.
 #'
-#' @section Calculation: The calculation functions are \code{\link{eggs_to_sb}},
-#'   \code{\link{calc_sok_index}}, \code{\link{dens_surf}},
-#'   \code{\link{calc_surf_index}}, \code{\link{eggs_macro}},
-#'   \code{\link{calc_macro_index}}, \code{\link{dens_under_sub}},
-#'   \code{\link{dens_under_alg}}, and \code{\link{calc_under_index}}.
+#' @section Calculation functions: The calculation functions are
+#'   \code{\link{eggs_to_sb}}, \code{\link{calc_sok_index}},
+#'   \code{\link{dens_surf}}, \code{\link{calc_surf_index}},
+#'   \code{\link{eggs_macro}}, \code{\link{calc_macro_index}},
+#'   \code{\link{dens_under_sub}}, \code{\link{dens_under_alg}}, and
+#'   \code{\link{calc_under_index}}.
 #'
-#' @section Check: The check functions are \code{\link{check_numeric}},
-#'   \code{\link{check_tibble}}, and \code{\link{check_where}}.
+#' @section Check functions: The check functions are
+#'   \code{\link{check_numeric}}, \code{\link{check_tibble}}, and
+#'   \code{\link{check_where}}.
 #'
-#' @section Utility: The utility function is \code{\link{paste_nicely}}.
+#' @section Utility functions: The utility function is
+#'   \code{\link{paste_nicely}}.
 #'
 #' @docType package
 #' @name SpawnIndex
