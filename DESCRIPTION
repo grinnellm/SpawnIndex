@@ -26,7 +26,7 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 Depends: R (>= 3.5.0)
 Imports: gfiscamutils, Rdpack, dplyr, readr, sp, stringr, tibble, tidyr, sf,
-    lubridate, DBI, odbc
+    lubridate, DBI, odbc, lifecycle
 Suggests: spelling, knitr, rmarkdown, magrittr, kableExtra, ggplot2, covr,
     rnaturalearth, rnaturalearthhires, testthat
 Remotes: pbs-assess/gfiscamutils, ropensci/rnaturalearthhires

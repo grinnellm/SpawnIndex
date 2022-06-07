@@ -18,6 +18,7 @@ version <- read.dcf(file = "DESCRIPTION", fields = "Version")
 [![Code factor](https://github.com/grinnellm/SpawnIndex/workflows/lint/badge.svg)](https://github.com/grinnellm/SpawnIndex/actions)
 [![Development version](https://img.shields.io/badge/Version-`r version`-orange.svg?style=flat-square)](commits/master)
 [![CRAN status](https://www.r-pkg.org/badges/version/SpawnIndex)](https://CRAN.R-project.org/package=SpawnIndex)
+[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 <!-- badges: end -->
 
 Note that `R-CMD-check` succeeds on my Windows machine but fails on GitHub Actions

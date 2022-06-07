@@ -18,11 +18,13 @@ factor](https://github.com/grinnellm/SpawnIndex/workflows/lint/badge.svg)](https
 version](https://img.shields.io/badge/Version-0.3.2-orange.svg?style=flat-square)](commits/master)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/SpawnIndex)](https://CRAN.R-project.org/package=SpawnIndex)
+[![Lifecycle:
+stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 <!-- badges: end -->
 
 Note that `R-CMD-check` succeeds on my Windows machine but fails on
 GitHub Actions (see [issue
-#30](https://github.com/grinnellm/SpawnIndex/issues/30)).
+\#30](https://github.com/grinnellm/SpawnIndex/issues/30)).
 
 ## Description
 
