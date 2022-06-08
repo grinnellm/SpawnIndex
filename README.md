@@ -1,25 +1,19 @@
 
 <!-- README.md is generated from README.Rmd; please edit README.Rmd. -->
 
-# SpawnIndex <img src='man/sticker/sticker.png' align="right" height="200"/>
+# SpawnIndex <img src='man/sticker/sticker.png' align="right" height="220"/>
 
 Calculate the spawn index for Pacific Herring (*Clupea pallasii*) in
 British Columbia, Canada.
 
 <!-- badges: start -->
 
-[![R build
-status](https://github.com/grinnellm/SpawnIndex/workflows/R-CMD-check/badge.svg)](https://github.com/grinnellm/SpawnIndex/actions)
-[![Codecov test
-coverage](https://codecov.io/gh/grinnellm/SpawnIndex/branch/master/graph/badge.svg)](https://codecov.io/gh/grinnellm/SpawnIndex)
-[![Code
-factor](https://github.com/grinnellm/SpawnIndex/workflows/lint/badge.svg)](https://github.com/grinnellm/SpawnIndex/actions)
-[![Development
-version](https://img.shields.io/badge/Version-0.3.2-orange.svg?style=flat-square)](commits/master)
-[![CRAN
-status](https://www.r-pkg.org/badges/version/SpawnIndex)](https://CRAN.R-project.org/package=SpawnIndex)
-[![Lifecycle:
-stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
+[![R-CMD-check](https://github.com/grinnellm/SpawnIndex/workflows/R-CMD-check/badge.svg)](https://github.com/grinnellm/SpawnIndex/actions)
+[![Codecov](https://codecov.io/gh/grinnellm/SpawnIndex/branch/master/graph/badge.svg)](https://codecov.io/gh/grinnellm/SpawnIndex)
+[![lint](https://github.com/grinnellm/SpawnIndex/workflows/lint/badge.svg)](https://github.com/grinnellm/SpawnIndex/actions)
+[![Lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
+[![Version](https://img.shields.io/badge/Version-0.3.2-orange.svg?style=flat-square)](commits/master)
+[![CRAN](https://www.r-pkg.org/badges/version/SpawnIndex)](https://CRAN.R-project.org/package=SpawnIndex)
 <!-- badges: end -->
 
 Note that `R-CMD-check` succeeds on my Windows machine but fails on
