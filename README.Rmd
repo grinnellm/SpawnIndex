@@ -4,7 +4,7 @@ output: github_document
 
 <!-- README.md is generated from README.Rmd; please edit README.Rmd. -->
 
-# SpawnIndex <img src='man/sticker/sticker.png' align="right" height="220"/>
+# SpawnIndex <img src='man/sticker/sticker.png' align="right" height="200"/>
 
 `r read.dcf(file = "DESCRIPTION", fields = "Title")`.
 
@@ -21,7 +21,8 @@ version <- read.dcf(file = "DESCRIPTION", fields = "Version")
 [![CRAN](https://www.r-pkg.org/badges/version/SpawnIndex)](https://CRAN.R-project.org/package=SpawnIndex)
 <!-- badges: end -->
 
-Note that `R-CMD-check` succeeds on my Windows machine but fails on GitHub Actions
+Note that `R-CMD-check` succeeds on my Windows machine but fails on
+[GitHub Actions](https://github.com/grinnellm/SpawnIndex/actions)
 (see [issue #30](https://github.com/grinnellm/SpawnIndex/issues/30)).
 
 ## Description

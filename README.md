@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd; please edit README.Rmd. -->
 
-# SpawnIndex <img src='man/sticker/sticker.png' align="right" height="220"/>
+# SpawnIndex <img src='man/sticker/sticker.png' align="right" height="200"/>
 
 Calculate the spawn index for Pacific Herring (*Clupea pallasii*) in
 British Columbia, Canada.
@@ -17,8 +17,8 @@ British Columbia, Canada.
 <!-- badges: end -->
 
 Note that `R-CMD-check` succeeds on my Windows machine but fails on
-GitHub Actions (see [issue
-\#30](https://github.com/grinnellm/SpawnIndex/issues/30)).
+[GitHub Actions](https://github.com/grinnellm/SpawnIndex/actions) (see
+[issue \#30](https://github.com/grinnellm/SpawnIndex/issues/30)).
 
 ## Description
 
