@@ -73,9 +73,9 @@ theta
     ## [1] 1e+08
 
 Thus, convert eggs to the spawn index in tonnes by dividing the number
-of eggs by 10<sup>8</sup>, where `theta` is in units of
-10<sup>8</sup> eggs t<sup>-1</sup>. Then, calculate egg density for a
-given number of egg layers.
+of eggs by `theta`, where `theta` is in units of
+10<sup>8</sup> ⋅ eggs ⋅ t<sup>−1</sup>. Then, calculate egg density for
+a given number of egg layers.
 
 ``` r
 layers <- 4
@@ -87,7 +87,7 @@ egg_density
 
 In this example, spawn surveyors observed 4 layers of Pacific Herring
 eggs, which has an estimated egg density of 863.57, where egg density is
-in units of 10<sup>3</sup> eggs m<sup>-2</sup>. Next, determine the
+in units of 10<sup>3</sup> ⋅ eggs ⋅ m<sup>−2</sup>. Next, determine the
 total number of eggs in a given area.
 
 ``` r
@@ -100,8 +100,8 @@ eggs
     ## [1] 863570
 
 An area measuring 100 m in length and 10 m in width, covered with 4
-layers of eggs, has an estimated 863,570 10<sup>3</sup> eggs. Like egg
-density above, number of eggs is in 10<sup>3</sup> eggs. Finally,
+layers of eggs, has an estimated 863,570 10<sup>3</sup> eggs. Like egg
+density above, number of eggs is in 10<sup>3</sup> eggs. Finally,
 calculate the spawn index for the spawn.
 
 ``` r
