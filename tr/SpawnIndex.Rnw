@@ -23,10 +23,10 @@
 \newcommand{\trYear}{2022}
 
 % Publication number
-\newcommand{\trReportNum}{nnnn}
+\newcommand{\trReportNum}{3489}
 
 % ISBN
-\newcommand{\trISBN}{xxx-x-xxx-xxxxx-x}
+\newcommand{\trISBN}{978-0-660-31975-9}
 
 % Author names with affiliations
 \newcommand{\trAuthsLong}{Matthew H.~Grinnell$^1$, Jake F.~Schweigert$^2$, Matt Thompson$^1$, Sarah Hawkshaw$^3$, and Jaclyn S.~Cleary$^1$}
