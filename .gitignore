@@ -28,6 +28,6 @@
 # Documentation
 /doc/
 /Meta/
-/inst/doc
 /inst/PACKAGES.bib
+*.bib.bak
 *.html
