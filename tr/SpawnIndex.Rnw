@@ -631,13 +631,16 @@ ggsave(
 \begin{subfigure}[t]{0.325\linewidth}
 \includegraphics[width=\linewidth]{\Sexpr{fig_path}/MapSection.png}
 \caption{Spawn index in tonnes (t) in \Sexpr{yr_index} by Location in
-Section \Sexpr{zoom_sec}, Statistical Area \Sexpr{zoom_sa}, \Sexpr{zoom_reg} SAR.}
+Section \Sexpr{zoom_sec},
+Statistical Area \Sexpr{zoom_sa},
+\Sexpr{zoom_reg} SAR.}
 \label{figRegionSec}
 \end{subfigure}
 \hfill
 \begin{subfigure}[t]{0.325\linewidth}
 \includegraphics[width=\linewidth]{\Sexpr{fig_path}/MapStatArea.png}
-\caption{Sections (Sec) in Statistical Area \Sexpr{zoom_sa}, \Sexpr{zoom_reg} SAR.
+\caption{Sections (Sec) in Statistical Area \Sexpr{zoom_sa},
+\Sexpr{zoom_reg} SAR.
 Section \Sexpr{zoom_sec} is emphasized with a thick boundary line.}
 \label{figRegionSA}
 \end{subfigure}
@@ -648,8 +651,14 @@ Section \Sexpr{zoom_sec} is emphasized with a thick boundary line.}
 Statistical Area \Sexpr{zoom_sa} is emphasized with a thick boundary line.}
 \label{figRegionReg}
 \end{subfigure}
-\caption[\fishName{} spawn index by Location, as well as Sections and Statistical Areas in the \Sexpr{reg_name_long} stock assessment region]
-{\fishName{} spawn index in \Sexpr{yr_index} by Location (\subref{figRegionSec}), as well as Sections (\subref{figRegionSA}) and Statistical Areas (\subref{figRegionReg}) in the \Sexpr{reg_name_long} (\Sexpr{zoom_reg}) stock assessment region (SAR; \autoref{figBC}).}
+\caption[\fishName{} spawn index by Location, as well as
+Sections and Statistical Areas
+in the \Sexpr{reg_name_long} stock assessment region]
+{\fishName{} spawn index in \Sexpr{yr_index} by
+Location (\subref{figRegionSec}), as well as
+Sections (\subref{figRegionSA}) and Statistical Areas (\subref{figRegionReg})
+in the \Sexpr{reg_name_long} (\Sexpr{zoom_reg}) stock assessment region
+(SAR; \autoref{figBC}).}
 \label{figRegion}
 \end{figure}
 
@@ -753,8 +762,16 @@ combined sex spawning biomass (\autoref{secTotal}).
 \draw [line] (uInd) |- (tIndex);
 \end{tikzpicture}
 \caption[Sequence of steps for \fishName{} spawn index calculations]
-{Sequence of steps (e.g., \ref{sExt}) for \fishName{} spawn index calculations for spawn survey observation type $x = \{\text{surface, Macrocystis, understory}\}$ (\autoref{tabNotationIndices}).
-Legend: rounded rectangles indicate start, rectangles indicate observations and calculations, parallelograms indicate output, arrows show order of operation, `\S{}' indicates section, and `Eq' indicates equation.}
+{Sequence of steps (e.g., \ref{sExt}) for \fishName{} spawn index calculations
+for spawn survey observation type
+$x = \{\text{surface, Macrocystis, understory}\}$
+(\autoref{tabNotationIndices}).
+Legend: rounded rectangles indicate start,
+rectangles indicate observations and calculations,
+parallelograms indicate output,
+arrows show order of operation,
+`\S{}' indicates section, and
+`Eq' indicates equation.}
 \label{figFlow}
 \end{figure}
 
@@ -948,7 +965,8 @@ $\sigma_{txsnry}^2$ is in units of $\rho^2$.
 \caption[Notation for \fishName{} spawn survey statistical framework]
 {Notation for \fishName{} spawn survey statistical framework.
 Legend: metres (m).
-Note that `$\,'$' indicates related variables (e.g., $f'$ is related to $f''$).}
+Note that `$\,'$' indicates related variables
+(e.g., $f'$ is related to $f''$).}
 \begin{tabulary}{\linewidth}{lLL}
 \toprule
 \textbf{Name} & \textbf{Description} & \textbf{Value or unit} \\
@@ -1062,7 +1080,8 @@ extend parallel to the shore, respectively.
 \centering
 \fbox{\includegraphics[width=0.67\linewidth]{pictures/SpawnFlight.jpg}}
 \caption[Aerial view of \fishName{} spawn]
-{Aerial view of \fishName{} spawn taken during a spawn reconnaissance flight in the Strait of Georgia.
+{Aerial view of \fishName{} spawn taken during a
+spawn reconnaissance flight in the Strait of Georgia.
 Spawn is identified by the band of discoloured water parallel to the shore.}
 \label{figSpawnFlight}
 \end{figure}
@@ -1128,7 +1147,10 @@ egg layers on round algae are counted across the diameter of the algae
 \label{figLayersAlgaeRound}
 \end{subfigure}
 \caption[Number of \fishName{} egg layers]
-{Cross-sections showing the number of \fishName{} egg layers on substrate (\subref{figLayersSubstrate}), flat algae (\subref{figLayersAlgaeFlat}), and round algae (\subref{figLayersAlgaeRound}).
+{Cross-sections showing the number of \fishName{} egg layers
+on substrate (\subref{figLayersSubstrate}),
+flat algae (\subref{figLayersAlgaeFlat}), and
+round algae (\subref{figLayersAlgaeRound}).
 Diagrams copied with permission from the \surveyManual{}.}
 \label{figLayers}
 \end{figure}
@@ -2077,7 +2099,8 @@ $2.38 \cdot 10^{-6}\,\text{kg}$ \citep{HayMiller1982}.
 
 We estimate the relative biomass of \fishName{} that spawned and produced eggs
 which were removed from the population
-by SOK fishery $g$ (\autoref{tabNotationIndices}) as
+by SOK fishery $g$
+(\autoref{tabNotationIndices} and \autoref{tabNotationSOK})
 \begin{equation}\label{eqSOKBioGRY}
 B_{gry}' = \frac{H_{gry} \left(1 - \nu\right) \frac{1}{1+\upsilon}} {w \theta},
 \end{equation}
@@ -2086,7 +2109,7 @@ $\nu$ is the proportion of SOK product weight that is Macrocystis kelp,
 $\upsilon$ is the SOK product weight increase due to brining as a proportion,
 $w$ is the average weight in kilograms of a fertilized egg,
 $\theta$ is the egg conversion factor from \autoref{eqECF}, and
-$B_{gry}'$ is in tonnes (\autoref{tabNotationSOK}).
+$B_{gry}'$ is in tonnes.
 Then we aggregate the relative biomass by SAR $r$ and year $y$
 \begin{equation}\label{eqSOKBioRY}
 B_{\cdot ry}' = \sum_{g=1}^{G_{ry}} B_{gry}',
@@ -2207,11 +2230,15 @@ versus low survey effort or no information in other areas.
 \FloatBarrier
 \begin{landscape}
 \begin{longtable}{P{1.5cm}P{5cm}P{5cm}P{3cm}P{3cm}}
-\caption[Details for parameters and prediction models used in \fishName{} spawn index calculations]
-{Details for studies to quantify parameters and prediction models used in \fishName{} spawn index calculations.
+\caption[Details for parameters and prediction models used in
+\fishName{} spawn index calculations]
+{Details for studies to quantify parameters and prediction models
+used in \fishName{} spawn index calculations.
 Study details include where, when, and how many samples, when available.
-The major stock assessment regions are \Sexpr{paste_nicely(major_regions)} (\autoref{figBC}).
-Legend: equation (Eq), sample size ($n$), standard error (SE), standard deviation (SD), spawn-on-kelp (SOK), and not available (NA).} \\
+The major stock assessment regions are
+\Sexpr{paste_nicely(major_regions)} (\autoref{figBC}).
+Legend: equation (Eq), sample size ($n$), standard error (SE),
+standard deviation (SD), spawn-on-kelp (SOK), and not available (NA).} \\
 \toprule
 \textbf{Parameters} & \textbf{Description} & \textbf{Study details} & \textbf{Uncertainty} & \textbf{References} \\
 \midrule
@@ -2464,8 +2491,8 @@ marking lead lines at $1.15\,\text{m}$ increments
 (when shrinking no longer occurred) is
 from \Sexpr{min(under_width_facs$Year)} to \Sexpr{max(under_width_facs$Year)}.
 However, not all SARs $r$ and years $y$ are impacted equally by this issue
-(\autoref{tab:WidthFac}):
-some SARs and years had all $1.0\,\text{m}$ increment lengths
+(\autoref{tab:WidthFac}).
+That is, some SARs and years had all $1.0\,\text{m}$ increment lengths
 (no correction factor needed; $\tau_{ry} = 1.000$),
 others had all $1.15\,\text{m}$ increment lengths ($\tau_{ry} = 1.150$),
 and others had a combination of
@@ -2473,12 +2500,13 @@ $1.0\,\text{m}$ and $1.15\,\text{m}$ increment lengths
 which we assume to be in equal proportion ($\tau_{ry} = 1.075$).
 
 We correct understory spawn width on transect $t$
+(\autoref{tabNotationIndices} and \autoref{tabNotationWidth})
 \begin{equation}\label{eqWidthCorT}
 W_{txsnry} = W_{txsnry}'' \tau_{ry},
 \end{equation}
 where $W_{txsnry}''$ is the observed spawn width,
 $\tau_{ry}$ is the spawn width correction factor (\autoref{tab:WidthFac}), and
-$W_{txsnry}$ is in metres (\autoref{tabNotationWidth}).
+$W_{txsnry}$ is in metres.
 Instead of updating the database permanently,
 we adjust spawn width in the \textbf{R} package to be transparent and
 to prevent mismatches between the original data sheets and databases.
@@ -2600,7 +2628,8 @@ Similarly, egg layers $E_{jxsnry}$ in \autoref{eqSurfDensJS} corresponds to
 
 \begin{table}
 \centering
-\caption[Crosswalk table for equations and functions in the SpawnIndex \textbf{R} package]
+\caption[Crosswalk table for equations and functions
+in the SpawnIndex \textbf{R} package]
 {Crosswalk table for equations in this document (i.e., technical report) and
 corresponding functions in the SpawnIndex \textbf{R} package (\gitRepo{}).
 Legend: `\S{}' indicates section and `Eq' indicates equation.}
