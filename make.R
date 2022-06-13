@@ -16,8 +16,9 @@ setwd(dir = here("tr"))
 knitr::knit2pdf(input = "SpawnIndex.Rnw")
 setwd(dir = here())
 
-# Compile the manual
+# Compile the supporting documents
 devtools::build_manual(path = here("doc"))
+devtools::build_vignettes(pkg = ".")
 
 # Styler
 styler::style_pkg()
