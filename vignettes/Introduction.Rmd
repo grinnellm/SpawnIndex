@@ -36,7 +36,7 @@ knitr::write_bib(x = "SpawnIndex", file = here("inst", "PACKAGES.bib"))
 
 This vignette shows how to calculate the spawn index for
 Pacific Herring (*Clupea pallasii*) in British Columbia, Canada.
-See the technical report for background information [@GrinnellEtalYYYY].
+See the technical report for background information [@GrinnellEtal2022].
 Source code is on the
 [GitHub repository](https://github.com/grinnellm/SpawnIndex).
 Load the `SpawnIndex` package [@R-SpawnIndex] and
@@ -571,51 +571,6 @@ surf_ind_cap <- paste(
 kable(
   x = surf_ind, digits = c(0, 1, 0, 0, 0, 1), booktabs = TRUE,
   caption = surf_ind_cap
-)
-```
-
-<!-- ## Macrocystis spawn index -->
-
-<!-- Similar to the previous example, -->
-<!-- we assume that there were `r length(yr_range)` spawns -->
-<!-- which are summarised by -->
-<!-- average number of egg layers, -->
-<!-- average plant height in metres, -->
-<!-- average number of stalks per plant, as well as -->
-<!-- the length and width of the spawn in metres. -->
-<!-- We also calculate the number of eggs per plant using the default parameters, -->
-<!-- and then calculate the spawn index in tonnes for each spawn. -->
-
-```{r macrocystis, include = FALSE, eval = FALSE}
-# Generate some data
-macro_dat <- tibble(
-  Number = seq_along(yr_range),
-  Layers = sample(x = 2:8, size = length(yr_range), replace = TRUE),
-  Height = sample(x = 2:10, size = length(yr_range), replace = TRUE),
-  StalksPerPlant = sample(x = 2:5, size = length(yr_range), replace = TRUE),
-  Plants = sample(x = 5:20, size = length(yr_range))
-)
-# Calculate the index
-macro_ind <- macro_dat %>%
-  mutate(
-    EggsPerPlant = eggs_macro(
-      egg_layers = Layers, height = Height, stalks_per_plant = StalksPerPlant
-    ),
-    Eggs = EggsPerPlant * Plants,
-    Index = Eggs * 1000 / theta
-  )
-# Table caption
-macro_ind_cap <- paste(
-  "<i>Macrocystis spawn survey observations and spawn index: average number of",
-  "egg layers, average plant height in metres (m), average number of stalks",
-  "per plant, number of eggs per plant in thousands (10^3 * eggs / plant),",
-  "number of eggs in thousands (10^3 * eggs), and macrocystis spawn index in",
-  "tonnes (t).</i>"
-)
-# Table
-kable(
-  x = macro_ind, digits = c(0, 0, 0, 0, 0, 1, 1, 1), booktabs = TRUE,
-  caption = macro_ind_cap
 )
 ```
 

@@ -3,7 +3,7 @@
 \docType{package}
 \name{SpawnIndex}
 \alias{SpawnIndex}
-\title{SpawnIndex: Calculate the spawn index for Pacific Herring (\emph{Clupea pallasii}) in
+\title{SpawnIndex: Calculating the spawn index for Pacific Herring (\emph{Clupea pallasii}) in
 British Columbia, Canada.}
 \description{
 The SpawnIndex package provides data, parameters, and methods to
@@ -23,7 +23,7 @@ functions: load, calculation, check, and utility.
 \note{
 The `spawn index' is a relative index of spawning biomass. Read the
 technical report for more details and background on spawn index
-calculations \insertCite{GrinnellEtalYYYY}{SpawnIndex}.
+calculations \insertCite{GrinnellEtal2022}{SpawnIndex}.
 }
 \section{Raw data}{
  The raw data is an example database with spawn survey

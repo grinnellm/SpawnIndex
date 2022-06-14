@@ -13,7 +13,7 @@ regions
 \description{
 Cross-walk table with stock assessment region (SAR) numbers, regions, region
 names, and type (i.e., major, minor, special)
-\insertCite{GrinnellEtalYYYY}{SpawnIndex}.
+\insertCite{GrinnellEtal2022}{SpawnIndex}.
 }
 \note{
 JS is not an official SAR; sections 132 and 135 are also in SoG.

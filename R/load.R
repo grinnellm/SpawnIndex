@@ -458,7 +458,7 @@ load_all_spawn <- function(where,
 #' calculations. Observed width is not preferred for surface spawn surveys
 #' because surveyors tend to underestimate spawn width
 #' \insertCite{HayKronlund1987}{SpawnIndex}. Instead, the preferred with comes
-#' from underwater surveys \insertCite{GrinnellEtalYYYY}{SpawnIndex}.
+#' from underwater surveys \insertCite{GrinnellEtal2022}{SpawnIndex}.
 #'
 #' @template param-where
 #' @template param-areas

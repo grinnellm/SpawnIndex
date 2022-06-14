@@ -14,7 +14,7 @@ under_width_facs
 Spawn width correction factors for Pacific Herring understory spawn surveys
 by region and year. These correction factors account for an error that
 resulted in underestimated spawn width for understory dive surveys
-\insertCite{ClearyEtal2017,GrinnellEtalYYYY}{SpawnIndex}.
+\insertCite{ClearyEtal2017,GrinnellEtal2022}{SpawnIndex}.
 }
 \note{
 Adjust spawn width for affected understory spawn surveys by multiplying

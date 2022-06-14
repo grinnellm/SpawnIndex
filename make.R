@@ -34,5 +34,5 @@ lintr::lint(filename = here("man", "sticker", "sticker.R"))
 lintr::lint(filename = here("README.Rmd"))
 lintr::lint(filename = here("tr", "SpawnIndex.Rnw"))
 
-# Good practice (takes a while; require `SpawnIndex` first)
+# Good practice (takes a while; restart R and require `SpawnIndex` first)
 goodpractice::gp(path = ".")

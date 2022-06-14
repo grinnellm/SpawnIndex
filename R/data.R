@@ -2,7 +2,7 @@
 #'
 #' Cross-walk table with stock assessment region (SAR) numbers, regions, region
 #' names, and type (i.e., major, minor, special)
-#' \insertCite{GrinnellEtalYYYY}{SpawnIndex}.
+#' \insertCite{GrinnellEtal2022}{SpawnIndex}.
 #'
 #' @format Tibble with rows for regions and columns for attributes.
 #' @note JS is not an official SAR; sections 132 and 135 are also in SoG.
@@ -22,7 +22,7 @@
 #' Spawn width correction factors for Pacific Herring understory spawn surveys
 #' by region and year. These correction factors account for an error that
 #' resulted in underestimated spawn width for understory dive surveys
-#' \insertCite{ClearyEtal2017,GrinnellEtalYYYY}{SpawnIndex}.
+#' \insertCite{ClearyEtal2017,GrinnellEtal2022}{SpawnIndex}.
 #'
 #' @format Tibble with rows for years and columns for regions.
 #' @note Adjust spawn width for affected understory spawn surveys by multiplying
@@ -80,7 +80,7 @@
 #'     \insertCite{Schweigert2005}{SpawnIndex}, and
 #'   \emph{varsigma} is the regression exponent on proportion of algae
 #'     \insertCite{Schweigert2005}{SpawnIndex}.}
-#' \item{years}{List with items \insertCite{GrinnellEtalYYYY}{SpawnIndex}:
+#' \item{years}{List with items \insertCite{GrinnellEtal2022}{SpawnIndex}:
 #'   \emph{survey} is the first year of spawn survey data,
 #'   \emph{complete} is the first year of complete coastwide coverage,
 #'   \emph{assess} is the first year of spawn survey data that is reliable for
@@ -109,7 +109,7 @@
 #' `r pars$years$layers - 1`, surface spawn surveyors categorized spawn by
 #' subjective 'intensity' categories instead of directly estimating the number
 #' of egg layers
-#' \insertCite{HayKronlund1987,SchweigertStocker1988,GrinnellEtalYYYY}{SpawnIndex}.
+#' \insertCite{HayKronlund1987,SchweigertStocker1988,GrinnellEtal2022}{SpawnIndex}.
 #' Surveyors used five categories from `r pars$years$survey` to
 #' `r pars$years$nine_cats - 1`, and then nine categories from
 #' `r pars$years$nine_cats` to `r pars$years$layers - 1`.
@@ -131,7 +131,7 @@
 #' Algae types and coefficients for Pacific Herring understory spawn surveys
 #' \insertCite{Schweigert2005}{SpawnIndex}. Algae coefficients account for the
 #' effect of algae morphology on Pacific Herring egg density
-#' \insertCite{GrinnellEtalYYYY}{SpawnIndex}.
+#' \insertCite{GrinnellEtal2022}{SpawnIndex}.
 #'
 #' @format Tibble with 8 rows and 3 columns: algae type, algae code, and
 #'   coefficient.

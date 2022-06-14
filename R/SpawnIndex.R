@@ -37,6 +37,6 @@
 #' @name SpawnIndex
 #' @note The `spawn index' is a relative index of spawning biomass. Read the
 #'   technical report for more details and background on spawn index
-#'   calculations \insertCite{GrinnellEtalYYYY}{SpawnIndex}.
+#'   calculations \insertCite{GrinnellEtal2022}{SpawnIndex}.
 #' @references \insertAllCited{}
 NULL

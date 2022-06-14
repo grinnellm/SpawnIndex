@@ -25,7 +25,7 @@ Load median spawn width in metres (m) for Pacific Herring surface spawn index
 calculations. Observed width is not preferred for surface spawn surveys
 because surveyors tend to underestimate spawn width
 \insertCite{HayKronlund1987}{SpawnIndex}. Instead, the preferred with comes
-from underwater surveys \insertCite{GrinnellEtalYYYY}{SpawnIndex}.
+from underwater surveys \insertCite{GrinnellEtal2022}{SpawnIndex}.
 }
 \examples{
 db_loc <- system.file("extdata", package = "SpawnIndex")
