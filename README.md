@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd; please edit README.Rmd. -->
 
-# SpawnIndex <img src='man/sticker/sticker.png' align="right" height="200"/>
+# SpawnIndex <img src='man/sticker/sticker.png' align="right" height="250"/>
 
 Calculating the spawn index for Pacific Herring (*Clupea pallasii*) in
 British Columbia, Canada.

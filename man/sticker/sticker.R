@@ -26,7 +26,7 @@ link <- "github.com/grinnellm/SpawnIndex"
 egg_image <- here("man", "sticker", "egg.png")
 
 # Padding
-pad <- 10
+pad <- 12.5
 
 # Angles
 a1 <- c(60, 180, 300) * pi / 180
@@ -77,5 +77,5 @@ spawn_index_sticker <- sticker(
   p_x = c(1.02, 1), p_y = c(1.38, 1.4), p_family = font_name,
   h_fill = "blue", h_size = 1, h_color = "red",
   url = link, u_y = 0.06, u_size = pad * 0.75, u_family = "mono",
-  filename = here("man", "sticker", "sticker.png"), dpi = 600
+  filename = here("man", "sticker", "sticker.png"), dpi = 750
 )

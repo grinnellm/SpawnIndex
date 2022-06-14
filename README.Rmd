@@ -4,7 +4,7 @@ output: github_document
 
 <!-- README.md is generated from README.Rmd; please edit README.Rmd. -->
 
-# SpawnIndex <img src='man/sticker/sticker.png' align="right" height="200"/>
+# SpawnIndex <img src='man/sticker/sticker.png' align="right" height="250"/>
 
 `r read.dcf(file = "DESCRIPTION", fields = "Title")`.
 
