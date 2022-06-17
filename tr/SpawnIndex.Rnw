@@ -1485,7 +1485,7 @@ This section describes steps \ref{mPlant} to \ref{mInd} in \autoref{figFlow}
 (i.e., survey type $x = \text{Macrocystis}$).
 Macrocystis spawn surveyors use SCUBA gear to collect underwater data for
 individual plants $p$, transects $t$, and spawns $s$ (\autoref{secMacroProt}),
-where divers enumerate every Macrocystis plant within the transect swath.
+where divers enumerate every Macrocystis plant within the transect swath $\chi$.
 We calculate metrics at the transect $t$ and spawn $s$ levels
 (\autoref{tabNotationIndices} and \autoref{tabNotationMacro}).
 
