@@ -8,9 +8,11 @@ Fill in NA values with rolling mean of previous values}
 roll_mean_na(dat, n, omit_na = TRUE)
 }
 \arguments{
-\item{omit_na}{Omit NAs? Logical, default TRUE.}
+\item{dat}{Object.}
 
-\item{x}{Vector to consider.}
+\item{n}{Window size.}
+
+\item{omit_na}{Omit NAs.}
 }
 \value{
 Numeric.
@@ -20,6 +22,9 @@ Rolling mean (window)
 Fill in NA values with rolling mean of previous values
 }
 \seealso{
+\code{\link{min_na}}, \code{\link{max_na}}, \code{\link{sum_na}},
+\code{\link{mean_na}}, \code{\link{wt_mean_na}}, \code{\link{unique_na}}
+
 Other utility functions: 
 \code{\link{max_na}()},
 \code{\link{mean_na}()},

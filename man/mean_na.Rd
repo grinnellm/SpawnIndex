@@ -8,9 +8,9 @@ Calculate mean if there are non-NA values, return NA if all values are NA}
 mean_na(x, omit_na = TRUE)
 }
 \arguments{
-\item{x}{Vector to consider.}
+\item{x}{Object.}
 
-\item{omit_na}{Omit NAs? Logical, default TRUE.}
+\item{omit_na}{Omit NAs.}
 }
 \value{
 Numeric.
@@ -20,6 +20,10 @@ Mean
 Calculate mean if there are non-NA values, return NA if all values are NA
 }
 \seealso{
+\code{\link{min_na}}, \code{\link{max_na}}, \code{\link{sum_na}},
+\code{\link{wt_mean_na}}, \code{\link{roll_mean_na}},
+\code{\link{unique_na}}
+
 Other utility functions: 
 \code{\link{max_na}()},
 \code{\link{min_na}()},

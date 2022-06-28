@@ -55,9 +55,12 @@ paste_nicely <- function(x,
 
 #' Calculate minimum if there are non-NA values, return NA if all values are NA
 
-#' @param x Vector to consider.
-#' @param omit_na Omit NAs? Logical, default TRUE.
+#' @param x Object.
+#' @param omit_na Omit NAs.
 #' @return Numeric.
+#' @seealso \code{\link{max_na}}, \code{\link{sum_na}}, \code{\link{mean_na}},
+#'   \code{\link{wt_mean_na}}, \code{\link{roll_mean_na}},
+#'   \code{\link{unique_na}}
 #' @family utility functions
 #' @export
 min_na <- function(x, omit_na = TRUE) {
@@ -65,8 +68,8 @@ min_na <- function(x, omit_na = TRUE) {
   # This version retuns NA if x is all NA, otherwise it returns the minimum.
   # If all NA, NA; otherwise, minimum
   ifelse(all(is.na(x)),
-         res <- NA,
-         res <- min(x, na.rm = omit_na)
+    res <- NA,
+    res <- min(x, na.rm = omit_na)
   )
   # Return the result
   return(res)
@@ -76,9 +79,12 @@ min_na <- function(x, omit_na = TRUE) {
 
 #' Calculate maximum if there are non-NA values, return NA if all values are NA
 
-#' @param x Vector to consider.
-#' @param omit_na Omit NAs? Logical, default TRUE.
+#' @param x Object.
+#' @param omit_na Omit NAs.
 #' @return Numeric.
+#' @seealso \code{\link{min_na}}, \code{\link{sum_na}}, \code{\link{mean_na}},
+#'   \code{\link{wt_mean_na}}, \code{\link{roll_mean_na}},
+#'   \code{\link{unique_na}}
 #' @family utility functions
 #' @export
 max_na <- function(x, omit_na = TRUE) {
@@ -86,8 +92,8 @@ max_na <- function(x, omit_na = TRUE) {
   # This version retuns NA if x is all NA, otherwise it returns the maximum.
   # If all NA, NA; otherwise, maximum
   ifelse(all(is.na(x)),
-         res <- NA,
-         res <- max(x, na.rm = omit_na)
+    res <- NA,
+    res <- max(x, na.rm = omit_na)
   )
   # Return the result
   return(res)
@@ -97,9 +103,12 @@ max_na <- function(x, omit_na = TRUE) {
 
 #' Calculate sum if there are non-NA values, return NA if all values are NA
 
-#' @param x Vector to consider.
-#' @param omit_na Omit NAs? Logical, default TRUE.
+#' @param x Object.
+#' @param omit_na Omit NAs.
 #' @return Numeric.
+#' @seealso \code{\link{min_na}}, \code{\link{max_na}}, \code{\link{mean_na}},
+#'   \code{\link{wt_mean_na}}, \code{\link{roll_mean_na}},
+#'   \code{\link{unique_na}}
 #' @family utility functions
 #' @export
 sum_na <- function(x, omit_na = TRUE) {
@@ -107,8 +116,8 @@ sum_na <- function(x, omit_na = TRUE) {
   # This version retuns NA if x is all NA, otherwise it returns the sum.
   # If all NA, NA; otherwise, sum
   ifelse(all(is.na(x)),
-         res <- NA,
-         res <- sum(x, na.rm = omit_na)
+    res <- NA,
+    res <- sum(x, na.rm = omit_na)
   )
   # Return the result
   return(res)
@@ -118,9 +127,12 @@ sum_na <- function(x, omit_na = TRUE) {
 
 #' Calculate mean if there are non-NA values, return NA if all values are NA
 
-#' @param x Vector to consider.
-#' @param omit_na Omit NAs? Logical, default TRUE.
+#' @param x Object.
+#' @param omit_na Omit NAs.
 #' @return Numeric.
+#' @seealso \code{\link{min_na}}, \code{\link{max_na}}, \code{\link{sum_na}},
+#'   \code{\link{wt_mean_na}}, \code{\link{roll_mean_na}},
+#'   \code{\link{unique_na}}
 #' @family utility functions
 #' @export
 mean_na <- function(x, omit_na = TRUE) {
@@ -128,8 +140,8 @@ mean_na <- function(x, omit_na = TRUE) {
   # This version retuns NA if x is all NA, otherwise it returns the mean.
   # If all NA, NA; otherwise, mean
   ifelse(all(is.na(x)),
-         res <- NA,
-         res <- mean(x, na.rm = omit_na)
+    res <- NA,
+    res <- mean(x, na.rm = omit_na)
   )
   # Return the result
   return(res)
@@ -140,10 +152,13 @@ mean_na <- function(x, omit_na = TRUE) {
 #' Calculate weighted mean if there are non-NA values, return NA if all values
 #' are NA
 
-#' @param x Vector to consider.
-#' @param omit_na Omit NAs? Logical, default TRUE.
+#' @param x Object.
+#' @param w Weights.
+#' @param omit_na Omit NAs.
 #' @importFrom stats weighted.mean
 #' @return Numeric.
+#' @seealso \code{\link{min_na}}, \code{\link{max_na}}, \code{\link{sum_na}},
+#'   \code{\link{mean_na}}, \code{\link{roll_mean_na}}, \code{\link{unique_na}}
 #' @family utility functions
 #' @export
 wt_mean_na <- function(x, w, omit_na = TRUE) {
@@ -152,8 +167,8 @@ wt_mean_na <- function(x, w, omit_na = TRUE) {
   # weighted mean.
   # If all NA, NA; otherwise, weighted mean
   ifelse(all(is.na(x)),
-         res <- NA,
-         res <- weighted.mean(x, w, na.rm = omit_na)
+    res <- NA,
+    res <- weighted.mean(x, w, na.rm = omit_na)
   )
   # Return the result
   return(res)
@@ -163,9 +178,12 @@ wt_mean_na <- function(x, w, omit_na = TRUE) {
 
 #' Fill in NA values with rolling mean of previous values
 
-#' @param x Vector to consider.
-#' @param omit_na Omit NAs? Logical, default TRUE.
+#' @param dat Object.
+#' @param n Window size.
+#' @param omit_na Omit NAs.
 #' @return Numeric.
+#' @seealso \code{\link{min_na}}, \code{\link{max_na}}, \code{\link{sum_na}},
+#'   \code{\link{mean_na}}, \code{\link{wt_mean_na}}, \code{\link{unique_na}}
 #' @family utility functions
 #' @export
 roll_mean_na <- function(dat, n, omit_na = TRUE) {
@@ -191,9 +209,10 @@ roll_mean_na <- function(dat, n, omit_na = TRUE) {
 
 #' Calculate unique if there are non-NA values, return NA if all values are NA
 
-#' @param x Vector to consider.
-#' @param omit_na Omit NAs? Logical, default TRUE.
+#' @param x Object.
 #' @return Numeric.
+#' @seealso \code{\link{min_na}}, \code{\link{max_na}}, \code{\link{sum_na}},
+#'   \code{\link{mean_na}}, \code{\link{wt_mean_na}}, \code{\link{roll_mean_na}}
 #' @family utility functions
 #' @export
 unique_na <- function(x) {
@@ -202,8 +221,8 @@ unique_na <- function(x) {
   # unique values.
   # If all NA, NA; otherwise, unique
   ifelse(all(is.na(x)),
-         res <- NA,
-         res <- unique(x)
+    res <- NA,
+    res <- unique(x)
   )
   # Return the result
   return(res)
