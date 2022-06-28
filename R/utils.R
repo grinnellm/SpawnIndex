@@ -51,21 +51,56 @@ paste_nicely <- function(x,
   res
 } # End paste_nicely function
 
-# Calculate mean if there are non-NA values, return NA if all values are NA
+#' Mininum
+
+#' Calculate minimum if there are non-NA values, return NA if all values are NA
+
+#' @param x Vector to consider.
+#' @param omit_na Omit NAs? Logical, default TRUE.
+#' @return Numeric.
+#' @family utility functions
 #' @export
-mean_na <- function(x, omit_na = TRUE) {
-  # An alternate version to mean(x, na.rm=TRUE), which returns 0 if x is all NA.
-  # This version retuns NA if x is all NA, otherwise it returns the mean.
-  # If all NA, NA; otherwise, mean
+min_na <- function(x, omit_na = TRUE) {
+  # An alternate version to min(x, na.rm=TRUE), which returns 0 if x is all NA.
+  # This version retuns NA if x is all NA, otherwise it returns the minimum.
+  # If all NA, NA; otherwise, minimum
   ifelse(all(is.na(x)),
          res <- NA,
-         res <- mean(x, na.rm = omit_na)
+         res <- min(x, na.rm = omit_na)
   )
   # Return the result
   return(res)
-} # End mean_na function
+} # End min_na function
 
-# Calculate sum if there are non-NA values, return NA if all values are NA
+#' Maximum
+
+#' Calculate maximum if there are non-NA values, return NA if all values are NA
+
+#' @param x Vector to consider.
+#' @param omit_na Omit NAs? Logical, default TRUE.
+#' @return Numeric.
+#' @family utility functions
+#' @export
+max_na <- function(x, omit_na = TRUE) {
+  # An alternate version to max(x, na.rm=TRUE), which returns 0 if x is all NA.
+  # This version retuns NA if x is all NA, otherwise it returns the maximum.
+  # If all NA, NA; otherwise, maximum
+  ifelse(all(is.na(x)),
+         res <- NA,
+         res <- max(x, na.rm = omit_na)
+  )
+  # Return the result
+  return(res)
+} # End max_na function
+
+#' Sum
+
+#' Calculate sum if there are non-NA values, return NA if all values are NA
+
+#' @param x Vector to consider.
+#' @param omit_na Omit NAs? Logical, default TRUE.
+#' @return Numeric.
+#' @family utility functions
 #' @export
 sum_na <- function(x, omit_na = TRUE) {
   # An alternate version to sum(x, na.rm=TRUE), which returns 0 if x is all NA.
@@ -79,23 +114,37 @@ sum_na <- function(x, omit_na = TRUE) {
   return(res)
 } # End sum_na function
 
-# Calculate unique if there are non-NA values, return NA if all values are NA
+#' Mean
+
+#' Calculate mean if there are non-NA values, return NA if all values are NA
+
+#' @param x Vector to consider.
+#' @param omit_na Omit NAs? Logical, default TRUE.
+#' @return Numeric.
+#' @family utility functions
 #' @export
-unique_na <- function(x) {
-  # An alternate version to unique, which fails sometimes if there are no
-  # values. This version retuns NA if x is all NA, otherwise it returns the
-  # unique values.
-  # If all NA, NA; otherwise, unique
+mean_na <- function(x, omit_na = TRUE) {
+  # An alternate version to mean(x, na.rm=TRUE), which returns 0 if x is all NA.
+  # This version retuns NA if x is all NA, otherwise it returns the mean.
+  # If all NA, NA; otherwise, mean
   ifelse(all(is.na(x)),
          res <- NA,
-         res <- unique(x)
+         res <- mean(x, na.rm = omit_na)
   )
   # Return the result
   return(res)
-} # End unique_na function
+} # End mean_na function
 
-# Calculate weighted mean if there are non-NA values, return NA if all values
-# are NA
+#' Weighted mean
+
+#' Calculate weighted mean if there are non-NA values, return NA if all values
+#' are NA
+
+#' @param x Vector to consider.
+#' @param omit_na Omit NAs? Logical, default TRUE.
+#' @importFrom stats weighted.mean
+#' @return Numeric.
+#' @family utility functions
 #' @export
 wt_mean_na <- function(x, w, omit_na = TRUE) {
   # An alternate version to weighted.mean(x, w, na.rm=TRUE), which returns 0 if
@@ -110,35 +159,14 @@ wt_mean_na <- function(x, w, omit_na = TRUE) {
   return(res)
 } # End mean_na function
 
-# Calculate maximum if there are non-NA values, return NA if all values are NA
-#' @export
-max_na <- function(x, omit_na = TRUE) {
-  # An alternate version to max(x, na.rm=TRUE), which returns 0 if x is all NA.
-  # This version retuns NA if x is all NA, otherwise it returns the maximum.
-  # If all NA, NA; otherwise, maximum
-  ifelse(all(is.na(x)),
-         res <- NA,
-         res <- max(x, na.rm = omit_na)
-  )
-  # Return the result
-  return(res)
-} # End max_na function
+#' Rolling mean (window)
 
-# Calculate minimum if there are non-NA values, return NA if all values are NA
-#' @export
-min_na <- function(x, omit_na = TRUE) {
-  # An alternate version to min(x, na.rm=TRUE), which returns 0 if x is all NA.
-  # This version retuns NA if x is all NA, otherwise it returns the minimum.
-  # If all NA, NA; otherwise, minimum
-  ifelse(all(is.na(x)),
-         res <- NA,
-         res <- min(x, na.rm = omit_na)
-  )
-  # Return the result
-  return(res)
-} # End min_na function
+#' Fill in NA values with rolling mean of previous values
 
-# Fill in NA values with rolling mean of previous values
+#' @param x Vector to consider.
+#' @param omit_na Omit NAs? Logical, default TRUE.
+#' @return Numeric.
+#' @family utility functions
 #' @export
 roll_mean_na <- function(dat, n, omit_na = TRUE) {
   # Update the NAs in a vector with the mean of the previous values. The number
@@ -158,3 +186,25 @@ roll_mean_na <- function(dat, n, omit_na = TRUE) {
   # Return the observations with NAs (mostly) replaced by the rolling mean
   return(dat)
 } # End roll_mean_na function
+
+#' Unique
+
+#' Calculate unique if there are non-NA values, return NA if all values are NA
+
+#' @param x Vector to consider.
+#' @param omit_na Omit NAs? Logical, default TRUE.
+#' @return Numeric.
+#' @family utility functions
+#' @export
+unique_na <- function(x) {
+  # An alternate version to unique, which fails sometimes if there are no
+  # values. This version retuns NA if x is all NA, otherwise it returns the
+  # unique values.
+  # If all NA, NA; otherwise, unique
+  ifelse(all(is.na(x)),
+         res <- NA,
+         res <- unique(x)
+  )
+  # Return the result
+  return(res)
+} # End unique_na function

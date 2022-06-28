@@ -33,4 +33,14 @@ Paste things together nicely for printing. Quotes and oxford comma included.
 \examples{
 paste_nicely(x = letters[1:5])
 }
+\seealso{
+Other utility functions: 
+\code{\link{max_na}()},
+\code{\link{mean_na}()},
+\code{\link{min_na}()},
+\code{\link{roll_mean_na}()},
+\code{\link{sum_na}()},
+\code{\link{unique_na}()},
+\code{\link{wt_mean_na}()}
+}
 \concept{utility functions}
