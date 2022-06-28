@@ -184,7 +184,6 @@ dens_surf <- function(alpha = pars$surface$alpha,
 #'   ungroup mutate_at vars starts_with ends_with
 #' @importFrom tibble as_tibble
 #' @importFrom stringr str_to_title
-#' @importFrom gfiscamutils mean_na sum_na
 #' @importFrom tidyr replace_na
 #' @importFrom Rdpack reprompt
 #' @return List. The element \code{si} is a tibble with surface spawn index
@@ -567,7 +566,6 @@ eggs_macro <- function(xi = pars$macrocystis$xi,
 #'   summarise ungroup
 #' @importFrom tibble as_tibble
 #' @importFrom stringr str_to_title
-#' @importFrom gfiscamutils mean_na sum_na unique_na
 #' @importFrom tidyr replace_na
 #' @importFrom Rdpack reprompt
 #' @return List. The element \code{si} is a tibble with Macrocystis spawn index
@@ -908,7 +906,6 @@ dens_under_alg <- function(vartheta = pars$understory$vartheta,
 #'   bind_rows
 #' @importFrom tibble as_tibble
 #' @importFrom stringr str_to_title str_to_upper
-#' @importFrom gfiscamutils mean_na sum_na unique_na wt_mean_na
 #' @importFrom tidyr replace_na gather
 #' @importFrom Rdpack reprompt
 #' @return List. The element \code{si} is a tibble with understory spawn index

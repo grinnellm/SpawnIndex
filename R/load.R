@@ -319,7 +319,6 @@ load_area_data <- function(reg,
 #' @importFrom tibble as_tibble
 #' @importFrom stringr str_to_title
 #' @importFrom lubridate as_date
-#' @importFrom gfiscamutils max_na
 #' @importFrom Rdpack reprompt
 #' @return Tibble. Contains additional spawn survey data including start and end
 #'   dates, as well as spawn length, width, and depth. Other information in this
