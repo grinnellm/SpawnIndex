@@ -51,7 +51,7 @@ paste_nicely <- function(x,
   res
 } # End paste_nicely function
 
-#' Mininum
+#' Minimum
 
 #' Calculate minimum if there are non-NA values, return NA if all values are NA
 
