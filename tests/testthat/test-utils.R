@@ -37,13 +37,13 @@ test_that("Mean NA", {
 test_that("Weighted mean NA", {
   expect_equal(wt_mean_na(x = NA), NA)
   expect_equal(wt_mean_na(x = c(1:3, NA)), 2)
-  expect_equal(wt_mean_na(x = c(1:3, NA), w=c(1, 1, 2, NA)), 2.25)
+  expect_equal(wt_mean_na(x = c(1:3, NA), w = c(1, 1, 2, NA)), 2.25)
   expect_true(is.na(wt_mean_na(x = c(1:3, NA), omit_na = FALSE)))
 })
 
 test_that("Rolling mean NA", {
-  expect_equal(roll_mean_na(dat = c(NA, NA), n=2), c(NA, NA))
-  expect_equal(roll_mean_na(dat = c(1:3, NA), n=2), c(1.0, 2.0, 3.0, 2.5))
+  expect_equal(roll_mean_na(dat = c(NA, NA), n = 2), c(NA, NA))
+  expect_equal(roll_mean_na(dat = c(1:3, NA), n = 2), c(1.0, 2.0, 3.0, 2.5))
 })
 
 test_that("Unique NA", {

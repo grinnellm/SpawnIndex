@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{min_na}
 \alias{min_na}
-\title{Mininum
+\title{Minimum
 Calculate minimum if there are non-NA values, return NA if all values are NA}
 \usage{
 min_na(x, omit_na = TRUE)
@@ -16,7 +16,7 @@ min_na(x, omit_na = TRUE)
 Numeric.
 }
 \description{
-Mininum
+Minimum
 Calculate minimum if there are non-NA values, return NA if all values are NA
 }
 \seealso{

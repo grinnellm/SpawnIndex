@@ -196,9 +196,9 @@ roll_mean_na <- function(dat, n, omit_na = TRUE) {
     # If the value is NA
     if (is.na(dat[i])) {
       # Get window for current index: up to n previous values
-      muWindow <- (i - min(n, i - 1)):(i - 1)
+      mu_window <- (i - min(n, i - 1)):(i - 1)
       # Calculate the mean of the values in the rolling window
-      dat[i] <- mean_na(dat[muWindow], omit_na = omit_na)
+      dat[i] <- mean_na(dat[mu_window], omit_na = omit_na)
     } # End if value is NA
   } # End i loop over observations
   # Return the observations with NAs (mostly) replaced by the rolling mean
