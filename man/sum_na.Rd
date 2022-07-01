@@ -2,34 +2,37 @@
 % Please edit documentation in R/utils.R
 \name{sum_na}
 \alias{sum_na}
-\title{Sum
-Calculate sum if there are non-NA values, return NA if all values are NA}
+\title{Calculate the sum.}
 \usage{
 sum_na(x, omit_na = TRUE)
 }
 \arguments{
-\item{x}{Object.}
+\item{x}{A numeric vector.}
 
-\item{omit_na}{Omit NAs.}
+\item{omit_na}{Logical. Omit NAs; default is TRUE.}
 }
 \value{
-Numeric.
+A numeric vector.
 }
 \description{
-Sum
-Calculate sum if there are non-NA values, return NA if all values are NA
+Calculate the sum; an alternative to \code{sum(x)} that returns \code{NA} if \code{x} is all
+\code{NA} or an empty set. Although the sum of an empty is zero, this causes
+issues in spawn index calculations.
+}
+\note{
+The sum of an empty set is zero, by definition.
+}
+\examples{
+sum(NA, na.rm = TRUE)
+sum_na(NA)
 }
 \seealso{
-\code{\link{min_na}}, \code{\link{max_na}}, \code{\link{mean_na}},
-\code{\link{wt_mean_na}}, \code{\link{roll_mean_na}},
-\code{\link{unique_na}}
+\code{\link{sum}}
 
 Other utility functions: 
 \code{\link{max_na}()},
 \code{\link{mean_na}()},
-\code{\link{min_na}()},
 \code{\link{paste_nicely}()},
-\code{\link{roll_mean_na}()},
 \code{\link{unique_na}()},
 \code{\link{wt_mean_na}()}
 }

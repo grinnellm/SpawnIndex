@@ -2,37 +2,35 @@
 % Please edit documentation in R/utils.R
 \name{wt_mean_na}
 \alias{wt_mean_na}
-\title{Weighted mean
-Calculate weighted mean if there are non-NA values, return NA if all values
-are NA}
+\title{Calculate the weighted mean.}
 \usage{
 wt_mean_na(x, w, omit_na = TRUE)
 }
 \arguments{
-\item{x}{Object.}
+\item{x}{A numeric vector of values whose weighted mean is to be computed.}
 
-\item{w}{Weights.}
+\item{w}{A numeric vector of weights of the same length as \code{x}.}
 
-\item{omit_na}{Omit NAs.}
+\item{omit_na}{Logical. Omit NAs; default is TRUE.}
 }
 \value{
-Numeric.
+A numeric vector.
 }
 \description{
-Weighted mean
-Calculate weighted mean if there are non-NA values, return NA if all values
-are NA
+Calculate the weighted mean; an alternative to \code{weighted.mean(x)} that
+returns \code{NA} if \code{x} is all \code{NA} or an empty set.
+}
+\examples{
+weighted.mean(NA, na.rm = TRUE)
+wt_mean_na(NA, w = 1)
 }
 \seealso{
-\code{\link{min_na}}, \code{\link{max_na}}, \code{\link{sum_na}},
-\code{\link{mean_na}}, \code{\link{roll_mean_na}}, \code{\link{unique_na}}
+\code{\link{weighted.mean}}
 
 Other utility functions: 
 \code{\link{max_na}()},
 \code{\link{mean_na}()},
-\code{\link{min_na}()},
 \code{\link{paste_nicely}()},
-\code{\link{roll_mean_na}()},
 \code{\link{sum_na}()},
 \code{\link{unique_na}()}
 }

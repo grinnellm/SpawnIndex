@@ -1,4 +1,4 @@
-#' Paste things together nicely.
+#' Paste things nicely.
 #'
 #' Paste things together nicely for printing. Quotes and oxford comma included.
 #'
@@ -13,7 +13,7 @@
 #' @family utility functions
 #' @export
 #' @examples
-#' paste_nicely(x = letters[1:5])
+#' paste_nicely(x = letters[1:3])
 paste_nicely <- function(x,
                          int_char = ", ",
                          n_char = "and ",
@@ -51,179 +51,140 @@ paste_nicely <- function(x,
   res
 } # End paste_nicely function
 
-#' Minimum
-
-#' Calculate minimum if there are non-NA values, return NA if all values are NA
-
-#' @param x Object.
-#' @param omit_na Omit NAs.
-#' @return Numeric.
-#' @seealso \code{\link{max_na}}, \code{\link{sum_na}}, \code{\link{mean_na}},
-#'   \code{\link{wt_mean_na}}, \code{\link{roll_mean_na}},
-#'   \code{\link{unique_na}}
+#' Calculate the maximum.
+#'
+#' Calculate the maximum; an alternative to `max(x)` that returns `NA` if `x` is
+#' all `NA` or an empty set.
+#'
+#' @param x A numeric vector.
+#' @template param-omit_na
+#' @return A numeric vector.
+#' @seealso \code{\link{max}}
 #' @family utility functions
 #' @export
-min_na <- function(x, omit_na = TRUE) {
-  # An alternate version to min(x, na.rm=TRUE), which returns 0 if x is all NA.
-  # This version retuns NA if x is all NA, otherwise it returns the minimum.
-  # If all NA, NA; otherwise, minimum
-  ifelse(all(is.na(x)),
-    res <- NA,
-    res <- min(x, na.rm = omit_na)
-  )
-  # Return the result
-  return(res)
-} # End min_na function
-
-#' Maximum
-
-#' Calculate maximum if there are non-NA values, return NA if all values are NA
-
-#' @param x Object.
-#' @param omit_na Omit NAs.
-#' @return Numeric.
-#' @seealso \code{\link{min_na}}, \code{\link{sum_na}}, \code{\link{mean_na}},
-#'   \code{\link{wt_mean_na}}, \code{\link{roll_mean_na}},
-#'   \code{\link{unique_na}}
-#' @family utility functions
-#' @export
+#' @examples
+#' max(NA, na.rm = TRUE)
+#' max_na(NA)
 max_na <- function(x, omit_na = TRUE) {
-  # An alternate version to max(x, na.rm=TRUE), which returns 0 if x is all NA.
-  # This version retuns NA if x is all NA, otherwise it returns the maximum.
-  # If all NA, NA; otherwise, maximum
-  ifelse(all(is.na(x)),
-    res <- NA,
+  # If all NA or empty
+  if (all(is.na(x)) | length(x) == 0) {
+    # NA
+    res <- NA
+  } else { # End if all NA or empty, otherwise
+    # Maximum
     res <- max(x, na.rm = omit_na)
-  )
+  } # End if otherwise
   # Return the result
   return(res)
 } # End max_na function
 
-#' Sum
-
-#' Calculate sum if there are non-NA values, return NA if all values are NA
-
-#' @param x Object.
-#' @param omit_na Omit NAs.
-#' @return Numeric.
-#' @seealso \code{\link{min_na}}, \code{\link{max_na}}, \code{\link{mean_na}},
-#'   \code{\link{wt_mean_na}}, \code{\link{roll_mean_na}},
-#'   \code{\link{unique_na}}
+#' Calculate the sum.
+#'
+#' Calculate the sum; an alternative to `sum(x)` that returns `NA` if `x` is all
+#' `NA` or an empty set. Although the sum of an empty is zero, this causes
+#' issues in spawn index calculations.
+#'
+#' @param x A numeric vector.
+#' @template param-omit_na
+#' @return A numeric vector.
+#' @note The sum of an empty set is zero, by definition.
+#' @seealso \code{\link{sum}}
 #' @family utility functions
 #' @export
+#' @examples
+#' sum(NA, na.rm = TRUE)
+#' sum_na(NA)
 sum_na <- function(x, omit_na = TRUE) {
-  # An alternate version to sum(x, na.rm=TRUE), which returns 0 if x is all NA.
-  # This version retuns NA if x is all NA, otherwise it returns the sum.
-  # If all NA, NA; otherwise, sum
-  ifelse(all(is.na(x)),
-    res <- NA,
+  # If all NA or empty
+  if (all(is.na(x)) | length(x) == 0) {
+    # NA
+    res <- NA
+  } else { # End if all NA or empty, otherwise
+    # Sum
     res <- sum(x, na.rm = omit_na)
-  )
+  } # End if otherwise
   # Return the result
   return(res)
 } # End sum_na function
 
-#' Mean
-
-#' Calculate mean if there are non-NA values, return NA if all values are NA
-
-#' @param x Object.
-#' @param omit_na Omit NAs.
-#' @return Numeric.
-#' @seealso \code{\link{min_na}}, \code{\link{max_na}}, \code{\link{sum_na}},
-#'   \code{\link{wt_mean_na}}, \code{\link{roll_mean_na}},
-#'   \code{\link{unique_na}}
+#' Calculate the mean.
+#'
+#' Calculate the mean; an alternative to `mean(x)` that returns `NA` if `x` is
+#' all `NA` or an empty set.
+#'
+#' @param x A numeric vector.
+#' @template param-omit_na
+#' @return A numeric vector.
+#' @seealso \code{\link{mean}}
 #' @family utility functions
 #' @export
+#' @examples
+#' mean(NA, na.rm = TRUE)
+#' mean_na(NA)
 mean_na <- function(x, omit_na = TRUE) {
-  # An alternate version to mean(x, na.rm=TRUE), which returns 0 if x is all NA.
-  # This version retuns NA if x is all NA, otherwise it returns the mean.
-  # If all NA, NA; otherwise, mean
-  ifelse(all(is.na(x)),
-    res <- NA,
+  # If all NA or empty
+  if (all(is.na(x)) | length(x) == 0) {
+    # NA
+    res <- NA
+  } else { # End if all NA or empty, otherwise
+    # Mean
     res <- mean(x, na.rm = omit_na)
-  )
+  } # End if otherwise
   # Return the result
   return(res)
 } # End mean_na function
 
-#' Weighted mean
-
-#' Calculate weighted mean if there are non-NA values, return NA if all values
-#' are NA
-
-#' @param x Object.
-#' @param w Weights.
-#' @param omit_na Omit NAs.
+#' Calculate the weighted mean.
+#'
+#' Calculate the weighted mean; an alternative to `weighted.mean(x)` that
+#' returns `NA` if `x` is all `NA` or an empty set.
+#'
+#' @param x A numeric vector of values whose weighted mean is to be computed.
+#' @param w A numeric vector of weights of the same length as `x`.
+#' @template param-omit_na
 #' @importFrom stats weighted.mean
-#' @return Numeric.
-#' @seealso \code{\link{min_na}}, \code{\link{max_na}}, \code{\link{sum_na}},
-#'   \code{\link{mean_na}}, \code{\link{roll_mean_na}}, \code{\link{unique_na}}
+#' @return A numeric vector.
+#' @seealso \code{\link{weighted.mean}}
 #' @family utility functions
 #' @export
+#' @examples
+#' weighted.mean(NA, na.rm = TRUE)
+#' wt_mean_na(NA, w = 1)
 wt_mean_na <- function(x, w, omit_na = TRUE) {
-  # An alternate version to weighted.mean(x, w, na.rm=TRUE), which returns 0 if
-  # x is all NA. This version retuns NA if x is all NA, otherwise it returns the
-  # weighted mean.
-  # If all NA, NA; otherwise, weighted mean
-  ifelse(all(is.na(x)),
-    res <- NA,
+  # If all NA or empty
+  if (all(is.na(x)) | length(x) == 0) {
+    # NA
+    res <- NA
+  } else { # End if all NA or empty, otherwise
+    # Weighted mean
     res <- weighted.mean(x, w, na.rm = omit_na)
-  )
+  } # End if otherwise
   # Return the result
   return(res)
 } # End mean_na function
 
-#' Rolling mean (window)
-
-#' Fill in NA values with rolling mean of previous values
-
-#' @param dat Object.
-#' @param n Window size.
-#' @param omit_na Omit NAs.
-#' @return Numeric.
-#' @seealso \code{\link{min_na}}, \code{\link{max_na}}, \code{\link{sum_na}},
-#'   \code{\link{mean_na}}, \code{\link{wt_mean_na}}, \code{\link{unique_na}}
+#' Determine unique values.
+#'
+#' Determine unique values; an alternative to `unique(x)` that returns `NA` if
+#' `x` is all `NA` or an empty set.
+#'
+#' @param x A vector.
+#' @return An object of the same type as `x`.
+#' @seealso \code{\link{unique}}
 #' @family utility functions
 #' @export
-roll_mean_na <- function(dat, n, omit_na = TRUE) {
-  # Update the NAs in a vector with the mean of the previous values. The number
-  # of values used can be less than n for NAs near the start of the vector, and
-  # will be a maximum of n for values further along the vector. The value will
-  # remain NA if no non-NA values are available.
-  # Loop over observations starting with the second observation
-  for (i in 2:length(dat)) {
-    # If the value is NA
-    if (is.na(dat[i])) {
-      # Get window for current index: up to n previous values
-      mu_window <- (i - min(n, i - 1)):(i - 1)
-      # Calculate the mean of the values in the rolling window
-      dat[i] <- mean_na(dat[mu_window], omit_na = omit_na)
-    } # End if value is NA
-  } # End i loop over observations
-  # Return the observations with NAs (mostly) replaced by the rolling mean
-  return(dat)
-} # End roll_mean_na function
-
-#' Unique
-
-#' Calculate unique if there are non-NA values, return NA if all values are NA
-
-#' @param x Object.
-#' @return Numeric.
-#' @seealso \code{\link{min_na}}, \code{\link{max_na}}, \code{\link{sum_na}},
-#'   \code{\link{mean_na}}, \code{\link{wt_mean_na}}, \code{\link{roll_mean_na}}
-#' @family utility functions
-#' @export
+#' @examples
+#' unique(na.omit(NA))
+#' unique_na(NA)
 unique_na <- function(x) {
-  # An alternate version to unique, which fails sometimes if there are no
-  # values. This version retuns NA if x is all NA, otherwise it returns the
-  # unique values.
-  # If all NA, NA; otherwise, unique
-  ifelse(all(is.na(x)),
-    res <- NA,
+  # If all NA or empty
+  if (all(is.na(x)) | length(x) == 0) {
+    # NA
+    res <- NA
+  } else { # End if all NA or empty, otherwise
+    # Unique
     res <- unique(x)
-  )
+  } # End if otherwise
   # Return the result
   return(res)
 } # End unique_na function

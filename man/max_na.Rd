@@ -2,33 +2,32 @@
 % Please edit documentation in R/utils.R
 \name{max_na}
 \alias{max_na}
-\title{Maximum
-Calculate maximum if there are non-NA values, return NA if all values are NA}
+\title{Calculate the maximum.}
 \usage{
 max_na(x, omit_na = TRUE)
 }
 \arguments{
-\item{x}{Object.}
+\item{x}{A numeric vector.}
 
-\item{omit_na}{Omit NAs.}
+\item{omit_na}{Logical. Omit NAs; default is TRUE.}
 }
 \value{
-Numeric.
+A numeric vector.
 }
 \description{
-Maximum
-Calculate maximum if there are non-NA values, return NA if all values are NA
+Calculate the maximum; an alternative to \code{max(x)} that returns \code{NA} if \code{x} is
+all \code{NA} or an empty set.
+}
+\examples{
+max(NA, na.rm = TRUE)
+max_na(NA)
 }
 \seealso{
-\code{\link{min_na}}, \code{\link{sum_na}}, \code{\link{mean_na}},
-\code{\link{wt_mean_na}}, \code{\link{roll_mean_na}},
-\code{\link{unique_na}}
+\code{\link{max}}
 
 Other utility functions: 
 \code{\link{mean_na}()},
-\code{\link{min_na}()},
 \code{\link{paste_nicely}()},
-\code{\link{roll_mean_na}()},
 \code{\link{sum_na}()},
 \code{\link{unique_na}()},
 \code{\link{wt_mean_na}()}

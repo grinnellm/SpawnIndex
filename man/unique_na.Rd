@@ -2,31 +2,31 @@
 % Please edit documentation in R/utils.R
 \name{unique_na}
 \alias{unique_na}
-\title{Unique
-Calculate unique if there are non-NA values, return NA if all values are NA}
+\title{Determine unique values.}
 \usage{
 unique_na(x)
 }
 \arguments{
-\item{x}{Object.}
+\item{x}{A vector.}
 }
 \value{
-Numeric.
+An object of the same type as \code{x}.
 }
 \description{
-Unique
-Calculate unique if there are non-NA values, return NA if all values are NA
+Determine unique values; an alternative to \code{unique(x)} that returns \code{NA} if
+\code{x} is all \code{NA} or an empty set.
+}
+\examples{
+unique(na.omit(NA))
+unique_na(NA)
 }
 \seealso{
-\code{\link{min_na}}, \code{\link{max_na}}, \code{\link{sum_na}},
-\code{\link{mean_na}}, \code{\link{wt_mean_na}}, \code{\link{roll_mean_na}}
+\code{\link{unique}}
 
 Other utility functions: 
 \code{\link{max_na}()},
 \code{\link{mean_na}()},
-\code{\link{min_na}()},
 \code{\link{paste_nicely}()},
-\code{\link{roll_mean_na}()},
 \code{\link{sum_na}()},
 \code{\link{wt_mean_na}()}
 }

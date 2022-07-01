@@ -31,9 +31,9 @@
 #'   \code{\link{check_where}}.
 #'
 #' @section Utility functions: The utility function are
-#'   \code{\link{paste_nicely}}, \code{\link{min_na}}, \code{\link{max_na}},
-#'   \code{\link{sum_na}}, \code{\link{mean_na}}, \code{\link{wt_mean_na}},
-#'   \code{\link{roll_mean_na}}, and \code{\link{unique_na}}.
+#'   \code{\link{paste_nicely}}, \code{\link{max_na}}, \code{\link{sum_na}},
+#'   \code{\link{mean_na}}, \code{\link{wt_mean_na}}, and
+#'   \code{\link{unique_na}}.
 #'
 #' @docType package
 #' @name SpawnIndex

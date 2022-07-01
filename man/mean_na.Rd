@@ -2,33 +2,32 @@
 % Please edit documentation in R/utils.R
 \name{mean_na}
 \alias{mean_na}
-\title{Mean
-Calculate mean if there are non-NA values, return NA if all values are NA}
+\title{Calculate the mean.}
 \usage{
 mean_na(x, omit_na = TRUE)
 }
 \arguments{
-\item{x}{Object.}
+\item{x}{A numeric vector.}
 
-\item{omit_na}{Omit NAs.}
+\item{omit_na}{Logical. Omit NAs; default is TRUE.}
 }
 \value{
-Numeric.
+A numeric vector.
 }
 \description{
-Mean
-Calculate mean if there are non-NA values, return NA if all values are NA
+Calculate the mean; an alternative to \code{mean(x)} that returns \code{NA} if \code{x} is
+all \code{NA} or an empty set.
+}
+\examples{
+mean(NA, na.rm = TRUE)
+mean_na(NA)
 }
 \seealso{
-\code{\link{min_na}}, \code{\link{max_na}}, \code{\link{sum_na}},
-\code{\link{wt_mean_na}}, \code{\link{roll_mean_na}},
-\code{\link{unique_na}}
+\code{\link{mean}}
 
 Other utility functions: 
 \code{\link{max_na}()},
-\code{\link{min_na}()},
 \code{\link{paste_nicely}()},
-\code{\link{roll_mean_na}()},
 \code{\link{sum_na}()},
 \code{\link{unique_na}()},
 \code{\link{wt_mean_na}()}

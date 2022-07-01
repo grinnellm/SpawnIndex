@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{paste_nicely}
 \alias{paste_nicely}
-\title{Paste things together nicely.}
+\title{Paste things nicely.}
 \usage{
 paste_nicely(
   x,
@@ -31,14 +31,12 @@ Character. Objects pasted together.
 Paste things together nicely for printing. Quotes and oxford comma included.
 }
 \examples{
-paste_nicely(x = letters[1:5])
+paste_nicely(x = letters[1:3])
 }
 \seealso{
 Other utility functions: 
 \code{\link{max_na}()},
 \code{\link{mean_na}()},
-\code{\link{min_na}()},
-\code{\link{roll_mean_na}()},
 \code{\link{sum_na}()},
 \code{\link{unique_na}()},
 \code{\link{wt_mean_na}()}
