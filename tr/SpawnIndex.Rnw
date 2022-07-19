@@ -153,6 +153,7 @@ require(rnaturalearthdata)
 require(sf)
 require(here)
 require(sfheaders)
+require(gfiscamutils)
 # Omit xcolor warning(s)
 knit_hooks$set(document = function(x) {
   sub("\\usepackage[]{color}", "\\usepackage{xcolor}", x, fixed = TRUE)
