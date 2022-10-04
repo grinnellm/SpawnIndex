@@ -25,9 +25,8 @@
 #'   \code{\link{load_width}} \code{\link{calc_surf_index}}
 #'   \code{\link{calc_macro_index}} \code{\link{calc_under_index}}
 #' @family raw data
-#' @note This is a 32-bit MS Access database; 32-bit R is required to access the
-#'   data. This example database contains West Coast of Vancouver Island (WCVI)
-#'   spawn survey data from 2010 to 2015.
+#' @note This is a 32-bit MS Access database. This example database contains
+#'   West Coast of Vancouver Island (WCVI) spawn survey data from 2010 to 2015.
 #' @examples
 #' db_loc <- system.file("extdata", "HerringSpawn.mdb", package = "SpawnIndex")
 #' library(odbc)

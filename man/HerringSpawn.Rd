@@ -27,9 +27,8 @@ subset of tables from the spawn survey database, and some additional tables
 from other databases to ensure the examples work.
 }
 \note{
-This is a 32-bit MS Access database; 32-bit R is required to access the
-data. This example database contains West Coast of Vancouver Island (WCVI)
-spawn survey data from 2010 to 2015.
+This is a 32-bit MS Access database. This example database contains
+West Coast of Vancouver Island (WCVI) spawn survey data from 2010 to 2015.
 }
 \examples{
 db_loc <- system.file("extdata", "HerringSpawn.mdb", package = "SpawnIndex")
