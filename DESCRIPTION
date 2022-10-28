@@ -16,6 +16,7 @@ Description: The SpawnIndex package provides data, parameters, and methods to
     observations. In addition, we include methods to convert eggs to biomass,
     and estimate spawning biomass in spawn-on-kelp operations. Note that the
     'spawn index' is a relative index of spawning biomass.
+Note: 32-bit R is required to get data from the 32-bit MS Access database.
 License: MIT + file LICENSE
 URL: https://github.com/grinnellm/SpawnIndex
 BugReports: https://github.com/grinnellm/SpawnIndex/issues
