@@ -37,7 +37,7 @@
 #'   Location name, Pool, Eastings, Northings, Longitude, and Latitude.
 #' @seealso \code{\link{HerringSpawn}} \code{\link{regions}}
 #' @family load functions
-#' @note This function loads data from the 32-bit MS Access
+#' @note This function requires 32-bit R to load data from the 32-bit MS Access
 #'   database.
 #' @export
 #' @examples

@@ -55,7 +55,7 @@ for the region(s) in question. There is an option to subset the sections if
 desired.
 }
 \note{
-This function loads data from the 32-bit MS Access
+This function requires 32-bit R to load data from the 32-bit MS Access
 database.
 }
 \examples{
