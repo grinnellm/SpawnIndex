@@ -19,9 +19,7 @@ vignette: >
 ---
 
 ```{r setup, include = FALSE}
-library(knitr)
-library(here)
-opts_chunk$set(
+knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.width = 7,
@@ -31,7 +29,7 @@ options(knitr.kable.NA = "")
 ```
 
 ```{r citation, include = FALSE}
-knitr::write_bib(x = "SpawnIndex", file = here("inst", "PACKAGES.bib"))
+knitr::write_bib(x = "SpawnIndex", file = here::here("inst", "PACKAGES.bib"))
 ```
 
 This vignette shows how to calculate the spawn index for
