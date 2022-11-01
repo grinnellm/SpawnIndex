@@ -82,7 +82,8 @@ under_width_facs <- read_csv(
   col_types = cols("d", "d", "d", "d", "d", "d", "d", "d")
 )
 save(
-  under_width_facs, file = here("data", "under_width_facs.RData"), version = 2
+  under_width_facs,
+  file = here("data", "under_width_facs.RData"), version = 2
 )
 
 # Section polygons
