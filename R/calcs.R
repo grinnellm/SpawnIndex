@@ -25,9 +25,9 @@ eggs_to_sb <- function(omega = pars$conversion$omega,
   # Check input: NA and numeric
   check_numeric(dat = list(omega = omega, female = female), quiet = quiet)
   # Check omega: range
-  if (any(na.omit(omega) < 0) & !quiet) message("`omega` < 0.")
+  if (any(na.omit(omega) < 0) && !quiet) message("`omega` < 0.")
   # Check female: range
-  if ((any(na.omit(female) < 0) | any(na.omit(female) > 1)) & !quiet) {
+  if ((any(na.omit(female) < 0) || any(na.omit(female) > 1)) && !quiet) {
     message("`female` < 0 and/or > 1.")
   }
   # Eggs per tonne: eggs/kilogram female * proportion female * kilograms/tonne
@@ -35,7 +35,7 @@ eggs_to_sb <- function(omega = pars$conversion$omega,
   # Check output: NA and numeric
   check_numeric(dat = list(theta = theta), quiet = quiet)
   # Check theta: range
-  if (any(na.omit(theta) < 0) & !quiet) message("`theta` < 0.")
+  if (any(na.omit(theta) < 0) && !quiet) message("`theta` < 0.")
   # Return the conversion factor
   theta
 } # End eggs_to_sb function
@@ -79,26 +79,26 @@ calc_sok_index <- function(sok,
     quiet = quiet
   )
   # Check sok: range
-  if (any(na.omit(sok) < 0) & !quiet) message("`sok` < 0.")
+  if (any(na.omit(sok) < 0) && !quiet) message("`sok` < 0.")
   # Check nu: range
-  if ((any(na.omit(nu) < 0) | any(na.omit(nu) > 1)) & !quiet) {
+  if ((any(na.omit(nu) < 0) || any(na.omit(nu) > 1)) && !quiet) {
     message("`nu` < 0 and/or > 1.")
   }
   # Check upsilon: range
-  if ((any(na.omit(upsilon) < 0) | any(na.omit(upsilon) > 1)) & !quiet) {
+  if ((any(na.omit(upsilon) < 0) || any(na.omit(upsilon) > 1)) && !quiet) {
     message("`upsilon` < 0 and/or > 1.")
   }
   # Check egg_weight: range
-  if (any(na.omit(egg_weight) < 0) & !quiet) message("`egg_weight` < 0.")
+  if (any(na.omit(egg_weight) < 0) && !quiet) message("`egg_weight` < 0.")
   # Check theta: range
-  if (any(na.omit(theta) < 0) & !quiet) message("`theta` < 0.")
+  if (any(na.omit(theta) < 0) && !quiet) message("`theta` < 0.")
   # Spawning biomass in tonnes: (kg SOK * proportion eggs * proportion eggs) /
   # (kg per egg * eggs per tonne )
   sb <- (sok * (1 - nu) * 1 / (1 + upsilon)) / (egg_weight * theta)
   # Check output: NA and numeric
   check_numeric(dat = list(sb = sb), quiet = quiet)
   # Check sb: range
-  if (any(na.omit(sb) < 0) & !quiet) message("`sb` < 0.")
+  if (any(na.omit(sb) < 0) && !quiet) message("`sb` < 0.")
   # Return the spawning biomass
   sb
 } # End calc_sok_index
@@ -141,7 +141,7 @@ dens_surf <- function(alpha = pars$surface$alpha,
     quiet = quiet
   )
   # Check egg_layers: range
-  if (any(na.omit(egg_layers) < 0) & !quiet) message("`egg_layers` < 0.")
+  if (any(na.omit(egg_layers) < 0) && !quiet) message("`egg_layers` < 0.")
   # Egg density in thousands (10^3 * eggs / m^2; Schweigert et al. 1997)
   density <- alpha + beta * egg_layers
   # Ensure density is zero (not `alpha`) when egg_layers is zero
@@ -149,7 +149,7 @@ dens_surf <- function(alpha = pars$surface$alpha,
   # Check output: NA and numeric
   check_numeric(dat = list(density = density), quiet = quiet)
   # Check density: range
-  if (any(na.omit(density) < 0) & !quiet) message("`density` < 0.")
+  if (any(na.omit(density) < 0) && !quiet) message("`density` < 0.")
   # Return density
   density
 } # End dens_surf function
@@ -273,7 +273,7 @@ calc_surf_index <- function(where,
     stop("`widths$pool` is missing columns", call. = FALSE)
   }
   # Check years: range
-  if (any(years < pars$years$assess) & !quiet) {
+  if (any(years < pars$years$assess) && !quiet) {
     message("`years` < ", pars$years$assess, ".")
   }
   # Check intense: names
@@ -281,15 +281,15 @@ calc_surf_index <- function(where,
     stop("`intense` is missing columns", call. = FALSE)
   }
   # Check intense_yrs: range
-  if (any(intense_yrs >= pars$years$layers) & !quiet) {
+  if (any(intense_yrs >= pars$years$layers) && !quiet) {
     message("`intense_yrs` >= ", pars$years$layers, ".")
   }
   # Check rescale_yrs: range
-  if (any(rescale_yrs >= pars$years$assess) & !quiet) {
+  if (any(rescale_yrs >= pars$years$assess) && !quiet) {
     message("`rescale_yrs` >= ", pars$years$assess, ".")
   }
   # Check theta: range
-  if (any(na.omit(theta) < 0) & !quiet) message("`theta` < 0.")
+  if (any(na.omit(theta) < 0) && !quiet) message("`theta` < 0.")
   # Establish connection with access
   access_db <- dbConnect(
     drv = odbc(),
@@ -520,11 +520,11 @@ eggs_macro <- function(xi = pars$macrocystis$xi,
     quiet = quiet
   )
   # Check egg_layers: range
-  if (any(na.omit(egg_layers) < 0) & !quiet) message("`egg_layers` < 0.")
+  if (any(na.omit(egg_layers) < 0) && !quiet) message("`egg_layers` < 0.")
   # Check height: range
-  if (any(na.omit(height) < 0) & !quiet) message("`height` < 0.")
+  if (any(na.omit(height) < 0) && !quiet) message("`height` < 0.")
   # Check stalks_per_plant: range
-  if (any(na.omit(stalks_per_plant) < 0) & !quiet) {
+  if (any(na.omit(stalks_per_plant) < 0) && !quiet) {
     message("`stalks_per_plant` < 0.")
   }
   # Eggs per plant in thousands (10^3 * eggs / plant; Haegele and Schweigert
@@ -534,7 +534,7 @@ eggs_macro <- function(xi = pars$macrocystis$xi,
   # Check output: NA and numeric
   check_numeric(dat = list(number = number), quiet = quiet)
   # Check output: range
-  if (any(na.omit(number) < 0) & !quiet) message("`number` < 0.")
+  if (any(na.omit(number) < 0) && !quiet) message("`number` < 0.")
   # Return number
   number
 } # End eggs_macro function
@@ -631,13 +631,13 @@ calc_macro_index <- function(where,
     stop("`areas` is missing columns", call. = FALSE)
   }
   # Check years: range
-  if (any(years < pars$years$assess) & !quiet) {
+  if (any(years < pars$years$assess) && !quiet) {
     message("`years` < ", pars$years$assess, ".")
   }
   # Check chi: value
-  if (chi != 2 & !quiet) message("`chi` != 2")
+  if (chi != 2 && !quiet) message("`chi` != 2")
   # Check theta: range
-  if (any(na.omit(theta) < 0) & !quiet) message("`theta` < 0.")
+  if (any(na.omit(theta) < 0) && !quiet) message("`theta` < 0.")
   # Establish connection with access
   access_db <- dbConnect(
     drv = odbc(),
@@ -797,9 +797,11 @@ dens_under_sub <- function(varphi = pars$understory$varphi,
     quiet = quiet
   )
   # Check egg_layers: range
-  if (any(na.omit(egg_layers) < 0) & !quiet) message("`egg_layers` < 0.")
+  if (any(na.omit(egg_layers) < 0) && !quiet) message("`egg_layers` < 0.")
   # Check proportion: range
-  if ((any(na.omit(proportion) < 0) | any(na.omit(proportion) > 1)) & !quiet) {
+  if (
+    (any(na.omit(proportion) < 0) || any(na.omit(proportion) > 1)) && !quiet
+  ) {
     message("`proportion` < 0 and/or > 1.")
   }
   # Egg density in thousands (eggs x 10^3 / m^2; Haegele et al. 1979)
@@ -807,7 +809,7 @@ dens_under_sub <- function(varphi = pars$understory$varphi,
   # Check output: NA and numeric
   check_numeric(dat = list(density = density), quiet = quiet)
   # Check density: range
-  if (any(na.omit(density) < 0) & !quiet) message("`density` < 0.")
+  if (any(na.omit(density) < 0) && !quiet) message("`density` < 0.")
   # Return density
   density
 } # End dens_under_sub function
@@ -858,20 +860,22 @@ dens_under_alg <- function(vartheta = pars$understory$vartheta,
     quiet = quiet
   )
   # Check egg_layers: range
-  if (any(na.omit(egg_layers) < 0) & !quiet) message("`egg_layers` < 0.")
+  if (any(na.omit(egg_layers) < 0) && !quiet) message("`egg_layers` < 0.")
   # Check proportion: range
-  if ((any(na.omit(proportion) < 0) | any(na.omit(proportion) > 1)) & !quiet) {
+  if (
+    (any(na.omit(proportion) < 0) || any(na.omit(proportion) > 1)) && !quiet
+  ) {
     message("`proportion` < 0 and/or > 1.")
   }
   # Check coeff: range
-  if (any(na.omit(coeff) < 0) & !quiet) message("`coeff` < 0.")
+  if (any(na.omit(coeff) < 0) && !quiet) message("`coeff` < 0.")
   # Egg density in thousands (10^3 * eggs / m^2; Schweigert 2005); quadrat
   # size coefficient not required because all quadrats are 0.5m^2 (1.0512)
   density <- vartheta * egg_layers^varrho * proportion^varsigma * coeff * 1.0512
   # Check output: NA and numeric
   check_numeric(dat = list(density = density), quiet = quiet)
   # Check density: range
-  if (any(na.omit(density) < 0) & !quiet) message("`density` < 0.")
+  if (any(na.omit(density) < 0) && !quiet) message("`density` < 0.")
   # Return density
   density
 } # End dens_under_alg function
@@ -979,7 +983,7 @@ calc_under_index <- function(where,
     stop("`areas` is missing columns", call. = FALSE)
   }
   # Check years: range
-  if (any(years < pars$years$assess) & !quiet) {
+  if (any(years < pars$years$assess) && !quiet) {
     message("`years` < ", pars$years$assess, ".")
   }
   # Check alg_coefs: tibble
@@ -998,7 +1002,7 @@ calc_under_index <- function(where,
     stop("`tau` is missing columns", call. = FALSE)
   }
   # Check theta: range
-  if (any(na.omit(theta) < 0) & !quiet) message("`theta` < 0.")
+  if (any(na.omit(theta) < 0) && !quiet) message("`theta` < 0.")
   # Establish connection with access
   access_db <- dbConnect(
     drv = odbc(),

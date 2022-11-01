@@ -20,7 +20,9 @@ paste_nicely <- function(x,
                          do_quotes = FALSE,
                          quotes = c("`", "`")) {
   # Check input: characters
-  if (!is.character(int_char) | !is.character(n_char) | !is.character(quotes)) {
+  if (
+    !is.character(int_char) || !is.character(n_char) || !is.character(quotes)
+  ) {
     stop("`int_char`, `n_char`, and `quotes` must be character.", call. = FALSE)
   }
   # Check input: logical
@@ -28,7 +30,7 @@ paste_nicely <- function(x,
     stop("`do_quotes` must be logical.", call. = FALSE)
   }
   # Check for two values in quotes
-  if (do_quotes & length(quotes) != 2) stop("`quotes` must have two values.")
+  if (do_quotes && length(quotes) != 2) stop("`quotes` must have two values.")
   # Get the length of the vector
   n <- length(x)
   # If quote
@@ -67,7 +69,7 @@ paste_nicely <- function(x,
 #' max_na(NA)
 max_na <- function(x, omit_na = TRUE) {
   # If all NA or empty
-  if (all(is.na(x)) | length(x) == 0) {
+  if (all(is.na(x)) || length(x) == 0) {
     # NA
     res <- NA
   } else { # End if all NA or empty, otherwise
@@ -96,7 +98,7 @@ max_na <- function(x, omit_na = TRUE) {
 #' sum_na(NA)
 sum_na <- function(x, omit_na = TRUE) {
   # If all NA or empty
-  if (all(is.na(x)) | length(x) == 0) {
+  if (all(is.na(x)) || length(x) == 0) {
     # NA
     res <- NA
   } else { # End if all NA or empty, otherwise
@@ -123,7 +125,7 @@ sum_na <- function(x, omit_na = TRUE) {
 #' mean_na(NA)
 mean_na <- function(x, omit_na = TRUE) {
   # If all NA or empty
-  if (all(is.na(x)) | length(x) == 0) {
+  if (all(is.na(x)) || length(x) == 0) {
     # NA
     res <- NA
   } else { # End if all NA or empty, otherwise
@@ -152,7 +154,7 @@ mean_na <- function(x, omit_na = TRUE) {
 #' wt_mean_na(NA, w = 1)
 wt_mean_na <- function(x, w, omit_na = TRUE) {
   # If all NA or empty
-  if (all(is.na(x)) | length(x) == 0) {
+  if (all(is.na(x)) || length(x) == 0) {
     # NA
     res <- NA
   } else { # End if all NA or empty, otherwise
@@ -178,7 +180,7 @@ wt_mean_na <- function(x, w, omit_na = TRUE) {
 #' unique_na(NA)
 unique_na <- function(x) {
   # If all NA or empty
-  if (all(is.na(x)) | length(x) == 0) {
+  if (all(is.na(x)) || length(x) == 0) {
     # NA
     res <- NA
   } else { # End if all NA or empty, otherwise

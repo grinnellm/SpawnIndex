@@ -71,7 +71,7 @@ load_area_data <- function(reg,
   # Check reg: character
   if (!is.character(reg)) stop("`reg` must be character.", call. = FALSE)
   # Check sec_sub: numeric or null
-  if (!is.numeric(sec_sub) & !is.null(sec_sub)) {
+  if (!is.numeric(sec_sub) && !is.null(sec_sub)) {
     stop("`sec_sub` must be numeric or NULL.", call. = FALSE)
   }
   # Check where
@@ -79,7 +79,7 @@ load_area_data <- function(reg,
     dat = where, dat_names = c("loc", "db", "fns.sections", "fns.locations")
   )
   # Check in_crs and out_crs: character
-  if (!is.character(in_crs) & !is.character(out_crs)) {
+  if (!is.character(in_crs) && !is.character(out_crs)) {
     stop("`in_crs` and `out_crs` must be characters.")
   }
   # Check groups: tibble or NULL
@@ -130,7 +130,7 @@ load_area_data <- function(reg,
   # Is it a special region?
   reg_type <- region_table$Type[which(region_table$Region == reg)]
   # Fix if region is All
-  if (reg == "All" & length(reg_type) == 0) reg_type <- ""
+  if (reg == "All" && length(reg_type) == 0) reg_type <- ""
   # If the region is special
   if (reg_type == "Special") {
     # TODO: Sections 132 and 135 are also SoG sections -- how to resolve?
@@ -254,7 +254,7 @@ load_area_data <- function(reg,
     # Check if none or all have groups
     none_or_all <- nrow(grp_u) == nrow(grp_u_na)
     # Message re some sections(s) missing group info
-    if (!none_or_all & !quiet) {
+    if (!none_or_all && !quiet) {
       cat("Incomplete `Group' info for Section(s): ",
         paste_nicely(unique(grp_u_na$Section)), "\n",
         sep = ""
@@ -366,11 +366,11 @@ load_all_spawn <- function(where,
     quiet = quiet
   )
   # Check years: range
-  if (any(years < pars$years$assess) & !quiet) {
+  if (any(years < pars$years$assess) && !quiet) {
     message("`years` < ", pars$years$assess, ".")
   }
   # Check ft2m: range
-  if (!all.equal(ft2m, 0.3048, 0.00001) & !quiet) {
+  if (!all.equal(ft2m, 0.3048, 0.00001) && !quiet) {
     message("`ft2m` is not 0.3048.")
   }
   # Get a small subset of area data
@@ -616,7 +616,7 @@ load_sections <- function(sections,
   # Check input: NA and numeric
   check_numeric(dat = list(buffer = buffer, out_crs = out_crs), quiet = quiet)
   # Check buffer: range
-  if (any(na.omit(buffer) < 0) & !quiet) message("`buffer` < 0.")
+  if (any(na.omit(buffer) < 0) && !quiet) message("`buffer` < 0.")
   # Get area information
   areas_sm <- areas %>%
     select(SAR, Region, StatArea, Group, Section) %>%

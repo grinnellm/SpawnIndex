@@ -21,7 +21,7 @@ check_numeric <- function(dat,
     FUN.VALUE = vector(mode = "logical", length = 1)
   )
   # If NAs
-  if (any(any_na) & !quiet) {
+  if (any(any_na) && !quiet) {
     # Where are the NAs
     na_names <- names(dat)[any_na]
     # Message
@@ -73,7 +73,7 @@ check_tibble <- function(dat,
     FUN.VALUE = vector(mode = "logical", length = 1)
   )
   # If not enough rows
-  if (any(few_rows) & !quiet) {
+  if (any(few_rows) && !quiet) {
     # Where are there not enough rows
     few_row_names <- names(dat)[few_rows]
     # Error
