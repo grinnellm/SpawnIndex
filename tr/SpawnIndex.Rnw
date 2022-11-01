@@ -153,7 +153,18 @@ require(rnaturalearthdata)
 require(sf)
 require(here)
 require(sfheaders)
-require(gfiscamutils)
+
+num_to_word <- function(x) {
+  vec <- c(
+    one = 1, two = 2, three = 3, four = 4, five = 5, six = 6, seven = 7,
+    eight = 8, nine = 9
+  )
+  ind <- which(vec == x)
+  res <- names(vec[ind])
+  if (length(res) == 0) stop("Numbers can be from 1 to 9 only.")
+  res
+}
+
 # Omit xcolor warning(s)
 knit_hooks$set(document = function(x) {
   sub("\\usepackage[]{color}", "\\usepackage{xcolor}", x, fixed = TRUE)
