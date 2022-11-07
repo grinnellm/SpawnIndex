@@ -48,11 +48,11 @@ Nanaimo, BC \enskip V9T 6N7}
 % Affiliations
 \newcommand{\trAffil}{
 $^1$ Pacific Biological Station, Fisheries and Oceans Canada,\\
-3190~Hammond Bay Road, Nanaimo, British Columbia, V9T 6N7\\
+3190~Hammond Bay Road, Nanaimo, British Columbia \enskip V9T 6N7\\
 $^2$ Emeritus, Pacific Biological Station, Fisheries and Oceans Canada,\\
-3190~Hammond Bay Road, Nanaimo, British Columbia, V9T 6N7\\
+3190~Hammond Bay Road, Nanaimo, British Columbia \enskip V9T 6N7\\
 $^3$ Institute of Ocean Sciences, Fisheries and Oceans Canada,\\
-9860~W.~Saanich Road, Sidney, British Columbia, V8L 5T5}
+9860~W.~Saanich Road, Sidney, British Columbia \enskip V8L 5T5}
 
 % Abstract
 \newcommand{\trAbstract}{
