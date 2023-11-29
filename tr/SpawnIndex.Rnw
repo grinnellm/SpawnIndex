@@ -21,12 +21,12 @@
 (\scienceName{}) in British Columbia, Canada}
 
 % Publication year
-\newcommand{\trYear}{2022}
+\newcommand{\trYear}{2023}
 
 % Publication number
 \newcommand{\trReportNum}{3489}
 
-% ISBN
+% ISBN               978-0-660-44033-0
 \newcommand{\trISBN}{978-0-660-31975-9}
 
 % Author names with affiliations
@@ -506,7 +506,7 @@ The introduction of dive surveys in \Sexpr{pars$years$dive}
 \citep{SchweigertHaegele2021}
 makes it challenging to compare the spawn index between these two periods.
 For example, surface surveys are less accurate than
-dive surveys (\autoref{secWidthSurface}), and
+dive surveys (\autoref{secWidthSurface}) and
 spawn surveyors used subjective intensity categories
 instead of direct egg layer estimates until
 \Sexpr{pars$years$layers-1} (\autoref{secIntensity}).
@@ -521,8 +521,8 @@ to identify spawning activity and
 underwater SCUBA surveys to estimate egg deposition.
 Starting in 2018 surveyors have used satellite imagery to
 identify spawns in remote areas.
-It typically takes less time to search for spawn using aircraft, and
-more effort to measure egg deposition using SCUBA surveys,
+It typically takes less time to search for spawn using aircraft and
+more effort to measure egg deposition using SCUBA surveys.
 Thus, widespread effort (both spatially and temporally) in the past
 has been replaced with intense effort in the present.
 
@@ -885,7 +885,7 @@ $G_{ry}$ & Number of SOK fisheries & \\
 Underwater dive surveys using SCUBA gear
 were instituted in \Sexpr{pars$years$dive} and follow
 a two-stage systematic sampling design where
-transects are the first sampling stage, and
+transects are the first sampling stage and
 individual quadrats within transects
 are the second sampling stage \citep{Jessen1978}.
 First we describe the understory spawn framework,
@@ -963,7 +963,7 @@ $f_{txsnry}''$ is the quadrat sampling fraction for transect $t$
 \begin{equation}\label{eqFQ}
 f_{txsnry}'' = \frac{Q_{txsnry}}{Q_{txsnry}'},
 \end{equation}
-where $Q_{txsnry}$ is the number of quadrats, and
+where $Q_{txsnry}$ is the number of quadrats and
 $\sigma_{txsnry}^2$ is the within transect egg density variance
 \begin{equation}\label{eqStatSigmaT}
 \sigma_{txsnry}^2 =
@@ -971,7 +971,7 @@ $\sigma_{txsnry}^2$ is the within transect egg density variance
 \sum_{q=1}^{Q_{txsnry}}
 \left(\rho_{qtxsnry} - \mean{\rho}_{txsnry}\right)^2,
 \end{equation}
-where $\rho_{qtxsnry}$ is egg density, and
+where $\rho_{qtxsnry}$ is egg density and
 $\sigma_{txsnry}^2$ is in units of $\rho^2$.
 
 \begin{table}
@@ -1007,13 +1007,13 @@ In the 1981 study,
 the location of transects and sampling quadrats along transects
 was determined using random allocation \citep{SchweigertEtal1985}.
 However, this proved to be logistically difficult because
-neither the spawn length or width is known a priori, and
+neither the spawn length or width is known a priori and
 divers had difficulty making the necessary calculations underwater.
 Nevertheless, data from these studies were used to determine a sampling protocol
 to estimate mean egg density with standard error $\text{SE} \leq 25\%$.
 The results indicated that the sampling required
 to achieve this level of precision included
-surveying three transects per kilometre of spawn length, and
+surveying three transects per kilometre of spawn length and
 sampling at least five quadrats per transect (i.e., spawn width).
 The sampling design was tested during a 1983 survey in
 the Strait of Georgia that applied a systematic rather than
@@ -1083,8 +1083,9 @@ from above, spawns are identified by a milky or turquoise discolouration
 of the ocean caused by the release of milt,
 and often appear as bands running parallel to the shore
 (\autoref{figSpawnFlight}).
-Thus, spawn `length' refers to distance parallel to the shore, and
-`width' refers to distance perpendicular to the shore.
+Thus,
+spawn `length' refers to distance parallel to the shore and
+spawn `width' refers to distance perpendicular to the shore.
 Similarly,
 Macrocystis bed length $L'$ and algae (i.e., vegetation) bed length $L''$
 refer to distances that Macrocystis and algae beds
@@ -1184,7 +1185,7 @@ Surveyors may deploy a bathyscope in shallow water,
 and at low tide a portion of the spawn may be visible for direct observation.
 We refer to each of these surface spawn observations as `samples.'
 Recall that there are two cases of surface spawn surveys:
-all surveys prior to \Sexpr{pars$years$dive}, and
+all surveys prior to \Sexpr{pars$years$dive} and
 surveys since \Sexpr{pars$years$dive} when dive surveys are not possible.
 
 \subsubsection{SPAWN INTENSITY CATEGORIES}\label{secIntensity}
@@ -1201,7 +1202,7 @@ the change from five to nine categories was probably to accommodate
 the practice of reporting intermediate categories
 such as 3.5 \citep{HayKronlund1987}.
 Starting in \Sexpr{pars$years$layers},
-spawn surveyors estimated the number of egg layers directly, and
+spawn surveyors estimated the number of egg layers directly and
 continued to record intensity categories until 1981
 to provide overlap between the two methods.
 In addition to recording the number of egg layers,
@@ -1265,7 +1266,8 @@ Macrocystis fronds, not stipes;
 immature plants have limited fronds and slimy stipes that prevent egg adhesion.
 In addition, \fishName{} typically deposit spawn higher up Macrocystis plants.
 For each mature plant, divers record the number of stalks.
-For each transect, divers record the average number of egg layers, and
+For each transect, divers record
+average number of egg layers and
 average plant height.
 \cite{HaegeleSchweigert1990} provide a description of the sampling technique and
 the basis for estimating the total number of eggs per plant.
@@ -1283,7 +1285,7 @@ to avoid surveying areas with patchy and sparse egg layers.
 Note that quadrat position along permanent transects varies among years
 due to the location and extent (i.e., width) of spawn
 with respect to the shoreline:
-spawn location causes quadrats to shift seaward or shoreward, and
+spawn location causes quadrats to shift seaward or shoreward and
 spawn width causes transects to be shorter or longer.
 Understory spawn surveys use $0.5\,\text{m}^2$ quadrats;
 other sizes (e.g., $0.25$ and $1.0\,\text{m}^2$) have been used for research,
@@ -1403,7 +1405,7 @@ The total number of egg layers in sample $j$ is
 E_{jxsnry} = \sum_{i=1}^{I_{jxsnry}} E_{ijxsnry},
 \end{equation}
 where $E_{ijxsnry}$ is the number of egg layers
-from \autoref{eqSurfLayersIJS}, and
+from \autoref{eqSurfLayersIJS} and
 $E_{jxsnry}$ is in number of egg layers.
 For the time period when surveyors recorded spawn `intensity' categories
 instead of direct egg layer estimates,
@@ -1431,7 +1433,7 @@ $\rho_{jxsnry} = \alpha$ when there are no egg layers
 # Caption
 fig_cap <- paste(
   "Relationship between egg density in thousands of eggs per square metre",
-  "(m; line), and number of egg layers for \\fishName{} surface spawn surveys",
+  "(m; line) and number of egg layers for \\fishName{} surface spawn surveys",
   "based on \\autoref{eqSurfDensJS} \\citep{SchweigertEtal1997}.",
   "Note that the number of egg layers can exceed those shown in this figure."
 )
@@ -1468,7 +1470,7 @@ The mean egg density for survey type $x$ in spawn $s$
 \sum_{j=1}^{J_{xsnry}} \rho_{jxsnry},
 \end{equation}
 where $J_{xsnry}$ is the number of samples,
-$\rho_{jxsnry}$ is egg density from \autoref{eqSurfDensJS}, and
+$\rho_{jxsnry}$ is egg density from \autoref{eqSurfDensJS} and
 $\mean{\rho}_{xsnry}$ is in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$.
 Two other metrics are required at the spawn level:
 spawn length $L_{xsnry}$ and
@@ -1540,7 +1542,7 @@ surveyors count the number of stalks $K_{ptxsnry}$.
 \subsection{TRANSECT OBSERVATIONS AND CALCULATIONS}\label{secMacroT}
 
 At the transect $t$ level (step \ref{mTrans} in \autoref{figFlow}),
-spawn width is $W_{txsnry}$, and
+spawn width is $W_{txsnry}$ and
 transect swath is $\chi_{txsnry} = 2\,\text{m}$, both in metres.
 We calculate the area in transect $t$ as
 \begin{equation}\label{eqMacroAreaTS}
@@ -2071,7 +2073,7 @@ Other similar fisheries include spawn-on-bough,
 in which operators collect roe that adheres to submerged tree boughs;
 we refer to these fisheries collectively as SOK in this document.
 There are two types of SOK fisheries in BC:
-`open-pond' in which operators provide algae to spawning \fishName{}, and
+`open-pond' in which operators provide algae to spawning \fishName{} and
 `closed-pond' in which operators impound spawning \fishName{}
 in floating nets that contain algae \citep{ShieldsEtal1985}.
 Although SOK fisheries do not directly remove spawning \fishName{},
@@ -2180,7 +2182,7 @@ and the processes could have changed in the intervening years
 (e.g., \autoref{eqSurfDensJS});
 uncertainty in spawn index parameters is currently unknown.
 \item Uncertainty in the number of egg layers for spawn intensity categories
-(\autoref{tab:Intensity}), and algae coefficients (\autoref{tab:AlgaeCoefs}).
+(\autoref{tab:Intensity}) and algae coefficients (\autoref{tab:AlgaeCoefs}).
 Again, uncertainty in these values is currently unknown.
 \end{enumerate}
 Despite these assumptions and potential sources of uncertainty,
@@ -2228,7 +2230,7 @@ Therefore, understanding this trade-off is important if, for example,
 budget reductions cause reduced survey effort.
 Potential strategies to improve spawn survey efficiency include:
 \begin{enumerate}
-\item Conduct underwater surveys for major spawns in core areas, and
+\item Conduct underwater surveys for major spawns in core areas and
 surface surveys for other spawns,
 \item Review transect and quadrat spacing
 \citep[\autoref{secStat}; see][]{Schweigert1993b}, and
@@ -2285,7 +2287,7 @@ $w$ & Average weight of a fertilized egg (Eq \ref{eqSOKBioGRY}). & SoG in 1980 (
 
 Many of the studies to quantify parameters and prediction models
 used in spawn index calculations are dated (\autoref{tabUncertainty});
-these analyses could be reviewed with new information, and updated if required.
+these analyses could be reviewed with new information and updated if required.
 In addition, some of these studies have limited number of samples,
 limited spatial or temporal range, or both.
 In addition to work mentioned here and in \autoref{secUncertain},
@@ -2300,7 +2302,7 @@ potential research includes:
 ratio of means (i.e., current method) versus mean of ratios,
 \item Review the assumptions that eggs on substrate and algae are:
 \begin{enumerate}
-  \item Independent (\autoref{eqUnderDensQTS}), and
+  \item Independent (\autoref{eqUnderDensQTS}) and
   \item Represented by the same length measurement (\autoref{secUnderS}),
 \end{enumerate}
 \item Review surface spawn width adjustments (\autoref{secWidthSurface}):
@@ -2329,14 +2331,14 @@ These caveats include:
 thus the spawn index is a minimum estimate of spawning biomass,
 \item There are two different spawn survey periods with substantial differences in survey effort and method (\autoref{secSurfProt}):
 \begin{enumerate}
-  \item Surface period from \Sexpr{pars$years$assess} to \Sexpr{pars$years$dive-1}, and
+  \item Surface period from \Sexpr{pars$years$assess} to \Sexpr{pars$years$dive-1} and
   \item Dive period from \Sexpr{pars$years$dive} to present,
 \end{enumerate}
 \item Surface spawn surveys use two different methods to estimate the number of egg layers (\autoref{secIntensity}):
 \begin{enumerate}
   \item Spawn intensity categories:
   \begin{enumerate}
-    \item Five categories from \Sexpr{pars$years$assess} to \Sexpr{pars$years$nine_cats-1}, and
+    \item Five categories from \Sexpr{pars$years$assess} to \Sexpr{pars$years$nine_cats-1} and
     \item Nine categories from \Sexpr{pars$years$nine_cats} to \Sexpr{pars$years$layers-1}, and
 \end{enumerate}
   \item Direct estimates from \Sexpr{pars$years$layers} to present,
@@ -2444,12 +2446,12 @@ in previous years using current observations.
 In 2013, Fisheries and Oceans Canada (DFO) staff realized that they were
 inadvertently underestimating spawn width for
 \fishName{} understory dive surveys \citep{ClearyEtal2017}.
-The issue is caused by the assumed accuracy of transect lines
+The issue was caused by the assumed accuracy of transect lines
 used by spawn surveyors to measure spawn width.
 Spawn surveyors determine spawn width by
 placing transects perpendicular to the shore.
 Surveyors use weighted lead lines to ensure that lines rest on the substrate;
-these lines are marked in $1\,\text{m}$ increments, and
+these lines are marked in $1\,\text{m}$ increments and
 are standardized to $20\,\text{m}$ segments.
 Segments refer to individual sections of line,
 which can be linked together to make complete transects.
@@ -2458,7 +2460,7 @@ During the late 1990s it became apparent that
 the $20\,\text{m}$ segments shrank
 by approximately $1\,\text{m}$ during the first season of use and
 continued to shrink over time.
-DFO staff noticed that this issue was occurring coast wide, and
+DFO staff noticed that this issue was occurring coast wide and
 began re-measuring lead lines each season.
 They also modified the lead line marking protocol
 to account for shrinkage by marking $1.15\,\text{m}$ increments;
@@ -2468,9 +2470,10 @@ measuring and re-marking lead lines each year.
 Lead lines are made of a mix of polypropylene and nylon;
 nylon tightens up under repeated use,
 which we think explains the shrinkage.
-DFO staff re-measured lead line increments in about 2005, and found that
-they still shrank from $1.15\,\text{m}$ to $1.0\,\text{m}$, and
-continued to use the modified protocol.
+DFO staff re-measured lead line increments in about 2005;
+they found that
+the lines still shrank from $1.15\,\text{m}$ to $1.0\,\text{m}$ and
+they continued to use the modified protocol.
 
 In 2013, spawn surveyors observed that
 some lead line increments were $1.15\,\text{m}$ and
@@ -2483,7 +2486,7 @@ explained by the lifespan of lead lines:
 lead lines are replaced every 5 to 10 years,
 with some segments being replaced more frequently.
 For example, inner segments are replaced more frequently
-than seaward segments, and
+than seaward segments and
 segments in some SARs are replaced more frequently
 than segments in other SARs.
 DFO staff think that a change in manufacturing
@@ -2592,7 +2595,7 @@ we make this update in the \textbf{R} package:
 We update intensity from 0 to 1 because spawn was surveyed but not reported.
 \end{enumerate}
 Spawn survey records prior to \Sexpr{pars$years$assess}
-have additional missing or inaccurate egg layer information, and
+have additional missing or inaccurate egg layer information and
 are unreliable for indexing purposes.
 Therefore, we exclude spawn data prior to \Sexpr{pars$years$assess}
 from stock assessments.
@@ -2601,7 +2604,7 @@ While reviewing spawn index calculations and translating them from
 a \textbf{Microsoft Access} database to \textbf{R},
 we found several cases where
 index data were being over-written with no documented reason.
-These updates have been omitted, and affected the following records:
+These updates have been omitted and affected the following records:
 \begin{enumerate}
 \item Update $E_{jxsnry}$
 (i.e., number of egg layers; \autoref{tabNotationSurf}) to 2.1496
