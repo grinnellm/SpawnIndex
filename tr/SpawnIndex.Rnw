@@ -26,8 +26,8 @@
 % Publication number
 \newcommand{\trReportNum}{3489}
 
-% ISBN               978-0-660-44033-0
-\newcommand{\trISBN}{978-0-660-31975-9}
+% ISBN
+\newcommand{\trISBN}{978-0-660-44033-0}
 
 % Author names with affiliations
 \newcommand{\trAuthsLong}{Matthew H.~Grinnell$^1$, Jake F.~Schweigert$^2$, Matt Thompson$^1$, Sarah Hawkshaw$^3$, and Jaclyn S.~Cleary$^1$}
