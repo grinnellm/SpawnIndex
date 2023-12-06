@@ -59,7 +59,7 @@ $^3$ Institute of Ocean Sciences, Fisheries and Oceans Canada,\\
 
 % Abstract
 \newcommand{\trAbstract}{
-The spawn index time series is one component of \fishName{} (\scienceName{}) stock assessments in British Columbia, Canada.
+The spawn index is one component of \fishName{} (\scienceName{}) stock assessments in British Columbia, Canada.
 This document describes how we calculate the spawn index from spawn survey observations (e.g., spatial extent, number of egg layers, substrate type).
 There are three types of spawn survey observation types:
 (1) observations of spawn taken from the surface usually at low tide;
@@ -68,23 +68,22 @@ There are three types of spawn survey observation types:
 which we refer to as `understory.'
 We calculate the spawn index in four steps.
 First, we develop a statistical framework and sampling protocol to estimate the number of eggs in a given area.
-Second, we develop a conversion factor to convert \fishName{} eggs to biomass,
-which is critical spawn index calculations.
-Third, we calculate the spawn index for each of the three aforementioned spawn survey types:
+Second, we develop a conversion factor to convert \fishName{} eggs to biomass.
+Third, we calculate the spawn index for each spawn survey type:
 surface, Macrocystis, and understory.
 Finally, we add the spawn indices from the three types of survey observations, and
 aggregate by stock assessment region and year to produce
 a relative index of combined sex spawning biomass.
 We also provide an approach to calculate biomass for spawn-on-kelp fisheries.
 In addition, we
-identify uncertainties in spawn index calculations,
-suggest future research to improve spawn index calculations, and
-list caveats to using the spawn index in analyses.
+identify uncertainties in calculations,
+suggest future research, and
+list caveats to using the spawn index.
 Last, we describe how users can install the SpawnIndex \textbf{R} package
-to calculate the spawn index using an example database.
+to calculate the spawn index.
 Although we transform the spawn survey data
 from egg density to biomass in tonnes,
-the resulting time series is a relative index of spawning biomass.}
+the resulting data is a relative index of spawning biomass.}
 
 % Resume (i.e., French abstract)
 \newcommand{\trResume}{
