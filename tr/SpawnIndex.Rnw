@@ -61,7 +61,7 @@ $^3$ Institute of Ocean Sciences, Fisheries and Oceans Canada,\\
 \newcommand{\trAbstract}{
 The spawn index is one component of \fishName{} (\scienceName{}) stock assessments in British Columbia, Canada.
 This document describes how we calculate the spawn index from spawn survey observations (e.g., spatial extent, number of egg layers, substrate type).
-There are three types of spawn survey observation types:
+There are three types of spawn survey observations:
 (1) observations of spawn taken from the surface usually at low tide;
 (2) underwater observations of spawn on giant kelp, Macrocystis (\emph{Macrocystis pyrifera}); and
 (3) underwater observations of spawn on other types of algae and the substrate,
@@ -69,7 +69,7 @@ which we refer to as `understory.'
 We calculate the spawn index in four steps.
 First, we develop a statistical framework and sampling protocol to estimate the number of eggs in a given area.
 Second, we develop a conversion factor to convert \fishName{} eggs to biomass.
-Third, we calculate the spawn index for each spawn survey type:
+Third, we calculate the spawn index for each spawn survey observation type:
 surface, Macrocystis, and understory.
 Finally, we add the spawn indices from the three types of survey observations, and
 aggregate by stock assessment region and year to produce
@@ -87,21 +87,21 @@ the resulting data is a relative index of spawning biomass.}
 
 % Resume (i.e., French abstract)
 \newcommand{\trResume}{
-La série chronologique de l'indice de frai est une composante des évaluations des stocks de hareng du Pacifique (\scienceName{}) en Colombie-Britannique, Canada.
+L'indice de frai est une composante des évaluations des stocks de hareng du Pacifique (\scienceName{}) en Colombie-Britannique, au Canada.
 Ce document décrit comment nous calculons l'indice de frai à partir des observations du relevé du frai (par ex., l'étendue spatiale, le nombre de couches d'oeufs, le type de substrat).
 Il existe trois types d'observations du relevé des frayères:
-(1) les observations des frayères prélevées à la surface habituellement à marée basse;
-(2) les observations sous-marines des frayères sur varech géant, Macrocystis (\emph{Macrocystis pyrifera}); et
-(3) les observations sous-marines des frayères sur les autres algues et le substrat, que nous appelons <<sous-étage>>.
+(1) observations des frayères effectuées à la surface, généralement à marée basse;
+(2) observations sous-marines des frayères sur le varech géant, Macrocystis (\emph{Macrocystis pyrifera}); et
+(3) observations sous-marines des frayères sur les autres algues et le substrat, que nous appelons "sous-étage."
 Nous calculons l'indice de frai en quatre étapes.
 Premièrement, nous développons un cadre statistique et un protocole d'échantillonnage pour estimer le nombre d'oeufs dans une zone donnée.
-Deuxièmement, nous développons un facteur de conversion pour convertir les oeufs de hareng du Pacifique en biomasse, ce qui est essentiel aux calculs de l'indice de frai.
-Troisièmement, nous calculons l'indice de frai pour chacun des trois types de relevés de frai susmentionnés: surface, Macrocystis, et sous-étage.
-Enfin, nous combinons les indices de frai des trois types d'observations de relevés, et nous les agrégeons par région d'évaluation des stocks et par année pour produire un indice relatif de la biomasse de frai de sexe combiné.
-Nous fournissons également une approche pour calculer la biomasse pour les pêches de frai sur varech.
-En outre, nous identifions les incertitudes dans les calculs de l'indice de frai, suggérons des recherches futures pour améliorer les calculs de l'indice de frai, et énumérons les mises en garde concernant l'utilisation de cet indice dans les analyses.
-Enfin, nous décrivons comment les utilisateurs peuvent installer le paquet \textbf{R} SpawnIndex pour calculer l'indice de frai en utilisant une base de données d'exemple.
-Bien que nous transformions les données de l'enquête sur le frai de la densité des oeufs en biomasse en tonnes, la série chronologique qui en résulte est un indice relatif de la biomasse de frai.}
+Deuxièmement, nous développons un facteur de conversion pour convertir les oeufs en biomasse.
+Troisièmement, nous calculons l'indice de frai pour chaque types d'observations du relevé des frayères: surface, Macrocystis et sous-étage.
+Enfin, nous additionnons les indices de frai provenant des trois types d'observations de relevés et nous les agrégeons par région d'évaluation des stocks et par année pour produire un indice relatif de la biomasse de reproducteurs de sexe combiné.
+Nous fournissons également une approche pour calculer la biomasse pour les pêcheries de frai sur varech.
+En outre, nous identifions les incertitudes dans les calculs, suggérons des recherches futures, et énumérons les mises en garde relatives à l'utilisation de l'indice de frai.
+Enfin, nous décrivons comment les utilisateurs peuvent installer le paquet \textbf{R} SpawnIndex pour calculer l'indice de frai.
+Bien que nous transformions les données de l'enquête sur le frai de la densité des oeufs en biomasse en tonnes, les données résultantes sont un indice relatif de la biomasse de frai.}
 
 % Label flow diagram steps: surface, Macrocystis, and understory
 \newcounter{SurfStep}
