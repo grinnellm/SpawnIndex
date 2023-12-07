@@ -573,6 +573,7 @@ egg density to biomass in tonnes, the annual time series of egg density and biom
 
 @TechReport{DFO2022,
   author      = {{DFO (Fisheries and Oceans Canada)}},
+  date        = {2022},
   institution = {Canadian Science Advisory Secretariat, Fisheries and Oceans Canada},
   title       = {Stock status update with application of management procedures for {Pacific} {Herring} (\emph{{Clupea} pallasii}) in {British} {Columbia}: Status in 2022 and forecast for 2023},
   number      = {2022/046},
@@ -580,7 +581,6 @@ egg density to biomass in tonnes, the annual time series of egg density and biom
   type        = {Science Response},
   url         = {https://www.dfo-mpo.gc.ca/csas-sccs/Publications/ScR-RS/2022/2022_046-eng.pdf},
   groups      = {SpawnIndex},
-  year        = {2022},
 }
 
 @Misc{R-4.1.2-32,
