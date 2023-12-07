@@ -105,7 +105,7 @@ généralement à marée basse;
 (2) observations sous-marines des frayères sur le varech géant,
 Macrocystis (\emph{Macrocystis pyrifera}); et
 (3) observations sous-marines des frayères sur les autres algues et le substrat,
-que nous appelons "sous-étage."
+que nous appelons ``sous-étage.''
 Nous calculons l'indice de frai en quatre étapes.
 Premièrement, nous développons un cadre statistique et un
 protocole d'échantillonnage pour estimer le nombre d'oeufs dans une zone donnée.
@@ -427,8 +427,6 @@ xy_reg <- get_ext_ratio(dat = filter(sf_reg, Region == zoom_reg))
 xy_sa <- get_ext_ratio(dat = filter(sf_sa, StatisticalArea == zoom_sa))
 # Section extent ratio (plus a buffer for legend on top)
 xy_sec <- get_ext_ratio(dat = filter(sf_sec, Section == zoom_sec)) + 0.75
-# Max ratio for 3-panel plot
-xy_max <- max(xy_reg, xy_sa, xy_sec)
 @
 
 <<pars, echo=FALSE>>=
@@ -483,7 +481,7 @@ to reconstruct a time series of estimated abundance (or biomass).
 For \fishName{} (\scienceName{}) in British Columbia (BC), Canada,
 an index of relative biomass is provided by monitoring the
 extent and intensity of spawn (i.e., egg) deposition
-throughout coastal BC \citeyearpar[DFO][]{DFO2021b}.
+throughout coastal BC \citeyearpar[DFO][]{DFO2022}.
 This document describes our calculations to convert spawn survey observations
 (e.g., spatial extent, number of egg layers, substrate type)
 to the \fishName{} spawn index.
@@ -605,7 +603,7 @@ map_sec <- ggplot(data = bc_coast) +
   )
 ggsave(
   filename = here(tr_path, fig_path, "MapSection.png"), dpi = 600, width = 2,
-  height = 2 * xy_max
+  height = 2 * xy_sec
 )
 # Plot Statistical Area
 map_sa <- ggplot(data = bc_coast) +
@@ -635,7 +633,7 @@ map_sa <- ggplot(data = bc_coast) +
   )
 ggsave(
   filename = here(tr_path, fig_path, "MapStatArea.png"), dpi = 600, width = 2,
-  height = 2 * xy_max
+  height = 2 * xy_sa
 )
 # Plot SAR
 map_reg <- ggplot(data = bc_coast) +
@@ -665,7 +663,7 @@ map_reg <- ggplot(data = bc_coast) +
   )
 ggsave(
   filename = here(tr_path, fig_path, "MapRegion.png"), dpi = 600, width = 2,
-  height = 2 * xy_max
+  height = 2 * xy_reg
 )
 @
 
@@ -1461,8 +1459,10 @@ $\rho_{jxsnry} = \alpha$ when there are no egg layers
 <<SurfDensJS, fig.width=3.5, fig.asp=0.67, fig.lp="fig", echo=FALSE, fig.cap=fig_cap, fig.scap="Egg density for \\fishName{} surface spawn surveys">>=
 # Caption
 fig_cap <- paste(
-  "Relationship between egg density in thousands of eggs per square metre",
-  "(m; line) and number of egg layers for \\fishName{} surface spawn surveys",
+  "Egg density in thousands of eggs per square metre (m; line)",
+  "as a function of",
+  "number of egg layers",
+  "for \\fishName{} surface spawn surveys;",
   "based on \\autoref{eqSurfDensJS} \\citep{SchweigertEtal1997}.",
   "Note that the number of egg layers can exceed those shown in this figure."
 )
@@ -1702,12 +1702,12 @@ $B_{xsnry}'$ is in tonnes (step \ref{mInd} in \autoref{figFlow}).
 <<MacroEggsPerPlantS, fig.width=6, fig.asp=0.9, fig.lp="fig", echo=FALSE, fig.cap=fig_cap, fig.scap="Number of eggs per plant for \\fishName{} Macrocystis spawn surveys">>=
 # Caption
 fig_cap <- paste(
-  "Relationship between number of eggs in thousands",
-  "per Macrocystis plant (lines), and",
+  "Number of eggs in thousands per Macrocystis plant (lines)",
+  "as a function of",
   "number of egg layers on plants,",
   "plant height in metres (m), and",
   "number of stalks per plant for",
-  "\\fishName{} Macrocystis spawn surveys",
+  "\\fishName{} Macrocystis spawn surveys;",
   "based on \\autoref{eqMacroEggsPerPlantS} \\citep{HaegeleSchweigert1990}.",
   "Note that the number of egg layers, plant height, and number of stalks",
   "per plant can exceed those shown in this figure."
@@ -1806,11 +1806,11 @@ in $10^3 \cdot \text{eggs} \cdot \text{m}^{-2}$ (\autoref{figUnderDensSubQTS}).
 <<UnderDensSubQTS, fig.width=3.5, fig.asp=0.85, fig.lp="fig", echo=FALSE, fig.cap=fig_cap, fig.scap="Substrate egg density for \\fishName{} underwater spawn surveys">>=
 # Caption
 fig_cap <- paste(
-  "Relationship between substrate egg density",
-  "in thousands of eggs per square metre (m; lines), and",
+  "Substrate egg density in thousands of eggs per square metre (m; lines)",
+  "as a function of",
   "number of egg layers on substrate and",
   "proportion of substrate covered in spawn for",
-  "\\fishName{} underwater spawn surveys",
+  "\\fishName{} underwater spawn surveys;",
   "based on \\autoref{eqUnderDensSubQTS} \\citep{HaegeleEtal1979}.",
   "Note that the number of egg layers can exceed those shown in this figure."
 )
@@ -1890,13 +1890,13 @@ k_algae_coefs
 <<UnderDensAlgVQTS, fig.width=6, fig.asp=1.1, fig.lp="fig", echo=FALSE, fig.cap=fig_cap, fig.scap="Algae egg density for \\fishName{} underwater spawn surveys">>=
 # Caption
 fig_cap <- paste(
-  "Relationship between algae egg density in",
-  "thousands of eggs per square metre (m; lines), and",
+  "Algae egg density in thousands of eggs per square metre (m; lines)",
+  "as a function of",
   "number of egg layers on algae,",
   "proportion of substrate covered in algae, and",
   "algae coefficients (\\autoref{tab:AlgaeCoefs})",
-  "for \\fishName{} underwater spawn surveys based on",
-  "\\autoref{eqUnderDensAlgVQTS} \\citep{Schweigert2005}.",
+  "for \\fishName{} underwater spawn surveys;",
+  "based on \\autoref{eqUnderDensAlgVQTS} \\citep{Schweigert2005}.",
   "Note that the number of egg layers can exceed those shown in this figure."
 )
 # Expand the values
@@ -2058,7 +2058,7 @@ Note that `$\,'$' indicates related variables (e.g., $B'$ is related to $B$).}
 \textbf{Name} & \textbf{Description} & \textbf{Value or unit} & \textbf{References} \\
 \midrule
 $B'$ & Spawn index (i.e., relative biomass) & t & \\
-$q$ & Spawn index scaling parameter & $0.0 < q \leq 1.0$ & DFO \citeyearpar{DFO2021b} \\
+$q$ & Spawn index scaling parameter & $0.0 < q \leq 1.0$ & DFO \citeyearpar{DFO2022} \\
 $B$ & Scaled biomass & t & \\
 \bottomrule
 \end{tabulary}
@@ -2068,7 +2068,7 @@ $B$ & Scaled biomass & t & \\
 \subsection{SCALED BIOMASS}\label{secScaled}
 
 We use $B_{\cdot \cdot \cdot ry}'$ as an indicator of relative biomass
-in \fishName{} stock assessment models \citeyearpar[DFO][]{DFO2021b}.
+in \fishName{} stock assessment models \citeyearpar[DFO][]{DFO2022}.
 We scale $B_{\cdot \cdot \cdot ry}'$ to biomass
 \begin{equation}\label{eqAbundRY}
 B_{\cdot \cdot \cdot ry} = \frac{B_{\cdot \cdot \cdot ry}'} {q_{ry}},
@@ -2087,7 +2087,7 @@ unobserved spawns \citeyearpar[DFO][]{DFO2016}.
 Although $q$ is uncertain
 and a number of assumptions are made within the assessment model,
 there are differences between the proportion of spawn observed
-in the two spawn survey periods \citeyearpar[DFO][]{DFO2021b}.
+in the two spawn survey periods \citeyearpar[DFO][]{DFO2022}.
 Therefore, for each SAR we estimate one spawn index scaling parameter for
 the surface survey period $q_1$
 (\Sexpr{pars$years$assess} to \Sexpr{pars$years$dive-1}) and
@@ -2198,7 +2198,7 @@ Some examples illustrate these sources of uncertainty:
 \item Natural variability could affect \fishName{} fecundity and
 the sex ratio of spawning \fishName{} (\autoref{eqECF}).
 Fecundity could be influenced by biological processes such as
-the observed non-stationarity of weight-at-age \citeyearpar[DFO][]{DFO2021b} or
+the observed non-stationarity of weight-at-age \citeyearpar[DFO][]{DFO2022} or
 a truncated age distribution caused by selective fishing \citep{BrunelPiet2013}.
 \item Measurement error could affect input data
 (e.g., number of egg layers, spawn length and width), while
