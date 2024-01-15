@@ -123,10 +123,9 @@ In this example, `r sok`\ kg of SOK was produced by
 
 ## Additional information
 
-The technical report has background information on the spawn index and
-calculations.
-A draft technical report is available here: `./tr/Draft.pdf`.
-**Please do not cite or circulate this draft.**
+The
+[technical report](https://waves-vagues.dfo-mpo.gc.ca/library-bibliotheque/41216787.pdf)
+has background information on the spawn index and calculations.
 Build the manual
 
 ```{r manual, eval = FALSE}
