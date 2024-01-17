@@ -5,7 +5,7 @@
 Calculating the spawn index for Pacific Herring (*Clupea pallasii*) in British Columbia, Canada.
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/grinnellm/SpawnIndex/workflows/R-CMD-check/badge.svg)](https://github.com/grinnellm/SpawnIndex/actions) [![Codecov](https://codecov.io/gh/grinnellm/SpawnIndex/branch/master/graph/badge.svg)](https://codecov.io/gh/grinnellm/SpawnIndex) [![lint](https://github.com/grinnellm/SpawnIndex/workflows/lint/badge.svg)](https://github.com/grinnellm/SpawnIndex/actions) [![Lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable) [![Version](https://img.shields.io/badge/Version-0.3.2-orange.svg?style=flat-square)](commits/master) [![CRAN](https://www.r-pkg.org/badges/version/SpawnIndex)](https://CRAN.R-project.org/package=SpawnIndex) <!-- badges: end -->
+[![R-CMD-check](https://github.com/grinnellm/SpawnIndex/workflows/R-CMD-check/badge.svg)](https://github.com/grinnellm/SpawnIndex/actions) [![Codecov](https://codecov.io/gh/grinnellm/SpawnIndex/branch/master/graph/badge.svg)](https://codecov.io/gh/grinnellm/SpawnIndex) [![lint](https://github.com/grinnellm/SpawnIndex/workflows/lint/badge.svg)](https://github.com/grinnellm/SpawnIndex/actions) [![Lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable) [![Version](https://img.shields.io/badge/Version-0.4.0-orange.svg?style=flat-square)](commits/master) [![CRAN](https://www.r-pkg.org/badges/version/SpawnIndex)](https://CRAN.R-project.org/package=SpawnIndex) <!-- badges: end -->
 
 Note that `R-CMD-check` succeeds on my Windows machine but fails on [GitHub Actions](https://github.com/grinnellm/SpawnIndex/actions) (see [issue \#30](https://github.com/grinnellm/SpawnIndex/issues/30)).
 
@@ -34,7 +34,7 @@ This example shows how to calculate the spawn index for a surface spawn survey. 
 library(SpawnIndex)
 ```
 
-    ## This is SpawnIndex version 0.3.2.
+    ## This is SpawnIndex version 0.4.0.
 
 Next, load the default parameter values for spawn index calculations, and calculate the conversion factor for the number of Pacific Herring eggs to the spawn index (i.e., biomass in tonnes, t). Call the function with the default parameters.
 
@@ -100,7 +100,7 @@ The [technical report](https://waves-vagues.dfo-mpo.gc.ca/library-bibliotheque/4
 devtools::build_manual(pkg = ".", path = here("doc"))
 ```
 
-and open the file `./doc/SpawnIndex_0.3.2.pdf`. In addition, there is a vignette with an example workflow; build the vignette
+and open the file `./doc/SpawnIndex_0.4.0.pdf`. In addition, there is a vignette with an example workflow; build the vignette
 
 ``` r
 devtools::build_vignettes(pkg = ".")

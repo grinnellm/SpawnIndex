@@ -463,14 +463,6 @@ data(under_width_facs)
 % Add the first few pages
 \frontmatter
 
-%%%%% Drafts %%%%%
-
-% \linenumbers  % Line numbers
-% \renewcommand{\headrulewidth}{0.5pt}  % Header line
-% \renewcommand{\footrulewidth}{0.5pt}  % Footer line
-% \fancyhead[c]{Draft: Do not cite or circulate}  % Header text
-% \setlength{\parskip}{3pt}
-
 %%%%% Main document %%%%%
 
 \section{INTRODUCTION}\label{secIntro}
