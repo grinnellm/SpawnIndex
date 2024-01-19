@@ -19,7 +19,6 @@ version <- read.dcf(file = "DESCRIPTION", fields = "Version")
 [![Lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![Version](https://img.shields.io/badge/Version-`r version`-orange.svg?style=flat-square)](commits/master)
 [![CRAN](https://www.r-pkg.org/badges/version/SpawnIndex)](https://CRAN.R-project.org/package=SpawnIndex)
-![Visitors](https://api.visitorbadge.io/api/visitors?path=https%3A%2F%2Fgithub.com%2Fgrinnellm%2FSpawnIndex&label=VISITORS&countColor=%23263759&style=flat)
 <!-- badges: end -->
 
 Note that `R-CMD-check` succeeds on my Windows machine but fails on
