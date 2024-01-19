@@ -77,9 +77,10 @@ check_tibble <- function(dat,
     # Where are there not enough rows
     few_row_names <- names(dat)[few_rows]
     # Error
-    message("Not enough rows in: ", paste_nicely(few_row_names,
-      do_quotes = TRUE
-    ), ".")
+    message(
+      "Not enough rows in: ",
+      paste_nicely(few_row_names, do_quotes = TRUE), "."
+    )
   } # End if not enough rows
   # Check for tibbles
   not_tibble <- vapply(

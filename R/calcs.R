@@ -267,9 +267,10 @@ calc_surf_index <- function(where,
   if (!all(c("Region", "Section", "WidthSec") %in% names(widths$section))) {
     stop("`widths$section` is missing columns", call. = FALSE)
   }
+  # Pool names
+  pool_names <- c("Region", "Section", "Pool", "WidthPool")
   # Check widths: pool names
-  if (!all(c("Region", "Section", "Pool", "WidthPool") %in%
-    names(widths$pool))) {
+  if (!all(pool_names %in% names(widths$pool))) {
     stop("`widths$pool` is missing columns", call. = FALSE)
   }
   # Check years: range
@@ -368,8 +369,10 @@ calc_surf_index <- function(where,
   surface <- surface %>%
     mutate(
       # SoG (1 record): update Intensity from 0 to 1 (surveyed but not reported)
-      Intensity = ifelse(Year == 1962 & StatArea == 14 & Section == 142 &
-        LocationCode == 820 & Intensity == 0, 1, Intensity)
+      Intensity = ifelse(
+        Year == 1962 & StatArea == 14 & Section == 142 & LocationCode == 820 &
+          Intensity == 0, 1, Intensity
+      )
     )
   # Calculate egg density based on intensity or direct measurements
   eggs <- surface %>%
@@ -996,9 +999,10 @@ calc_under_index <- function(where,
   }
   # Check tau: tibble
   if (!is_tibble(tau)) stop("`tau` must be a tibble.", call. = FALSE)
+  # Tau names
+  tau_names <- c("Year", "HG", "PRD", "CC", "SoG", "WCVI", "A27", "A2W")
   # Check tau: names
-  if (!all(c("Year", "HG", "PRD", "CC", "SoG", "WCVI", "A27", "A2W")
-  %in% names(tau))) {
+  if (!all(tau_names %in% names(tau))) {
     stop("`tau` is missing columns", call. = FALSE)
   }
   # Check theta: range
@@ -1100,8 +1104,9 @@ calc_under_index <- function(where,
   # If there are missing algae types
   if (any(!algae$AlgType %in% alg_coefs$AlgType)) {
     # Get missing algae type(s)
-    miss_alg <- unique(algae$AlgType[!algae$AlgType %in%
-      alg_coefs$AlgType])
+    miss_alg <- unique(
+      algae$AlgType[!algae$AlgType %in% alg_coefs$AlgType]
+    )
     # Error, and show missing type(s)
     stop("Missing algae type(s): ", paste_nicely(miss_alg), ".", call. = FALSE)
   } # End if there are missing algae types

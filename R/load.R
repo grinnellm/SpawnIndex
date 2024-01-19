@@ -500,9 +500,12 @@ load_width <- function(where,
   ))
   # Check input: tibble rows
   check_tibble(dat = list(areas = areas), quiet = quiet)
+  # Get area names
+  area_names <- c(
+    "SAR", "Region", "StatArea", "Section", "LocationCode", "Pool"
+  )
   # Check areas: names
-  if (!all(c("SAR", "Region", "StatArea", "Section", "LocationCode", "Pool")
-  %in% names(areas))) {
+  if (!all(area_names %in% names(areas))) {
     stop("`areas` is missing columns", call. = FALSE)
   }
   # Get area info
@@ -608,9 +611,10 @@ load_sections <- function(sections,
                           quiet = FALSE) {
   # Check input: tibble rows
   check_tibble(dat = list(areas = areas), quiet = quiet)
+  # Area names
+  area_names <- c("SAR", "Region", "StatArea", "Group", "Section")
   # Check areas: names
-  if (!all(c("SAR", "Region", "StatArea", "Group", "Section")
-  %in% names(areas))) {
+  if (!all(area_names %in% names(areas))) {
     stop("`areas` is missing columns", call. = FALSE)
   }
   # Check input: NA and numeric
