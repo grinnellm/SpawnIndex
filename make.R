@@ -6,11 +6,11 @@ require(SpawnIndex)
 # Build the raw data files
 source(file = here::here("data-raw", "pars.R"))
 
-# Build the read me file
+# Build the read me file (may have to use RStudio "Knit" button)
 rmarkdown::render(input = here::here("README.Rmd"))
 file.remove(here::here("README.html"))
 
-# Knit the technical report
+# Knit the technical report (may have to use RStudio "Compile PDF" button)
 setwd(dir = here::here("tr"))
 knitr::knit2pdf(input = "SpawnIndex.Rnw")
 setwd(dir = here::here())
