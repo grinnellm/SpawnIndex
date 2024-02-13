@@ -189,8 +189,8 @@ dens_surf <- function(alpha = pars$surface$alpha,
 #' @return List. The element \code{si} is a tibble with surface spawn index
 #'   (\code{SurfSI}) in tonnes by spawn number and year. The spawn number is the
 #'   finest spatial scale at which we calculate the spawn index. Other
-#'   information in this tibble comes from \code{a}: Region, Statistical Area,
-#'   Section, and Location code.
+#'   information in this tibble comes from \code{areas}: Region, Statistical
+#'   Area, Section, and Location code.
 #' @note The `spawn index' is a relative index of spawning biomass.
 #' @references \insertAllCited
 #' @seealso \code{\link{HerringSpawn}} \code{\link{load_area_data}}
@@ -574,8 +574,8 @@ eggs_macro <- function(xi = pars$macrocystis$xi,
 #' @return List. The element \code{si} is a tibble with Macrocystis spawn index
 #'   (\code{MacroSI}) in tonnes by spawn number and year. The spawn number is
 #'   the finest spatial scale at which we calculate the spawn index. Other
-#'   information in this tibble comes from \code{a}: Region, Statistical Area,
-#'   Section, and Location code.
+#'   information in this tibble comes from \code{areas}: Region, Statistical
+#'   Area, Section, and Location code.
 #' @note The `spawn index' is a relative index of spawning biomass.
 #' @references \insertAllCited
 #' @seealso \code{\link{HerringSpawn}} \code{\link{load_area_data}}
@@ -918,8 +918,8 @@ dens_under_alg <- function(vartheta = pars$understory$vartheta,
 #' @return List. The element \code{si} is a tibble with understory spawn index
 #'   (\code{UnderSI}) in tonnes by spawn number and year. The spawn number is
 #'   the finest spatial scale at which we calculate the spawn index. Other
-#'   information in this tibble comes from \code{a}: Region, Statistical Area,
-#'   Section, and Location code.
+#'   information in this tibble comes from \code{areas}: Region, Statistical
+#'   Area, Section, and Location code.
 #' @note The `spawn index' is a relative index of spawning biomass.
 #' @references \insertAllCited
 #' @seealso \code{\link{HerringSpawn}} \code{\link{load_area_data}}

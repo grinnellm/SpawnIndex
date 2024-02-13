@@ -24,8 +24,8 @@ Message if not 0.3048.}
 \value{
 Tibble. Contains additional spawn survey data including start and end
 dates, as well as spawn length, width, and depth. Other information in this
-tibble comes from \code{a}: Region, Statistical Area, Section, and Location
-code.
+tibble comes from \code{areas}: Region, Statistical Area, Section, and
+Location code.
 }
 \description{
 Load the all spawn table, which has additional spawn survey data.

@@ -55,8 +55,8 @@ re-scaled from 5 to 9 categories. Message if >= \code{pars$years$assess}.}
 List. The element \code{si} is a tibble with surface spawn index
 (\code{SurfSI}) in tonnes by spawn number and year. The spawn number is the
 finest spatial scale at which we calculate the spawn index. Other
-information in this tibble comes from \code{a}: Region, Statistical Area,
-Section, and Location code.
+information in this tibble comes from \code{areas}: Region, Statistical
+Area, Section, and Location code.
 }
 \description{
 Calculate the Pacific Herring surface spawn index in tonnes

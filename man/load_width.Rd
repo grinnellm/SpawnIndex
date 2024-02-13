@@ -18,7 +18,7 @@ observations to include; from \code{\link{load_area_data}}.}
 \value{
 List with three tables: median region (\code{WidthReg}), section
 (\code{WidthSec}), and pool (\code{WidthPool}) widths in metres (m) for the
-areas in \code{a}.
+areas in \code{areas}.
 }
 \description{
 Load median spawn width in metres (m) for Pacific Herring surface spawn index

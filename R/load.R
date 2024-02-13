@@ -322,8 +322,8 @@ load_area_data <- function(reg,
 #' @importFrom Rdpack reprompt
 #' @return Tibble. Contains additional spawn survey data including start and end
 #'   dates, as well as spawn length, width, and depth. Other information in this
-#'   tibble comes from \code{a}: Region, Statistical Area, Section, and Location
-#'   code.
+#'   tibble comes from \code{areas}: Region, Statistical Area, Section, and
+#'   Location code.
 #' @seealso \code{\link{HerringSpawn}} \code{\link{load_area_data}}
 #' @family load functions
 #' @export
@@ -469,7 +469,7 @@ load_all_spawn <- function(where,
 #' @importFrom Rdpack reprompt
 #' @return List with three tables: median region (\code{WidthReg}), section
 #'   (\code{WidthSec}), and pool (\code{WidthPool}) widths in metres (m) for the
-#'   areas in \code{a}.
+#'   areas in \code{areas}.
 #' @references \insertAllCited
 #' @seealso \code{\link{HerringSpawn}} \code{\link{load_area_data}}
 #'   \code{\link{calc_surf_index}}

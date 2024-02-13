@@ -50,8 +50,8 @@ from \code{\link{pars}} \insertCite{HaegeleSchweigert1990}{SpawnIndex}.}
 List. The element \code{si} is a tibble with Macrocystis spawn index
 (\code{MacroSI}) in tonnes by spawn number and year. The spawn number is
 the finest spatial scale at which we calculate the spawn index. Other
-information in this tibble comes from \code{a}: Region, Statistical Area,
-Section, and Location code.
+information in this tibble comes from \code{areas}: Region, Statistical
+Area, Section, and Location code.
 }
 \description{
 Calculate the Pacific Herring Macrocystis spawn index in tonnes
