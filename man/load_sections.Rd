@@ -45,7 +45,9 @@ area_loc <- list(
   loc = db_loc, db = "HerringSpawn.mdb",
   fns = list(sections = "Sections", locations = "Location")
 )
+data(regions)
 areas <- load_area_data(reg = "WCVI", where = area_loc)
+data(sections)
 polys <- load_sections(sections = sections, areas = areas)
 }
 \references{

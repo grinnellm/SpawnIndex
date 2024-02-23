@@ -84,11 +84,6 @@ n_samp <- 3
 data(pars)
 # Coordinate reference system
 epsg_crs <- 4326
-# Canada: coarse polygons for mapping
-canada <- ne_countries(
-  scale = "large", returnclass = "sf", country = "canada"
-) %>%
-  st_transform(crs = epsg_crs)
 ```
 
 This example will focus on `r region`
@@ -113,9 +108,6 @@ area_loc <- list(
 )
 # Load area data
 areas <- load_area_data(reg = region, where = area_loc)
-# Determine spatial extent (for maps)
-x_lims <- range(areas$Longitude)
-y_lims <- range(areas$Latitude)
 ```
 
 In this example database, the `r region` SAR has
@@ -133,7 +125,7 @@ areas_table_cap <- paste(
 # Areas to include
 areas %>%
   select(
-    Region, StatArea, Section, LocationName, LocationCode, Longitude, Latitude
+    Region, StatArea, Section, LocationName, LocationCode
   ) %>%
   arrange(StatArea, Section, LocationName) %>%
   rename(
@@ -142,7 +134,7 @@ areas %>%
   ) %>%
   slice(1:10) %>%
   kable(
-    caption = areas_table_cap, booktabs = TRUE, digits = c(0, 0, 0, 0, 0, 3, 3)
+    caption = areas_table_cap, booktabs = TRUE, digits = c(0, 0, 0, 0, 0)
   )
 ```
 
@@ -154,6 +146,17 @@ This has information on Section, Statistical Area, and Region boundaries.
 data(sections)
 # Wrangle sections
 polys <- load_sections(sections = sections, areas = areas)
+# Get a bounding box for the area
+polys_bb <- polys$regions %>%
+  st_buffer(dist = 5000) %>%
+  st_bbox()
+# Canada: coarse polygons for mapping
+canada <- ne_countries(
+  scale = "large", returnclass = "sf", country = "canada"
+) %>%
+  select(geometry) %>%
+  st_transform(crs = epsg_crs) %>%
+  st_crop(polys_bb)
 ```
 
 ## Spawn index calculations
@@ -238,10 +241,9 @@ surf_loc_yr <- surf_spawn$si %>%
   summarise(Surface = round(sum(SurfSI, na.rm = TRUE))) %>%
   ungroup() %>%
   left_join(
-    y = select(.data = areas, LocationCode, Longitude, Latitude),
+    y = select(.data = areas, LocationCode, geometry),
     by = "LocationCode"
-  ) %>%
-  st_as_sf(coords = c("Longitude", "Latitude"), crs = epsg_crs)
+  )
 ```
 
 ```{r surf_loc_yr_fig, echo = FALSE, fig.cap = surf_loc_yr_cap, warning = FALSE}
@@ -253,7 +255,7 @@ surf_loc_yr_cap <- paste(
   "Areas.</i>"
 )
 # Map
-ggplot(data = surf_loc_yr) +
+ggplot(data = surf_loc_yr, mapping = aes(geometry = geometry)) +
   geom_sf(data = canada) +
   geom_sf(data = polys$stat_areas, fill = "transparent", size = 1) +
   geom_sf_label(
@@ -262,7 +264,7 @@ ggplot(data = surf_loc_yr) +
   geom_sf(mapping = aes(colour = Surface), size = 3) +
   scale_colour_viridis_c() +
   labs(x = "Longitude", y = "Latitude", colour = "Spawn\nindex (t)") +
-  coord_sf(xlim = x_lims, ylim = y_lims) +
+  coord_sf(expand = FALSE) +
   facet_wrap(Year ~ ., ncol = 2) +
   theme_bw() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
@@ -318,10 +320,9 @@ macro_loc_yr <- macro_spawn$si %>%
   summarise(Macrocystis = round(sum(MacroSI, na.rm = TRUE))) %>%
   ungroup() %>%
   left_join(
-    y = select(.data = areas, LocationCode, Longitude, Latitude),
+    y = select(.data = areas, LocationCode, geometry),
     by = "LocationCode"
-  ) %>%
-  st_as_sf(coords = c("Longitude", "Latitude"), crs = epsg_crs)
+  )
 ```
 
 ```{r macro_loc_yr_fig, echo = FALSE, fig.cap = macro_loc_yr_cap, warning = FALSE}
@@ -333,7 +334,7 @@ macro_loc_yr_cap <- paste(
   "Areas.</i>"
 )
 # Map
-ggplot(data = macro_loc_yr) +
+ggplot(data = macro_loc_yr, mapping = aes(geometry = geometry)) +
   geom_sf(data = canada) +
   geom_sf(data = polys$stat_areas, fill = "transparent", size = 1) +
   geom_sf_label(
@@ -342,7 +343,7 @@ ggplot(data = macro_loc_yr) +
   geom_sf(mapping = aes(colour = Macrocystis), size = 3) +
   scale_colour_viridis_c() +
   labs(x = "Longitude", y = "Latitude", colour = "Spawn\nindex (t)") +
-  coord_sf(xlim = x_lims, ylim = y_lims) +
+  coord_sf(expand = FALSE) +
   facet_wrap(Year ~ ., ncol = 2) +
   theme_bw() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
@@ -405,10 +406,9 @@ under_loc_yr <- under_spawn$si %>%
   summarise(Understory = round(sum(UnderSI, na.rm = TRUE))) %>%
   ungroup() %>%
   left_join(
-    y = select(.data = areas, LocationCode, Longitude, Latitude),
+    y = select(.data = areas, LocationCode, geometry),
     by = "LocationCode"
-  ) %>%
-  st_as_sf(coords = c("Longitude", "Latitude"), crs = epsg_crs)
+  )
 ```
 
 ```{r under_loc_yr_fig, echo = FALSE, fig.cap = under_loc_yr_cap, warning = FALSE}
@@ -420,7 +420,7 @@ under_loc_yr_cap <- paste(
   "Areas.</i>"
 )
 # Map
-ggplot(data = under_loc_yr) +
+ggplot(data = under_loc_yr, mapping = aes(geometry = geometry)) +
   geom_sf(data = canada) +
   geom_sf(data = polys$stat_areas, fill = "transparent", size = 1) +
   geom_sf_label(
@@ -429,7 +429,7 @@ ggplot(data = under_loc_yr) +
   geom_sf(mapping = aes(colour = Understory), size = 3) +
   scale_colour_viridis_c() +
   labs(x = "Longitude", y = "Latitude", colour = "Spawn\nindex (t)") +
-  coord_sf(xlim = x_lims, ylim = y_lims) +
+  coord_sf(expand = FALSE) +
   facet_wrap(Year ~ ., ncol = 2) +
   theme_bw() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))

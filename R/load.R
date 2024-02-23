@@ -12,9 +12,9 @@
 #' @param sec_sub Numeric vector or NULL. Subset of Sections to include in the
 #'   analysis, or NULL to include all the Sections in the region.
 #' @template param-where
-#' @param in_crs Character. Input coordinate reference system;
+#' @param in_crs Numeric. Input coordinate reference system;
 #'   \href{https://spatialreference.org/}{use EPSG codes if desired}.
-#' @param out_crs Character. Output coordinate reference system;
+#' @param out_crs Numeric. Output coordinate reference system;
 #'   \href{https://spatialreference.org/}{use EPSG codes if desired}.
 #' @param groups Tibble or NULL. Optional table to add a "Group" column to the
 #'   results, say to aggregate data by combinations of Sections. Must have a
@@ -30,7 +30,7 @@
 #' @importFrom odbc dbConnect odbc dbDisconnect
 #' @importFrom DBI dbReadTable
 #' @importFrom tibble as_tibble is_tibble
-#' @importFrom sp SpatialPoints spTransform CRS
+#' @importFrom sf st_as_sf st_transform
 #' @importFrom Rdpack reprompt
 #' @return Tibble. Table of geographic information for Pacific Herring: SAR,
 #'   Region, Region name, Statistical Area, Group, Section, Location code,
@@ -63,8 +63,8 @@
 load_area_data <- function(reg,
                            sec_sub = NULL,
                            where,
-                           in_crs = "+init=epsg:4326",
-                           out_crs = "+init=epsg:3005",
+                           in_crs = 4326,
+                           out_crs = 4326,
                            groups = NULL,
                            region_table = regions,
                            quiet = FALSE) {
@@ -78,10 +78,8 @@ load_area_data <- function(reg,
   check_where(
     dat = where, dat_names = c("loc", "db", "fns.sections", "fns.locations")
   )
-  # Check in_crs and out_crs: character
-  if (!is.character(in_crs) && !is.character(out_crs)) {
-    stop("`in_crs` and `out_crs` must be characters.")
-  }
+  # Check input: NA and numeric
+  check_numeric(dat = list(in_crs = in_crs, out_crs = out_crs), quiet = quiet)
   # Check groups: tibble or NULL
   if (is_tibble(groups)) {
     # Check group names
@@ -205,26 +203,19 @@ load_area_data <- function(reg,
     ) %>%
     arrange(LocationCode) %>%
     distinct()
-  # Grab the spatial info (X and Y)
-  loc_sp <- loc_dat %>%
-    transmute(X = Longitude, Y = Latitude)
-  # Put X and Y into a spatial points object
-  loc_pts <- SpatialPoints(coords = loc_sp, proj4string = CRS(in_crs))
-  # Convert X and Y from WGS to Albers
-  loc_pts_alb <- spTransform(x = loc_pts, CRSobj = CRS(out_crs))
-  # Extract spatial info
-  df_alb <- as_tibble(loc_pts_alb)
+  # Make locations a spatial points object and transform (e.g., WGS to Albers)
+  loc_pts <- loc_dat %>%
+    st_as_sf(coords = c("Longitude", "Latitude"), crs = in_crs) %>%
+    st_transform(crs = out_crs)
   # Extract relevant location data
-  locations <- loc_dat %>%
-    cbind(df_alb) %>%
+  locations <- loc_pts %>%
     mutate(
-      Eastings = ifelse(is.na(Longitude), Longitude, X),
-      Northings = ifelse(is.na(Latitude), Latitude, Y),
+      # Eastings = ifelse(is.na(Longitude), Longitude, X),
+      # Northings = ifelse(is.na(Latitude), Latitude, Y),
       Section = as.integer(Section)
     ) %>%
     select(
-      StatArea, Section, LocationCode, LocationName, Pool, Eastings,
-      Northings, Latitude, Longitude
+      StatArea, Section, LocationCode, LocationName, Pool, geometry
     ) %>%
     filter(Section %in% sections$Section) %>%
     distinct() %>%
@@ -267,7 +258,7 @@ load_area_data <- function(reg,
     filter(!is.na(StatArea), !is.na(Section)) %>%
     select(
       SAR, Region, RegionName, StatArea, Group, Section, LocationCode,
-      LocationName, Pool, Eastings, Northings, Longitude, Latitude
+      LocationName, Pool, geometry
     ) %>%
     mutate(Section = as.integer(Section), Pool = as.integer(Pool)) %>%
     #      mutate( StatArea=formatC(StatArea, width=2, format="d", flag="0"),
@@ -293,8 +284,7 @@ load_area_data <- function(reg,
   # Check output: names
   if (!all(c(
     "SAR", "Region", "RegionName", "StatArea", "Group", "Section",
-    "LocationCode", "LocationName", "Pool", "Eastings", "Northings",
-    "Longitude", "Latitude"
+    "LocationCode", "LocationName", "Pool", "geometry"
   ) %in% names(res))) {
     stop("`res` is missing columns", call. = FALSE)
   }
@@ -353,11 +343,11 @@ load_all_spawn <- function(where,
   )
   # Check input: tibble rows
   check_tibble(dat = list(areas = areas), quiet = quiet)
+  # Area names
+  area_names <- c("SAR", "Region", "RegionName", "StatArea", "Group", "Section",
+                  "LocationCode", "LocationName", "Pool", "geometry")
   # Check areas: names
-  if (!all(c(
-    "Region", "StatArea", "Group", "Section", "LocationCode", "LocationName",
-    "Eastings", "Northings", "Longitude", "Latitude"
-  ) %in% names(areas))) {
+  if (!all(area_names %in% names(areas))) {
     stop("`areas` is missing columns", call. = FALSE)
   }
   # Check input: NA and numeric
@@ -376,8 +366,7 @@ load_all_spawn <- function(where,
   # Get a small subset of area data
   areas_sm <- areas %>%
     select(
-      Region, StatArea, Group, Section, LocationCode, LocationName, Eastings,
-      Northings, Longitude, Latitude
+      Region, StatArea, Group, Section, LocationCode, LocationName, geometry
     ) %>%
     distinct() %>%
     as_tibble()
@@ -421,8 +410,7 @@ load_all_spawn <- function(where,
     left_join(y = areas_sm, by = c("LocationCode")) %>%
     select(
       Year, Region, StatArea, Group, Section, LocationCode, LocationName,
-      SpawnNumber, Eastings, Northings, Longitude, Latitude, Start, End,
-      Length, Width, Depth, Method
+      SpawnNumber, geometry, Start, End, Length, Width, Depth, Method
     ) %>%
     arrange(
       Year, Region, StatArea, Section, LocationCode, SpawnNumber, Start
@@ -442,8 +430,8 @@ load_all_spawn <- function(where,
   # Check output: names
   if (!all(c(
     "Year", "Region", "StatArea", "Group", "Section", "LocationCode",
-    "LocationName", "SpawnNumber", "Eastings", "Northings", "Longitude",
-    "Latitude", "Start", "End", "Length", "Width", "Depth", "Method"
+    "LocationName", "SpawnNumber", "Start", "End", "Length", "Width", "Depth",
+    "Method"
   ) %in% names(res))) {
     stop("`res` is missing columns", call. = FALSE)
   }
@@ -500,10 +488,9 @@ load_width <- function(where,
   ))
   # Check input: tibble rows
   check_tibble(dat = list(areas = areas), quiet = quiet)
-  # Get area names
-  area_names <- c(
-    "SAR", "Region", "StatArea", "Section", "LocationCode", "Pool"
-  )
+  # Area names
+  area_names <- c("SAR", "Region", "RegionName", "StatArea", "Group", "Section",
+                  "LocationCode", "LocationName", "Pool", "geometry")
   # Check areas: names
   if (!all(area_names %in% names(areas))) {
     stop("`areas` is missing columns", call. = FALSE)
@@ -601,7 +588,9 @@ load_width <- function(where,
 #'   loc = db_loc, db = "HerringSpawn.mdb",
 #'   fns = list(sections = "Sections", locations = "Location")
 #' )
+#' data(regions)
 #' areas <- load_area_data(reg = "WCVI", where = area_loc)
+#' data(sections)
 #' polys <- load_sections(sections = sections, areas = areas)
 load_sections <- function(sections,
                           areas,
@@ -612,7 +601,8 @@ load_sections <- function(sections,
   # Check input: tibble rows
   check_tibble(dat = list(areas = areas), quiet = quiet)
   # Area names
-  area_names <- c("SAR", "Region", "StatArea", "Group", "Section")
+  area_names <- c("SAR", "Region", "RegionName", "StatArea", "Group", "Section",
+                  "LocationCode", "LocationName", "Pool", "geometry")
   # Check areas: names
   if (!all(area_names %in% names(areas))) {
     stop("`areas` is missing columns", call. = FALSE)

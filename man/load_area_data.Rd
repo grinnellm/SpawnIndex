@@ -8,8 +8,8 @@ load_area_data(
   reg,
   sec_sub = NULL,
   where,
-  in_crs = "+init=epsg:4326",
-  out_crs = "+init=epsg:3005",
+  in_crs = 4326,
+  out_crs = 4326,
   groups = NULL,
   region_table = regions,
   quiet = FALSE
@@ -24,10 +24,10 @@ analysis, or NULL to include all the Sections in the region.}
 \item{where}{List. Location and name of the Pacific Herring spawn survey
 database, as well as required tables (see examples).}
 
-\item{in_crs}{Character. Input coordinate reference system;
+\item{in_crs}{Numeric. Input coordinate reference system;
 \href{https://spatialreference.org/}{use EPSG codes if desired}.}
 
-\item{out_crs}{Character. Output coordinate reference system;
+\item{out_crs}{Numeric. Output coordinate reference system;
 \href{https://spatialreference.org/}{use EPSG codes if desired}.}
 
 \item{groups}{Tibble or NULL. Optional table to add a "Group" column to the
