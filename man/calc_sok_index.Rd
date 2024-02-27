@@ -45,7 +45,7 @@ calc_sok_index(sok = 100)
 \seealso{
 \code{\link{eggs_to_sb}} \code{\link{pars}}
 
-Other calculation functions: 
+Other calculate functions: 
 \code{\link{calc_macro_index}()},
 \code{\link{calc_surf_index}()},
 \code{\link{calc_under_index}()},
@@ -55,4 +55,4 @@ Other calculation functions:
 \code{\link{eggs_macro}()},
 \code{\link{eggs_to_sb}()}
 }
-\concept{calculation functions}
+\concept{calculate functions}

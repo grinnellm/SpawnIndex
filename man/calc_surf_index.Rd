@@ -101,7 +101,7 @@ surf_spawn$si
 \code{\link{load_width}} \code{\link{eggs_to_sb}}
 \code{\link{pars}} \code{\link{intensity}} \code{\link{dens_surf}}
 
-Other calculation functions: 
+Other calculate functions: 
 \code{\link{calc_macro_index}()},
 \code{\link{calc_sok_index}()},
 \code{\link{calc_under_index}()},
@@ -111,4 +111,4 @@ Other calculation functions:
 \code{\link{eggs_macro}()},
 \code{\link{eggs_to_sb}()}
 }
-\concept{calculation functions}
+\concept{calculate functions}

@@ -3,7 +3,7 @@
 #' `r read.dcf(file = "DESCRIPTION", fields = "Description")`
 #'
 #' The SpawnIndex package provides raw data, data, and four families of
-#' functions: load, calculation, check, and utility.
+#' functions: load, calculate, check, and utility.
 #'
 #' @section Raw data: The raw data is an example database with spawn survey
 #'   observations (\code{\link{HerringSpawn}}).
@@ -19,7 +19,7 @@
 #'   \code{\link{load_all_spawn}}, \code{\link{load_width}}, and
 #'   \code{\link{load_sections}}.
 #'
-#' @section Calculation functions: The calculation functions are
+#' @section Calculate functions: The calculate functions are
 #'   \code{\link{eggs_to_sb}}, \code{\link{calc_sok_index}},
 #'   \code{\link{dens_surf}}, \code{\link{calc_surf_index}},
 #'   \code{\link{eggs_macro}}, \code{\link{calc_macro_index}},

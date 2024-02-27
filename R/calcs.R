@@ -14,7 +14,7 @@
 #'   (i.e., biomass). Divide the number of eggs by the conversion factor to get
 #'   biomass. Message if < 0.
 #' @seealso \code{\link{pars}}
-#' @family calculation functions
+#' @family calculate functions
 #' @export
 #' @examples
 #' data(pars)
@@ -59,7 +59,7 @@ eggs_to_sb <- function(omega = pars$conversion$omega,
 #' @importFrom stats na.omit
 #' @return Numeric. Spawn index in tonnes. Message if < 0.
 #' @seealso \code{\link{eggs_to_sb}} \code{\link{pars}}
-#' @family calculation functions
+#' @family calculate functions
 #' @export
 #' @examples
 #' data(pars)
@@ -126,7 +126,7 @@ calc_sok_index <- function(sok,
 #'   in thousands of eggs per square metre.
 #' @references \insertAllCited
 #' @seealso \code{\link{pars}} \code{\link{calc_surf_index}}
-#' @family calculation functions
+#' @family calculate functions
 #' @export
 #' @examples
 #' data(pars)
@@ -196,7 +196,7 @@ dens_surf <- function(alpha = pars$surface$alpha,
 #' @seealso \code{\link{HerringSpawn}} \code{\link{load_area_data}}
 #'   \code{\link{load_width}} \code{\link{eggs_to_sb}}
 #'   \code{\link{pars}} \code{\link{intensity}} \code{\link{dens_surf}}
-#' @family calculation functions
+#' @family calculate functions
 #' @export
 #' @examples
 #' db_loc <- system.file("extdata", package = "SpawnIndex")
@@ -500,7 +500,7 @@ calc_surf_index <- function(where,
 #' @return Numeric. Number of eggs per plant in thousands. Message if < 0.
 #' @references \insertAllCited
 #' @seealso \code{\link{pars}} \code{\link{calc_macro_index}}
-#' @family calculation functions
+#' @family calculate functions
 #' @export
 #' @examples
 #' data(pars)
@@ -581,7 +581,7 @@ eggs_macro <- function(xi = pars$macrocystis$xi,
 #' @seealso \code{\link{HerringSpawn}} \code{\link{load_area_data}}
 #'   \code{\link{eggs_to_sb}} \code{\link{pars}}
 #'   \code{\link{eggs_macro}}
-#' @family calculation functions
+#' @family calculate functions
 #' @export
 #' @examples
 #' db_loc <- system.file("extdata", package = "SpawnIndex")
@@ -783,7 +783,7 @@ calc_macro_index <- function(where,
 #' @references \insertAllCited
 #' @seealso \code{\link{pars}} \code{\link{calc_under_index}}
 #'   \code{\link{dens_under_alg}}
-#' @family calculation functions
+#' @family calculate functions
 #' @export
 #' @examples
 #' data(pars)
@@ -842,7 +842,7 @@ dens_under_sub <- function(varphi = pars$understory$varphi,
 #' @references \insertAllCited
 #' @seealso \code{\link{pars}} \code{\link{calc_under_index}}
 #'   \code{\link{dens_under_sub}}
-#' @family calculation functions
+#' @family calculate functions
 #' @export
 #' @examples
 #' data(pars)
@@ -926,7 +926,7 @@ dens_under_alg <- function(vartheta = pars$understory$vartheta,
 #'   \code{\link{eggs_to_sb}} \code{\link{pars}}
 #'   \code{\link{algae_coefs}} \code{\link{dens_under_sub}}
 #'   \code{\link{dens_under_alg}}
-#' @family calculation functions
+#' @family calculate functions
 #' @export
 #' @examples
 #' db_loc <- system.file("extdata", package = "SpawnIndex")

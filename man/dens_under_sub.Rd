@@ -42,7 +42,7 @@ dens_under_sub(egg_layers = 4, proportion = 0.5)
 \code{\link{pars}} \code{\link{calc_under_index}}
 \code{\link{dens_under_alg}}
 
-Other calculation functions: 
+Other calculate functions: 
 \code{\link{calc_macro_index}()},
 \code{\link{calc_sok_index}()},
 \code{\link{calc_surf_index}()},
@@ -52,4 +52,4 @@ Other calculation functions:
 \code{\link{eggs_macro}()},
 \code{\link{eggs_to_sb}()}
 }
-\concept{calculation functions}
+\concept{calculate functions}

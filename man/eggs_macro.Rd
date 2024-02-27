@@ -56,7 +56,7 @@ eggs_macro(egg_layers = 4, height = 3, stalks_per_plant = 2)
 \seealso{
 \code{\link{pars}} \code{\link{calc_macro_index}}
 
-Other calculation functions: 
+Other calculate functions: 
 \code{\link{calc_macro_index}()},
 \code{\link{calc_sok_index}()},
 \code{\link{calc_surf_index}()},
@@ -66,4 +66,4 @@ Other calculation functions:
 \code{\link{dens_under_sub}()},
 \code{\link{eggs_to_sb}()}
 }
-\concept{calculation functions}
+\concept{calculate functions}

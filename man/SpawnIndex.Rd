@@ -18,7 +18,7 @@ and estimate spawning biomass in spawn-on-kelp operations. Note that the
 }
 \details{
 The SpawnIndex package provides raw data, data, and four families of
-functions: load, calculation, check, and utility.
+functions: load, calculate, check, and utility.
 }
 \note{
 The `spawn index' is a relative index of spawning biomass. Read the
@@ -45,8 +45,8 @@ polygons (\code{\link{sections}}).
 \code{\link{load_sections}}.
 }
 
-\section{Calculation functions}{
- The calculation functions are
+\section{Calculate functions}{
+ The calculate functions are
 \code{\link{eggs_to_sb}}, \code{\link{calc_sok_index}},
 \code{\link{dens_surf}}, \code{\link{calc_surf_index}},
 \code{\link{eggs_macro}}, \code{\link{calc_macro_index}},
