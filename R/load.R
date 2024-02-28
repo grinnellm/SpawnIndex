@@ -331,8 +331,10 @@ load_all_spawn <- function(where,
   # Check input: tibble rows
   check_tibble(dat = list(areas = areas), quiet = quiet)
   # Area names
-  area_names <- c("SAR", "Region", "RegionName", "StatArea", "Group", "Section",
-                  "LocationCode", "LocationName", "Pool", "geometry")
+  area_names <- c(
+    "SAR", "Region", "RegionName", "StatArea", "Group", "Section",
+    "LocationCode", "LocationName", "Pool", "geometry"
+  )
   # Check areas: names
   if (!all(area_names %in% names(areas))) {
     stop("`areas` is missing columns", call. = FALSE)
@@ -476,8 +478,10 @@ load_width <- function(where,
   # Check input: tibble rows
   check_tibble(dat = list(areas = areas), quiet = quiet)
   # Area names
-  area_names <- c("SAR", "Region", "RegionName", "StatArea", "Group", "Section",
-                  "LocationCode", "LocationName", "Pool", "geometry")
+  area_names <- c(
+    "SAR", "Region", "RegionName", "StatArea", "Group", "Section",
+    "LocationCode", "LocationName", "Pool", "geometry"
+  )
   # Check areas: names
   if (!all(area_names %in% names(areas))) {
     stop("`areas` is missing columns", call. = FALSE)
@@ -585,8 +589,10 @@ load_sections <- function(sections,
   # Check input: tibble rows
   check_tibble(dat = list(areas = areas), quiet = quiet)
   # Area names
-  area_names <- c("SAR", "Region", "RegionName", "StatArea", "Group", "Section",
-                  "LocationCode", "LocationName", "Pool", "geometry")
+  area_names <- c(
+    "SAR", "Region", "RegionName", "StatArea", "Group", "Section",
+    "LocationCode", "LocationName", "Pool", "geometry"
+  )
   # Check areas: names
   if (!all(area_names %in% names(areas))) {
     stop("`areas` is missing columns", call. = FALSE)
