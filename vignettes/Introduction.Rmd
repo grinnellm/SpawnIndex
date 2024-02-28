@@ -50,6 +50,7 @@ library(kableExtra)
 library(sf)
 library(rnaturalearth)
 library(rnaturalearthhires)
+library(scales)
 # Suppress summarise info
 options(dplyr.summarise.inform = FALSE)
 ```
@@ -82,8 +83,6 @@ set.seed(12)
 n_samp <- 3
 # Default spawn index parameter values
 data(pars)
-# Coordinate reference system
-epsg_crs <- 4326
 ```
 
 This example will focus on `r region`
@@ -155,7 +154,6 @@ canada <- ne_countries(
   scale = "large", returnclass = "sf", country = "canada"
 ) %>%
   select(geometry) %>%
-  st_transform(crs = epsg_crs) %>%
   st_crop(polys_bb)
 ```
 
@@ -262,7 +260,7 @@ ggplot(data = surf_loc_yr, mapping = aes(geometry = geometry)) +
     data = polys$stat_areas, mapping = aes(label = StatArea), alpha = 0.5
   ) +
   geom_sf(mapping = aes(colour = Surface), size = 3) +
-  scale_colour_viridis_c() +
+  scale_colour_viridis_c(labels = comma) +
   labs(x = "Longitude", y = "Latitude", colour = "Spawn\nindex (t)") +
   coord_sf(expand = FALSE) +
   facet_wrap(Year ~ ., ncol = 2) +
@@ -289,7 +287,9 @@ surf_yr_cap <- paste(
   max(yr_range), "in the", region, "stock assessment region (SAR).</i>"
 )
 # Table
-kable(x = surf_yr, digits = c(0, 1), booktabs = TRUE, caption = surf_yr_cap)
+surf_yr %>%
+  mutate(Surface = number(Surface, big.mark = ",", accuracy = 0.1)) %>%
+  kable(align = "rr", digits = c(0, 1), booktabs = TRUE, caption = surf_yr_cap)
 ```
 
 ### Macrocystis spawn index
@@ -341,7 +341,7 @@ ggplot(data = macro_loc_yr, mapping = aes(geometry = geometry)) +
     data = polys$stat_areas, mapping = aes(label = StatArea), alpha = 0.5
   ) +
   geom_sf(mapping = aes(colour = Macrocystis), size = 3) +
-  scale_colour_viridis_c() +
+  scale_colour_viridis_c(labels = comma) +
   labs(x = "Longitude", y = "Latitude", colour = "Spawn\nindex (t)") +
   coord_sf(expand = FALSE) +
   facet_wrap(Year ~ ., ncol = 2) +
@@ -368,7 +368,9 @@ macro_yr_cap <- paste(
   max(yr_range), "in the", region, "stock assessment region (SAR).</i>"
 )
 # Table
-kable(x = macro_yr, digits = c(0, 1), booktabs = TRUE, caption = macro_yr_cap)
+macro_yr %>%
+  mutate(Macrocystis = number(Macrocystis, big.mark = ",", accuracy = 0.1)) %>%
+  kable(align = "rr", digits = c(0, 1), booktabs = TRUE, caption = macro_yr_cap)
 ```
 
 ### Understory spawn index
@@ -427,7 +429,7 @@ ggplot(data = under_loc_yr, mapping = aes(geometry = geometry)) +
     data = polys$stat_areas, mapping = aes(label = StatArea), alpha = 0.5
   ) +
   geom_sf(mapping = aes(colour = Understory), size = 3) +
-  scale_colour_viridis_c() +
+  scale_colour_viridis_c(labels = comma) +
   labs(x = "Longitude", y = "Latitude", colour = "Spawn\nindex (t)") +
   coord_sf(expand = FALSE) +
   facet_wrap(Year ~ ., ncol = 2) +
@@ -454,7 +456,9 @@ under_yr_cap <- paste(
   max(yr_range), "in the", region, "stock assessment region (SAR).</i>"
 )
 # Table
-kable(x = under_yr, digits = c(0, 1), booktabs = TRUE, caption = under_yr_cap)
+under_yr %>%
+  mutate(Understory = number(Understory, big.mark = ",", accuracy = 0.1)) %>%
+  kable(align = "rr", digits = c(0, 1), booktabs = TRUE, caption = under_yr_cap)
 ```
 
 ### Total spawn index
@@ -481,10 +485,17 @@ total_yr_cap <- paste(
   max(yr_range), "in the", region, "stock assessment region (SAR).</i>"
 )
 # Table
-kable(
-  x = total_yr, digits = c(0, 1, 1, 1, 1), booktabs = TRUE,
-  caption = total_yr_cap
-) %>%
+total_yr %>%
+  mutate(
+    Surface = number(Surface, big.mark = ",", accuracy = 0.1),
+    Macrocystis = number(Macrocystis, big.mark = ",", accuracy = 0.1),
+    Understory = number(Understory, big.mark = ",", accuracy = 0.1),
+    Total = number(Total, big.mark = ",", accuracy = 0.1)
+  ) %>%
+  kable(
+    align = "rrrrr", digits = c(0, 1, 1, 1, 1), booktabs = TRUE,
+    caption = total_yr_cap
+  ) %>%
   add_header_above(header = c("", "Survey" = 3, ""))
 ```
 
@@ -540,9 +551,12 @@ surf_dat_cap <- paste(
   "as length and width of the spawn in metres (m).</i>"
 )
 # Table
-kable(
-  x = surf_dat, digits = c(0, 1, 0, 0), booktabs = TRUE, caption = surf_dat_cap
-)
+surf_dat %>%
+  mutate(Length = number(Length, big.mark = ",")) %>%
+  kable(
+    align = "rrrr", digits = c(0, 1, 0, 0), booktabs = TRUE,
+    caption = surf_dat_cap
+  )
 ```
 
 Finally, we calculate egg density using the default parameters, and
@@ -566,10 +580,16 @@ surf_ind_cap <- paste(
   "index in tonnes (t).</i>"
 )
 # Table
-kable(
-  x = surf_ind, digits = c(0, 1, 0, 0, 0, 1), booktabs = TRUE,
-  caption = surf_ind_cap
-)
+surf_ind %>%
+  mutate(
+    Length = number(Length, big.mark = ","),
+    Density = number(Density, big.mark = ","),
+    Index = number(Index, big.mark = ",", accuracy = 0.1)
+  ) %>%
+  kable(
+    align = "rrrrrr", digits = c(0, 1, 0, 0, 0, 1), booktabs = TRUE,
+    caption = surf_ind_cap
+  )
 ```
 
 Note that this example is for surface spawn surveys,
@@ -597,7 +617,11 @@ sok_yr_cap <- paste(
   "stock assessment region (SAR).</i>"
 )
 # Table
-kable(x = kg_sok, digits = c(0, 0, 1), booktabs = TRUE, caption = sok_yr_cap)
+kg_sok %>%
+  mutate(Harvest = number(Harvest, big.mark = ",")) %>%
+  kable(
+    align = "rrr", digits = c(0, 0, 1), booktabs = TRUE, caption = sok_yr_cap
+  )
 ```
 
 # References
