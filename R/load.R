@@ -12,10 +12,6 @@
 #' @param sec_sub Numeric vector or NULL. Subset of Sections to include in the
 #'   analysis, or NULL to include all the Sections in the region.
 #' @template param-where
-#' @param in_crs Numeric. Input coordinate reference system;
-#'   \href{https://spatialreference.org/}{use EPSG codes if desired}.
-#' @param out_crs Numeric. Output coordinate reference system;
-#'   \href{https://spatialreference.org/}{use EPSG codes if desired}.
 #' @param groups Tibble or NULL. Optional table to add a "Group" column to the
 #'   results, say to aggregate data by combinations of Sections. Must have a
 #'   column named "Group", and one or more of "StatArea", "Section",
@@ -63,8 +59,6 @@
 load_area_data <- function(reg,
                            sec_sub = NULL,
                            where,
-                           in_crs = 4326,
-                           out_crs = 4326,
                            groups = NULL,
                            region_table = regions,
                            quiet = FALSE) {
@@ -78,8 +72,6 @@ load_area_data <- function(reg,
   check_where(
     dat = where, dat_names = c("loc", "db", "fns.sections", "fns.locations")
   )
-  # Check input: NA and numeric
-  check_numeric(dat = list(in_crs = in_crs, out_crs = out_crs), quiet = quiet)
   # Check groups: tibble or NULL
   if (is_tibble(groups)) {
     # Check group names
@@ -203,10 +195,9 @@ load_area_data <- function(reg,
     ) %>%
     arrange(LocationCode) %>%
     distinct()
-  # Make locations a spatial points object and transform (e.g., WGS to Albers)
+  # Make locations a spatial points object
   loc_pts <- loc_dat %>%
-    st_as_sf(coords = c("Longitude", "Latitude"), crs = in_crs) %>%
-    st_transform(crs = out_crs)
+    st_as_sf(coords = c("Longitude", "Latitude"))
   # Extract relevant location data
   locations <- loc_pts %>%
     mutate(
@@ -572,8 +563,6 @@ load_width <- function(where,
 #'   TRUE.
 #' @param buffer Numeric. Buffer around polygons; distance in metres. Default
 #'   5000.
-#' @param out_crs Numeric. Target coordinate reference system. Default
-#'   \href{https://spatialreference.org/ref/epsg/wgs-84/}{4326}.
 #' @template param-quiet
 #' @importFrom sf st_read st_bbox st_buffer st_transform
 #' @return List of spatial objects showing Section, Group, Statistical Area, and
@@ -596,7 +585,6 @@ load_sections <- function(sections,
                           areas,
                           subset = TRUE,
                           buffer = 5000,
-                          out_crs = 4326,
                           quiet = FALSE) {
   # Check input: tibble rows
   check_tibble(dat = list(areas = areas), quiet = quiet)
@@ -608,7 +596,7 @@ load_sections <- function(sections,
     stop("`areas` is missing columns", call. = FALSE)
   }
   # Check input: NA and numeric
-  check_numeric(dat = list(buffer = buffer, out_crs = out_crs), quiet = quiet)
+  check_numeric(dat = list(buffer = buffer), quiet = quiet)
   # Check buffer: range
   if (any(na.omit(buffer) < 0) && !quiet) message("`buffer` < 0.")
   # Get area information
@@ -633,14 +621,12 @@ load_sections <- function(sections,
   groups <- sections %>%
     group_by(Group) %>%
     summarise() %>%
-    ungroup() %>%
-    st_transform(crs = out_crs)
+    ungroup()
   # Dissolve to statistical area
   stat_areas <- sections %>%
     group_by(Region, StatArea) %>%
     summarise() %>%
-    ungroup() %>%
-    st_transform(crs = out_crs)
+    ungroup()
   # Dissolve to region
   regions <- sections %>%
     group_by(Region) %>%
@@ -652,12 +638,8 @@ load_sections <- function(sections,
     st_bbox()
   # Determine x:y aspect ratio (for plotting)
   xy_ratio <- as.numeric((buff$xmax - buff$xmin) / (buff$ymax - buff$ymin))
-  # Transform sections
-  sections <- sections %>%
-    st_transform(crs = out_crs)
   # Transform regions
-  regions <- regions %>%
-    st_transform(crs = out_crs)
+  regions <- regions
   # Return the spatial objects etc
   return(list(
     sections = sections, groups = groups, stat_areas = stat_areas,

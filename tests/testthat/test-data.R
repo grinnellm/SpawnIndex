@@ -79,7 +79,7 @@ test_that("Sections", {
   expect_true("sf" %in% class(sections))
   expect_true(all(st_is_valid(sections)))
   expect_true(all(st_geometry_type(sections) == "POLYGON"))
-  expect_equal(st_crs(sections)$input, "NAD83 / BC Albers")
+  expect_equal(st_crs(sections)$input, "+proj=longlat +datum=WGS84")
   expect_equal(names(sections), c("Section", "geometry"))
   expect_equal(dim(sections), c(108, 2))
 })

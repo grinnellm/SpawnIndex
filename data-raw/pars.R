@@ -82,14 +82,14 @@ under_width_facs <- read_csv(
   col_types = cols("d", "d", "d", "d", "d", "d", "d", "d")
 )
 save(
-  under_width_facs,
-  file = here("data", "under_width_facs.RData"), version = 2
+  under_width_facs, file = here("data", "under_width_facs.RData"), version = 2
 )
 
-# Section polygons
+# Section polygons (transform to LL)
 sections <- st_read(
   dsn = here("data-raw", "Sections"), layer = "HerringSections",
   quiet = TRUE
 ) %>%
-  select(Section, geometry)
+  select(Section, geometry) %>%
+  st_transform(crs = "+proj=longlat +datum=WGS84")
 save(sections, file = here("data", "sections.RData"), version = 2)

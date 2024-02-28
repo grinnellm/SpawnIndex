@@ -4,14 +4,7 @@
 \alias{load_sections}
 \title{Load and wrangle Pacific Herring Section shapefiles.}
 \usage{
-load_sections(
-  sections,
-  areas,
-  subset = TRUE,
-  buffer = 5000,
-  out_crs = 4326,
-  quiet = FALSE
-)
+load_sections(sections, areas, subset = TRUE, buffer = 5000, quiet = FALSE)
 }
 \arguments{
 \item{sections}{Simple feature collection of polygons; from
@@ -25,9 +18,6 @@ TRUE.}
 
 \item{buffer}{Numeric. Buffer around polygons; distance in metres. Default
 5000.}
-
-\item{out_crs}{Numeric. Target coordinate reference system. Default
-\href{https://spatialreference.org/ref/epsg/wgs-84/}{4326}.}
 
 \item{quiet}{Logical. Suppress messages; default is FALSE.}
 }

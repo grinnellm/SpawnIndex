@@ -147,13 +147,14 @@
 
 #' Pacific Herring Section polygons.
 #'
-#' Pacific Herring Section polygons, with information to aggregate Sections by
-#' Statistical Area and Region.
+#' Pacific Herring Section polygons, which can be aggregated to Statistical Area
+#' and Region.
 #'
 #' @format Simple feature collection of polygons that define the spatial
-#'   boundaries of Pacific Herring Sections, Statistical Areas, and Regions.
-#'   Coordinate reference system: these polygons are projected in BC Albers (NAD
-#'   83).
+#'   boundaries of Pacific Herring Sections. These polygons have a geodetic
+#'   coordinate reference system (latitude and longitude) with datum WGS 1984.
+#'   Note that Sections can be aggregated to Statistical Areas and Regions using
+#'   the \code{areas} argument in \code{\link{load_sections}}.
 #' @docType data
 #' @seealso \code{\link{load_sections}}
 #' @family data
