@@ -35,8 +35,8 @@ Install the SpawnIndex package from
 [GitHub](https://github.com/grinnellm/SpawnIndex) with:
 
 ```{r install, eval = FALSE}
-# install.packages("devtools")
-devtools::install_github(repo = "grinnellm/SpawnIndex")
+# install.packages("remotes")
+remotes::install_github(repo = "grinnellm/SpawnIndex")
 ```
 
 ## Examples
