@@ -23,7 +23,7 @@ TRUE.}
 }
 \value{
 List of spatial objects showing Section, Group, Statistical Area, and
-Region boundaries.
+Region boundaries. In addition, the x:y ratio (for plotting).
 }
 \description{
 Load and wrangle Pacific Herring Section shapefiles, and aggregate to

@@ -200,11 +200,7 @@ load_area_data <- function(reg,
     st_as_sf(coords = c("Longitude", "Latitude"))
   # Extract relevant location data
   locations <- loc_pts %>%
-    mutate(
-      # Eastings = ifelse(is.na(Longitude), Longitude, X),
-      # Northings = ifelse(is.na(Latitude), Latitude, Y),
-      Section = as.integer(Section)
-    ) %>%
+    mutate(Section = as.integer(Section)) %>%
     select(
       StatArea, Section, LocationCode, LocationName, Pool, geometry
     ) %>%
@@ -566,7 +562,7 @@ load_width <- function(where,
 #' @template param-quiet
 #' @importFrom sf st_read st_bbox st_buffer st_transform
 #' @return List of spatial objects showing Section, Group, Statistical Area, and
-#'   Region boundaries.
+#'   Region boundaries. In addition, the x:y ratio (for plotting).
 #' @references \insertAllCited
 #' @seealso \code{\link{sections}}
 #' @family load functions
