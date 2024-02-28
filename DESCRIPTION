@@ -28,7 +28,7 @@ RoxygenNote: 7.2.3
 Depends: R (== 4.1.3)
 Imports: Rdpack, dplyr, readr, stringr, tibble, tidyr, sf, lubridate, DBI, odbc
 Suggests: spelling, knitr, rmarkdown, magrittr, kableExtra, ggplot2, covr,
-    rnaturalearth, rnaturalearthhires, testthat, here
+    rnaturalearth, rnaturalearthhires, testthat, here, scales
 Remotes: pbs-assess/gfiscamutils, ropensci/rnaturalearthhires
 RdMacros: Rdpack
 VignetteBuilder: knitr
