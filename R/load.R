@@ -613,7 +613,7 @@ load_sections <- function(sections,
   # Subset to sections in areas
   if (subset) {
     sections <- sections %>%
-      filter(Section %in% areas$Section) %>%
+      filter(Section %in% areas_sm$Section) %>%
       left_join(y = areas_sm, by = "Section")
   } else { # End if subset, otherwise
     sections <- sections %>%
