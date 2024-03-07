@@ -10,38 +10,41 @@ load_area_data(
   where,
   groups = NULL,
   region_table = regions,
+  crs = "+proj=longlat +datum=WGS84",
   quiet = FALSE
 )
 }
 \arguments{
 \item{reg}{Character. Region of interest (see \code{\link{regions}}).}
 
-\item{sec_sub}{Numeric vector or NULL. Subset of Sections to include in the
-analysis, or NULL to include all the Sections in the region.}
+\item{sec_sub}{Numeric vector or NULL. Subset of Sections to include, or NULL
+to include all the Sections in the region.}
 
 \item{where}{List. Location and name of the Pacific Herring spawn survey
 database, as well as required tables (see examples).}
 
 \item{groups}{Tibble or NULL. Optional table to add a "Group" column to the
-results, say to aggregate data by combinations of Sections. Must have a
-column named "Group", and one or more of "StatArea", "Section",
-"LocationCode". Set to NULL to ignore (and Group column will be NA).}
+results, say to aggregate data by combinations of Sections. Must have
+columns named "Group" and "Section". Set to NULL to ignore (and Group
+column will be NA).}
 
 \item{region_table}{Tibble. Cross-walk table for regions and region names;
 from \code{\link{regions}}.}
 
+\item{crs}{Character. Coordinate reference system for geometry.}
+
 \item{quiet}{Logical. Suppress messages; default is FALSE.}
 }
 \value{
-Tibble. Table of geographic information for Pacific Herring: SAR,
-Region, Region name, Statistical Area, Group, Section, Location code,
-Location name, Pool, Eastings, Northings, Longitude, and Latitude.
+Simple features (points) with geographic information for Pacific
+Herring: SAR, Region, Region name, Statistical Area, Group, Section,
+Location code, Location name, and Pool.
 }
 \description{
 Load Pacific Herring areas. Herring areas are kept in two files: the section
-file has coarse area information, and location file has finer details. This
-function merges these two files, and drops unnecessary rows and columns. In
-addition, 'groups' are created for certain regions based on section numbers.
+file has coarse area information and the location file has finer details.
+This function merges these two files and drops unnecessary rows and columns.
+In addition, 'groups' are created for certain regions based on sections.
 The output is a data frame with both coarse- and fine-scale area information
 for the region(s) in question. There is an option to subset the sections if
 desired.

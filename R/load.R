@@ -1,23 +1,24 @@
 #' Load Pacific Herring areas.
 #'
 #' Load Pacific Herring areas. Herring areas are kept in two files: the section
-#' file has coarse area information, and location file has finer details. This
-#' function merges these two files, and drops unnecessary rows and columns. In
-#' addition, 'groups' are created for certain regions based on section numbers.
+#' file has coarse area information and the location file has finer details.
+#' This function merges these two files and drops unnecessary rows and columns.
+#' In addition, 'groups' are created for certain regions based on sections.
 #' The output is a data frame with both coarse- and fine-scale area information
 #' for the region(s) in question. There is an option to subset the sections if
 #' desired.
 #'
 #' @param reg Character. Region of interest (see \code{\link{regions}}).
-#' @param sec_sub Numeric vector or NULL. Subset of Sections to include in the
-#'   analysis, or NULL to include all the Sections in the region.
+#' @param sec_sub Numeric vector or NULL. Subset of Sections to include, or NULL
+#'   to include all the Sections in the region.
 #' @template param-where
 #' @param groups Tibble or NULL. Optional table to add a "Group" column to the
-#'   results, say to aggregate data by combinations of Sections. Must have a
-#'   column named "Group", and one or more of "StatArea", "Section",
-#'   "LocationCode". Set to NULL to ignore (and Group column will be NA).
+#'   results, say to aggregate data by combinations of Sections. Must have
+#'   columns named "Group" and "Section". Set to NULL to ignore (and Group
+#'   column will be NA).
 #' @param region_table Tibble. Cross-walk table for regions and region names;
 #'   from \code{\link{regions}}.
+#' @param crs Character. Coordinate reference system for geometry.
 #' @template param-quiet
 #' @importFrom readr read_csv cols
 #' @importFrom dplyr filter select mutate full_join %>% transmute right_join
@@ -25,12 +26,12 @@
 #' @importFrom tidyr unite
 #' @importFrom odbc dbConnect odbc dbDisconnect
 #' @importFrom DBI dbReadTable
-#' @importFrom tibble as_tibble is_tibble
+#' @importFrom tibble as_tibble is_tibble tibble
 #' @importFrom sf st_as_sf st_transform
 #' @importFrom Rdpack reprompt
-#' @return Tibble. Table of geographic information for Pacific Herring: SAR,
-#'   Region, Region name, Statistical Area, Group, Section, Location code,
-#'   Location name, Pool, Eastings, Northings, Longitude, and Latitude.
+#' @return Simple features (points) with geographic information for Pacific
+#'   Herring: SAR, Region, Region name, Statistical Area, Group, Section,
+#'   Location code, Location name, and Pool.
 #' @seealso \code{\link{HerringSpawn}} \code{\link{regions}}
 #' @family load functions
 #' @note This function requires 32-bit R to load data from the 32-bit MS Access
@@ -61,6 +62,7 @@ load_area_data <- function(reg,
                            where,
                            groups = NULL,
                            region_table = regions,
+                           crs = "+proj=longlat +datum=WGS84",
                            quiet = FALSE) {
   # Check reg: character
   if (!is.character(reg)) stop("`reg` must be character.", call. = FALSE)
@@ -74,22 +76,12 @@ load_area_data <- function(reg,
   )
   # Check groups: tibble or NULL
   if (is_tibble(groups)) {
-    # Check group names
-    if (!"Group" %in% names(groups)) {
-      stop("`groups` needs column named 'Group`", call. = FALSE)
-    }
-    if (!any(c("StatArea", "Section", "LocationCode") %in% names(groups))) {
-      stop("`groups` needs column named `StatArea`, `Section`, and/or
-           LocationCode", call. = FALSE)
+    if (!all(c("Group", "Section") %in% names(groups))) {
+      stop("Groups table is missing columns", call. = FALSE)
     }
   } else {
     # If not tibble, must be NULL
     if (!is.null(groups)) stop("`groups` must be tibble or NULL.")
-  }
-  # If region isn't JS, remove it
-  if (!reg %in% c("JS", "All")) {
-    region_table <- region_table %>%
-      filter(SAR != 8)
   }
   # Error if region is incorrect
   if (!(reg %in% c(region_table$Region, "All"))) {
@@ -117,53 +109,65 @@ load_area_data <- function(reg,
   if (!all(c("SAR", "Section") %in% names(sections))) {
     stop("Sections table is missing columns", call. = FALSE)
   }
-  # Is it a special region?
+  # Get required columns from table
+  sections <- sections %>%
+    as_tibble() %>%
+    select(SAR, Section) %>%
+    distinct()
+  # Get region type
   reg_type <- region_table$Type[which(region_table$Region == reg)]
   # Fix if region is All
   if (reg == "All" && length(reg_type) == 0) reg_type <- ""
-  # If the region is special
-  if (reg_type == "Special") {
-    # TODO: Sections 132 and 135 are also SoG sections -- how to resolve?
-    # Manual fix: Johnstone Strait herring sections
-    if (reg == "JS") special_sections <- c(111, 112, 121:127, 131:136)
-    if (reg == "A10") special_sections <- c(101:103)
-    # Message
+  # If the region is special (A10)
+  if (reg_type == "Special" & reg == "A10") {
+    # If not quiet
     if (!quiet) {
-      cat("Note that this is a special SAR, not an official SAR.")
-      if (reg == "JS") {
-        cat("Sections 132 and 135 are in SoG.\n")
-      }
-      if (reg == "A10") {
-        cat("Sections 101, 102, and 103 are in CC.\n")
-      }
-    }
+      # Message
+      cat("Note that", reg, "is a special SAR, not an official SAR.\n")
+    } # End if not quiet
+    # Area 10 herring sections
+    if (reg == "A10") {
+      # Special sections
+      special_sections <- c(101:103)
+      # If not quiet
+      if (!quiet) {
+        # Message
+        cat("\tSections 101, 102, and 103 are in CC.\n")
+      } # End if not quiet
+    } # End if A10
     # Get the region number from the table
     reg_num <- region_table$SAR[which(region_table$Region == reg)]
-    # Wrangle the sections worksheet
+    # Make a new sections worksheet
+    sections <- tibble(
+      SAR = reg_num,
+      Section = formatC(special_sections, width=3, format="d", flag="0")
+    )
+  } # End if special
+  # Subset regions table
+  region_table <- region_table %>%
+    filter(SAR %in% sections$SAR)
+  # Wrangle the sections table
+  sections <- sections %>%
+    full_join(y = region_table, by = "SAR") %>%
+    select(SAR, Region, RegionName, Section) %>%
+    distinct()
+  # If we only want a specific region
+  if (reg != "All") {
+    # Remove areas outside SARs, and other regions
     sections <- sections %>%
-      filter(Section %in% special_sections) %>%
-      mutate(SAR = reg_num) %>%
-      full_join(y = region_table, by = "SAR") %>%
-      filter(Region %in% reg) %>%
-      select(SAR, Region, RegionName, Section) %>%
-      mutate(Section = as.integer(Section)) %>%
-      distinct() %>%
-      as_tibble()
-  } else { # End if special, otherwise
-    # Wrangle the sections table
+      filter(SAR != -1, Region == reg)
+  } # End if we only want a specific region
+  # If not all sections are included
+  if (!is.null(sec_sub)) {
+    # If not quiet
+    if (!quiet) {
+      # Message if not all sections are included
+      cat("Sections: ", paste_nicely(sec_sub), "\n", sep = "")
+    } # End if not quiet
+    # Grab a subset of sections
     sections <- sections %>%
-      full_join(y = region_table, by = "SAR") %>%
-      select(SAR, Region, RegionName, Section) %>%
-      mutate(Section = as.integer(Section)) %>%
-      distinct() %>%
-      as_tibble()
-    # If we only want a specific region
-    if (reg != "All") {
-      # Remove areas outside SARs, and other regions
-      sections <- sections %>%
-        filter(SAR != -1, Region == reg)
-    } # End if we only want a specific region
-  } # End if the region is not Johnstone Strait
+      filter(Section %in% sec_sub)
+  } # End if subsetting sections
   # Access the locations worksheet
   loc <- dbReadTable(conn = access_db, name = where$fns$locations)
   # Error if data was not fetched
@@ -178,46 +182,38 @@ load_area_data <- function(reg,
     stop("Locations table is missing columns", call. = FALSE)
   }
   # Wrangle the locations table
-  loc_dat <- as_tibble(loc) %>%
+  locations <- as_tibble(loc) %>%
     select(
       Loc_Code, Location, StatArea, Section, Bed, Location_Latitude,
       Location_Longitude
     ) %>%
-    mutate(Location = as.character(Location)) %>%
+    mutate(
+      Location = as.character(Location),
+      Bed = as.integer(Bed),
+      StatArea = formatC(StatArea, width=2, format="d", flag="0"),
+      Section = formatC(Section, width=3, format="d", flag="0")
+      ) %>%
     rename(
-      LocationCode = Loc_Code, LocationName = Location,
+      LocationCode = Loc_Code, LocationName = Location, Pool = Bed,
       Latitude = Location_Latitude, Longitude = Location_Longitude, Pool = Bed
     ) %>%
     replace_na(replace = list(Longitude = 0, Latitude = 0)) %>%
-    select(
-      LocationCode, LocationName, Pool, Section, StatArea, Longitude,
-      Latitude
-    ) %>%
-    arrange(LocationCode) %>%
-    distinct()
-  # Make locations a spatial points object
-  loc_pts <- loc_dat %>%
-    st_as_sf(coords = c("Longitude", "Latitude"))
-  # Extract relevant location data
-  locations <- loc_pts %>%
-    mutate(Section = as.integer(Section)) %>%
-    select(
-      StatArea, Section, LocationCode, LocationName, Pool, geometry
-    ) %>%
+    left_join(sections, by = "Section") %>%
     filter(Section %in% sections$Section) %>%
     distinct() %>%
-    as_tibble()
+    st_as_sf(coords = c("Longitude", "Latitude"), crs = crs)
   # If groups is NULL
   if (is.null(groups)) {
     # Set groups to NA
     locations <- locations %>%
       mutate(Group = NA)
   } else { # End if NULL, otherwise
-    # Determine matching columns
-    grp_cols <- which(names(groups) %in% names(locations))
+    # Format groups
+    groups <- groups %>%
+      mutate(Section = formatC(Section, width=3, format="d", flag="0"))
     # Set groups
     locations <- locations %>%
-      left_join(y = groups, by = names(groups)[grp_cols])
+      left_join(y = groups, by = "Section")
   } # End if not NULL
   # If any groups are NA, check if *some* are missing (i.e., incomplete)
   if (any(is.na(locations$Group))) {
@@ -241,29 +237,14 @@ load_area_data <- function(reg,
   } # End if any groups are NA
   # Extract required data
   res <- locations %>%
-    right_join(y = sections, by = "Section") %>%
     filter(!is.na(StatArea), !is.na(Section)) %>%
     select(
       SAR, Region, RegionName, StatArea, Group, Section, LocationCode,
       LocationName, Pool, geometry
     ) %>%
-    mutate(Section = as.integer(Section), Pool = as.integer(Pool)) %>%
-    #      mutate( StatArea=formatC(StatArea, width=2, format="d", flag="0"),
-    #          Section=formatC(Section, width=3, format="d", flag="0") ) %>%
     arrange(Region, StatArea, Group, Section, LocationCode) %>%
     distinct() %>%
-    droplevels()
-  # If not all sections are included
-  if (!is.null(sec_sub)) {
-    # Grab a subset of sections
-    res <- res %>%
-      filter(Section %in% sec_sub) %>%
-      droplevels()
-    # Message
-    if (!quiet) {
-      cat("Sections: ", paste_nicely(sec_sub), "\n", sep = "")
-    }
-  } # End if subsetting sections
+    st_as_sf()
   # Close the connection
   dbDisconnect(conn = access_db)
   # Check output: tibble rows
@@ -278,6 +259,26 @@ load_area_data <- function(reg,
   # Return herring areas
   res
 } # End load_area_data function
+
+# data(regions)
+# db_loc <- system.file("extdata", package = "SpawnIndex")
+# area_loc <- list(
+#   loc = db_loc, db = "HerringSpawn.mdb",
+#   fns = list(sections = "Sections", locations = "Location")
+# )
+# areas <- load_area_data(reg = "WCVI", where = area_loc)
+# areas
+# secs <- c(231:233, 241, 245)
+# grps <- tibble::tibble(
+#   Section = c(231, 232, 233, 241),
+#   Group = c("Alberni Int", "Barkley", "Barkley", "Tofino Int")
+# )
+# areas_sec_grp <- load_area_data(
+#   reg = "WCVI", where = area_loc, groups = grps, sec_sub = secs
+# )
+# dplyr::distinct(dplyr::select(
+#   areas_sec_grp, Region, StatArea, Group, Section
+# ))
 
 #' Load the all spawn table.
 #'
@@ -486,11 +487,13 @@ load_width <- function(where,
   if (!all(area_names %in% names(areas))) {
     stop("`areas` is missing columns", call. = FALSE)
   }
-  # Get area info
+  # Get area information
   areas_sm <- areas %>%
     select(SAR, Region, StatArea, Section, LocationCode, Pool) %>%
-    distinct() %>%
-    as_tibble()
+    arrange(SAR, Region, StatArea, Section, LocationCode, Pool) %>%
+    as_tibble() %>%
+    select(-geometry) %>%
+    distinct()
   # Establish connection with access
   access_db <- dbConnect(
     drv = odbc(),
@@ -511,7 +514,7 @@ load_width <- function(where,
   # Access the section worksheet and wrangle
   sec_std <- dbReadTable(conn = access_db, name = where$fns$section_std) %>%
     rename(Section = SECTION, WidthSec = WIDMED) %>%
-    mutate(Section = as.integer(Section)) %>%
+    mutate(Section = formatC(Section, width=3, format="d", flag="0")) %>%
     left_join(y = areas_sm, by = "Section") %>%
     filter(Section %in% areas_sm$Section) %>%
     select(Region, Section, WidthSec) %>%
@@ -520,7 +523,10 @@ load_width <- function(where,
   # Access the pool worksheet and wrangle
   pool_std <- dbReadTable(conn = access_db, name = where$fns$pool_std) %>%
     rename(Section = SECTION, Pool = BED, WidthPool = WIDMED) %>%
-    mutate(Section = as.integer(Section), Pool = as.integer(Pool)) %>%
+    mutate(
+      Section = formatC(Section, width=3, format="d", flag="0"),
+      Pool = as.integer(Pool)
+    ) %>%
     left_join(y = areas_sm, by = c("Section", "Pool")) %>%
     filter(Section %in% areas_sm$Section) %>%
     select(Region, Section, Pool, WidthPool) %>%
@@ -559,14 +565,12 @@ load_width <- function(where,
 #' @param sections Simple feature collection of polygons; from
 #'   \code{\link{sections}}.
 #' @template param-areas
-#' @param subset Logical. Subset sections to those in \code{areas}. Default
-#'   TRUE.
-#' @param buffer Numeric. Buffer around polygons; distance in metres. Default
-#'   5000.
 #' @template param-quiet
-#' @importFrom sf st_read st_bbox st_buffer st_transform
-#' @return List of spatial objects showing Section, Group, Statistical Area, and
-#'   Region boundaries. In addition, the x:y ratio (for plotting).
+#' @importFrom sf st_read st_bbox st_buffer st_transform st_crs
+#' @importFrom dplyr filter select mutate left_join %>% transmute right_join
+#'   distinct arrange
+#' @return List of simple features (polygons) showing Section, Group,
+#'   Statistical Area, and Region boundaries.
 #' @references \insertAllCited
 #' @seealso \code{\link{sections}}
 #' @family load functions
@@ -583,8 +587,6 @@ load_width <- function(where,
 #' polys <- load_sections(sections = sections, areas = areas)
 load_sections <- function(sections,
                           areas,
-                          subset = TRUE,
-                          buffer = 5000,
                           quiet = FALSE) {
   # Check input: tibble rows
   check_tibble(dat = list(areas = areas), quiet = quiet)
@@ -597,54 +599,50 @@ load_sections <- function(sections,
   if (!all(area_names %in% names(areas))) {
     stop("`areas` is missing columns", call. = FALSE)
   }
-  # Check input: NA and numeric
-  check_numeric(dat = list(buffer = buffer), quiet = quiet)
-  # Check buffer: range
-  if (any(na.omit(buffer) < 0) && !quiet) message("`buffer` < 0.")
+  # Check cRS (same for areas and polys)
+  if (st_crs(areas) != st_crs(sections)){
+    stop("CRS must be the same: areas and sections", call. = FALSE)
+  }
   # Get area information
   areas_sm <- areas %>%
     select(SAR, Region, StatArea, Group, Section) %>%
-    distinct() %>%
-    mutate(
-      StatArea = formatC(StatArea, width = 2, flag = "0"),
-      Section = formatC(Section, width = 3, flag = "0")
-    ) %>%
-    arrange(SAR, StatArea, Group, Section)
-  # Subset to sections in areas
-  if (subset) {
-    sections <- sections %>%
-      filter(Section %in% areas_sm$Section) %>%
-      left_join(y = areas_sm, by = "Section")
-  } else { # End if subset, otherwise
-    sections <- sections %>%
-      left_join(y = areas_sm, by = "Section")
-  } # End if no subset
-  # Dissolve to Groups
+    arrange(SAR, Region, StatArea, Group, Section) %>%
+    as_tibble() %>%
+    select(-geometry) %>%
+    distinct()
+  # Subset sections to those in areas
+  sections <- sections %>%
+    filter(Section %in% areas_sm$Section) %>%
+    left_join(y = areas_sm, by = "Section") %>%
+    select(SAR, Region, StatArea, Group, Section)
+  # Dissolve to statistical area
+  stat_areas <- sections %>%
+    group_by(StatArea) %>%
+    summarise() %>%
+    ungroup()
+  # Dissolve to groups
   groups <- sections %>%
     group_by(Group) %>%
     summarise() %>%
     ungroup()
-  # Dissolve to statistical area
-  stat_areas <- sections %>%
-    group_by(Region, StatArea) %>%
-    summarise() %>%
-    ungroup()
   # Dissolve to region
   regions <- sections %>%
-    group_by(Region) %>%
+    group_by(SAR, Region) %>%
     summarise() %>%
     ungroup()
-  # Get a buffer around the region(s) in question
-  buff <- regions %>%
-    st_buffer(dist = buffer) %>%
-    st_bbox()
-  # Determine x:y aspect ratio (for plotting)
-  xy_ratio <- as.numeric((buff$xmax - buff$xmin) / (buff$ymax - buff$ymin))
-  # Transform regions
-  regions <- regions
   # Return the spatial objects etc
   return(list(
-    sections = sections, groups = groups, stat_areas = stat_areas,
-    regions = regions, xy_ratio = xy_ratio
+    sections = sections, stat_areas = stat_areas, groups = groups,
+    regions = regions
   ))
 } # End load_sections function
+
+# db_loc <- system.file("extdata", package = "SpawnIndex")
+# area_loc <- list(
+#   loc = db_loc, db = "HerringSpawn.mdb",
+#   fns = list(sections = "Sections", locations = "Location")
+# )
+# data(regions)
+# areas <- load_area_data(reg = "WCVI", where = area_loc)
+# data(sections)
+# polys <- load_sections(sections = sections, areas = areas)

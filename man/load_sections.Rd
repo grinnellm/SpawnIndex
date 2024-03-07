@@ -4,7 +4,7 @@
 \alias{load_sections}
 \title{Load and wrangle Pacific Herring Section shapefiles.}
 \usage{
-load_sections(sections, areas, subset = TRUE, buffer = 5000, quiet = FALSE)
+load_sections(sections, areas, quiet = FALSE)
 }
 \arguments{
 \item{sections}{Simple feature collection of polygons; from
@@ -13,17 +13,11 @@ load_sections(sections, areas, subset = TRUE, buffer = 5000, quiet = FALSE)
 \item{areas}{Tibble. Table of geographic information indicating the subset of
 observations to include; from \code{\link{load_area_data}}.}
 
-\item{subset}{Logical. Subset sections to those in \code{areas}. Default
-TRUE.}
-
-\item{buffer}{Numeric. Buffer around polygons; distance in metres. Default
-5000.}
-
 \item{quiet}{Logical. Suppress messages; default is FALSE.}
 }
 \value{
-List of spatial objects showing Section, Group, Statistical Area, and
-Region boundaries. In addition, the x:y ratio (for plotting).
+List of simple features (polygons) showing Section, Group,
+Statistical Area, and Region boundaries.
 }
 \description{
 Load and wrangle Pacific Herring Section shapefiles, and aggregate to

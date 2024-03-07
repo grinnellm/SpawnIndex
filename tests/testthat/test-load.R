@@ -8,21 +8,11 @@ test_that("Load sections", {
   polys <- load_sections(sections = sections, areas = areas)
   expect_type(polys, "list")
   expect_named(
-    polys, c("sections", "groups", "stat_areas", "regions", "xy_ratio")
+    polys, c("sections", "stat_areas", "groups", "regions")
   )
   expect_true(all(st_is_valid(polys$sections)))
   expect_true(all(st_is_valid(polys$groups)))
   expect_true(all(st_is_valid(polys$stat_areas)))
   expect_true(all(st_is_valid(polys$regions)))
-  expect_type(polys$xy_ratio, "double")
   expect_silent(load_sections(sections = sections, areas = areas))
-  expect_message(
-    load_sections(sections = sections, areas = areas, buffer = -1)
-  )
-  expect_error(
-    load_sections(sections = sections, areas = areas, buffer = "5000")
-  )
-  expect_error(
-    load_sections(sections = sections, areas = areas, out_crs = "4326")
-  )
 })
