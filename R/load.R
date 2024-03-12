@@ -260,26 +260,6 @@ load_area_data <- function(reg,
   res
 } # End load_area_data function
 
-# data(regions)
-# db_loc <- system.file("extdata", package = "SpawnIndex")
-# area_loc <- list(
-#   loc = db_loc, db = "HerringSpawn.mdb",
-#   fns = list(sections = "Sections", locations = "Location")
-# )
-# areas <- load_area_data(reg = "WCVI", where = area_loc)
-# areas
-# secs <- c(231:233, 241, 245)
-# grps <- tibble::tibble(
-#   Section = c(231, 232, 233, 241),
-#   Group = c("Alberni Int", "Barkley", "Barkley", "Tofino Int")
-# )
-# areas_sec_grp <- load_area_data(
-#   reg = "WCVI", where = area_loc, groups = grps, sec_sub = secs
-# )
-# dplyr::distinct(dplyr::select(
-#   areas_sec_grp, Region, StatArea, Group, Section
-# ))
-
 #' Load the all spawn table.
 #'
 #' Load the all spawn table, which has additional spawn survey data.
@@ -636,13 +616,3 @@ load_sections <- function(sections,
     regions = regions
   ))
 } # End load_sections function
-
-# db_loc <- system.file("extdata", package = "SpawnIndex")
-# area_loc <- list(
-#   loc = db_loc, db = "HerringSpawn.mdb",
-#   fns = list(sections = "Sections", locations = "Location")
-# )
-# data(regions)
-# areas <- load_area_data(reg = "WCVI", where = area_loc)
-# data(sections)
-# polys <- load_sections(sections = sections, areas = areas)
