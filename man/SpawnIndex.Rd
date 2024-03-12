@@ -3,18 +3,19 @@
 \docType{package}
 \name{SpawnIndex}
 \alias{SpawnIndex}
-\title{SpawnIndex: Calculating the spawn index for Pacific Herring (\emph{Clupea pallasii}) in
-British Columbia, Canada.}
+\title{SpawnIndex: Calculating the spawn index for Pacific Herring (\emph{Clupea pallasii})
+in British Columbia, Canada.}
 \description{
-The SpawnIndex package provides data, parameters, and methods to
-calculate the spawn index for Pacific Herring (\emph{Clupea pallasii}) in British
-Columbia, Canada. Essentially, spawn index calculations convert spawn survey
-observations (e.g., spatial extent, number of egg layers, substrate type) to
-the Pacific Herring spawn index. There are three types of spawn survey
-observations: surface observations, Macrocystis observations, and understory
-observations. In addition, we include methods to convert eggs to biomass,
-and estimate spawning biomass in spawn-on-kelp operations. Note that the
-'spawn index' is a relative index of spawning biomass.
+The SpawnIndex package provides data, parameters, and methods
+to calculate the spawn index for Pacific Herring (\emph{Clupea pallasii})
+in British Columbia, Canada. Spawn index calculations convert spawn
+survey observations (e.g., spatial extent, number of egg layers,
+substrate type) to the Pacific Herring spawn index, a relative index
+of spawning biomass. There are three types of spawn survey
+observations: surface observations, Macrocystis observations, and
+understory observations. In addition, the package includes methods to
+convert eggs to biomass and estimate spawning biomass in
+spawn-on-kelp operations.
 }
 \details{
 The SpawnIndex package provides raw data, data, and four families of
