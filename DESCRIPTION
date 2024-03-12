@@ -11,22 +11,21 @@ Authors@R: c(
     ),
     person(given = "Chris", family = "Grandin", role = "ctb")
   )
-Description: The SpawnIndex package provides data, parameters, and methods
-    to calculate the spawn index for Pacific Herring (*Clupea pallasii*)
-    in British Columbia, Canada. Spawn index calculations convert spawn
-    survey observations (e.g., spatial extent, number of egg layers,
-    substrate type) to the Pacific Herring spawn index, a relative index
-    of spawning biomass. There are three types of spawn survey
-    observations: surface observations, Macrocystis observations, and
-    understory observations. In addition, the package includes methods to
-    convert eggs to biomass and estimate spawning biomass in
-    spawn-on-kelp operations.
+Description: The SpawnIndex package provides data, parameters, and methods to
+    calculate the spawn index for Pacific Herring (*Clupea pallasii*) in
+    British Columbia, Canada. Spawn index calculations convert spawn survey
+    observations (e.g., spatial extent, number of egg layers, substrate type)
+    to the Pacific Herring spawn index, a relative index of spawning biomass.
+    There are three types of spawn survey observations: surface observations,
+    Macrocystis observations, and understory observations. In addition, the
+    package includes methods to convert eggs to biomass and estimate spawning
+    biomass in spawn-on-kelp operations.
 License: MIT + file LICENSE
 URL: https://github.com/grinnellm/SpawnIndex
 BugReports: https://github.com/grinnellm/SpawnIndex/issues
 Depends: R (== 4.1.3)
-Imports: DBI, dplyr, lubridate, odbc, Rdpack, readr, sf, stats, stringr,
-    tibble, tidyr, utils
+Imports: DBI, dplyr, lubridate, odbc, Rdpack, readr, sf, stats, stringr, tibble,
+    tidyr, utils
 Suggests: ggplot2, here, kableExtra, knitr, rmarkdown, rnaturalearth,
     rnaturalearthhires, scales, spelling, testthat
 VignetteBuilder: knitr
