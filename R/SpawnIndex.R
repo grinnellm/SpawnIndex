@@ -2,7 +2,7 @@
 #'
 #' `r read.dcf(file = "DESCRIPTION", fields = "Description")`
 #'
-#' The SpawnIndex package provides raw data, data, and four families of
+#' The SpawnIndex package provides raw data, data, as well as four families of
 #' functions: load, calculate, check, and utility.
 #'
 #' @section Raw data: The raw data is an example database with spawn survey
@@ -35,8 +35,9 @@
 #'   \code{\link{mean_na}}, \code{\link{wt_mean_na}}, and
 #'   \code{\link{unique_na}}.
 #'
-#' @docType package
-#' @name SpawnIndex
+#' @name SpawnIndex-package
+#' @keywords internal
+"_PACKAGE"
 #' @note The `spawn index' is a relative index of spawning biomass. Read the
 #'   technical report for more details and background on spawn index
 #'   calculations \insertCite{GrinnellEtal2022}{SpawnIndex}.
