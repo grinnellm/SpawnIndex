@@ -5,6 +5,7 @@
 \title{Calculate the understory spawn index.}
 \usage{
 calc_under_index(
+  db,
   where,
   areas,
   years,
@@ -19,6 +20,9 @@ calc_under_index(
 )
 }
 \arguments{
+\item{db}{List. Database connection details used in \code{\link{dbConnect}}:
+driver, server, database, and trusted.}
+
 \item{where}{List. Location and name of the Pacific Herring spawn survey
 database, as well as required tables (see examples).}
 

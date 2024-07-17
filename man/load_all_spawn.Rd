@@ -4,11 +4,14 @@
 \alias{load_all_spawn}
 \title{Load the all spawn table.}
 \usage{
-load_all_spawn(where, areas, years, ft2m = 0.3048, quiet = FALSE)
+load_all_spawn(where, db, areas, years, ft2m = 0.3048, quiet = FALSE)
 }
 \arguments{
 \item{where}{List. Location and name of the Pacific Herring spawn survey
 database, as well as required tables (see examples).}
+
+\item{db}{List. Database connection details used in \code{\link{dbConnect}}:
+driver, server, database, and trusted.}
 
 \item{areas}{Tibble. Table of geographic information indicating the subset of
 observations to include; from \code{\link{load_area_data}}.}

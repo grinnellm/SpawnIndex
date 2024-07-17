@@ -4,9 +4,12 @@
 \alias{load_width}
 \title{Load median spawn width.}
 \usage{
-load_width(where, areas, quiet = FALSE)
+load_width(db, where, areas, quiet = FALSE)
 }
 \arguments{
+\item{db}{List. Database connection details used in \code{\link{dbConnect}}:
+driver, server, database, and trusted.}
+
 \item{where}{List. Location and name of the Pacific Herring spawn survey
 database, as well as required tables (see examples).}
 
@@ -28,6 +31,7 @@ because surveyors tend to underestimate spawn width
 from underwater surveys \insertCite{GrinnellEtal2022}{SpawnIndex}.
 }
 \examples{
+\dontrun{
 db_loc <- system.file("extdata", package = "SpawnIndex")
 area_loc <- list(
   loc = db_loc, db = "HerringSpawn.mdb",
@@ -43,6 +47,7 @@ width_loc <- list(
 )
 width_bar <- load_width(where = width_loc, areas = areas)
 width_bar
+}
 }
 \references{
 \insertAllCited

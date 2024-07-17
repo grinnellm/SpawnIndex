@@ -24,6 +24,7 @@ Load and wrangle Pacific Herring Section shapefiles, and aggregate to
 Statistical Areas and Region(s).
 }
 \examples{
+\dontrun{
 db_loc <- system.file("extdata", package = "SpawnIndex")
 area_loc <- list(
   loc = db_loc, db = "HerringSpawn.mdb",
@@ -33,6 +34,7 @@ data(regions)
 areas <- load_area_data(reg = "WCVI", where = area_loc)
 data(sections)
 polys <- load_sections(sections = sections, areas = areas)
+}
 }
 \references{
 \insertAllCited

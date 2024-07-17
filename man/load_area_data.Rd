@@ -7,6 +7,7 @@
 load_area_data(
   reg,
   sec_sub = NULL,
+  db,
   where,
   groups = NULL,
   region_table = regions,
@@ -19,6 +20,9 @@ load_area_data(
 
 \item{sec_sub}{Numeric vector or NULL. Subset of Sections to include, or NULL
 to include all the Sections in the region.}
+
+\item{db}{List. Database connection details used in \code{\link{dbConnect}}:
+driver, server, database, and trusted.}
 
 \item{where}{List. Location and name of the Pacific Herring spawn survey
 database, as well as required tables (see examples).}
@@ -54,6 +58,7 @@ This function requires 32-bit R to load data from the 32-bit MS Access
 database.
 }
 \examples{
+\dontrun{
 data(regions)
 db_loc <- system.file("extdata", package = "SpawnIndex")
 area_loc <- list(
@@ -73,6 +78,7 @@ areas_sec_grp <- load_area_data(
 dplyr::distinct(dplyr::select(
   areas_sec_grp, Region, StatArea, Group, Section
 ))
+}
 }
 \seealso{
 \code{\link{HerringSpawn}} \code{\link{regions}}
