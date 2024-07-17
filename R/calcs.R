@@ -161,6 +161,7 @@ dens_surf <- function(alpha = pars$surface$alpha,
 #' and prepares the data; the actual calculation is done by
 #' \code{\link{dens_surf}}.
 #'
+#' @template param-db
 #' @template param-where
 #' @template param-areas
 #' @param widths List. List of three tables: median region, section, and pool
@@ -223,7 +224,8 @@ dens_surf <- function(alpha = pars$surface$alpha,
 #'   where = surf_loc, areas = areas, widths = width_bar, years = 2010:2015
 #' )
 #' surf_spawn$si
-calc_surf_index <- function(where,
+calc_surf_index <- function(db,
+                            where,
                             areas,
                             widths,
                             years,
@@ -244,10 +246,10 @@ calc_surf_index <- function(where,
     ),
     quiet = quiet
   )
-  # Check where
-  check_where(
-    dat = where, dat_names = c("loc", "db", "fns.surface", "fns.all_spawn")
-  )
+  # # Check where
+  # check_where(
+  #   dat = where, dat_names = c("loc", "db", "fns.surface", "fns.all_spawn")
+  # )
   # Check input: tibble rows
   check_tibble(dat = list(
     areas = areas, region = widths$region, section = widths$section,
@@ -291,22 +293,24 @@ calc_surf_index <- function(where,
   }
   # Check theta: range
   if (any(na.omit(theta) < 0) && !quiet) message("`theta` < 0.")
-  # Establish connection with access
-  access_db <- dbConnect(
-    drv = odbc(),
-    .connection_string = paste(
-      "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=",
-      file.path(where$loc, where$db),
-      sep = ""
-    )
-  )
+  # Establish database connection
+  cnn <- dbConnect(odbc::odbc(),
+                   Driver = db$driver,
+                   Server = db$server,
+                   Database = db$database,
+                   Trusted_Connection = db$trusted)
   # Get a small subset of area data
   areas_sm <- areas %>%
     select(SAR, Region, StatArea, Section, LocationCode, Pool) %>%
     distinct() %>%
     as_tibble()
+  # SQL query
+  sql_all_spawn <- paste(
+    "SELECT", paste(where$columns$all_spawn, collapse = ", "),
+    "FROM", paste(where$schema, where$tables$all_spawn, sep = ".")
+  )
   # Load all spawn
-  spawn <- dbReadTable(conn = access_db, name = where$fns$all_spawn) %>%
+  spawn <- dbGetQuery(conn = cnn, statement = sql_all_spawn) %>%
     rename(
       LocationCode = Loc_Code, SpawnNumber = Spawn_Number, WidthObs = Width
     ) %>%
@@ -314,8 +318,13 @@ calc_surf_index <- function(where,
     filter(Year %in% years, LocationCode %in% areas$LocationCode) %>%
     select(Year, LocationCode, SpawnNumber, Length, WidthObs, Method) %>%
     as_tibble()
-  # Extract relevant surface data
-  surface <- dbReadTable(conn = access_db, name = where$fns$surface) %>%
+  # SQL query
+  sql_surface <- paste(
+    "SELECT", paste(where$columns$surface, collapse = ", "),
+    "FROM", paste(where$schema, where$tables$surface, sep = ".")
+  )
+  # Load surface data
+  surface <- dbGetQuery(conn = cnn, statement = sql_surface) %>%
     rename(LocationCode = Loc_Code, SpawnNumber = Spawn_Number) %>%
     mutate_at(
       .vars = vars(starts_with("Lay"), ends_with("Percent")), .funs = as.double
@@ -456,7 +465,7 @@ calc_surf_index <- function(where,
   si <- biomass_spawn %>%
     select(Year, Region, StatArea, Section, LocationCode, SpawnNumber, SurfSI)
   # Close the connection
-  dbDisconnect(conn = access_db)
+  dbDisconnect(conn = cnn)
   # Assemble into a list
   res <- list(
     surface = surface, eggs = eggs, eggs_spawn = eggs_spawn,
@@ -549,6 +558,7 @@ eggs_macro <- function(xi = pars$macrocystis$xi,
 #' wrangles and prepares the data; the actual calculation is done by
 #' \code{\link{eggs_macro}}.
 #'
+#' @template param-db
 #' @template param-where
 #' @template param-areas
 #' @template param-years
@@ -602,7 +612,8 @@ eggs_macro <- function(xi = pars$macrocystis$xi,
 #'   where = macro_loc, areas = areas, years = 2010:2015
 #' )
 #' macro_spawn$si
-calc_macro_index <- function(where,
+calc_macro_index <- function(db,
+                             where,
                              areas,
                              years,
                              chi = 2,
@@ -620,11 +631,11 @@ calc_macro_index <- function(where,
     ),
     quiet = quiet
   )
-  # Check where
-  check_where(
-    dat = where,
-    dat_names = c("loc", "db", "fns.all_spawn", "fns.plants", "fns.transects")
-  )
+  # # Check where
+  # check_where(
+  #   dat = where,
+  #   dat_names = c("loc", "db", "fns.all_spawn", "fns.plants", "fns.transects")
+  # )
   # Check input: tibble rows
   check_tibble(dat = list(areas = areas), quiet = quiet)
   # Check areas: names
@@ -641,22 +652,24 @@ calc_macro_index <- function(where,
   if (chi != 2 && !quiet) message("`chi` != 2")
   # Check theta: range
   if (any(na.omit(theta) < 0) && !quiet) message("`theta` < 0.")
-  # Establish connection with access
-  access_db <- dbConnect(
-    drv = odbc(),
-    .connection_string = paste(
-      "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=",
-      file.path(where$loc, where$db),
-      sep = ""
-    )
-  )
+  # Establish database connection
+  cnn <- dbConnect(odbc::odbc(),
+                   Driver = db$driver,
+                   Server = db$server,
+                   Database = db$database,
+                   Trusted_Connection = db$trusted)
   # Get a small subset of area data
   areas_sm <- areas %>%
     select(Region, StatArea, Section, LocationCode, Pool) %>%
     distinct() %>%
     as_tibble()
+  # SQL query
+  sql_all_spawn <- paste(
+    "SELECT", paste(where$columns$all_spawn, collapse = ", "),
+    "FROM", paste(where$schema, where$tables$all_spawn, sep = ".")
+  )
   # Load all spawn
-  spawn <- dbReadTable(conn = access_db, name = where$fns$all_spawn) %>%
+  spawn <- dbGetQuery(conn = cnn, statement = sql_all_spawn) %>%
     rename(
       LocationCode = Loc_Code, SpawnNumber = Spawn_Number,
       LengthMacro = Length_Macrocystis
@@ -665,17 +678,30 @@ calc_macro_index <- function(where,
     filter(Year %in% years, LocationCode %in% areas_sm$LocationCode) %>%
     select(Year, LocationCode, SpawnNumber, LengthMacro, Length, Method) %>%
     as_tibble()
+  # SQL query
+  sql_plants <- paste(
+    "SELECT", paste(where$columns$plants, collapse = ", "),
+    "FROM", paste(where$schema, where$tables$plants, sep = ".")
+  )
   # Get plant-level data
-  plants <- dbReadTable(conn = access_db, name = where$fns$plants) %>%
+  plants <- dbGetQuery(conn = cnn, statement = sql_plants) %>%
     rename(LocationCode = Loc_Code, SpawnNumber = Spawn_Number) %>%
     filter(
       Year %in% years, LocationCode %in% areas_sm$LocationCode, !is.na(Mature)
     ) %>%
     select(Year, LocationCode, SpawnNumber, Transect, Mature) %>%
     as_tibble()
+  # SQL query
+  sql_transects <- paste(
+    "SELECT", paste(where$columns$transects, collapse = ", "),
+    "FROM", paste(where$schema, where$tables$transects, sep = ".")
+  )
   # Get transect-level data
-  transects <- dbReadTable(conn = access_db, name = where$fns$transects) %>%
+  transects <- dbGetQuery(conn = cnn, statement = sql_transects) %>%
     rename(LocationCode = Loc_Code, SpawnNumber = Spawn_Number) %>%
+    mutate(LocationCode = as.numeric(LocationCode),
+           SpawnNumber = as.numeric(SpawnNumber),
+           Transect = as.numeric(Transect)) %>%
     filter(Year %in% years, LocationCode %in% areas_sm$LocationCode) %>%
     left_join(y = areas_sm, by = "LocationCode") %>%
     select(
@@ -746,7 +772,7 @@ calc_macro_index <- function(where,
   si <- biomass_spawn %>%
     select(Year, Region, StatArea, Section, LocationCode, SpawnNumber, MacroSI)
   # Close the connection
-  dbDisconnect(conn = access_db)
+  dbDisconnect(conn = cnn)
   # Assemble into a list
   res <- list(
     dat = dat, dat_trans = dat_trans, biomass_spawn = biomass_spawn, si = si
@@ -890,6 +916,7 @@ dens_under_alg <- function(vartheta = pars$understory$vartheta,
 #' primarily wrangles and prepares the data; the actual calculations are done by
 #' \code{\link{dens_under_sub}} and \code{\link{dens_under_alg}}.
 #'
+#' @template param-db
 #' @template param-where
 #' @template param-areas
 #' @template param-years
@@ -949,7 +976,8 @@ dens_under_alg <- function(vartheta = pars$understory$vartheta,
 #'   where = under_loc, areas = areas, years = 2010:2015
 #' )
 #' under_spawn$si
-calc_under_index <- function(where,
+calc_under_index <- function(db,
+                             where,
                              areas,
                              years,
                              alg_coefs = algae_coefs,
@@ -968,13 +996,13 @@ calc_under_index <- function(where,
     ),
     quiet = quiet
   )
-  # Check where
-  check_where(
-    dat = where,
-    dat_names = c(
-      "loc", "db", "fns.all_spawn", "fns.alg_trans", "fns.stations", "fns.algae"
-    )
-  )
+  # # Check where
+  # check_where(
+  #   dat = where,
+  #   dat_names = c(
+  #     "loc", "db", "fns.all_spawn", "fns.alg_trans", "fns.stations", "fns.algae"
+  #   )
+  # )
   # Check input: tibble rows
   check_tibble(
     dat = list(areas = areas, alg_coefs = alg_coefs, tau = tau), quiet = quiet
@@ -1007,22 +1035,24 @@ calc_under_index <- function(where,
   }
   # Check theta: range
   if (any(na.omit(theta) < 0) && !quiet) message("`theta` < 0.")
-  # Establish connection with access
-  access_db <- dbConnect(
-    drv = odbc(),
-    .connection_string = paste(
-      "Driver={Microsoft Access Driver (*.mdb, *.accdb)};Dbq=",
-      file.path(where$loc, where$db),
-      sep = ""
-    )
-  )
+  # Establish database connection
+  cnn <- dbConnect(odbc::odbc(),
+                   Driver = db$driver,
+                   Server = db$server,
+                   Database = db$database,
+                   Trusted_Connection = db$trusted)
   # Get a small subset of area data
   areas_sm1 <- areas %>%
     select(Region, LocationCode) %>%
     distinct() %>%
     as_tibble()
+  # SQL query
+  sql_all_spawn <- paste(
+    "SELECT", paste(where$columns$all_spawn, collapse = ", "),
+    "FROM", paste(where$schema, where$tables$all_spawn, sep = ".")
+  )
   # Load all spawn
-  spawn <- dbReadTable(conn = access_db, name = where$fns$all_spawn) %>%
+  spawn <- dbGetQuery(conn = cnn, statement = sql_all_spawn) %>%
     rename(
       LocationCode = Loc_Code, SpawnNumber = Spawn_Number,
       LengthAlgae = Length_Vegetation
@@ -1031,8 +1061,13 @@ calc_under_index <- function(where,
     filter(Year %in% years, LocationCode %in% areas_sm1$LocationCode) %>%
     select(Year, LocationCode, SpawnNumber, LengthAlgae, Length, Method) %>%
     as_tibble()
+  # SQL query
+  sql_alg_trans <- paste(
+    "SELECT", paste(where$columns$alg_trans, collapse = ", "),
+    "FROM", paste(where$schema, where$tables$alg_trans, sep = ".")
+  )
   # Load algae transects
-  alg_trans <- dbReadTable(conn = access_db, name = where$fns$alg_trans) %>%
+  alg_trans <- dbGetQuery(conn = cnn, statement = sql_alg_trans) %>%
     rename(
       LocationCode = Loc_Code, SpawnNumber = Spawn_Number,
       QuadratSize = Quadrat_Size, WidthObs = Width_Recorded
@@ -1053,8 +1088,13 @@ calc_under_index <- function(where,
   if (any(alg_trans$QuadratSize != 0.5)) {
     stop("All quadrats must be 0.5m^2.", call. = FALSE)
   }
+  # SQL query
+  sql_stations <- paste(
+    "SELECT", paste(where$columns$stations, collapse = ", "),
+    "FROM", paste(where$schema, where$tables$stations, sep = ".")
+  )
   # Load station data
-  stations <- dbReadTable(conn = access_db, name = where$fns$stations) %>%
+  stations <- dbGetQuery(conn = cnn, statement = sql_stations) %>%
     rename(
       LocationCode = Loc_Code, SpawnNumber = Spawn_Number,
       SubLayers = Layers_Bottom
@@ -1071,8 +1111,13 @@ calc_under_index <- function(where,
     summarise(Layers = mean_na(SubLayers)) %>%
     ungroup() %>%
     mutate(Source = "Substrate")
+  # SQL query
+  sql_algae <- paste(
+    "SELECT", paste(where$columns$algae, collapse = ", "),
+    "FROM", paste(where$schema, where$tables$algae, sep = ".")
+  )
   # Load algae
-  algae <- dbReadTable(conn = access_db, name = where$fns$algae) %>%
+  algae <- dbGetQuery(conn = cnn, statement = sql_algae) %>%
     rename(
       LocationCode = Loc_Code, SpawnNumber = Spawn_Number,
       AlgType = Type_Vegetation, AlgLayers = Layers_Vegetation
@@ -1223,7 +1268,7 @@ calc_under_index <- function(where,
   si <- biomass_spawn %>%
     select(Year, Region, StatArea, Section, LocationCode, SpawnNumber, UnderSI)
   # Close the connection
-  dbDisconnect(conn = access_db)
+  dbDisconnect(conn = cnn)
   # Assemble into a list
   res <- list(
     stations = stations, algae = algae, eggs = eggs,
