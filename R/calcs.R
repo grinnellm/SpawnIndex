@@ -447,7 +447,7 @@ calc_surf_index <- function(db,
       Width = ifelse(is.na(Width), WidthSec, Width),
       Width = ifelse(is.na(Width), WidthReg, Width),
       Width = ifelse(is.na(Width), WidthObs, Width),
-      # Biomass in tonnes, based on Hay (1985), and Hay and Brett (1988)
+      # Biomass in tonnes based on Hay (1985), and Hay and Brett (1988): spawns
       SurfSI = EggDens * Length * Width * 1000 / theta
     ) %>%
     # Group to account for 'pool' level (want 'spawn' level)
@@ -702,19 +702,14 @@ calc_macro_index <- function(db,
     "SELECT", paste(where$columns$transects, collapse = ", "),
     "FROM", paste(where$schema, where$tables$transects, sep = ".")
   )
-  # SQL query (2024)
-  sql_transects_2024 <- paste(
-    "SELECT", paste(where$columns$transects, collapse = ", "),
-    "FROM", paste(where$schema, where$tables$transects_2024, sep = ".")
-  )
   # Get transect-level data
-  transects_old <- dbGetQuery(conn = cnn, statement = sql_transects) %>%
+  transects <- dbGetQuery(conn = cnn, statement = sql_transects) %>%
     rename(LocationCode = Loc_Code, SpawnNumber = Spawn_Number) %>%
     mutate(
-      Year = as.numeric(Year),
-      LocationCode = as.numeric(LocationCode),
-      SpawnNumber = as.numeric(SpawnNumber),
-      Transect = as.numeric(Transect)
+      Year = as.numeric(Year), LocationCode = as.numeric(LocationCode),
+      SpawnNumber = as.numeric(SpawnNumber), Transect = as.numeric(Transect),
+      Height = as.numeric(Height), Width = as.numeric(Width),
+      Layers = as.numeric(Layers)
     ) %>%
     filter(Year %in% years, LocationCode %in% areas_sm$LocationCode) %>%
     left_join(y = areas_sm, by = "LocationCode") %>%
@@ -723,22 +718,6 @@ calc_macro_index <- function(db,
       Height, Width, Layers
     ) %>%
     as_tibble()
-  # Get transect-level data
-  transects_2024 <- dbGetQuery(conn = cnn, statement = sql_transects_2024) %>%
-    rename(LocationCode = Loc_Code, SpawnNumber = Spawn_Number) %>%
-    mutate(Year = as.numeric(Year),
-           LocationCode = as.numeric(LocationCode),
-           SpawnNumber = as.numeric(SpawnNumber),
-           Transect = as.numeric(Transect)) %>%
-    filter(Year %in% years, LocationCode %in% areas_sm$LocationCode) %>%
-    left_join(y = areas_sm, by = "LocationCode") %>%
-    select(
-      Year, Region, StatArea, Section, LocationCode, SpawnNumber, Transect,
-      Height, Width, Layers
-    ) %>%
-    as_tibble()
-  # Combine transects
-  transects <- bind_rows(transects_old, transects_2024)
   # Merge the data
   dat <- transects %>%
     left_join(y = plants, by = c(
@@ -792,8 +771,7 @@ calc_macro_index <- function(db,
       ),
       # Eggs density in thousands (10^3 * eggs / m^2; spawn s
       EggDens = EggsPerPlant * Plants / Area,
-      # Biomass in tonnes, based on Hay (1985), and Hay and Brett (1988); spawn
-      # s
+      # Biomass in tonnes based on Hay (1985), and Hay and Brett (1988); spawns
       MacroSI = EggDens * LengthMacro * Width * 1000 / theta
     ) %>%
     rename(MacroLyrs = EggLayers) %>%
@@ -1123,13 +1101,8 @@ calc_under_index <- function(db,
     "SELECT", paste(where$columns$stations, collapse = ", "),
     "FROM", paste(where$schema, where$tables$stations, sep = ".")
   )
-  # SQL query (2024)
-  sql_stations_2024 <- paste(
-    "SELECT", paste(where$columns$stations, collapse = ", "),
-    "FROM", paste(where$schema, where$tables$stations_2024, sep = ".")
-  )
   # Load station data
-  stations_old <- dbGetQuery(conn = cnn, statement = sql_stations) %>%
+  stations <- dbGetQuery(conn = cnn, statement = sql_stations) %>%
     rename(
       LocationCode = Loc_Code, SpawnNumber = Spawn_Number,
       SubLayers = Layers_Bottom
@@ -1140,23 +1113,6 @@ calc_under_index <- function(db,
       Year, LocationCode, SpawnNumber, Transect, Station, SubLayers, SubProp
     ) %>%
     as_tibble()
-  # Load station data (2024)
-  stations_2024 <- dbGetQuery(conn = cnn, statement = sql_stations_2024) %>%
-    rename(
-      LocationCode = Loc_Code, SpawnNumber = Spawn_Number,
-      SubLayers = Layers_Bottom
-    ) %>%
-    filter(Year %in% years, LocationCode %in% areas_sm1$LocationCode) %>%
-    mutate(
-      SubProp = Percent_Bottom / 100, SpawnNumber = as.integer(SpawnNumber),
-      Station = as.integer(Station)
-    ) %>%
-    select(
-      Year, LocationCode, SpawnNumber, Transect, Station, SubLayers, SubProp
-    ) %>%
-    as_tibble()
-  # Combine stations
-  stations <- bind_rows(stations_old, stations_2024)
   # Get egg layer info: substrate
   egg_layers_sub <- stations %>%
     group_by(Year, LocationCode, SpawnNumber, Transect) %>%
@@ -1168,13 +1124,8 @@ calc_under_index <- function(db,
     "SELECT", paste(where$columns$algae, collapse = ", "),
     "FROM", paste(where$schema, where$tables$algae, sep = ".")
   )
-  # SQL query (2024)
-  sql_algae_2024 <- paste(
-    "SELECT", paste(where$columns$algae, collapse = ", "),
-    "FROM", paste(where$schema, where$tables$algae_2024, sep = ".")
-  )
   # Load algae
-  algae_old <- dbGetQuery(conn = cnn, statement = sql_algae) %>%
+  algae <- dbGetQuery(conn = cnn, statement = sql_algae) %>%
     rename(
       LocationCode = Loc_Code, SpawnNumber = Spawn_Number,
       AlgType = Type_Vegetation, AlgLayers = Layers_Vegetation
@@ -1190,27 +1141,6 @@ calc_under_index <- function(db,
       AlgProp
     ) %>%
     as_tibble()
-  # Load algae (2024)
-  algae_2024 <- dbGetQuery(conn = cnn, statement = sql_algae_2024) %>%
-    rename(
-      LocationCode = Loc_Code, SpawnNumber = Spawn_Number,
-      AlgType = Type_Vegetation, AlgLayers = Layers_Vegetation
-    ) %>%
-    filter(Year %in% years, LocationCode %in% areas_sm1$LocationCode) %>%
-    mutate(
-      AlgType = str_to_upper(AlgType),
-      AlgProp = Percent_Vegetation / 100,
-      AlgProp = ifelse(AlgProp > 1, 1, AlgProp),
-      SpawnNumber = as.integer(SpawnNumber),
-      Station = as.integer(Station)
-    ) %>%
-    select(
-      Year, LocationCode, SpawnNumber, Transect, Station, AlgType, AlgLayers,
-      AlgProp
-    ) %>%
-    as_tibble()
-  # Combine algae
-  algae <- bind_rows(algae_old, algae_2024)
   # Get egg layer info: algae
   egg_layers_alg <- algae %>%
     group_by(Year, LocationCode, SpawnNumber, Transect) %>%
@@ -1337,8 +1267,7 @@ calc_under_index <- function(db,
   # Calculate understory biomass by spawn number
   biomass_spawn <- eggs_spawn %>%
     mutate(
-      # Biomass in tonnes, based on Hay (1985), and Hay and Brett (1988); spawn
-      # s
+      # Biomass in tonnes based on Hay (1985), and Hay and Brett (1988); spawns
       UnderSI = EggDens * LengthAlgae * WidthBar * 1000 / theta
     ) %>%
     left_join(y = egg_layers, by = c("Year", "LocationCode", "SpawnNumber"))

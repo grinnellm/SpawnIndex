@@ -36,5 +36,5 @@ Language: en-CA
 LazyData: true
 Note: 32-bit R is required to get data from the 32-bit MS Access database.
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 Vignette: Introduction
