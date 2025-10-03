@@ -180,7 +180,7 @@ dens_surf <- function(alpha = pars$surface$alpha,
 #' @template param-theta
 #' @template param-quiet
 #' @importFrom odbc dbConnect odbc dbDisconnect
-#' @importFrom DBI dbReadTable
+#' @importFrom DBI dbReadTable dbGetQuery
 #' @importFrom dplyr select distinct rename left_join filter %>% ends_with
 #'   ungroup mutate_at vars starts_with ends_with
 #' @importFrom tibble as_tibble
@@ -294,11 +294,10 @@ calc_surf_index <- function(db,
   # Check theta: range
   if (any(na.omit(theta) < 0) && !quiet) message("`theta` < 0.")
   # Establish database connection
-  cnn <- dbConnect(odbc::odbc(),
-                   Driver = db$driver,
-                   Server = db$server,
-                   Database = db$database,
-                   Trusted_Connection = db$trusted)
+  cnn <- dbConnect(
+    odbc::odbc(), driver = db$driver, server = db$server,
+    database = db$database, uid = db$uid, pwd = db$pwd
+  )
   # Get a small subset of area data
   areas_sm <- areas %>%
     select(SAR, Region, StatArea, Section, LocationCode, Pool) %>%
@@ -574,7 +573,7 @@ eggs_macro <- function(xi = pars$macrocystis$xi,
 #' @template param-theta
 #' @template param-quiet
 #' @importFrom odbc dbConnect odbc dbDisconnect
-#' @importFrom DBI dbReadTable
+#' @importFrom DBI dbReadTable dbGetQuery
 #' @importFrom dplyr select distinct rename left_join filter %>% group_by
 #'   summarise ungroup
 #' @importFrom tibble as_tibble
@@ -653,11 +652,10 @@ calc_macro_index <- function(db,
   # Check theta: range
   if (any(na.omit(theta) < 0) && !quiet) message("`theta` < 0.")
   # Establish database connection
-  cnn <- dbConnect(odbc::odbc(),
-                   Driver = db$driver,
-                   Server = db$server,
-                   Database = db$database,
-                   Trusted_Connection = db$trusted)
+  cnn <- dbConnect(
+    odbc::odbc(), driver = db$driver, server = db$server,
+    database = db$database, uid = db$uid, pwd = db$pwd
+  )
   # Get a small subset of area data
   areas_sm <- areas %>%
     select(Region, StatArea, Section, LocationCode, Pool) %>%
@@ -943,7 +941,7 @@ dens_under_alg <- function(vartheta = pars$understory$vartheta,
 #' @template param-theta
 #' @template param-quiet
 #' @importFrom odbc dbConnect odbc dbDisconnect
-#' @importFrom DBI dbReadTable
+#' @importFrom DBI dbReadTable dbGetQuery
 #' @importFrom dplyr select distinct rename left_join filter %>% ungroup
 #'   bind_rows
 #' @importFrom tibble as_tibble
@@ -1044,11 +1042,10 @@ calc_under_index <- function(db,
   # Check theta: range
   if (any(na.omit(theta) < 0) && !quiet) message("`theta` < 0.")
   # Establish database connection
-  cnn <- dbConnect(odbc::odbc(),
-                   Driver = db$driver,
-                   Server = db$server,
-                   Database = db$database,
-                   Trusted_Connection = db$trusted)
+  cnn <- dbConnect(
+    odbc::odbc(), driver = db$driver, server = db$server,
+    database = db$database, uid = db$uid, pwd = db$pwd
+  )
   # Get a small subset of area data
   areas_sm1 <- areas %>%
     select(Region, LocationCode) %>%

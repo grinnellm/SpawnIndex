@@ -19,8 +19,9 @@ calc_macro_index(
 )
 }
 \arguments{
-\item{db}{List. Database connection details used in \code{\link{dbConnect}}:
-driver, server, database, and trusted.}
+\item{db}{List. Database connection details used in
+\code{\link[odbc]{dbConnect}}: driver, server, database, user, and
+password.}
 
 \item{where}{List. Location and name of the Pacific Herring spawn survey
 database, as well as required tables (see examples).}

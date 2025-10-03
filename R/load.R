@@ -26,7 +26,7 @@
 #'   distinct
 #' @importFrom tidyr unite
 #' @importFrom odbc dbConnect odbc dbDisconnect
-#' @importFrom DBI dbReadTable
+#' @importFrom DBI dbReadTable dbGetQuery
 #' @importFrom tibble as_tibble is_tibble tibble
 #' @importFrom sf st_as_sf st_transform
 #' @importFrom Rdpack reprompt
@@ -95,11 +95,10 @@ load_area_data <- function(reg,
     )
   }
   # Establish database connection
-  cnn <- dbConnect(odbc::odbc(),
-                   Driver = db$driver,
-                   Server = db$server,
-                   Database = db$database,
-                   Trusted_Connection = db$trusted)
+  cnn <- dbConnect(
+    odbc::odbc(), driver = db$driver, server = db$server,
+    database = db$database, uid = db$uid, pwd = db$pwd
+  )
   # SQL query
   sql_sec <- paste(
     "SELECT", paste(where$columns$sections, collapse = ", "),
@@ -108,7 +107,7 @@ load_area_data <- function(reg,
   # Access the sections worksheet
   sections <- dbGetQuery(conn = cnn, statement = sql_sec)
   # Error if data was not fetched
-  if (class(sections) != "data.frame") {
+  if (!is.data.frame(sections)) {
     stop("No data available in MS Access connection.", call. = FALSE)
   }
   # Check sections: names
@@ -182,7 +181,7 @@ load_area_data <- function(reg,
   # Access the sections worksheet
   loc <- dbGetQuery(conn = cnn, statement = sql_loc)
   # Error if data was not fetched
-  if (class(loc) != "data.frame") {
+  if (!is.data.frame(loc)) {
     stop("No data available in MS Access connection.", call. = FALSE)
   }
   # Check loc: names
@@ -284,7 +283,7 @@ load_area_data <- function(reg,
 #'   Message if not 0.3048.
 #' @template param-quiet
 #' @importFrom odbc dbConnect odbc dbDisconnect
-#' @importFrom DBI dbReadTable
+#' @importFrom DBI dbReadTable dbGetQuery
 #' @importFrom dplyr select rename full_join filter mutate %>% arrange ungroup
 #'   distinct
 #' @importFrom tibble as_tibble
@@ -355,11 +354,10 @@ load_all_spawn <- function(where,
     distinct() %>%
     as_tibble()
   # Establish database connection
-  cnn <- dbConnect(odbc::odbc(),
-                   Driver = db$driver,
-                   Server = db$server,
-                   Database = db$database,
-                   Trusted_Connection = db$trusted)
+  cnn <- dbConnect(
+    odbc::odbc(), driver = db$driver, server = db$server,
+    database = db$database, uid = db$uid, pwd = db$pwd
+  )
   # SQL query
   sql_all_spawn <- paste(
     "SELECT", paste(where$columns$all_spawn, collapse = ", "),
@@ -443,7 +441,7 @@ load_all_spawn <- function(where,
 #' @template param-areas
 #' @template param-quiet
 #' @importFrom odbc dbConnect odbc dbDisconnect
-#' @importFrom DBI dbReadTable
+#' @importFrom DBI dbReadTable dbGetQuery
 #' @importFrom dplyr select distinct rename left_join filter %>%
 #' @importFrom tibble as_tibble
 #' @importFrom Rdpack reprompt
@@ -500,11 +498,10 @@ load_width <- function(db,
     select(-geometry) %>%
     distinct()
   # Establish database connection
-  cnn <- dbConnect(odbc::odbc(),
-                   Driver = db$driver,
-                   Server = db$server,
-                   Database = db$database,
-                   Trusted_Connection = db$trusted)
+  cnn <- dbConnect(
+    odbc::odbc(), driver = db$driver, server = db$server,
+    database = db$database, uid = db$uid, pwd = db$pwd
+  )
   # Columns to grab
   cols_reg <- paste(where$columns$region_std, collapse = ", ")
   # SQL query

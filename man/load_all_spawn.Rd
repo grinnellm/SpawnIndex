@@ -10,8 +10,9 @@ load_all_spawn(where, db, areas, years, ft2m = 0.3048, quiet = FALSE)
 \item{where}{List. Location and name of the Pacific Herring spawn survey
 database, as well as required tables (see examples).}
 
-\item{db}{List. Database connection details used in \code{\link{dbConnect}}:
-driver, server, database, and trusted.}
+\item{db}{List. Database connection details used in
+\code{\link[odbc]{dbConnect}}: driver, server, database, user, and
+password.}
 
 \item{areas}{Tibble. Table of geographic information indicating the subset of
 observations to include; from \code{\link{load_area_data}}.}

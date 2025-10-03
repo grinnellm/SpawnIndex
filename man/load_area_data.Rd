@@ -21,8 +21,9 @@ load_area_data(
 \item{sec_sub}{Numeric vector or NULL. Subset of Sections to include, or NULL
 to include all the Sections in the region.}
 
-\item{db}{List. Database connection details used in \code{\link{dbConnect}}:
-driver, server, database, and trusted.}
+\item{db}{List. Database connection details used in
+\code{\link[odbc]{dbConnect}}: driver, server, database, user, and
+password.}
 
 \item{where}{List. Location and name of the Pacific Herring spawn survey
 database, as well as required tables (see examples).}
