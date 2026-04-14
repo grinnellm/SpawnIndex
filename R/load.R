@@ -46,7 +46,11 @@
 #'   loc = db_loc, db = "HerringSpawn.mdb",
 #'   fns = list(sections = "Sections", locations = "Location")
 #' )
-#' areas <- load_area_data(reg = "WCVI", where = area_loc)
+#' db_conn <- list(
+#'   driver = "SQL Server", server = "DFBCV9TWVASP003",
+#'   database = "Herring", uid = "HerringUser", pwd = "H3rr1ngUs3r"
+#' )
+#' areas <- load_area_data(reg = "WCVI", db = db_conn, where = area_loc)
 #' areas
 #' secs <- c(231:233, 241, 245)
 #' grps <- tibble::tibble(

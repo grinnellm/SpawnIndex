@@ -26,8 +26,8 @@ unique_na(NA)
 Other utility functions: 
 \code{\link{max_na}()},
 \code{\link{mean_na}()},
+\code{\link{mean_na_weight}()},
 \code{\link{paste_nicely}()},
-\code{\link{sum_na}()},
-\code{\link{wt_mean_na}()}
+\code{\link{sum_na}()}
 }
 \concept{utility functions}

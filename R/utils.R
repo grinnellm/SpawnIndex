@@ -151,8 +151,8 @@ mean_na <- function(x, omit_na = TRUE) {
 #' @export
 #' @examples
 #' weighted.mean(NA, na.rm = TRUE)
-#' wt_mean_na(NA, w = 1)
-wt_mean_na <- function(x, w, omit_na = TRUE) {
+#' mean_na_weight(NA, w = 1)
+mean_na_weight <- function(x, w, omit_na = TRUE) {
   # If all NA or empty
   if (all(is.na(x)) || length(x) == 0) {
     # NA

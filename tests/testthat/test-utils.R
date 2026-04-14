@@ -29,10 +29,10 @@ test_that("Mean NA", {
 })
 
 test_that("Weighted mean NA", {
-  expect_equal(wt_mean_na(x = NA), NA)
-  expect_equal(wt_mean_na(x = c(1:3, NA)), 2)
-  expect_equal(wt_mean_na(x = c(1:3, NA), w = c(1, 1, 2, NA)), 2.25)
-  expect_true(is.na(wt_mean_na(x = c(1:3, NA), omit_na = FALSE)))
+  expect_equal(mean_na_weight(x = NA), NA)
+  expect_equal(mean_na_weight(x = c(1:3, NA)), 2)
+  expect_equal(mean_na_weight(x = c(1:3, NA), w = c(1, 1, 2, NA)), 2.25)
+  expect_true(is.na(mean_na_weight(x = c(1:3, NA), omit_na = FALSE)))
 })
 
 test_that("Unique NA", {

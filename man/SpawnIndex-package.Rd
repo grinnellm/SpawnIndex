@@ -59,7 +59,7 @@ polygons (\code{\link{sections}}).
 \section{Utility functions}{
  The utility function are
 \code{\link{paste_nicely}}, \code{\link{max_na}}, \code{\link{sum_na}},
-\code{\link{mean_na}}, \code{\link{wt_mean_na}}, and
+\code{\link{mean_na}}, \code{\link{mean_na_weight}}, and
 \code{\link{unique_na}}.
 }
 

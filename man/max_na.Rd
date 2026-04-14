@@ -27,9 +27,9 @@ max_na(NA)
 
 Other utility functions: 
 \code{\link{mean_na}()},
+\code{\link{mean_na_weight}()},
 \code{\link{paste_nicely}()},
 \code{\link{sum_na}()},
-\code{\link{unique_na}()},
-\code{\link{wt_mean_na}()}
+\code{\link{unique_na}()}
 }
 \concept{utility functions}

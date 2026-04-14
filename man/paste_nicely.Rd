@@ -37,8 +37,8 @@ paste_nicely(x = letters[1:3])
 Other utility functions: 
 \code{\link{max_na}()},
 \code{\link{mean_na}()},
+\code{\link{mean_na_weight}()},
 \code{\link{sum_na}()},
-\code{\link{unique_na}()},
-\code{\link{wt_mean_na}()}
+\code{\link{unique_na}()}
 }
 \concept{utility functions}

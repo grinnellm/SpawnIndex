@@ -1258,7 +1258,7 @@ calc_under_index <- function(db,
     summarise(
       WidthBar = unique(WidthBar),
       LengthAlgae = unique(LengthAlgae),
-      EggDens = wt_mean_na(EggDens, w = Width)
+      EggDens = mean_na_weight(EggDens, w = Width)
     ) %>%
     ungroup()
   # Calculate understory biomass by spawn number
