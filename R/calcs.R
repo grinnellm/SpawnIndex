@@ -672,7 +672,9 @@ calc_macro_index <- function(db,
       LocationCode = Loc_Code, SpawnNumber = Spawn_Number,
       LengthMacro = Length_Macrocystis
     ) %>%
-    mutate(Method = str_to_title(Method)) %>%
+    mutate(
+      Method = str_to_title(Method), LengthMacro = as.numeric(LengthMacro)
+    ) %>%
     filter(Year %in% years, LocationCode %in% areas_sm$LocationCode) %>%
     select(Year, LocationCode, SpawnNumber, LengthMacro, Length, Method) %>%
     as_tibble()
@@ -1062,7 +1064,9 @@ calc_under_index <- function(db,
       LocationCode = Loc_Code, SpawnNumber = Spawn_Number,
       LengthAlgae = Length_Vegetation
     ) %>%
-    mutate(Method = str_to_title(Method)) %>%
+    mutate(
+      Method = str_to_title(Method), LengthAlgae = as.numeric(LengthAlgae)
+    ) %>%
     filter(Year %in% years, LocationCode %in% areas_sm1$LocationCode) %>%
     select(Year, LocationCode, SpawnNumber, LengthAlgae, Length, Method) %>%
     as_tibble()

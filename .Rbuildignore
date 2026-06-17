@@ -12,3 +12,5 @@
 ^CONTRIBUTING.md$
 ^CORRIGENDUM.md$
 ^vignettes_notrun$
+^\.positai$
+^\.claude$
