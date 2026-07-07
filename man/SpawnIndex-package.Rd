@@ -74,6 +74,11 @@ Useful links:
 \author{
 \strong{Maintainer}: Matthew H. Grinnell \email{matthew.grinnell@dfo-mpo.gc.ca}
 
+Authors:
+\itemize{
+  \item Matthew H. Grinnell \email{matthew.grinnell@dfo-mpo.gc.ca}
+}
+
 Other contributors:
 \itemize{
   \item Chris Grandin [contributor]

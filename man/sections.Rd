@@ -31,7 +31,7 @@ sections
 \seealso{
 \code{\link{load_sections}}
 
-Other data: 
+Other data:
 \code{\link{algae_coefs}},
 \code{\link{intensity}},
 \code{\link{pars}},

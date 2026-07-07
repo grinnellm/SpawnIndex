@@ -53,9 +53,9 @@ all_spawn
 \seealso{
 \code{\link{HerringSpawn}} \code{\link{load_area_data}}
 
-Other load functions: 
-\code{\link{load_area_data}()},
-\code{\link{load_sections}()},
-\code{\link{load_width}()}
+Other load functions:
+\code{\link[=load_area_data]{load_area_data()}},
+\code{\link[=load_sections]{load_sections()}},
+\code{\link[=load_width]{load_width()}}
 }
 \concept{load functions}

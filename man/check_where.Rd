@@ -22,8 +22,8 @@ Error if this is not the case.
 check_where(dat = list(x = "one", y = "two"), dat_names = c("x", "y"))
 }
 \seealso{
-Other check functions: 
-\code{\link{check_numeric}()},
-\code{\link{check_tibble}()}
+Other check functions:
+\code{\link[=check_numeric]{check_numeric()}},
+\code{\link[=check_tibble]{check_tibble()}}
 }
 \concept{check functions}

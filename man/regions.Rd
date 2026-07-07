@@ -30,7 +30,7 @@ regions
 \seealso{
 \code{\link{load_area_data}}
 
-Other data: 
+Other data:
 \code{\link{algae_coefs}},
 \code{\link{intensity}},
 \code{\link{pars}},

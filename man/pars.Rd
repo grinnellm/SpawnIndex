@@ -73,7 +73,7 @@ pars
 \code{\link{calc_sok_index}} \code{\link{calc_surf_index}}
 \code{\link{calc_macro_index}} \code{\link{calc_under_index}}
 
-Other data: 
+Other data:
 \code{\link{algae_coefs}},
 \code{\link{intensity}},
 \code{\link{regions}},

@@ -88,9 +88,9 @@ dplyr::distinct(dplyr::select(
 \seealso{
 \code{\link{HerringSpawn}} \code{\link{regions}}
 
-Other load functions: 
-\code{\link{load_all_spawn}()},
-\code{\link{load_sections}()},
-\code{\link{load_width}()}
+Other load functions:
+\code{\link[=load_all_spawn]{load_all_spawn()}},
+\code{\link[=load_sections]{load_sections()}},
+\code{\link[=load_width]{load_width()}}
 }
 \concept{load functions}

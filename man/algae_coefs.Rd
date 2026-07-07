@@ -27,7 +27,7 @@ algae_coefs
 \seealso{
 \code{\link{calc_under_index}}
 
-Other data: 
+Other data:
 \code{\link{intensity}},
 \code{\link{pars}},
 \code{\link{regions}},

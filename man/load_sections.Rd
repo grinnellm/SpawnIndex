@@ -42,9 +42,9 @@ polys <- load_sections(sections = sections, areas = areas)
 \seealso{
 \code{\link{sections}}
 
-Other load functions: 
-\code{\link{load_all_spawn}()},
-\code{\link{load_area_data}()},
-\code{\link{load_width}()}
+Other load functions:
+\code{\link[=load_all_spawn]{load_all_spawn()}},
+\code{\link[=load_area_data]{load_area_data()}},
+\code{\link[=load_width]{load_width()}}
 }
 \concept{load functions}

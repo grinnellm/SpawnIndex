@@ -32,7 +32,7 @@ intensity
 \seealso{
 \code{\link{calc_surf_index}}
 
-Other data: 
+Other data:
 \code{\link{algae_coefs}},
 \code{\link{pars}},
 \code{\link{regions}},

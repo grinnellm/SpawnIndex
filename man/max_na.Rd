@@ -25,11 +25,11 @@ max_na(NA)
 \seealso{
 \code{\link{max}}
 
-Other utility functions: 
-\code{\link{mean_na}()},
-\code{\link{mean_na_weight}()},
-\code{\link{paste_nicely}()},
-\code{\link{sum_na}()},
-\code{\link{unique_na}()}
+Other utility functions:
+\code{\link[=mean_na]{mean_na()}},
+\code{\link[=mean_na_weight]{mean_na_weight()}},
+\code{\link[=paste_nicely]{paste_nicely()}},
+\code{\link[=sum_na]{sum_na()}},
+\code{\link[=unique_na]{unique_na()}}
 }
 \concept{utility functions}

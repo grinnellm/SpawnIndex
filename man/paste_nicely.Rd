@@ -34,11 +34,11 @@ Paste things together nicely for printing. Quotes and oxford comma included.
 paste_nicely(x = letters[1:3])
 }
 \seealso{
-Other utility functions: 
-\code{\link{max_na}()},
-\code{\link{mean_na}()},
-\code{\link{mean_na_weight}()},
-\code{\link{sum_na}()},
-\code{\link{unique_na}()}
+Other utility functions:
+\code{\link[=max_na]{max_na()}},
+\code{\link[=mean_na]{mean_na()}},
+\code{\link[=mean_na_weight]{mean_na_weight()}},
+\code{\link[=sum_na]{sum_na()}},
+\code{\link[=unique_na]{unique_na()}}
 }
 \concept{utility functions}

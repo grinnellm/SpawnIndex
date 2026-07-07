@@ -27,11 +27,11 @@ mean_na_weight(NA, w = 1)
 \seealso{
 \code{\link{weighted.mean}}
 
-Other utility functions: 
-\code{\link{max_na}()},
-\code{\link{mean_na}()},
-\code{\link{paste_nicely}()},
-\code{\link{sum_na}()},
-\code{\link{unique_na}()}
+Other utility functions:
+\code{\link[=max_na]{max_na()}},
+\code{\link[=mean_na]{mean_na()}},
+\code{\link[=paste_nicely]{paste_nicely()}},
+\code{\link[=sum_na]{sum_na()}},
+\code{\link[=unique_na]{unique_na()}}
 }
 \concept{utility functions}

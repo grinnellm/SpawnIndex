@@ -57,9 +57,9 @@ width_bar
 \code{\link{HerringSpawn}} \code{\link{load_area_data}}
 \code{\link{calc_surf_index}}
 
-Other load functions: 
-\code{\link{load_all_spawn}()},
-\code{\link{load_area_data}()},
-\code{\link{load_sections}()}
+Other load functions:
+\code{\link[=load_all_spawn]{load_all_spawn()}},
+\code{\link[=load_area_data]{load_area_data()}},
+\code{\link[=load_sections]{load_sections()}}
 }
 \concept{load functions}

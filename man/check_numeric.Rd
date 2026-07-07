@@ -22,8 +22,8 @@ error if not numeric.
 check_numeric(dat = list(x = c(1:3, NA), y = 1))
 }
 \seealso{
-Other check functions: 
-\code{\link{check_tibble}()},
-\code{\link{check_where}()}
+Other check functions:
+\code{\link[=check_tibble]{check_tibble()}},
+\code{\link[=check_where]{check_where()}}
 }
 \concept{check functions}
